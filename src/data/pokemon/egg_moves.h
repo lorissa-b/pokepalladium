@@ -1306,5 +1306,16 @@ const u16 gEggMoves[] = {
               MOVE_HYPNOSIS,
               MOVE_DREAM_EATER),
 
+    // Worry Seed and Seed Bomb are left out until Gen 4 moves exist.
+    egg_moves(TURTWIG,
+              MOVE_GROWTH,
+              MOVE_TICKLE,
+              MOVE_BODY_SLAM,
+              MOVE_DOUBLE_EDGE,
+              MOVE_SAND_TOMB,
+              MOVE_THRASH,
+              MOVE_AMNESIA,
+              MOVE_SUPERPOWER),
+
     EGG_MOVES_TERMINATOR
 };

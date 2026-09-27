@@ -10180,4 +10180,24 @@ const union {
         .FLASH = TRUE,
     } },
 
+    [SPECIES_TURTWIG] = { .learnset = {
+        .TOXIC = TRUE,
+        .BULLET_SEED = TRUE,
+        .HIDDEN_POWER = TRUE,
+        .SUNNY_DAY = TRUE,
+        .PROTECT = TRUE,
+        .GIGA_DRAIN = TRUE,
+        .FRUSTRATION = TRUE,
+        .SOLAR_BEAM = TRUE,
+        .RETURN = TRUE,
+        .DOUBLE_TEAM = TRUE,
+        .SECRET_POWER = TRUE,
+        .REST = TRUE,
+        .ATTRACT = TRUE,
+        .CUT = TRUE,
+        .STRENGTH = TRUE,
+        .FLASH = TRUE,
+        .ROCK_SMASH = TRUE,
+    } },
+
 };

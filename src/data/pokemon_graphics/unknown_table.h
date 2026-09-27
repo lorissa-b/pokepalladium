@@ -413,6 +413,7 @@ static const u32 sUnused[] =
     [SPECIES_JIRACHI]     = 0x88,
     [SPECIES_DEOXYS]      = 0x88,
     [SPECIES_CHIMECHO]    = 0x88,
+    [SPECIES_TURTWIG]     = 0x88,
     [SPECIES_EGG]         = 0x88,
     [SPECIES_UNOWN_B]     = 0x888,
     [SPECIES_UNOWN_C]     = 0x888,

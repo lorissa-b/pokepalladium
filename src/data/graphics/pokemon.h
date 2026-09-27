@@ -2712,6 +2712,14 @@ const u32 gMonShinyPalette_Chimecho[] = INCGFX_U32("graphics/pokemon/chimecho/sh
 const u8 gMonIcon_Chimecho[] = INCGFX_U8("graphics/pokemon/chimecho/icon.png", ".4bpp");
 const u8 gMonFootprint_Chimecho[] = INCGFX_U8("graphics/pokemon/chimecho/footprint.png", ".1bpp");
 
+// Placeholder: Turtwig uses Bulbasaur's graphics until graphics/pokemon/turtwig exists
+const u32 gMonStillFrontPic_Turtwig[] = INCGFX_U32("graphics/pokemon/bulbasaur/front.png", ".4bpp.lz");
+const u32 gMonPalette_Turtwig[] = INCGFX_U32("graphics/pokemon/bulbasaur/normal.pal", ".gbapal.lz");
+const u32 gMonBackPic_Turtwig[] = INCGFX_U32("graphics/pokemon/bulbasaur/back.png", ".4bpp.lz");
+const u32 gMonShinyPalette_Turtwig[] = INCGFX_U32("graphics/pokemon/bulbasaur/shiny.pal", ".gbapal.lz");
+const u8 gMonIcon_Turtwig[] = INCGFX_U8("graphics/pokemon/bulbasaur/icon.png", ".4bpp");
+const u8 gMonFootprint_Turtwig[] = INCGFX_U8("graphics/pokemon/bulbasaur/footprint.png", ".1bpp");
+
 const u32 gMonStillFrontPic_Egg[] = INCGFX_U32("graphics/pokemon/egg/front.png", ".4bpp.lz");
 const u32 gMonPalette_Egg[] = INCGFX_U32("graphics/pokemon/egg/normal.pal", ".gbapal.lz");
 

@@ -4428,8 +4428,8 @@ bool16 HasAllMons(void)
             return FALSE;
     }
 
-    // -2 excludes Jirachi and Deoxys
-    for (i = JOHTO_DEX_COUNT; i < NATIONAL_DEX_COUNT - 2; i++)
+    // -2 excludes Jirachi and Deoxys. Gen 4 Pokémon aren't required (yet).
+    for (i = JOHTO_DEX_COUNT; i < NATIONAL_DEX_DEOXYS - 2; i++)
     {
         if (!GetSetPokedexFlag(i + 1, FLAG_GET_CAUGHT))
             return FALSE;

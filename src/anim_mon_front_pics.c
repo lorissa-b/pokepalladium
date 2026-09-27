@@ -392,6 +392,7 @@ const u32 gMonFrontPic_Latios[] = INCGFX_U32("graphics/pokemon/latios/anim_front
 const u32 gMonFrontPic_Jirachi[] = INCGFX_U32("graphics/pokemon/jirachi/anim_front.png", ".4bpp.lz");
 const u32 gMonFrontPic_Deoxys[] = INCGFX_U32("graphics/pokemon/deoxys/anim_front.png", ".4bpp.lz");
 const u32 gMonFrontPic_Chimecho[] = INCGFX_U32("graphics/pokemon/chimecho/anim_front.png", ".4bpp.lz");
+const u32 gMonFrontPic_Turtwig[] = INCGFX_U32("graphics/pokemon/bulbasaur/anim_front.png", ".4bpp.lz"); // Placeholder: Bulbasaur
 
 const u32 gMonFrontPic_Egg[] = INCGFX_U32("graphics/pokemon/egg/anim_front.png", ".4bpp.lz");
 

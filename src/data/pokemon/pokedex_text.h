@@ -2319,3 +2319,8 @@ const u8 gDeoxysPokedexText[] = _(
     "extraterrestrial virus exposed to a laser\n"
     "beam. Its body is configured for superior\n"
     "agility and speed.");
+
+const u8 gTurtwigPokedexText[] = _(
+    "Made from soil, the shell on its back\n"
+    "hardens when it drinks water. It lives\n"
+    "along lakes.");
