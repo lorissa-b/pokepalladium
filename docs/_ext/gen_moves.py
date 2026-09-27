@@ -20,29 +20,15 @@ OUT = DOCS / "moves" / "types"
 
 DATA = REPO / "src" / "data"
 
-# Gen 3 splits physical/special by type, not per move. Until Palladium changes
-# that, category follows the type.
-SPECIAL_TYPES = {
-    "TYPE_WATER",
-    "TYPE_GRASS",
-    "TYPE_FIRE",
-    "TYPE_ELECTRIC",
-    "TYPE_DRAGON",
-    "TYPE_ICE",
-    "TYPE_PSYCHIC",
-    "TYPE_DARK",
+# Palladium implements the per-move physical/special split, so category is read
+# from the move's own .category field rather than inferred from its type.
+CATEGORY_LABELS = {
+    "MOVE_CATEGORY_PHYSICAL": "Physical",
+    "MOVE_CATEGORY_SPECIAL": "Special",
+    "MOVE_CATEGORY_STATUS": "Status",
 }
-PHYSICAL_TYPES = {
-    "TYPE_NORMAL",
-    "TYPE_FIGHTING",
-    "TYPE_POISON",
-    "TYPE_GHOST",
-    "TYPE_BUG",
-    "TYPE_FLYING",
-    "TYPE_ROCK",
-    "TYPE_GROUND",
-    "TYPE_STEEL",
-}
+# The order categories are reported in, on both the index and the type pages.
+CATEGORY_ORDER = ["Physical", "Special", "Status"]
 
 
 def type_order() -> list[str]:
@@ -68,9 +54,11 @@ def parse_battle_moves() -> dict[str, dict]:
 
         mtype = re.search(r"\.type\s*=\s*(TYPE_\w+)", body)
         effect = re.search(r"\.effect\s*=\s*(EFFECT_\w+)", body)
+        cat = re.search(r"\.category\s*=\s*(MOVE_CATEGORY_\w+)", body)
         moves[const] = {
             "type": mtype.group(1) if mtype else "TYPE_NONE",
             "effect": effect.group(1) if effect else "",
+            "category": cat.group(1) if cat else "",
             "power": num("power"),
             "pp": num("pp"),
             "accuracy": num("accuracy"),
@@ -115,19 +103,13 @@ def parse_move_descriptions() -> dict[str, str]:
 
 
 def category(move: dict) -> str:
-    """Physical, Special or Stat.
+    """Physical, Special or Status, as the move itself declares.
 
-    A power of 0 means a pure status move. Fixed-damage and OHKO moves carry a
-    sentinel power of 1 in this data and are still attacks, so test for 0
-    exactly rather than falsiness on a computed value.
+    Read straight from .category rather than derived from power or type: since
+    the physical/special split a type can carry moves of all three categories,
+    and power alone cannot tell a status move from a fixed-damage one.
     """
-    if move["power"] == 0:
-        return "Stat"
-    if move["type"] in SPECIAL_TYPES:
-        return "Special"
-    if move["type"] in PHYSICAL_TYPES:
-        return "Physical"
-    return "—"
+    return CATEGORY_LABELS.get(move["category"], "—")
 
 
 def power_cell(move: dict) -> str:
@@ -160,8 +142,25 @@ def effect_cell(const: str, move: dict, descriptions: dict[str, str]) -> str:
     return text or "—"
 
 
+def category_counts(entries: list) -> dict[str, int]:
+    """How many of each category, keyed by label, in CATEGORY_ORDER order."""
+    counts: dict[str, int] = {}
+    for _const, move in entries:
+        label = category(move)
+        counts[label] = counts.get(label, 0) + 1
+    order = CATEGORY_ORDER + [c for c in counts if c not in CATEGORY_ORDER]
+    return {c: counts[c] for c in order if c in counts}
+
+
+def breakdown(entries: list) -> str:
+    """Render the counts as prose: `2 physical, 10 special, 2 status`."""
+    return ", ".join(
+        f"{n} {label.lower()}" for label, n in category_counts(entries).items()
+    )
+
+
 def sort_key(item):
-    """Real-power moves by power descending, then Varies, then Stat moves."""
+    """Real-power moves by power descending, then Varies, then status moves."""
     const, move = item
     power = move["power"]
     bucket = 0 if power > 1 else (1 if power == 1 else 2)
@@ -172,21 +171,18 @@ def render_type_page(mtype: str, entries: list, contest: dict, descriptions: dic
     label = const_name(mtype, "TYPE_")
     lines = [f"# {label} moves", ""]
 
-    cats = {category(m) for _c, m in entries}
-    attacking = sorted(cats - {"Stat", "—"})
     noun = "move" if len(entries) == 1 else "moves"
-    if attacking:
-        lines += [
-            f"{len(entries)} {label}-type {noun}. Damaging {label} moves are "
-            f"**{'/'.join(attacking)}** in this generation, since the "
-            "physical/special split follows the type rather than the move.",
-            "",
-        ]
-    else:
-        lines += [f"{len(entries)} {label}-type {noun}.", ""]
+    lines += [
+        f"{len(entries)} {label}-type {noun} — {breakdown(entries)}. Category is "
+        "a property of the move rather than of its type, so a single type can "
+        "carry physical, special and status moves alike. See "
+        "{doc}`../../features/physical-special-split`.",
+        "",
+    ]
 
     lines += [
-        "Power **Varies** means damage is computed by the move's effect rather "
+        "Rows are ordered by power, not grouped by category. Power **Varies** "
+        "means damage is computed by the move's effect rather "
         "than from a power value. Accuracy **—** means the move skips the "
         "accuracy check, either because it cannot miss or because it targets "
         "the user. The `EFFECT_` constant names the implementing case in "
@@ -236,29 +232,42 @@ def generate(app=None) -> int:
             render_type_page(mtype, by_type[mtype], contest, descriptions),
             encoding="utf-8",
         )
-        entries.append((fname, label, len(by_type[mtype])))
+        entries.append(
+            (fname, label, category_counts(by_type[mtype]), len(by_type[mtype]))
+        )
 
+    totals = {c: 0 for c in CATEGORY_ORDER}
     index = [
         "# Moves by type",
         "",
-        f"{sum(n for _f, _l, n in entries)} moves across {len(entries)} types, "
-        "generated from `src/data/battle_moves.h` and `src/data/contest_moves.h` "
-        "at build time.",
+        f"{sum(n for _f, _l, _c, n in entries)} moves across {len(entries)} "
+        "types, generated from `src/data/battle_moves.h` and "
+        "`src/data/contest_moves.h` at build time.",
         "",
-        "| Type | Moves | Damaging moves are |",
-        "| --- | --- | --- |",
+        "Since Palladium implements the per-move physical/special split, a "
+        "type's damaging moves are no longer all one category — the counts "
+        "below come from each move's own `.category`. See "
+        "{doc}`../../features/physical-special-split`.",
+        "",
+        "| Type | Moves | " + " | ".join(CATEGORY_ORDER) + " |",
+        "| --- | --- | " + " | ".join("---" for _c in CATEGORY_ORDER) + " |",
     ]
-    for fname, label, count in entries:
-        const = f"TYPE_{label.upper()}"
-        if const in SPECIAL_TYPES:
-            cat = "Special"
-        elif const in PHYSICAL_TYPES:
-            cat = "Physical"
-        else:
-            cat = "—"
-        index.append(f"| [{label}]({fname}.md) | {count} | {cat} |")
+    for fname, label, counts, count in entries:
+        cells = []
+        for cat in CATEGORY_ORDER:
+            n = counts.get(cat, 0)
+            totals[cat] += n
+            cells.append(str(n) if n else "—")
+        index.append(
+            f"| [{label}]({fname}.md) | {count} | " + " | ".join(cells) + " |"
+        )
+    index.append(
+        f"| **Total** | **{sum(n for _f, _l, _c, n in entries)}** | "
+        + " | ".join(f"**{totals[c]}**" for c in CATEGORY_ORDER)
+        + " |"
+    )
     index += ["", "```{toctree}", ":maxdepth: 1", ":hidden:", ""]
-    index += [fname for fname, _l, _n in entries]
+    index += [fname for fname, _l, _c, _n in entries]
     index += ["```", ""]
     (OUT / "index.md").write_text("\n".join(index), encoding="utf-8")
 

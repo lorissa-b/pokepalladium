@@ -8,12 +8,19 @@ Scaffold page. The repo currently tracks upstream pokeemerald closely, so this
 section is where divergences get recorded as they land.
 ```
 
+```{toctree}
+:maxdepth: 1
+
+physical-special-split
+```
+
 ## What belongs here
 
 Anything that changes how the game *behaves* rather than what data it contains:
 
-- Battle mechanics — the physical/special split, crit and damage formula
-  changes, ability or held-item reworks
+- Battle mechanics — the {doc}`physical/special split
+  <physical-special-split>`, crit and damage formula changes, ability or
+  held-item reworks
 - Progression — level caps, EXP curve changes, trainer rebalancing
 - Quality of life — running indoors, reusable TMs, faster text, bag sorting
 - UI and presentation — new menus, summary screen changes, party screen tweaks
