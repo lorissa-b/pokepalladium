@@ -3,8 +3,10 @@
 Move data: power, accuracy, PP, type, targeting and battle effects, plus any
 moves Palladium adds, removes or rebalances.
 
-```{note}
-Scaffold page. Move tables still to be written.
+```{toctree}
+:maxdepth: 1
+
+types/index
 ```
 
 ## Where the data lives
@@ -20,9 +22,15 @@ Scaffold page. Move tables still to be written.
 | TM/HM learnsets | `src/data/pokemon/tmhm_learnsets.h` |
 | Move tutor learnsets | `src/data/pokemon/tutor_learnsets.h` |
 
-## Planned pages
+## Generated pages
 
-- Full move table, sorted by type and by power
+{doc}`types/index` is built by `docs/_ext/gen_moves.py` on every Sphinx
+run: one page per type, listing each move's category, power, accuracy, PP,
+contest category and effect, with the `EFFECT_` constant that implements it. Because it is generated, **do not edit those pages** —
+they are gitignored and overwritten each build.
+
+## Still to write
+
 - Changed-from-vanilla list — the rebalance summary
 - New moves, with effect and animation notes
 - TM/HM and move tutor availability

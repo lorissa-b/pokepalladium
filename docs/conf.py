@@ -9,9 +9,9 @@ sys.path.insert(0, str(Path(__file__).parent / "_ext"))
 
 project = "Pokémon Palladium"
 
-# gen_pokedex regenerates docs/pokedex/families/ from src/data/pokemon/
-# on every build, so the dex can never drift from the game data.
-extensions = ["myst_parser", "gen_pokedex"]
+# gen_pokedex and gen_moves regenerate their pages from src/data/ on every
+# build, so the docs can never drift from the game data.
+extensions = ["myst_parser", "gen_pokedex", "gen_moves"]
 source_suffix = {".md": "markdown"}
 exclude_patterns = ["_build", "_ext"]
 
