@@ -13,6 +13,7 @@ section is where divergences get recorded as they land.
 
 physical-special-split
 fake-rtc
+time-of-day
 ```
 
 ## What belongs here
@@ -23,7 +24,7 @@ Anything that changes how the game *behaves* rather than what data it contains:
   <physical-special-split>`, crit and damage formula changes, ability or
   held-item reworks
 - Progression — level caps, EXP curve changes, trainer rebalancing
-- Time — the {doc}`fast in-game clock <fake-rtc>`
+- Time — the {doc}`fast in-game clock <fake-rtc>` and {doc}`time of day <time-of-day>`
 - Quality of life — running indoors, reusable TMs, faster text, bag sorting
 - UI and presentation — new menus, summary screen changes, party screen tweaks
 - Build-time options and feature flags

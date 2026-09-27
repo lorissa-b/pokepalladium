@@ -17,6 +17,9 @@ Everything that runs off the clock speeds up with it: berries grow, daily events
 (Shoal Cave tides, the lottery, Dewford trends, Mirage Island) roll over, and
 day-based timers such as Pokérus tick down at the in-game rate.
 
+The day/night tint, time-of-day evolutions and encounters built on top of this
+are covered in {doc}`time-of-day`.
+
 ## Where it lives
 
 | What | Where |

@@ -12,6 +12,7 @@
 #include "pokemon.h"
 #include "random.h"
 #include "roamer.h"
+#include "rtc.h"
 #include "safari_zone.h"
 #include "script.h"
 #include "tv.h"
@@ -302,6 +303,44 @@ static u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon)
     return min + rand;
 }
 
+static bool8 IsWildMonHeaderForCurrentMap(u16 headerId)
+{
+    return gWildMonHeaders[headerId].mapGroup == gSaveBlock1Ptr->location.mapGroup
+        && gWildMonHeaders[headerId].mapNum == gSaveBlock1Ptr->location.mapNum;
+}
+
+// A map can list more than one encounter table to vary its wild Pokémon by time
+// of day. With two tables, the first is used in the morning and day and the
+// second in the evening and night. With TIMES_OF_DAY_COUNT tables, they're used
+// in TIME_MORNING, TIME_DAY, TIME_EVENING, TIME_NIGHT order. Any other number
+// of tables uses only the first. Altering Cave is excluded, since its tables are
+// chosen by VAR_ALTERING_CAVE_WILD_SET instead.
+static u16 GetTimeBasedWildMonHeaderId(u16 firstHeaderId)
+{
+    u16 headerIds[TIMES_OF_DAY_COUNT];
+    u16 numHeaders = 0;
+    u16 i;
+    u8 timeOfDay;
+
+    for (i = firstHeaderId; gWildMonHeaders[i].mapGroup != MAP_GROUP(MAP_UNDEFINED); i++)
+    {
+        if (IsWildMonHeaderForCurrentMap(i))
+        {
+            if (numHeaders == TIMES_OF_DAY_COUNT)
+                return firstHeaderId;
+            headerIds[numHeaders++] = i;
+        }
+    }
+
+    if (numHeaders != 2 && numHeaders != TIMES_OF_DAY_COUNT)
+        return firstHeaderId;
+
+    timeOfDay = GetTimeOfDay();
+    if (numHeaders == 2)
+        return headerIds[(timeOfDay == TIME_EVENING || timeOfDay == TIME_NIGHT) ? 1 : 0];
+    return headerIds[timeOfDay];
+}
+
 static u16 GetCurrentMapWildMonHeaderId(void)
 {
     u16 i;
@@ -312,8 +351,7 @@ static u16 GetCurrentMapWildMonHeaderId(void)
         if (wildHeader->mapGroup == MAP_GROUP(MAP_UNDEFINED))
             break;
 
-        if (gWildMonHeaders[i].mapGroup == gSaveBlock1Ptr->location.mapGroup &&
-            gWildMonHeaders[i].mapNum == gSaveBlock1Ptr->location.mapNum)
+        if (IsWildMonHeaderForCurrentMap(i))
         {
             if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_ALTERING_CAVE) &&
                 gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_ALTERING_CAVE))
@@ -323,6 +361,10 @@ static u16 GetCurrentMapWildMonHeaderId(void)
                     alteringCaveId = 0;
 
                 i += alteringCaveId;
+            }
+            else
+            {
+                i = GetTimeBasedWildMonHeaderId(i);
             }
 
             return i;

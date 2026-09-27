@@ -467,3 +467,21 @@ u32 RtcGetLocalDayCount(void)
 {
     return RtcGetDayCount(&sRtc);
 }
+
+u8 GetTimeOfDayForHour(s32 hour)
+{
+    if (hour >= NIGHT_HOUR_BEGIN || hour < MORNING_HOUR_BEGIN)
+        return TIME_NIGHT;
+    else if (hour >= EVENING_HOUR_BEGIN)
+        return TIME_EVENING;
+    else if (hour >= DAY_HOUR_BEGIN)
+        return TIME_DAY;
+    else
+        return TIME_MORNING;
+}
+
+u8 GetTimeOfDay(void)
+{
+    RtcCalcLocalTime();
+    return GetTimeOfDayForHour(gLocalTime.hours);
+}

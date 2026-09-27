@@ -52,6 +52,10 @@
 #define FAKE_RTC       TRUE
 #define FAKE_RTC_SPEED 60
 
+// Tint the overworld and battle backgrounds by time of day, darkening towards
+// night. Indoor and underground maps are left alone.
+#define DAY_NIGHT_TINT TRUE
+
 // Uncomment to fix some identified minor bugs
 //#define BUGFIX
 
