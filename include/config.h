@@ -44,6 +44,18 @@
 #define CHAR_DEC_SEPARATOR CHAR_COMMA
 #endif
 
+// Replace the cartridge's real-time clock with a clock stored in the save file
+// that only runs while the game is being played. FAKE_RTC_SPEED is how many
+// in-game seconds pass per real second: at 60, an in-game hour takes about a
+// real minute and a full day about 24 minutes. Set FAKE_RTC to FALSE to go back
+// to the hardware clock.
+#define FAKE_RTC       TRUE
+#define FAKE_RTC_SPEED 60
+
+// Tint the overworld and battle backgrounds by time of day, darkening towards
+// night. Indoor and underground maps are left alone.
+#define DAY_NIGHT_TINT TRUE
+
 // Uncomment to fix some identified minor bugs
 //#define BUGFIX
 

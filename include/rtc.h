@@ -2,6 +2,7 @@
 #define GUARD_RTC_UTIL_H
 
 #include "siirtc.h"
+#include "constants/time_of_day.h"
 
 #define RTC_INIT_ERROR         0x0001
 #define RTC_INIT_WARNING       0x0002
@@ -40,5 +41,8 @@ void RtcCalcLocalTimeOffset(s32 days, s32 hours, s32 minutes, s32 seconds);
 void CalcTimeDifference(struct Time *result, struct Time *t1, struct Time *t2);
 u32 RtcGetMinuteCount(void);
 u32 RtcGetLocalDayCount(void);
+void RtcAdvanceFakeClock(void);
+u8 GetTimeOfDayForHour(s32 hour);
+u8 GetTimeOfDay(void);
 
 #endif // GUARD_RTC_UTIL_H

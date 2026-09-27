@@ -204,6 +204,10 @@ void NewGameInitData(void)
     WipeTrainerNameRecords();
     ResetTrainerHillResults();
     ResetContestLinkResults();
+
+    // Start in daylight rather than whatever time the clock happens to be at.
+    // The player sets the real time on the bedroom clock shortly after.
+    RtcInitLocalTimeOffset(10, 0);
 }
 
 static void ResetMiniGamesRecords(void)

@@ -1,5 +1,6 @@
 #include "global.h"
 #include "play_time.h"
+#include "rtc.h"
 
 enum
 {
@@ -35,6 +36,14 @@ void PlayTimeCounter_Stop(void)
 
 void PlayTimeCounter_Update(void)
 {
+    if (sPlayTimeCounterState == STOPPED)
+        return;
+
+    // Keep the clock running even once the play time display has maxed out.
+#if FAKE_RTC
+    RtcAdvanceFakeClock();
+#endif
+
     if (sPlayTimeCounterState != RUNNING)
         return;
 
