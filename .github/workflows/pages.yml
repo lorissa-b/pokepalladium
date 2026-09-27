@@ -5,7 +5,6 @@ on:
     branches: [ master ]
     paths:
       - 'docs/**'
-      - 'mkdocs.yml'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -33,17 +32,19 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
+          cache: pip
+          cache-dependency-path: docs/requirements.txt
 
-      - name: Install MkDocs
-        run: pip install mkdocs
+      - name: Install Sphinx
+        run: pip install -r docs/requirements.txt
 
-      - name: Build with MkDocs
-        run: mkdocs build --strict
+      - name: Build with Sphinx
+        run: sphinx-build -W -b html docs _build/html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./site
+          path: ./_build/html
 
   deploy:
     needs: build

@@ -1,4 +1,4 @@
-### Setting up WSL1 (Legacy Portion)
+# Setting up WSL1 (Legacy Portion)
 
 1. Certain packages are required to build pokeemerald. Install these packages by running the following command:
 

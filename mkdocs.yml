@@ -1,9 +1,0 @@
-site_name: Pokémon Palladium
-site_url: https://lorissa-b.github.io/pokepalladium/
-repo_url: https://github.com/lorissa-b/pokepalladium
-edit_uri: edit/master/docs/
-theme:
-  name: readthedocs
-nav:
-  - Home: index.md
-  - Legacy WSL1 install: legacy_WSL1_INSTALL.md
