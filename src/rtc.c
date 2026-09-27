@@ -8,6 +8,9 @@ static u16 sErrorStatus;
 static struct SiiRtcInfo sRtc;
 static u8 sProbeResult;
 static u16 sSavedIme;
+#if FAKE_RTC
+static u8 sFakeRtcSubseconds;
+#endif
 
 // iwram common
 COMMON_DATA struct Time gLocalTime = {0};
@@ -94,10 +97,117 @@ u16 RtcGetDayCount(struct SiiRtcInfo *rtc)
     return ConvertDateToDayCount(year, month, day);
 }
 
+#if FAKE_RTC
+static u8 ConvertBinaryToBcd(u8 value)
+{
+    return ((value / 10) << 4) | (value % 10);
+}
+
+// Inverse of ConvertDateToDayCount. Day 1 is 1 January 2000.
+static void ConvertDayCountToDate(u16 dayCount, struct SiiRtcInfo *rtc)
+{
+    u8 year = 0;
+    u8 month = MONTH_JAN;
+    u16 daysInMonth;
+
+    if (dayCount < 1)
+        dayCount = 1;
+
+    while (dayCount > 365 + IsLeapYear(year))
+    {
+        dayCount -= 365 + IsLeapYear(year);
+        year++;
+    }
+
+    while (TRUE)
+    {
+        daysInMonth = sNumDaysInMonths[month - 1];
+        if (month == MONTH_FEB && IsLeapYear(year) == TRUE)
+            daysInMonth++;
+        if (dayCount <= daysInMonth)
+            break;
+        dayCount -= daysInMonth;
+        month++;
+    }
+
+    rtc->year = ConvertBinaryToBcd(year);
+    rtc->month = ConvertBinaryToBcd(month);
+    rtc->day = ConvertBinaryToBcd(dayCount);
+}
+
+// Saves from before the fake clock have it zeroed. Start it so that the local
+// time carries on from the last time the save recorded, rather than jumping.
+static void StartFakeClockIfUnset(void)
+{
+    struct Time *time = &gSaveBlock2Ptr->fakeRtc;
+    struct Time *offset = &gSaveBlock2Ptr->localTimeOffset;
+    struct Time *lastLocalTime = &gSaveBlock2Ptr->lastBerryTreeUpdate;
+    s32 carry;
+
+    if (time->days >= 1)
+        return;
+
+    carry = offset->seconds + lastLocalTime->seconds;
+    time->seconds = carry % SECONDS_PER_MINUTE;
+    carry = offset->minutes + lastLocalTime->minutes + carry / SECONDS_PER_MINUTE;
+    time->minutes = carry % MINUTES_PER_HOUR;
+    carry = offset->hours + lastLocalTime->hours + carry / MINUTES_PER_HOUR;
+    time->hours = carry % HOURS_PER_DAY;
+    carry = offset->days + lastLocalTime->days + carry / HOURS_PER_DAY;
+
+    if (carry >= 1 && carry <= SHRT_MAX)
+        time->days = carry;
+    else
+        RtcReset();
+}
+
+static void RtcGetFakeInfo(struct SiiRtcInfo *rtc)
+{
+    struct Time *time = &gSaveBlock2Ptr->fakeRtc;
+
+    StartFakeClockIfUnset();
+    ConvertDayCountToDate(time->days, rtc);
+    rtc->dayOfWeek = (time->days + 5) % 7; // 1 January 2000 was a Saturday
+    rtc->hour = ConvertBinaryToBcd(time->hours);
+    rtc->minute = ConvertBinaryToBcd(time->minutes);
+    rtc->second = ConvertBinaryToBcd(time->seconds);
+    rtc->status = SIIRTCINFO_24HOUR;
+    rtc->alarmHour = 0;
+    rtc->alarmMinute = 0;
+}
+
+// Called once per frame while a game is in progress.
+void RtcAdvanceFakeClock(void)
+{
+    struct Time *time = &gSaveBlock2Ptr->fakeRtc;
+    u32 seconds;
+
+    StartFakeClockIfUnset();
+
+    // Accumulate FAKE_RTC_SPEED per frame and carry every 60 into a whole
+    // in-game second, so any speed works (at 60, that's one second per frame).
+    seconds = sFakeRtcSubseconds + FAKE_RTC_SPEED;
+    sFakeRtcSubseconds = seconds % 60;
+    seconds = time->seconds + seconds / 60;
+
+    time->seconds = seconds % SECONDS_PER_MINUTE;
+    seconds = time->minutes + seconds / SECONDS_PER_MINUTE;
+    time->minutes = seconds % MINUTES_PER_HOUR;
+    seconds = time->hours + seconds / MINUTES_PER_HOUR;
+    time->hours = seconds % HOURS_PER_DAY;
+
+    // Stop counting days before the s16 day counters used by the rest of the
+    // game overflow. That's roughly 540 hours of play at 60x speed.
+    if (time->days <= SHRT_MAX - (s32)(seconds / HOURS_PER_DAY))
+        time->days += seconds / HOURS_PER_DAY;
+}
+#endif
+
 void RtcInit(void)
 {
     sErrorStatus = 0;
 
+#if !FAKE_RTC // The fake clock doesn't use the cartridge's clock, so there's nothing to check.
     RtcDisableInterrupts();
     SiiRtcUnprotect();
     sProbeResult = SiiRtcProbe();
@@ -116,6 +226,7 @@ void RtcInit(void)
 
     RtcGetRawInfo(&sRtc);
     sErrorStatus = RtcCheckInfo(&sRtc);
+#endif
 }
 
 u16 RtcGetErrorStatus(void)
@@ -125,10 +236,14 @@ u16 RtcGetErrorStatus(void)
 
 void RtcGetInfo(struct SiiRtcInfo *rtc)
 {
+#if FAKE_RTC
+    RtcGetFakeInfo(rtc);
+#else
     if (sErrorStatus & RTC_ERR_FLAG_MASK)
         *rtc = sRtcDummy;
     else
         RtcGetRawInfo(rtc);
+#endif
 }
 
 void RtcGetDateTime(struct SiiRtcInfo *rtc)
@@ -210,9 +325,17 @@ u16 RtcCheckInfo(struct SiiRtcInfo *rtc)
 
 void RtcReset(void)
 {
+#if FAKE_RTC
+    gSaveBlock2Ptr->fakeRtc.days = 1;
+    gSaveBlock2Ptr->fakeRtc.hours = 0;
+    gSaveBlock2Ptr->fakeRtc.minutes = 0;
+    gSaveBlock2Ptr->fakeRtc.seconds = 0;
+    sFakeRtcSubseconds = 0;
+#else
     RtcDisableInterrupts();
     SiiRtcReset();
     RtcRestoreInterrupts();
+#endif
 }
 
 static void UNUSED FormatDecimalTime(u8 *dest, s32 hour, s32 minute, s32 second)
