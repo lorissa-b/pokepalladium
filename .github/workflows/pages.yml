@@ -15,6 +15,9 @@ on:
       - 'src/data/contest_moves.h'
       - 'src/data/text/move_descriptions.h'
       - 'include/constants/pokemon.h'
+      - 'src/data/wild_encounters.json'
+      - 'include/constants/time_of_day.h'
+      - 'data/maps/*/map.json'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 

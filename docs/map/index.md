@@ -7,6 +7,12 @@ encounters.
 Scaffold page. Region and route write-ups still to be written.
 ```
 
+```{toctree}
+:maxdepth: 1
+
+encounters/index
+```
+
 ## Where the data lives
 
 The repo currently carries the vanilla Hoenn set of **523 maps** under
@@ -39,7 +45,6 @@ keeps the layout, border and blockdata files consistent with each other.
 
 - Region overview, with a route-by-route walkthrough order
 - Per-route pages: encounters, items, trainers, connections
-- Wild encounter tables by location and method (grass, surf, fishing, rock smash)
 - New or substantially redesigned maps, and what changed from vanilla Hoenn
 
 ## Conventions
