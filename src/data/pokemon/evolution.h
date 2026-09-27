@@ -184,4 +184,68 @@ const struct Evolution gEvolutionTable[NUM_SPECIES][EVOS_PER_MON] =
     [SPECIES_SHELGON]    = {{EVO_LEVEL, 50, SPECIES_SALAMENCE}},
     [SPECIES_BELDUM]     = {{EVO_LEVEL, 20, SPECIES_METANG}},
     [SPECIES_METANG]     = {{EVO_LEVEL, 45, SPECIES_METAGROSS}},
+    [SPECIES_TURTWIG]    = {{EVO_LEVEL, 18, SPECIES_GROTLE}},
+    [SPECIES_GROTLE]     = {{EVO_LEVEL, 32, SPECIES_TORTERRA}},
+    [SPECIES_CHIMCHAR]   = {{EVO_LEVEL, 14, SPECIES_MONFERNO}},
+    [SPECIES_MONFERNO]   = {{EVO_LEVEL, 36, SPECIES_INFERNAPE}},
+    [SPECIES_PIPLUP]     = {{EVO_LEVEL, 16, SPECIES_PRINPLUP}},
+    [SPECIES_PRINPLUP]   = {{EVO_LEVEL, 36, SPECIES_EMPOLEON}},
+    [SPECIES_STARLY]     = {{EVO_LEVEL, 14, SPECIES_STARAVIA}},
+    [SPECIES_STARAVIA]   = {{EVO_LEVEL, 34, SPECIES_STARAPTOR}},
+    [SPECIES_BIDOOF]     = {{EVO_LEVEL, 15, SPECIES_BIBAREL}},
+    [SPECIES_KRICKETOT]  = {{EVO_LEVEL, 10, SPECIES_KRICKETUNE}},
+    [SPECIES_SHINX]      = {{EVO_LEVEL, 15, SPECIES_LUXIO}},
+    [SPECIES_LUXIO]      = {{EVO_LEVEL, 30, SPECIES_LUXRAY}},
+    [SPECIES_BUDEW]      = {{EVO_FRIENDSHIP_DAY, 0, SPECIES_ROSELIA}},
+    [SPECIES_CRANIDOS]   = {{EVO_LEVEL, 30, SPECIES_RAMPARDOS}},
+    [SPECIES_SHIELDON]   = {{EVO_LEVEL, 30, SPECIES_BASTIODON}},
+    [SPECIES_BUIZEL]     = {{EVO_LEVEL, 26, SPECIES_FLOATZEL}},
+    [SPECIES_CHERUBI]    = {{EVO_LEVEL, 25, SPECIES_CHERRIM}},
+    [SPECIES_SHELLOS]    = {{EVO_LEVEL, 30, SPECIES_GASTRODON}},
+    [SPECIES_DRIFLOON]   = {{EVO_LEVEL, 28, SPECIES_DRIFBLIM}},
+    [SPECIES_BUNEARY]    = {{EVO_FRIENDSHIP, 0, SPECIES_LOPUNNY}},
+    [SPECIES_GLAMEOW]    = {{EVO_LEVEL, 38, SPECIES_PURUGLY}},
+    [SPECIES_CHINGLING]  = {{EVO_FRIENDSHIP_NIGHT, 0, SPECIES_CHIMECHO}},
+    [SPECIES_STUNKY]     = {{EVO_LEVEL, 34, SPECIES_SKUNTANK}},
+    [SPECIES_BRONZOR]    = {{EVO_LEVEL, 33, SPECIES_BRONZONG}},
+    [SPECIES_GIBLE]      = {{EVO_LEVEL, 24, SPECIES_GABITE}},
+    [SPECIES_GABITE]     = {{EVO_LEVEL, 48, SPECIES_GARCHOMP}},
+    [SPECIES_MUNCHLAX]   = {{EVO_FRIENDSHIP, 0, SPECIES_SNORLAX}},
+    [SPECIES_RIOLU]      = {{EVO_FRIENDSHIP_DAY, 0, SPECIES_LUCARIO}},
+    [SPECIES_HIPPOPOTAS] = {{EVO_LEVEL, 34, SPECIES_HIPPOWDON}},
+    [SPECIES_SKORUPI]    = {{EVO_LEVEL, 40, SPECIES_DRAPION}},
+    [SPECIES_CROAGUNK]   = {{EVO_LEVEL, 37, SPECIES_TOXICROAK}},
+    [SPECIES_FINNEON]    = {{EVO_LEVEL, 31, SPECIES_LUMINEON}},
+    [SPECIES_SNOVER]     = {{EVO_LEVEL, 40, SPECIES_ABOMASNOW}},
+
+    // Gen 4 evolutions that need methods or items the game does not have yet:
+    //   Magneton -> Magnezone: level up at a special location
+    //   Lickitung -> Lickilicky: level up knowing Rollout
+    //   Rhydon -> Rhyperior: trade holding Protector
+    //   Tangela -> Tangrowth: level up knowing Ancient Power
+    //   Electabuzz -> Electivire: trade holding Electirizer
+    //   Magmar -> Magmortar: trade holding Magmarizer
+    //   Eevee -> Leafeon: level up at a special location
+    //   Eevee -> Glaceon: level up at a special location
+    //   Togetic -> Togekiss: use Shiny Stone
+    //   Aipom -> Ambipom: level up knowing Double Hit
+    //   Yanma -> Yanmega: level up knowing Ancient Power
+    //   Murkrow -> Honchkrow: use Dusk Stone
+    //   Misdreavus -> Mismagius: use Dusk Stone
+    //   Gligar -> Gliscor: level up holding Razor Fang at night
+    //   Sneasel -> Weavile: level up holding Razor Claw at night
+    //   Piloswine -> Mamoswine: level up knowing Ancient Power
+    //   Porygon2 -> Porygon-Z: trade holding Dubious Disc
+    //   Kirlia -> Gallade: use Dawn Stone (male)
+    //   Nosepass -> Probopass: level up at a special location
+    //   Roselia -> Roserade: use Shiny Stone
+    //   Dusclops -> Dusknoir: trade holding Reaper Cloth
+    //   Snorunt -> Froslass: use Dawn Stone (female)
+    //   Burmy -> Wormadam: level up to 20 (female)
+    //   Burmy -> Mothim: level up to 20 (male)
+    //   Combee -> Vespiquen: level up to 21 (female)
+    //   Bonsly -> Sudowoodo: level up knowing Mimic
+    //   Mime Jr. -> Mr. Mime: level up knowing Mimic
+    //   Happiny -> Chansey: level up holding Oval Stone at day
+    //   Mantyke -> Mantine: level up with Remoraid in the party
 };
