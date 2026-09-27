@@ -120,6 +120,7 @@ EVO_TEXT = {
     "EVO_ITEM_FEMALE": lambda p: f"Use {const_name(p, 'ITEM_')}, female",
     "EVO_ITEM_HOLD_DAY": lambda p: f"Level up holding {const_name(p, 'ITEM_')}, daytime",
     "EVO_ITEM_HOLD_NIGHT": lambda p: f"Level up holding {const_name(p, 'ITEM_')}, night",
+    "EVO_PARTY_SPECIES": lambda p: f"Level up with {const_name(p, 'SPECIES_')} in the party",
 }
 
 

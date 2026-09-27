@@ -5816,7 +5816,7 @@ u8 GetNatureFromPersonality(u32 personality)
 
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem)
 {
-    int i;
+    int i, j;
     u16 targetSpecies = 0;
     u16 species = GetMonData(mon, MON_DATA_SPECIES, 0);
     u16 heldItem = GetMonData(mon, MON_DATA_HELD_ITEM, 0);
@@ -5920,6 +5920,16 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem)
                 timeOfDay = GetTimeOfDay();
                 if ((timeOfDay == TIME_EVENING || timeOfDay == TIME_NIGHT) && gEvolutionTable[species][i].param == heldItem)
                     targetSpecies = gEvolutionTable[species][i].targetSpecies;
+                break;
+            case EVO_PARTY_SPECIES:
+                for (j = 0; j < PARTY_SIZE; j++)
+                {
+                    if (GetMonData(&gPlayerParty[j], MON_DATA_SPECIES_OR_EGG, 0) == gEvolutionTable[species][i].param)
+                    {
+                        targetSpecies = gEvolutionTable[species][i].targetSpecies;
+                        break;
+                    }
+                }
                 break;
             }
         }

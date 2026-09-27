@@ -245,7 +245,5 @@ const struct Evolution gEvolutionTable[NUM_SPECIES][EVOS_PER_MON] =
     [SPECIES_MAGMAR]     = {{EVO_TRADE_ITEM, ITEM_MAGMARIZER, SPECIES_MAGMORTAR}},
     [SPECIES_PORYGON2]   = {{EVO_TRADE_ITEM, ITEM_DUBIOUS_DISC, SPECIES_PORYGON_Z}},
     [SPECIES_DUSCLOPS]   = {{EVO_TRADE_ITEM, ITEM_REAPER_CLOTH, SPECIES_DUSKNOIR}},
-
-    // Gen 4 evolution that needs a method the game does not have yet:
-    //   Mantyke -> Mantine: level up with Remoraid in the party
+    [SPECIES_MANTYKE]    = {{EVO_PARTY_SPECIES, SPECIES_REMORAID, SPECIES_MANTINE}},
 };

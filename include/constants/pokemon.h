@@ -257,6 +257,7 @@
 #define EVO_ITEM_FEMALE      20 // specified item is used on a female Pokémon
 #define EVO_ITEM_HOLD_DAY    21 // Pokémon levels up during the day while holding the specified item, which is used up
 #define EVO_ITEM_HOLD_NIGHT  22 // Pokémon levels up at night while holding the specified item, which is used up
+#define EVO_PARTY_SPECIES    23 // Pokémon levels up with the specified species in the party
 
 #define EVOS_PER_MON 7
 
