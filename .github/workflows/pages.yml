@@ -5,6 +5,12 @@ on:
     branches: [ master ]
     paths:
       - 'docs/**'
+      # The Pokedex pages are generated from these by docs/_ext/gen_pokedex.py,
+      # so a data change has to redeploy the site too.
+      - 'src/data/pokemon/**'
+      - 'src/data/text/species_names.h'
+      - 'include/constants/tms_hms.h'
+      - '.github/workflows/pages.yml'
   workflow_dispatch:
 
 permissions:
