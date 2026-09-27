@@ -1329,7 +1329,7 @@ const u16 gEggMoves[] = {
               MOVE_HELPING_HAND,
               MOVE_BLAZE_KICK),
 
-    // Gen 4 moves left out until they exist: Aqua Ring, Double Hit
+    // Gen 4 moves left out until they exist: Aqua Ring
     egg_moves(PIPLUP,
               MOVE_SUPERSONIC,
               MOVE_HYDRO_PUMP,
@@ -1338,7 +1338,8 @@ const u16 gEggMoves[] = {
               MOVE_FLAIL,
               MOVE_MUD_SLAP,
               MOVE_YAWN,
-              MOVE_MUD_SPORT),
+              MOVE_MUD_SPORT,
+              MOVE_DOUBLE_HIT),
 
     egg_moves(STARLY,
               MOVE_SAND_ATTACK,
@@ -1444,7 +1445,8 @@ const u16 gEggMoves[] = {
               MOVE_DESTINY_BOND,
               MOVE_MEMENTO),
 
-    // Gen 4 moves left out until they exist: Switcheroo, Double Hit
+    // Gen 4 moves left out until they exist: Switcheroo
+    // Double Hit is also a Gen 4 egg move, but Buneary is already at the 10 egg move limit
     egg_moves(BUNEARY,
               MOVE_FIRE_PUNCH,
               MOVE_ICE_PUNCH,

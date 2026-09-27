@@ -5910,6 +5910,17 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem)
                 if (MonKnowsMove(mon, gEvolutionTable[species][i].param))
                     targetSpecies = gEvolutionTable[species][i].targetSpecies;
                 break;
+            // The held item is used up by TryUseEvolutionHeldItem once the evolution finishes
+            case EVO_ITEM_HOLD_DAY:
+                timeOfDay = GetTimeOfDay();
+                if ((timeOfDay == TIME_MORNING || timeOfDay == TIME_DAY) && gEvolutionTable[species][i].param == heldItem)
+                    targetSpecies = gEvolutionTable[species][i].targetSpecies;
+                break;
+            case EVO_ITEM_HOLD_NIGHT:
+                timeOfDay = GetTimeOfDay();
+                if ((timeOfDay == TIME_EVENING || timeOfDay == TIME_NIGHT) && gEvolutionTable[species][i].param == heldItem)
+                    targetSpecies = gEvolutionTable[species][i].targetSpecies;
+                break;
             }
         }
         break;
@@ -5936,8 +5947,11 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem)
     case EVO_MODE_ITEM_CHECK:
         for (i = 0; i < EVOS_PER_MON; i++)
         {
+            if (gEvolutionTable[species][i].param != evolutionItem)
+                continue;
             if (gEvolutionTable[species][i].method == EVO_ITEM
-             && gEvolutionTable[species][i].param == evolutionItem)
+             || (gEvolutionTable[species][i].method == EVO_ITEM_MALE && GetMonGender(mon) == MON_MALE)
+             || (gEvolutionTable[species][i].method == EVO_ITEM_FEMALE && GetMonGender(mon) == MON_FEMALE))
             {
                 targetSpecies = gEvolutionTable[species][i].targetSpecies;
                 break;
@@ -5947,6 +5961,26 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem)
     }
 
     return targetSpecies;
+}
+
+// Uses up the held item of a Pokémon that evolved by levelling up while holding it
+void TryUseEvolutionHeldItem(struct Pokemon *mon, u16 preEvoSpecies, u16 postEvoSpecies)
+{
+    int i;
+    u16 heldItem = GetMonData(mon, MON_DATA_HELD_ITEM, 0);
+
+    for (i = 0; i < EVOS_PER_MON; i++)
+    {
+        if ((gEvolutionTable[preEvoSpecies][i].method == EVO_ITEM_HOLD_DAY
+          || gEvolutionTable[preEvoSpecies][i].method == EVO_ITEM_HOLD_NIGHT)
+         && gEvolutionTable[preEvoSpecies][i].targetSpecies == postEvoSpecies
+         && gEvolutionTable[preEvoSpecies][i].param == heldItem)
+        {
+            heldItem = ITEM_NONE;
+            SetMonData(mon, MON_DATA_HELD_ITEM, &heldItem);
+            break;
+        }
+    }
 }
 
 u16 HoennPokedexNumToSpecies(u16 hoennNum)

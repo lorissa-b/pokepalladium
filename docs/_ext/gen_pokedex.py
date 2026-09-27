@@ -116,6 +116,10 @@ EVO_TEXT = {
     "EVO_LEVEL_FEMALE": lambda p: f"Level {p}, female",
     "EVO_LEVEL_MALE": lambda p: f"Level {p}, male",
     "EVO_MOVE": lambda p: f"Level up knowing {const_name(p, 'MOVE_')}",
+    "EVO_ITEM_MALE": lambda p: f"Use {const_name(p, 'ITEM_')}, male",
+    "EVO_ITEM_FEMALE": lambda p: f"Use {const_name(p, 'ITEM_')}, female",
+    "EVO_ITEM_HOLD_DAY": lambda p: f"Level up holding {const_name(p, 'ITEM_')}, daytime",
+    "EVO_ITEM_HOLD_NIGHT": lambda p: f"Level up holding {const_name(p, 'ITEM_')}, night",
 }
 
 

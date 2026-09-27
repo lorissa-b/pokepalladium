@@ -77,7 +77,9 @@ const struct Evolution gEvolutionTable[NUM_SPECIES][EVOS_PER_MON] =
                             {EVO_ITEM, ITEM_WATER_STONE, SPECIES_VAPOREON},
                             {EVO_ITEM, ITEM_FIRE_STONE, SPECIES_FLAREON},
                             {EVO_FRIENDSHIP_DAY, 0, SPECIES_ESPEON},
-                            {EVO_FRIENDSHIP_NIGHT, 0, SPECIES_UMBREON}},
+                            {EVO_FRIENDSHIP_NIGHT, 0, SPECIES_UMBREON},
+                            {EVO_ITEM, ITEM_LEAF_STONE, SPECIES_LEAFEON},
+                            {EVO_ITEM, ITEM_ICE_STONE, SPECIES_GLACEON}},
     [SPECIES_PORYGON]    = {{EVO_TRADE_ITEM, ITEM_UP_GRADE, SPECIES_PORYGON2}},
     [SPECIES_OMANYTE]    = {{EVO_LEVEL, 40, SPECIES_OMASTAR}},
     [SPECIES_KABUTO]     = {{EVO_LEVEL, 40, SPECIES_KABUTOPS}},
@@ -159,7 +161,8 @@ const struct Evolution gEvolutionTable[NUM_SPECIES][EVOS_PER_MON] =
     [SPECIES_SPHEAL]     = {{EVO_LEVEL, 32, SPECIES_SEALEO}},
     [SPECIES_SEALEO]     = {{EVO_LEVEL, 44, SPECIES_WALREIN}},
     [SPECIES_CACNEA]     = {{EVO_LEVEL, 32, SPECIES_CACTURNE}},
-    [SPECIES_SNORUNT]    = {{EVO_LEVEL, 42, SPECIES_GLALIE}},
+    [SPECIES_SNORUNT]    = {{EVO_LEVEL, 42, SPECIES_GLALIE},
+                            {EVO_ITEM_FEMALE, ITEM_DAWN_STONE, SPECIES_FROSLASS}},
     [SPECIES_AZURILL]    = {{EVO_FRIENDSHIP, 0, SPECIES_MARILL}},
     [SPECIES_SPOINK]     = {{EVO_LEVEL, 32, SPECIES_GRUMPIG}},
     [SPECIES_MEDITITE]   = {{EVO_LEVEL, 37, SPECIES_MEDICHAM}},
@@ -179,7 +182,8 @@ const struct Evolution gEvolutionTable[NUM_SPECIES][EVOS_PER_MON] =
     [SPECIES_LILEEP]     = {{EVO_LEVEL, 40, SPECIES_CRADILY}},
     [SPECIES_ANORITH]    = {{EVO_LEVEL, 40, SPECIES_ARMALDO}},
     [SPECIES_RALTS]      = {{EVO_LEVEL, 20, SPECIES_KIRLIA}},
-    [SPECIES_KIRLIA]     = {{EVO_LEVEL, 30, SPECIES_GARDEVOIR}},
+    [SPECIES_KIRLIA]     = {{EVO_LEVEL, 30, SPECIES_GARDEVOIR},
+                            {EVO_ITEM_MALE, ITEM_DAWN_STONE, SPECIES_GALLADE}},
     [SPECIES_BAGON]      = {{EVO_LEVEL, 30, SPECIES_SHELGON}},
     [SPECIES_SHELGON]    = {{EVO_LEVEL, 50, SPECIES_SALAMENCE}},
     [SPECIES_BELDUM]     = {{EVO_LEVEL, 20, SPECIES_METANG}},
@@ -226,26 +230,22 @@ const struct Evolution gEvolutionTable[NUM_SPECIES][EVOS_PER_MON] =
     [SPECIES_TANGELA]    = {{EVO_MOVE, MOVE_ANCIENT_POWER, SPECIES_TANGROWTH}},
     [SPECIES_YANMA]      = {{EVO_MOVE, MOVE_ANCIENT_POWER, SPECIES_YANMEGA}},
     [SPECIES_PILOSWINE]  = {{EVO_MOVE, MOVE_ANCIENT_POWER, SPECIES_MAMOSWINE}},
+    [SPECIES_AIPOM]      = {{EVO_MOVE, MOVE_DOUBLE_HIT, SPECIES_AMBIPOM}},
+    [SPECIES_MAGNETON]   = {{EVO_ITEM, ITEM_THUNDER_STONE, SPECIES_MAGNEZONE}}, // Gen 4: level up at Mt. Coronet
+    [SPECIES_NOSEPASS]   = {{EVO_ITEM, ITEM_THUNDER_STONE, SPECIES_PROBOPASS}}, // Gen 4: level up at Mt. Coronet
+    [SPECIES_TOGETIC]    = {{EVO_ITEM, ITEM_SHINY_STONE, SPECIES_TOGEKISS}},
+    [SPECIES_ROSELIA]    = {{EVO_ITEM, ITEM_SHINY_STONE, SPECIES_ROSERADE}},
+    [SPECIES_MURKROW]    = {{EVO_ITEM, ITEM_DUSK_STONE, SPECIES_HONCHKROW}},
+    [SPECIES_MISDREAVUS] = {{EVO_ITEM, ITEM_DUSK_STONE, SPECIES_MISMAGIUS}},
+    [SPECIES_GLIGAR]     = {{EVO_ITEM_HOLD_NIGHT, ITEM_RAZOR_FANG, SPECIES_GLISCOR}},
+    [SPECIES_SNEASEL]    = {{EVO_ITEM_HOLD_NIGHT, ITEM_RAZOR_CLAW, SPECIES_WEAVILE}},
+    [SPECIES_HAPPINY]    = {{EVO_ITEM_HOLD_DAY, ITEM_OVAL_STONE, SPECIES_CHANSEY}},
+    [SPECIES_RHYDON]     = {{EVO_TRADE_ITEM, ITEM_PROTECTOR, SPECIES_RHYPERIOR}},
+    [SPECIES_ELECTABUZZ] = {{EVO_TRADE_ITEM, ITEM_ELECTIRIZER, SPECIES_ELECTIVIRE}},
+    [SPECIES_MAGMAR]     = {{EVO_TRADE_ITEM, ITEM_MAGMARIZER, SPECIES_MAGMORTAR}},
+    [SPECIES_PORYGON2]   = {{EVO_TRADE_ITEM, ITEM_DUBIOUS_DISC, SPECIES_PORYGON_Z}},
+    [SPECIES_DUSCLOPS]   = {{EVO_TRADE_ITEM, ITEM_REAPER_CLOTH, SPECIES_DUSKNOIR}},
 
-    // Gen 4 evolutions that need methods or items the game does not have yet:
-    //   Magneton -> Magnezone: level up at a special location
-    //   Rhydon -> Rhyperior: trade holding Protector
-    //   Electabuzz -> Electivire: trade holding Electirizer
-    //   Magmar -> Magmortar: trade holding Magmarizer
-    //   Eevee -> Leafeon: level up at a special location
-    //   Eevee -> Glaceon: level up at a special location
-    //   Togetic -> Togekiss: use Shiny Stone
-    //   Aipom -> Ambipom: level up knowing Double Hit (EVO_MOVE, once Double Hit exists)
-    //   Murkrow -> Honchkrow: use Dusk Stone
-    //   Misdreavus -> Mismagius: use Dusk Stone
-    //   Gligar -> Gliscor: level up holding Razor Fang at night
-    //   Sneasel -> Weavile: level up holding Razor Claw at night
-    //   Porygon2 -> Porygon-Z: trade holding Dubious Disc
-    //   Kirlia -> Gallade: use Dawn Stone (male)
-    //   Nosepass -> Probopass: level up at a special location
-    //   Roselia -> Roserade: use Shiny Stone
-    //   Dusclops -> Dusknoir: trade holding Reaper Cloth
-    //   Snorunt -> Froslass: use Dawn Stone (female)
-    //   Happiny -> Chansey: level up holding Oval Stone at day
+    // Gen 4 evolution that needs a method the game does not have yet:
     //   Mantyke -> Mantine: level up with Remoraid in the party
 };

@@ -2626,6 +2626,7 @@ static const u16 sAipomLevelUpLearnset[] = {
     LEVEL_UP_MOVE(18, MOVE_BATON_PASS),
     LEVEL_UP_MOVE(25, MOVE_TICKLE),
     LEVEL_UP_MOVE(31, MOVE_FURY_SWIPES),
+    LEVEL_UP_MOVE(32, MOVE_DOUBLE_HIT), // Gen 4: needed to evolve into Ambipom
     LEVEL_UP_MOVE(38, MOVE_SWIFT),
     LEVEL_UP_MOVE(43, MOVE_SCREECH),
     LEVEL_UP_MOVE(50, MOVE_AGILITY),
@@ -6169,7 +6170,7 @@ static const u16 sGastrodonLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
-// Gen 4 moves left out until they exist: Double Hit (32), Fling (36), Nasty Plot (39), Last Resort (43)
+// Gen 4 moves left out until they exist: Fling (36), Nasty Plot (39), Last Resort (43)
 static const u16 sAmbipomLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
     LEVEL_UP_MOVE( 1, MOVE_TAIL_WHIP),
@@ -6183,6 +6184,7 @@ static const u16 sAmbipomLevelUpLearnset[] = {
     LEVEL_UP_MOVE(22, MOVE_SWIFT),
     LEVEL_UP_MOVE(25, MOVE_SCREECH),
     LEVEL_UP_MOVE(29, MOVE_AGILITY),
+    LEVEL_UP_MOVE(32, MOVE_DOUBLE_HIT),
     LEVEL_UP_END
 };
 
@@ -6945,7 +6947,7 @@ static const u16 sGliscorLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
-// Gen 4 moves left out until they exist: Mud Bomb (20), Ice Fang (28), Double Hit (33)
+// Gen 4 moves left out until they exist: Mud Bomb (20), Ice Fang (28)
 static const u16 sMamoswineLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_ANCIENT_POWER),
     LEVEL_UP_MOVE( 1, MOVE_PECK),
@@ -6958,6 +6960,7 @@ static const u16 sMamoswineLevelUpLearnset[] = {
     LEVEL_UP_MOVE(16, MOVE_ENDURE),
     LEVEL_UP_MOVE(25, MOVE_HAIL),
     LEVEL_UP_MOVE(32, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(33, MOVE_DOUBLE_HIT),
     LEVEL_UP_MOVE(40, MOVE_EARTHQUAKE),
     LEVEL_UP_MOVE(48, MOVE_MIST),
     LEVEL_UP_MOVE(56, MOVE_BLIZZARD),

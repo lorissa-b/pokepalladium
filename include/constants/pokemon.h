@@ -253,8 +253,12 @@
 #define EVO_LEVEL_FEMALE     16 // Pokémon reaches the specified level, is female
 #define EVO_LEVEL_MALE       17 // Pokémon reaches the specified level, is male
 #define EVO_MOVE             18 // Pokémon levels up, knows specified move
+#define EVO_ITEM_MALE        19 // specified item is used on a male Pokémon
+#define EVO_ITEM_FEMALE      20 // specified item is used on a female Pokémon
+#define EVO_ITEM_HOLD_DAY    21 // Pokémon levels up during the day while holding the specified item, which is used up
+#define EVO_ITEM_HOLD_NIGHT  22 // Pokémon levels up at night while holding the specified item, which is used up
 
-#define EVOS_PER_MON 5
+#define EVOS_PER_MON 7
 
 // Evolution 'modes,' for GetEvolutionTargetSpecies
 #define EVO_MODE_NORMAL     0
