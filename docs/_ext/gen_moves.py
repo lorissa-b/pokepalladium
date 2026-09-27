@@ -139,6 +139,13 @@ def power_cell(move: dict) -> str:
     return str(move["power"])
 
 
+def accuracy_cell(move: dict) -> str:
+    """0 means no accuracy check: either a self-target or EFFECT_ALWAYS_HIT."""
+    if move["accuracy"] == 0:
+        return "—"
+    return f"{move['accuracy']}%"
+
+
 def effect_cell(const: str, move: dict, descriptions: dict[str, str]) -> str:
     text = descriptions.get(const, "")
     if not text:
@@ -148,6 +155,8 @@ def effect_cell(const: str, move: dict, descriptions: dict[str, str]) -> str:
     if move["chance"]:
         chance = f"{move['chance']}% chance"
         text = f"{text} ({chance})" if text else chance
+    if move["effect"]:
+        text = f"{text} `{move['effect']}`" if text else f"`{move['effect']}`"
     return text or "—"
 
 
@@ -177,14 +186,21 @@ def render_type_page(mtype: str, entries: list, contest: dict, descriptions: dic
         lines += [f"{len(entries)} {label}-type {noun}.", ""]
 
     lines += [
-        "| Move | Category | Power | PP | Contest | Special effects |",
-        "| --- | --- | --- | --- | --- | --- |",
+        "Power **Varies** means damage is computed by the move's effect rather "
+        "than from a power value. Accuracy **—** means the move skips the "
+        "accuracy check, either because it cannot miss or because it targets "
+        "the user. The `EFFECT_` constant names the implementing case in "
+        "`src/battle_script_commands.c`.",
+        "",
+        "| Move | Category | Power | Accuracy | PP | Contest | Special effects |",
+        "| --- | --- | --- | --- | --- | --- | --- |",
     ]
     for const, move in sorted(entries, key=sort_key):
         lines.append(
             f"| {md_escape(const_name(const, 'MOVE_'))} "
             f"| {category(move)} "
             f"| {power_cell(move)} "
+            f"| {accuracy_cell(move)} "
             f"| {move['pp'] or '—'} "
             f"| {md_escape(contest.get(const, '—'))} "
             f"| {md_escape(effect_cell(const, move, descriptions))} |"

@@ -25,8 +25,8 @@ types/index
 ## Generated pages
 
 {doc}`types/index` is built by `docs/_ext/gen_moves.py` on every Sphinx
-run: one page per type, listing each move's category, power, PP, contest
-category and effect. Because it is generated, **do not edit those pages** —
+run: one page per type, listing each move's category, power, accuracy, PP,
+contest category and effect, with the `EFFECT_` constant that implements it. Because it is generated, **do not edit those pages** —
 they are gitignored and overwritten each build.
 
 ## Still to write
