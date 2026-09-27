@@ -17,8 +17,9 @@ The day is split into four periods, and the game reacts to them:
 - **Day and night evolutions follow the same periods.** Morning and day count as
   day (Espeon); evening and night count as night (Umbreon). Vanilla used 12:00–23:59
   as day and 00:00–11:59 as night.
-- **Maps can have different wild Pokémon by time of day.** No maps use this yet —
-  see "Adding time-based encounters" below.
+- **Maps can have different wild Pokémon by time of day.** Every outdoor map
+  with wild Pokémon has a table for each period, currently all copies of the
+  vanilla table — see "Time-based encounters" below.
 - **A new game starts at 10:00**, so the player isn't in the dark before setting
   the bedroom clock.
 
@@ -80,11 +81,16 @@ Changes from the tutorial:
   during the day, instead of multiplying every colour every frame.
 - It fixes an out-of-bounds read in the tutorial's sprite palette check.
 
-## Adding time-based encounters
+## Time-based encounters
 
-To vary a map's wild Pokémon by time of day, give it more than one encounter
-table (in Porymap's Wild Pokémon tab, add encounter groups with the **+**
-button). They're used in the order they're listed in
+Every map with wild Pokémon except caves and interiors (`MAP_TYPE_UNDERGROUND`
+and `MAP_TYPE_INDOOR`) has four encounter tables, named after the map with
+`_Morning`, `_Day`, `_Evening` and `_Night` on the end — for example
+`gRoute101_Night`. They start out as identical copies of the vanilla table, so
+nothing changes until they're edited. In Porymap, they show up as four encounter
+groups on the map's Wild Pokémon tab.
+
+A map's tables are used in the order they're listed in
 `src/data/wild_encounters.json`:
 
 | Tables for the map | Used |
