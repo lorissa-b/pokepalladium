@@ -250,6 +250,9 @@
 #define EVO_LEVEL_NINJASK    13 // Pokémon reaches the specified level (special value for Ninjask)
 #define EVO_LEVEL_SHEDINJA   14 // Pokémon reaches the specified level (special value for Shedinja)
 #define EVO_BEAUTY           15 // Pokémon levels up with beauty ≥ specified value
+#define EVO_LEVEL_FEMALE     16 // Pokémon reaches the specified level, is female
+#define EVO_LEVEL_MALE       17 // Pokémon reaches the specified level, is male
+#define EVO_MOVE             18 // Pokémon levels up, knows specified move
 
 #define EVOS_PER_MON 5
 

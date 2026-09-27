@@ -217,35 +217,35 @@ const struct Evolution gEvolutionTable[NUM_SPECIES][EVOS_PER_MON] =
     [SPECIES_CROAGUNK]   = {{EVO_LEVEL, 37, SPECIES_TOXICROAK}},
     [SPECIES_FINNEON]    = {{EVO_LEVEL, 31, SPECIES_LUMINEON}},
     [SPECIES_SNOVER]     = {{EVO_LEVEL, 40, SPECIES_ABOMASNOW}},
+    [SPECIES_BURMY]      = {{EVO_LEVEL_FEMALE, 20, SPECIES_WORMADAM},
+                            {EVO_LEVEL_MALE, 20, SPECIES_MOTHIM}},
+    [SPECIES_COMBEE]     = {{EVO_LEVEL_FEMALE, 21, SPECIES_VESPIQUEN}},
+    [SPECIES_BONSLY]     = {{EVO_MOVE, MOVE_MIMIC, SPECIES_SUDOWOODO}},
+    [SPECIES_MIME_JR]    = {{EVO_MOVE, MOVE_MIMIC, SPECIES_MR_MIME}},
+    [SPECIES_LICKITUNG]  = {{EVO_MOVE, MOVE_ROLLOUT, SPECIES_LICKILICKY}},
+    [SPECIES_TANGELA]    = {{EVO_MOVE, MOVE_ANCIENT_POWER, SPECIES_TANGROWTH}},
+    [SPECIES_YANMA]      = {{EVO_MOVE, MOVE_ANCIENT_POWER, SPECIES_YANMEGA}},
+    [SPECIES_PILOSWINE]  = {{EVO_MOVE, MOVE_ANCIENT_POWER, SPECIES_MAMOSWINE}},
 
     // Gen 4 evolutions that need methods or items the game does not have yet:
     //   Magneton -> Magnezone: level up at a special location
-    //   Lickitung -> Lickilicky: level up knowing Rollout
     //   Rhydon -> Rhyperior: trade holding Protector
-    //   Tangela -> Tangrowth: level up knowing Ancient Power
     //   Electabuzz -> Electivire: trade holding Electirizer
     //   Magmar -> Magmortar: trade holding Magmarizer
     //   Eevee -> Leafeon: level up at a special location
     //   Eevee -> Glaceon: level up at a special location
     //   Togetic -> Togekiss: use Shiny Stone
-    //   Aipom -> Ambipom: level up knowing Double Hit
-    //   Yanma -> Yanmega: level up knowing Ancient Power
+    //   Aipom -> Ambipom: level up knowing Double Hit (EVO_MOVE, once Double Hit exists)
     //   Murkrow -> Honchkrow: use Dusk Stone
     //   Misdreavus -> Mismagius: use Dusk Stone
     //   Gligar -> Gliscor: level up holding Razor Fang at night
     //   Sneasel -> Weavile: level up holding Razor Claw at night
-    //   Piloswine -> Mamoswine: level up knowing Ancient Power
     //   Porygon2 -> Porygon-Z: trade holding Dubious Disc
     //   Kirlia -> Gallade: use Dawn Stone (male)
     //   Nosepass -> Probopass: level up at a special location
     //   Roselia -> Roserade: use Shiny Stone
     //   Dusclops -> Dusknoir: trade holding Reaper Cloth
     //   Snorunt -> Froslass: use Dawn Stone (female)
-    //   Burmy -> Wormadam: level up to 20 (female)
-    //   Burmy -> Mothim: level up to 20 (male)
-    //   Combee -> Vespiquen: level up to 21 (female)
-    //   Bonsly -> Sudowoodo: level up knowing Mimic
-    //   Mime Jr. -> Mr. Mime: level up knowing Mimic
     //   Happiny -> Chansey: level up holding Oval Stone at day
     //   Mantyke -> Mantine: level up with Remoraid in the party
 };

@@ -1487,6 +1487,7 @@ static const u16 sLickitungLevelUpLearnset[] = {
     LEVEL_UP_MOVE(18, MOVE_KNOCK_OFF),
     LEVEL_UP_MOVE(23, MOVE_STOMP),
     LEVEL_UP_MOVE(29, MOVE_WRAP),
+    LEVEL_UP_MOVE(33, MOVE_ROLLOUT), // Gen 4: needed to evolve into Lickilicky
     LEVEL_UP_MOVE(34, MOVE_DISABLE),
     LEVEL_UP_MOVE(40, MOVE_SLAM),
     LEVEL_UP_MOVE(45, MOVE_SCREECH),
@@ -1580,6 +1581,7 @@ static const u16 sTangelaLevelUpLearnset[] = {
     LEVEL_UP_MOVE(22, MOVE_VINE_WHIP),
     LEVEL_UP_MOVE(28, MOVE_BIND),
     LEVEL_UP_MOVE(31, MOVE_MEGA_DRAIN),
+    LEVEL_UP_MOVE(33, MOVE_ANCIENT_POWER), // Gen 4: needed to evolve into Tangrowth
     LEVEL_UP_MOVE(37, MOVE_STUN_SPORE),
     LEVEL_UP_MOVE(40, MOVE_SLAM),
     LEVEL_UP_MOVE(46, MOVE_TICKLE),
@@ -2663,6 +2665,7 @@ static const u16 sYanmaLevelUpLearnset[] = {
     LEVEL_UP_MOVE(19, MOVE_SONIC_BOOM),
     LEVEL_UP_MOVE(25, MOVE_DETECT),
     LEVEL_UP_MOVE(31, MOVE_SUPERSONIC),
+    LEVEL_UP_MOVE(33, MOVE_ANCIENT_POWER), // Gen 4: needed to evolve into Yanmega
     LEVEL_UP_MOVE(37, MOVE_UPROAR),
     LEVEL_UP_MOVE(43, MOVE_WING_ATTACK),
     LEVEL_UP_MOVE(49, MOVE_SCREECH),
@@ -3029,6 +3032,7 @@ static const u16 sSwinubLevelUpLearnset[] = {
 };
 
 static const u16 sPiloswineLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_ANCIENT_POWER), // Gen 4: needed to evolve into Mamoswine
     LEVEL_UP_MOVE( 1, MOVE_HORN_ATTACK),
     LEVEL_UP_MOVE( 1, MOVE_ODOR_SLEUTH),
     LEVEL_UP_MOVE( 1, MOVE_POWDER_SNOW),

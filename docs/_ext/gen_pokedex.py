@@ -113,6 +113,9 @@ EVO_TEXT = {
     "EVO_LEVEL_NINJASK": lambda p: f"Level {p} (Ninjask)",
     "EVO_LEVEL_SHEDINJA": lambda p: f"Level {p} (Shedinja, needs a free party slot)",
     "EVO_BEAUTY": lambda p: f"Beauty {p}",
+    "EVO_LEVEL_FEMALE": lambda p: f"Level {p}, female",
+    "EVO_LEVEL_MALE": lambda p: f"Level {p}, male",
+    "EVO_MOVE": lambda p: f"Level up knowing {const_name(p, 'MOVE_')}",
 }
 
 
