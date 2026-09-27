@@ -42,8 +42,8 @@ struct HallofFameMon
 {
     u32 tid;
     u32 personality;
-    u16 species:9;
-    u16 lvl:7;
+    u16 species; // Full u16 so species IDs past 511 (and SPECIES_EGG) fit
+    u8 lvl;
     u8 nickname[POKEMON_NAME_LENGTH];
 };
 

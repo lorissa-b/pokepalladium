@@ -357,7 +357,10 @@
 #define MOVE_DOOM_DESIRE 353
 #define MOVE_PSYCHO_BOOST 354
 
-#define MOVES_COUNT 355
+// Gen 4
+#define MOVE_DOUBLE_HIT 355
+
+#define MOVES_COUNT 356
 
 // Used for checks for moves affected by Disable, Mimic, etc.
 #define MOVE_UNAVAILABLE 0xFFFF

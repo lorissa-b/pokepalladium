@@ -371,7 +371,8 @@ gBattleAnims_Moves::
 	.4byte Move_WATER_PULSE
 	.4byte Move_DOOM_DESIRE
 	.4byte Move_PSYCHO_BOOST
-	.4byte Move_COUNT @ cannot be reached, because last move is Psycho Boost
+	.4byte Move_DOUBLE_HIT
+	.4byte Move_COUNT @ cannot be reached, because last move is Double Hit
 
 	.align 2
 gBattleAnims_StatusConditions::
@@ -435,6 +436,7 @@ Move_POUND:
 	blendoff
 	end
 
+Move_DOUBLE_HIT: @ Placeholder: reuses Double Slap's animation
 Move_DOUBLE_SLAP:
 	loadspritegfx ANIM_TAG_IMPACT
 	monbg ANIM_TARGET

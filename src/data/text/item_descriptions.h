@@ -394,6 +394,26 @@ static const u8 sLeafStoneDesc[] = _(
     "species of POKéMON\n"
     "evolve.");
 
+static const u8 sShinyStoneDesc[] = _(
+    "A stone that makes\n"
+    "certain POKéMON\n"
+    "evolve. It shines.");
+
+static const u8 sDuskStoneDesc[] = _(
+    "A stone that makes\n"
+    "certain POKéMON\n"
+    "evolve. It's dark.");
+
+static const u8 sDawnStoneDesc[] = _(
+    "A stone that makes\n"
+    "certain POKéMON\n"
+    "evolve. It glows.");
+
+static const u8 sIceStoneDesc[] = _(
+    "A stone that makes\n"
+    "certain POKéMON\n"
+    "evolve. It's icy.");
+
 // Valuable items
 static const u8 sTinyMushroomDesc[] = _(
     "A plain mushroom\n"
@@ -911,6 +931,46 @@ static const u8 sSilkScarfDesc[] = _(
 static const u8 sUpGradeDesc[] = _(
     "A peculiar box made\n"
     "by SILPH CO.");
+
+static const u8 sRazorClawDesc[] = _(
+    "A hooked claw that\n"
+    "boosts the holder's\n"
+    "critical-hit ratio.");
+
+static const u8 sRazorFangDesc[] = _(
+    "A hold item that\n"
+    "may cause flinching\n"
+    "when the foe is hit.");
+
+static const u8 sOvalStoneDesc[] = _(
+    "A peculiar stone\n"
+    "that makes certain\n"
+    "POKéMON evolve.");
+
+static const u8 sProtectorDesc[] = _(
+    "A stiff, heavy item\n"
+    "loved by a certain\n"
+    "kind of POKéMON.");
+
+static const u8 sElectirizerDesc[] = _(
+    "A box packed with\n"
+    "electric energy.\n"
+    "Loved by a POKéMON.");
+
+static const u8 sMagmarizerDesc[] = _(
+    "A box packed with\n"
+    "magma energy.\n"
+    "Loved by a POKéMON.");
+
+static const u8 sDubiousDiscDesc[] = _(
+    "A clear device\n"
+    "overflowing with\n"
+    "dubious data.");
+
+static const u8 sReaperClothDesc[] = _(
+    "A cloth imbued with\n"
+    "horrifyingly strong\n"
+    "spiritual energy.");
 
 static const u8 sShellBellDesc[] = _(
     "A hold item that\n"

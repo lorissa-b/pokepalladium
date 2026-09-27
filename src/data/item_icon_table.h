@@ -111,10 +111,10 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_WATER_STONE] = {gItemIcon_WaterStone, gItemIconPalette_WaterStone},
     [ITEM_LEAF_STONE] = {gItemIcon_LeafStone, gItemIconPalette_LeafStone},
     // ????????
-    [ITEM_063] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_064] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_065] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_066] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_SHINY_STONE] = {gItemIcon_SunStone, gItemIconPalette_SunStone}, // Placeholder icon
+    [ITEM_DUSK_STONE] = {gItemIcon_MoonStone, gItemIconPalette_MoonStone}, // Placeholder icon
+    [ITEM_DAWN_STONE] = {gItemIcon_ThunderStone, gItemIconPalette_ThunderStone}, // Placeholder icon
+    [ITEM_ICE_STONE] = {gItemIcon_WaterStone, gItemIconPalette_WaterStone}, // Placeholder icon
     // Valuables
     [ITEM_TINY_MUSHROOM] = {gItemIcon_TinyMushroom, gItemIconPalette_Mushroom},
     [ITEM_BIG_MUSHROOM] = {gItemIcon_BigMushroom, gItemIconPalette_Mushroom},
@@ -244,14 +244,14 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_THICK_CLUB] = {gItemIcon_ThickClub, gItemIconPalette_ThickClub},
     [ITEM_STICK] = {gItemIcon_Stick, gItemIconPalette_Stick},
     // ????????
-    [ITEM_0E2] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_0E3] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_0E4] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_0E5] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_0E6] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_0E7] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_0E8] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_0E9] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_RAZOR_CLAW] = {gItemIcon_QuickClaw, gItemIconPalette_QuickClaw}, // Placeholder icon
+    [ITEM_RAZOR_FANG] = {gItemIcon_DragonFang, gItemIconPalette_DragonFang}, // Placeholder icon
+    [ITEM_OVAL_STONE] = {gItemIcon_Everstone, gItemIconPalette_Everstone}, // Placeholder icon
+    [ITEM_PROTECTOR] = {gItemIcon_HardStone, gItemIconPalette_HardStone}, // Placeholder icon
+    [ITEM_ELECTIRIZER] = {gItemIcon_Magnet, gItemIconPalette_Magnet}, // Placeholder icon
+    [ITEM_MAGMARIZER] = {gItemIcon_Charcoal, gItemIconPalette_Charcoal}, // Placeholder icon
+    [ITEM_DUBIOUS_DISC] = {gItemIcon_UpGrade, gItemIconPalette_UpGrade}, // Placeholder icon
+    [ITEM_REAPER_CLOTH] = {gItemIcon_SpellTag, gItemIconPalette_SpellTag}, // Placeholder icon
     [ITEM_0EA] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     [ITEM_0EB] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     [ITEM_0EC] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},

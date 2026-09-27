@@ -1487,6 +1487,7 @@ static const u16 sLickitungLevelUpLearnset[] = {
     LEVEL_UP_MOVE(18, MOVE_KNOCK_OFF),
     LEVEL_UP_MOVE(23, MOVE_STOMP),
     LEVEL_UP_MOVE(29, MOVE_WRAP),
+    LEVEL_UP_MOVE(33, MOVE_ROLLOUT), // Gen 4: needed to evolve into Lickilicky
     LEVEL_UP_MOVE(34, MOVE_DISABLE),
     LEVEL_UP_MOVE(40, MOVE_SLAM),
     LEVEL_UP_MOVE(45, MOVE_SCREECH),
@@ -1580,6 +1581,7 @@ static const u16 sTangelaLevelUpLearnset[] = {
     LEVEL_UP_MOVE(22, MOVE_VINE_WHIP),
     LEVEL_UP_MOVE(28, MOVE_BIND),
     LEVEL_UP_MOVE(31, MOVE_MEGA_DRAIN),
+    LEVEL_UP_MOVE(33, MOVE_ANCIENT_POWER), // Gen 4: needed to evolve into Tangrowth
     LEVEL_UP_MOVE(37, MOVE_STUN_SPORE),
     LEVEL_UP_MOVE(40, MOVE_SLAM),
     LEVEL_UP_MOVE(46, MOVE_TICKLE),
@@ -2624,6 +2626,7 @@ static const u16 sAipomLevelUpLearnset[] = {
     LEVEL_UP_MOVE(18, MOVE_BATON_PASS),
     LEVEL_UP_MOVE(25, MOVE_TICKLE),
     LEVEL_UP_MOVE(31, MOVE_FURY_SWIPES),
+    LEVEL_UP_MOVE(32, MOVE_DOUBLE_HIT), // Gen 4: needed to evolve into Ambipom
     LEVEL_UP_MOVE(38, MOVE_SWIFT),
     LEVEL_UP_MOVE(43, MOVE_SCREECH),
     LEVEL_UP_MOVE(50, MOVE_AGILITY),
@@ -2663,6 +2666,7 @@ static const u16 sYanmaLevelUpLearnset[] = {
     LEVEL_UP_MOVE(19, MOVE_SONIC_BOOM),
     LEVEL_UP_MOVE(25, MOVE_DETECT),
     LEVEL_UP_MOVE(31, MOVE_SUPERSONIC),
+    LEVEL_UP_MOVE(33, MOVE_ANCIENT_POWER), // Gen 4: needed to evolve into Yanmega
     LEVEL_UP_MOVE(37, MOVE_UPROAR),
     LEVEL_UP_MOVE(43, MOVE_WING_ATTACK),
     LEVEL_UP_MOVE(49, MOVE_SCREECH),
@@ -3029,6 +3033,7 @@ static const u16 sSwinubLevelUpLearnset[] = {
 };
 
 static const u16 sPiloswineLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_ANCIENT_POWER), // Gen 4: needed to evolve into Mamoswine
     LEVEL_UP_MOVE( 1, MOVE_HORN_ATTACK),
     LEVEL_UP_MOVE( 1, MOVE_ODOR_SLEUTH),
     LEVEL_UP_MOVE( 1, MOVE_POWDER_SNOW),
@@ -5613,5 +5618,1641 @@ static const u16 sChimechoLevelUpLearnset[] = {
     LEVEL_UP_MOVE(38, MOVE_HEAL_BELL),
     LEVEL_UP_MOVE(41, MOVE_SAFEGUARD),
     LEVEL_UP_MOVE(46, MOVE_PSYCHIC),
+    LEVEL_UP_END
+};
+
+// Leaf Storm (level 45) is left out until Gen 4 moves exist.
+static const u16 sTurtwigLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 5, MOVE_WITHDRAW),
+    LEVEL_UP_MOVE( 9, MOVE_ABSORB),
+    LEVEL_UP_MOVE(13, MOVE_RAZOR_LEAF),
+    LEVEL_UP_MOVE(17, MOVE_CURSE),
+    LEVEL_UP_MOVE(21, MOVE_BITE),
+    LEVEL_UP_MOVE(25, MOVE_MEGA_DRAIN),
+    LEVEL_UP_MOVE(29, MOVE_LEECH_SEED),
+    LEVEL_UP_MOVE(33, MOVE_SYNTHESIS),
+    LEVEL_UP_MOVE(37, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(41, MOVE_GIGA_DRAIN),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Leaf Storm (52)
+static const u16 sGrotleLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_WITHDRAW),
+    LEVEL_UP_MOVE( 5, MOVE_WITHDRAW),
+    LEVEL_UP_MOVE( 9, MOVE_ABSORB),
+    LEVEL_UP_MOVE(13, MOVE_RAZOR_LEAF),
+    LEVEL_UP_MOVE(17, MOVE_CURSE),
+    LEVEL_UP_MOVE(22, MOVE_BITE),
+    LEVEL_UP_MOVE(27, MOVE_MEGA_DRAIN),
+    LEVEL_UP_MOVE(32, MOVE_LEECH_SEED),
+    LEVEL_UP_MOVE(37, MOVE_SYNTHESIS),
+    LEVEL_UP_MOVE(42, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(47, MOVE_GIGA_DRAIN),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Wood Hammer (1), Leaf Storm (57)
+static const u16 sTorterraLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_WITHDRAW),
+    LEVEL_UP_MOVE( 1, MOVE_ABSORB),
+    LEVEL_UP_MOVE( 1, MOVE_RAZOR_LEAF),
+    LEVEL_UP_MOVE( 5, MOVE_WITHDRAW),
+    LEVEL_UP_MOVE( 9, MOVE_ABSORB),
+    LEVEL_UP_MOVE(13, MOVE_RAZOR_LEAF),
+    LEVEL_UP_MOVE(17, MOVE_CURSE),
+    LEVEL_UP_MOVE(22, MOVE_BITE),
+    LEVEL_UP_MOVE(27, MOVE_MEGA_DRAIN),
+    LEVEL_UP_MOVE(32, MOVE_EARTHQUAKE),
+    LEVEL_UP_MOVE(33, MOVE_LEECH_SEED),
+    LEVEL_UP_MOVE(39, MOVE_SYNTHESIS),
+    LEVEL_UP_MOVE(45, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(51, MOVE_GIGA_DRAIN),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Nasty Plot (23)
+static const u16 sChimcharLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 7, MOVE_EMBER),
+    LEVEL_UP_MOVE( 9, MOVE_TAUNT),
+    LEVEL_UP_MOVE(15, MOVE_FURY_SWIPES),
+    LEVEL_UP_MOVE(17, MOVE_FLAME_WHEEL),
+    LEVEL_UP_MOVE(25, MOVE_TORMENT),
+    LEVEL_UP_MOVE(31, MOVE_FACADE),
+    LEVEL_UP_MOVE(33, MOVE_FIRE_SPIN),
+    LEVEL_UP_MOVE(39, MOVE_SLACK_OFF),
+    LEVEL_UP_MOVE(41, MOVE_FLAMETHROWER),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Feint (26), Close Combat (36), Flare Blitz (49)
+static const u16 sMonfernoLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 1, MOVE_EMBER),
+    LEVEL_UP_MOVE( 7, MOVE_EMBER),
+    LEVEL_UP_MOVE( 9, MOVE_TAUNT),
+    LEVEL_UP_MOVE(14, MOVE_MACH_PUNCH),
+    LEVEL_UP_MOVE(16, MOVE_FURY_SWIPES),
+    LEVEL_UP_MOVE(19, MOVE_FLAME_WHEEL),
+    LEVEL_UP_MOVE(29, MOVE_TORMENT),
+    LEVEL_UP_MOVE(39, MOVE_FIRE_SPIN),
+    LEVEL_UP_MOVE(46, MOVE_SLACK_OFF),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Feint (29), Punishment (33), Close Combat (41), Flare Blitz (57)
+static const u16 sInfernapeLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 1, MOVE_EMBER),
+    LEVEL_UP_MOVE( 1, MOVE_TAUNT),
+    LEVEL_UP_MOVE( 7, MOVE_EMBER),
+    LEVEL_UP_MOVE( 9, MOVE_TAUNT),
+    LEVEL_UP_MOVE(14, MOVE_MACH_PUNCH),
+    LEVEL_UP_MOVE(17, MOVE_FURY_SWIPES),
+    LEVEL_UP_MOVE(21, MOVE_FLAME_WHEEL),
+    LEVEL_UP_MOVE(45, MOVE_FIRE_SPIN),
+    LEVEL_UP_MOVE(53, MOVE_CALM_MIND),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Brine (29)
+static const u16 sPiplupLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_POUND),
+    LEVEL_UP_MOVE( 4, MOVE_GROWL),
+    LEVEL_UP_MOVE( 8, MOVE_BUBBLE),
+    LEVEL_UP_MOVE(11, MOVE_WATER_SPORT),
+    LEVEL_UP_MOVE(15, MOVE_PECK),
+    LEVEL_UP_MOVE(18, MOVE_BUBBLE_BEAM),
+    LEVEL_UP_MOVE(22, MOVE_BIDE),
+    LEVEL_UP_MOVE(25, MOVE_FURY_ATTACK),
+    LEVEL_UP_MOVE(32, MOVE_WHIRLPOOL),
+    LEVEL_UP_MOVE(36, MOVE_MIST),
+    LEVEL_UP_MOVE(39, MOVE_DRILL_PECK),
+    LEVEL_UP_MOVE(43, MOVE_HYDRO_PUMP),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Brine (33)
+static const u16 sPrinplupLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 4, MOVE_GROWL),
+    LEVEL_UP_MOVE( 8, MOVE_BUBBLE),
+    LEVEL_UP_MOVE(11, MOVE_WATER_SPORT),
+    LEVEL_UP_MOVE(15, MOVE_PECK),
+    LEVEL_UP_MOVE(16, MOVE_METAL_CLAW),
+    LEVEL_UP_MOVE(19, MOVE_BUBBLE_BEAM),
+    LEVEL_UP_MOVE(24, MOVE_BIDE),
+    LEVEL_UP_MOVE(28, MOVE_FURY_ATTACK),
+    LEVEL_UP_MOVE(37, MOVE_WHIRLPOOL),
+    LEVEL_UP_MOVE(42, MOVE_MIST),
+    LEVEL_UP_MOVE(46, MOVE_DRILL_PECK),
+    LEVEL_UP_MOVE(51, MOVE_HYDRO_PUMP),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Brine (33), Aqua Jet (36)
+static const u16 sEmpoleonLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 1, MOVE_BUBBLE),
+    LEVEL_UP_MOVE( 4, MOVE_GROWL),
+    LEVEL_UP_MOVE( 8, MOVE_BUBBLE),
+    LEVEL_UP_MOVE(11, MOVE_SWORDS_DANCE),
+    LEVEL_UP_MOVE(15, MOVE_PECK),
+    LEVEL_UP_MOVE(16, MOVE_METAL_CLAW),
+    LEVEL_UP_MOVE(19, MOVE_BUBBLE_BEAM),
+    LEVEL_UP_MOVE(24, MOVE_SWAGGER),
+    LEVEL_UP_MOVE(28, MOVE_FURY_ATTACK),
+    LEVEL_UP_MOVE(39, MOVE_WHIRLPOOL),
+    LEVEL_UP_MOVE(46, MOVE_MIST),
+    LEVEL_UP_MOVE(52, MOVE_DRILL_PECK),
+    LEVEL_UP_MOVE(59, MOVE_HYDRO_PUMP),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Brave Bird (37)
+static const u16 sStarlyLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 5, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE( 9, MOVE_WING_ATTACK),
+    LEVEL_UP_MOVE(13, MOVE_DOUBLE_TEAM),
+    LEVEL_UP_MOVE(17, MOVE_ENDEAVOR),
+    LEVEL_UP_MOVE(21, MOVE_WHIRLWIND),
+    LEVEL_UP_MOVE(25, MOVE_AERIAL_ACE),
+    LEVEL_UP_MOVE(29, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(33, MOVE_AGILITY),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Brave Bird (43)
+static const u16 sStaraviaLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 1, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE( 5, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE( 9, MOVE_WING_ATTACK),
+    LEVEL_UP_MOVE(13, MOVE_DOUBLE_TEAM),
+    LEVEL_UP_MOVE(18, MOVE_ENDEAVOR),
+    LEVEL_UP_MOVE(23, MOVE_WHIRLWIND),
+    LEVEL_UP_MOVE(28, MOVE_AERIAL_ACE),
+    LEVEL_UP_MOVE(33, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(38, MOVE_AGILITY),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Close Combat (34), Brave Bird (49)
+static const u16 sStaraptorLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 1, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE( 1, MOVE_WING_ATTACK),
+    LEVEL_UP_MOVE( 5, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE( 9, MOVE_WING_ATTACK),
+    LEVEL_UP_MOVE(13, MOVE_DOUBLE_TEAM),
+    LEVEL_UP_MOVE(18, MOVE_ENDEAVOR),
+    LEVEL_UP_MOVE(23, MOVE_WHIRLWIND),
+    LEVEL_UP_MOVE(28, MOVE_AERIAL_ACE),
+    LEVEL_UP_MOVE(33, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(41, MOVE_AGILITY),
+    LEVEL_UP_END
+};
+
+static const u16 sBidoofLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 5, MOVE_GROWL),
+    LEVEL_UP_MOVE( 9, MOVE_DEFENSE_CURL),
+    LEVEL_UP_MOVE(13, MOVE_ROLLOUT),
+    LEVEL_UP_MOVE(17, MOVE_HEADBUTT),
+    LEVEL_UP_MOVE(21, MOVE_HYPER_FANG),
+    LEVEL_UP_MOVE(25, MOVE_YAWN),
+    LEVEL_UP_MOVE(29, MOVE_AMNESIA),
+    LEVEL_UP_MOVE(33, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(37, MOVE_SUPER_FANG),
+    LEVEL_UP_MOVE(41, MOVE_SUPERPOWER),
+    LEVEL_UP_MOVE(45, MOVE_CURSE),
+    LEVEL_UP_END
+};
+
+static const u16 sBibarelLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 5, MOVE_GROWL),
+    LEVEL_UP_MOVE( 9, MOVE_DEFENSE_CURL),
+    LEVEL_UP_MOVE(13, MOVE_ROLLOUT),
+    LEVEL_UP_MOVE(15, MOVE_WATER_GUN),
+    LEVEL_UP_MOVE(18, MOVE_HEADBUTT),
+    LEVEL_UP_MOVE(23, MOVE_HYPER_FANG),
+    LEVEL_UP_MOVE(28, MOVE_YAWN),
+    LEVEL_UP_MOVE(33, MOVE_AMNESIA),
+    LEVEL_UP_MOVE(38, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(43, MOVE_SUPER_FANG),
+    LEVEL_UP_MOVE(48, MOVE_SUPERPOWER),
+    LEVEL_UP_MOVE(53, MOVE_CURSE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Bug Bite (16)
+static const u16 sKricketotLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 1, MOVE_BIDE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: X Scissor (30), Night Slash (42), Bug Buzz (46)
+static const u16 sKricketuneLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 1, MOVE_BIDE),
+    LEVEL_UP_MOVE(10, MOVE_FURY_CUTTER),
+    LEVEL_UP_MOVE(14, MOVE_LEECH_LIFE),
+    LEVEL_UP_MOVE(18, MOVE_SING),
+    LEVEL_UP_MOVE(22, MOVE_FOCUS_ENERGY),
+    LEVEL_UP_MOVE(26, MOVE_SLASH),
+    LEVEL_UP_MOVE(34, MOVE_SCREECH),
+    LEVEL_UP_MOVE(38, MOVE_TAUNT),
+    LEVEL_UP_MOVE(50, MOVE_PERISH_SONG),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Thunder Fang (29), Discharge (41)
+static const u16 sShinxLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 5, MOVE_LEER),
+    LEVEL_UP_MOVE( 9, MOVE_CHARGE),
+    LEVEL_UP_MOVE(13, MOVE_SPARK),
+    LEVEL_UP_MOVE(17, MOVE_BITE),
+    LEVEL_UP_MOVE(21, MOVE_ROAR),
+    LEVEL_UP_MOVE(25, MOVE_SWAGGER),
+    LEVEL_UP_MOVE(33, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(37, MOVE_SCARY_FACE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Thunder Fang (33), Discharge (48)
+static const u16 sLuxioLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 5, MOVE_LEER),
+    LEVEL_UP_MOVE( 9, MOVE_CHARGE),
+    LEVEL_UP_MOVE(13, MOVE_SPARK),
+    LEVEL_UP_MOVE(18, MOVE_BITE),
+    LEVEL_UP_MOVE(23, MOVE_ROAR),
+    LEVEL_UP_MOVE(28, MOVE_SWAGGER),
+    LEVEL_UP_MOVE(38, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(43, MOVE_SCARY_FACE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Thunder Fang (35), Discharge (56)
+static const u16 sLuxrayLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 1, MOVE_CHARGE),
+    LEVEL_UP_MOVE( 5, MOVE_LEER),
+    LEVEL_UP_MOVE( 9, MOVE_CHARGE),
+    LEVEL_UP_MOVE(13, MOVE_SPARK),
+    LEVEL_UP_MOVE(18, MOVE_BITE),
+    LEVEL_UP_MOVE(23, MOVE_ROAR),
+    LEVEL_UP_MOVE(28, MOVE_SWAGGER),
+    LEVEL_UP_MOVE(42, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(49, MOVE_SCARY_FACE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Worry Seed (16)
+static const u16 sBudewLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_ABSORB),
+    LEVEL_UP_MOVE( 4, MOVE_GROWTH),
+    LEVEL_UP_MOVE( 7, MOVE_WATER_SPORT),
+    LEVEL_UP_MOVE(10, MOVE_STUN_SPORE),
+    LEVEL_UP_MOVE(13, MOVE_MEGA_DRAIN),
+    LEVEL_UP_END
+};
+
+static const u16 sRoseradeLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_WEATHER_BALL),
+    LEVEL_UP_MOVE( 1, MOVE_POISON_STING),
+    LEVEL_UP_MOVE( 1, MOVE_MEGA_DRAIN),
+    LEVEL_UP_MOVE( 1, MOVE_MAGICAL_LEAF),
+    LEVEL_UP_MOVE( 1, MOVE_SWEET_SCENT),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Assurance (24), Zen Headbutt (33), Head Smash (43)
+static const u16 sCranidosLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_HEADBUTT),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 6, MOVE_FOCUS_ENERGY),
+    LEVEL_UP_MOVE(10, MOVE_PURSUIT),
+    LEVEL_UP_MOVE(15, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(19, MOVE_SCARY_FACE),
+    LEVEL_UP_MOVE(28, MOVE_ANCIENT_POWER),
+    LEVEL_UP_MOVE(37, MOVE_SCREECH),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Assurance (24), Zen Headbutt (36), Head Smash (52)
+static const u16 sRampardosLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_HEADBUTT),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 6, MOVE_FOCUS_ENERGY),
+    LEVEL_UP_MOVE(10, MOVE_PURSUIT),
+    LEVEL_UP_MOVE(15, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(19, MOVE_SCARY_FACE),
+    LEVEL_UP_MOVE(28, MOVE_ANCIENT_POWER),
+    LEVEL_UP_MOVE(30, MOVE_ENDEAVOR),
+    LEVEL_UP_MOVE(43, MOVE_SCREECH),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Metal Burst (37), Iron Head (43)
+static const u16 sShieldonLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_PROTECT),
+    LEVEL_UP_MOVE( 6, MOVE_TAUNT),
+    LEVEL_UP_MOVE(10, MOVE_METAL_SOUND),
+    LEVEL_UP_MOVE(15, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(19, MOVE_IRON_DEFENSE),
+    LEVEL_UP_MOVE(24, MOVE_SWAGGER),
+    LEVEL_UP_MOVE(28, MOVE_ANCIENT_POWER),
+    LEVEL_UP_MOVE(33, MOVE_ENDURE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Metal Burst (43), Iron Head (52)
+static const u16 sBastiodonLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_PROTECT),
+    LEVEL_UP_MOVE( 1, MOVE_TAUNT),
+    LEVEL_UP_MOVE( 1, MOVE_METAL_SOUND),
+    LEVEL_UP_MOVE( 6, MOVE_TAUNT),
+    LEVEL_UP_MOVE(10, MOVE_METAL_SOUND),
+    LEVEL_UP_MOVE(15, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(19, MOVE_IRON_DEFENSE),
+    LEVEL_UP_MOVE(24, MOVE_SWAGGER),
+    LEVEL_UP_MOVE(28, MOVE_ANCIENT_POWER),
+    LEVEL_UP_MOVE(30, MOVE_BLOCK),
+    LEVEL_UP_MOVE(36, MOVE_ENDURE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Bug Bite (15)
+static const u16 sBurmyLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_PROTECT),
+    LEVEL_UP_MOVE(10, MOVE_TACKLE),
+    LEVEL_UP_MOVE(20, MOVE_HIDDEN_POWER),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Bug Bite (15), Captivate (35), Leaf Storm (47)
+static const u16 sWormadamLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE(10, MOVE_PROTECT),
+    LEVEL_UP_MOVE(20, MOVE_HIDDEN_POWER),
+    LEVEL_UP_MOVE(23, MOVE_CONFUSION),
+    LEVEL_UP_MOVE(26, MOVE_RAZOR_LEAF),
+    LEVEL_UP_MOVE(29, MOVE_GROWTH),
+    LEVEL_UP_MOVE(32, MOVE_PSYBEAM),
+    LEVEL_UP_MOVE(38, MOVE_FLAIL),
+    LEVEL_UP_MOVE(41, MOVE_ATTRACT),
+    LEVEL_UP_MOVE(44, MOVE_PSYCHIC),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Bug Bite (15), Air Slash (41), Bug Buzz (47)
+static const u16 sMothimLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE(10, MOVE_PROTECT),
+    LEVEL_UP_MOVE(20, MOVE_HIDDEN_POWER),
+    LEVEL_UP_MOVE(23, MOVE_CONFUSION),
+    LEVEL_UP_MOVE(26, MOVE_GUST),
+    LEVEL_UP_MOVE(29, MOVE_POISON_POWDER),
+    LEVEL_UP_MOVE(32, MOVE_PSYBEAM),
+    LEVEL_UP_MOVE(35, MOVE_CAMOUFLAGE),
+    LEVEL_UP_MOVE(38, MOVE_SILVER_WIND),
+    LEVEL_UP_MOVE(44, MOVE_PSYCHIC),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Bug Bite (13)
+static const u16 sCombeeLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_SWEET_SCENT),
+    LEVEL_UP_MOVE( 1, MOVE_GUST),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Defend Order (13), Power Gem (21), Heal Order (25), Captivate (33), Attack Order (37)
+static const u16 sVespiquenLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_SWEET_SCENT),
+    LEVEL_UP_MOVE( 1, MOVE_GUST),
+    LEVEL_UP_MOVE( 3, MOVE_POISON_STING),
+    LEVEL_UP_MOVE( 7, MOVE_CONFUSE_RAY),
+    LEVEL_UP_MOVE( 9, MOVE_FURY_CUTTER),
+    LEVEL_UP_MOVE(15, MOVE_PURSUIT),
+    LEVEL_UP_MOVE(19, MOVE_FURY_SWIPES),
+    LEVEL_UP_MOVE(27, MOVE_TOXIC),
+    LEVEL_UP_MOVE(31, MOVE_SLASH),
+    LEVEL_UP_MOVE(39, MOVE_SWAGGER),
+    LEVEL_UP_MOVE(43, MOVE_DESTINY_BOND),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Discharge (29), Last Resort (37)
+static const u16 sPachirisuLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 1, MOVE_BIDE),
+    LEVEL_UP_MOVE( 5, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE( 9, MOVE_CHARM),
+    LEVEL_UP_MOVE(13, MOVE_SPARK),
+    LEVEL_UP_MOVE(17, MOVE_ENDURE),
+    LEVEL_UP_MOVE(21, MOVE_SWIFT),
+    LEVEL_UP_MOVE(25, MOVE_SWEET_KISS),
+    LEVEL_UP_MOVE(33, MOVE_SUPER_FANG),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Aqua Jet (21)
+static const u16 sBuizelLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_SONIC_BOOM),
+    LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 1, MOVE_WATER_SPORT),
+    LEVEL_UP_MOVE( 3, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE( 6, MOVE_WATER_GUN),
+    LEVEL_UP_MOVE(10, MOVE_PURSUIT),
+    LEVEL_UP_MOVE(15, MOVE_SWIFT),
+    LEVEL_UP_MOVE(28, MOVE_AGILITY),
+    LEVEL_UP_MOVE(36, MOVE_WHIRLPOOL),
+    LEVEL_UP_MOVE(45, MOVE_RAZOR_WIND),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Ice Fang (1), Aqua Jet (21)
+static const u16 sFloatzelLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_SONIC_BOOM),
+    LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 1, MOVE_WATER_SPORT),
+    LEVEL_UP_MOVE( 1, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE( 3, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE( 6, MOVE_WATER_GUN),
+    LEVEL_UP_MOVE(10, MOVE_PURSUIT),
+    LEVEL_UP_MOVE(15, MOVE_SWIFT),
+    LEVEL_UP_MOVE(26, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(29, MOVE_AGILITY),
+    LEVEL_UP_MOVE(39, MOVE_WHIRLPOOL),
+    LEVEL_UP_MOVE(50, MOVE_RAZOR_WIND),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Worry Seed (28), Lucky Chant (40)
+static const u16 sCherubiLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 7, MOVE_GROWTH),
+    LEVEL_UP_MOVE(10, MOVE_LEECH_SEED),
+    LEVEL_UP_MOVE(13, MOVE_HELPING_HAND),
+    LEVEL_UP_MOVE(19, MOVE_MAGICAL_LEAF),
+    LEVEL_UP_MOVE(22, MOVE_SUNNY_DAY),
+    LEVEL_UP_MOVE(31, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(37, MOVE_SOLAR_BEAM),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Worry Seed (30), Lucky Chant (48)
+static const u16 sCherrimLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_GROWTH),
+    LEVEL_UP_MOVE( 7, MOVE_GROWTH),
+    LEVEL_UP_MOVE(10, MOVE_LEECH_SEED),
+    LEVEL_UP_MOVE(13, MOVE_HELPING_HAND),
+    LEVEL_UP_MOVE(19, MOVE_MAGICAL_LEAF),
+    LEVEL_UP_MOVE(22, MOVE_SUNNY_DAY),
+    LEVEL_UP_MOVE(25, MOVE_PETAL_DANCE),
+    LEVEL_UP_MOVE(35, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(43, MOVE_SOLAR_BEAM),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Mud Bomb (11)
+static const u16 sShellosLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_MUD_SLAP),
+    LEVEL_UP_MOVE( 2, MOVE_MUD_SPORT),
+    LEVEL_UP_MOVE( 4, MOVE_HARDEN),
+    LEVEL_UP_MOVE( 7, MOVE_WATER_PULSE),
+    LEVEL_UP_MOVE(16, MOVE_HIDDEN_POWER),
+    LEVEL_UP_MOVE(22, MOVE_RAIN_DANCE),
+    LEVEL_UP_MOVE(29, MOVE_BODY_SLAM),
+    LEVEL_UP_MOVE(37, MOVE_MUDDY_WATER),
+    LEVEL_UP_MOVE(46, MOVE_RECOVER),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Mud Bomb (11)
+static const u16 sGastrodonLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_MUD_SLAP),
+    LEVEL_UP_MOVE( 1, MOVE_MUD_SPORT),
+    LEVEL_UP_MOVE( 1, MOVE_HARDEN),
+    LEVEL_UP_MOVE( 1, MOVE_WATER_PULSE),
+    LEVEL_UP_MOVE( 2, MOVE_MUD_SPORT),
+    LEVEL_UP_MOVE( 4, MOVE_HARDEN),
+    LEVEL_UP_MOVE( 7, MOVE_WATER_PULSE),
+    LEVEL_UP_MOVE(16, MOVE_HIDDEN_POWER),
+    LEVEL_UP_MOVE(22, MOVE_RAIN_DANCE),
+    LEVEL_UP_MOVE(29, MOVE_BODY_SLAM),
+    LEVEL_UP_MOVE(41, MOVE_MUDDY_WATER),
+    LEVEL_UP_MOVE(54, MOVE_RECOVER),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Fling (36), Nasty Plot (39), Last Resort (43)
+static const u16 sAmbipomLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
+    LEVEL_UP_MOVE( 1, MOVE_TAIL_WHIP),
+    LEVEL_UP_MOVE( 1, MOVE_SAND_ATTACK),
+    LEVEL_UP_MOVE( 1, MOVE_ASTONISH),
+    LEVEL_UP_MOVE( 4, MOVE_SAND_ATTACK),
+    LEVEL_UP_MOVE( 8, MOVE_ASTONISH),
+    LEVEL_UP_MOVE(11, MOVE_BATON_PASS),
+    LEVEL_UP_MOVE(15, MOVE_TICKLE),
+    LEVEL_UP_MOVE(18, MOVE_FURY_SWIPES),
+    LEVEL_UP_MOVE(22, MOVE_SWIFT),
+    LEVEL_UP_MOVE(25, MOVE_SCREECH),
+    LEVEL_UP_MOVE(29, MOVE_AGILITY),
+    LEVEL_UP_MOVE(32, MOVE_DOUBLE_HIT),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Payback (17), Ominous Wind (30)
+static const u16 sDrifloonLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_CONSTRICT),
+    LEVEL_UP_MOVE( 1, MOVE_MINIMIZE),
+    LEVEL_UP_MOVE( 6, MOVE_ASTONISH),
+    LEVEL_UP_MOVE(11, MOVE_GUST),
+    LEVEL_UP_MOVE(14, MOVE_FOCUS_ENERGY),
+    LEVEL_UP_MOVE(22, MOVE_STOCKPILE),
+    LEVEL_UP_MOVE(27, MOVE_SWALLOW),
+    LEVEL_UP_MOVE(27, MOVE_SPIT_UP),
+    LEVEL_UP_MOVE(33, MOVE_BATON_PASS),
+    LEVEL_UP_MOVE(38, MOVE_SHADOW_BALL),
+    LEVEL_UP_MOVE(43, MOVE_EXPLOSION),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Payback (17), Ominous Wind (32)
+static const u16 sDrifblimLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_CONSTRICT),
+    LEVEL_UP_MOVE( 1, MOVE_MINIMIZE),
+    LEVEL_UP_MOVE( 1, MOVE_ASTONISH),
+    LEVEL_UP_MOVE( 1, MOVE_GUST),
+    LEVEL_UP_MOVE( 6, MOVE_ASTONISH),
+    LEVEL_UP_MOVE(11, MOVE_GUST),
+    LEVEL_UP_MOVE(14, MOVE_FOCUS_ENERGY),
+    LEVEL_UP_MOVE(22, MOVE_STOCKPILE),
+    LEVEL_UP_MOVE(27, MOVE_SWALLOW),
+    LEVEL_UP_MOVE(27, MOVE_SPIT_UP),
+    LEVEL_UP_MOVE(37, MOVE_BATON_PASS),
+    LEVEL_UP_MOVE(44, MOVE_SHADOW_BALL),
+    LEVEL_UP_MOVE(51, MOVE_EXPLOSION),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Healing Wish (53)
+static const u16 sBunearyLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_SPLASH),
+    LEVEL_UP_MOVE( 1, MOVE_POUND),
+    LEVEL_UP_MOVE( 1, MOVE_DEFENSE_CURL),
+    LEVEL_UP_MOVE( 1, MOVE_FORESIGHT),
+    LEVEL_UP_MOVE( 6, MOVE_ENDURE),
+    LEVEL_UP_MOVE(13, MOVE_FRUSTRATION),
+    LEVEL_UP_MOVE(16, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE(23, MOVE_JUMP_KICK),
+    LEVEL_UP_MOVE(26, MOVE_BATON_PASS),
+    LEVEL_UP_MOVE(33, MOVE_AGILITY),
+    LEVEL_UP_MOVE(36, MOVE_DIZZY_PUNCH),
+    LEVEL_UP_MOVE(43, MOVE_CHARM),
+    LEVEL_UP_MOVE(46, MOVE_BOUNCE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Healing Wish (53)
+static const u16 sLopunnyLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_MIRROR_COAT),
+    LEVEL_UP_MOVE( 1, MOVE_MAGIC_COAT),
+    LEVEL_UP_MOVE( 1, MOVE_SPLASH),
+    LEVEL_UP_MOVE( 1, MOVE_POUND),
+    LEVEL_UP_MOVE( 1, MOVE_DEFENSE_CURL),
+    LEVEL_UP_MOVE( 1, MOVE_FORESIGHT),
+    LEVEL_UP_MOVE( 6, MOVE_ENDURE),
+    LEVEL_UP_MOVE(13, MOVE_RETURN),
+    LEVEL_UP_MOVE(16, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE(23, MOVE_JUMP_KICK),
+    LEVEL_UP_MOVE(26, MOVE_BATON_PASS),
+    LEVEL_UP_MOVE(33, MOVE_AGILITY),
+    LEVEL_UP_MOVE(36, MOVE_DIZZY_PUNCH),
+    LEVEL_UP_MOVE(43, MOVE_CHARM),
+    LEVEL_UP_MOVE(46, MOVE_BOUNCE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Lucky Chant (1)
+static const u16 sMismagiusLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_MAGICAL_LEAF),
+    LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 1, MOVE_PSYWAVE),
+    LEVEL_UP_MOVE( 1, MOVE_SPITE),
+    LEVEL_UP_MOVE( 1, MOVE_ASTONISH),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Nasty Plot (35), Night Slash (45), Dark Pulse (55)
+static const u16 sHonchkrowLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_ASTONISH),
+    LEVEL_UP_MOVE( 1, MOVE_PURSUIT),
+    LEVEL_UP_MOVE( 1, MOVE_HAZE),
+    LEVEL_UP_MOVE( 1, MOVE_WING_ATTACK),
+    LEVEL_UP_MOVE(25, MOVE_SWAGGER),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Captivate (32), Sucker Punch (41)
+static const u16 sGlameowLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_FAKE_OUT),
+    LEVEL_UP_MOVE( 5, MOVE_SCRATCH),
+    LEVEL_UP_MOVE( 8, MOVE_GROWL),
+    LEVEL_UP_MOVE(13, MOVE_HYPNOSIS),
+    LEVEL_UP_MOVE(17, MOVE_FAINT_ATTACK),
+    LEVEL_UP_MOVE(20, MOVE_FURY_SWIPES),
+    LEVEL_UP_MOVE(25, MOVE_CHARM),
+    LEVEL_UP_MOVE(29, MOVE_ASSIST),
+    LEVEL_UP_MOVE(37, MOVE_SLASH),
+    LEVEL_UP_MOVE(45, MOVE_ATTRACT),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Captivate (32)
+static const u16 sPuruglyLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_FAKE_OUT),
+    LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
+    LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 5, MOVE_SCRATCH),
+    LEVEL_UP_MOVE( 8, MOVE_GROWL),
+    LEVEL_UP_MOVE(13, MOVE_HYPNOSIS),
+    LEVEL_UP_MOVE(17, MOVE_FAINT_ATTACK),
+    LEVEL_UP_MOVE(20, MOVE_FURY_SWIPES),
+    LEVEL_UP_MOVE(25, MOVE_CHARM),
+    LEVEL_UP_MOVE(29, MOVE_ASSIST),
+    LEVEL_UP_MOVE(37, MOVE_SLASH),
+    LEVEL_UP_MOVE(38, MOVE_SWAGGER),
+    LEVEL_UP_MOVE(45, MOVE_BODY_SLAM),
+    LEVEL_UP_MOVE(53, MOVE_ATTRACT),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Last Resort (22)
+static const u16 sChinglingLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_WRAP),
+    LEVEL_UP_MOVE( 6, MOVE_GROWL),
+    LEVEL_UP_MOVE( 9, MOVE_ASTONISH),
+    LEVEL_UP_MOVE(14, MOVE_CONFUSION),
+    LEVEL_UP_MOVE(17, MOVE_UPROAR),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Feint (18), Night Slash (32)
+static const u16 sStunkyLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
+    LEVEL_UP_MOVE( 1, MOVE_FOCUS_ENERGY),
+    LEVEL_UP_MOVE( 4, MOVE_POISON_GAS),
+    LEVEL_UP_MOVE( 7, MOVE_SCREECH),
+    LEVEL_UP_MOVE(10, MOVE_FURY_SWIPES),
+    LEVEL_UP_MOVE(14, MOVE_SMOKESCREEN),
+    LEVEL_UP_MOVE(22, MOVE_SLASH),
+    LEVEL_UP_MOVE(27, MOVE_TOXIC),
+    LEVEL_UP_MOVE(38, MOVE_MEMENTO),
+    LEVEL_UP_MOVE(44, MOVE_EXPLOSION),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Feint (18), Night Slash (32)
+static const u16 sSkuntankLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
+    LEVEL_UP_MOVE( 1, MOVE_FOCUS_ENERGY),
+    LEVEL_UP_MOVE( 1, MOVE_POISON_GAS),
+    LEVEL_UP_MOVE( 4, MOVE_POISON_GAS),
+    LEVEL_UP_MOVE( 7, MOVE_SCREECH),
+    LEVEL_UP_MOVE(10, MOVE_FURY_SWIPES),
+    LEVEL_UP_MOVE(14, MOVE_SMOKESCREEN),
+    LEVEL_UP_MOVE(22, MOVE_SLASH),
+    LEVEL_UP_MOVE(27, MOVE_TOXIC),
+    LEVEL_UP_MOVE(34, MOVE_FLAMETHROWER),
+    LEVEL_UP_MOVE(42, MOVE_MEMENTO),
+    LEVEL_UP_MOVE(52, MOVE_EXPLOSION),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Gyro Ball (35), Payback (49), Heal Block (52)
+static const u16 sBronzorLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_CONFUSION),
+    LEVEL_UP_MOVE( 7, MOVE_HYPNOSIS),
+    LEVEL_UP_MOVE(12, MOVE_IMPRISON),
+    LEVEL_UP_MOVE(14, MOVE_CONFUSE_RAY),
+    LEVEL_UP_MOVE(19, MOVE_EXTRASENSORY),
+    LEVEL_UP_MOVE(26, MOVE_IRON_DEFENSE),
+    LEVEL_UP_MOVE(30, MOVE_SAFEGUARD),
+    LEVEL_UP_MOVE(37, MOVE_FUTURE_SIGHT),
+    LEVEL_UP_MOVE(41, MOVE_FAINT_ATTACK),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Gyro Ball (38), Payback (61), Heal Block (67)
+static const u16 sBronzongLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_SUNNY_DAY),
+    LEVEL_UP_MOVE( 1, MOVE_RAIN_DANCE),
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_CONFUSION),
+    LEVEL_UP_MOVE( 1, MOVE_HYPNOSIS),
+    LEVEL_UP_MOVE( 1, MOVE_IMPRISON),
+    LEVEL_UP_MOVE( 7, MOVE_HYPNOSIS),
+    LEVEL_UP_MOVE(12, MOVE_IMPRISON),
+    LEVEL_UP_MOVE(14, MOVE_CONFUSE_RAY),
+    LEVEL_UP_MOVE(19, MOVE_EXTRASENSORY),
+    LEVEL_UP_MOVE(26, MOVE_IRON_DEFENSE),
+    LEVEL_UP_MOVE(30, MOVE_SAFEGUARD),
+    LEVEL_UP_MOVE(33, MOVE_BLOCK),
+    LEVEL_UP_MOVE(43, MOVE_FUTURE_SIGHT),
+    LEVEL_UP_MOVE(50, MOVE_FAINT_ATTACK),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Copycat (1), Sucker Punch (41)
+static const u16 sBonslyLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_FAKE_TEARS),
+    LEVEL_UP_MOVE( 6, MOVE_FLAIL),
+    LEVEL_UP_MOVE( 9, MOVE_LOW_KICK),
+    LEVEL_UP_MOVE(14, MOVE_ROCK_THROW),
+    LEVEL_UP_MOVE(17, MOVE_MIMIC),
+    LEVEL_UP_MOVE(22, MOVE_BLOCK),
+    LEVEL_UP_MOVE(25, MOVE_FAINT_ATTACK),
+    LEVEL_UP_MOVE(30, MOVE_ROCK_TOMB),
+    LEVEL_UP_MOVE(33, MOVE_ROCK_SLIDE),
+    LEVEL_UP_MOVE(38, MOVE_SLAM),
+    LEVEL_UP_MOVE(46, MOVE_DOUBLE_EDGE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Copycat (4)
+static const u16 sMimeJrLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TICKLE),
+    LEVEL_UP_MOVE( 1, MOVE_BARRIER),
+    LEVEL_UP_MOVE( 1, MOVE_CONFUSION),
+    LEVEL_UP_MOVE( 8, MOVE_MEDITATE),
+    LEVEL_UP_MOVE(11, MOVE_ENCORE),
+    LEVEL_UP_MOVE(15, MOVE_DOUBLE_SLAP),
+    LEVEL_UP_MOVE(18, MOVE_MIMIC),
+    LEVEL_UP_MOVE(22, MOVE_LIGHT_SCREEN),
+    LEVEL_UP_MOVE(22, MOVE_REFLECT),
+    LEVEL_UP_MOVE(25, MOVE_PSYBEAM),
+    LEVEL_UP_MOVE(29, MOVE_SUBSTITUTE),
+    LEVEL_UP_MOVE(32, MOVE_RECYCLE),
+    LEVEL_UP_MOVE(36, MOVE_TRICK),
+    LEVEL_UP_MOVE(39, MOVE_PSYCHIC),
+    LEVEL_UP_MOVE(43, MOVE_ROLE_PLAY),
+    LEVEL_UP_MOVE(46, MOVE_BATON_PASS),
+    LEVEL_UP_MOVE(50, MOVE_SAFEGUARD),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Copycat (5)
+static const u16 sHappinyLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_POUND),
+    LEVEL_UP_MOVE( 1, MOVE_CHARM),
+    LEVEL_UP_MOVE( 9, MOVE_REFRESH),
+    LEVEL_UP_MOVE(12, MOVE_SWEET_KISS),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Chatter (21), Roost (33)
+static const u16 sChatotLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_PECK),
+    LEVEL_UP_MOVE( 5, MOVE_GROWL),
+    LEVEL_UP_MOVE( 9, MOVE_MIRROR_MOVE),
+    LEVEL_UP_MOVE(13, MOVE_SING),
+    LEVEL_UP_MOVE(17, MOVE_FURY_ATTACK),
+    LEVEL_UP_MOVE(25, MOVE_TAUNT),
+    LEVEL_UP_MOVE(29, MOVE_MIMIC),
+    LEVEL_UP_MOVE(37, MOVE_UPROAR),
+    LEVEL_UP_MOVE(41, MOVE_FEATHER_DANCE),
+    LEVEL_UP_MOVE(45, MOVE_HYPER_VOICE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Shadow Sneak (1), Ominous Wind (25), Sucker Punch (31), Nasty Plot (37), Dark Pulse (49)
+static const u16 sSpiritombLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_CURSE),
+    LEVEL_UP_MOVE( 1, MOVE_PURSUIT),
+    LEVEL_UP_MOVE( 1, MOVE_CONFUSE_RAY),
+    LEVEL_UP_MOVE( 1, MOVE_SPITE),
+    LEVEL_UP_MOVE( 7, MOVE_FAINT_ATTACK),
+    LEVEL_UP_MOVE(13, MOVE_HYPNOSIS),
+    LEVEL_UP_MOVE(19, MOVE_DREAM_EATER),
+    LEVEL_UP_MOVE(43, MOVE_MEMENTO),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Dragon Rush (37)
+static const u16 sGibleLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 3, MOVE_SAND_ATTACK),
+    LEVEL_UP_MOVE( 7, MOVE_DRAGON_RAGE),
+    LEVEL_UP_MOVE(13, MOVE_SANDSTORM),
+    LEVEL_UP_MOVE(15, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(19, MOVE_SAND_TOMB),
+    LEVEL_UP_MOVE(25, MOVE_SLASH),
+    LEVEL_UP_MOVE(27, MOVE_DRAGON_CLAW),
+    LEVEL_UP_MOVE(31, MOVE_DIG),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Dragon Rush (49)
+static const u16 sGabiteLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_SAND_ATTACK),
+    LEVEL_UP_MOVE( 3, MOVE_SAND_ATTACK),
+    LEVEL_UP_MOVE( 7, MOVE_DRAGON_RAGE),
+    LEVEL_UP_MOVE(13, MOVE_SANDSTORM),
+    LEVEL_UP_MOVE(15, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(19, MOVE_SAND_TOMB),
+    LEVEL_UP_MOVE(28, MOVE_SLASH),
+    LEVEL_UP_MOVE(33, MOVE_DRAGON_CLAW),
+    LEVEL_UP_MOVE(40, MOVE_DIG),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Fire Fang (1), Dragon Rush (55)
+static const u16 sGarchompLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_SAND_ATTACK),
+    LEVEL_UP_MOVE( 1, MOVE_DRAGON_RAGE),
+    LEVEL_UP_MOVE( 1, MOVE_SANDSTORM),
+    LEVEL_UP_MOVE( 3, MOVE_SAND_ATTACK),
+    LEVEL_UP_MOVE( 7, MOVE_DRAGON_RAGE),
+    LEVEL_UP_MOVE(13, MOVE_SANDSTORM),
+    LEVEL_UP_MOVE(15, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(19, MOVE_SAND_TOMB),
+    LEVEL_UP_MOVE(28, MOVE_SLASH),
+    LEVEL_UP_MOVE(33, MOVE_DRAGON_CLAW),
+    LEVEL_UP_MOVE(40, MOVE_DIG),
+    LEVEL_UP_MOVE(48, MOVE_CRUNCH),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Fling (36), Natural Gift (44), Last Resort (49)
+static const u16 sMunchlaxLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_METRONOME),
+    LEVEL_UP_MOVE( 1, MOVE_ODOR_SLEUTH),
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 4, MOVE_DEFENSE_CURL),
+    LEVEL_UP_MOVE( 9, MOVE_AMNESIA),
+    LEVEL_UP_MOVE(12, MOVE_LICK),
+    LEVEL_UP_MOVE(17, MOVE_RECYCLE),
+    LEVEL_UP_MOVE(20, MOVE_SCREECH),
+    LEVEL_UP_MOVE(25, MOVE_STOCKPILE),
+    LEVEL_UP_MOVE(28, MOVE_SWALLOW),
+    LEVEL_UP_MOVE(33, MOVE_BODY_SLAM),
+    LEVEL_UP_MOVE(41, MOVE_ROLLOUT),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Force Palm (11), Feint (15), Copycat (29)
+static const u16 sRioluLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE( 1, MOVE_FORESIGHT),
+    LEVEL_UP_MOVE( 1, MOVE_ENDURE),
+    LEVEL_UP_MOVE( 6, MOVE_COUNTER),
+    LEVEL_UP_MOVE(19, MOVE_REVERSAL),
+    LEVEL_UP_MOVE(24, MOVE_SCREECH),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Dark Pulse (1), Force Palm (11), Feint (15), Me First (29), Aura Sphere (37), Close Combat (42), Dragon Pulse (47)
+static const u16 sLucarioLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE( 1, MOVE_FORESIGHT),
+    LEVEL_UP_MOVE( 1, MOVE_DETECT),
+    LEVEL_UP_MOVE( 1, MOVE_METAL_CLAW),
+    LEVEL_UP_MOVE( 6, MOVE_COUNTER),
+    LEVEL_UP_MOVE(19, MOVE_BONE_RUSH),
+    LEVEL_UP_MOVE(24, MOVE_METAL_SOUND),
+    LEVEL_UP_MOVE(33, MOVE_SWORDS_DANCE),
+    LEVEL_UP_MOVE(51, MOVE_EXTREME_SPEED),
+    LEVEL_UP_END
+};
+
+static const u16 sHippopotasLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_SAND_ATTACK),
+    LEVEL_UP_MOVE( 7, MOVE_BITE),
+    LEVEL_UP_MOVE(13, MOVE_YAWN),
+    LEVEL_UP_MOVE(19, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(25, MOVE_SAND_TOMB),
+    LEVEL_UP_MOVE(31, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(37, MOVE_EARTHQUAKE),
+    LEVEL_UP_MOVE(44, MOVE_DOUBLE_EDGE),
+    LEVEL_UP_MOVE(50, MOVE_FISSURE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Ice Fang (1), Fire Fang (1), Thunder Fang (1)
+static const u16 sHippowdonLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_SAND_ATTACK),
+    LEVEL_UP_MOVE( 1, MOVE_BITE),
+    LEVEL_UP_MOVE( 1, MOVE_YAWN),
+    LEVEL_UP_MOVE( 7, MOVE_BITE),
+    LEVEL_UP_MOVE(13, MOVE_YAWN),
+    LEVEL_UP_MOVE(19, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(25, MOVE_SAND_TOMB),
+    LEVEL_UP_MOVE(31, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(40, MOVE_EARTHQUAKE),
+    LEVEL_UP_MOVE(50, MOVE_DOUBLE_EDGE),
+    LEVEL_UP_MOVE(60, MOVE_FISSURE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Acupressure (17), Toxic Spikes (28), Bug Bite (34), Cross Poison (50)
+static const u16 sSkorupiLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_BITE),
+    LEVEL_UP_MOVE( 1, MOVE_POISON_STING),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 6, MOVE_KNOCK_OFF),
+    LEVEL_UP_MOVE(12, MOVE_PIN_MISSILE),
+    LEVEL_UP_MOVE(23, MOVE_SCARY_FACE),
+    LEVEL_UP_MOVE(39, MOVE_POISON_FANG),
+    LEVEL_UP_MOVE(45, MOVE_CRUNCH),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Thunder Fang (1), Ice Fang (1), Fire Fang (1), Acupressure (17), Toxic Spikes (28), Bug Bite (34), Cross Poison (58)
+static const u16 sDrapionLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_BITE),
+    LEVEL_UP_MOVE( 1, MOVE_POISON_STING),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 1, MOVE_KNOCK_OFF),
+    LEVEL_UP_MOVE( 6, MOVE_KNOCK_OFF),
+    LEVEL_UP_MOVE(12, MOVE_PIN_MISSILE),
+    LEVEL_UP_MOVE(23, MOVE_SCARY_FACE),
+    LEVEL_UP_MOVE(39, MOVE_POISON_FANG),
+    LEVEL_UP_MOVE(49, MOVE_CRUNCH),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Mud Bomb (29), Sucker Punch (31), Nasty Plot (36), Poison Jab (38)
+static const u16 sCroagunkLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_ASTONISH),
+    LEVEL_UP_MOVE( 3, MOVE_MUD_SLAP),
+    LEVEL_UP_MOVE( 8, MOVE_POISON_STING),
+    LEVEL_UP_MOVE(10, MOVE_TAUNT),
+    LEVEL_UP_MOVE(15, MOVE_PURSUIT),
+    LEVEL_UP_MOVE(17, MOVE_FAINT_ATTACK),
+    LEVEL_UP_MOVE(22, MOVE_REVENGE),
+    LEVEL_UP_MOVE(24, MOVE_SWAGGER),
+    LEVEL_UP_MOVE(43, MOVE_SLUDGE_BOMB),
+    LEVEL_UP_MOVE(45, MOVE_FLATTER),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Mud Bomb (29), Sucker Punch (31), Nasty Plot (36), Poison Jab (41)
+static const u16 sToxicroakLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_ASTONISH),
+    LEVEL_UP_MOVE( 1, MOVE_MUD_SLAP),
+    LEVEL_UP_MOVE( 1, MOVE_POISON_STING),
+    LEVEL_UP_MOVE( 3, MOVE_MUD_SLAP),
+    LEVEL_UP_MOVE( 8, MOVE_POISON_STING),
+    LEVEL_UP_MOVE(10, MOVE_TAUNT),
+    LEVEL_UP_MOVE(15, MOVE_PURSUIT),
+    LEVEL_UP_MOVE(17, MOVE_FAINT_ATTACK),
+    LEVEL_UP_MOVE(22, MOVE_REVENGE),
+    LEVEL_UP_MOVE(24, MOVE_SWAGGER),
+    LEVEL_UP_MOVE(49, MOVE_SLUDGE_BOMB),
+    LEVEL_UP_MOVE(54, MOVE_FLATTER),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Wring Out (41), Power Whip (47)
+static const u16 sCarnivineLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_BIND),
+    LEVEL_UP_MOVE( 1, MOVE_GROWTH),
+    LEVEL_UP_MOVE( 7, MOVE_BITE),
+    LEVEL_UP_MOVE(11, MOVE_VINE_WHIP),
+    LEVEL_UP_MOVE(17, MOVE_SWEET_SCENT),
+    LEVEL_UP_MOVE(21, MOVE_INGRAIN),
+    LEVEL_UP_MOVE(27, MOVE_FAINT_ATTACK),
+    LEVEL_UP_MOVE(31, MOVE_STOCKPILE),
+    LEVEL_UP_MOVE(31, MOVE_SPIT_UP),
+    LEVEL_UP_MOVE(31, MOVE_SWALLOW),
+    LEVEL_UP_MOVE(37, MOVE_CRUNCH),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Captivate (26), Aqua Ring (33), U Turn (42)
+static const u16 sFinneonLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_POUND),
+    LEVEL_UP_MOVE( 6, MOVE_WATER_GUN),
+    LEVEL_UP_MOVE(10, MOVE_ATTRACT),
+    LEVEL_UP_MOVE(13, MOVE_RAIN_DANCE),
+    LEVEL_UP_MOVE(17, MOVE_GUST),
+    LEVEL_UP_MOVE(22, MOVE_WATER_PULSE),
+    LEVEL_UP_MOVE(29, MOVE_SAFEGUARD),
+    LEVEL_UP_MOVE(38, MOVE_WHIRLPOOL),
+    LEVEL_UP_MOVE(45, MOVE_BOUNCE),
+    LEVEL_UP_MOVE(49, MOVE_SILVER_WIND),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Captivate (26), Aqua Ring (35), U Turn (48)
+static const u16 sLumineonLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_POUND),
+    LEVEL_UP_MOVE( 1, MOVE_WATER_GUN),
+    LEVEL_UP_MOVE( 1, MOVE_ATTRACT),
+    LEVEL_UP_MOVE( 6, MOVE_WATER_GUN),
+    LEVEL_UP_MOVE(10, MOVE_ATTRACT),
+    LEVEL_UP_MOVE(13, MOVE_RAIN_DANCE),
+    LEVEL_UP_MOVE(17, MOVE_GUST),
+    LEVEL_UP_MOVE(22, MOVE_WATER_PULSE),
+    LEVEL_UP_MOVE(29, MOVE_SAFEGUARD),
+    LEVEL_UP_MOVE(42, MOVE_WHIRLPOOL),
+    LEVEL_UP_MOVE(53, MOVE_BOUNCE),
+    LEVEL_UP_MOVE(59, MOVE_SILVER_WIND),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Aqua Ring (46)
+static const u16 sMantykeLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_BUBBLE),
+    LEVEL_UP_MOVE( 4, MOVE_SUPERSONIC),
+    LEVEL_UP_MOVE(10, MOVE_BUBBLE_BEAM),
+    LEVEL_UP_MOVE(13, MOVE_HEADBUTT),
+    LEVEL_UP_MOVE(19, MOVE_AGILITY),
+    LEVEL_UP_MOVE(22, MOVE_WING_ATTACK),
+    LEVEL_UP_MOVE(28, MOVE_WATER_PULSE),
+    LEVEL_UP_MOVE(31, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(37, MOVE_CONFUSE_RAY),
+    LEVEL_UP_MOVE(40, MOVE_BOUNCE),
+    LEVEL_UP_MOVE(49, MOVE_HYDRO_PUMP),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Ice Shard (26), Wood Hammer (36)
+static const u16 sSnoverLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_POWDER_SNOW),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 5, MOVE_RAZOR_LEAF),
+    LEVEL_UP_MOVE( 9, MOVE_ICY_WIND),
+    LEVEL_UP_MOVE(13, MOVE_GRASS_WHISTLE),
+    LEVEL_UP_MOVE(17, MOVE_SWAGGER),
+    LEVEL_UP_MOVE(21, MOVE_MIST),
+    LEVEL_UP_MOVE(31, MOVE_INGRAIN),
+    LEVEL_UP_MOVE(41, MOVE_BLIZZARD),
+    LEVEL_UP_MOVE(46, MOVE_SHEER_COLD),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Ice Shard (26), Wood Hammer (36)
+static const u16 sAbomasnowLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_ICE_PUNCH),
+    LEVEL_UP_MOVE( 1, MOVE_POWDER_SNOW),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 1, MOVE_RAZOR_LEAF),
+    LEVEL_UP_MOVE( 1, MOVE_ICY_WIND),
+    LEVEL_UP_MOVE( 5, MOVE_RAZOR_LEAF),
+    LEVEL_UP_MOVE( 9, MOVE_ICY_WIND),
+    LEVEL_UP_MOVE(13, MOVE_GRASS_WHISTLE),
+    LEVEL_UP_MOVE(17, MOVE_SWAGGER),
+    LEVEL_UP_MOVE(21, MOVE_MIST),
+    LEVEL_UP_MOVE(31, MOVE_INGRAIN),
+    LEVEL_UP_MOVE(47, MOVE_BLIZZARD),
+    LEVEL_UP_MOVE(58, MOVE_SHEER_COLD),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Embargo (1), Assurance (1), Nasty Plot (24), Night Slash (35), Fling (38), Dark Pulse (49)
+static const u16 sWeavileLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_REVENGE),
+    LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 1, MOVE_TAUNT),
+    LEVEL_UP_MOVE( 1, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE( 8, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE(10, MOVE_SCREECH),
+    LEVEL_UP_MOVE(14, MOVE_FAINT_ATTACK),
+    LEVEL_UP_MOVE(21, MOVE_FURY_SWIPES),
+    LEVEL_UP_MOVE(28, MOVE_ICY_WIND),
+    LEVEL_UP_MOVE(42, MOVE_METAL_CLAW),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Magnet Bomb (30), Discharge (40), Mirror Shot (46), Magnet Rise (50), Gyro Ball (54)
+static const u16 sMagnezoneLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_MIRROR_COAT),
+    LEVEL_UP_MOVE( 1, MOVE_BARRIER),
+    LEVEL_UP_MOVE( 1, MOVE_METAL_SOUND),
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_THUNDER_SHOCK),
+    LEVEL_UP_MOVE( 1, MOVE_SUPERSONIC),
+    LEVEL_UP_MOVE( 6, MOVE_THUNDER_SHOCK),
+    LEVEL_UP_MOVE(11, MOVE_SUPERSONIC),
+    LEVEL_UP_MOVE(14, MOVE_SONIC_BOOM),
+    LEVEL_UP_MOVE(17, MOVE_THUNDER_WAVE),
+    LEVEL_UP_MOVE(22, MOVE_SPARK),
+    LEVEL_UP_MOVE(27, MOVE_LOCK_ON),
+    LEVEL_UP_MOVE(34, MOVE_SCREECH),
+    LEVEL_UP_MOVE(60, MOVE_ZAP_CANNON),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Me First (37), Power Whip (49), Wring Out (53), Gyro Ball (57)
+static const u16 sLickilickyLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_LICK),
+    LEVEL_UP_MOVE( 5, MOVE_SUPERSONIC),
+    LEVEL_UP_MOVE( 9, MOVE_DEFENSE_CURL),
+    LEVEL_UP_MOVE(13, MOVE_KNOCK_OFF),
+    LEVEL_UP_MOVE(17, MOVE_WRAP),
+    LEVEL_UP_MOVE(21, MOVE_STOMP),
+    LEVEL_UP_MOVE(25, MOVE_DISABLE),
+    LEVEL_UP_MOVE(29, MOVE_SLAM),
+    LEVEL_UP_MOVE(33, MOVE_ROLLOUT),
+    LEVEL_UP_MOVE(41, MOVE_REFRESH),
+    LEVEL_UP_MOVE(45, MOVE_SCREECH),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Poison Jab (1), Hammer Arm (42), Stone Edge (45), Rock Wrecker (61)
+static const u16 sRhyperiorLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_HORN_ATTACK),
+    LEVEL_UP_MOVE( 1, MOVE_TAIL_WHIP),
+    LEVEL_UP_MOVE( 1, MOVE_STOMP),
+    LEVEL_UP_MOVE( 1, MOVE_FURY_ATTACK),
+    LEVEL_UP_MOVE( 9, MOVE_STOMP),
+    LEVEL_UP_MOVE(13, MOVE_FURY_ATTACK),
+    LEVEL_UP_MOVE(21, MOVE_SCARY_FACE),
+    LEVEL_UP_MOVE(25, MOVE_ROCK_BLAST),
+    LEVEL_UP_MOVE(33, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(37, MOVE_HORN_DRILL),
+    LEVEL_UP_MOVE(49, MOVE_EARTHQUAKE),
+    LEVEL_UP_MOVE(57, MOVE_MEGAHORN),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Natural Gift (40), Wring Out (50), Power Whip (54)
+static const u16 sTangrowthLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_INGRAIN),
+    LEVEL_UP_MOVE( 1, MOVE_CONSTRICT),
+    LEVEL_UP_MOVE( 5, MOVE_SLEEP_POWDER),
+    LEVEL_UP_MOVE( 8, MOVE_ABSORB),
+    LEVEL_UP_MOVE(12, MOVE_GROWTH),
+    LEVEL_UP_MOVE(15, MOVE_POISON_POWDER),
+    LEVEL_UP_MOVE(19, MOVE_VINE_WHIP),
+    LEVEL_UP_MOVE(22, MOVE_BIND),
+    LEVEL_UP_MOVE(26, MOVE_MEGA_DRAIN),
+    LEVEL_UP_MOVE(29, MOVE_STUN_SPORE),
+    LEVEL_UP_MOVE(33, MOVE_ANCIENT_POWER),
+    LEVEL_UP_MOVE(36, MOVE_KNOCK_OFF),
+    LEVEL_UP_MOVE(43, MOVE_SLAM),
+    LEVEL_UP_MOVE(47, MOVE_TICKLE),
+    LEVEL_UP_MOVE(57, MOVE_BLOCK),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Discharge (37), Giga Impact (67)
+static const u16 sElectivireLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_FIRE_PUNCH),
+    LEVEL_UP_MOVE( 1, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 1, MOVE_THUNDER_SHOCK),
+    LEVEL_UP_MOVE( 1, MOVE_LOW_KICK),
+    LEVEL_UP_MOVE( 7, MOVE_THUNDER_SHOCK),
+    LEVEL_UP_MOVE(10, MOVE_LOW_KICK),
+    LEVEL_UP_MOVE(16, MOVE_SWIFT),
+    LEVEL_UP_MOVE(19, MOVE_SHOCK_WAVE),
+    LEVEL_UP_MOVE(25, MOVE_LIGHT_SCREEN),
+    LEVEL_UP_MOVE(28, MOVE_THUNDER_PUNCH),
+    LEVEL_UP_MOVE(43, MOVE_THUNDERBOLT),
+    LEVEL_UP_MOVE(52, MOVE_SCREECH),
+    LEVEL_UP_MOVE(58, MOVE_THUNDER),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Lava Plume (37)
+static const u16 sMagmortarLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_THUNDER_PUNCH),
+    LEVEL_UP_MOVE( 1, MOVE_SMOG),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 1, MOVE_EMBER),
+    LEVEL_UP_MOVE( 1, MOVE_SMOKESCREEN),
+    LEVEL_UP_MOVE( 7, MOVE_EMBER),
+    LEVEL_UP_MOVE(10, MOVE_SMOKESCREEN),
+    LEVEL_UP_MOVE(16, MOVE_FAINT_ATTACK),
+    LEVEL_UP_MOVE(19, MOVE_FIRE_SPIN),
+    LEVEL_UP_MOVE(25, MOVE_CONFUSE_RAY),
+    LEVEL_UP_MOVE(28, MOVE_FIRE_PUNCH),
+    LEVEL_UP_MOVE(43, MOVE_FLAMETHROWER),
+    LEVEL_UP_MOVE(52, MOVE_SUNNY_DAY),
+    LEVEL_UP_MOVE(58, MOVE_FIRE_BLAST),
+    LEVEL_UP_MOVE(67, MOVE_HYPER_BEAM),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Aura Sphere (1), Air Slash (1)
+static const u16 sTogekissLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_SKY_ATTACK),
+    LEVEL_UP_MOVE( 1, MOVE_EXTREME_SPEED),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Night Slash (1), Bug Bite (1), Feint (38), U Turn (49), Air Slash (54), Bug Buzz (57)
+static const u16 sYanmegaLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_FORESIGHT),
+    LEVEL_UP_MOVE( 1, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE( 1, MOVE_DOUBLE_TEAM),
+    LEVEL_UP_MOVE( 6, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE(11, MOVE_DOUBLE_TEAM),
+    LEVEL_UP_MOVE(14, MOVE_SONIC_BOOM),
+    LEVEL_UP_MOVE(17, MOVE_DETECT),
+    LEVEL_UP_MOVE(22, MOVE_SUPERSONIC),
+    LEVEL_UP_MOVE(27, MOVE_UPROAR),
+    LEVEL_UP_MOVE(30, MOVE_PURSUIT),
+    LEVEL_UP_MOVE(33, MOVE_ANCIENT_POWER),
+    LEVEL_UP_MOVE(43, MOVE_SLASH),
+    LEVEL_UP_MOVE(46, MOVE_SCREECH),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Last Resort (50)
+static const u16 sLeafeonLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TAIL_WHIP),
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_HELPING_HAND),
+    LEVEL_UP_MOVE( 8, MOVE_SAND_ATTACK),
+    LEVEL_UP_MOVE(15, MOVE_RAZOR_LEAF),
+    LEVEL_UP_MOVE(22, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE(29, MOVE_SYNTHESIS),
+    LEVEL_UP_MOVE(36, MOVE_MAGICAL_LEAF),
+    LEVEL_UP_MOVE(43, MOVE_GIGA_DRAIN),
+    LEVEL_UP_MOVE(57, MOVE_GRASS_WHISTLE),
+    LEVEL_UP_MOVE(64, MOVE_SUNNY_DAY),
+    LEVEL_UP_MOVE(71, MOVE_LEAF_BLADE),
+    LEVEL_UP_MOVE(78, MOVE_SWORDS_DANCE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Ice Shard (36), Ice Fang (43), Last Resort (50)
+static const u16 sGlaceonLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TAIL_WHIP),
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_HELPING_HAND),
+    LEVEL_UP_MOVE( 8, MOVE_SAND_ATTACK),
+    LEVEL_UP_MOVE(15, MOVE_ICY_WIND),
+    LEVEL_UP_MOVE(22, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE(29, MOVE_BITE),
+    LEVEL_UP_MOVE(57, MOVE_MIRROR_COAT),
+    LEVEL_UP_MOVE(64, MOVE_HAIL),
+    LEVEL_UP_MOVE(71, MOVE_BLIZZARD),
+    LEVEL_UP_MOVE(78, MOVE_BARRIER),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Thunder Fang (1), Ice Fang (1), Fire Fang (1), Poison Jab (1), Night Slash (31), U Turn (38), X Scissor (42)
+static const u16 sGliscorLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_SAND_ATTACK),
+    LEVEL_UP_MOVE( 1, MOVE_HARDEN),
+    LEVEL_UP_MOVE( 1, MOVE_KNOCK_OFF),
+    LEVEL_UP_MOVE( 5, MOVE_SAND_ATTACK),
+    LEVEL_UP_MOVE( 9, MOVE_HARDEN),
+    LEVEL_UP_MOVE(12, MOVE_KNOCK_OFF),
+    LEVEL_UP_MOVE(16, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE(20, MOVE_FURY_CUTTER),
+    LEVEL_UP_MOVE(23, MOVE_FAINT_ATTACK),
+    LEVEL_UP_MOVE(27, MOVE_SCREECH),
+    LEVEL_UP_MOVE(34, MOVE_SWORDS_DANCE),
+    LEVEL_UP_MOVE(45, MOVE_GUILLOTINE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Mud Bomb (20), Ice Fang (28)
+static const u16 sMamoswineLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_ANCIENT_POWER),
+    LEVEL_UP_MOVE( 1, MOVE_PECK),
+    LEVEL_UP_MOVE( 1, MOVE_ODOR_SLEUTH),
+    LEVEL_UP_MOVE( 1, MOVE_MUD_SPORT),
+    LEVEL_UP_MOVE( 1, MOVE_POWDER_SNOW),
+    LEVEL_UP_MOVE( 4, MOVE_MUD_SPORT),
+    LEVEL_UP_MOVE( 8, MOVE_POWDER_SNOW),
+    LEVEL_UP_MOVE(13, MOVE_MUD_SLAP),
+    LEVEL_UP_MOVE(16, MOVE_ENDURE),
+    LEVEL_UP_MOVE(25, MOVE_HAIL),
+    LEVEL_UP_MOVE(32, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(33, MOVE_DOUBLE_HIT),
+    LEVEL_UP_MOVE(40, MOVE_EARTHQUAKE),
+    LEVEL_UP_MOVE(48, MOVE_MIST),
+    LEVEL_UP_MOVE(56, MOVE_BLIZZARD),
+    LEVEL_UP_MOVE(65, MOVE_SCARY_FACE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Trick Room (1), Nasty Plot (1), Magnet Rise (23), Embargo (34), Discharge (40)
+static const u16 sPorygonZLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_CONVERSION_2),
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_CONVERSION),
+    LEVEL_UP_MOVE( 7, MOVE_PSYBEAM),
+    LEVEL_UP_MOVE(12, MOVE_AGILITY),
+    LEVEL_UP_MOVE(18, MOVE_RECOVER),
+    LEVEL_UP_MOVE(29, MOVE_SIGNAL_BEAM),
+    LEVEL_UP_MOVE(45, MOVE_LOCK_ON),
+    LEVEL_UP_MOVE(51, MOVE_TRI_ATTACK),
+    LEVEL_UP_MOVE(56, MOVE_MAGIC_COAT),
+    LEVEL_UP_MOVE(62, MOVE_ZAP_CANNON),
+    LEVEL_UP_MOVE(67, MOVE_HYPER_BEAM),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Night Slash (1), Psycho Cut (31), Feint (39), Close Combat (53)
+static const u16 sGalladeLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_LEAF_BLADE),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 1, MOVE_CONFUSION),
+    LEVEL_UP_MOVE( 1, MOVE_DOUBLE_TEAM),
+    LEVEL_UP_MOVE( 1, MOVE_TELEPORT),
+    LEVEL_UP_MOVE( 6, MOVE_CONFUSION),
+    LEVEL_UP_MOVE(10, MOVE_DOUBLE_TEAM),
+    LEVEL_UP_MOVE(12, MOVE_TELEPORT),
+    LEVEL_UP_MOVE(17, MOVE_FURY_CUTTER),
+    LEVEL_UP_MOVE(22, MOVE_SLASH),
+    LEVEL_UP_MOVE(25, MOVE_SWORDS_DANCE),
+    LEVEL_UP_MOVE(36, MOVE_HELPING_HAND),
+    LEVEL_UP_MOVE(45, MOVE_FALSE_SWIPE),
+    LEVEL_UP_MOVE(50, MOVE_PROTECT),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Magnet Rise (1), Gravity (1), Magnet Bomb (1), Magnet Bomb (13), Power Gem (49), Discharge (55), Stone Edge (61), Earth Power (79)
+static const u16 sProbopassLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_IRON_DEFENSE),
+    LEVEL_UP_MOVE( 1, MOVE_BLOCK),
+    LEVEL_UP_MOVE( 7, MOVE_IRON_DEFENSE),
+    LEVEL_UP_MOVE(19, MOVE_BLOCK),
+    LEVEL_UP_MOVE(25, MOVE_THUNDER_WAVE),
+    LEVEL_UP_MOVE(31, MOVE_ROCK_SLIDE),
+    LEVEL_UP_MOVE(37, MOVE_SANDSTORM),
+    LEVEL_UP_MOVE(43, MOVE_REST),
+    LEVEL_UP_MOVE(67, MOVE_ZAP_CANNON),
+    LEVEL_UP_MOVE(73, MOVE_LOCK_ON),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Gravity (1), Shadow Sneak (22), Payback (51)
+static const u16 sDusknoirLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_FIRE_PUNCH),
+    LEVEL_UP_MOVE( 1, MOVE_ICE_PUNCH),
+    LEVEL_UP_MOVE( 1, MOVE_THUNDER_PUNCH),
+    LEVEL_UP_MOVE( 1, MOVE_BIND),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 1, MOVE_NIGHT_SHADE),
+    LEVEL_UP_MOVE( 1, MOVE_DISABLE),
+    LEVEL_UP_MOVE( 6, MOVE_DISABLE),
+    LEVEL_UP_MOVE( 9, MOVE_FORESIGHT),
+    LEVEL_UP_MOVE(14, MOVE_ASTONISH),
+    LEVEL_UP_MOVE(17, MOVE_CONFUSE_RAY),
+    LEVEL_UP_MOVE(25, MOVE_PURSUIT),
+    LEVEL_UP_MOVE(30, MOVE_CURSE),
+    LEVEL_UP_MOVE(33, MOVE_WILL_O_WISP),
+    LEVEL_UP_MOVE(37, MOVE_SHADOW_PUNCH),
+    LEVEL_UP_MOVE(43, MOVE_MEAN_LOOK),
+    LEVEL_UP_MOVE(61, MOVE_FUTURE_SIGHT),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Ominous Wind (22), Wake Up Slap (28), Captivate (31), Ice Shard (37)
+static const u16 sFroslassLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_POWDER_SNOW),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 1, MOVE_DOUBLE_TEAM),
+    LEVEL_UP_MOVE( 1, MOVE_ASTONISH),
+    LEVEL_UP_MOVE( 4, MOVE_DOUBLE_TEAM),
+    LEVEL_UP_MOVE(10, MOVE_ASTONISH),
+    LEVEL_UP_MOVE(13, MOVE_ICY_WIND),
+    LEVEL_UP_MOVE(19, MOVE_CONFUSE_RAY),
+    LEVEL_UP_MOVE(40, MOVE_HAIL),
+    LEVEL_UP_MOVE(51, MOVE_BLIZZARD),
+    LEVEL_UP_MOVE(59, MOVE_DESTINY_BOND),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Ominous Wind (29), Discharge (50)
+static const u16 sRotomLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TRICK),
+    LEVEL_UP_MOVE( 1, MOVE_ASTONISH),
+    LEVEL_UP_MOVE( 1, MOVE_THUNDER_WAVE),
+    LEVEL_UP_MOVE( 1, MOVE_THUNDER_SHOCK),
+    LEVEL_UP_MOVE( 1, MOVE_CONFUSE_RAY),
+    LEVEL_UP_MOVE( 8, MOVE_UPROAR),
+    LEVEL_UP_MOVE(15, MOVE_DOUBLE_TEAM),
+    LEVEL_UP_MOVE(22, MOVE_SHOCK_WAVE),
+    LEVEL_UP_MOVE(36, MOVE_SUBSTITUTE),
+    LEVEL_UP_MOVE(43, MOVE_CHARGE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Natural Gift (66)
+static const u16 sUxieLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_REST),
+    LEVEL_UP_MOVE( 1, MOVE_CONFUSION),
+    LEVEL_UP_MOVE( 6, MOVE_IMPRISON),
+    LEVEL_UP_MOVE(16, MOVE_ENDURE),
+    LEVEL_UP_MOVE(21, MOVE_SWIFT),
+    LEVEL_UP_MOVE(31, MOVE_YAWN),
+    LEVEL_UP_MOVE(36, MOVE_FUTURE_SIGHT),
+    LEVEL_UP_MOVE(46, MOVE_AMNESIA),
+    LEVEL_UP_MOVE(51, MOVE_EXTRASENSORY),
+    LEVEL_UP_MOVE(61, MOVE_FLAIL),
+    LEVEL_UP_MOVE(76, MOVE_MEMENTO),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Lucky Chant (31), Copycat (61), Natural Gift (66), Healing Wish (76)
+static const u16 sMespritLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_REST),
+    LEVEL_UP_MOVE( 1, MOVE_CONFUSION),
+    LEVEL_UP_MOVE( 6, MOVE_IMPRISON),
+    LEVEL_UP_MOVE(16, MOVE_PROTECT),
+    LEVEL_UP_MOVE(21, MOVE_SWIFT),
+    LEVEL_UP_MOVE(36, MOVE_FUTURE_SIGHT),
+    LEVEL_UP_MOVE(46, MOVE_CHARM),
+    LEVEL_UP_MOVE(51, MOVE_EXTRASENSORY),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Nasty Plot (46), Last Resort (61), Natural Gift (66)
+static const u16 sAzelfLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_REST),
+    LEVEL_UP_MOVE( 1, MOVE_CONFUSION),
+    LEVEL_UP_MOVE( 6, MOVE_IMPRISON),
+    LEVEL_UP_MOVE(16, MOVE_DETECT),
+    LEVEL_UP_MOVE(21, MOVE_SWIFT),
+    LEVEL_UP_MOVE(31, MOVE_UPROAR),
+    LEVEL_UP_MOVE(36, MOVE_FUTURE_SIGHT),
+    LEVEL_UP_MOVE(51, MOVE_EXTRASENSORY),
+    LEVEL_UP_MOVE(76, MOVE_EXPLOSION),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Roar Of Time (40), Heal Block (50), Earth Power (60), Flash Cannon (80), Aura Sphere (90)
+static const u16 sDialgaLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_DRAGON_BREATH),
+    LEVEL_UP_MOVE( 1, MOVE_SCARY_FACE),
+    LEVEL_UP_MOVE(10, MOVE_METAL_CLAW),
+    LEVEL_UP_MOVE(20, MOVE_ANCIENT_POWER),
+    LEVEL_UP_MOVE(30, MOVE_DRAGON_CLAW),
+    LEVEL_UP_MOVE(70, MOVE_SLASH),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Spacial Rend (40), Heal Block (50), Earth Power (60), Aqua Tail (80), Aura Sphere (90)
+static const u16 sPalkiaLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_DRAGON_BREATH),
+    LEVEL_UP_MOVE( 1, MOVE_SCARY_FACE),
+    LEVEL_UP_MOVE(10, MOVE_WATER_PULSE),
+    LEVEL_UP_MOVE(20, MOVE_ANCIENT_POWER),
+    LEVEL_UP_MOVE(30, MOVE_DRAGON_CLAW),
+    LEVEL_UP_MOVE(70, MOVE_SLASH),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Fire Fang (17), Lava Plume (49), Iron Head (65), Earth Power (73), Stone Edge (88), Magma Storm (96)
+static const u16 sHeatranLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_ANCIENT_POWER),
+    LEVEL_UP_MOVE( 9, MOVE_LEER),
+    LEVEL_UP_MOVE(25, MOVE_METAL_SOUND),
+    LEVEL_UP_MOVE(33, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(41, MOVE_SCARY_FACE),
+    LEVEL_UP_MOVE(57, MOVE_FIRE_SPIN),
+    LEVEL_UP_MOVE(81, MOVE_HEAT_WAVE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Zen Headbutt (50), Crush Grip (75), Giga Impact (100)
+static const u16 sRegigigasLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_FIRE_PUNCH),
+    LEVEL_UP_MOVE( 1, MOVE_ICE_PUNCH),
+    LEVEL_UP_MOVE( 1, MOVE_THUNDER_PUNCH),
+    LEVEL_UP_MOVE( 1, MOVE_DIZZY_PUNCH),
+    LEVEL_UP_MOVE( 1, MOVE_KNOCK_OFF),
+    LEVEL_UP_MOVE( 1, MOVE_CONFUSE_RAY),
+    LEVEL_UP_MOVE( 1, MOVE_FORESIGHT),
+    LEVEL_UP_MOVE(25, MOVE_REVENGE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Ominous Wind (10), Shadow Force (40), Heal Block (50), Earth Power (60), Shadow Claw (80), Aura Sphere (90)
+static const u16 sGiratinaLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_DRAGON_BREATH),
+    LEVEL_UP_MOVE( 1, MOVE_SCARY_FACE),
+    LEVEL_UP_MOVE(20, MOVE_ANCIENT_POWER),
+    LEVEL_UP_MOVE(30, MOVE_DRAGON_CLAW),
+    LEVEL_UP_MOVE(70, MOVE_SLASH),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Psycho Cut (66), Psycho Shift (75), Lunar Dance (84)
+static const u16 sCresseliaLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_CONFUSION),
+    LEVEL_UP_MOVE( 1, MOVE_DOUBLE_TEAM),
+    LEVEL_UP_MOVE(11, MOVE_SAFEGUARD),
+    LEVEL_UP_MOVE(20, MOVE_MIST),
+    LEVEL_UP_MOVE(29, MOVE_AURORA_BEAM),
+    LEVEL_UP_MOVE(38, MOVE_FUTURE_SIGHT),
+    LEVEL_UP_MOVE(47, MOVE_SLASH),
+    LEVEL_UP_MOVE(57, MOVE_MOONLIGHT),
+    LEVEL_UP_MOVE(93, MOVE_PSYCHIC),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Aqua Ring (54)
+static const u16 sPhioneLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_BUBBLE),
+    LEVEL_UP_MOVE( 1, MOVE_WATER_SPORT),
+    LEVEL_UP_MOVE( 9, MOVE_CHARM),
+    LEVEL_UP_MOVE(16, MOVE_SUPERSONIC),
+    LEVEL_UP_MOVE(24, MOVE_BUBBLE_BEAM),
+    LEVEL_UP_MOVE(31, MOVE_ACID_ARMOR),
+    LEVEL_UP_MOVE(39, MOVE_WHIRLPOOL),
+    LEVEL_UP_MOVE(46, MOVE_WATER_PULSE),
+    LEVEL_UP_MOVE(61, MOVE_DIVE),
+    LEVEL_UP_MOVE(69, MOVE_RAIN_DANCE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Aqua Ring (54), Heart Swap (76)
+static const u16 sManaphyLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TAIL_GLOW),
+    LEVEL_UP_MOVE( 1, MOVE_BUBBLE),
+    LEVEL_UP_MOVE( 1, MOVE_WATER_SPORT),
+    LEVEL_UP_MOVE( 9, MOVE_CHARM),
+    LEVEL_UP_MOVE(16, MOVE_SUPERSONIC),
+    LEVEL_UP_MOVE(24, MOVE_BUBBLE_BEAM),
+    LEVEL_UP_MOVE(31, MOVE_ACID_ARMOR),
+    LEVEL_UP_MOVE(39, MOVE_WHIRLPOOL),
+    LEVEL_UP_MOVE(46, MOVE_WATER_PULSE),
+    LEVEL_UP_MOVE(61, MOVE_DIVE),
+    LEVEL_UP_MOVE(69, MOVE_RAIN_DANCE),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Ominous Wind (1), Dark Void (66), Nasty Plot (75), Dark Pulse (93)
+static const u16 sDarkraiLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_DISABLE),
+    LEVEL_UP_MOVE(11, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE(20, MOVE_HYPNOSIS),
+    LEVEL_UP_MOVE(29, MOVE_FAINT_ATTACK),
+    LEVEL_UP_MOVE(38, MOVE_NIGHTMARE),
+    LEVEL_UP_MOVE(47, MOVE_DOUBLE_TEAM),
+    LEVEL_UP_MOVE(57, MOVE_HAZE),
+    LEVEL_UP_MOVE(84, MOVE_DREAM_EATER),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Natural Gift (46), Worry Seed (55), Energy Ball (73), Healing Wish (91), Seed Flare (100)
+static const u16 sShayminLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_GROWTH),
+    LEVEL_UP_MOVE(10, MOVE_MAGICAL_LEAF),
+    LEVEL_UP_MOVE(19, MOVE_LEECH_SEED),
+    LEVEL_UP_MOVE(28, MOVE_SYNTHESIS),
+    LEVEL_UP_MOVE(37, MOVE_SWEET_SCENT),
+    LEVEL_UP_MOVE(64, MOVE_AROMATHERAPY),
+    LEVEL_UP_MOVE(82, MOVE_SWEET_KISS),
+    LEVEL_UP_END
+};
+
+// Gen 4 moves left out until they exist: Natural Gift (1), Punishment (1), Gravity (10), Earth Power (20), Judgment (100)
+static const u16 sArceusLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_SEISMIC_TOSS),
+    LEVEL_UP_MOVE( 1, MOVE_COSMIC_POWER),
+    LEVEL_UP_MOVE(30, MOVE_HYPER_VOICE),
+    LEVEL_UP_MOVE(40, MOVE_EXTREME_SPEED),
+    LEVEL_UP_MOVE(50, MOVE_REFRESH),
+    LEVEL_UP_MOVE(60, MOVE_FUTURE_SIGHT),
+    LEVEL_UP_MOVE(70, MOVE_RECOVER),
+    LEVEL_UP_MOVE(80, MOVE_HYPER_BEAM),
+    LEVEL_UP_MOVE(90, MOVE_PERISH_SONG),
     LEVEL_UP_END
 };

@@ -113,6 +113,14 @@ EVO_TEXT = {
     "EVO_LEVEL_NINJASK": lambda p: f"Level {p} (Ninjask)",
     "EVO_LEVEL_SHEDINJA": lambda p: f"Level {p} (Shedinja, needs a free party slot)",
     "EVO_BEAUTY": lambda p: f"Beauty {p}",
+    "EVO_LEVEL_FEMALE": lambda p: f"Level {p}, female",
+    "EVO_LEVEL_MALE": lambda p: f"Level {p}, male",
+    "EVO_MOVE": lambda p: f"Level up knowing {const_name(p, 'MOVE_')}",
+    "EVO_ITEM_MALE": lambda p: f"Use {const_name(p, 'ITEM_')}, male",
+    "EVO_ITEM_FEMALE": lambda p: f"Use {const_name(p, 'ITEM_')}, female",
+    "EVO_ITEM_HOLD_DAY": lambda p: f"Level up holding {const_name(p, 'ITEM_')}, daytime",
+    "EVO_ITEM_HOLD_NIGHT": lambda p: f"Level up holding {const_name(p, 'ITEM_')}, night",
+    "EVO_PARTY_SPECIES": lambda p: f"Level up with {const_name(p, 'SPECIES_')} in the party",
 }
 
 
