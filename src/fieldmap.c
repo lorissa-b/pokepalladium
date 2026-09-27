@@ -48,7 +48,20 @@ static const struct MapConnection *GetIncomingConnection(u8 direction, s32 x, s3
 static bool8 IsPosInIncomingConnectingMap(u8 direction, s32 x, s32 y, const struct MapConnection *connection);
 static bool8 IsCoordInIncomingConnectingMap(s32 coord, s32 srcMax, s32 destMax, s32 offset);
 
-#define GetBorderBlockAt(x, y) (gMapHeader.mapLayout->border[((x + 1) & 1) + (((y + 1) & 1) << 1)] | MAPGRID_IMPASSABLE)
+// The border is a borderWidth x borderHeight pattern of metatiles repeated around the map.
+static u16 GetBorderBlockAt(s32 x, s32 y)
+{
+    const struct MapLayout *mapLayout = gMapHeader.mapLayout;
+    s32 borderX = (x - MAP_OFFSET) % mapLayout->borderWidth;
+    s32 borderY = (y - MAP_OFFSET) % mapLayout->borderHeight;
+
+    if (borderX < 0)
+        borderX += mapLayout->borderWidth;
+    if (borderY < 0)
+        borderY += mapLayout->borderHeight;
+
+    return mapLayout->border[borderX + borderY * mapLayout->borderWidth] | MAPGRID_IMPASSABLE;
+}
 
 #define AreCoordsWithinMapGridBounds(x, y) (x >= 0 && x < gBackupMapLayout.width && y >= 0 && y < gBackupMapLayout.height)
 

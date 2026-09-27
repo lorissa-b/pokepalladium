@@ -2,21 +2,21 @@
 #define GUARD_GLOBAL_FIELDMAP_H
 
 // Masks/shifts for blocks in the map grid
-// Map grid blocks consist of a 10 bit metatile id, a 2 bit collision value, and a 4 bit elevation value
+// Map grid blocks consist of a 12 bit metatile id, a 1 bit collision value, and a 3 bit elevation value
 // This is the data stored in each data/layouts/*/map.bin file
-#define MAPGRID_METATILE_ID_MASK 0x03FF // Bits 0-9
-#define MAPGRID_COLLISION_MASK   0x0C00 // Bits 10-11
-#define MAPGRID_ELEVATION_MASK   0xF000 // Bits 12-15
+#define MAPGRID_METATILE_ID_MASK 0x0FFF // Bits 0-11
+#define MAPGRID_COLLISION_MASK   0x1000 // Bit 12
+#define MAPGRID_ELEVATION_MASK   0xE000 // Bits 13-15
 #define MAPGRID_METATILE_ID_SHIFT 0
-#define MAPGRID_COLLISION_SHIFT  10
-#define MAPGRID_ELEVATION_SHIFT  12
+#define MAPGRID_COLLISION_SHIFT  12
+#define MAPGRID_ELEVATION_SHIFT  13
 
 enum
 {
     ELEVATION_TRANSITION = 0,
     ELEVATION_SURF = 1,
     ELEVATION_DEFAULT = 3,
-    ELEVATION_MULTI_LEVEL = 15,
+    ELEVATION_MULTI_LEVEL = 7, // Highest elevation that fits in MAPGRID_ELEVATION_MASK
     ELEVATION_INVALID = 0xFFFF
 };
 
@@ -46,6 +46,8 @@ enum
 #define UNPACK_BEHAVIOR(data) UNPACK(data, METATILE_ATTR_BEHAVIOR_SHIFT, METATILE_ATTR_BEHAVIOR_MASK)
 #define UNPACK_LAYER_TYPE(data) UNPACK(data, METATILE_ATTR_LAYER_SHIFT, METATILE_ATTR_LAYER_MASK)
 
+// Metatiles are drawn with all three layers (see NUM_TILES_PER_METATILE), so the layer type
+// no longer affects how they are drawn. It is still read by secret base decorations and shops.
 enum {
     METATILE_LAYER_TYPE_NORMAL,  // Metatile uses middle and top bg layers
     METATILE_LAYER_TYPE_COVERED, // Metatile uses bottom and middle bg layers
@@ -80,6 +82,8 @@ struct MapLayout
     /*0x0C*/ const u16 *map;
     /*0x10*/ const struct Tileset *primaryTileset;
     /*0x14*/ const struct Tileset *secondaryTileset;
+    /*0x18*/ u8 borderWidth;
+    /*0x19*/ u8 borderHeight;
 };
 
 struct BackupMapLayout
