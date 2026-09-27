@@ -1,11 +1,19 @@
 # Sphinx configuration for the Pokémon Palladium docs site.
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+import sys
+from pathlib import Path
+
+# Local extensions live in docs/_ext.
+sys.path.insert(0, str(Path(__file__).parent / "_ext"))
+
 project = "Pokémon Palladium"
 
-extensions = ["myst_parser"]
+# gen_pokedex regenerates docs/pokedex/families/ from src/data/pokemon/
+# on every build, so the dex can never drift from the game data.
+extensions = ["myst_parser", "gen_pokedex"]
 source_suffix = {".md": "markdown"}
-exclude_patterns = ["_build"]
+exclude_patterns = ["_build", "_ext"]
 
 html_theme = "sphinx_rtd_theme"
 html_theme_options = {"navigation_depth": 3}

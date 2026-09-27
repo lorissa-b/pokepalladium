@@ -11,6 +11,7 @@ See the [main repository](https://github.com/lorissa-b/pokepalladium) for the so
 :maxdepth: 2
 :caption: Game content
 
+pokedex/index
 map/index
 moves/index
 features/index
