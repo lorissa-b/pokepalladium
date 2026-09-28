@@ -10,6 +10,8 @@ Route101_MapScripts::
 	@ 4: (Lake Verity) Chose a starter from the bag and beat the wild Starly;
 	@    Birch, his assistant and the rival wait by the Twinleaf path
 	@ 5: Returned the bag; Birch said to meet him in Sandgem Town
+	@ 6: (Sandgem Town) Followed the assistant into the lab and received the POKéDEX
+	@ 7: (Route 202) Watched the assistant's catching tutorial and got five POKé BALLS
 
 Route101_OnTransition:
 	call ProfBirch_EventScript_UpdateLocation
@@ -33,7 +35,7 @@ Route101_EventScript_SetRivalWaitingByLake::
 	setobjectmovementtype LOCALID_ROUTE201_RIVAL, MOVEMENT_TYPE_FACE_LEFT
 	return
 
-@ Stepping onto the route from Twinleaf (x 38-41, y 19). The rival waits on the path.
+@ Stepping onto the route from Twinleaf (x 37-42, y 19). The rival waits on the path.
 Route101_EventScript_RivalDare::
 	lockall
 	applywaitmovement LOCALID_PLAYER, Route101_Movement_PlayerWalkUpPath
@@ -203,6 +205,13 @@ Route101_EventScript_LovesPokemon::
 	removeobject LOCALID_ROUTE201_BIRCH
 	removeobject LOCALID_ROUTE201_ASSISTANT
 	applywaitmovement LOCALID_ROUTE201_RIVAL, Common_Movement_FacePlayer
+	@ Win or lose, the story carries on: no white out, and the party is healed
+	setflag FLAG_NO_WHITEOUT_ON_LOSS
+	call Route101_EventScript_RivalBattle
+	clearflag FLAG_NO_WHITEOUT_ON_LOSS
+	specialvar VAR_RESULT, GetBattleOutcome
+	call_if_eq VAR_RESULT, B_OUTCOME_LOST, Route101_EventScript_RivalWon
+	special HealPlayerParty
 	msgbox Route101_Text_RivalWaitForMe, MSGBOX_DEFAULT
 	closemessage
 	call_if_ne VAR_0x8008, 2, Route101_EventScript_RivalFollowAlongRow12
@@ -211,6 +220,56 @@ Route101_EventScript_LovesPokemon::
 	setvar VAR_ROUTE101_STATE, 5
 	releaseall
 	end
+
+@ The rival's first battle, with the starter that's strong against the player's.
+@ The ROUTE_103 trainers are named after the player's starter (see trainer_parties.h).
+Route101_EventScript_RivalBattle::
+	checkplayergender
+	goto_if_eq VAR_RESULT, FEMALE, Route101_EventScript_BrendanBattle
+	playbgm MUS_ENCOUNTER_MAY, TRUE
+	msgbox Route101_Text_RivalLetsBattle, MSGBOX_DEFAULT
+	switch VAR_STARTER_MON
+	case 0, Route101_EventScript_MayBattleTurtwig
+	case 1, Route101_EventScript_MayBattleChimchar
+	case 2, Route101_EventScript_MayBattlePiplup
+	return
+
+Route101_EventScript_BrendanBattle::
+	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
+	msgbox Route101_Text_RivalLetsBattle, MSGBOX_DEFAULT
+	switch VAR_STARTER_MON
+	case 0, Route101_EventScript_BrendanBattleTurtwig
+	case 1, Route101_EventScript_BrendanBattleChimchar
+	case 2, Route101_EventScript_BrendanBattlePiplup
+	return
+
+Route101_EventScript_RivalWon::
+	msgbox Route101_Text_RivalWon, MSGBOX_DEFAULT
+	return
+
+Route101_EventScript_MayBattleTurtwig::
+	trainerbattle_no_intro TRAINER_MAY_ROUTE_103_TREECKO, Route101_Text_RivalDefeated
+	return
+
+Route101_EventScript_MayBattleChimchar::
+	trainerbattle_no_intro TRAINER_MAY_ROUTE_103_TORCHIC, Route101_Text_RivalDefeated
+	return
+
+Route101_EventScript_MayBattlePiplup::
+	trainerbattle_no_intro TRAINER_MAY_ROUTE_103_MUDKIP, Route101_Text_RivalDefeated
+	return
+
+Route101_EventScript_BrendanBattleTurtwig::
+	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_103_TREECKO, Route101_Text_RivalDefeated
+	return
+
+Route101_EventScript_BrendanBattleChimchar::
+	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_103_TORCHIC, Route101_Text_RivalDefeated
+	return
+
+Route101_EventScript_BrendanBattlePiplup::
+	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_103_MUDKIP, Route101_Text_RivalDefeated
+	return
 
 Route101_EventScript_GroupLeaveAlongRow12::
 	applymovement LOCALID_ROUTE201_BIRCH, Route101_Movement_LeaveRight
@@ -391,12 +450,12 @@ Route101_Movement_AssistantLeave:
 	walk_right
 	step_end
 
-@ From 10, 8 up the north gap into Lake Verity
+@ From 10, 8 along row 7 and up the north gap into Lake Verity
 Route101_Movement_RivalRunToLake:
 	walk_fast_up
+	walk_fast_left
+	walk_fast_left
 	walk_fast_up
-	walk_fast_left
-	walk_fast_left
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up
@@ -540,7 +599,7 @@ Route101_Text_RivalWaitForMe:
 Route101_Text_TakeTiredPokemonToPokeCenter:
 	.string "If POKéMON get tired, take them to\n"
 	.string "a POKéMON CENTER.\p"
-	.string "There's a POKéMON CENTER in OLDALE\n"
+	.string "There's a POKéMON CENTER in SANDGEM\n"
 	.string "TOWN right close by.$"
 
 Route101_Text_WildPokemonInTallGrass:
@@ -565,3 +624,17 @@ Route101_Text_TrainerTips:
 	.string "Jump down ledges for a shortcut!\n"
 	.string "You can't climb back up, though.$"
 
+Route101_Text_RivalLetsBattle:
+	.string "{RIVAL}: Hey, {PLAYER}!\n"
+	.string "Before I go…\p"
+	.string "Our POKéMON are raring to go, right?\n"
+	.string "Let's battle!$"
+
+Route101_Text_RivalDefeated:
+	.string "Whoa! You're pretty good,\n"
+	.string "{PLAYER}!$"
+
+Route101_Text_RivalWon:
+	.string "{RIVAL}: Yes! I won!\p"
+	.string "Don't worry, {PLAYER}. Our POKéMON\n"
+	.string "will both get stronger from here!$"

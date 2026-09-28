@@ -13,7 +13,7 @@ LittlerootTown_ProfessorBirchsLab_MapScripts::
 	@ 6: Chose Johto starter
 
 	@ State descriptions for VAR_BIRCH_LAB_STATE
-	@ 1: Never occurs
+	@ 1: Birch's assistant is leading the player in from Sandgem Town
 	@ 2: Chose starter
 	@ 3: Received starter in lab
 	@ 4: Defeated rival on Route 103
@@ -49,6 +49,7 @@ LittlerootTown_ProfessorBirchsLab_EventScript_SetAfterJohtoStarterLayout::
 	end
 
 LittlerootTown_ProfessorBirchsLab_OnWarp:
+	map_script_2 VAR_BIRCH_LAB_STATE, 1, LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForMeetBirch
 	map_script_2 VAR_BIRCH_LAB_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_SetPlayerPosForReceiveStarter
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForDexUpgrade
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForDexUpgrade
@@ -60,6 +61,14 @@ LittlerootTown_ProfessorBirchsLab_OnWarp:
 
 LittlerootTown_ProfessorBirchsLab_EventScript_SetPlayerPosForReceiveStarter::
 	turnobject LOCALID_PLAYER, DIR_NORTH
+	end
+
+@ The player comes in at 6, 11 with the assistant just ahead of them
+LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForMeetBirch::
+	turnobject LOCALID_PLAYER, DIR_NORTH
+	addobject LOCALID_BIRCHS_LAB_ASSISTANT
+	setobjectxy LOCALID_BIRCHS_LAB_ASSISTANT, 6, 10
+	turnobject LOCALID_BIRCHS_LAB_ASSISTANT, DIR_NORTH
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForDexUpgrade::
@@ -96,11 +105,71 @@ LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForJohtoStarters::
 	end
 
 LittlerootTown_ProfessorBirchsLab_OnFrame:
+	map_script_2 VAR_BIRCH_LAB_STATE, 1, LittlerootTown_ProfessorBirchsLab_EventScript_MeetBirch
 	map_script_2 VAR_BIRCH_LAB_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_GiveStarterEvent
 	map_script_2 VAR_BIRCH_LAB_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_GivePokedexEvent
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_ProfessorBirchsLab_EventScript_UpgradeToNationalDex
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_ChooseJohtoStarter
 	.2byte 0
+
+@ The assistant leads the player up to Birch (6, 4). He comments on the
+@ starter, offers a nickname, hands over the POKéDEX and sends the player home.
+LittlerootTown_ProfessorBirchsLab_EventScript_MeetBirch::
+	lockall
+	applymovement LOCALID_BIRCHS_LAB_ASSISTANT, LittlerootTown_ProfessorBirchsLab_Movement_AssistantLeadToBirch
+	applymovement LOCALID_PLAYER, LittlerootTown_ProfessorBirchsLab_Movement_PlayerFollowToBirch
+	waitmovement 0
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_AssistantBroughtPlayer, MSGBOX_DEFAULT
+	closemessage
+	applywaitmovement LOCALID_BIRCHS_LAB_ASSISTANT, Common_Movement_WalkInPlaceFasterLeft
+	bufferleadmonspeciesname STR_VAR_1
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_MonHasGrown, MSGBOX_YESNO
+	call_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_NicknameLeadMon
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_TakeThisPokedex, MSGBOX_DEFAULT
+	call LittlerootTown_ProfessorBirchsLab_EventScript_ReceivePokedex
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_GoHomeToMother, MSGBOX_DEFAULT
+	closemessage
+	@ The assistant waits on Route 202 for the catching tutorial, then comes back
+	setvar VAR_BIRCH_LAB_STATE, 5
+	setflag FLAG_ADVENTURE_STARTED
+	setvar VAR_OLDALE_TOWN_STATE, 1
+	setvar VAR_LITTLEROOT_RIVAL_STATE, 4
+	@ Back home, the rival's mom brings a TOWN MAP and Mom has RUNNING SHOES
+	setvar VAR_LITTLEROOT_TOWN_STATE, 3
+	releaseall
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_NicknameLeadMon::
+	setvar VAR_0x8004, 0
+	call Common_EventScript_NameReceivedPartyMon
+	return
+
+@ Up to 7, 5, beside the spot in front of Birch
+LittlerootTown_ProfessorBirchsLab_Movement_AssistantLeadToBirch:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_right
+	walk_up
+	walk_in_place_faster_up
+	step_end
+
+@ Two steps behind the assistant, up to 6, 5 in front of Birch
+LittlerootTown_ProfessorBirchsLab_Movement_PlayerFollowToBirch:
+	delay_16
+	delay_16
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_Assistant::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_AssistantPokedexFills, MSGBOX_NPC
+	end
 
 @ The starter is technically given prior to this on Route 101 by special ChooseStarter
 @ This is just where the game tells you its yours and lets you nickname it
@@ -983,3 +1052,35 @@ LittlerootTown_ProfessorBirchsLab_Text_ScottAboardSSTidalCall:
 	.string "we meet. I'll be waiting!\p"
 	.string "… … … … … …\n"
 	.string "… … … … … Click!$"
+
+LittlerootTown_ProfessorBirchsLab_Text_AssistantBroughtPlayer:
+	.string "PROFESSOR!\n"
+	.string "I brought {PLAYER}!$"
+
+LittlerootTown_ProfessorBirchsLab_Text_MonHasGrown:
+	.string "PROF. BIRCH: Ah, {PLAYER}!\n"
+	.string "Thanks for coming all this way.\p"
+	.string "Let me take a look…\p"
+	.string "Well, well! Your {STR_VAR_1} looks like\n"
+	.string "it's grown since the lake!\p"
+	.string "You two already make a fine team.\p"
+	.string "Would you like to give your\n"
+	.string "{STR_VAR_1} a nickname?$"
+
+LittlerootTown_ProfessorBirchsLab_Text_TakeThisPokedex:
+	.string "PROF. BIRCH: Now, I'd like you to\n"
+	.string "have this.\p"
+	.string "It's a POKéDEX. It records data on\n"
+	.string "every POKéMON you meet.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_GoHomeToMother:
+	.string "PROF. BIRCH: Before you continue on\n"
+	.string "your journey, go home and talk to\l"
+	.string "your mother.\p"
+	.string "I'm sure she'll want to hear all\n"
+	.string "about it!$"
+
+LittlerootTown_ProfessorBirchsLab_Text_AssistantPokedexFills:
+	.string "Your POKéDEX fills in every time you\n"
+	.string "meet a new POKéMON.\p"
+	.string "Good luck, {PLAYER}!$"

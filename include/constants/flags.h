@@ -48,10 +48,10 @@
 #define FLAG_HIDE_ROUTE_201_ASSISTANT       0x22
 #define FLAG_HIDE_LAKE_VERITY_RIVAL         0x23
 #define FLAG_HIDE_LAKE_VERITY_BAG           0x24
-#define FLAG_UNUSED_0x025    0x25 // Unused Flag
-#define FLAG_UNUSED_0x026    0x26 // Unused Flag
-#define FLAG_UNUSED_0x027    0x27 // Unused Flag
-#define FLAG_UNUSED_0x028    0x28 // Unused Flag
+#define FLAG_HIDE_SANDGEM_TOWN_ASSISTANT    0x25
+#define FLAG_HIDE_BIRCHS_LAB_ASSISTANT      0x26
+#define FLAG_HIDE_ROUTE_202_ASSISTANT       0x27
+#define FLAG_NO_WHITEOUT_ON_LOSS            0x28 // Set by a script around a story battle the player may lose
 #define FLAG_UNUSED_0x029    0x29 // Unused Flag
 #define FLAG_UNUSED_0x02A    0x2A // Unused Flag
 #define FLAG_UNUSED_0x02B    0x2B // Unused Flag
@@ -656,7 +656,7 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_123_RARE_CANDY                (FLAG_HIDDEN_ITEMS_START + 0x6E)
 #define FLAG_HIDDEN_ITEM_ROUTE_105_BIG_PEARL                 (FLAG_HIDDEN_ITEMS_START + 0x6F)
 
-#define FLAG_UNUSED_0x264  0x264 // Unused Flag
+#define FLAG_HIDDEN_ITEM_ROUTE_219_SUPER_POTION              (FLAG_HIDDEN_ITEMS_START + 0x70)
 #define FLAG_UNUSED_0x265  0x265 // Unused Flag
 #define FLAG_UNUSED_0x266  0x266 // Unused Flag
 #define FLAG_UNUSED_0x267  0x267 // Unused Flag

@@ -27,12 +27,12 @@ OldaleTown_Mart_ExpandedItems::
 	end
 
 	.align 2
+@ Stock once the player has the POKéDEX from Prof. Birch
 OldaleTown_Mart_Pokemart_Expanded:
 	.2byte ITEM_POKE_BALL
 	.2byte ITEM_POTION
-	.2byte ITEM_ANTIDOTE
 	.2byte ITEM_PARALYZE_HEAL
-	.2byte ITEM_AWAKENING
+	.2byte ITEM_ANTIDOTE
 	pokemartlistend
 
 OldaleTown_Mart_EventScript_Woman::

@@ -42,7 +42,6 @@ LittlerootTown_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 2, LittlerootTown_EventScript_MoveMomToMaysDoor
 	call_if_unset FLAG_RESCUED_BIRCH, LittlerootTown_EventScript_SetTwinPos
-	call_if_eq VAR_LITTLEROOT_TOWN_STATE, 3, LittlerootTown_EventScript_SetMomStandingInFrontOfDoorPos
 	call_if_eq VAR_LITTLEROOT_HOUSES_STATE_MAY, 4, LittlerootTown_EventScript_SetExitedHouseAfterLatiSSTicketEvent
 	call_if_eq VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 4, LittlerootTown_EventScript_SetExitedHouseAfterLatiSSTicketEvent
 	call_if_eq VAR_OLDALE_RIVAL_STATE, 1, LittlerootTown_EventScript_MoveRivalFromOldale
@@ -88,33 +87,26 @@ LittlerootTown_EventScript_SetTwinGuardingRoutePos::
 	setobjectmovementtype LOCALID_LITTLEROOT_TWIN, MOVEMENT_TYPE_FACE_DOWN
 	return
 
-LittlerootTown_EventScript_SetMomStandingInFrontOfDoorPos::
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
-	setobjectmovementtype LOCALID_LITTLEROOT_MOM, MOVEMENT_TYPE_FACE_DOWN
-	@ In front of the player's house (May's house) door, for both genders
-	setobjectxyperm LOCALID_LITTLEROOT_MOM, 16, 22
-	return
-
 LittlerootTown_OnFrame:
 	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 1, LittlerootTown_EventScript_StepOffTruckMale
 	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 2, LittlerootTown_EventScript_StepOffTruckFemale
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_EventScript_BeginDexUpgradeScene
 	.2byte 0
 
-@ Brendan's house door is at 3, 11. The rival runs out of it and slams into the player.
+@ Brendan's house door is at 3, 10. The rival runs out of it and slams into the player.
 LittlerootTown_EventScript_RivalBumpsIntoPlayer::
 	lockall
 	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
-	setobjectxyperm LOCALID_LITTLEROOT_RIVAL, 3, 11
+	setobjectxyperm LOCALID_LITTLEROOT_RIVAL, 3, 10
 	setobjectmovementtype LOCALID_LITTLEROOT_RIVAL, MOVEMENT_TYPE_FACE_DOWN
-	opendoor 3, 11
+	opendoor 3, 10
 	waitdooranim
 	addobject LOCALID_LITTLEROOT_RIVAL
 	playse SE_WALL_HIT
 	applymovement LOCALID_LITTLEROOT_RIVAL, LittlerootTown_Movement_RivalRushOutOfHouse
 	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerKnockedBack
 	waitmovement 0
-	closedoor 3, 11
+	closedoor 3, 10
 	waitdooranim
 	playse SE_PIN
 	applywaitmovement LOCALID_LITTLEROOT_RIVAL, Common_Movement_ExclamationMark
@@ -137,8 +129,14 @@ LittlerootTown_EventScript_SetMetRival::
 	setvar VAR_LITTLEROOT_TOWN_STATE, 1
 	return
 
-@ Leaving town at the north exit (x 8-11, y 1) before meeting the rival.
+@ Leaving town at the north exit (x 7-12, y 1) before meeting the rival.
 @ The rival runs up from behind and heads to Route 201 with the player.
+LittlerootTown_EventScript_RivalCatchesUpTriggerWest::
+	lockall
+	setvar VAR_0x8009, 7
+	goto LittlerootTown_EventScript_RivalCatchesUp
+	end
+
 LittlerootTown_EventScript_RivalCatchesUpTrigger0::
 	lockall
 	setvar VAR_0x8009, 8
@@ -163,6 +161,12 @@ LittlerootTown_EventScript_RivalCatchesUpTrigger3::
 	goto LittlerootTown_EventScript_RivalCatchesUp
 	end
 
+LittlerootTown_EventScript_RivalCatchesUpTriggerEast::
+	lockall
+	setvar VAR_0x8009, 12
+	goto LittlerootTown_EventScript_RivalCatchesUp
+	end
+
 LittlerootTown_EventScript_RivalCatchesUp::
 	msgbox LittlerootTown_Text_RivalWaitUp, MSGBOX_DEFAULT
 	closemessage
@@ -174,8 +178,9 @@ LittlerootTown_EventScript_RivalCatchesUp::
 	applywaitmovement LOCALID_LITTLEROOT_RIVAL, LittlerootTown_Movement_RivalRunUpBehindPlayer
 	msgbox LittlerootTown_Text_RivalYouReadMyMind, MSGBOX_DEFAULT
 	closemessage
-	call_if_ne VAR_0x8009, 11, LittlerootTown_EventScript_RivalRunAheadRight
-	call_if_eq VAR_0x8009, 11, LittlerootTown_EventScript_RivalRunAheadLeft
+	@ Pass the player on the side toward the middle of the exit
+	call_if_lt VAR_0x8009, 11, LittlerootTown_EventScript_RivalRunAheadRight
+	call_if_ge VAR_0x8009, 11, LittlerootTown_EventScript_RivalRunAheadLeft
 	removeobject LOCALID_LITTLEROOT_RIVAL
 	call LittlerootTown_EventScript_SetMetRival
 	releaseall
@@ -393,8 +398,8 @@ LittlerootTown_EventScript_SetRivalBirchPosForDexUpgrade::
 	addobject LOCALID_LITTLEROOT_BIRCH
 	addobject LOCALID_LITTLEROOT_RIVAL
 	@ Outside the player's house (May's house), for both genders
-	setobjectxy LOCALID_LITTLEROOT_RIVAL, 15, 23
-	setobjectxy LOCALID_LITTLEROOT_BIRCH, 16, 23
+	setobjectxy LOCALID_LITTLEROOT_RIVAL, 13, 20
+	setobjectxy LOCALID_LITTLEROOT_BIRCH, 14, 20
 	end
 
 LittlerootTown_EventScript_FatMan::
@@ -605,8 +610,8 @@ LittlerootTown_EventScript_GiveRunningShoesTrigger::
 
 @ Door of the player's house (May's house)
 LittlerootTown_EventScript_SetHomeDoorCoords::
-	setvar VAR_0x8009, 16
-	setvar VAR_0x800A, 21
+	setvar VAR_0x8009, 14
+	setvar VAR_0x800A, 18
 	return
 
 LittlerootTown_EventScript_MomNoticePlayerFemale::

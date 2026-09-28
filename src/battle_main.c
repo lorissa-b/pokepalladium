@@ -5045,6 +5045,11 @@ static void HandleEndTurn_BattleLost(void)
             gBattleOutcome &= ~B_OUTCOME_LINK_BATTLE_RAN;
         }
     }
+    else if (FlagGet(FLAG_NO_WHITEOUT_ON_LOSS))
+    {
+        // A story battle that carries on either way: no white out messages
+        gBattlescriptCurrInstr = BattleScript_LocalBattleLostEnd;
+    }
     else
     {
         gBattlescriptCurrInstr = BattleScript_LocalBattleLost;

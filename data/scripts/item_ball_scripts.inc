@@ -1,9 +1,9 @@
-Route102_EventScript_ItemPotion::
-	finditem ITEM_POTION
+Route102_EventScript_ItemAntidote::
+	finditem ITEM_ANTIDOTE
 	end
 
-Route103_EventScript_ItemGuardSpec::
-	finditem ITEM_GUARD_SPEC
+Route103_EventScript_ItemPotion::
+	finditem ITEM_POTION
 	end
 
 Route103_EventScript_ItemPPUp::

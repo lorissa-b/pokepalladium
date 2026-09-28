@@ -1,181 +1,269 @@
+@ This map is Route 202, between Sandgem Town and Jubilife City. It was
+@ Route 103 and keeps its internal name (MAP_ROUTE103).
 Route103_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, Route103_OnTransition
-	map_script MAP_SCRIPT_ON_LOAD, Route103_OnLoad
 	.byte 0
 
 Route103_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 	call ProfBirch_EventScript_UpdateLocation
+	call_if_eq VAR_ROUTE101_STATE, 6, Route103_EventScript_ShowAssistant
 	end
 
-Route103_OnLoad:
-	call_if_set FLAG_SYS_GAME_CLEAR, Route103_EventScript_OpenAlteringCave
-	end
-
-Route103_EventScript_OpenAlteringCave::
-	setmetatile 45, 5, METATILE_General_CaveEntrance_Top, TRUE
-	setmetatile 45, 6, METATILE_General_CaveEntrance_Bottom, FALSE
+@ After the POKéDEX, Prof. Birch's assistant waits in the first patch of grass
+Route103_EventScript_ShowAssistant::
+	clearflag FLAG_HIDE_ROUTE_202_ASSISTANT
 	return
 
-Route103_EventScript_Rival::
+@ Stepping onto the route from Sandgem (x 26-29, y 23). The assistant walks
+@ over from the grass at 21, 21, catches a Shinx to show how it's done, hands
+@ over five POKé BALLS and heads back toward Sandgem and the lab.
+
+Route103_EventScript_CatchTutorial26::
 	lockall
-	checkplayergender
-	goto_if_eq VAR_RESULT, MALE, Route103_EventScript_RivalMay
-	goto_if_eq VAR_RESULT, FEMALE, Route103_EventScript_RivalBrendan
+	setvar VAR_0x8008, 26
+	goto Route103_EventScript_CatchTutorial
 	end
 
-Route103_EventScript_RivalMay::
-	msgbox Route103_Text_MayRoute103Pokemon, MSGBOX_DEFAULT
+Route103_EventScript_CatchTutorial27::
+	lockall
+	setvar VAR_0x8008, 27
+	goto Route103_EventScript_CatchTutorial
+	end
+
+Route103_EventScript_CatchTutorial28::
+	lockall
+	setvar VAR_0x8008, 28
+	goto Route103_EventScript_CatchTutorial
+	end
+
+Route103_EventScript_CatchTutorial29::
+	lockall
+	setvar VAR_0x8008, 29
+	goto Route103_EventScript_CatchTutorial
+	end
+
+Route103_EventScript_CatchTutorial::
+	playse SE_PIN
+	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Common_Movement_ExclamationMark
+	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Common_Movement_Delay48
+	msgbox Route103_Text_AssistantOverHere, MSGBOX_DEFAULT
 	closemessage
-	playbgm MUS_ENCOUNTER_MAY, TRUE
-	applywaitmovement LOCALID_ROUTE103_RIVAL, Common_Movement_FacePlayer
-	applywaitmovement LOCALID_ROUTE103_RIVAL, Common_Movement_ExclamationMark
-	applywaitmovement LOCALID_ROUTE103_RIVAL, Common_Movement_Delay48
-	msgbox Route103_Text_MayLetsBattle, MSGBOX_DEFAULT
-	switch VAR_STARTER_MON
-	case 0, Route103_EventScript_StartMayBattleTreecko
-	case 1, Route103_EventScript_StartMayBattleTorchic
-	case 2, Route103_EventScript_StartMayBattleMudkip
-	end
-
-Route103_EventScript_RivalBrendan::
-	msgbox Route103_Text_BrendanRoute103Pokemon, MSGBOX_DEFAULT
+	call_if_eq VAR_0x8008, 26, Route103_EventScript_AssistantApproach26
+	call_if_eq VAR_0x8008, 27, Route103_EventScript_AssistantApproach27
+	call_if_eq VAR_0x8008, 28, Route103_EventScript_AssistantApproach28
+	call_if_eq VAR_0x8008, 29, Route103_EventScript_AssistantApproach29
+	msgbox Route103_Text_AssistantWatchMeCatch, MSGBOX_DEFAULT
 	closemessage
-	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
-	applywaitmovement LOCALID_ROUTE103_RIVAL, Common_Movement_FacePlayer
-	applywaitmovement LOCALID_ROUTE103_RIVAL, Common_Movement_ExclamationMark
-	applywaitmovement LOCALID_ROUTE103_RIVAL, Common_Movement_Delay48
-	msgbox Route103_Text_BrendanLetsBattle, MSGBOX_DEFAULT
-	switch VAR_STARTER_MON
-	case 0, Route103_EventScript_StartBrendanBattleTreecko
-	case 1, Route103_EventScript_StartBrendanBattleTorchic
-	case 2, Route103_EventScript_StartBrendanBattleMudkip
-	end
-
-Route103_EventScript_StartMayBattleTreecko::
-	trainerbattle_no_intro TRAINER_MAY_ROUTE_103_TREECKO, Route103_Text_MayDefeated
-	goto Route103_EventScript_AfterMayBattle
-	end
-
-Route103_EventScript_StartMayBattleTorchic::
-	trainerbattle_no_intro TRAINER_MAY_ROUTE_103_TORCHIC, Route103_Text_MayDefeated
-	goto Route103_EventScript_AfterMayBattle
-	end
-
-Route103_EventScript_StartMayBattleMudkip::
-	trainerbattle_no_intro TRAINER_MAY_ROUTE_103_MUDKIP, Route103_Text_MayDefeated
-	goto Route103_EventScript_AfterMayBattle
-	end
-
-Route103_EventScript_StartBrendanBattleTreecko::
-	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_103_TREECKO, Route103_Text_BrendanDefeated
-	goto Route103_EventScript_AfterBrendanBattle
-	end
-
-Route103_EventScript_StartBrendanBattleTorchic::
-	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_103_TORCHIC, Route103_Text_BrendanDefeated
-	goto Route103_EventScript_AfterBrendanBattle
-	end
-
-Route103_EventScript_StartBrendanBattleMudkip::
-	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_103_MUDKIP, Route103_Text_BrendanDefeated
-	goto Route103_EventScript_AfterBrendanBattle
-	end
-
-Route103_EventScript_AfterMayBattle::
-	msgbox Route103_Text_MayTimeToHeadBack, MSGBOX_DEFAULT
-	goto Route103_EventScript_RivalExit
-	end
-
-Route103_EventScript_AfterBrendanBattle::
-	msgbox Route103_Text_BrendanTimeToHeadBack, MSGBOX_DEFAULT
-	goto Route103_EventScript_RivalExit
-	end
-
-Route103_EventScript_RivalExit::
+	special SavePlayerParty
+	special LoadAssistantTutorialMon
+	special StartAssistantCatchTutorialBattle
+	special LoadPlayerParty
+	msgbox Route103_Text_AssistantThatsHowYouDoIt, MSGBOX_DEFAULT
+	giveitem ITEM_POKE_BALL, 5
+	call_if_eq VAR_RESULT, FALSE, Route103_EventScript_BagFullForPokeBalls
+	msgbox Route103_Text_AssistantHeadingBack, MSGBOX_DEFAULT
 	closemessage
-	switch VAR_FACING
-	case DIR_SOUTH, Route103_EventScript_RivalExitFacingSouth
-	case DIR_NORTH, Route103_EventScript_RivalExitFacingNorth
-	case DIR_WEST, Route103_EventScript_RivalExitFacingEastOrWest
-	case DIR_EAST, Route103_EventScript_RivalExitFacingEastOrWest
-	end
-
-Route103_EventScript_RivalExitFacingNorth::
-	applymovement LOCALID_PLAYER, Route103_Movement_WatchRivalExitFacingNorth
-	applymovement LOCALID_ROUTE103_RIVAL, Route103_Movement_RivalExitFacingNorth1
-	waitmovement 0
-	playse SE_LEDGE
-	applywaitmovement LOCALID_ROUTE103_RIVAL, Route103_Movement_RivalExitFacingNorth2
-	goto Route103_EventScript_RivalEnd
-	end
-
-Route103_EventScript_RivalExitFacingEastOrWest::
-	applymovement LOCALID_PLAYER, Route103_Movement_WatchRivalExitFacingEastOrWest
-	applymovement LOCALID_ROUTE103_RIVAL, Route103_Movement_RivalExit1
-	waitmovement 0
-	playse SE_LEDGE
-	applywaitmovement LOCALID_ROUTE103_RIVAL, Route103_Movement_RivalExit2
-	goto Route103_EventScript_RivalEnd
-	end
-
-Route103_EventScript_RivalExitFacingSouth::
-	applywaitmovement LOCALID_ROUTE103_RIVAL, Route103_Movement_RivalExit1
-	playse SE_LEDGE
-	applywaitmovement LOCALID_ROUTE103_RIVAL, Route103_Movement_RivalExit2
-	goto Route103_EventScript_RivalEnd
-	end
-
-Route103_EventScript_RivalEnd::
-	removeobject LOCALID_ROUTE103_RIVAL
-	setvar VAR_BIRCH_LAB_STATE, 4
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL
-	setflag FLAG_DEFEATED_RIVAL_ROUTE103
-	setvar VAR_OLDALE_RIVAL_STATE, 1
-	clearflag FLAG_HIDE_OLDALE_TOWN_RIVAL
-	savebgm MUS_DUMMY
-	fadedefaultbgm
+	call_if_eq VAR_0x8008, 26, Route103_EventScript_AssistantLeave26
+	call_if_eq VAR_0x8008, 27, Route103_EventScript_AssistantLeave27
+	call_if_eq VAR_0x8008, 28, Route103_EventScript_AssistantLeave28
+	call_if_eq VAR_0x8008, 29, Route103_EventScript_AssistantLeave29
+	removeobject LOCALID_ROUTE202_ASSISTANT
+	@ She's back at the lab from now on
+	clearflag FLAG_HIDE_BIRCHS_LAB_ASSISTANT
+	setvar VAR_ROUTE101_STATE, 7
 	releaseall
 	end
 
-Route103_Movement_RivalExitFacingNorth1:
+Route103_EventScript_BagFullForPokeBalls::
+	msgbox gText_TooBadBagIsFull, MSGBOX_DEFAULT
+	return
+
+Route103_EventScript_AssistantApproach26::
+	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route103_Movement_AssistantApproach26
+	return
+
+Route103_EventScript_AssistantLeave26::
+	applymovement LOCALID_ROUTE202_ASSISTANT, Route103_Movement_AssistantLeave26
+	applymovement LOCALID_PLAYER, Route103_Movement_PlayerWatchAssistantLeave
+	waitmovement LOCALID_ROUTE202_ASSISTANT
+	waitmovement LOCALID_PLAYER
+	return
+
+Route103_EventScript_AssistantApproach27::
+	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route103_Movement_AssistantApproach27
+	return
+
+Route103_EventScript_AssistantLeave27::
+	applymovement LOCALID_ROUTE202_ASSISTANT, Route103_Movement_AssistantLeave27
+	applymovement LOCALID_PLAYER, Route103_Movement_PlayerWatchAssistantLeave
+	waitmovement LOCALID_ROUTE202_ASSISTANT
+	waitmovement LOCALID_PLAYER
+	return
+
+Route103_EventScript_AssistantApproach28::
+	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route103_Movement_AssistantApproach28
+	return
+
+Route103_EventScript_AssistantLeave28::
+	applymovement LOCALID_ROUTE202_ASSISTANT, Route103_Movement_AssistantLeave28
+	applymovement LOCALID_PLAYER, Route103_Movement_PlayerWatchAssistantLeave
+	waitmovement LOCALID_ROUTE202_ASSISTANT
+	waitmovement LOCALID_PLAYER
+	return
+
+Route103_EventScript_AssistantApproach29::
+	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route103_Movement_AssistantApproach29
+	return
+
+Route103_EventScript_AssistantLeave29::
+	applymovement LOCALID_ROUTE202_ASSISTANT, Route103_Movement_AssistantLeave29
+	applymovement LOCALID_PLAYER, Route103_Movement_PlayerWatchAssistantLeave
+	waitmovement LOCALID_ROUTE202_ASSISTANT
+	waitmovement LOCALID_PLAYER
+	return
+
+Route103_Movement_AssistantApproach26:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_down
+	walk_in_place_faster_down
+	step_end
+
+Route103_Movement_AssistantApproach27:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_down
+	walk_in_place_faster_down
+	step_end
+
+Route103_Movement_AssistantApproach28:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_down
+	walk_in_place_faster_down
+	step_end
+
+Route103_Movement_AssistantApproach29:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_down
+	walk_in_place_faster_down
+	step_end
+
+Route103_Movement_AssistantLeave26:
+	walk_right
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+Route103_Movement_AssistantLeave27:
+	walk_right
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+Route103_Movement_AssistantLeave28:
 	walk_left
 	walk_down
-	step_end
-
-Route103_Movement_RivalExitFacingNorth2:
-	jump_2_down
-	delay_16
-	walk_down
 	walk_down
 	walk_down
 	walk_down
 	step_end
 
-Route103_Movement_WatchRivalExitFacingNorth:
-	delay_16
-	delay_4
-	walk_in_place_faster_left
-	delay_16
-	walk_in_place_faster_down
-	step_end
-
-Route103_Movement_RivalExit1:
+Route103_Movement_AssistantLeave29:
+	walk_left
 	walk_down
-	step_end
-
-Route103_Movement_RivalExit2:
-	jump_2_down
-	delay_16
 	walk_down
 	walk_down
 	walk_down
 	step_end
 
-Route103_Movement_WatchRivalExitFacingEastOrWest:
+Route103_Movement_PlayerWatchAssistantLeave:
 	delay_16
 	walk_in_place_faster_down
 	step_end
+
+Route103_EventScript_Natalie::
+	trainerbattle_single TRAINER_DAISY, Route103_Text_NatalieIntro, Route103_Text_NatalieDefeated
+	msgbox Route103_Text_NataliePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route103_EventScript_Logan::
+	trainerbattle_single TRAINER_RICK, Route103_Text_LoganIntro, Route103_Text_LoganDefeated
+	msgbox Route103_Text_LoganPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route103_EventScript_Tristan::
+	trainerbattle_single TRAINER_CALVIN_1, Route103_Text_TristanIntro, Route103_Text_TristanDefeated, Route103_EventScript_TristanRegisterMatchCallAfterBattle
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route103_EventScript_TristanRematch
+	setvar VAR_0x8004, TRAINER_CALVIN_1
+	specialvar VAR_RESULT, IsTrainerRegistered
+	goto_if_eq VAR_RESULT, FALSE, Route103_EventScript_TristanTryRegister
+	msgbox Route103_Text_TristanPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route103_EventScript_TristanRegisterMatchCallAfterBattle::
+	special PlayerFaceTrainerAfterBattle
+	waitmovement 0
+	goto_if_set FLAG_HAS_MATCH_CALL, Route103_EventScript_TristanRegisterMatchCall
+	@ No POKéNAV yet: register him quietly so he's already in Match Call once
+	@ the player gets one
+	setvar VAR_0x8004, TRAINER_CALVIN_1
+	special SetMatchCallRegisteredFlag
+	release
+	end
+
+Route103_EventScript_TristanRegisterMatchCall::
+	msgbox Route103_Text_TristanRegisterShort, MSGBOX_DEFAULT
+	register_matchcall TRAINER_CALVIN_1
+	release
+	end
+
+Route103_EventScript_TristanTryRegister::
+	goto_if_set FLAG_HAS_MATCH_CALL, Route103_EventScript_TristanRegister
+	msgbox Route103_Text_TristanPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route103_EventScript_TristanRegister::
+	msgbox Route103_Text_TristanRegister, MSGBOX_DEFAULT
+	register_matchcall TRAINER_CALVIN_1
+	release
+	end
+
+Route103_EventScript_TristanRematch::
+	trainerbattle_rematch TRAINER_CALVIN_1, Route103_Text_TristanRematchIntro, Route103_Text_TristanRematchDefeated
+	msgbox Route103_Text_TristanRematchPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route103_EventScript_TrainerTips::
+	msgbox Route103_Text_TrainerTips, MSGBOX_SIGN
+	end
 
 Route103_EventScript_Boy::
 	msgbox Route103_Text_ShouldHaveBroughtPotion, MSGBOX_NPC
@@ -187,11 +275,6 @@ Route103_EventScript_Man::
 
 Route103_EventScript_RouteSign::
 	msgbox Route103_Text_RouteSign, MSGBOX_SIGN
-	end
-
-Route103_EventScript_Daisy::
-	trainerbattle_single TRAINER_DAISY, Route103_Text_DaisyIntro, Route103_Text_DaisyDefeated
-	msgbox Route103_Text_DaisyPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 Route103_EventScript_Amy::
@@ -334,10 +417,59 @@ Route103_Text_ShouldHaveBroughtPotion:
 
 Route103_Text_ShortcutToOldale:
 	.string "If you cross the sea from here,\n"
-	.string "it'll be a shortcut to OLDALE TOWN.\p"
+	.string "it'll be a shortcut to SANDGEM TOWN.\p"
 	.string "Fufufu, that's useful, isn't it?$"
 
 Route103_Text_RouteSign:
-	.string "ROUTE 103\n"
-	.string "{DOWN_ARROW} OLDALE TOWN$"
+	.string "ROUTE 202\n"
+	.string "{UP_ARROW} JUBILIFE CITY  {DOWN_ARROW} SANDGEM TOWN$"
 
+Route103_Text_AssistantOverHere:
+	.string "ASSISTANT: Oh, {PLAYER}!\n"
+	.string "Over here!$"
+
+Route103_Text_AssistantWatchMeCatch:
+	.string "The PROFESSOR asked me to show you\n"
+	.string "how to catch POKéMON.\p"
+	.string "Watch closely, okay?$"
+
+Route103_Text_AssistantThatsHowYouDoIt:
+	.string "ASSISTANT: See? Weaken it first,\n"
+	.string "then throw a POKé BALL!\p"
+	.string "Now it's your turn.\n"
+	.string "Here, take these!$"
+
+Route103_Text_AssistantHeadingBack:
+	.string "ASSISTANT: Good luck, {PLAYER}!\n"
+	.string "I'm heading back to the LAB now.$"
+
+Route103_Text_TrainerTips:
+	.string "TRAINER TIPS\p"
+	.string "Weaken a wild POKéMON before you\n"
+	.string "throw a POKé BALL at it.\p"
+	.string "It's easier to catch a POKéMON\n"
+	.string "that's low on HP!$"
+
+Route103_Text_NatalieIntro:
+	.string "My BIDOOF are twins!\n"
+	.string "Can you handle both of them?$"
+
+Route103_Text_NatalieDefeated:
+	.string "Oh no!\n"
+	.string "My poor BIDOOF…$"
+
+Route103_Text_NataliePostBattle:
+	.string "Two of the same POKéMON wasn't\n"
+	.string "enough. I'll catch different ones!$"
+
+Route103_Text_LoganIntro:
+	.string "My SHINX and I just caught each\n"
+	.string "other's eye. Let's battle!$"
+
+Route103_Text_LoganDefeated:
+	.string "Aww… My SHINX\n"
+	.string "gave it everything!$"
+
+Route103_Text_LoganPostBattle:
+	.string "The tall grass around here is full of\n"
+	.string "POKéMON. I'm going to catch more!$"

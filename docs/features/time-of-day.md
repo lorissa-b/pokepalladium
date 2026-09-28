@@ -26,12 +26,13 @@ The day is split into four periods, and the game reacts to them:
 These build on the {doc}`fast in-game clock <fake-rtc>`, but work the same way
 with the cartridge clock.
 
-![Oldale Town during the day](img/day-night-day.png)
-![Oldale Town at 06:20, partway through dawn](img/day-night-dawn.png)
-![Oldale Town at 17:30, partway through dusk](img/day-night-dusk.png)
-![Oldale Town at night](img/day-night-night.png)
+![The town during the day](img/day-night-day.png)
+![The town at 06:20, partway through dawn](img/day-night-dawn.png)
+![The town at 17:30, partway through dusk](img/day-night-dusk.png)
+![The town at night](img/day-night-night.png)
 
-Day, dawn (06:20), dusk (17:30) and night in Oldale Town.
+Day, dawn (06:20), dusk (17:30) and night in the town that is now Sandgem Town,
+taken before it was redrawn from Emerald's Oldale Town layout.
 
 ## Where it lives
 

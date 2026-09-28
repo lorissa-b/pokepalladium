@@ -97,6 +97,20 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "LittlerootTown_ProfessorBirchsLab_EventScript_Chikorita",
       "flag": "FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CHIKORITA"
+    },
+    {
+      "local_id": "LOCALID_BIRCHS_LAB_ASSISTANT",
+      "graphics_id": "OBJ_EVENT_GFX_LASS",
+      "x": 7,
+      "y": 5,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "LittlerootTown_ProfessorBirchsLab_EventScript_Assistant",
+      "flag": "FLAG_HIDE_BIRCHS_LAB_ASSISTANT"
     }
   ],
   "warp_events": [
@@ -104,15 +118,15 @@
       "x": 6,
       "y": 12,
       "elevation": 0,
-      "dest_map": "MAP_LITTLEROOT_TOWN",
-      "dest_warp_id": "2"
+      "dest_map": "MAP_OLDALE_TOWN",
+      "dest_warp_id": "4"
     },
     {
       "x": 7,
       "y": 12,
       "elevation": 0,
-      "dest_map": "MAP_LITTLEROOT_TOWN",
-      "dest_warp_id": "2"
+      "dest_map": "MAP_OLDALE_TOWN",
+      "dest_warp_id": "4"
     }
   ],
   "coord_events": [],

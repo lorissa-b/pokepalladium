@@ -24,11 +24,17 @@ LittlerootTown_MaysHouse_1F_EventScript_ShowRunningShoesManual::
 	return
 
 LittlerootTown_MaysHouse_1F_OnTransition:
+	call_if_eq VAR_LITTLEROOT_TOWN_STATE, 3, LittlerootTown_MaysHouse_1F_EventScript_RivalMomVisiting
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 8, LittlerootTown_MaysHouse_1F_EventScript_MoveMomNearStairs
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 3, LittlerootTown_MaysHouse_1F_EventScript_MoveMomToDoor
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 5, LittlerootTown_MaysHouse_1F_EventScript_MoveMomToStairs
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_MaysHouse_1F_EventScript_MoveMomToTV
 	end
+
+@ After getting the POKéDEX, the rival's mom is sitting at the table with Mom
+LittlerootTown_MaysHouse_1F_EventScript_RivalMomVisiting::
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_MOM
+	return
 
 LittlerootTown_MaysHouse_1F_EventScript_MoveMomToStairs::
 	setobjectxyperm LOCALID_PLAYERS_HOUSE_1F_MOM, 2, 4
@@ -52,6 +58,7 @@ LittlerootTown_MaysHouse_1F_EventScript_MoveMomToDoor::
 
 @ Many of the below scripts have no gender check because they assume youre in the correct house
 LittlerootTown_MaysHouse_1F_OnFrame:
+	map_script_2 VAR_LITTLEROOT_TOWN_STATE, 3, LittlerootTown_MaysHouse_1F_EventScript_HomeWithPokedex
 	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 8, LittlerootTown_MaysHouse_1F_EventScript_RivalWasLookingForYou
 	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 3, LittlerootTown_MaysHouse_1F_EventScript_EnterHouseMovingIn
 	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 5, LittlerootTown_MaysHouse_1F_EventScript_GoUpstairsToSetClock
@@ -59,6 +66,45 @@ LittlerootTown_MaysHouse_1F_OnFrame:
 	map_script_2 VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 1, LittlerootTown_MaysHouse_1F_EventScript_YoureNewNeighbor
 	map_script_2 VAR_LITTLEROOT_HOUSES_STATE_MAY, 3, PlayersHouse_1F_EventScript_GetSSTicketAndSeeLatiTV
 	.2byte 0
+
+@ Coming home with the POKéDEX. Mom (8, 6) and the rival's mom (8, 7) are
+@ sitting on the far side of the table; the player sits down across from them
+@ at 5, 7. The rival's mom hands over a TOWN MAP and Mom gives RUNNING SHOES.
+LittlerootTown_MaysHouse_1F_EventScript_HomeWithPokedex::
+	lockall
+	playse SE_PIN
+	applywaitmovement LOCALID_RIVALS_HOUSE_1F_MOM, Common_Movement_ExclamationMark
+	applywaitmovement LOCALID_RIVALS_HOUSE_1F_MOM, Common_Movement_Delay48
+	applywaitmovement LOCALID_PLAYER, LittlerootTown_MaysHouse_1F_Movement_PlayerSitAtTable
+	msgbox RivalsHouse_1F_Text_RivalRanAheadBringTownMap, MSGBOX_DEFAULT
+	giveitem ITEM_TOWN_MAP
+	msgbox RivalsHouse_1F_Text_KeepTheExtraTownMap, MSGBOX_DEFAULT
+	closemessage
+	applywaitmovement LOCALID_PLAYERS_HOUSE_1F_MOM, Common_Movement_ExclamationMark
+	msgbox PlayersHouse_1F_Text_MomWearTheseRunningShoes, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
+	message LittlerootTown_Text_SwitchShoesWithRunningShoes
+	waitfanfare
+	setflag FLAG_RECEIVED_RUNNING_SHOES
+	setflag FLAG_SYS_B_DASH
+	msgbox LittlerootTown_Text_ExplainRunningShoes, MSGBOX_DEFAULT
+	msgbox LittlerootTown_Text_ComeHomeIfAnythingHappens, MSGBOX_DEFAULT
+	closemessage
+	@ She stays at the table for this visit and goes home afterwards
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_MOM
+	setvar VAR_LITTLEROOT_TOWN_STATE, 4
+	releaseall
+	end
+
+@ From the door mat (1, 8) to the chair across the table (5, 7)
+LittlerootTown_MaysHouse_1F_Movement_PlayerSitAtTable:
+	walk_up
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_in_place_faster_right
+	step_end
 
 @ First time coming downstairs after the game starts
 LittlerootTown_MaysHouse_1F_EventScript_RivalWasLookingForYou::
@@ -142,12 +188,18 @@ LittlerootTown_MaysHouse_1F_Movement_RivalMomApproach:
 RivalsHouse_1F_EventScript_RivalMom::
 	lock
 	faceplayer
+	goto_if_ge VAR_LITTLEROOT_TOWN_STATE, 4, RivalsHouse_1F_EventScript_PleaseDeliverTownMap
 	goto_if_set FLAG_DEFEATED_RIVAL_ROUTE103, RivalsHouse_1F_EventScript_GoHomeEverySoOften
 	goto_if_set FLAG_SYS_POKEMON_GET, RivalsHouse_1F_EventScript_RivalIsOnRoute103
 	goto_if_eq VAR_LITTLEROOT_INTRO_STATE, 10, RivalsHouse_1F_EventScript_RivalRanOffToRoute201
 	goto_if_eq VAR_LITTLEROOT_RIVAL_STATE, 3, RivalsHouse_1F_EventScript_RivalTooBusy
 	special GetRivalSonDaughterString
 	msgbox RivalsHouse_1F_Text_LikeChildLikeFather, MSGBOX_DEFAULT
+	release
+	end
+
+RivalsHouse_1F_EventScript_PleaseDeliverTownMap::
+	msgbox RivalsHouse_1F_Text_PleaseDeliverTownMap, MSGBOX_DEFAULT
 	release
 	end
 
@@ -440,3 +492,28 @@ RivalsHouse_1F_Text_DoYouHavePokemon:
 	.string "Hi, neighbor!\p"
 	.string "Do you already have your\n"
 	.string "own POKéMON?$"
+
+RivalsHouse_1F_Text_RivalRanAheadBringTownMap:
+	.string "Oh, {PLAYER}{KUN}! Welcome home!\p"
+	.string "{RIVAL} was just here, but ran on\n"
+	.string "ahead again. As usual!\p"
+	.string "And guess what got left behind?\n"
+	.string "This TOWN MAP.\p"
+	.string "Could you please bring it to {RIVAL}\n"
+	.string "when you catch up?$"
+
+RivalsHouse_1F_Text_KeepTheExtraTownMap:
+	.string "There was an extra one here, too.\n"
+	.string "That one's yours, so keep it!$"
+
+RivalsHouse_1F_Text_PleaseDeliverTownMap:
+	.string "Please give that TOWN MAP to {RIVAL}\n"
+	.string "when you catch up. Thank you!$"
+
+PlayersHouse_1F_Text_MomWearTheseRunningShoes:
+	.string "MOM: {PLAYER}! You got a POKéDEX\n"
+	.string "from PROF. BIRCH? How wonderful!\p"
+	.string "If you're going out on an adventure,\n"
+	.string "you'll need these, honey.\p"
+	.string "Here, wear these RUNNING SHOES.\n"
+	.string "They'll put a zip in your step!$"
