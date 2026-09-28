@@ -2,7 +2,7 @@
   "map_sections": [
     {
       "id": "MAPSEC_LITTLEROOT_TOWN",
-      "name": "LITTLEROOT TOWN",
+      "name": "TWINLEAF TOWN",
       "x": 4,
       "y": 11,
       "width": 1,
@@ -130,7 +130,7 @@
     },
     {
       "id": "MAPSEC_ROUTE_101",
-      "name": "ROUTE 101",
+      "name": "ROUTE 201",
       "x": 4,
       "y": 10,
       "width": 1,
