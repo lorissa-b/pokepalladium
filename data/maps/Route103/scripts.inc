@@ -231,6 +231,10 @@ Route103_EventScript_TristanRegisterMatchCallAfterBattle::
 	special PlayerFaceTrainerAfterBattle
 	waitmovement 0
 	goto_if_set FLAG_HAS_MATCH_CALL, Route103_EventScript_TristanRegisterMatchCall
+	@ No POKéNAV yet: register him quietly so he's already in Match Call once
+	@ the player gets one
+	setvar VAR_0x8004, TRAINER_CALVIN_1
+	special SetMatchCallRegisteredFlag
 	release
 	end
 
