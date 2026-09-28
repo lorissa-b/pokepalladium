@@ -5,7 +5,9 @@ Route101_MapScripts::
 	@ State descriptions for VAR_ROUTE101_STATE
 	@ 0: Haven't been on Route 201 yet
 	@ 1: Rival dared you to go to Lake Verity and is waiting by the north gap
-	@ 2: Met Prof. Birch and his assistant coming back from the lake
+	@ 2: Met Prof. Birch and his assistant; the rival went ahead into Lake Verity
+	@ 3: (Lake Verity) Rival pointed out the bag Birch left behind
+	@ 4: (Lake Verity) Chose a starter from the bag and beat the wild Starly
 
 Route101_OnTransition:
 	call ProfBirch_EventScript_UpdateLocation
@@ -102,8 +104,9 @@ Route101_EventScript_MeetBirch::
 	call_if_eq VAR_0x8008, 1, Route101_EventScript_RivalFacePlayerRight
 	msgbox Route101_Text_RivalWeGotCaught, MSGBOX_DEFAULT
 	closemessage
-	applywaitmovement LOCALID_ROUTE201_RIVAL, Route101_Movement_RivalRunHome
+	applywaitmovement LOCALID_ROUTE201_RIVAL, Route101_Movement_RivalRunToLake
 	removeobject LOCALID_ROUTE201_RIVAL
+	clearflag FLAG_HIDE_LAKE_VERITY_RIVAL
 	setvar VAR_ROUTE101_STATE, 2
 	releaseall
 	end
@@ -214,18 +217,18 @@ Route101_Movement_AssistantLeave:
 	walk_right
 	step_end
 
-Route101_Movement_RivalRunHome:
-	walk_fast_down
-	walk_fast_down
-	walk_fast_down
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
+@ From 10, 8 up the north gap into Lake Verity
+Route101_Movement_RivalRunToLake:
+	walk_fast_up
+	walk_fast_up
+	walk_fast_left
+	walk_fast_left
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
 	step_end
 
 Route101_EventScript_Youngster::
@@ -308,9 +311,10 @@ Route101_Text_AssistantTakeCare:
 
 Route101_Text_RivalWeGotCaught:
 	.string "{RIVAL}: …Aww. We got caught.\p"
-	.string "But now I really want to see that lake!\p"
-	.string "Next time, we're going for sure!\n"
-	.string "I'm going home to come up with a plan!$"
+	.string "But they just came back from the lake,\n"
+	.string "so it can't be THAT dangerous, right?\p"
+	.string "Come on, {PLAYER}! Let's take a peek\n"
+	.string "before anyone else shows up!$"
 
 Route101_Text_TakeTiredPokemonToPokeCenter:
 	.string "If POKéMON get tired, take them to\n"
