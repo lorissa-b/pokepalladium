@@ -543,10 +543,12 @@ LittlerootTown_EventScript_BirchsLabSign::
 	msgbox LittlerootTown_Text_ProfBirchsLab, MSGBOX_SIGN
 	end
 
+@ Brendan's house is always the rival's house
 LittlerootTown_EventScript_BrendansHouseSign::
-	msgbox LittlerootTown_Text_ProfBirchsHouse, MSGBOX_SIGN
+	msgbox LittlerootTown_Text_RivalsHouse, MSGBOX_SIGN
 	end
 
+@ May's house is always the player's house
 LittlerootTown_EventScript_MaysHouseSign::
 	msgbox LittlerootTown_Text_PlayersHouse, MSGBOX_SIGN
 	end
@@ -923,7 +925,9 @@ LittlerootTown_Text_GoodLuckCatchingPokemon:
 
 LittlerootTown_Text_TownSign:
 	.string "TWINLEAF TOWN\n"
-	.string "“Fresh and free!”$"
+	.string "“Fresh and free!”\p"
+	.string "A quiet little town where the\n"
+	.string "breeze smells of new leaves.$"
 
 LittlerootTown_Text_ProfBirchsLab:
 	.string "PROF. BIRCH'S POKéMON LAB$"
@@ -931,8 +935,8 @@ LittlerootTown_Text_ProfBirchsLab:
 LittlerootTown_Text_PlayersHouse:
 	.string "{PLAYER}'s HOUSE$"
 
-LittlerootTown_Text_ProfBirchsHouse:
-	.string "PROF. BIRCH'S HOUSE$"
+LittlerootTown_Text_RivalsHouse:
+	.string "{RIVAL}'s HOUSE$"
 
 LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "PROF. BIRCH: Well, well, {PLAYER}{KUN}!\n"
