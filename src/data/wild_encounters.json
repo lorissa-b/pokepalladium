@@ -85,12 +85,12 @@
               {
                 "min_level": 20,
                 "max_level": 30,
-                "species": "SPECIES_PSYDUCK"
+                "species": "SPECIES_BUIZEL"
               },
               {
                 "min_level": 20,
                 "max_level": 30,
-                "species": "SPECIES_BUIZEL"
+                "species": "SPECIES_AZUMARILL"
               },
               {
                 "min_level": 25,
@@ -100,12 +100,12 @@
               {
                 "min_level": 30,
                 "max_level": 35,
-                "species": "SPECIES_GOLDUCK"
+                "species": "SPECIES_PSYDUCK"
               },
               {
                 "min_level": 35,
                 "max_level": 40,
-                "species": "SPECIES_GOLDUCK"
+                "species": "SPECIES_PSYDUCK"
               }
             ]
           },
@@ -184,17 +184,17 @@
               {
                 "min_level": 25,
                 "max_level": 30,
-                "species": "SPECIES_BUIZEL"
+                "species": "SPECIES_POLIWHIRL"
               },
               {
                 "min_level": 30,
                 "max_level": 35,
-                "species": "SPECIES_FLOATZEL"
+                "species": "SPECIES_POLIWHIRL"
               },
               {
                 "min_level": 35,
                 "max_level": 40,
-                "species": "SPECIES_FLOATZEL"
+                "species": "SPECIES_POLIWHIRL"
               }
             ]
           },
@@ -263,27 +263,27 @@
               {
                 "min_level": 20,
                 "max_level": 30,
-                "species": "SPECIES_PSYDUCK"
+                "species": "SPECIES_AZUMARILL"
               },
               {
                 "min_level": 20,
                 "max_level": 30,
-                "species": "SPECIES_SHELLOS"
+                "species": "SPECIES_PSYDUCK"
               },
               {
                 "min_level": 25,
                 "max_level": 30,
-                "species": "SPECIES_PSYDUCK"
+                "species": "SPECIES_QUAGSIRE"
               },
               {
                 "min_level": 30,
                 "max_level": 35,
-                "species": "SPECIES_GOLDUCK"
+                "species": "SPECIES_QUAGSIRE"
               },
               {
                 "min_level": 35,
                 "max_level": 40,
-                "species": "SPECIES_GASTRODON"
+                "species": "SPECIES_QUAGSIRE"
               }
             ]
           },
@@ -352,7 +352,7 @@
               {
                 "min_level": 20,
                 "max_level": 30,
-                "species": "SPECIES_WOOPER"
+                "species": "SPECIES_BUIZEL"
               },
               {
                 "min_level": 20,
@@ -362,7 +362,7 @@
               {
                 "min_level": 25,
                 "max_level": 30,
-                "species": "SPECIES_WOOPER"
+                "species": "SPECIES_QUAGSIRE"
               },
               {
                 "min_level": 30,
@@ -372,7 +372,7 @@
               {
                 "min_level": 35,
                 "max_level": 40,
-                "species": "SPECIES_GOLDUCK"
+                "species": "SPECIES_QUAGSIRE"
               }
             ]
           },
