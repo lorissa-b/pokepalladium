@@ -134,7 +134,7 @@ LittlerootTown_ProfessorBirchsLab_EventScript_MeetBirch::
 	setflag FLAG_ADVENTURE_STARTED
 	setvar VAR_OLDALE_TOWN_STATE, 1
 	setvar VAR_LITTLEROOT_RIVAL_STATE, 4
-	@ Mom waits outside the house with the RUNNING SHOES
+	@ Back home, the rival's mom brings a TOWN MAP and Mom has RUNNING SHOES
 	setvar VAR_LITTLEROOT_TOWN_STATE, 3
 	releaseall
 	end
