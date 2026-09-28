@@ -54,6 +54,7 @@ static u8 GetDirectionToHiddenItem(s16, s16);
 static void PlayerFaceHiddenItem(u8);
 static void CheckForHiddenItemsInMapConnection(u8);
 static void Task_OpenRegisteredPokeblockCase(u8);
+static void Task_OpenRegisteredTownMap(u8);
 static void ItemUseOnFieldCB_Bike(u8);
 static void ItemUseOnFieldCB_Rod(u8);
 static void ItemUseOnFieldCB_Itemfinder(u8);
@@ -70,6 +71,7 @@ static void Task_UseRepel(u8);
 static void Task_CloseCantUseKeyItemMessage(u8);
 static void SetDistanceOfClosestHiddenItem(u8, s16, s16);
 static void CB2_OpenPokeblockFromBag(void);
+static void CB2_OpenTownMapFromBag(void);
 
 // EWRAM variables
 EWRAM_DATA static TaskFunc sItemUseOnFieldCB = NULL;
@@ -636,6 +638,38 @@ static void Task_OpenRegisteredPokeblockCase(u8 taskId)
     {
         CleanupOverworldWindowsAndTilemaps();
         OpenPokeblockCase(PBLOCK_CASE_FIELD, CB2_ReturnToField);
+        DestroyTask(taskId);
+    }
+}
+
+// Opens the region map, returning to the bag, or to the field when used
+// as a registered key item
+void ItemUseOutOfBattle_TownMap(u8 taskId)
+{
+    if (gTasks[taskId].tUsingRegisteredKeyItem != TRUE)
+    {
+        gBagMenu->newScreenCallback = CB2_OpenTownMapFromBag;
+        Task_FadeAndCloseBagMenu(taskId);
+    }
+    else
+    {
+        gFieldCallback = FieldCB_ReturnToFieldNoScript;
+        FadeScreen(FADE_TO_BLACK, 0);
+        gTasks[taskId].func = Task_OpenRegisteredTownMap;
+    }
+}
+
+static void CB2_OpenTownMapFromBag(void)
+{
+    FieldInitRegionMap(CB2_ReturnToBagMenuPocket);
+}
+
+static void Task_OpenRegisteredTownMap(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        CleanupOverworldWindowsAndTilemaps();
+        FieldInitRegionMap(CB2_ReturnToField);
         DestroyTask(taskId);
     }
 }
