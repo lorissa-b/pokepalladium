@@ -94,6 +94,8 @@ static const u8 *GetTrainerCantBattleSpeech(void);
 
 EWRAM_DATA static u16 sTrainerBattleMode = 0;
 EWRAM_DATA u16 gTrainerBattleOpponent_A = 0;
+// Set while Prof. Birch's assistant, rather than Wally, runs the catching tutorial
+EWRAM_DATA bool8 gIsAssistantCatchTutorial = FALSE;
 EWRAM_DATA u16 gTrainerBattleOpponent_B = 0;
 EWRAM_DATA u16 gPartnerTrainerId = 0;
 EWRAM_DATA static u16 sTrainerObjectEventLocalId = 0;
@@ -293,7 +295,7 @@ const struct RematchTrainer gRematchTable[REMATCH_TABLE_ENTRIES] =
     [REMATCH_MIGUEL] = REMATCH(TRAINER_MIGUEL_1, TRAINER_MIGUEL_2, TRAINER_MIGUEL_3, TRAINER_MIGUEL_4, TRAINER_MIGUEL_5, MAP_ROUTE103),
     [REMATCH_TIMOTHY] = REMATCH(TRAINER_TIMOTHY_1, TRAINER_TIMOTHY_2, TRAINER_TIMOTHY_3, TRAINER_TIMOTHY_4, TRAINER_TIMOTHY_5, MAP_ROUTE115),
     [REMATCH_SHELBY] = REMATCH(TRAINER_SHELBY_1, TRAINER_SHELBY_2, TRAINER_SHELBY_3, TRAINER_SHELBY_4, TRAINER_SHELBY_5, MAP_MT_CHIMNEY),
-    [REMATCH_CALVIN] = REMATCH(TRAINER_CALVIN_1, TRAINER_CALVIN_2, TRAINER_CALVIN_3, TRAINER_CALVIN_4, TRAINER_CALVIN_5, MAP_ROUTE102),
+    [REMATCH_CALVIN] = REMATCH(TRAINER_CALVIN_1, TRAINER_CALVIN_2, TRAINER_CALVIN_3, TRAINER_CALVIN_4, TRAINER_CALVIN_5, MAP_ROUTE103),
     [REMATCH_ELLIOT] = REMATCH(TRAINER_ELLIOT_1, TRAINER_ELLIOT_2, TRAINER_ELLIOT_3, TRAINER_ELLIOT_4, TRAINER_ELLIOT_5, MAP_ROUTE106),
     [REMATCH_ISAIAH] = REMATCH(TRAINER_ISAIAH_1, TRAINER_ISAIAH_2, TRAINER_ISAIAH_3, TRAINER_ISAIAH_4, TRAINER_ISAIAH_5, MAP_ROUTE128),
     [REMATCH_MARIA] = REMATCH(TRAINER_MARIA_1, TRAINER_MARIA_2, TRAINER_MARIA_3, TRAINER_MARIA_4, TRAINER_MARIA_5, MAP_ROUTE117),
@@ -480,10 +482,28 @@ static void DoBattlePyramidTrainerHillBattle(void)
 void StartWallyTutorialBattle(void)
 {
     CreateMaleMon(&gEnemyParty[0], SPECIES_RALTS, 5);
+    gIsAssistantCatchTutorial = FALSE;
     LockPlayerFieldControls();
     gMain.savedCallback = CB2_ReturnToFieldContinueScriptPlayMapMusic;
     gBattleTypeFlags = BATTLE_TYPE_WALLY_TUTORIAL;
     CreateBattleStartTask(B_TRANSITION_SLICE, 0);
+}
+
+// The same scripted catching battle as Wally's, run by Prof. Birch's
+// assistant on Route 202 against a wild Shinx
+void StartAssistantCatchTutorialBattle(void)
+{
+    CreateMon(&gEnemyParty[0], SPECIES_SHINX, 5, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0);
+    gIsAssistantCatchTutorial = TRUE;
+    LockPlayerFieldControls();
+    gMain.savedCallback = CB2_ReturnToFieldContinueScriptPlayMapMusic;
+    gBattleTypeFlags = BATTLE_TYPE_WALLY_TUTORIAL;
+    CreateBattleStartTask(B_TRANSITION_SLICE, 0);
+}
+
+u8 GetCatchTutorialBackPic(void)
+{
+    return gIsAssistantCatchTutorial ? TRAINER_BACK_PIC_LEAF : TRAINER_BACK_PIC_WALLY;
 }
 
 void BattleSetup_StartScriptedWildBattle(void)

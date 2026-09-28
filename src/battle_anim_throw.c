@@ -1,6 +1,7 @@
 #include "global.h"
 #include "battle.h"
 #include "battle_anim.h"
+#include "battle_setup.h"
 #include "battle_controllers.h"
 #include "battle_interface.h"
 #include "decompress.h"
@@ -794,7 +795,7 @@ void AnimTask_ThrowBall_StandingTrainer(u8 taskId)
     u8 subpriority;
     u8 spriteId;
 
-    if (gBattleTypeFlags & BATTLE_TYPE_WALLY_TUTORIAL)
+    if (gBattleTypeFlags & BATTLE_TYPE_WALLY_TUTORIAL && !gIsAssistantCatchTutorial)
     {
         x = 32;
         y = 11;

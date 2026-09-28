@@ -1434,6 +1434,20 @@ void LoadWallyZigzagoon(void)
     SetMonData(&gPlayerParty[0], MON_DATA_MOVE4, &monData);
 }
 
+// Prof. Birch's assistant has the starter neither the player nor the rival
+// took, with just its first move, for the Route 202 catching tutorial
+void LoadAssistantTutorialMon(void)
+{
+    u16 monData;
+    u16 species = GetStarterPokemon((VarGet(VAR_STARTER_MON) + 2) % 3);
+
+    CreateMon(&gPlayerParty[0], species, 5, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0);
+    monData = MOVE_NONE;
+    SetMonData(&gPlayerParty[0], MON_DATA_MOVE2, &monData);
+    SetMonData(&gPlayerParty[0], MON_DATA_MOVE3, &monData);
+    SetMonData(&gPlayerParty[0], MON_DATA_MOVE4, &monData);
+}
+
 bool8 IsStarterInParty(void)
 {
     u8 i;

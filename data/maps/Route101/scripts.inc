@@ -11,6 +11,7 @@ Route101_MapScripts::
 	@    Birch, his assistant and the rival wait by the Twinleaf path
 	@ 5: Returned the bag; Birch said to meet him in Sandgem Town
 	@ 6: (Sandgem Town) Followed the assistant into the lab and received the POKéDEX
+	@ 7: (Route 202) Watched the assistant's catching tutorial and got five POKé BALLS
 
 Route101_OnTransition:
 	call ProfBirch_EventScript_UpdateLocation

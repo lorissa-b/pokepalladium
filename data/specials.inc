@@ -174,6 +174,7 @@ gSpecials::
 	def_special Special_ViewWallClock, waitstate=1
 	def_special ChooseStarter, waitstate=1
 	def_special StartWallyTutorialBattle, waitstate=1
+	def_special StartAssistantCatchTutorialBattle, waitstate=1
 	def_special ChangePokemonNickname, waitstate=1
 	def_special ChoosePartyMon, waitstate=1
 	def_special GetFirstFreePokeblockSlot
@@ -317,6 +318,7 @@ gSpecials::
 	def_special IsGrassTypeInParty
 	def_special DoContestHallWarp, waitstate=1
 	def_special LoadWallyZigzagoon
+	def_special LoadAssistantTutorialMon
 	def_special IsStarterInParty
 	def_special CopyCurSecretBaseOwnerName_StrVar1
 	def_special ScriptCheckFreePokemonStorageSpace

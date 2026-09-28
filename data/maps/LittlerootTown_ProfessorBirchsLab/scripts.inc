@@ -129,7 +129,7 @@ LittlerootTown_ProfessorBirchsLab_EventScript_MeetBirch::
 	call LittlerootTown_ProfessorBirchsLab_EventScript_ReceivePokedex
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_GoHomeToMother, MSGBOX_DEFAULT
 	closemessage
-	clearflag FLAG_HIDE_BIRCHS_LAB_ASSISTANT
+	@ The assistant waits on Route 202 for the catching tutorial, then comes back
 	setvar VAR_BIRCH_LAB_STATE, 5
 	setflag FLAG_ADVENTURE_STARTED
 	setvar VAR_OLDALE_TOWN_STATE, 1

@@ -21,7 +21,11 @@ extern u16 gPartnerTrainerId;
 void BattleSetup_StartWildBattle(void);
 void BattleSetup_StartBattlePikeWildBattle(void);
 void BattleSetup_StartRoamerBattle(void);
+extern bool8 gIsAssistantCatchTutorial;
+
 void StartWallyTutorialBattle(void);
+void StartAssistantCatchTutorialBattle(void);
+u8 GetCatchTutorialBackPic(void);
 void BattleSetup_StartScriptedWildBattle(void);
 void BattleSetup_StartLatiBattle(void);
 void BattleSetup_StartLegendaryBattle(void);
