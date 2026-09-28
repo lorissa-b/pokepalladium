@@ -18,6 +18,9 @@ LittlerootTown_MapScripts::
 	@ 5: Entered 2F to set clock
 	@ 6: Set clock
 	@ 7: Told to go meet rival
+	@ 8: Woke up in bedroom (new game start, replaces 1-7)
+	@ 9: Mom said rival was looking for you
+	@ 10: Rival bumped into you and left for Route 201
 
 	@ State descriptions for VAR_LITTLEROOT_HOUSES_STATE_MAY
 	@                    and VAR_LITTLEROOT_HOUSES_STATE_BRENDAN
@@ -106,6 +109,76 @@ LittlerootTown_OnFrame:
 	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 2, LittlerootTown_EventScript_StepOffTruckFemale
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_EventScript_BeginDexUpgradeScene
 	.2byte 0
+
+@ Brendan's house door is at 3, 11. The rival runs out of it and slams into the player.
+LittlerootTown_EventScript_RivalBumpsIntoPlayer::
+	lockall
+	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	setobjectxyperm LOCALID_LITTLEROOT_RIVAL, 3, 11
+	setobjectmovementtype LOCALID_LITTLEROOT_RIVAL, MOVEMENT_TYPE_FACE_DOWN
+	opendoor 3, 11
+	waitdooranim
+	addobject LOCALID_LITTLEROOT_RIVAL
+	playse SE_WALL_HIT
+	applymovement LOCALID_LITTLEROOT_RIVAL, LittlerootTown_Movement_RivalRushOutOfHouse
+	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerKnockedBack
+	waitmovement 0
+	closedoor 3, 11
+	waitdooranim
+	playse SE_PIN
+	applywaitmovement LOCALID_LITTLEROOT_RIVAL, Common_Movement_ExclamationMark
+	applywaitmovement LOCALID_LITTLEROOT_RIVAL, Common_Movement_Delay48
+	msgbox LittlerootTown_Text_RivalMeetMeOnRoute201, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_LITTLEROOT_RIVAL, LittlerootTown_Movement_RivalRunToRoute201
+	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerWatchRivalLeave
+	waitmovement LOCALID_LITTLEROOT_RIVAL
+	waitmovement LOCALID_PLAYER
+	removeobject LOCALID_LITTLEROOT_RIVAL
+	setvar VAR_LITTLEROOT_INTRO_STATE, 10
+	@ Skips the vanilla "meet rival in their bedroom" scene
+	setvar VAR_LITTLEROOT_RIVAL_STATE, 3
+	setvar VAR_LITTLEROOT_TOWN_STATE, 1
+	releaseall
+	end
+
+LittlerootTown_Movement_RivalRushOutOfHouse:
+	walk_faster_down
+	step_end
+
+LittlerootTown_Movement_PlayerKnockedBack:
+	lock_facing_direction
+	jump_down
+	unlock_facing_direction
+	step_end
+
+LittlerootTown_Movement_RivalRunToRoute201:
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	step_end
+
+LittlerootTown_Movement_PlayerWatchRivalLeave:
+	delay_8
+	walk_in_place_faster_right
+	delay_16
+	delay_16
+	delay_16
+	delay_16
+	walk_in_place_faster_up
+	step_end
 
 LittlerootTown_EventScript_StepOffTruckMale::
 	lockall
@@ -960,3 +1033,12 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "I have something to show you.\n"
 	.string "Let's go to my LAB.$"
 
+LittlerootTown_Text_RivalMeetMeOnRoute201:
+	.string "{RIVAL}: Oof! Hey, watch where\n"
+	.string "you're standing!\p"
+	.string "…Oh! {PLAYER}! Perfect timing!\n"
+	.string "I was just coming to get you!\p"
+	.string "I've got the best idea ever!\n"
+	.string "Meet me on ROUTE 201!\p"
+	.string "It's just north of town.\n"
+	.string "Hurry up, or you're buying lunch!$"

@@ -17,8 +17,6 @@ LittlerootTown_BrendansHouse_2F_EventScript_CheckShouldUpdateBrendanPos::
 	goto LittlerootTown_BrendansHouse_2F_EventScript_TryUpdateBrendanPos
 
 LittlerootTown_BrendansHouse_2F_EventScript_TryUpdateBrendanPos::
-	checkplayergender
-	goto_if_eq VAR_RESULT, MALE, LittlerootTown_BrendansHouse_2F_EventScript_Ret
 	@ Odd that the MaysHouse equivalent was used below instead
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_MaysHouse_2F_EventScript_Ret
 	setobjectxyperm LOCALID_RIVALS_HOUSE_2F_RIVAL, 0, 2
@@ -41,9 +39,8 @@ LittlerootTown_BrendansHouse_2F_OnWarp:
 	map_script_2 VAR_SECRET_BASE_INITIALIZED, 0, LittlerootTown_BrendansHouse_2F_EventScript_CheckInitDecor
 	.2byte 0
 
+@ Brendan's house is always the rival's house, so the player's decorations never go here
 LittlerootTown_BrendansHouse_2F_EventScript_CheckInitDecor::
-	checkplayergender
-	goto_if_eq VAR_RESULT, MALE, SecretBase_EventScript_InitDecorations
 	end
 
 LittlerootTown_BrendansHouse_2F_EventScript_RivalsPokeBall::
@@ -223,9 +220,7 @@ LittlerootTown_BrendansHouse_2F_Movement_PlayerWatchBrendanEast:
 
 LittlerootTown_BrendansHouse_2F_EventScript_PC::
 	lockall
-	checkplayergender
-	goto_if_eq VAR_RESULT, MALE, LittlerootTown_BrendansHouse_2F_EventScript_CheckPlayersPC
-	goto_if_eq VAR_RESULT, FEMALE, LittlerootTown_BrendansHouse_2F_EventScript_CheckRivalsPC
+	goto LittlerootTown_BrendansHouse_2F_EventScript_CheckRivalsPC
 	end
 
 LittlerootTown_BrendansHouse_2F_EventScript_CheckPlayersPC::

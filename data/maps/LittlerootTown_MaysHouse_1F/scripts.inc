@@ -24,6 +24,7 @@ LittlerootTown_MaysHouse_1F_EventScript_ShowRunningShoesManual::
 	return
 
 LittlerootTown_MaysHouse_1F_OnTransition:
+	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 8, LittlerootTown_MaysHouse_1F_EventScript_MoveMomNearStairs
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 3, LittlerootTown_MaysHouse_1F_EventScript_MoveMomToDoor
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 5, LittlerootTown_MaysHouse_1F_EventScript_MoveMomToStairs
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_MaysHouse_1F_EventScript_MoveMomToTV
@@ -39,6 +40,11 @@ LittlerootTown_MaysHouse_1F_EventScript_MoveMomToTV::
 	setobjectmovementtype LOCALID_PLAYERS_HOUSE_1F_MOM, MOVEMENT_TYPE_FACE_UP
 	return
 
+LittlerootTown_MaysHouse_1F_EventScript_MoveMomNearStairs::
+	setobjectxyperm LOCALID_PLAYERS_HOUSE_1F_MOM, 2, 5
+	setobjectmovementtype LOCALID_PLAYERS_HOUSE_1F_MOM, MOVEMENT_TYPE_FACE_UP
+	return
+
 LittlerootTown_MaysHouse_1F_EventScript_MoveMomToDoor::
 	setobjectxyperm LOCALID_PLAYERS_HOUSE_1F_MOM, 1, 8
 	setobjectmovementtype LOCALID_PLAYERS_HOUSE_1F_MOM, MOVEMENT_TYPE_FACE_UP
@@ -46,12 +52,38 @@ LittlerootTown_MaysHouse_1F_EventScript_MoveMomToDoor::
 
 @ Many of the below scripts have no gender check because they assume youre in the correct house
 LittlerootTown_MaysHouse_1F_OnFrame:
+	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 8, LittlerootTown_MaysHouse_1F_EventScript_RivalWasLookingForYou
 	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 3, LittlerootTown_MaysHouse_1F_EventScript_EnterHouseMovingIn
 	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 5, LittlerootTown_MaysHouse_1F_EventScript_GoUpstairsToSetClock
 	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_MaysHouse_1F_EventScript_PetalburgGymReport
 	map_script_2 VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 1, LittlerootTown_MaysHouse_1F_EventScript_YoureNewNeighbor
 	map_script_2 VAR_LITTLEROOT_HOUSES_STATE_MAY, 3, PlayersHouse_1F_EventScript_GetSSTicketAndSeeLatiTV
 	.2byte 0
+
+@ First time coming downstairs after the game starts
+LittlerootTown_MaysHouse_1F_EventScript_RivalWasLookingForYou::
+	lockall
+	playse SE_PIN
+	applywaitmovement LOCALID_PLAYERS_HOUSE_1F_MOM, Common_Movement_ExclamationMark
+	applywaitmovement LOCALID_PLAYERS_HOUSE_1F_MOM, Common_Movement_Delay48
+	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	applywaitmovement LOCALID_PLAYERS_HOUSE_1F_MOM, LittlerootTown_MaysHouse_1F_Movement_MomApproachStairs
+	msgbox PlayersHouse_1F_Text_RivalWasLookingForYou, MSGBOX_DEFAULT
+	closemessage
+	applywaitmovement LOCALID_PLAYERS_HOUSE_1F_MOM, LittlerootTown_MaysHouse_1F_Movement_MomReturnFromStairs
+	setvar VAR_LITTLEROOT_INTRO_STATE, 9
+	releaseall
+	end
+
+@ The player steps off the stairs onto 2, 3, so Mom stops just below them
+LittlerootTown_MaysHouse_1F_Movement_MomApproachStairs:
+	walk_up
+	step_end
+
+LittlerootTown_MaysHouse_1F_Movement_MomReturnFromStairs:
+	walk_down
+	walk_in_place_faster_up
+	step_end
 
 LittlerootTown_MaysHouse_1F_EventScript_GoUpstairsToSetClock::
 	lockall
@@ -112,6 +144,7 @@ RivalsHouse_1F_EventScript_RivalMom::
 	faceplayer
 	goto_if_set FLAG_DEFEATED_RIVAL_ROUTE103, RivalsHouse_1F_EventScript_GoHomeEverySoOften
 	goto_if_set FLAG_SYS_POKEMON_GET, RivalsHouse_1F_EventScript_RivalIsOnRoute103
+	goto_if_eq VAR_LITTLEROOT_INTRO_STATE, 10, RivalsHouse_1F_EventScript_RivalRanOffToRoute201
 	goto_if_eq VAR_LITTLEROOT_RIVAL_STATE, 3, RivalsHouse_1F_EventScript_RivalTooBusy
 	special GetRivalSonDaughterString
 	msgbox RivalsHouse_1F_Text_LikeChildLikeFather, MSGBOX_DEFAULT
@@ -120,6 +153,11 @@ RivalsHouse_1F_EventScript_RivalMom::
 
 RivalsHouse_1F_EventScript_RivalTooBusy::
 	msgbox RivalsHouse_1F_Text_TooBusyToNoticeVisit, MSGBOX_DEFAULT
+	release
+	end
+
+RivalsHouse_1F_EventScript_RivalRanOffToRoute201::
+	msgbox RivalsHouse_1F_Text_RivalRanOffToRoute201, MSGBOX_DEFAULT
 	release
 	end
 
@@ -325,6 +363,14 @@ RivalsHouse_1F_Text_LikeChildLikeFather:
 	.string "as our child.\p"
 	.string "If he's not at his LAB, he's likely\n"
 	.string "scrabbling about in grassy places.$"
+
+RivalsHouse_1F_Text_RivalRanOffToRoute201:
+	.string "Oh, {PLAYER}{KUN}!\n"
+	.string "You just missed {RIVAL}.\p"
+	.string "{RIVAL} went charging out the door\n"
+	.string "shouting about ROUTE 201.\p"
+	.string "Honestly, that child never stops\n"
+	.string "to walk anywhere!$"
 
 RivalsHouse_1F_Text_TooBusyToNoticeVisit:
 	.string "That {RIVAL}!\p"

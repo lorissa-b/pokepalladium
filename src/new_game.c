@@ -42,14 +42,16 @@
 #include "player_pc.h"
 #include "field_specials.h"
 #include "berry_powder.h"
+#include "clock.h"
 #include "mystery_gift.h"
 #include "union_room_chat.h"
 #include "constants/items.h"
 
 extern const u8 EventScript_ResetAllMapFlags[];
+extern const u8 EventScript_SetupNewGameStart[];
 
 static void ClearFrontierRecord(void);
-static void WarpToTruck(void);
+static void WarpToPlayersBedroom(void);
 static void ResetMiniGamesRecords(void);
 
 EWRAM_DATA bool8 gDifferentSaveFile = FALSE;
@@ -124,9 +126,10 @@ static void ClearFrontierRecord(void)
     gSaveBlock2Ptr->frontier.opponentNames[1][0] = EOS;
 }
 
-static void WarpToTruck(void)
+// The game starts in the player's bedroom (May's house 2F) regardless of gender
+static void WarpToPlayersBedroom(void)
 {
-    SetWarpDestination(MAP_GROUP(MAP_INSIDE_OF_TRUCK), MAP_NUM(MAP_INSIDE_OF_TRUCK), WARP_ID_NONE, -1, -1);
+    SetWarpDestination(MAP_GROUP(MAP_LITTLEROOT_TOWN_MAYS_HOUSE_2F), MAP_NUM(MAP_LITTLEROOT_TOWN_MAYS_HOUSE_2F), WARP_ID_NONE, 4, 2);
     WarpIntoMap();
 }
 
@@ -192,8 +195,11 @@ void NewGameInitData(void)
     InitDewfordTrend();
     ResetFanClub();
     ResetLotteryCorner();
-    WarpToTruck();
+    WarpToPlayersBedroom();
     RunScriptImmediately(EventScript_ResetAllMapFlags);
+    RunScriptImmediately(EventScript_SetupNewGameStart);
+    // There's no wall clock scene anymore, so start time-based events now
+    InitTimeBasedEvents();
     ResetMiniGamesRecords();
     InitUnionRoomChatRegisteredTexts();
     InitLilycoveLady();

@@ -119,6 +119,16 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 3,
+      "y": 12,
+      "elevation": 3,
+      "var": "VAR_LITTLEROOT_INTRO_STATE",
+      "var_value": "9",
+      "script": "LittlerootTown_EventScript_RivalBumpsIntoPlayer"
+    }
+  ],
   "bg_events": []
 }
