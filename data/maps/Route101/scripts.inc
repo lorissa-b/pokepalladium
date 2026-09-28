@@ -22,8 +22,8 @@ Route101_EventScript_StartBirchRescue::
 	msgbox Route101_Text_HelpMe, MSGBOX_DEFAULT
 	closemessage
 	@ Birch runs in from off screen to the west, with Zigzagoon one step behind
-	setobjectxy LOCALID_ROUTE101_BIRCH, 7, 11
-	setobjectxy LOCALID_ROUTE101_ZIGZAGOON, 6, 11
+	setobjectxy LOCALID_ROUTE101_BIRCH, 30, 11
+	setobjectxy LOCALID_ROUTE101_ZIGZAGOON, 29, 11
 	applymovement LOCALID_PLAYER, Route101_Movement_EnterScene
 	applymovement LOCALID_ROUTE101_BIRCH, Route101_Movement_BirchRunAway1
 	applymovement LOCALID_ROUTE101_ZIGZAGOON, Route101_Movement_ZigzagoonChase1
@@ -122,7 +122,7 @@ Route101_Movement_EnterScene:
 	walk_in_place_faster_left
 	step_end
 
-@ Birch and Zigzagoon run clockwise around x 12-15, y 11-12, below the ledge
+@ Birch and Zigzagoon run clockwise around x 35-38, y 11-12, below the ledge
 Route101_Movement_BirchRunInCircles:
 	walk_fast_right
 	walk_fast_right
@@ -187,6 +187,10 @@ Route101_EventScript_RouteSignMiddle::
 	msgbox Route101_Text_RouteSignMiddle, MSGBOX_SIGN
 	end
 
+Route101_EventScript_LakeVeritySign::
+	msgbox Route101_Text_LakeVeritySign, MSGBOX_SIGN
+	end
+
 Route101_EventScript_TrainerTips::
 	msgbox Route101_Text_TrainerTips, MSGBOX_SIGN
 	end
@@ -198,7 +202,7 @@ Route101_EventScript_BirchsBag::
 	setflag FLAG_RESCUED_BIRCH
 	fadescreen FADE_TO_BLACK
 	removeobject LOCALID_ROUTE101_ZIGZAGOON
-	setobjectxy LOCALID_PLAYER, 14, 11
+	setobjectxy LOCALID_PLAYER, 37, 11
 	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	special ChooseStarter
 	applywaitmovement LOCALID_ROUTE101_BIRCH, Route101_Movement_BirchApproachPlayer
@@ -264,6 +268,9 @@ Route101_Text_RouteSign:
 Route101_Text_RouteSignMiddle:
 	.string "ROUTE 201\n"
 	.string "{LEFT_ARROW} LAKE VERITY  {RIGHT_ARROW} SANDGEM TOWN$"
+
+Route101_Text_LakeVeritySign:
+	.string "{UP_ARROW} LAKE VERITY$"
 
 Route101_Text_TrainerTips:
 	.string "TRAINER TIPS\p"
