@@ -45,6 +45,9 @@ NOTES = {
     ),
 }
 
+# Outdoor map types whose pages are titled with the region map section's name.
+NAMED_BY_SECTION = {"MAP_TYPE_TOWN", "MAP_TYPE_CITY", "MAP_TYPE_ROUTE", "MAP_TYPE_OCEAN_ROUTE"}
+
 # Page sections on the index, in order, keyed by map type.
 SECTIONS = [
     ("Towns and cities", {"MAP_TYPE_TOWN", "MAP_TYPE_CITY"}),
@@ -111,6 +114,33 @@ def map_display_name(name: str) -> str:
     if len(parts) == 1:
         return words(parts[0])
     return f"{words(parts[0])} ({' '.join(words(p) for p in parts[1:])})"
+
+
+def load_section_names() -> dict[str, str]:
+    """Region map section id -> the name the game shows, e.g. "Twinleaf Town"."""
+    data = json.loads(read(DATA / "region_map" / "region_map_sections.json"))
+    return {s["id"]: title_case(s["name"]) for s in data["map_sections"] if "name" in s}
+
+
+def title_case(name: str) -> str:
+    """ROUTE 201 -> Route 201; MT. PYRE -> Mt. Pyre."""
+    return " ".join(word[:1] + word[1:].lower() for word in name.split())
+
+
+def map_title(info: dict, section_names: dict[str, str], section_counts: dict[str, int]) -> str:
+    """The in-game name for outdoor maps that are the only outdoor map in their
+    region map section, so repurposed maps (Littleroot Town is Twinleaf Town,
+    Route 101 is Route 201) are listed under their new names. Maps sharing a
+    section, like the Safari Zone areas, and underwater maps (whose sections
+    are all just "Underwater") keep a name built from the map's own name."""
+    section = info.get("region_map_section")
+    if (
+        info["map_type"] in NAMED_BY_SECTION
+        and section_counts.get(section) == 1
+        and section in section_names
+    ):
+        return section_names[section]
+    return map_display_name(info["name"])
 
 
 def natural_key(text: str):
@@ -190,6 +220,12 @@ def generate(app=None) -> int:
     group = next(g for g in encounters["wild_encounter_groups"] if g["label"] == "gWildMonHeaders")
     fields = group["fields"]
     maps = load_maps()
+    section_names = load_section_names()
+    section_counts: dict[str, int] = {}
+    for info in maps.values():
+        if info["map_type"] in NAMED_BY_SECTION:
+            section = info.get("region_map_section")
+            section_counts[section] = section_counts.get(section, 0) + 1
     names = parse_species_names()
     hours = period_hours()
 
@@ -202,12 +238,21 @@ def generate(app=None) -> int:
     OUT.mkdir(parents=True)
 
     pages = []  # (section, title, filename)
+    used: set[str] = set()
     for map_const, tables in tables_by_map.items():
         if map_const in EXCLUDED_MAPS or len(tables) not in PERIOD_TABLES:
             continue
         info = maps[map_const]
-        title = map_display_name(info["name"])
-        fname = info["name"].lower()
+        title = map_title(info, section_names, section_counts)
+        # Pages named after the game's name for the map use it for the file too
+        # (route201.md), others the map's own name (mtpyre_summit.md)
+        if title == map_display_name(info["name"]):
+            fname = info["name"].lower()
+        else:
+            fname = re.sub(r"[^a-z0-9]", "", title.lower())
+        if fname in used:
+            raise ValueError(f"two maps would both generate {fname}.md")
+        used.add(fname)
         rows = build_rows(tables, PERIOD_TABLES[len(tables)], fields, info["map_type"], names)
         labels = [t["base_label"] for t in tables]
         (OUT / f"{fname}.md").write_text(
