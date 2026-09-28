@@ -10,6 +10,7 @@ Route101_MapScripts::
 	@ 4: (Lake Verity) Chose a starter from the bag and beat the wild Starly;
 	@    Birch, his assistant and the rival wait by the Twinleaf path
 	@ 5: Returned the bag; Birch said to meet him in Sandgem Town
+	@ 6: (Sandgem Town) Followed the assistant into the lab and received the POKéDEX
 
 Route101_OnTransition:
 	call ProfBirch_EventScript_UpdateLocation
