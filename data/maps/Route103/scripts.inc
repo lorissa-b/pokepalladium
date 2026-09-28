@@ -206,6 +206,57 @@ Route103_Movement_PlayerWatchAssistantLeave:
 	walk_in_place_faster_down
 	step_end
 
+Route103_EventScript_Natalie::
+	trainerbattle_single TRAINER_DAISY, Route103_Text_NatalieIntro, Route103_Text_NatalieDefeated
+	msgbox Route103_Text_NataliePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route103_EventScript_Logan::
+	trainerbattle_single TRAINER_RICK, Route103_Text_LoganIntro, Route103_Text_LoganDefeated
+	msgbox Route103_Text_LoganPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route103_EventScript_Tristan::
+	trainerbattle_single TRAINER_CALVIN_1, Route103_Text_TristanIntro, Route103_Text_TristanDefeated, Route103_EventScript_TristanRegisterMatchCallAfterBattle
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route103_EventScript_TristanRematch
+	setvar VAR_0x8004, TRAINER_CALVIN_1
+	specialvar VAR_RESULT, IsTrainerRegistered
+	goto_if_eq VAR_RESULT, FALSE, Route103_EventScript_TristanTryRegister
+	msgbox Route103_Text_TristanPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route103_EventScript_TristanRegisterMatchCallAfterBattle::
+	special PlayerFaceTrainerAfterBattle
+	waitmovement 0
+	goto_if_set FLAG_HAS_MATCH_CALL, Route103_EventScript_TristanRegisterMatchCall
+	release
+	end
+
+Route103_EventScript_TristanRegisterMatchCall::
+	msgbox Route103_Text_TristanRegisterShort, MSGBOX_DEFAULT
+	register_matchcall TRAINER_CALVIN_1
+	release
+	end
+
+Route103_EventScript_TristanTryRegister::
+	goto_if_set FLAG_HAS_MATCH_CALL, Route103_EventScript_TristanRegister
+	msgbox Route103_Text_TristanPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route103_EventScript_TristanRegister::
+	msgbox Route103_Text_TristanRegister, MSGBOX_DEFAULT
+	register_matchcall TRAINER_CALVIN_1
+	release
+	end
+
+Route103_EventScript_TristanRematch::
+	trainerbattle_rematch TRAINER_CALVIN_1, Route103_Text_TristanRematchIntro, Route103_Text_TristanRematchDefeated
+	msgbox Route103_Text_TristanRematchPostBattle, MSGBOX_AUTOCLOSE
+	end
+
 Route103_EventScript_TrainerTips::
 	msgbox Route103_Text_TrainerTips, MSGBOX_SIGN
 	end
@@ -220,11 +271,6 @@ Route103_EventScript_Man::
 
 Route103_EventScript_RouteSign::
 	msgbox Route103_Text_RouteSign, MSGBOX_SIGN
-	end
-
-Route103_EventScript_Daisy::
-	trainerbattle_single TRAINER_DAISY, Route103_Text_DaisyIntro, Route103_Text_DaisyDefeated
-	msgbox Route103_Text_DaisyPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 Route103_EventScript_Amy::
@@ -399,3 +445,27 @@ Route103_Text_TrainerTips:
 	.string "throw a POKé BALL at it.\p"
 	.string "It's easier to catch a POKéMON\n"
 	.string "that's low on HP!$"
+
+Route103_Text_NatalieIntro:
+	.string "My BIDOOF are twins!\n"
+	.string "Can you handle both of them?$"
+
+Route103_Text_NatalieDefeated:
+	.string "Oh no!\n"
+	.string "My poor BIDOOF…$"
+
+Route103_Text_NataliePostBattle:
+	.string "Two of the same POKéMON wasn't\n"
+	.string "enough. I'll catch different ones!$"
+
+Route103_Text_LoganIntro:
+	.string "My SHINX and I just caught each\n"
+	.string "other's eye. Let's battle!$"
+
+Route103_Text_LoganDefeated:
+	.string "Aww… My SHINX\n"
+	.string "gave it everything!$"
+
+Route103_Text_LoganPostBattle:
+	.string "The tall grass around here is full of\n"
+	.string "POKéMON. I'm going to catch more!$"

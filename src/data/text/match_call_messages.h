@@ -169,7 +169,7 @@ const u8 gText_MatchCallExpert_Shelby_Intro1[] = _("Being old, I have my own");
 const u8 gText_MatchCallExpert_Shelby_Intro2[] = _("style of battling.");
 
 const u8 gText_MatchCallYoungster_Calvin_Strategy[] = _("I do what I can.");
-const u8 gText_MatchCallYoungster_Calvin_Pokemon[] = _("I use different types.");
+const u8 gText_MatchCallYoungster_Calvin_Pokemon[] = _("I raise FLYING types.");
 const u8 gText_MatchCallYoungster_Calvin_Intro1[] = _("I'm going to keep working");
 const u8 gText_MatchCallYoungster_Calvin_Intro2[] = _("until I beat a GYM LEADER.");
 

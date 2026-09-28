@@ -1,36 +1,36 @@
-Route102_Text_CalvinIntro:
+Route103_Text_TristanIntro:
 	.string "If you have POKéMON with you, then\n"
 	.string "you're an official POKéMON TRAINER!\l"
 	.string "You can't say no to my challenge!$"
 
-Route102_Text_CalvinDefeated:
+Route103_Text_TristanDefeated:
 	.string "Arrgh, I lost…\n"
 	.string "I should have trained mine more…$"
 
-Route102_Text_CalvinPostBattle:
+Route103_Text_TristanPostBattle:
 	.string "Listen, you. If you're strong,\n"
 	.string "you should have told me before!$"
 
-Route102_Text_CalvinRegister:
+Route103_Text_TristanRegister:
 	.string "I've been working hard at this since\n"
 	.string "I saw you before.\p"
 	.string "I'd like to battle you again, so can\n"
 	.string "you register me in your POKéNAV?$"
 
-Route102_Text_CalvinRegisterShort:
+Route103_Text_TristanRegisterShort:
 	.string "I'd like to battle you again, so can\n"
 	.string "you register me in your POKéNAV?$"
 
-Route102_Text_CalvinRematchIntro:
+Route103_Text_TristanRematchIntro:
 	.string "Ever since I lost to you, I desperately\n"
 	.string "trained my POKéMON.\l"
 	.string "You can't say no to my challenge!$"
 
-Route102_Text_CalvinRematchDefeated:
+Route103_Text_TristanRematchDefeated:
 	.string "Arrgh, I lost…\n"
 	.string "Is my training method not right?$"
 
-Route102_Text_CalvinRematchPostBattle:
+Route103_Text_TristanRematchPostBattle:
 	.string "If you're going to get stronger,\n"
 	.string "I'll get stronger, too.$"
 
@@ -46,17 +46,6 @@ Route102_Text_AllenPostBattle:
 	.string "I haven't won once yet…\n"
 	.string "I wish I would win soon…$"
 
-Route102_Text_RickIntro:
-	.string "Hahah! Our eyes met!\n"
-	.string "I'll take you on with my BUG POKéMON!$"
-
-Route102_Text_RickDefeated:
-	.string "Ow! Down and out!$"
-
-Route102_Text_RickPostBattle:
-	.string "If you lock eyes with a TRAINER,\n"
-	.string "you have to challenge! It's a rule!$"
-
 Route102_Text_TianaIntro:
 	.string "I'm going to keep winning and aim\n"
 	.string "to be the best TRAINER.\p"
@@ -68,17 +57,6 @@ Route102_Text_TianaDefeated:
 Route102_Text_TianaPostBattle:
 	.string "To keep winning my way up, I see that\n"
 	.string "I have to catch more POKéMON.$"
-
-Route103_Text_DaisyIntro:
-	.string "Did you feel the tug of our\n"
-	.string "soul-soothing fragrance?$"
-
-Route103_Text_DaisyDefeated:
-	.string "You weren't led astray by our aroma…$"
-
-Route103_Text_DaisyPostBattle:
-	.string "Aromatherapy is a form of mental\n"
-	.string "healing that works with fragrances.$"
 
 Route103_Text_AmyIntro:
 	.string "AMY: I'm AMY.\n"
