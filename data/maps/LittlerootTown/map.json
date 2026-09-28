@@ -128,6 +128,42 @@
       "var": "VAR_LITTLEROOT_INTRO_STATE",
       "var_value": "9",
       "script": "LittlerootTown_EventScript_RivalBumpsIntoPlayer"
+    },
+    {
+      "type": "trigger",
+      "x": 8,
+      "y": 1,
+      "elevation": 3,
+      "var": "VAR_LITTLEROOT_INTRO_STATE",
+      "var_value": "9",
+      "script": "LittlerootTown_EventScript_RivalCatchesUpTrigger0"
+    },
+    {
+      "type": "trigger",
+      "x": 9,
+      "y": 1,
+      "elevation": 3,
+      "var": "VAR_LITTLEROOT_INTRO_STATE",
+      "var_value": "9",
+      "script": "LittlerootTown_EventScript_RivalCatchesUpTrigger1"
+    },
+    {
+      "type": "trigger",
+      "x": 10,
+      "y": 1,
+      "elevation": 3,
+      "var": "VAR_LITTLEROOT_INTRO_STATE",
+      "var_value": "9",
+      "script": "LittlerootTown_EventScript_RivalCatchesUpTrigger2"
+    },
+    {
+      "type": "trigger",
+      "x": 11,
+      "y": 1,
+      "elevation": 3,
+      "var": "VAR_LITTLEROOT_INTRO_STATE",
+      "var_value": "9",
+      "script": "LittlerootTown_EventScript_RivalCatchesUpTrigger3"
     }
   ],
   "bg_events": []

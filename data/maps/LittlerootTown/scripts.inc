@@ -20,7 +20,7 @@ LittlerootTown_MapScripts::
 	@ 7: Told to go meet rival
 	@ 8: Woke up in bedroom (new game start, replaces 1-7)
 	@ 9: Mom said rival was looking for you
-	@ 10: Rival bumped into you and left for Route 201
+	@ 10: Met rival (door bump or caught up at north exit), rival left for Route 201
 
 	@ State descriptions for VAR_LITTLEROOT_HOUSES_STATE_MAY
 	@                    and VAR_LITTLEROOT_HOUSES_STATE_BRENDAN
@@ -126,12 +126,118 @@ LittlerootTown_EventScript_RivalBumpsIntoPlayer::
 	waitmovement LOCALID_LITTLEROOT_RIVAL
 	waitmovement LOCALID_PLAYER
 	removeobject LOCALID_LITTLEROOT_RIVAL
+	call LittlerootTown_EventScript_SetMetRival
+	releaseall
+	end
+
+LittlerootTown_EventScript_SetMetRival::
 	setvar VAR_LITTLEROOT_INTRO_STATE, 10
 	@ Skips the vanilla "meet rival in their bedroom" scene
 	setvar VAR_LITTLEROOT_RIVAL_STATE, 3
 	setvar VAR_LITTLEROOT_TOWN_STATE, 1
+	return
+
+@ Leaving town at the north exit (x 8-11, y 1) before meeting the rival.
+@ The rival runs up from behind and heads to Route 201 with the player.
+LittlerootTown_EventScript_RivalCatchesUpTrigger0::
+	lockall
+	setvar VAR_0x8009, 8
+	goto LittlerootTown_EventScript_RivalCatchesUp
+	end
+
+LittlerootTown_EventScript_RivalCatchesUpTrigger1::
+	lockall
+	setvar VAR_0x8009, 9
+	goto LittlerootTown_EventScript_RivalCatchesUp
+	end
+
+LittlerootTown_EventScript_RivalCatchesUpTrigger2::
+	lockall
+	setvar VAR_0x8009, 10
+	goto LittlerootTown_EventScript_RivalCatchesUp
+	end
+
+LittlerootTown_EventScript_RivalCatchesUpTrigger3::
+	lockall
+	setvar VAR_0x8009, 11
+	goto LittlerootTown_EventScript_RivalCatchesUp
+	end
+
+LittlerootTown_EventScript_RivalCatchesUp::
+	msgbox LittlerootTown_Text_RivalWaitUp, MSGBOX_DEFAULT
+	closemessage
+	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	@ Start just off screen, below the player
+	setobjectxyperm LOCALID_LITTLEROOT_RIVAL, VAR_0x8009, 7
+	setobjectmovementtype LOCALID_LITTLEROOT_RIVAL, MOVEMENT_TYPE_FACE_UP
+	addobject LOCALID_LITTLEROOT_RIVAL
+	applywaitmovement LOCALID_LITTLEROOT_RIVAL, LittlerootTown_Movement_RivalRunUpBehindPlayer
+	msgbox LittlerootTown_Text_RivalYouReadMyMind, MSGBOX_DEFAULT
+	closemessage
+	call_if_ne VAR_0x8009, 11, LittlerootTown_EventScript_RivalRunAheadRight
+	call_if_eq VAR_0x8009, 11, LittlerootTown_EventScript_RivalRunAheadLeft
+	removeobject LOCALID_LITTLEROOT_RIVAL
+	call LittlerootTown_EventScript_SetMetRival
 	releaseall
 	end
+
+LittlerootTown_EventScript_RivalRunAheadRight::
+	applymovement LOCALID_LITTLEROOT_RIVAL, LittlerootTown_Movement_RivalRunAheadRight
+	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerWatchRivalRunAheadRight
+	waitmovement LOCALID_LITTLEROOT_RIVAL
+	waitmovement LOCALID_PLAYER
+	return
+
+LittlerootTown_EventScript_RivalRunAheadLeft::
+	applymovement LOCALID_LITTLEROOT_RIVAL, LittlerootTown_Movement_RivalRunAheadLeft
+	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerWatchRivalRunAheadLeft
+	waitmovement LOCALID_LITTLEROOT_RIVAL
+	waitmovement LOCALID_PLAYER
+	return
+
+LittlerootTown_Movement_RivalRunUpBehindPlayer:
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	step_end
+
+LittlerootTown_Movement_RivalRunAheadRight:
+	walk_fast_right
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	step_end
+
+LittlerootTown_Movement_RivalRunAheadLeft:
+	walk_fast_left
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	step_end
+
+LittlerootTown_Movement_PlayerWatchRivalRunAheadRight:
+	delay_4
+	walk_in_place_faster_right
+	delay_8
+	walk_in_place_faster_up
+	step_end
+
+LittlerootTown_Movement_PlayerWatchRivalRunAheadLeft:
+	delay_4
+	walk_in_place_faster_left
+	delay_8
+	walk_in_place_faster_up
+	step_end
 
 LittlerootTown_Movement_RivalRushOutOfHouse:
 	walk_faster_down
@@ -848,3 +954,15 @@ LittlerootTown_Text_RivalMeetMeOnRoute201:
 	.string "Meet me on ROUTE 201!\p"
 	.string "It's just north of town.\n"
 	.string "Hurry up, or you're buying lunch!$"
+
+LittlerootTown_Text_RivalWaitUp:
+	.string "{PLAYER}! Hey, wait up!$"
+
+LittlerootTown_Text_RivalYouReadMyMind:
+	.string "{RIVAL}: Huff… huff…\n"
+	.string "There you are, {PLAYER}!\p"
+	.string "I've been looking all over for you!\p"
+	.string "…Wait, you're off to ROUTE 201?\n"
+	.string "You read my mind!\p"
+	.string "That's where I was headed too!\n"
+	.string "Last one there buys lunch!$"
