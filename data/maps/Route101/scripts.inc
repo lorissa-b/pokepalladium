@@ -33,7 +33,7 @@ Route101_EventScript_SetRivalWaitingByLake::
 	setobjectmovementtype LOCALID_ROUTE201_RIVAL, MOVEMENT_TYPE_FACE_LEFT
 	return
 
-@ Stepping onto the route from Twinleaf (x 38-41, y 19). The rival waits on the path.
+@ Stepping onto the route from Twinleaf (x 37-42, y 19). The rival waits on the path.
 Route101_EventScript_RivalDare::
 	lockall
 	applywaitmovement LOCALID_PLAYER, Route101_Movement_PlayerWalkUpPath
@@ -391,12 +391,12 @@ Route101_Movement_AssistantLeave:
 	walk_right
 	step_end
 
-@ From 10, 8 up the north gap into Lake Verity
+@ From 10, 8 along row 7 and up the north gap into Lake Verity
 Route101_Movement_RivalRunToLake:
 	walk_fast_up
+	walk_fast_left
+	walk_fast_left
 	walk_fast_up
-	walk_fast_left
-	walk_fast_left
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up

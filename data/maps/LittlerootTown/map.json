@@ -131,6 +131,15 @@
     },
     {
       "type": "trigger",
+      "x": 7,
+      "y": 1,
+      "elevation": 3,
+      "var": "VAR_LITTLEROOT_INTRO_STATE",
+      "var_value": "9",
+      "script": "LittlerootTown_EventScript_RivalCatchesUpTriggerWest"
+    },
+    {
+      "type": "trigger",
       "x": 8,
       "y": 1,
       "elevation": 3,
@@ -164,6 +173,15 @@
       "var": "VAR_LITTLEROOT_INTRO_STATE",
       "var_value": "9",
       "script": "LittlerootTown_EventScript_RivalCatchesUpTrigger3"
+    },
+    {
+      "type": "trigger",
+      "x": 12,
+      "y": 1,
+      "elevation": 3,
+      "var": "VAR_LITTLEROOT_INTRO_STATE",
+      "var_value": "9",
+      "script": "LittlerootTown_EventScript_RivalCatchesUpTriggerEast"
     }
   ],
   "bg_events": [

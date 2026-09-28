@@ -137,8 +137,14 @@ LittlerootTown_EventScript_SetMetRival::
 	setvar VAR_LITTLEROOT_TOWN_STATE, 1
 	return
 
-@ Leaving town at the north exit (x 8-11, y 1) before meeting the rival.
+@ Leaving town at the north exit (x 7-12, y 1) before meeting the rival.
 @ The rival runs up from behind and heads to Route 201 with the player.
+LittlerootTown_EventScript_RivalCatchesUpTriggerWest::
+	lockall
+	setvar VAR_0x8009, 7
+	goto LittlerootTown_EventScript_RivalCatchesUp
+	end
+
 LittlerootTown_EventScript_RivalCatchesUpTrigger0::
 	lockall
 	setvar VAR_0x8009, 8
@@ -163,6 +169,12 @@ LittlerootTown_EventScript_RivalCatchesUpTrigger3::
 	goto LittlerootTown_EventScript_RivalCatchesUp
 	end
 
+LittlerootTown_EventScript_RivalCatchesUpTriggerEast::
+	lockall
+	setvar VAR_0x8009, 12
+	goto LittlerootTown_EventScript_RivalCatchesUp
+	end
+
 LittlerootTown_EventScript_RivalCatchesUp::
 	msgbox LittlerootTown_Text_RivalWaitUp, MSGBOX_DEFAULT
 	closemessage
@@ -174,8 +186,9 @@ LittlerootTown_EventScript_RivalCatchesUp::
 	applywaitmovement LOCALID_LITTLEROOT_RIVAL, LittlerootTown_Movement_RivalRunUpBehindPlayer
 	msgbox LittlerootTown_Text_RivalYouReadMyMind, MSGBOX_DEFAULT
 	closemessage
-	call_if_ne VAR_0x8009, 11, LittlerootTown_EventScript_RivalRunAheadRight
-	call_if_eq VAR_0x8009, 11, LittlerootTown_EventScript_RivalRunAheadLeft
+	@ Pass the player on the side toward the middle of the exit
+	call_if_lt VAR_0x8009, 11, LittlerootTown_EventScript_RivalRunAheadRight
+	call_if_ge VAR_0x8009, 11, LittlerootTown_EventScript_RivalRunAheadLeft
 	removeobject LOCALID_LITTLEROOT_RIVAL
 	call LittlerootTown_EventScript_SetMetRival
 	releaseall
