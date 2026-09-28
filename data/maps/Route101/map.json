@@ -17,6 +17,11 @@
       "map": "MAP_LITTLEROOT_TOWN",
       "offset": 30,
       "direction": "down"
+    },
+    {
+      "map": "MAP_SAFARI_ZONE_SOUTHWEST",
+      "offset": -33,
+      "direction": "up"
     }
   ],
   "object_events": [

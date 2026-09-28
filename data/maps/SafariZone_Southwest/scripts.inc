@@ -1,11 +1,4 @@
+@ This map is Lake Verity. It was the Safari Zone's south-west area and keeps its
+@ internal name (MAP_SAFARI_ZONE_SOUTHWEST).
 SafariZone_Southwest_MapScripts::
 	.byte 0
-
-SafariZone_Southwest_EventScript_Woman::
-	msgbox SafariZone_Southwest_Text_Woman, MSGBOX_NPC
-	end
-
-SafariZone_Southwest_EventScript_RestHouseSign::
-	msgbox SafariZone_Southwest_Text_RestHouseSign, MSGBOX_SIGN
-	end
-

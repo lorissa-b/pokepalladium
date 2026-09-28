@@ -2872,7 +2872,7 @@
     {
       "id": "LAYOUT_SAFARI_ZONE_SOUTHWEST",
       "name": "SafariZone_Southwest_Layout",
-      "width": 40,
+      "width": 54,
       "height": 40,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Lilycove",
