@@ -21,8 +21,9 @@ Route101_EventScript_StartBirchRescue::
 	playbgm MUS_HELP, TRUE
 	msgbox Route101_Text_HelpMe, MSGBOX_DEFAULT
 	closemessage
-	setobjectxy LOCALID_ROUTE101_BIRCH, 0, 15
-	setobjectxy LOCALID_ROUTE101_ZIGZAGOON, 0, 16
+	@ Birch runs in from off screen to the west, with Zigzagoon one step behind
+	setobjectxy LOCALID_ROUTE101_BIRCH, 7, 11
+	setobjectxy LOCALID_ROUTE101_ZIGZAGOON, 6, 11
 	applymovement LOCALID_PLAYER, Route101_Movement_EnterScene
 	applymovement LOCALID_ROUTE101_BIRCH, Route101_Movement_BirchRunAway1
 	applymovement LOCALID_ROUTE101_ZIGZAGOON, Route101_Movement_ZigzagoonChase1
@@ -30,7 +31,6 @@ Route101_EventScript_StartBirchRescue::
 	applymovement LOCALID_ROUTE101_ZIGZAGOON, Route101_Movement_ZigzagoonChaseInCircles
 	applymovement LOCALID_ROUTE101_BIRCH, Route101_Movement_BirchRunInCircles
 	waitmovement 0
-	applywaitmovement LOCALID_ROUTE101_BIRCH, Common_Movement_WalkInPlaceFasterRight
 	applymovement LOCALID_ROUTE101_ZIGZAGOON, Route101_Movement_ZigzagoonFaceBirch
 	applymovement LOCALID_ROUTE101_BIRCH, Route101_Movement_BirchFaceZigzagoon
 	waitmovement 0
@@ -56,11 +56,11 @@ Route101_EventScript_PreventExitWest::
 	releaseall
 	end
 
-Route101_EventScript_PreventExitNorth::
+Route101_EventScript_PreventExitEast::
 	lockall
 	msgbox Route101_Text_DontLeaveMe, MSGBOX_DEFAULT
 	closemessage
-	applywaitmovement LOCALID_PLAYER, Route101_Movement_PreventExitNorth
+	applywaitmovement LOCALID_PLAYER, Route101_Movement_PreventExitEast
 	releaseall
 	end
 
@@ -72,60 +72,45 @@ Route101_Movement_PreventExitWest:
 	walk_right
 	step_end
 
-Route101_Movement_PreventExitNorth:
-	walk_down
+Route101_Movement_PreventExitEast:
+	walk_left
 	step_end
 
 Route101_Movement_ZigzagoonChaseInCircles:
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
 	walk_fast_right
 	walk_fast_right
 	walk_fast_right
-	walk_fast_down
+	walk_fast_right
 	walk_fast_down
 	walk_fast_left
 	walk_fast_left
 	walk_fast_left
 	walk_fast_up
-	walk_fast_up
 	walk_fast_right
 	walk_fast_right
 	walk_fast_right
-	walk_fast_down
 	walk_fast_down
 	walk_fast_left
-	walk_fast_left
-	walk_fast_left
-	walk_fast_up
-	walk_fast_up
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_down
-	walk_fast_down
 	walk_fast_left
 	walk_fast_left
 	step_end
 
 Route101_Movement_ZigzagoonChase1:
-	walk_fast_up
 	walk_fast_right
 	walk_fast_right
 	walk_fast_right
 	walk_fast_right
-	walk_fast_up
+	walk_fast_right
 	step_end
 
 @ Leftover data? This command is unused.
 	step_end
 
 Route101_Movement_ZigzagoonFaceBirch:
-	walk_in_place_fast_left
-	walk_in_place_fast_left
-	walk_in_place_fast_left
-	walk_in_place_fast_left
+	walk_in_place_fast_up
+	walk_in_place_fast_up
+	walk_in_place_fast_up
+	walk_in_place_fast_up
 	step_end
 
 Route101_Movement_EnterScene:
@@ -133,40 +118,28 @@ Route101_Movement_EnterScene:
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up
+	walk_fast_up
 	walk_in_place_faster_left
 	step_end
 
+@ Birch and Zigzagoon run clockwise around x 12-15, y 11-12, below the ledge
 Route101_Movement_BirchRunInCircles:
-	walk_fast_up
-	walk_fast_up
 	walk_fast_right
 	walk_fast_right
 	walk_fast_right
-	walk_fast_down
 	walk_fast_down
 	walk_fast_left
 	walk_fast_left
 	walk_fast_left
 	walk_fast_up
-	walk_fast_up
 	walk_fast_right
 	walk_fast_right
 	walk_fast_right
-	walk_fast_down
 	walk_fast_down
 	walk_fast_left
 	walk_fast_left
 	walk_fast_left
 	walk_fast_up
-	walk_fast_up
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_down
-	walk_fast_down
-	walk_fast_left
-	walk_fast_left
-	walk_fast_left
 	step_end
 
 Route101_Movement_BirchRunAway1:
@@ -174,18 +147,17 @@ Route101_Movement_BirchRunAway1:
 	walk_fast_right
 	walk_fast_right
 	walk_fast_right
-	walk_fast_up
-	walk_fast_up
+	walk_fast_right
 	step_end
 
 @ Leftover data? This command is unused.
 	step_end
 
 Route101_Movement_BirchFaceZigzagoon:
-	walk_in_place_fast_right
-	walk_in_place_fast_right
-	walk_in_place_fast_right
-	walk_in_place_fast_right
+	walk_in_place_fast_down
+	walk_in_place_fast_down
+	walk_in_place_fast_down
+	walk_in_place_fast_down
 	step_end
 
 Route101_Movement_Unused1:
@@ -211,6 +183,14 @@ Route101_EventScript_RouteSign::
 	msgbox Route101_Text_RouteSign, MSGBOX_SIGN
 	end
 
+Route101_EventScript_RouteSignMiddle::
+	msgbox Route101_Text_RouteSignMiddle, MSGBOX_SIGN
+	end
+
+Route101_EventScript_TrainerTips::
+	msgbox Route101_Text_TrainerTips, MSGBOX_SIGN
+	end
+
 Route101_EventScript_BirchsBag::
 	lock
 	faceplayer
@@ -218,7 +198,7 @@ Route101_EventScript_BirchsBag::
 	setflag FLAG_RESCUED_BIRCH
 	fadescreen FADE_TO_BLACK
 	removeobject LOCALID_ROUTE101_ZIGZAGOON
-	setobjectxy LOCALID_PLAYER, 6, 13
+	setobjectxy LOCALID_PLAYER, 14, 11
 	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	special ChooseStarter
 	applywaitmovement LOCALID_ROUTE101_BIRCH, Route101_Movement_BirchApproachPlayer
@@ -279,5 +259,14 @@ Route101_Text_WildPokemonInTallGrass:
 
 Route101_Text_RouteSign:
 	.string "ROUTE 201\n"
-	.string "{UP_ARROW} OLDALE TOWN$"
+	.string "{DOWN_ARROW} TWINLEAF TOWN$"
+
+Route101_Text_RouteSignMiddle:
+	.string "ROUTE 201\n"
+	.string "{LEFT_ARROW} LAKE VERITY  {RIGHT_ARROW} SANDGEM TOWN$"
+
+Route101_Text_TrainerTips:
+	.string "TRAINER TIPS\p"
+	.string "Jump down ledges for a shortcut!\n"
+	.string "You can't climb back up, though.$"
 
