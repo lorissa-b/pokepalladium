@@ -1,3 +1,5 @@
+@ This map is Route 219, the beach and sea south of Sandgem Town. It was
+@ Route 102 and keeps its internal name (MAP_ROUTE102).
 Route102_MapScripts::
 	.byte 0
 
@@ -101,8 +103,8 @@ Route102_Text_CatchWholeBunchOfPokemon:
 	.string "POKéMON!$"
 
 Route102_Text_RouteSignOldale:
-	.string "ROUTE 102\n"
-	.string "{RIGHT_ARROW} OLDALE TOWN$"
+	.string "ROUTE 219\n"
+	.string "{UP_ARROW} SANDGEM TOWN$"
 
 Route102_Text_RouteSignPetalburg:
 	.string "ROUTE 102\n"
