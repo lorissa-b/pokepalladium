@@ -1434,8 +1434,10 @@ void LoadWallyZigzagoon(void)
     SetMonData(&gPlayerParty[0], MON_DATA_MOVE4, &monData);
 }
 
-// Prof. Birch's assistant has the starter neither the player nor the rival
-// took, with just its first move, for the Route 202 catching tutorial
+// Prof. Birch's assistant has the starter that's weak against the player's
+// (the rival has the one that's strong against it), with just its first move,
+// for the Route 202 catching tutorial. Starters are ordered Turtwig, Chimchar,
+// Piplup, and each is weak against the one before it.
 void LoadAssistantTutorialMon(void)
 {
     u16 monData;

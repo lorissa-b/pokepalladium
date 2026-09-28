@@ -205,6 +205,12 @@ Route101_EventScript_LovesPokemon::
 	removeobject LOCALID_ROUTE201_BIRCH
 	removeobject LOCALID_ROUTE201_ASSISTANT
 	applywaitmovement LOCALID_ROUTE201_RIVAL, Common_Movement_FacePlayer
+	@ Losing whites out, so finish the scene's state first: the route is left
+	@ clear and nothing replays if the player comes back
+	setvar VAR_ROUTE101_STATE, 5
+	setflag FLAG_HIDE_ROUTE_201_RIVAL
+	call Route101_EventScript_RivalBattle
+	special HealPlayerParty
 	msgbox Route101_Text_RivalWaitForMe, MSGBOX_DEFAULT
 	closemessage
 	call_if_ne VAR_0x8008, 2, Route101_EventScript_RivalFollowAlongRow12
@@ -213,6 +219,52 @@ Route101_EventScript_LovesPokemon::
 	setvar VAR_ROUTE101_STATE, 5
 	releaseall
 	end
+
+@ The rival's first battle, with the starter that's strong against the player's.
+@ The ROUTE_103 trainers are named after the player's starter (see trainer_parties.h).
+Route101_EventScript_RivalBattle::
+	checkplayergender
+	goto_if_eq VAR_RESULT, FEMALE, Route101_EventScript_BrendanBattle
+	playbgm MUS_ENCOUNTER_MAY, TRUE
+	msgbox Route101_Text_RivalLetsBattle, MSGBOX_DEFAULT
+	switch VAR_STARTER_MON
+	case 0, Route101_EventScript_MayBattleTurtwig
+	case 1, Route101_EventScript_MayBattleChimchar
+	case 2, Route101_EventScript_MayBattlePiplup
+	return
+
+Route101_EventScript_BrendanBattle::
+	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
+	msgbox Route101_Text_RivalLetsBattle, MSGBOX_DEFAULT
+	switch VAR_STARTER_MON
+	case 0, Route101_EventScript_BrendanBattleTurtwig
+	case 1, Route101_EventScript_BrendanBattleChimchar
+	case 2, Route101_EventScript_BrendanBattlePiplup
+	return
+
+Route101_EventScript_MayBattleTurtwig::
+	trainerbattle_no_intro TRAINER_MAY_ROUTE_103_TREECKO, Route101_Text_RivalDefeated
+	return
+
+Route101_EventScript_MayBattleChimchar::
+	trainerbattle_no_intro TRAINER_MAY_ROUTE_103_TORCHIC, Route101_Text_RivalDefeated
+	return
+
+Route101_EventScript_MayBattlePiplup::
+	trainerbattle_no_intro TRAINER_MAY_ROUTE_103_MUDKIP, Route101_Text_RivalDefeated
+	return
+
+Route101_EventScript_BrendanBattleTurtwig::
+	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_103_TREECKO, Route101_Text_RivalDefeated
+	return
+
+Route101_EventScript_BrendanBattleChimchar::
+	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_103_TORCHIC, Route101_Text_RivalDefeated
+	return
+
+Route101_EventScript_BrendanBattlePiplup::
+	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_103_MUDKIP, Route101_Text_RivalDefeated
+	return
 
 Route101_EventScript_GroupLeaveAlongRow12::
 	applymovement LOCALID_ROUTE201_BIRCH, Route101_Movement_LeaveRight
@@ -567,3 +619,12 @@ Route101_Text_TrainerTips:
 	.string "Jump down ledges for a shortcut!\n"
 	.string "You can't climb back up, though.$"
 
+Route101_Text_RivalLetsBattle:
+	.string "{RIVAL}: Hey, {PLAYER}!\n"
+	.string "Before I go…\p"
+	.string "Our POKéMON are raring to go, right?\n"
+	.string "Let's battle!$"
+
+Route101_Text_RivalDefeated:
+	.string "Whoa! You're pretty good,\n"
+	.string "{PLAYER}!$"
