@@ -69,14 +69,14 @@
     {
       "id": "HEAL_LOCATION_LITTLEROOT_TOWN_BRENDANS_HOUSE",
       "map": "MAP_LITTLEROOT_TOWN",
-      "x": 5,
-      "y": 9
+      "x": 4,
+      "y": 11
     },
     {
       "id": "HEAL_LOCATION_LITTLEROOT_TOWN_MAYS_HOUSE",
       "map": "MAP_LITTLEROOT_TOWN",
-      "x": 14,
-      "y": 9
+      "x": 15,
+      "y": 21
     },
     {
       "id": "HEAL_LOCATION_OLDALE_TOWN",

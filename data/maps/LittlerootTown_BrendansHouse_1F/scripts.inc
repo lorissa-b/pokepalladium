@@ -278,6 +278,26 @@ PlayersHouse_1F_Text_IsntItNiceInHere:
 	.string "MOM: See, {PLAYER}?\n"
 	.string "Isn't it nice in here, too?$"
 
+PlayersHouse_1F_Text_RivalWasLookingForYou:
+	.string "MOM: Oh, {PLAYER}! You're finally up!\p"
+	.string "{RIVAL} came by looking for you\n"
+	.string "a little while ago.\p"
+	.string "{RIVAL} seemed awfully excited\n"
+	.string "about something!\p"
+	.string "Why don't you go over to {RIVAL}'s\n"
+	.string "house and see what's going on?$"
+
+PlayersHouse_1F_Text_GoToRivalsHouse:
+	.string "MOM: {RIVAL} was looking for you,\n"
+	.string "{PLAYER}.\p"
+	.string "{RIVAL}'s house is just up the road.\n"
+	.string "Don't keep your friend waiting!$"
+
+PlayersHouse_1F_Text_DidYouFindRival:
+	.string "MOM: Did you find {RIVAL}?\p"
+	.string "…Off to ROUTE 201, you say?\n"
+	.string "Well, be careful out there!$"
+
 PlayersHouse_1F_Text_MoversPokemonGoSetClock:
 	.string "The mover's POKéMON do all the work\n"
 	.string "of moving us in and cleaning up after.\l"

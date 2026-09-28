@@ -19,11 +19,6 @@
       "direction": "up"
     },
     {
-      "map": "MAP_SAFARI_ZONE_SOUTHWEST",
-      "offset": 0,
-      "direction": "left"
-    },
-    {
       "map": "MAP_SAFARI_ZONE_SOUTHEAST",
       "offset": 0,
       "direction": "right"

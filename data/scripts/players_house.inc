@@ -281,7 +281,19 @@ PlayersHouse_1F_EventScript_Mom::
 	goto_if_set FLAG_RESCUED_BIRCH, PlayersHouse_1F_EventScript_MomHealsParty
 	goto_if_eq VAR_TEMP_1, 1, PlayersHouse_1F_EventScript_SeeYouHoney
 	goto_if_eq VAR_LITTLEROOT_INTRO_STATE, 7, PlayersHouse_1F_EventScript_DidYouMeetProfBirch
+	goto_if_eq VAR_LITTLEROOT_INTRO_STATE, 9, PlayersHouse_1F_EventScript_GoToRivalsHouse
+	goto_if_eq VAR_LITTLEROOT_INTRO_STATE, 10, PlayersHouse_1F_EventScript_DidYouFindRival
 	msgbox PlayersHouse_1F_Text_IsntItNiceInHere, MSGBOX_DEFAULT
+	release
+	end
+
+PlayersHouse_1F_EventScript_GoToRivalsHouse::
+	msgbox PlayersHouse_1F_Text_GoToRivalsHouse, MSGBOX_DEFAULT
+	release
+	end
+
+PlayersHouse_1F_EventScript_DidYouFindRival::
+	msgbox PlayersHouse_1F_Text_DidYouFindRival, MSGBOX_DEFAULT
 	release
 	end
 
