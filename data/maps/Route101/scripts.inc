@@ -540,7 +540,7 @@ Route101_Text_RivalWaitForMe:
 Route101_Text_TakeTiredPokemonToPokeCenter:
 	.string "If POKéMON get tired, take them to\n"
 	.string "a POKéMON CENTER.\p"
-	.string "There's a POKéMON CENTER in OLDALE\n"
+	.string "There's a POKéMON CENTER in SANDGEM\n"
 	.string "TOWN right close by.$"
 
 Route101_Text_WildPokemonInTallGrass:

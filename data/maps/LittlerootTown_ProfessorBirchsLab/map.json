@@ -104,15 +104,15 @@
       "x": 6,
       "y": 12,
       "elevation": 0,
-      "dest_map": "MAP_LITTLEROOT_TOWN",
-      "dest_warp_id": "2"
+      "dest_map": "MAP_OLDALE_TOWN",
+      "dest_warp_id": "4"
     },
     {
       "x": 7,
       "y": 12,
       "elevation": 0,
-      "dest_map": "MAP_LITTLEROOT_TOWN",
-      "dest_warp_id": "2"
+      "dest_map": "MAP_OLDALE_TOWN",
+      "dest_warp_id": "4"
     }
   ],
   "coord_events": [],

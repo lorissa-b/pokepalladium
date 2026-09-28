@@ -334,10 +334,10 @@ Route103_Text_ShouldHaveBroughtPotion:
 
 Route103_Text_ShortcutToOldale:
 	.string "If you cross the sea from here,\n"
-	.string "it'll be a shortcut to OLDALE TOWN.\p"
+	.string "it'll be a shortcut to SANDGEM TOWN.\p"
 	.string "Fufufu, that's useful, isn't it?$"
 
 Route103_Text_RouteSign:
 	.string "ROUTE 103\n"
-	.string "{DOWN_ARROW} OLDALE TOWN$"
+	.string "{DOWN_ARROW} SANDGEM TOWN$"
 
