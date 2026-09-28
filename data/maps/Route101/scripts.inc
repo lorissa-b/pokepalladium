@@ -205,11 +205,12 @@ Route101_EventScript_LovesPokemon::
 	removeobject LOCALID_ROUTE201_BIRCH
 	removeobject LOCALID_ROUTE201_ASSISTANT
 	applywaitmovement LOCALID_ROUTE201_RIVAL, Common_Movement_FacePlayer
-	@ Losing whites out, so finish the scene's state first: the route is left
-	@ clear and nothing replays if the player comes back
-	setvar VAR_ROUTE101_STATE, 5
-	setflag FLAG_HIDE_ROUTE_201_RIVAL
+	@ Win or lose, the story carries on: no white out, and the party is healed
+	setflag FLAG_NO_WHITEOUT_ON_LOSS
 	call Route101_EventScript_RivalBattle
+	clearflag FLAG_NO_WHITEOUT_ON_LOSS
+	specialvar VAR_RESULT, GetBattleOutcome
+	call_if_eq VAR_RESULT, B_OUTCOME_LOST, Route101_EventScript_RivalWon
 	special HealPlayerParty
 	msgbox Route101_Text_RivalWaitForMe, MSGBOX_DEFAULT
 	closemessage
@@ -240,6 +241,10 @@ Route101_EventScript_BrendanBattle::
 	case 0, Route101_EventScript_BrendanBattleTurtwig
 	case 1, Route101_EventScript_BrendanBattleChimchar
 	case 2, Route101_EventScript_BrendanBattlePiplup
+	return
+
+Route101_EventScript_RivalWon::
+	msgbox Route101_Text_RivalWon, MSGBOX_DEFAULT
 	return
 
 Route101_EventScript_MayBattleTurtwig::
@@ -628,3 +633,8 @@ Route101_Text_RivalLetsBattle:
 Route101_Text_RivalDefeated:
 	.string "Whoa! You're pretty good,\n"
 	.string "{PLAYER}!$"
+
+Route101_Text_RivalWon:
+	.string "{RIVAL}: Yes! I won!\p"
+	.string "Don't worry, {PLAYER}. Our POKéMON\n"
+	.string "will both get stronger from here!$"
