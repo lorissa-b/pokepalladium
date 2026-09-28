@@ -50,14 +50,20 @@ LakeVerity_EventScript_BirchsBag::
 	msgbox LakeVerity_Text_RivalWeShouldReturnIt, MSGBOX_DEFAULT
 	closemessage
 	removeobject LOCALID_LAKE_VERITY_BAG
-	applywaitmovement LOCALID_LAKE_VERITY_RIVAL, LakeVerity_Movement_RivalLeaveWithBag
+	msgbox LakeVerity_Text_PickedUpBag, MSGBOX_DEFAULT
+	closemessage
+	applywaitmovement LOCALID_LAKE_VERITY_RIVAL, LakeVerity_Movement_RivalLeave
 	removeobject LOCALID_LAKE_VERITY_RIVAL
+	@ Birch, his assistant and the rival are now waiting on Route 201
+	clearflag FLAG_HIDE_ROUTE_201_BIRCH
+	clearflag FLAG_HIDE_ROUTE_201_ASSISTANT
+	clearflag FLAG_HIDE_ROUTE_201_RIVAL
 	setvar VAR_ROUTE101_STATE, 4
 	releaseall
 	end
 
 @ From 42, 28 back down the exit path toward Route 201
-LakeVerity_Movement_RivalLeaveWithBag:
+LakeVerity_Movement_RivalLeave:
 	walk_fast_down
 	walk_fast_down
 	walk_fast_down
@@ -96,4 +102,8 @@ LakeVerity_Text_RivalWeShouldReturnIt:
 	.string "…But that was the PROFESSOR's POKéMON.\n"
 	.string "We'd better bring the bag back to him\l"
 	.string "and explain what happened.\p"
-	.string "I'll carry it! Come on!$"
+	.string "Grab the bag, {PLAYER}!\n"
+	.string "Let's go find them!$"
+
+LakeVerity_Text_PickedUpBag:
+	.string "{PLAYER} picked up the bag.$"
