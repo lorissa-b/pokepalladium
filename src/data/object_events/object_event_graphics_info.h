@@ -1,6 +1,6 @@
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_BrendanNormal = {
     .tileTag = TAG_NONE,
-    .paletteTag = OBJ_EVENT_PAL_TAG_BRENDAN,
+    .paletteTag = OBJ_EVENT_PAL_TAG_LUCAS_DAWN,
     .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_BRIDGE_REFLECTION,
     .size = 512,
     .width = 16,
@@ -1691,7 +1691,7 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_MrBrineysBoat = {
 
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_MayNormal = {
     .tileTag = TAG_NONE,
-    .paletteTag = OBJ_EVENT_PAL_TAG_MAY,
+    .paletteTag = OBJ_EVENT_PAL_TAG_LUCAS_DAWN,
     .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_BRIDGE_REFLECTION,
     .size = 512,
     .width = 16,
@@ -1919,12 +1919,12 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Artist = {
 
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalBrendanNormal = {
     .tileTag = TAG_NONE,
-    .paletteTag = OBJ_EVENT_PAL_TAG_BRENDAN,
+    .paletteTag = OBJ_EVENT_PAL_TAG_LUCAS_DAWN,
     .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_BRIDGE_REFLECTION,
     .size = 256,
     .width = 16,
     .height = 32,
-    .paletteSlot = PALSLOT_NPC_SPECIAL,
+    .paletteSlot = PALSLOT_PLAYER,
     .shadowSize = SHADOW_SIZE_M,
     .inanimate = FALSE,
     .disableReflectionPaletteLoad = FALSE,
@@ -2014,12 +2014,12 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalBrendanFieldM
 
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RivalMayNormal = {
     .tileTag = TAG_NONE,
-    .paletteTag = OBJ_EVENT_PAL_TAG_MAY,
+    .paletteTag = OBJ_EVENT_PAL_TAG_LUCAS_DAWN,
     .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_BRIDGE_REFLECTION,
     .size = 256,
     .width = 16,
     .height = 32,
-    .paletteSlot = PALSLOT_NPC_SPECIAL,
+    .paletteSlot = PALSLOT_PLAYER,
     .shadowSize = SHADOW_SIZE_M,
     .inanimate = FALSE,
     .disableReflectionPaletteLoad = FALSE,
@@ -4161,7 +4161,7 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Mom = {
 
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LinkBrendan = {
     .tileTag = TAG_NONE,
-    .paletteTag = OBJ_EVENT_PAL_TAG_MAY,
+    .paletteTag = OBJ_EVENT_PAL_TAG_LUCAS_DAWN,
     .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_BRIDGE_REFLECTION,
     .size = 256,
     .width = 16,
@@ -4180,7 +4180,7 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LinkBrendan = {
 
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_LinkMay = {
     .tileTag = TAG_NONE,
-    .paletteTag = OBJ_EVENT_PAL_TAG_MAY,
+    .paletteTag = OBJ_EVENT_PAL_TAG_LUCAS_DAWN,
     .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_BRIDGE_REFLECTION,
     .size = 256,
     .width = 16,
@@ -4650,5 +4650,24 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoOh = {
     .subspriteTables = sOamTables_32x32,
     .anims = sAnimTable_HoOh,
     .images = sPicTable_HoOh,
+    .affineAnims = gDummySpriteAffineAnimTable,
+};
+
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Barry = {
+    .tileTag = TAG_NONE,
+    .paletteTag = OBJ_EVENT_PAL_TAG_BARRY,
+    .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_BRIDGE_REFLECTION,
+    .size = 256,
+    .width = 16,
+    .height = 32,
+    .paletteSlot = PALSLOT_NPC_SPECIAL,
+    .shadowSize = SHADOW_SIZE_M,
+    .inanimate = FALSE,
+    .disableReflectionPaletteLoad = FALSE,
+    .tracks = TRACKS_FOOT,
+    .oam = &gObjectEventBaseOam_16x32,
+    .subspriteTables = sOamTables_16x32,
+    .anims = sAnimTable_Standard,
+    .images = sPicTable_Barry,
     .affineAnims = gDummySpriteAffineAnimTable,
 };

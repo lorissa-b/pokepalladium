@@ -16,6 +16,7 @@ Route101_MapScripts::
 Route101_OnTransition:
 	call ProfBirch_EventScript_UpdateLocation
 	call Common_EventScript_SetupRivalGfxId
+	call Common_EventScript_SetupAssistantGfxId
 	call_if_eq VAR_ROUTE101_STATE, 1, Route101_EventScript_SetRivalWaitingByLake
 	call_if_eq VAR_ROUTE101_STATE, 4, Route101_EventScript_SetGroupByTwinleafPath
 	end

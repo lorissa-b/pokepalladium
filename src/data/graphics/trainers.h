@@ -211,11 +211,18 @@ const u32 gTrainerPalette_MagmaAdmin[] = INCGFX_U32("graphics/trainers/front_pic
 const u32 gTrainerFrontPic_Wally[] = INCGFX_U32("graphics/trainers/front_pics/wally.png", ".4bpp.lz");
 const u32 gTrainerPalette_Wally[] = INCGFX_U32("graphics/trainers/palettes/wally.pal", ".gbapal.lz");
 
-const u32 gTrainerFrontPic_Brendan[] = INCGFX_U32("graphics/trainers/front_pics/brendan.png", ".4bpp.lz");
+// The player's front pics are Lucas and Dawn. Brendan and May's palettes
+// stay for their back pics.
+const u32 gTrainerFrontPic_Lucas[] = INCGFX_U32("graphics/trainers/front_pics/lucas.png", ".4bpp.lz");
+const u32 gTrainerPalette_Lucas[] = INCGFX_U32("graphics/trainers/palettes/lucas.pal", ".gbapal.lz");
 const u32 gTrainerPalette_Brendan[] = INCGFX_U32("graphics/trainers/palettes/brendan.pal", ".gbapal.lz");
 
-const u32 gTrainerFrontPic_May[] = INCGFX_U32("graphics/trainers/front_pics/may.png", ".4bpp.lz");
+const u32 gTrainerFrontPic_Dawn[] = INCGFX_U32("graphics/trainers/front_pics/dawn.png", ".4bpp.lz");
+const u32 gTrainerPalette_Dawn[] = INCGFX_U32("graphics/trainers/palettes/dawn.pal", ".gbapal.lz");
 const u32 gTrainerPalette_May[] = INCGFX_U32("graphics/trainers/palettes/may.pal", ".gbapal.lz");
+
+const u32 gTrainerFrontPic_Barry[] = INCGFX_U32("graphics/trainers/front_pics/barry.png", ".4bpp.lz");
+const u32 gTrainerPalette_Barry[] = INCGFX_U32("graphics/trainers/palettes/barry.pal", ".gbapal.lz");
 
 const u32 gTrainerFrontPic_BugCatcher[] = INCGFX_U32("graphics/trainers/front_pics/bug_catcher.png", ".4bpp.lz");
 const u32 gTrainerPalette_BugCatcher[] = INCGFX_U32("graphics/trainers/front_pics/bug_catcher.png", ".gbapal.lz");

@@ -6,6 +6,7 @@ OldaleTown_MapScripts::
 
 OldaleTown_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
+	call Common_EventScript_SetupAssistantGfxId
 	setflag FLAG_VISITED_OLDALE_TOWN
 	call_if_set FLAG_ADVENTURE_STARTED, OldaleTown_EventScript_SetOldaleState
 	end

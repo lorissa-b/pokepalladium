@@ -2538,9 +2538,9 @@ void LoadLinkContestPlayerPalettes(void)
             else
             {
                 if (gLinkPlayers[i].gender == MALE)
-                    LoadPalette(gObjectEventPal_Brendan, OBJ_PLTT_ID(6 + i), PLTT_SIZE_4BPP);
+                    LoadPalette(gObjectEventPal_LucasDawn, OBJ_PLTT_ID(6 + i), PLTT_SIZE_4BPP);
                 else
-                    LoadPalette(gObjectEventPal_May, OBJ_PLTT_ID(6 + i), PLTT_SIZE_4BPP);
+                    LoadPalette(gObjectEventPal_LucasDawn, OBJ_PLTT_ID(6 + i), PLTT_SIZE_4BPP);
             }
         }
     }

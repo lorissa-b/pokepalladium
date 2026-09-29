@@ -93,6 +93,7 @@ const struct MonCoords gTrainerFrontPicCoords[] =
     [TRAINER_PIC_LEAF] = {.size = 8, .y_offset = 1},
     [TRAINER_PIC_RS_BRENDAN] = {.size = 8, .y_offset = 1},
     [TRAINER_PIC_RS_MAY] = {.size = 8, .y_offset = 1},
+    [TRAINER_PIC_BARRY] = {.size = 8, .y_offset = 1},
 };
 
 #define TRAINER_SPRITE(trainerPic, sprite, size) [TRAINER_PIC_##trainerPic] = {sprite, size, TRAINER_PIC_##trainerPic}
@@ -170,8 +171,8 @@ const struct CompressedSpriteSheet gTrainerFrontPicTable[] =
     TRAINER_SPRITE(SAILOR, gTrainerFrontPic_Sailor, TRAINER_PIC_SIZE),
     TRAINER_SPRITE(MAGMA_ADMIN, gTrainerFrontPic_MagmaAdmin, TRAINER_PIC_SIZE),
     TRAINER_SPRITE(WALLY, gTrainerFrontPic_Wally, TRAINER_PIC_SIZE),
-    TRAINER_SPRITE(BRENDAN, gTrainerFrontPic_Brendan, TRAINER_PIC_SIZE),
-    TRAINER_SPRITE(MAY, gTrainerFrontPic_May, TRAINER_PIC_SIZE),
+    TRAINER_SPRITE(BRENDAN, gTrainerFrontPic_Lucas, TRAINER_PIC_SIZE),
+    TRAINER_SPRITE(MAY, gTrainerFrontPic_Dawn, TRAINER_PIC_SIZE),
     TRAINER_SPRITE(BUG_CATCHER, gTrainerFrontPic_BugCatcher, TRAINER_PIC_SIZE),
     TRAINER_SPRITE(POKEMON_RANGER_M, gTrainerFrontPic_PokemonRangerM, TRAINER_PIC_SIZE),
     TRAINER_SPRITE(POKEMON_RANGER_F, gTrainerFrontPic_PokemonRangerF, TRAINER_PIC_SIZE),
@@ -192,6 +193,7 @@ const struct CompressedSpriteSheet gTrainerFrontPicTable[] =
     TRAINER_SPRITE(LEAF, gTrainerFrontPic_Leaf, TRAINER_PIC_SIZE),
     TRAINER_SPRITE(RS_BRENDAN, gTrainerFrontPic_RubySapphireBrendan, TRAINER_PIC_SIZE),
     TRAINER_SPRITE(RS_MAY, gTrainerFrontPic_RubySapphireMay, TRAINER_PIC_SIZE),
+    TRAINER_SPRITE(BARRY, gTrainerFrontPic_Barry, TRAINER_PIC_SIZE),
 };
 
 #define TRAINER_PAL(trainerPic, pal) [TRAINER_PIC_##trainerPic] = {pal, TRAINER_PIC_##trainerPic}
@@ -269,8 +271,8 @@ const struct CompressedSpritePalette gTrainerFrontPicPaletteTable[] =
     TRAINER_PAL(SAILOR, gTrainerPalette_Sailor),
     TRAINER_PAL(MAGMA_ADMIN, gTrainerPalette_MagmaAdmin),
     TRAINER_PAL(WALLY, gTrainerPalette_Wally),
-    TRAINER_PAL(BRENDAN, gTrainerPalette_Brendan),
-    TRAINER_PAL(MAY, gTrainerPalette_May),
+    TRAINER_PAL(BRENDAN, gTrainerPalette_Lucas),
+    TRAINER_PAL(MAY, gTrainerPalette_Dawn),
     TRAINER_PAL(BUG_CATCHER, gTrainerPalette_BugCatcher),
     TRAINER_PAL(POKEMON_RANGER_M, gTrainerPalette_PokemonRangerM),
     TRAINER_PAL(POKEMON_RANGER_F, gTrainerPalette_PokemonRangerF),
@@ -291,4 +293,5 @@ const struct CompressedSpritePalette gTrainerFrontPicPaletteTable[] =
     TRAINER_PAL(LEAF, gTrainerPalette_Leaf),
     TRAINER_PAL(RS_BRENDAN, gTrainerPalette_RubySapphireBrendan),
     TRAINER_PAL(RS_MAY, gTrainerPalette_RubySapphireMay),
+    TRAINER_PAL(BARRY, gTrainerPalette_Barry),
 };
