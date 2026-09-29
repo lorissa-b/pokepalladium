@@ -50,6 +50,9 @@ _build/
 # Generated at build time by the extensions in docs/_ext/
 docs/pokedex/families/
 docs/moves/types/
-docs/map/encounters/
+docs/map/towns/
+docs/map/routes/
+docs/map/icons/
+docs/map/trainers/
 __pycache__/
 *.pyc

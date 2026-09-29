@@ -7,6 +7,7 @@ directory is gitignored; edit the data headers, not the output.
 
 from __future__ import annotations
 
+import html
 import re
 import shutil
 from pathlib import Path
@@ -203,6 +204,31 @@ def parse_tmhm() -> tuple[dict[str, list[str]], dict[str, str]]:
     return out, labels
 
 
+def parse_sprites() -> dict[str, Path]:
+    """SPECIES_X -> the front sprite PNG the game uses for its summary screen.
+
+    Follows the still-front-pic table to the INCGFX path so forms like Unown A
+    resolve to the right file. Castform's front pic is built from a combined
+    .4bpp, so fall back to its normal-form PNG in that case.
+    """
+    paths = {}
+    gfx = read(DATA / "graphics" / "pokemon.h")
+    for sym, path in re.findall(r"const u32 (gMonStillFrontPic_\w+)\[\]\s*=\s*\w+\(\"([^\"]+)\"", gfx):
+        paths[sym] = REPO / path
+
+    table = read(DATA / "pokemon_graphics" / "still_front_pic_table.h")
+    out = {}
+    for name, sym in re.findall(r"SPECIES_SPRITE\(\s*(\w+)\s*,\s*(\w+)\s*\)", table):
+        path = paths.get(sym)
+        if path is None:
+            continue
+        if path.suffix != ".png":
+            path = path.parent / "normal" / "front.png"
+        if path.exists():
+            out[f"SPECIES_{name}"] = path
+    return out
+
+
 # --- family grouping -------------------------------------------------------
 
 def build_families(species: list[str], evos: dict[str, list[tuple[str, str]]]):
@@ -253,11 +279,19 @@ def md_escape(text: str) -> str:
     return text.replace("|", "\\|")
 
 
-def render_species(m, members, names, info, evos, levelup, eggmoves, tmhm, tm_labels):
-    """One species: an overview table, then three moveset tables."""
+def species_heading(level: str, m: str, names: dict[str, str], sprites: dict[str, Path]) -> str:
+    """A heading with the species' front sprite in front of its name."""
+    name = names.get(m, m)
+    if m not in sprites:
+        return f"{level} {name}"
+    return f"{level} ![{name}](sprites/{slug(m)}.png) {name}"
+
+
+def render_species(m, members, names, info, evos, levelup, eggmoves, tmhm, tm_labels, sprites):
+    """One species: its sprite and name, an overview table, then its moves."""
     meta = info.get(m, {})
-    # A one-species family already names it in the page title; don't repeat it.
-    lines = [] if len(members) == 1 else [f"## {names.get(m, m)}", ""]
+    # A one-species family names it in the page title, sprite and all.
+    lines = [] if len(members) == 1 else [species_heading("##", m, names, sprites), ""]
 
     types = [const_name(t, "TYPE_") for t in meta.get("types", [])]
     # A single-typed mon repeats its type in the data; collapse the duplicate.
@@ -284,45 +318,62 @@ def render_species(m, members, names, info, evos, levelup, eggmoves, tmhm, tm_la
     lines.append("")
 
     h = "##" if len(members) == 1 else "###"
+    lines += [f"{h} Moves", ""]
 
-    # Level-up moves.
-    lines += [f"{h} Level-up moves", ""]
-    lu = sorted(levelup.get(m, []), key=lambda p: (p[0], p[1]))
-    if lu:
-        lines += ["| Level | Move |", "| --- | --- |"]
-        for lvl, mv in lu:
-            label = "Start" if lvl <= 1 else str(lvl)
-            lines.append(f"| {label} | {md_escape(const_name(mv, 'MOVE_'))} |")
-    else:
-        lines.append("None.")
+    lu = [
+        ("Start" if lvl <= 1 else str(lvl), const_name(mv, "MOVE_"))
+        for lvl, mv in sorted(levelup.get(m, []), key=lambda p: (p[0], p[1]))
+    ]
+    # TM/HM moves in TM/HM number order rather than struct order.
+    tms = [
+        (tm_labels.get(mid, "TM/HM"), const_name(mid, ""))
+        for mid in sorted(tmhm.get(m, []), key=lambda i: tmhm_sort_key(i, tm_labels))
+    ]
+    eggs = [const_name(mv, "MOVE_") for mv in eggmoves.get(m, [])]
+
+    lines += render_moves_table(lu, tms, eggs)
     lines.append("")
-
-    # TM/HM moves, in TM/HM number order rather than struct order.
-    lines += [f"{h} TM/HM moves", ""]
-    ids = tmhm.get(m, [])
-    ordered = sorted(ids, key=lambda i: tmhm_sort_key(i, tm_labels))
-    if ordered:
-        lines += ["| TM/HM | Move |", "| --- | --- |"]
-        for mid in ordered:
-            lines.append(
-                f"| {tm_labels.get(mid, 'TM/HM')} | {md_escape(const_name(mid, ''))} |"
-            )
-    else:
-        lines.append("None.")
-    lines.append("")
-
-    # Egg moves.
-    lines += [f"{h} Egg moves", ""]
-    eggs = eggmoves.get(m, [])
-    if eggs:
-        lines += ["| Move |", "| --- |"]
-        for mv in eggs:
-            lines.append(f"| {md_escape(const_name(mv, 'MOVE_'))} |")
-    else:
-        lines.append("None.")
-    lines.append("")
-
     return lines
+
+
+def render_moves_table(lu, tms, eggs) -> list[str]:
+    """Level-up, TM/HM and egg moves side by side in one table.
+
+    Markdown tables can't span columns, so this is raw HTML. The columns are
+    independent lists; each row just pairs up the nth entry of each.
+    """
+    e = html.escape
+    none = '<td colspan="{}"><em>None</em></td>'
+
+    rows = []
+    for i in range(max(len(lu), len(tms), len(eggs), 1)):
+        cells = []
+        if i < len(lu):
+            cells += [f"<td>{e(lu[i][0])}</td>", f"<td>{e(lu[i][1])}</td>"]
+        else:
+            cells.append(none.format(2) if i == 0 else '<td colspan="2"></td>')
+        if i < len(tms):
+            cells += [f"<td>{e(tms[i][0])}</td>", f"<td>{e(tms[i][1])}</td>"]
+        else:
+            cells.append(none.format(2) if i == 0 else '<td colspan="2"></td>')
+        if i < len(eggs):
+            cells.append(f"<td>{e(eggs[i])}</td>")
+        else:
+            cells.append(none.format(1) if i == 0 else "<td></td>")
+        rows.append("<tr>" + "".join(cells) + "</tr>")
+
+    return [
+        '<table class="docutils align-default moves-table">',
+        "<thead>",
+        '<tr><th colspan="2">Level-up</th><th colspan="2">TM / HM</th>'
+        '<th rowspan="2">Egg</th></tr>',
+        "<tr><th>Level</th><th>Move</th><th>TM / HM</th><th>Move</th></tr>",
+        "</thead>",
+        "<tbody>",
+        *rows,
+        "</tbody>",
+        "</table>",
+    ]
 
 
 def tmhm_sort_key(mid: str, tm_labels: dict[str, str]) -> tuple[int, int]:
@@ -333,11 +384,14 @@ def tmhm_sort_key(mid: str, tm_labels: dict[str, str]) -> tuple[int, int]:
     return (kind, num)
 
 
-def render_family(root, members, names, info, evos, levelup, eggmoves, tmhm, tm_labels) -> str:
+def render_family(root, members, names, info, evos, levelup, eggmoves, tmhm, tm_labels, sprites) -> str:
     title = names.get(root, root)
-    heading = f"{title} line" if len(members) > 1 else title
+    if len(members) > 1:
+        heading = f"# {title} line"
+    else:
+        heading = species_heading("#", root, names, sprites)
 
-    lines = [f"# {heading}", ""]
+    lines = [heading, ""]
 
     # Evolution chain, as prose arrows -- readable and diff-friendly.
     if len(members) > 1:
@@ -353,7 +407,7 @@ def render_family(root, members, names, info, evos, levelup, eggmoves, tmhm, tm_
 
     for m in members:
         lines += render_species(
-            m, members, names, info, evos, levelup, eggmoves, tmhm, tm_labels
+            m, members, names, info, evos, levelup, eggmoves, tmhm, tm_labels, sprites
         )
 
     return "\n".join(lines).rstrip() + "\n"
@@ -366,6 +420,7 @@ def generate(app=None) -> int:
     levelup = parse_level_up()
     eggmoves = parse_egg_moves()
     tmhm, tm_labels = parse_tmhm()
+    sprites = parse_sprites()
 
     # Real species only: skip the SPECIES_NONE sentinel and the OLD_UNOWN padding.
     species = [
@@ -381,6 +436,7 @@ def generate(app=None) -> int:
     if OUT.exists():
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)
+    (OUT / "sprites").mkdir()
 
     order = sorted(families, key=species.index)
     entries = []
@@ -396,8 +452,11 @@ def generate(app=None) -> int:
             )
         seen_names[fname] = root
         body = render_family(
-            root, members, names, info, evos, levelup, eggmoves, tmhm, tm_labels
+            root, members, names, info, evos, levelup, eggmoves, tmhm, tm_labels, sprites
         )
+        for m in members:
+            if m in sprites:
+                shutil.copyfile(sprites[m], OUT / "sprites" / f"{slug(m)}.png")
         (OUT / f"{fname}.md").write_text(body, encoding="utf-8")
         entries.append((fname, name, members))
 

@@ -10,7 +10,8 @@ Scaffold page. Region and route write-ups still to be written.
 ```{toctree}
 :maxdepth: 1
 
-encounters/index
+towns/index
+routes/index
 ```
 
 ## Where the data lives
@@ -28,6 +29,8 @@ The repo currently carries the vanilla Hoenn set of **523 maps** under
 | Layouts (dimensions, border, blockdata) | `data/layouts/` |
 | Tilesets | `data/tilesets/` |
 | Wild encounter tables | `src/data/wild_encounters.json` |
+| Trainers and their teams | `src/data/trainers.h`, `src/data/trainer_parties.h` |
+| Item ball contents | `data/scripts/item_ball_scripts.inc` |
 | Region map section constants | `include/constants/region_map_sections.h` |
 | Region map graphics | `src/data/region_map/` |
 
@@ -44,7 +47,7 @@ keeps the layout, border and blockdata files consistent with each other.
 ## Planned pages
 
 - Region overview, with a route-by-route walkthrough order
-- Per-route pages: encounters, items, trainers, connections
+- Connections between maps on the town and route pages
 - New or substantially redesigned maps, and what changed from vanilla Hoenn
 
 ## Conventions
