@@ -30,3 +30,4 @@ legacy_WSL1_INSTALL
   [Sugimori Palettes: The DS-style 64x64 Pokémon Sprite Resource](https://www.pokecommunity.com/threads/sugimori-palettes-the-ds-style-64x64-pok%C3%A9mon-sprite-resource.336945/).
 - Trainer sprites for Lucas, Dawn and Barry are by Rubire4.
 - Overworld sprites for Lucas, Dawn and Barry are by Twinleaf Logan.
+- Back sprites for Lucas and Dawn are by Lhea.

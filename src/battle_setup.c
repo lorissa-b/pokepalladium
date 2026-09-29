@@ -501,9 +501,12 @@ void StartAssistantCatchTutorialBattle(void)
     CreateBattleStartTask(B_TRANSITION_SLICE, 0);
 }
 
+// The assistant is the player character of the other gender
 u8 GetCatchTutorialBackPic(void)
 {
-    return gIsAssistantCatchTutorial ? TRAINER_BACK_PIC_LEAF : TRAINER_BACK_PIC_WALLY;
+    if (!gIsAssistantCatchTutorial)
+        return TRAINER_BACK_PIC_WALLY;
+    return gSaveBlock2Ptr->playerGender == MALE ? TRAINER_BACK_PIC_MAY : TRAINER_BACK_PIC_BRENDAN;
 }
 
 void BattleSetup_StartScriptedWildBattle(void)
