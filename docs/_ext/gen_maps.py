@@ -9,6 +9,7 @@ Both directories are gitignored; edit the data, not the output.
 
 from __future__ import annotations
 
+import html
 import json
 import re
 import shutil
@@ -407,22 +408,55 @@ def map_items(info: dict, item_balls: dict[str, str]) -> list[tuple[str, str]]:
 
 # --- rendering ---------------------------------------------------------------
 
+# Encounter types grouped under a header row each, in table order.
+ENCOUNTER_GROUPS = [
+    ("Walking", {"Grass", "Cave"}),
+    ("Surfing", {"Surf"}),
+    ("Fishing", {"Old Rod", "Good Rod", "Super Rod"}),
+]
+SPECIAL_GROUP = "Special"  # Rock Smash, seaweed and anything else
+
+
+def encounter_group(label: str) -> str:
+    return next((g for g, labels in ENCOUNTER_GROUPS if label in labels), SPECIAL_GROUP)
+
+
 def render_encounters(rows, split: bool, icons: dict[str, Path]) -> list[str]:
     """A table of wild Pokémon, with a chance per period when the map's tables
-    change with the time of day and a single chance column otherwise."""
+    change with the time of day and a single chance column otherwise.
+
+    Rows sit under Walking/Surfing/Fishing/Special header rows spanning the
+    table, which Markdown tables can't do, so this is raw HTML. Icons are
+    copied next to the pages by copy_icons, since Sphinx doesn't collect
+    images from raw HTML.
+    """
+    e = html.escape
     periods = PERIODS if split else ["Chance"]
+    width = 3 + len(periods)
     lines = [
-        "| Type | Pokémon | Levels | " + " | ".join(periods) + " |",
-        "| --- | --- | --- | " + " | ".join("---" for _p in periods) + " |",
+        '<table class="docutils align-default encounters-table">',
+        "<thead><tr>"
+        + "".join(f"<th>{e(h)}</th>" for h in ["Type", "Pokémon", "Levels", *periods])
+        + "</tr></thead>",
+        "<tbody>",
     ]
-    for label, species, name, row in rows:
-        chances = row["chance"] if split else row["chance"][:1]
-        cells = " | ".join(percent(c) if c else "—" for c in chances)
-        mon = md_escape(name)
-        if species in icons:
-            mon = f"![{mon}](../icons/{slug(species)}.png) {mon}"
-        levels = str(row["min"]) if row["min"] == row["max"] else f"{row['min']} - {row['max']}"
-        lines.append(f"| {label} | {mon} | {levels} | {cells} |")
+    for group in [g for g, _l in ENCOUNTER_GROUPS] + [SPECIAL_GROUP]:
+        grouped = [r for r in rows if encounter_group(r[0]) == group]
+        if not grouped:
+            continue
+        lines.append(f'<tr><th colspan="{width}">{group}</th></tr>')
+        for label, species, name, row in grouped:
+            chances = row["chance"] if split else row["chance"][:1]
+            mon = e(name)
+            if species in icons:
+                mon = f'<img alt="" src="../icons/{slug(species)}.png"> {mon}'
+            if row["min"] == row["max"]:
+                levels = str(row["min"])
+            else:
+                levels = f"{row['min']} - {row['max']}"
+            cells = [e(label), mon, levels] + [percent(c) if c else "—" for c in chances]
+            lines.append("<tr>" + "".join(f"<td>{c}</td>" for c in cells) + "</tr>")
+    lines += ["</tbody>", "</table>"]
     return lines
 
 
@@ -599,8 +633,18 @@ def on_builder_inited(app):
     sphinx_logging.getLogger(__name__).info(f"[gen_maps] generated {count} town, city and route pages")
 
 
+def copy_icons(app, exception):
+    """Put the icons where the encounter tables' raw <img> tags expect them."""
+    if exception is None and app.builder.format == "html":
+        dest = Path(app.outdir) / "map" / "icons"
+        if dest.exists():
+            shutil.rmtree(dest)
+        shutil.copytree(OUT / "icons", dest)
+
+
 def setup(app):
     app.connect("builder-inited", on_builder_inited)
+    app.connect("build-finished", copy_icons)
     return {"version": "1.0", "parallel_read_safe": True}
 
 
