@@ -52,5 +52,6 @@ docs/pokedex/families/
 docs/moves/types/
 docs/map/towns/
 docs/map/routes/
+docs/map/icons/
 __pycache__/
 *.pyc

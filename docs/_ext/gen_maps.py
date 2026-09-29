@@ -12,9 +12,11 @@ from __future__ import annotations
 import json
 import re
 import shutil
+import struct
+import zlib
 from pathlib import Path
 
-from gen_pokedex import const_name, md_escape, parse_species_names, read, titlecase
+from gen_pokedex import const_name, md_escape, parse_species_names, read, slug, titlecase
 
 HERE = Path(__file__).resolve().parent
 DOCS = HERE.parent
@@ -177,7 +179,7 @@ def build_rows(tables: list[dict], period_tables: list[int], fields, map_type, n
             key=lambda item: (-sum(item[1]["chance"]), names.get(item[0], item[0])),
         )
         for species, row in ordered:
-            rows.append((label, names.get(species, species), row))
+            rows.append((label, species, names.get(species, species), row))
     return rows
 
 
@@ -207,6 +209,52 @@ def parent_name(name: str) -> str:
     if parts[0] == "Underwater" and len(parts) == 2:
         return parts[1]
     return parts[0]
+
+
+def parse_icons() -> dict[str, Path]:
+    """SPECIES_X -> its party icon PNG, following gMonIconTable so forms like
+    Unown A resolve to the right file."""
+    paths = {}
+    gfx = read(DATA / "graphics" / "pokemon.h")
+    for sym, path in re.findall(r"const u8 (gMonIcon_\w+)\[\]\s*=\s*\w+\(\"([^\"]+)\"", gfx):
+        paths[sym] = REPO / path
+    table = read(REPO / "src" / "pokemon_icon.c")
+    table = table[table.index("gMonIconTable[]"):]
+    table = table[: table.index("};")]
+    out = {}
+    for species, sym in re.findall(r"\[(SPECIES_\w+)\]\s*=\s*(gMonIcon_\w+)", table):
+        if species != "SPECIES_NONE" and sym in paths and paths[sym].exists():
+            out[species] = paths[sym]
+    return out
+
+
+def write_icon_frame(src: Path, dst: Path) -> None:
+    """Copy the first frame of a party icon: icon.png holds two 32x32 animation
+    frames stacked vertically. PNG filters only look at the row above, so the
+    top rows of the image data decode on their own and can be kept as-is."""
+    data = src.read_bytes()
+    chunks, pos = [], 8
+    while pos < len(data):
+        length, kind = struct.unpack(">I4s", data[pos:pos + 8])
+        chunks.append((kind, data[pos + 8:pos + 8 + length]))
+        pos += 12 + length
+
+    width, height, depth, colour, *rest = struct.unpack(">IIBBBBB", chunks[0][1])
+    if rest[2]:  # interlaced: rows aren't stored in order, so keep both frames
+        shutil.copyfile(src, dst)
+        return
+    frame = min(width, height)
+    channels = {0: 1, 2: 3, 3: 1, 4: 2, 6: 4}[colour]
+    row = 1 + (width * depth * channels + 7) // 8
+    pixels = zlib.decompress(b"".join(body for kind, body in chunks if kind == b"IDAT"))
+
+    def chunk(kind: bytes, body: bytes) -> bytes:
+        return struct.pack(">I", len(body)) + kind + body + struct.pack(">I", zlib.crc32(kind + body))
+
+    out = [b"\x89PNG\r\n\x1a\n", chunk(b"IHDR", struct.pack(">IIBBBBB", width, frame, depth, colour, *rest))]
+    out += [chunk(kind, body) for kind, body in chunks[1:] if kind not in (b"IDAT", b"IEND")]
+    out += [chunk(b"IDAT", zlib.compress(pixels[: row * frame])), chunk(b"IEND", b"")]
+    dst.write_bytes(b"".join(out))
 
 
 # --- game text ---------------------------------------------------------------
@@ -359,18 +407,21 @@ def map_items(info: dict, item_balls: dict[str, str]) -> list[tuple[str, str]]:
 
 # --- rendering ---------------------------------------------------------------
 
-def render_encounters(rows, split: bool) -> list[str]:
+def render_encounters(rows, split: bool, icons: dict[str, Path]) -> list[str]:
     """A table of wild Pokémon, with a chance per period when the map's tables
     change with the time of day and a single chance column otherwise."""
     periods = PERIODS if split else ["Chance"]
     lines = [
-        "| Type | Pokémon | Min Lv. | Max Lv. | " + " | ".join(periods) + " |",
-        "| --- | --- | --- | --- | " + " | ".join("---" for _p in periods) + " |",
+        "| Type | Pokémon | Levels | " + " | ".join(periods) + " |",
+        "| --- | --- | --- | " + " | ".join("---" for _p in periods) + " |",
     ]
-    for label, name, row in rows:
+    for label, species, name, row in rows:
         chances = row["chance"] if split else row["chance"][:1]
         cells = " | ".join(percent(c) if c else "—" for c in chances)
-        lines.append(f"| {label} | {md_escape(name)} | {row['min']} | {row['max']} | {cells} |")
+        mon = md_escape(name)
+        if species in icons:
+            mon = f"![{mon}](../icons/{slug(species)}.png) {mon}"
+        lines.append(f"| {label} | {mon} | {row['min']} - {row['max']} | {cells} |")
     return lines
 
 
@@ -386,11 +437,10 @@ def render_party(party, names, items) -> str:
     return "<br>".join(bits) or "—"
 
 
-def render_page(title, areas, encounter_areas, hours, names, trainers, items) -> str:
+def render_page(title, areas, encounter_areas, hours, names, trainers, items, icons) -> str:
     """areas: [(area name, map info, [trainer consts], [(item, how)])]."""
     show_area = len(areas) > 1
-    extra = ", plus its buildings and underwater areas" if show_area else ""
-    lines = [f"# {title}", "", f"`{areas[0][1]['id']}`{extra}.", ""]
+    lines = [f"# {title}", ""]
 
     # Wild encounters, one table per area that has any.
     lines += ["## Wild encounters", ""]
@@ -401,7 +451,7 @@ def render_page(title, areas, encounter_areas, hours, names, trainers, items) ->
     for area, map_const, rows, split in encounter_areas:
         if len(encounter_areas) > 1 or area != "Outside":
             lines += [f"### {area}", ""]
-        lines += render_encounters(rows, split) + [""]
+        lines += render_encounters(rows, split, icons) + [""]
         if map_const in NOTES:
             lines += ["```{note}", NOTES[map_const], "```", ""]
 
@@ -459,6 +509,7 @@ def generate(app=None) -> int:
     trainers = parse_trainers()
     items = parse_items()
     item_balls = parse_item_balls()
+    icons = parse_icons()
 
     tables_by_map: dict[str, list[dict]] = {}
     for table in group["encounters"]:
@@ -476,11 +527,13 @@ def generate(app=None) -> int:
         if info["name"] not in tops and parent in tops:
             children[parent].append(info)
 
-    for directory, _t, _types in SECTIONS:
+    for directory in [d for d, _t, _types in SECTIONS] + ["icons"]:
         out = OUT / directory
         if out.exists():
             shutil.rmtree(out)
         out.mkdir(parents=True)
+    for species, path in icons.items():
+        write_icon_frame(path, OUT / "icons" / f"{slug(species)}.png")
 
     pages = []  # (directory, title, filename)
     used: set[str] = set()
@@ -513,7 +566,7 @@ def generate(app=None) -> int:
 
         directory = next(d for d, _t, types in SECTIONS if top["map_type"] in types)
         (OUT / directory / f"{fname}.md").write_text(
-            render_page(title, areas, encounter_areas, hours, names, trainers, items),
+            render_page(title, areas, encounter_areas, hours, names, trainers, items, icons),
             encoding="utf-8",
         )
         pages.append((directory, title, fname))
