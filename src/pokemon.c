@@ -7351,10 +7351,13 @@ const u8 *GetTrainerClassNameFromId(u16 trainerId)
     return gTrainerClassNames[gTrainers[trainerId].trainerClass];
 }
 
+// The rival's battles use the name the player gave him
 const u8 *GetTrainerNameFromId(u16 trainerId)
 {
     if (trainerId >= TRAINERS_COUNT)
         trainerId = TRAINER_NONE;
+    if (gTrainers[trainerId].trainerPic == TRAINER_PIC_BARRY)
+        return GetRivalName();
     return gTrainers[trainerId].trainerName;
 }
 

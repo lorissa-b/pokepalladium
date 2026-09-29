@@ -1689,7 +1689,7 @@ static void PopulateTrainerName(int matchCallId, u8 *destStr)
         }
     }
 
-    StringCopy(destStr, gTrainers[trainerId].trainerName);
+    StringCopy(destStr, GetTrainerNameFromId(trainerId));
 }
 
 static void PopulateMapName(int matchCallId, u8 *destStr)

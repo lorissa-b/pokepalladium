@@ -42,6 +42,20 @@ gText_Birch_WhatsYourName::
 gText_Birch_SoItsPlayer::
 	.string "So it's {PLAYER}{KUN}?$"
 
+gText_Birch_ThisIsYourRival::
+	.string "This boy lives next door to your\n"
+	.string "new home in TWINLEAF.\p"
+	.string "He's been excited to meet you ever\n"
+	.string "since he heard you were moving in!\p"
+	.string "…Er, what was his name again?$"
+
+gText_Birch_WhatsHisName::
+	.string "Hm…\n"
+	.string "What was his name again?$"
+
+gText_Birch_SoItsRival::
+	.string "That's right! His name is {RIVAL}!$"
+
 gText_Birch_YourePlayer::
 	.string "Ah, okay!\p"
 	.string "You're {PLAYER}{KUN} who's moving to my\n"
