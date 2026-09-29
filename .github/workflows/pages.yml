@@ -10,6 +10,9 @@ on:
       # too. Keep this list in step with what those extensions read.
       - 'src/data/pokemon/**'
       - 'src/data/text/species_names.h'
+      - 'src/data/graphics/pokemon.h'
+      - 'src/data/pokemon_graphics/still_front_pic_table.h'
+      - 'graphics/pokemon/**/front.png'
       - 'include/constants/tms_hms.h'
       - 'src/data/battle_moves.h'
       - 'src/data/contest_moves.h'

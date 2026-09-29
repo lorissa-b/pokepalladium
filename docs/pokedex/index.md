@@ -29,9 +29,9 @@ so edit these and the game and docs stay in agreement.
 
 {doc}`families/index` is built from the data headers by
 `docs/_ext/gen_pokedex.py` on every Sphinx run, one page per evolution
-family. Each page carries an overview table (name, types, abilities,
-evolutions) and a moveset table per species covering level-up, TM/HM and
-egg moves.
+family. Each species gets a heading with its front sprite, an overview table
+(types, abilities, evolutions, base stats) and one moves table with side-by-side
+level-up, TM/HM and egg move columns.
 
 Because it is generated, **do not edit those pages** — they are gitignored
 and overwritten each build. Change `src/data/pokemon/` instead.
