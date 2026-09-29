@@ -23,3 +23,8 @@ features/index
 
 legacy_WSL1_INSTALL
 ```
+
+## Credits
+
+- Gen 4 Pokémon sprites and icons are from
+  [Sugimori Palettes: The DS-style 64x64 Pokémon Sprite Resource](https://www.pokecommunity.com/threads/sugimori-palettes-the-ds-style-64x64-pok%C3%A9mon-sprite-resource.336945/).

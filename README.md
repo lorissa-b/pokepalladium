@@ -9,3 +9,7 @@ It builds the following ROM:
 To set up the repository, see [INSTALL.md](INSTALL.md).
 
 For contacts and other pret projects, see [pret.github.io](https://pret.github.io/).
+
+## Credits
+
+* Gen 4 Pokémon sprites and icons: [Sugimori Palettes: The DS-style 64x64 Pokémon Sprite Resource](https://www.pokecommunity.com/threads/sugimori-palettes-the-ds-style-64x64-pok%C3%A9mon-sprite-resource.336945/)
