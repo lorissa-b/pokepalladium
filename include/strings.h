@@ -15,6 +15,7 @@ extern const u8 gText_ExpandedPlaceholder_Maxie[];
 extern const u8 gText_ExpandedPlaceholder_Kyogre[];
 extern const u8 gText_ExpandedPlaceholder_Groudon[];
 extern const u8 gText_ExpandedPlaceholder_Brendan[];
+extern const u8 gText_DefaultRivalName[];
 extern const u8 gText_ExpandedPlaceholder_May[];
 
 extern const u8 gText_FromSpace[];
@@ -345,6 +346,9 @@ extern const u8 gText_Birch_BoyOrGirl[];
 extern const u8 gText_Birch_WhatsYourName[];
 extern const u8 gText_Birch_SoItsPlayer[];
 extern const u8 gText_Birch_YourePlayer[];
+extern const u8 gText_Birch_ThisIsYourRival[];
+extern const u8 gText_Birch_WhatsHisName[];
+extern const u8 gText_Birch_SoItsRival[];
 extern const u8 gText_Birch_AreYouReady[];
 extern const u8 gText_ContinueMenuPlayer[];
 extern const u8 gText_ContinueMenuTime[];
@@ -3022,6 +3026,7 @@ extern const u8 gText_Cancel3[];
 // Naming Screen
 extern const u8 gText_MoveOkBack[];
 extern const u8 gText_YourName[];
+extern const u8 gText_RivalsName[];
 extern const u8 gText_BoxName[];
 extern const u8 gText_PkmnsNickname[];
 extern const u8 gText_TellHimTheWords[];

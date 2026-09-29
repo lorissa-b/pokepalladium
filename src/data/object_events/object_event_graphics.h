@@ -1,5 +1,12 @@
-const u32 gObjectEventPic_BrendanNormal[] = INCGFX_U32("graphics/object_events/pics/people/brendan/walking.png", ".4bpp", "-mwidth 2 -mheight 4");
-const u32 gObjectEventPic_BrendanRunning[] = INCGFX_U32("graphics/object_events/pics/people/brendan/running.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u32 gObjectEventPic_LucasNormal[] = INCGFX_U32("graphics/object_events/pics/people/lucas/walking.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u32 gObjectEventPic_DawnNormal[] = INCGFX_U32("graphics/object_events/pics/people/dawn/walking.png", ".4bpp", "-mwidth 2 -mheight 4");
+// Lucas and Dawn share a palette, so the assistant (the other gender) can use
+// the player's palette slot while the rival is on screen.
+const u16 gObjectEventPal_LucasDawn[] = INCGFX_U16("graphics/object_events/palettes/lucas_dawn.pal", ".gbapal");
+const u16 gObjectEventPal_LucasDawnReflection[] = INCGFX_U16("graphics/object_events/palettes/lucas_dawn_reflection.pal", ".gbapal");
+const u32 gObjectEventPic_BarryNormal[] = INCGFX_U32("graphics/object_events/pics/people/barry/walking.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPal_Barry[] = INCGFX_U16("graphics/object_events/palettes/barry.pal", ".gbapal");
+const u16 gObjectEventPal_BarryReflection[] = INCGFX_U16("graphics/object_events/palettes/barry_reflection.pal", ".gbapal");
 const u16 gObjectEventPal_Brendan[] = INCGFX_U16("graphics/object_events/palettes/brendan.pal", ".gbapal");
 const u32 gObjectEventPic_RubySapphireBrendanNormal[] = INCGFX_U32("graphics/object_events/pics/people/ruby_sapphire_brendan/walking.png", ".4bpp", "-mwidth 2 -mheight 4");
 const u32 gObjectEventPic_RubySapphireBrendanRunning[] = INCGFX_U32("graphics/object_events/pics/people/ruby_sapphire_brendan/running.png", ".4bpp", "-mwidth 2 -mheight 4");
@@ -32,8 +39,6 @@ const u32 gObjectEventPic_MayDecorating[] = INCGFX_U32("graphics/object_events/p
 const u32 gObjectEventPic_BrendanUnderwater[] = INCGFX_U32("graphics/object_events/pics/people/brendan/underwater.png", ".4bpp", "-mwidth 4 -mheight 4");
 const u32 gObjectEventPic_MayUnderwater[] = INCGFX_U32("graphics/object_events/pics/people/may/underwater.png", ".4bpp", "-mwidth 4 -mheight 4");
 const u16 gObjectEventPal_PlayerUnderwater[] = INCGFX_U16("graphics/object_events/palettes/player_underwater.pal", ".gbapal");
-const u32 gObjectEventPic_MayNormal[] = INCGFX_U32("graphics/object_events/pics/people/may/walking.png", ".4bpp", "-mwidth 2 -mheight 4");
-const u32 gObjectEventPic_MayRunning[] = INCGFX_U32("graphics/object_events/pics/people/may/running.png", ".4bpp", "-mwidth 2 -mheight 4");
 const u16 gObjectEventPal_May[] = INCGFX_U16("graphics/object_events/palettes/may.pal", ".gbapal");
 const u16 gObjectEventPal_MayReflection[] = INCGFX_U16("graphics/object_events/palettes/may_reflection.pal", ".gbapal");
 const u32 gObjectEventPic_RubySapphireMayNormal[] = INCGFX_U32("graphics/object_events/pics/people/ruby_sapphire_may/walking.png", ".4bpp", "-mwidth 2 -mheight 4");

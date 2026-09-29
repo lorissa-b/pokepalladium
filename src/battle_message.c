@@ -2578,7 +2578,7 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                 }
                 else
                 {
-                    toCpy = gTrainers[gTrainerBattleOpponent_A].trainerName;
+                    toCpy = GetTrainerNameFromId(gTrainerBattleOpponent_A);
                 }
                 break;
             case B_TXT_LINK_PLAYER_NAME: // link player name
@@ -2696,7 +2696,7 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                 }
                 else
                 {
-                    toCpy = gTrainers[gTrainerBattleOpponent_B].trainerName;
+                    toCpy = GetTrainerNameFromId(gTrainerBattleOpponent_B);
                 }
                 break;
             case B_TXT_TRAINER2_LOSE_TEXT:

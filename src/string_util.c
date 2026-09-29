@@ -453,12 +453,17 @@ static const u8 *ExpandPlaceholder_KunChan(void)
         return gText_ExpandedPlaceholder_Chan;
 }
 
+// Saves from before the rival could be named have no rival name
+const u8 *GetRivalName(void)
+{
+    if (gSaveBlock2Ptr->rivalName[0] == EOS)
+        return gText_DefaultRivalName;
+    return gSaveBlock2Ptr->rivalName;
+}
+
 static const u8 *ExpandPlaceholder_RivalName(void)
 {
-    if (gSaveBlock2Ptr->playerGender == MALE)
-        return gText_ExpandedPlaceholder_May;
-    else
-        return gText_ExpandedPlaceholder_Brendan;
+    return GetRivalName();
 }
 
 static const u8 *ExpandPlaceholder_Version(void)

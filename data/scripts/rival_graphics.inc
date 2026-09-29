@@ -1,15 +1,21 @@
+@ The rival is Barry whichever gender the player is
 Common_EventScript_SetupRivalGfxId::
-	checkplayergender
-	goto_if_eq VAR_RESULT, MALE, EventScript_SetupRivalGfxIdFemale
-	goto_if_eq VAR_RESULT, FEMALE, EventScript_SetupRivalGfxIdMale
-	end
-
-EventScript_SetupRivalGfxIdFemale::
-	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
+	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_BARRY
 	return
 
-EventScript_SetupRivalGfxIdMale::
-	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL
+@ Prof. Birch's assistant is the player character of the other gender
+Common_EventScript_SetupAssistantGfxId::
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, EventScript_SetupAssistantGfxIdFemale
+	goto_if_eq VAR_RESULT, FEMALE, EventScript_SetupAssistantGfxIdMale
+	end
+
+EventScript_SetupAssistantGfxIdFemale::
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
+	return
+
+EventScript_SetupAssistantGfxIdMale::
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL
 	return
 
 Common_EventScript_SetupRivalOnBikeGfxId::

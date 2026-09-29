@@ -13,3 +13,6 @@ For contacts and other pret projects, see [pret.github.io](https://pret.github.i
 ## Credits
 
 * Gen 4 Pokémon sprites and icons: [Sugimori Palettes: The DS-style 64x64 Pokémon Sprite Resource](https://www.pokecommunity.com/threads/sugimori-palettes-the-ds-style-64x64-pok%C3%A9mon-sprite-resource.336945/)
+* Trainer sprites (Lucas, Dawn and Barry): Rubire4
+* Overworld sprites (Lucas, Dawn and Barry): Twinleaf Logan
+* Back sprites (Lucas and Dawn): Lhea

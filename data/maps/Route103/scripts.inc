@@ -6,6 +6,7 @@ Route103_MapScripts::
 
 Route103_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
+	call Common_EventScript_SetupAssistantGfxId
 	call ProfBirch_EventScript_UpdateLocation
 	call_if_eq VAR_ROUTE101_STATE, 6, Route103_EventScript_ShowAssistant
 	end
