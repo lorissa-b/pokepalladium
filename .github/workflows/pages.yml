@@ -21,6 +21,13 @@ on:
       - 'src/data/wild_encounters.json'
       - 'include/constants/time_of_day.h'
       - 'data/maps/*/map.json'
+      - 'data/maps/*/scripts.inc'
+      - 'data/scripts/item_ball_scripts.inc'
+      - 'src/data/trainers.h'
+      - 'src/data/trainer_parties.h'
+      - 'src/data/text/trainer_class_names.h'
+      - 'src/data/items.h'
+      - 'src/data/region_map/region_map_sections.json'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
