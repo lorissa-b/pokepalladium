@@ -1,0 +1,52 @@
+/* Generated map pages: see docs/_ext/gen_maps.py. */
+
+/* Full-width group rows (Walking, Surfing, an area, Rematch). */
+.encounters-table tbody th,
+.trainers-table tbody th {
+    text-align: center;
+    background: #e8eef5;
+}
+
+.trainers-table td.trainer {
+    text-align: center;
+    vertical-align: middle;
+    border-right: 1px solid #e1e4e5;
+}
+
+.trainers-table .trainer-pic {
+    width: 64px;
+    height: 64px;
+    image-rendering: pixelated;
+}
+
+.trainers-table .trainer-class {
+    color: #2980b9;
+    font-weight: bold;
+}
+
+.trainer-mon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.trainer-mon .mon-name {
+    color: #2980b9;
+}
+
+.trainer-mon .mon-moves {
+    font-size: 85%;
+    font-style: italic;
+}
+
+.gender-female {
+    color: #e0508c;
+}
+
+.gender-male {
+    color: #3a6fd8;
+}
+
+.mon-icon {
+    image-rendering: pixelated;
+}

@@ -362,15 +362,98 @@ def parse_trainers() -> dict[str, dict]:
         party = re.search(r"\.party\s*=\s*\w+\(\s*(sParty_\w+)\s*\)", body)
         if not cls or not party:
             continue
-        label = " ".join(
-            bit for bit in (game_text(classes.get(cls.group(1), "")), game_text(name.group(1) if name else "")) if bit
-        )
+        cls_name = game_text(classes.get(cls.group(1), ""))
+        own_name = game_text(name.group(1) if name else "")
+        pic = re.search(r"\.trainerPic\s*=\s*(TRAINER_PIC_\w+)", body)
         trainers[const] = {
-            "name": label,
+            "name": " ".join(bit for bit in (cls_name, own_name) if bit),
+            "class_name": cls_name,
+            "own_name": own_name,
+            "class": cls.group(1),
+            "pic": pic.group(1) if pic else None,
+            "female": bool(re.search(r"\.encounterMusic_gender\s*=\s*F_TRAINER_FEMALE", body)),
             "double": bool(re.search(r"\.doubleBattle\s*=\s*TRUE", body)),
             "party": parties.get(party.group(1), []),
         }
     return trainers
+
+
+def parse_trainer_money() -> tuple[dict[str, int], int]:
+    """(TRAINER_CLASS_X -> money multiplier, the default for unlisted classes)."""
+    text = read(REPO / "src" / "battle_main.c")
+    table = text[text.index("gTrainerMoneyTable[]"):]
+    table = table[: table.index("};")]
+    money = {cls: int(v) for cls, v in re.findall(r"\{\s*(TRAINER_CLASS_\w+)\s*,\s*(\d+)\s*\}", table)}
+    default = re.search(r"\{\s*0xFF\s*,\s*(\d+)\s*\}", table)
+    return money, int(default.group(1)) if default else 5
+
+
+def prize_money(trainer: dict, money: tuple[dict[str, int], int]) -> int:
+    """Mirrors GetTrainerMoneyToGive: 4 x the last Pokémon's level x the class's
+    rate, doubled for double battles. Without an Amulet Coin."""
+    if not trainer["party"]:
+        return 0
+    rates, default = money
+    reward = 4 * trainer["party"][-1][1] * rates.get(trainer["class"], default)
+    return reward * 2 if trainer["double"] else reward
+
+
+def parse_gender_ratios() -> dict[str, int]:
+    """SPECIES_X -> genderRatio: 0 all male, 254 all female, 255 genderless."""
+    fixed = {"MON_MALE": 0, "MON_FEMALE": 254, "MON_GENDERLESS": 255}
+    text = read(DATA / "pokemon" / "species_info.h")
+    parts = re.split(r"\[(SPECIES_\w+)\]\s*=\s*", text)
+    out = {}
+    for const, body in zip(parts[1::2], parts[2::2]):
+        m = re.search(r"\.genderRatio\s*=\s*(\w+)(?:\(([\d.]+)\))?", body)
+        if not m:
+            continue
+        if m.group(1) in fixed:
+            out[const] = fixed[m.group(1)]
+        elif m.group(1) == "PERCENT_FEMALE":
+            out[const] = min(254, int(float(m.group(2)) * 255 / 100))
+    return out
+
+
+def trainer_mon_gender(trainer: dict, species: str, ratios: dict[str, int]) -> str:
+    """♂, ♀ or "" for a trainer's Pokémon. CreateNPCTrainerParty only adds a
+    name hash to the upper bytes of the personality, so the low byte that picks
+    the gender is fixed by the battle type and the trainer's gender."""
+    ratio = ratios.get(species, 255)
+    if ratio == 255:
+        return ""
+    if ratio in (0, 254):
+        return "♀" if ratio == 254 else "♂"
+    low = 0x80 if trainer["double"] else 0x78 if trainer["female"] else 0x88
+    return "♀" if ratio > low else "♂"
+
+
+def parse_trainer_pics() -> dict[str, Path]:
+    """TRAINER_PIC_X -> its front pic PNG."""
+    paths = {}
+    gfx = read(DATA / "graphics" / "trainers.h")
+    for sym, path in re.findall(r"const u32 (gTrainerFrontPic_\w+)\[\]\s*=\s*\w+\(\"([^\"]+)\"", gfx):
+        paths[sym] = REPO / path
+    table = read(DATA / "trainer_graphics" / "front_pic_tables.h")
+    out = {}
+    for pic, sym in re.findall(r"TRAINER_SPRITE\(\s*(\w+)\s*,\s*(gTrainerFrontPic_\w+)", table):
+        if sym in paths and paths[sym].exists():
+            out[f"TRAINER_PIC_{pic}"] = paths[sym]
+    return out
+
+
+def parse_rematches() -> dict[str, list[str]]:
+    """First battle's TRAINER_X -> its rematch trainers, in order."""
+    text = read(REPO / "src" / "battle_setup.c")
+    out = {}
+    for args in re.findall(r"\]\s*=\s*REMATCH\(([^)]*)\)", text):
+        ids = [a.strip() for a in args.split(",")][:-1]  # the last is the map
+        rematches = []
+        for t in ids[1:]:
+            if t != ids[0] and t not in rematches:
+                rematches.append(t)
+        out[ids[0]] = rematches
+    return out
 
 
 def map_scripts(name: str) -> str:
@@ -427,7 +510,7 @@ def render_encounters(rows, split: bool, icons: dict[str, Path]) -> list[str]:
 
     Rows sit under Walking/Surfing/Fishing/Special header rows spanning the
     table, which Markdown tables can't do, so this is raw HTML. Icons are
-    copied next to the pages by copy_icons, since Sphinx doesn't collect
+    copied next to the pages by copy_images, since Sphinx doesn't collect
     images from raw HTML.
     """
     e = html.escape
@@ -460,19 +543,79 @@ def render_encounters(rows, split: bool, icons: dict[str, Path]) -> list[str]:
     return lines
 
 
-def render_party(party, names, items) -> str:
-    bits = []
-    for species, level, item, moves in party:
-        bit = f"**{names.get(species, species)}** Lv. {level}"
-        if item:
-            bit += f" @ {item_name(item, items)}"
-        if moves:
-            bit += "<br>&nbsp;&nbsp;*" + ", ".join(const_name(m, "MOVE_") for m in moves) + "*"
-        bits.append(bit)
-    return "<br>".join(bits) or "—"
+def render_mon(species, level, item, moves, trainer, ctx) -> str:
+    e = html.escape
+    icon = ""
+    if species in ctx["icons"]:
+        icon = f'<img class="mon-icon" alt="" src="../icons/{slug(species)}.png">'
+    gender = trainer_mon_gender(trainer, species, ctx["ratios"])
+    gender_html = ""
+    if gender:
+        kind = "female" if gender == "♀" else "male"
+        gender_html = f'<span class="gender-{kind}">{gender}</span>'
+    lines = [
+        f'<span class="mon-name">{e(ctx["names"].get(species, species))}</span>{gender_html} '
+        f'<span class="mon-level">Lv. {level}</span>',
+        e(item_name(item, ctx["items"])) if item else "No item",
+    ]
+    if moves:
+        lines.append(f'<span class="mon-moves">{e(", ".join(const_name(m, "MOVE_") for m in moves))}</span>')
+    return f'<div class="trainer-mon">{icon}<div>' + "<br>".join(lines) + "</div></div>"
 
 
-def render_page(title, areas, encounter_areas, hours, names, trainers, items, icons) -> str:
+def render_trainer(const, ctx, note="") -> list[str]:
+    """One trainer: their sprite, name and prize money in a cell spanning a row
+    per Pokémon in their party."""
+    e = html.escape
+    t = ctx["trainers"][const]
+    pic = ""
+    if t["pic"] in ctx["pics"]:
+        pic = f'<img class="trainer-pic" alt="" src="../trainers/{t["pic"][len("TRAINER_PIC_"):].lower()}.png"><br>'
+    bits = [f'<span class="trainer-class">{e(t["class_name"])}</span> <strong>{e(t["own_name"])}</strong>']
+    if note:
+        bits.append(f"<em>{e(note)}</em>")
+    if t["double"]:
+        bits.append("<em>Double battle</em>")
+    bits.append(f"Reward: ₽{prize_money(t, ctx['money'])}")
+    party = t["party"] or [None]
+    cell = f'<td class="trainer" rowspan="{len(party)}">{pic}' + "<br>".join(bits) + "</td>"
+    rows = []
+    for i, mon in enumerate(party):
+        mon_cell = f"<td>{render_mon(*mon, t, ctx)}</td>" if mon else "<td>—</td>"
+        rows.append("<tr>" + (cell if i == 0 else "") + mon_cell + "</tr>")
+    return rows
+
+
+def render_trainers(areas, ctx) -> list[str]:
+    """The trainer table: full-width rows name each area when there's more than
+    one, and head the rematch battles at the end."""
+    show_area = len(areas) > 1
+    lines = [
+        '<table class="docutils align-default trainers-table">',
+        "<thead><tr><th>Trainer</th><th>Pokémon</th></tr></thead>",
+        "<tbody>",
+    ]
+    rematches = []
+    for area, _info, consts, _i in areas:
+        consts = [c for c in consts if c in ctx["trainers"]]
+        if not consts:
+            continue
+        if show_area:
+            lines.append(f'<tr><th colspan="2">{html.escape(area)}</th></tr>')
+        for const in consts:
+            lines += render_trainer(const, ctx)
+            for n, rematch in enumerate(ctx["rematches"].get(const, []), 1):
+                if rematch in ctx["trainers"]:
+                    rematches.append((rematch, f"Rematch {n}"))
+    if rematches:
+        lines.append('<tr><th colspan="2">Rematch</th></tr>')
+        for const, note in rematches:
+            lines += render_trainer(const, ctx, note)
+    lines += ["</tbody>", "</table>"]
+    return lines
+
+
+def render_page(title, areas, encounter_areas, hours, ctx) -> str:
     """areas: [(area name, map info, [trainer consts], [(item, how)])]."""
     show_area = len(areas) > 1
     lines = [f"# {title}", ""]
@@ -486,22 +629,16 @@ def render_page(title, areas, encounter_areas, hours, names, trainers, items, ic
     for area, map_const, rows, split in encounter_areas:
         if len(encounter_areas) > 1 or area != "Outside":
             lines += [f"### {area}", ""]
-        lines += render_encounters(rows, split, icons) + [""]
+        lines += render_encounters(rows, split, ctx["icons"]) + [""]
         if map_const in NOTES:
             lines += ["```{note}", NOTES[map_const], "```", ""]
 
     # Trainers.
     lines += ["## Trainers", ""]
-    rows = [(area, t) for area, _info, consts, _i in areas for t in consts if t in trainers]
-    if rows:
-        lines += [("| Area " if show_area else "") + "| Trainer | Pokémon |"]
-        lines += [("| --- " if show_area else "") + "| --- | --- |"]
-        for area, const in rows:
-            t = trainers[const]
-            name = t["name"] + (" (double battle)" if t["double"] else "")
-            cells = f"| {md_escape(name)} | {md_escape(render_party(t['party'], names, items))} |"
-            lines.append((f"| {area} " if show_area else "") + cells)
-        repeated = [t["name"] for _a, t in ((a, trainers[c]) for a, c in rows)]
+    consts = [c for _a, _info, found, _i in areas for c in found if c in ctx["trainers"]]
+    if consts:
+        lines += render_trainers(areas, ctx)
+        repeated = [ctx["trainers"][c]["name"] for c in consts]
         if len(repeated) != len(set(repeated)):
             lines += [
                 "",
@@ -519,7 +656,7 @@ def render_page(title, areas, encounter_areas, hours, names, trainers, items, ic
         lines += [("| Area " if show_area else "") + "| Item | How |"]
         lines += [("| --- " if show_area else "") + "| --- | --- |"]
         for area, item, how in rows:
-            cells = f"| {md_escape(item_name(item, items))} | {how} |"
+            cells = f"| {md_escape(item_name(item, ctx['items']))} | {how} |"
             lines.append((f"| {area} " if show_area else "") + cells)
     else:
         lines.append("No items.")
@@ -545,6 +682,17 @@ def generate(app=None) -> int:
     items = parse_items()
     item_balls = parse_item_balls()
     icons = parse_icons()
+    pics = parse_trainer_pics()
+    ctx = {
+        "names": names,
+        "items": items,
+        "icons": icons,
+        "pics": pics,
+        "trainers": trainers,
+        "rematches": parse_rematches(),
+        "money": parse_trainer_money(),
+        "ratios": parse_gender_ratios(),
+    }
 
     tables_by_map: dict[str, list[dict]] = {}
     for table in group["encounters"]:
@@ -562,13 +710,15 @@ def generate(app=None) -> int:
         if info["name"] not in tops and parent in tops:
             children[parent].append(info)
 
-    for directory in [d for d, _t, _types in SECTIONS] + ["icons"]:
+    for directory in [d for d, _t, _types in SECTIONS] + ["icons", "trainers"]:
         out = OUT / directory
         if out.exists():
             shutil.rmtree(out)
         out.mkdir(parents=True)
     for species, path in icons.items():
         write_icon_frame(path, OUT / "icons" / f"{slug(species)}.png")
+    for pic, path in pics.items():
+        shutil.copyfile(path, OUT / "trainers" / f"{pic[len('TRAINER_PIC_'):].lower()}.png")
 
     pages = []  # (directory, title, filename)
     used: set[str] = set()
@@ -601,7 +751,7 @@ def generate(app=None) -> int:
 
         directory = next(d for d, _t, types in SECTIONS if top["map_type"] in types)
         (OUT / directory / f"{fname}.md").write_text(
-            render_page(title, areas, encounter_areas, hours, names, trainers, items, icons),
+            render_page(title, areas, encounter_areas, hours, ctx),
             encoding="utf-8",
         )
         pages.append((directory, title, fname))
@@ -633,18 +783,20 @@ def on_builder_inited(app):
     sphinx_logging.getLogger(__name__).info(f"[gen_maps] generated {count} town, city and route pages")
 
 
-def copy_icons(app, exception):
-    """Put the icons where the encounter tables' raw <img> tags expect them."""
+def copy_images(app, exception):
+    """Put the icons and trainer pics where the tables' raw <img> tags expect
+    them, since Sphinx only collects images from Markdown image syntax."""
     if exception is None and app.builder.format == "html":
-        dest = Path(app.outdir) / "map" / "icons"
-        if dest.exists():
-            shutil.rmtree(dest)
-        shutil.copytree(OUT / "icons", dest)
+        for directory in ("icons", "trainers"):
+            dest = Path(app.outdir) / "map" / directory
+            if dest.exists():
+                shutil.rmtree(dest)
+            shutil.copytree(OUT / directory, dest)
 
 
 def setup(app):
     app.connect("builder-inited", on_builder_inited)
-    app.connect("build-finished", copy_icons)
+    app.connect("build-finished", copy_images)
     return {"version": "1.0", "parallel_read_safe": True}
 
 

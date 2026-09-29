@@ -53,5 +53,6 @@ docs/moves/types/
 docs/map/towns/
 docs/map/routes/
 docs/map/icons/
+docs/map/trainers/
 __pycache__/
 *.pyc
