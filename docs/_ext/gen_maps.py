@@ -421,7 +421,8 @@ def render_encounters(rows, split: bool, icons: dict[str, Path]) -> list[str]:
         mon = md_escape(name)
         if species in icons:
             mon = f"![{mon}](../icons/{slug(species)}.png) {mon}"
-        lines.append(f"| {label} | {mon} | {row['min']} - {row['max']} | {cells} |")
+        levels = str(row["min"]) if row["min"] == row["max"] else f"{row['min']} - {row['max']}"
+        lines.append(f"| {label} | {mon} | {levels} | {cells} |")
     return lines
 
 
