@@ -23,3 +23,8 @@ features/index
 
 legacy_WSL1_INSTALL
 ```
+
+## Credits
+
+- Gen 4 Pokémon front and back sprites are from
+  [The DS-style 64x64 Pokémon Sprite Resource](https://www.pokecommunity.com/threads/the-ds-style-64x64-pok%C3%A9mon-sprite-resource-completed.267728/).
