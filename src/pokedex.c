@@ -95,7 +95,6 @@ enum
 
 enum {
     WIN_INFO,
-    WIN_FOOTPRINT,
     WIN_CRY_WAVE,
     WIN_VU_METER,
 };
@@ -278,7 +277,6 @@ static void PrintMonWeight(u16 weight, u8 left, u8 top);
 static void ResetOtherVideoRegisters(u16);
 static u8 PrintCryScreenSpeciesName(u8, u16, u8, u8);
 static void PrintDecimalNum(u8 windowId, u16 num, u8 left, u8 top);
-static void DrawFootprint(u8 windowId, u16 dexNum);
 static u16 CreateSizeScreenTrainerPic(u16, s16, s16, s8);
 static u16 GetNextPosition(u8, u16, u16, u16);
 static u8 LoadSearchMenu(void);
@@ -907,16 +905,6 @@ static const struct WindowTemplate sInfoScreen_WindowTemplates[] =
         .paletteNum = 0,
         .baseBlock = 1,
     },
-    [WIN_FOOTPRINT] =
-    {
-        .bg = 2,
-        .tilemapLeft = 25,
-        .tilemapTop = 8,
-        .width = 2,
-        .height = 2,
-        .paletteNum = 15,
-        .baseBlock = 641,
-    },
     [WIN_CRY_WAVE] =
     {
         .bg = 0,
@@ -974,22 +962,10 @@ static const struct WindowTemplate sNewEntryInfoScreen_WindowTemplates[] =
         .paletteNum = 0,
         .baseBlock = 1,
     },
-    [WIN_FOOTPRINT] =
-    {
-        .bg = 2,
-        .tilemapLeft = 25,
-        .tilemapTop = 8,
-        .width = 2,
-        .height = 2,
-        .paletteNum = 15,
-        .baseBlock = 641,
-    },
     DUMMY_WIN_TEMPLATE
 };
 
 static const u8 sText_TenDashes2[] = _("----------");
-
-#include "data/pokemon_graphics/footprint_table.h"
 
 // First character in range followed by number of characters in range for upper and lowercase
 static const u8 sLetterSearchRanges[][4] =
@@ -3255,9 +3231,6 @@ static void Task_LoadInfoScreen(u8 taskId)
         CopyToBgTilemapBuffer(3, gPokedexInfoScreen_Tilemap, 0, 0);
         FillWindowPixelBuffer(WIN_INFO, PIXEL_FILL(0));
         PutWindowTilemap(WIN_INFO);
-        PutWindowTilemap(WIN_FOOTPRINT);
-        DrawFootprint(WIN_FOOTPRINT, sPokedexListItem->dexNum);
-        CopyWindowToVram(WIN_FOOTPRINT, COPYWIN_GFX);
         gMain.state++;
         break;
     case 2:
@@ -3982,9 +3955,6 @@ static void Task_DisplayCaughtMonDexPage(u8 taskId)
         CopyToBgTilemapBuffer(3, gPokedexInfoScreen_Tilemap, 0, 0);
         FillWindowPixelBuffer(WIN_INFO, PIXEL_FILL(0));
         PutWindowTilemap(WIN_INFO);
-        PutWindowTilemap(WIN_FOOTPRINT);
-        DrawFootprint(WIN_FOOTPRINT, gTasks[taskId].tDexNum);
-        CopyWindowToVram(WIN_FOOTPRINT, COPYWIN_GFX);
         ResetPaletteFade();
         LoadPokedexBgPalette(FALSE);
         gTasks[taskId].tState++;
@@ -4576,49 +4546,6 @@ static void UNUSED PrintDecimalNum(u8 windowId, u16 num, u8 left, u8 top)
     str[4] = CHAR_0 + ((num % 1000) % 100) % 10;
     str[5] = EOS;
     PrintInfoSubMenuText(windowId, str, left, top);
-}
-
-// The footprints are drawn on WIN_FOOTPRINT, which uses BG palette 15 (loaded with graphics/text_window/message_box.gbapal)
-// The footprint pixels are stored as 1BPP, and set to the below color index in this palette when converted to 4BPP.
-#define FOOTPRINT_COLOR_IDX  2
-
-#define NUM_FOOTPRINT_TILES  4
-
-static void DrawFootprint(u8 windowId, u16 dexNum)
-{
-    u8 footprint4bpp[TILE_SIZE_4BPP * NUM_FOOTPRINT_TILES];
-    const u8 *footprintGfx = gMonFootprintTable[NationalPokedexNumToSpecies(dexNum)];
-    u16 tileIdx = 0;
-    u16 i, j;
-
-    for (i = 0; i < TILE_SIZE_1BPP * NUM_FOOTPRINT_TILES; i++)
-    {
-        u8 footprint1bpp = footprintGfx[i];
-
-        // Convert the 8 pixels in the above 1BPP byte to 4BPP.
-        // Each iteration creates one 4BPP byte (2 pixels),
-        // so we need 4 iterations to do all 8 pixels.
-        for (j = 0; j < 4; j++)
-        {
-            u8 tile = 0;
-            if (footprint1bpp & (1 << (2 * j)))
-                tile |= FOOTPRINT_COLOR_IDX; // Set pixel
-            if (footprint1bpp & (2 << (2 * j)))
-                tile |= FOOTPRINT_COLOR_IDX << 4; // Set pixel
-            footprint4bpp[tileIdx] = tile;
-            tileIdx++;
-        }
-    }
-    CopyToWindowPixelBuffer(windowId, footprint4bpp, sizeof(footprint4bpp), 0);
-}
-
-// Ruby/Sapphire function.
-static void UNUSED RS_DrawFootprint(u16 offset, u16 tileNum)
-{
-    *(u16 *)(VRAM + offset * 0x800 + 0x232) = 0xF000 + tileNum + 0;
-    *(u16 *)(VRAM + offset * 0x800 + 0x234) = 0xF000 + tileNum + 1;
-    *(u16 *)(VRAM + offset * 0x800 + 0x272) = 0xF000 + tileNum + 2;
-    *(u16 *)(VRAM + offset * 0x800 + 0x274) = 0xF000 + tileNum + 3;
 }
 
 static u16 GetNextPosition(u8 direction, u16 position, u16 min, u16 max)
