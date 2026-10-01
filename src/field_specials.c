@@ -1529,7 +1529,7 @@ static void StopCameraShake(u8 taskId)
 
 bool8 FoundBlackGlasses(void)
 {
-    return FlagGet(FLAG_HIDDEN_ITEM_ROUTE_116_BLACK_GLASSES);
+    return FlagGet(FLAG_HIDDEN_ITEM_ROUTE_204_BLACK_GLASSES);
 }
 
 void SetRoute119Weather(void)
@@ -3490,8 +3490,8 @@ bool32 GetAbnormalWeatherMapNameAndType(void)
         MAP_NUM(MAP_ROUTE114),
         MAP_NUM(MAP_ROUTE115),
         MAP_NUM(MAP_ROUTE115),
-        MAP_NUM(MAP_ROUTE116),
-        MAP_NUM(MAP_ROUTE116),
+        MAP_NUM(MAP_ROUTE204),
+        MAP_NUM(MAP_ROUTE204),
         MAP_NUM(MAP_ROUTE118),
         MAP_NUM(MAP_ROUTE118),
         MAP_NUM(MAP_ROUTE105),
@@ -3523,8 +3523,8 @@ bool8 AbnormalWeatherHasExpired(void)
         MAP_NUM(MAP_ROUTE114),
         MAP_NUM(MAP_ROUTE115),
         MAP_NUM(MAP_ROUTE115),
-        MAP_NUM(MAP_ROUTE116),
-        MAP_NUM(MAP_ROUTE116),
+        MAP_NUM(MAP_ROUTE204),
+        MAP_NUM(MAP_ROUTE204),
         MAP_NUM(MAP_ROUTE118),
         MAP_NUM(MAP_ROUTE118),
         MAP_NUM(MAP_ROUTE105),

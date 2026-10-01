@@ -18,12 +18,12 @@ AbnormalWeather_EventScript_PlaceTilesRoute115East::
 	setmetatile 36, 10, METATILE_Fallarbor_BrownCaveEntrance_Bottom, FALSE
 	return
 
-AbnormalWeather_EventScript_PlaceTilesRoute116North::
+AbnormalWeather_EventScript_PlaceTilesRoute204North::
 	setmetatile 59, 12, METATILE_General_CaveEntrance_Top, TRUE
 	setmetatile 59, 13, METATILE_General_CaveEntrance_Bottom, FALSE
 	return
 
-AbnormalWeather_EventScript_PlaceTilesRoute116South::
+AbnormalWeather_EventScript_PlaceTilesRoute204South::
 	setmetatile 79, 5, METATILE_General_CaveEntrance_Top, TRUE
 	setmetatile 79, 6, METATILE_General_CaveEntrance_Bottom, FALSE
 	return
@@ -206,8 +206,8 @@ AbnormalWeather_EventScript_CleanupMapTiles::
 	case ABNORMAL_WEATHER_ROUTE_114_SOUTH, AbnormalWeather_EventScript_CleanupRoute114South
 	case ABNORMAL_WEATHER_ROUTE_115_WEST, AbnormalWeather_EventScript_CleanupRoute115West
 	case ABNORMAL_WEATHER_ROUTE_115_EAST, AbnormalWeather_EventScript_CleanupRoute115East
-	case ABNORMAL_WEATHER_ROUTE_116_NORTH, AbnormalWeather_EventScript_CleanupRoute116North
-	case ABNORMAL_WEATHER_ROUTE_116_SOUTH, AbnormalWeather_EventScript_CleanupRoute116South
+	case ABNORMAL_WEATHER_ROUTE_204_NORTH, AbnormalWeather_EventScript_CleanupRoute204North
+	case ABNORMAL_WEATHER_ROUTE_204_SOUTH, AbnormalWeather_EventScript_CleanupRoute204South
 	case ABNORMAL_WEATHER_ROUTE_118_EAST, AbnormalWeather_EventScript_CleanupRoute118East
 	case ABNORMAL_WEATHER_ROUTE_118_WEST, AbnormalWeather_EventScript_CleanupRoute118West
 	case ABNORMAL_WEATHER_ROUTE_105_NORTH, AbnormalWeather_EventScript_CleanupRoute105North
@@ -240,12 +240,12 @@ AbnormalWeather_EventScript_CleanupRoute115East::
 	setmetatile 36, 10, METATILE_Fallarbor_BrownRockWall, TRUE
 	return
 
-AbnormalWeather_EventScript_CleanupRoute116North::
+AbnormalWeather_EventScript_CleanupRoute204North::
 	setmetatile 59, 12, METATILE_General_RockWall_RockBase, TRUE
 	setmetatile 59, 13, METATILE_General_RockWall_RockBase, TRUE
 	return
 
-AbnormalWeather_EventScript_CleanupRoute116South::
+AbnormalWeather_EventScript_CleanupRoute204South::
 	setmetatile 79, 5, METATILE_General_RockWall_RockBase, TRUE
 	setmetatile 79, 6, METATILE_General_RockWall_RockBase, TRUE
 	return

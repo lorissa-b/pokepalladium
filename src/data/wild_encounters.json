@@ -4953,8 +4953,8 @@
           }
         },
         {
-          "map": "MAP_ROUTE116",
-          "base_label": "gRoute116_Morning",
+          "map": "MAP_ROUTE204",
+          "base_label": "gRoute204_Morning",
           "land_mons": {
             "encounter_rate": 20,
             "mons": [
@@ -5022,8 +5022,8 @@
           }
         },
         {
-          "map": "MAP_ROUTE116",
-          "base_label": "gRoute116_Day",
+          "map": "MAP_ROUTE204",
+          "base_label": "gRoute204_Day",
           "land_mons": {
             "encounter_rate": 20,
             "mons": [
@@ -5091,8 +5091,8 @@
           }
         },
         {
-          "map": "MAP_ROUTE116",
-          "base_label": "gRoute116_Evening",
+          "map": "MAP_ROUTE204",
+          "base_label": "gRoute204_Evening",
           "land_mons": {
             "encounter_rate": 20,
             "mons": [
@@ -5160,8 +5160,8 @@
           }
         },
         {
-          "map": "MAP_ROUTE116",
-          "base_label": "gRoute116_Night",
+          "map": "MAP_ROUTE204",
+          "base_label": "gRoute204_Night",
           "land_mons": {
             "encounter_rate": 20,
             "mons": [

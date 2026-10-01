@@ -322,7 +322,7 @@ RusturfTunnel_EventScript_Grunt::
 	setflag FLAG_RECOVERED_DEVON_GOODS
 	setvar VAR_JUBILIFE_CITY_STATE, 4
 	setvar VAR_BRINEY_HOUSE_STATE, 1
-	setflag FLAG_HIDE_ROUTE_116_MR_BRINEY
+	setflag FLAG_HIDE_ROUTE_204_MR_BRINEY
 	release
 	end
 

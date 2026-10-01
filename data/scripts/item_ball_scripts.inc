@@ -126,23 +126,23 @@ Route115_EventScript_ItemPPUp::
 	finditem ITEM_PP_UP
 	end
 
-Route116_EventScript_ItemXSpecial::
+Route204_EventScript_ItemXSpecial::
 	finditem ITEM_X_SPECIAL
 	end
 
-Route116_EventScript_ItemEther::
+Route204_EventScript_ItemEther::
 	finditem ITEM_ETHER
 	end
 
-Route116_EventScript_ItemRepel::
+Route204_EventScript_ItemRepel::
 	finditem ITEM_REPEL
 	end
 
-Route116_EventScript_ItemHPUp::
+Route204_EventScript_ItemHPUp::
 	finditem ITEM_HP_UP
 	end
 
-Route116_EventScript_ItemPotion::
+Route204_EventScript_ItemPotion::
 	finditem ITEM_POTION
 	end
 

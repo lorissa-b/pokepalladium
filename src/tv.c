@@ -223,7 +223,7 @@ static const struct {
         .species = SPECIES_SKITTY,
         .moves = {MOVE_GROWL, MOVE_TACKLE, MOVE_TAIL_WHIP, MOVE_ATTRACT},
         .level = 8,
-        .location = MAP_NUM(MAP_ROUTE116),
+        .location = MAP_NUM(MAP_ROUTE204),
     }
 };
 

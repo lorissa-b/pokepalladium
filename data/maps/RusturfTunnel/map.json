@@ -155,7 +155,7 @@
       "x": 4,
       "y": 10,
       "elevation": 3,
-      "dest_map": "MAP_ROUTE116",
+      "dest_map": "MAP_ROUTE204",
       "dest_warp_id": "0"
     },
     {
@@ -169,7 +169,7 @@
       "x": 18,
       "y": 20,
       "elevation": 3,
-      "dest_map": "MAP_ROUTE116",
+      "dest_map": "MAP_ROUTE204",
       "dest_warp_id": "2"
     }
   ],

@@ -21,7 +21,7 @@
     "gMapGroup_IndoorRoute111",
     "gMapGroup_IndoorRoute112",
     "gMapGroup_IndoorRoute114",
-    "gMapGroup_IndoorRoute116",
+    "gMapGroup_IndoorRoute204",
     "gMapGroup_IndoorRoute117",
     "gMapGroup_IndoorRoute121",
     "gMapGroup_Dungeons",
@@ -67,7 +67,7 @@
     "Route113",
     "Route114",
     "Route115",
-    "Route116",
+    "Route204",
     "Route117",
     "Route118",
     "Route119",
@@ -316,8 +316,8 @@
     "Route114_FossilManiacsTunnel",
     "Route114_LanettesHouse"
   ],
-  "gMapGroup_IndoorRoute116": [
-    "Route116_TunnelersRestHouse"
+  "gMapGroup_IndoorRoute204": [
+    "Route204_TunnelersRestHouse"
   ],
   "gMapGroup_IndoorRoute117": [
     "Route117_PokemonDayCare"
