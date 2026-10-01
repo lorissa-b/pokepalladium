@@ -1,3 +1,5 @@
+@ This map is Jubilife City, north of Route 202. It was Rustboro City and
+@ keeps its internal name (MAP_RUSTBORO_CITY).
 RustboroCity_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, RustboroCity_OnTransition
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, RustboroCity_OnFrame
@@ -1128,9 +1130,7 @@ RustboroCity_Text_TunnelNearingCompletion:
 	.string "across it in red paint…$"
 
 RustboroCity_Text_DevonCorpSign:
-	.string "DEVON CORPORATION\p"
-	.string "“For all your living needs, we make\n"
-	.string "it all.”$"
+	.string "POKéTCH COMPANY$"
 
 RustboroCity_Text_GymSign:
 	.string "RUSTBORO CITY POKéMON GYM\n"
@@ -1143,9 +1143,8 @@ RustboroCity_Text_DevonCorpBranchOfficeSign:
 	.string "and authorized personnel.”$"
 
 RustboroCity_Text_CitySign:
-	.string "RUSTBORO CITY\p"
-	.string "“The city probing the integration of\n"
-	.string "nature and science.”$"
+	.string "JUBILIFE CITY\p"
+	.string "“The most modern city in SINNOH.”$"
 
 RustboroCity_Text_TrainersSchoolSign:
 	.string "POKéMON TRAINER'S SCHOOL\p"

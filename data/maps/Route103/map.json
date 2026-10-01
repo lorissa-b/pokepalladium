@@ -17,6 +17,11 @@
       "map": "MAP_OLDALE_TOWN",
       "offset": 5,
       "direction": "down"
+    },
+    {
+      "map": "MAP_RUSTBORO_CITY",
+      "offset": -30,
+      "direction": "up"
     }
   ],
   "object_events": [
