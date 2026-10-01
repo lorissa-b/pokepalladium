@@ -1051,7 +1051,7 @@
 
 // Item Ball Flags
 #define FLAG_ITEM_ROUTE_219_POTION                                  0x3E8
-#define FLAG_ITEM_ROUTE_204_X_SPECIAL                               0x3E9
+#define FLAG_ITEM_ROUTE_204_TM_BULLET_SEED                          0x3E9
 #define FLAG_ITEM_ROUTE_104_PP_UP                                   0x3EA
 #define FLAG_ITEM_ROUTE_105_IRON                                    0x3EB
 #define FLAG_ITEM_ROUTE_106_PROTEIN                                 0x3EC
@@ -1069,8 +1069,8 @@
 #define FLAG_ITEM_ROUTE_115_SUPER_POTION                            0x3F8
 #define FLAG_ITEM_ROUTE_115_TM_FOCUS_PUNCH                          0x3F9
 #define FLAG_ITEM_ROUTE_115_IRON                                    0x3FA
-#define FLAG_ITEM_ROUTE_204_ETHER                                   0x3FB
-#define FLAG_ITEM_ROUTE_204_REPEL                                   0x3FC
+#define FLAG_ITEM_ROUTE_204_AWAKENING                               0x3FB
+#define FLAG_ITEM_ROUTE_204_PARALYZE_HEAL                           0x3FC
 #define FLAG_ITEM_ROUTE_204_HP_UP                                   0x3FD
 #define FLAG_ITEM_ROUTE_117_GREAT_BALL                              0x3FE
 #define FLAG_ITEM_ROUTE_117_REVIVE                                  0x3FF
@@ -1196,7 +1196,7 @@
 #define FLAG_ITEM_ROUTE_113_HYPER_POTION                            0x477
 #define FLAG_ITEM_ROUTE_115_HEAL_POWDER                             0x478
 #define FLAG_UNUSED_0x479                                           0x479 // Unused Flag
-#define FLAG_ITEM_ROUTE_204_POTION                                  0x47A
+#define FLAG_ITEM_ROUTE_204_SEA_INCENSE                             0x47A
 #define FLAG_ITEM_ROUTE_119_ELIXIR_2                                0x47B
 #define FLAG_ITEM_ROUTE_120_REVIVE                                  0x47C
 #define FLAG_ITEM_ROUTE_121_REVIVE                                  0x47D

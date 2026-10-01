@@ -126,24 +126,24 @@ Route115_EventScript_ItemPPUp::
 	finditem ITEM_PP_UP
 	end
 
-Route204_EventScript_ItemXSpecial::
-	finditem ITEM_X_SPECIAL
+Route204_EventScript_ItemTMBulletSeed::
+	finditem ITEM_TM_BULLET_SEED
 	end
 
-Route204_EventScript_ItemEther::
-	finditem ITEM_ETHER
+Route204_EventScript_ItemAwakening::
+	finditem ITEM_AWAKENING
 	end
 
-Route204_EventScript_ItemRepel::
-	finditem ITEM_REPEL
+Route204_EventScript_ItemParalyzeHeal::
+	finditem ITEM_PARALYZE_HEAL
 	end
 
 Route204_EventScript_ItemHPUp::
 	finditem ITEM_HP_UP
 	end
 
-Route204_EventScript_ItemPotion::
-	finditem ITEM_POTION
+Route204_EventScript_ItemSeaIncense::
+	finditem ITEM_SEA_INCENSE
 	end
 
 Route117_EventScript_ItemGreatBall::
