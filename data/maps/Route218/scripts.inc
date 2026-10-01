@@ -2,8 +2,9 @@
 @ Platinum's on the Rustboro tileset (like Route 104). Crossing it needs Surf.
 @ Lines of rocks seal the water off from the top and bottom edges, and
 @ trees close the rest of both edges. The east gate building's west wall is
-@ an invisible door into the Jubilife gate; the west gate (to Canalave) is
-@ drawn but not linked yet.
+@ an invisible door into the Jubilife gate. The west gate (to Canalave) has
+@ the same kind of side door, west-arrow tiles at (6,13)-(6,15), but no warps
+@ until it gets an interior.
 Route218_MapScripts::
 	.byte 0
 
