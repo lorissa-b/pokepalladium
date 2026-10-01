@@ -5328,6 +5328,18 @@
       "blockdata_filepath": "data/layouts/JubilifeCity_Route218Gate/map.bin",
       "border_height": 2,
       "border_width": 2
+    },
+    {
+      "id": "LAYOUT_ROUTE218",
+      "name": "Route218_Layout",
+      "width": 64,
+      "height": 24,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Rustboro",
+      "border_filepath": "data/layouts/Route218/border.bin",
+      "blockdata_filepath": "data/layouts/Route218/map.bin",
+      "border_height": 2,
+      "border_width": 2
     }
   ]
 }

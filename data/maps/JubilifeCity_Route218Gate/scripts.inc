@@ -1,13 +1,13 @@
 @ The gate between Jubilife City's west end and Route 218, using Emerald's
 @ Seaside Cycling Road gate interior. From Jubilife it is entered through an
 @ invisible door in the building's east side (west-arrow warps on the road
-@ next to it); its east door leads back there;
-@ the west door has no warp until Route 218 exists.
+@ next to it); its east door leads back there and its west door leads to
+@ the matching side door of the gate building on Route 218.
 JubilifeCity_Route218Gate_MapScripts::
 	.byte 0
 
 JubilifeCity_Route218Gate_EventScript_Clerk::
-	msgbox JubilifeCity_Route218Gate_Text_Route218IsClosed, MSGBOX_NPC
+	msgbox JubilifeCity_Route218Gate_Text_Route218IsWest, MSGBOX_NPC
 	end
 
 JubilifeCity_Route218Gate_EventScript_Fisherman::
@@ -27,10 +27,10 @@ JubilifeCity_Route218Gate_EventScript_ReceivedOldRod::
 	release
 	end
 
-JubilifeCity_Route218Gate_Text_Route218IsClosed:
+JubilifeCity_Route218Gate_Text_Route218IsWest:
 	.string "Through the west door is ROUTE 218.\p"
-	.string "I'm sorry, but it's closed for now.\n"
-	.string "Please come back another time.$"
+	.string "You'll need a POKéMON that can SURF\n"
+	.string "to get across it.$"
 
 JubilifeCity_Route218Gate_Text_YouShouldTryFishing:
 	.string "Fishing is the best!\n"

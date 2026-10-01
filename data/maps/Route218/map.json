@@ -1,0 +1,66 @@
+{
+  "id": "MAP_ROUTE218",
+  "name": "Route218",
+  "layout": "LAYOUT_ROUTE218",
+  "music": "MUS_ROUTE104",
+  "region_map_section": "MAPSEC_ROUTE_218",
+  "requires_flash": false,
+  "weather": "WEATHER_SUNNY",
+  "map_type": "MAP_TYPE_ROUTE",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": null,
+  "object_events": [],
+  "warp_events": [
+    {
+      "x": 57,
+      "y": 14,
+      "elevation": 0,
+      "dest_map": "MAP_JUBILIFE_CITY_ROUTE218_GATE",
+      "dest_warp_id": "2"
+    },
+    {
+      "x": 57,
+      "y": 15,
+      "elevation": 0,
+      "dest_map": "MAP_JUBILIFE_CITY_ROUTE218_GATE",
+      "dest_warp_id": "2"
+    },
+    {
+      "x": 57,
+      "y": 16,
+      "elevation": 0,
+      "dest_map": "MAP_JUBILIFE_CITY_ROUTE218_GATE",
+      "dest_warp_id": "2"
+    },
+    {
+      "x": 57,
+      "y": 17,
+      "elevation": 0,
+      "dest_map": "MAP_JUBILIFE_CITY_ROUTE218_GATE",
+      "dest_warp_id": "2"
+    }
+  ],
+  "coord_events": [],
+  "bg_events": [
+    {
+      "type": "sign",
+      "x": 9,
+      "y": 11,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
+      "script": "Route218_EventScript_RouteSignWest"
+    },
+    {
+      "type": "sign",
+      "x": 54,
+      "y": 13,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
+      "script": "Route218_EventScript_RouteSignEast"
+    }
+  ]
+}
