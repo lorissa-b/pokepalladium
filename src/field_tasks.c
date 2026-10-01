@@ -30,7 +30,6 @@
  *      . FortreeBridgePerStepCallback: Depresses Fortree log bridges that the player steps on.
  *      . PacifidlogBridgePerStepCallback: Submerges Pacifidlog log bridges that the player steps on.
  *      . SootopolisGymIcePerStepCallback: Cracks/breaks ice in Sootopolis Gym that the player steps on.
- *      . EndTruckSequence: Sets the moving truck boxes to their final position when the truck sequence ends.
  *      . SecretBasePerStepCallback: Records the decorations in a friend's secret base that the player steps on.
  *      . CrackedFloorPerStepCallback: Breaks cracked floors that the player steps on.
  *
@@ -63,7 +62,6 @@ static const TaskFunc sPerStepCallbacks[] =
     [STEP_CB_FORTREE_BRIDGE]    = FortreeBridgePerStepCallback,
     [STEP_CB_PACIFIDLOG_BRIDGE] = PacifidlogBridgePerStepCallback,
     [STEP_CB_SOOTOPOLIS_ICE]    = SootopolisGymIcePerStepCallback,
-    [STEP_CB_TRUCK]             = EndTruckSequence,
     [STEP_CB_SECRET_BASE]       = SecretBasePerStepCallback,
     [STEP_CB_CRACKED_FLOOR]     = CrackedFloorPerStepCallback
 };

@@ -249,13 +249,6 @@
 #define METATILE_GenericBuilding_TrickHouse_Door_Closed  0x81B
 #define METATILE_GenericBuilding_TrickHouse_Stairs_Down  0x819
 
-// gTileset_InsideOfTruck
-#define METATILE_InsideOfTruck_DoorClosedFloor_Bottom  0x81D
-#define METATILE_InsideOfTruck_DoorClosedFloor_Mid     0x815
-#define METATILE_InsideOfTruck_DoorClosedFloor_Top     0x80D
-#define METATILE_InsideOfTruck_ExitLight_Bottom        0x818
-#define METATILE_InsideOfTruck_ExitLight_Mid           0x810
-#define METATILE_InsideOfTruck_ExitLight_Top           0x808
 
 // gTileset_InsideShip
 #define METATILE_InsideShip_DoorIndent_Locked           0x834
