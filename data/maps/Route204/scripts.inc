@@ -1,7 +1,7 @@
 @ Route 204, between Jubilife City and Floaroma Town. Drawn over Emerald's
 @ Route 116. The southern part (from Jubilife) and the northern part are only
-@ joined through Ravaged Path, whose two cave mouths are drawn but not yet
-@ linked to a cave map.
+@ joined through Ravaged Path: the cave mouth in the lower cliff leads to its
+@ south exit, the one on the middle plateau to its east exit.
 Route204_MapScripts::
 	.byte 0
 

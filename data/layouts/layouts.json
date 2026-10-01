@@ -5304,6 +5304,18 @@
       "blockdata_filepath": "data/layouts/JubilifeCity_JubilifeTV_4F/map.bin",
       "border_height": 2,
       "border_width": 2
+    },
+    {
+      "id": "LAYOUT_RAVAGED_PATH",
+      "name": "RavagedPath_Layout",
+      "width": 32,
+      "height": 42,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/RavagedPath/border.bin",
+      "blockdata_filepath": "data/layouts/RavagedPath/map.bin",
+      "border_height": 2,
+      "border_width": 2
     }
   ]
 }
