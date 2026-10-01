@@ -52,7 +52,7 @@
 #define FLAG_HIDE_BIRCHS_LAB_ASSISTANT      0x26
 #define FLAG_HIDE_ROUTE_202_ASSISTANT       0x27
 #define FLAG_NO_WHITEOUT_ON_LOSS            0x28 // Set by a script around a story battle the player may lose
-#define FLAG_UNUSED_0x029    0x29 // Unused Flag
+#define FLAG_RECEIVED_ROUTE_204_TM_ATTRACT 0x29
 #define FLAG_UNUSED_0x02A    0x2A // Unused Flag
 #define FLAG_UNUSED_0x02B    0x2B // Unused Flag
 #define FLAG_UNUSED_0x02C    0x2C // Unused Flag
