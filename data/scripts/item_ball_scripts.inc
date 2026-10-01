@@ -314,8 +314,8 @@ MauvilleCity_EventScript_ItemXSpeed::
 	finditem ITEM_X_SPEED
 	end
 
-JubilifeCity_EventScript_ItemXDefend::
-	finditem ITEM_X_DEFEND
+JubilifeCity_EventScript_ItemPotion::
+	finditem ITEM_POTION
 	end
 
 JubilifeCity_TrainersSchool_EventScript_ItemXAttack::
