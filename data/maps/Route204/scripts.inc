@@ -66,7 +66,7 @@ Route204_EventScript_SamanthaRegisterMatchCallAfterBattle::
 	special PlayerFaceTrainerAfterBattle
 	waitmovement 0
 	goto_if_set FLAG_HAS_MATCH_CALL, Route204_EventScript_SamanthaRegisterMatchCall
-	@ No POKéNAV yet: register quietly so the rematch is ready once the player gets one
+	@ No POKéTCH yet: register quietly so the rematch is ready once the player gets one
 	setvar VAR_0x8004, TRAINER_KAREN_1
 	special SetMatchCallRegisteredFlag
 	release
@@ -110,7 +110,7 @@ Route204_EventScript_BrandonRegisterMatchCallAfterBattle::
 	special PlayerFaceTrainerAfterBattle
 	waitmovement 0
 	goto_if_set FLAG_HAS_MATCH_CALL, Route204_EventScript_BrandonRegisterMatchCall
-	@ No POKéNAV yet: register quietly so the rematch is ready once the player gets one
+	@ No POKéTCH yet: register quietly so the rematch is ready once the player gets one
 	setvar VAR_0x8004, TRAINER_JERRY_1
 	special SetMatchCallRegisteredFlag
 	release

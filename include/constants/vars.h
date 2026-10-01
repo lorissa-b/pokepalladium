@@ -160,7 +160,7 @@
 #define VAR_TWINLEAF_HOUSES_STATE_BRENDAN              0x408C
 #define VAR_TWINLEAF_RIVAL_STATE                       0x408D
 #define VAR_BOARD_BRINEY_BOAT_STATE                      0x408E
-#define VAR_DEVON_CORP_3F_STATE                          0x408F
+#define VAR_UNUSED_0x408F                                0x408F // Unused Var
 #define VAR_BRINEY_HOUSE_STATE                           0x4090
 #define VAR_UNUSED_0x4091                                0x4091 // Unused Var
 #define VAR_TWINLEAF_INTRO_STATE                       0x4092
@@ -213,8 +213,8 @@
 #define VAR_TRICK_HOUSE_PRIZE_PICKUP                     0x40C1
 #define VAR_PACIFIDLOG_TM_RECEIVED_DAY                   0x40C2
 #define VAR_VICTORY_ROAD_1F_STATE                        0x40C3
-#define VAR_FOSSIL_RESURRECTION_STATE                    0x40C4
-#define VAR_WHICH_FOSSIL_REVIVED                         0x40C5
+#define VAR_UNUSED_0x40C4                                0x40C4 // Unused Var
+#define VAR_UNUSED_0x40C5                                0x40C5 // Unused Var
 #define VAR_STEVENS_HOUSE_STATE                          0x40C6
 #define VAR_SANDGEM_RIVAL_STATE                           0x40C7
 #define VAR_JAGGED_PASS_STATE                            0x40C8

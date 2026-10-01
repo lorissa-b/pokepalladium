@@ -1106,18 +1106,6 @@
       "border_width": 2
     },
     {
-      "id": "LAYOUT_JUBILIFE_CITY_POKETCH_COMPANY_2F",
-      "name": "JubilifeCity_PoketchCompany_2F_Layout",
-      "width": 19,
-      "height": 9,
-      "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Facility",
-      "border_filepath": "data/layouts/JubilifeCity_PoketchCompany_2F/border.bin",
-      "blockdata_filepath": "data/layouts/JubilifeCity_PoketchCompany_2F/map.bin",
-      "border_height": 2,
-      "border_width": 2
-    },
-    {
       "id": "LAYOUT_JUBILIFE_CITY_GYM",
       "name": "JubilifeCity_Gym_Layout",
       "width": 11,
@@ -3202,18 +3190,6 @@
       "secondary_tileset": "gTileset_BattleFrontier",
       "border_filepath": "data/layouts/BattleFrontier_BattleTowerBattleRoom/border.bin",
       "blockdata_filepath": "data/layouts/BattleFrontier_BattleTowerBattleRoom/map.bin",
-      "border_height": 2,
-      "border_width": 2
-    },
-    {
-      "id": "LAYOUT_JUBILIFE_CITY_POKETCH_COMPANY_3F",
-      "name": "JubilifeCity_PoketchCompany_3F_Layout",
-      "width": 19,
-      "height": 9,
-      "primary_tileset": "gTileset_Building",
-      "secondary_tileset": "gTileset_Facility",
-      "border_filepath": "data/layouts/JubilifeCity_PoketchCompany_3F/border.bin",
-      "blockdata_filepath": "data/layouts/JubilifeCity_PoketchCompany_3F/map.bin",
       "border_height": 2,
       "border_width": 2
     },

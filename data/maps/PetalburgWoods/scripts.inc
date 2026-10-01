@@ -388,12 +388,12 @@ PetalburgWoods_Text_PeopleRespectYou:
 PetalburgWoods_Text_IWantRematch1:
 	.string "I want a rematch when my BUG\n"
 	.string "POKéMON grow up!\p"
-	.string "I'm registering you in my POKéNAV!$"
+	.string "I'm registering you in my POKéTCH!$"
 
 PetalburgWoods_Text_IWantRematch2:
 	.string "I want a rematch when my BUG \n"
 	.string "POKéMON grow up!\p"
-	.string "I'm registering you in my POKéNAV!$"
+	.string "I'm registering you in my POKéTCH!$"
 
 PetalburgWoods_Text_MyPokemonHaveGrown:
 	.string "My BUG POKéMON have grown.\n"
