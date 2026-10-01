@@ -129,7 +129,7 @@ static void ClearFrontierRecord(void)
 // The game starts in the player's bedroom (May's house 2F) regardless of gender
 static void WarpToPlayersBedroom(void)
 {
-    SetWarpDestination(MAP_GROUP(MAP_LITTLEROOT_TOWN_MAYS_HOUSE_2F), MAP_NUM(MAP_LITTLEROOT_TOWN_MAYS_HOUSE_2F), WARP_ID_NONE, 4, 2);
+    SetWarpDestination(MAP_GROUP(MAP_TWINLEAF_TOWN_DAWN_HOUSE_2F), MAP_NUM(MAP_TWINLEAF_TOWN_DAWN_HOUSE_2F), WARP_ID_NONE, 4, 2);
     WarpIntoMap();
 }
 

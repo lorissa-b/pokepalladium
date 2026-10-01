@@ -14,11 +14,6 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_RUSTBORO_CITY",
-      "offset": 0,
-      "direction": "up"
-    },
-    {
       "map": "MAP_ROUTE105",
       "offset": 0,
       "direction": "down"
@@ -568,7 +563,7 @@
       "y": 5,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route104_EventScript_RouteSignRustboro"
+      "script": "Route104_EventScript_RouteSignJubilife"
     },
     {
       "type": "sign",

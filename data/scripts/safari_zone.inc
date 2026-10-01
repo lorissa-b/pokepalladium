@@ -195,7 +195,7 @@ SafariZone_South_Text_Man:
 	.string "Something tells me that rare POKéMON\n"
 	.string "live in the outlying areas.$"
 
-SafariZone_Southwest_Text_Woman:
+LakeVerity_Text_Woman:
 	.string "Sometimes, when I toss a {POKEBLOCK} at \n"
 	.string "POKéMON, it gets ignored.\p"
 	.string "Do POKéMON have likes and dislikes\n"
@@ -227,7 +227,7 @@ Route121_SafariZoneEntrance_Text_TrainerTip:
 	.string "Throw {POKEBLOCK}S at wild POKéMON to make\n"
 	.string "them less likely to flee.$"
 
-SafariZone_Southwest_Text_RestHouseSign:
+LakeVerity_Text_RestHouseSign:
 	.string "“Relieve your tired feet.”\n"
 	.string "REST HOUSE$"
 

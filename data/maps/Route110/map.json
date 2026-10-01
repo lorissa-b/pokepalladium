@@ -664,7 +664,7 @@
       "y": 79,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route110_EventScript_Route103Sign"
+      "script": "Route110_EventScript_Route202Sign"
     },
     {
       "type": "sign",

@@ -1,12 +1,12 @@
-Route102_EventScript_ItemAntidote::
+Route219_EventScript_ItemAntidote::
 	finditem ITEM_ANTIDOTE
 	end
 
-Route103_EventScript_ItemPotion::
+Route202_EventScript_ItemPotion::
 	finditem ITEM_POTION
 	end
 
-Route103_EventScript_ItemPPUp::
+Route202_EventScript_ItemPPUp::
 	finditem ITEM_PP_UP
 	end
 
@@ -126,24 +126,24 @@ Route115_EventScript_ItemPPUp::
 	finditem ITEM_PP_UP
 	end
 
-Route116_EventScript_ItemXSpecial::
-	finditem ITEM_X_SPECIAL
+Route204_EventScript_ItemTMBulletSeed::
+	finditem ITEM_TM_BULLET_SEED
 	end
 
-Route116_EventScript_ItemEther::
-	finditem ITEM_ETHER
+Route204_EventScript_ItemAwakening::
+	finditem ITEM_AWAKENING
 	end
 
-Route116_EventScript_ItemRepel::
-	finditem ITEM_REPEL
+Route204_EventScript_ItemParalyzeHeal::
+	finditem ITEM_PARALYZE_HEAL
 	end
 
-Route116_EventScript_ItemHPUp::
+Route204_EventScript_ItemHPUp::
 	finditem ITEM_HP_UP
 	end
 
-Route116_EventScript_ItemPotion::
-	finditem ITEM_POTION
+Route204_EventScript_ItemSeaIncense::
+	finditem ITEM_SEA_INCENSE
 	end
 
 Route117_EventScript_ItemGreatBall::
@@ -314,7 +314,7 @@ MauvilleCity_EventScript_ItemXSpeed::
 	finditem ITEM_X_SPEED
 	end
 
-RustboroCity_EventScript_ItemXDefend::
+JubilifeCity_EventScript_ItemXDefend::
 	finditem ITEM_X_DEFEND
 	end
 
@@ -470,7 +470,7 @@ SafariZone_North_EventScript_ItemCalcium::
 	finditem ITEM_CALCIUM
 	end
 
-SafariZone_Southwest_EventScript_ItemMaxRevive::
+LakeVerity_EventScript_ItemMaxRevive::
 	finditem ITEM_MAX_REVIVE
 	end
 

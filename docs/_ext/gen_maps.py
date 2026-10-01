@@ -104,7 +104,7 @@ def type_label(key: str, group: str, map_type: str) -> str:
 
 
 def map_display_name(name: str) -> str:
-    """Route101 -> Route 101; MtPyre_Summit -> Mt. Pyre (Summit);
+    """Route201 -> Route 201; MtPyre_Summit -> Mt. Pyre (Summit);
     Underwater_Route124 -> Route 124 (Underwater)."""
 
     def words(part: str) -> str:
@@ -194,7 +194,7 @@ def load_maps() -> dict[str, dict]:
 
 def area_name(parent: str, name: str) -> str:
     """The part of a building's map name after its town or route:
-    RustboroCity_DevonCorp_3F -> Devon Corp 3F; Underwater_Route124 -> Underwater."""
+    JubilifeCity_PoketchCompany_3F -> Poketch Company 3F; Underwater_Route124 -> Underwater."""
     if name == parent:
         return "Outside"
     if name == f"Underwater_{parent}":

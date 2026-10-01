@@ -97,7 +97,7 @@ Route111_OnWarp:
 	.2byte 0
 
 Route111_EventScript_HidePlayerForMirageTower::
-	hideobjectat LOCALID_PLAYER, MAP_LITTLEROOT_TOWN
+	hideobjectat LOCALID_PLAYER, MAP_TWINLEAF_TOWN
 	end
 
 Route111_OnFrame:
@@ -111,7 +111,7 @@ Route111_EventScript_MirageTowerDisappear::
 	playse SE_FALL
 	addobject LOCALID_ROUTE111_PLAYER_FALLING
 	special StartPlayerDescendMirageTower
-	showobjectat LOCALID_PLAYER, MAP_LITTLEROOT_TOWN
+	showobjectat LOCALID_PLAYER, MAP_TWINLEAF_TOWN
 	removeobject LOCALID_ROUTE111_PLAYER_FALLING
 	delay 16
 	turnobject LOCALID_PLAYER, DIR_NORTH

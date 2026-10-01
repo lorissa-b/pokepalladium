@@ -99,8 +99,8 @@ Route110_EventScript_VandalizedSign::
 	msgbox Route110_Text_AquaWasHere, MSGBOX_SIGN
 	end
 
-Route110_EventScript_Route103Sign::
-	msgbox Route110_Text_Route103Sign, MSGBOX_SIGN
+Route110_EventScript_Route202Sign::
+	msgbox Route110_Text_Route202Sign, MSGBOX_SIGN
 	end
 
 Route110_EventScript_SeasideParkingSign::
@@ -894,7 +894,7 @@ Route110_Text_AquaWasHere:
 	.string "“TEAM MAGMA rules!” is what it\n"
 	.string "says now.$"
 
-Route110_Text_Route103Sign:
+Route110_Text_Route202Sign:
 	.string "ROUTE 110\n"
 	.string "{LEFT_ARROW} ROUTE 103$"
 
