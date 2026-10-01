@@ -108,6 +108,98 @@ JubilifeCity_EventScript_Boy1::
 	msgbox JubilifeCity_Text_YouCanHave2On2Battle, MSGBOX_NPC
 	end
 
+JubilifeCity_EventScript_PoketchMan::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_POKENAV, JubilifeCity_EventScript_PoketchManAfter
+	goto_if_unset FLAG_RECEIVED_TICKET_JUBILIFE_CENTER_CLOWN, JubilifeCity_EventScript_PoketchManNeedTickets
+	goto_if_unset FLAG_RECEIVED_TICKET_JUBILIFE_TV_CLOWN, JubilifeCity_EventScript_PoketchManNeedTickets
+	goto_if_unset FLAG_RECEIVED_TICKET_JUBILIFE_FOUNTAIN_CLOWN, JubilifeCity_EventScript_PoketchManNeedTickets
+	msgbox JubilifeCity_Text_YouHaveAllThreeTickets, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
+	message JubilifeCity_Text_ReceivedPoketch
+	waitfanfare
+	waitmessage
+	setflag FLAG_SYS_POKENAV_GET
+	setflag FLAG_RECEIVED_POKENAV
+	msgbox JubilifeCity_Text_ExplainPoketch, MSGBOX_DEFAULT
+	release
+	end
+
+JubilifeCity_EventScript_PoketchManNeedTickets::
+	msgbox JubilifeCity_Text_FindTheClowns, MSGBOX_DEFAULT
+	release
+	end
+
+JubilifeCity_EventScript_PoketchManAfter::
+	msgbox JubilifeCity_Text_EnjoyThePoketch, MSGBOX_DEFAULT
+	release
+	end
+
+JubilifeCity_EventScript_CenterClown::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_TICKET_JUBILIFE_CENTER_CLOWN, JubilifeCity_EventScript_ClownAlreadyGaveTicket
+	msgbox JubilifeCity_Text_CenterClownQuiz, MSGBOX_DEFAULT
+	multichoice 21, 6, MULTI_JUBILIFE_QUIZ_CENTER_ROOF, FALSE
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, JubilifeCity_EventScript_ClownQuizDeclined
+	goto_if_ne VAR_RESULT, 2, JubilifeCity_EventScript_ClownWrongAnswer
+	call JubilifeCity_EventScript_ClownGiveTicket
+	setflag FLAG_RECEIVED_TICKET_JUBILIFE_CENTER_CLOWN
+	goto JubilifeCity_EventScript_ClownAfterTicket
+
+JubilifeCity_EventScript_TVClown::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_TICKET_JUBILIFE_TV_CLOWN, JubilifeCity_EventScript_ClownAlreadyGaveTicket
+	msgbox JubilifeCity_Text_TVClownQuiz, MSGBOX_DEFAULT
+	multichoice 21, 6, MULTI_JUBILIFE_QUIZ_CITY, FALSE
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, JubilifeCity_EventScript_ClownQuizDeclined
+	goto_if_ne VAR_RESULT, 1, JubilifeCity_EventScript_ClownWrongAnswer
+	call JubilifeCity_EventScript_ClownGiveTicket
+	setflag FLAG_RECEIVED_TICKET_JUBILIFE_TV_CLOWN
+	goto JubilifeCity_EventScript_ClownAfterTicket
+
+JubilifeCity_EventScript_FountainClown::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_TICKET_JUBILIFE_FOUNTAIN_CLOWN, JubilifeCity_EventScript_ClownAlreadyGaveTicket
+	msgbox JubilifeCity_Text_FountainClownQuiz, MSGBOX_DEFAULT
+	multichoice 21, 6, MULTI_JUBILIFE_QUIZ_TYPE, FALSE
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, JubilifeCity_EventScript_ClownQuizDeclined
+	goto_if_ne VAR_RESULT, 0, JubilifeCity_EventScript_ClownWrongAnswer
+	call JubilifeCity_EventScript_ClownGiveTicket
+	setflag FLAG_RECEIVED_TICKET_JUBILIFE_FOUNTAIN_CLOWN
+	goto JubilifeCity_EventScript_ClownAfterTicket
+
+JubilifeCity_EventScript_ClownGiveTicket::
+	msgbox JubilifeCity_Text_ClownCorrect, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
+	message JubilifeCity_Text_ReceivedTicket
+	waitfanfare
+	waitmessage
+	return
+
+JubilifeCity_EventScript_ClownAfterTicket::
+	msgbox JubilifeCity_Text_TakeTicketToSchool, MSGBOX_DEFAULT
+	release
+	end
+
+JubilifeCity_EventScript_ClownWrongAnswer::
+	msgbox JubilifeCity_Text_ClownWrong, MSGBOX_DEFAULT
+	release
+	end
+
+JubilifeCity_EventScript_ClownQuizDeclined::
+	msgbox JubilifeCity_Text_ClownComeBack, MSGBOX_DEFAULT
+	release
+	end
+
+JubilifeCity_EventScript_ClownAlreadyGaveTicket::
+	msgbox JubilifeCity_Text_ClownAlreadyGaveTicket, MSGBOX_DEFAULT
+	release
+	end
+
 JubilifeCity_Text_WeShortenItToDevon:
 	.string "The DEVON CORPORATION…\n"
 	.string "We all just shorten it to DEVON.\p"
@@ -207,3 +299,80 @@ JubilifeCity_Text_YouCanHave2On2Battle:
 	.string "they'll both challenge you.\p"
 	.string "Don't you think it'd be cool if you\n"
 	.string "could beat two TRAINERS by yourself?$"
+
+JubilifeCity_Text_FindTheClowns:
+	.string "Hello there! I'm handing out the\n"
+	.string "POKéTCH, the POKéMON WATCH!\p"
+	.string "But first, a little game!\n"
+	.string "Three clowns are hiding in JUBILIFE.\p"
+	.string "One is by the POKéMON CENTER, one\n"
+	.string "is by JUBILIFE TV, and one is by\l"
+	.string "the fountains to the southwest.\p"
+	.string "Answer each clown's quiz to get\n"
+	.string "a TICKET from them.\p"
+	.string "Bring me all three TICKETS, and the\n"
+	.string "POKéTCH is yours!$"
+
+JubilifeCity_Text_YouHaveAllThreeTickets:
+	.string "Oh! Those are the clowns' TICKETS!\n"
+	.string "You found all three of them!\p"
+	.string "As promised, I'll trade you\n"
+	.string "a POKéTCH for them.$"
+
+JubilifeCity_Text_ReceivedPoketch:
+	.string "{PLAYER} handed over the three\n"
+	.string "TICKETS and received a POKéTCH!$"
+
+JubilifeCity_Text_ExplainPoketch:
+	.string "The POKéTCH is a POKéMON WATCH made\n"
+	.string "right here in JUBILIFE by the\l"
+	.string "POKéTCH COMPANY.\p"
+	.string "It's a must-have for any TRAINER\n"
+	.string "on a journey through SINNOH!$"
+
+JubilifeCity_Text_EnjoyThePoketch:
+	.string "How do you like the POKéTCH?\n"
+	.string "I hope it helps you on your journey!$"
+
+JubilifeCity_Text_CenterClownQuiz:
+	.string "Ta-da! You found me!\n"
+	.string "Here's my POKéTCH quiz!\p"
+	.string "What color is the roof of\n"
+	.string "a POKéMON CENTER?$"
+
+JubilifeCity_Text_TVClownQuiz:
+	.string "Ta-da! You found me!\n"
+	.string "Here's my POKéTCH quiz!\p"
+	.string "What is the name of\n"
+	.string "this city?$"
+
+JubilifeCity_Text_FountainClownQuiz:
+	.string "Ta-da! You found me!\n"
+	.string "Here's my POKéTCH quiz!\p"
+	.string "Which type of move is super\n"
+	.string "effective on WATER-type POKéMON?$"
+
+JubilifeCity_Text_ClownCorrect:
+	.string "Ding-ding-ding! That's right!\n"
+	.string "Here's your prize!$"
+
+JubilifeCity_Text_ReceivedTicket:
+	.string "{PLAYER} received a TICKET!$"
+
+JubilifeCity_Text_TakeTicketToSchool:
+	.string "Take the TICKET to the man by the\n"
+	.string "TRAINERS' SCHOOL.\p"
+	.string "Collect all three TICKETS and he'll\n"
+	.string "give you a POKéTCH!$"
+
+JubilifeCity_Text_ClownWrong:
+	.string "Bzzzt! Sorry, that's wrong!\n"
+	.string "Have a think and try me again!$"
+
+JubilifeCity_Text_ClownComeBack:
+	.string "Aww, no answer?\n"
+	.string "Come back when you want to play!$"
+
+JubilifeCity_Text_ClownAlreadyGaveTicket:
+	.string "You already got my TICKET!\n"
+	.string "Have you found the other clowns?$"

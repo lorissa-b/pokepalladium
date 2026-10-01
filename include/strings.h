@@ -1056,6 +1056,15 @@ extern const u8 gText_Number2[];
 
 extern const u8 gText_Petalburg[];
 extern const u8 gText_Slateport[];
+extern const u8 gText_QuizSandgem[];
+extern const u8 gText_QuizJubilife[];
+extern const u8 gText_QuizTwinleaf[];
+extern const u8 gText_QuizBlue[];
+extern const u8 gText_QuizGreen[];
+extern const u8 gText_QuizRed[];
+extern const u8 gText_QuizGrass[];
+extern const u8 gText_QuizFire[];
+extern const u8 gText_QuizRock[];
 extern const u8 gText_Enter2[];
 extern const u8 gText_Info2[];
 extern const u8 gText_WhatsAContest[];

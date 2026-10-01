@@ -771,6 +771,27 @@ static const struct MenuAction MultichoiceList_TagMatchType[] =
     {gText_Exit},
 };
 
+static const struct MenuAction MultichoiceList_JubilifeQuizCity[] =
+{
+    {gText_QuizSandgem},
+    {gText_QuizJubilife},
+    {gText_QuizTwinleaf},
+};
+
+static const struct MenuAction MultichoiceList_JubilifeQuizCenterRoof[] =
+{
+    {gText_QuizBlue},
+    {gText_QuizGreen},
+    {gText_QuizRed},
+};
+
+static const struct MenuAction MultichoiceList_JubilifeQuizType[] =
+{
+    {gText_QuizGrass},
+    {gText_QuizFire},
+    {gText_QuizRock},
+};
+
 static const struct MenuAction MultichoiceList_Exit[] =
 {
     {gText_Exit},
@@ -898,6 +919,9 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_SLATEPORT_TENT_RULES]       = MULTICHOICE(MultichoiceList_SlateportTentRules),
     [MULTI_FALLARBOR_TENT_RULES]       = MULTICHOICE(MultichoiceList_FallarborTentRules),
     [MULTI_TAG_MATCH_TYPE]             = MULTICHOICE(MultichoiceList_TagMatchType),
+    [MULTI_JUBILIFE_QUIZ_CITY]         = MULTICHOICE(MultichoiceList_JubilifeQuizCity),
+    [MULTI_JUBILIFE_QUIZ_CENTER_ROOF]  = MULTICHOICE(MultichoiceList_JubilifeQuizCenterRoof),
+    [MULTI_JUBILIFE_QUIZ_TYPE]         = MULTICHOICE(MultichoiceList_JubilifeQuizType),
 };
 
 const u8 *const gStdStrings[] =
