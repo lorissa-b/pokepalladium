@@ -313,6 +313,13 @@
       "elevation": 0,
       "dest_map": "MAP_JUBILIFE_CITY_HOUSE3",
       "dest_warp_id": "0"
+    },
+    {
+      "x": 4,
+      "y": 14,
+      "elevation": 0,
+      "dest_map": "MAP_JUBILIFE_CITY_ROUTE218_GATE",
+      "dest_warp_id": "0"
     }
   ],
   "coord_events": [],

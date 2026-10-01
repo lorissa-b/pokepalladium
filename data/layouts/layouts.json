@@ -5316,6 +5316,18 @@
       "blockdata_filepath": "data/layouts/RavagedPath/map.bin",
       "border_height": 2,
       "border_width": 2
+    },
+    {
+      "id": "LAYOUT_JUBILIFE_CITY_ROUTE218_GATE",
+      "name": "JubilifeCity_Route218Gate_Layout",
+      "width": 15,
+      "height": 6,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_Shop",
+      "border_filepath": "data/layouts/JubilifeCity_Route218Gate/border.bin",
+      "blockdata_filepath": "data/layouts/JubilifeCity_Route218Gate/map.bin",
+      "border_height": 2,
+      "border_width": 2
     }
   ]
 }

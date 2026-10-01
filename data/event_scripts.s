@@ -258,6 +258,7 @@ gStdScripts_End::
 	.include "data/maps/JubilifeCity_JubilifeTV_2F/scripts.inc"
 	.include "data/maps/JubilifeCity_JubilifeTV_3F/scripts.inc"
 	.include "data/maps/JubilifeCity_JubilifeTV_4F/scripts.inc"
+	.include "data/maps/JubilifeCity_Route218Gate/scripts.inc"
 	.include "data/maps/JubilifeCity_House3/scripts.inc"
 	.include "data/maps/FortreeCity_House1/scripts.inc"
 	.include "data/maps/FortreeCity_Gym/scripts.inc"
