@@ -181,6 +181,10 @@ JubilifeCity_EventScript_TunnelSign::
 	msgbox JubilifeCity_Text_TunnelNearingCompletion, MSGBOX_SIGN
 	end
 
+JubilifeCity_EventScript_PoketchCompanySign::
+	msgbox JubilifeCity_Text_PoketchCompanySign, MSGBOX_SIGN
+	end
+
 JubilifeCity_EventScript_JubilifeTVSign::
 	msgbox JubilifeCity_Text_JubilifeTVSign, MSGBOX_SIGN
 	end
@@ -1127,6 +1131,9 @@ JubilifeCity_Text_TunnelNearingCompletion:
 	.string "…Is what it says on the sign, but\n"
 	.string "there's also a big “X” splashed\l"
 	.string "across it in red paint…$"
+
+JubilifeCity_Text_PoketchCompanySign:
+	.string "POKéTCH COMPANY$"
 
 JubilifeCity_Text_JubilifeTVSign:
 	.string "JUBILIFE TV$"
