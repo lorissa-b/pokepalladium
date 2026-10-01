@@ -1,7 +1,7 @@
 {
-  "id": "MAP_JUBILIFE_CITY_JUBILIFE_TV_2F",
-  "name": "JubilifeCity_JubilifeTV_2F",
-  "layout": "LAYOUT_JUBILIFE_CITY_JUBILIFE_TV_2F",
+  "id": "MAP_JUBILIFE_CITY_APARTMENTS_1F",
+  "name": "JubilifeCity_Apartments_1F",
+  "layout": "LAYOUT_JUBILIFE_CITY_APARTMENTS_1F",
   "music": "MUS_RUSTBORO",
   "region_map_section": "MAPSEC_JUBILIFE_CITY",
   "requires_flash": false,
@@ -15,45 +15,52 @@
   "connections": null,
   "object_events": [
     {
-      "graphics_id": "OBJ_EVENT_GFX_CAMERAMAN",
-      "x": 6,
-      "y": 11,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "JubilifeCity_JubilifeTV_2F_EventScript_Cameraman",
-      "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_REPORTER_F",
-      "x": 9,
-      "y": 11,
+      "graphics_id": "OBJ_EVENT_GFX_SKITTY",
+      "x": 11,
+      "y": 4,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "JubilifeCity_JubilifeTV_2F_EventScript_Reporter",
+      "script": "JubilifeCity_Apartments_1F_EventScript_Skitty",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_OLD_WOMAN",
+      "x": 8,
+      "y": 4,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "JubilifeCity_Apartments_1F_EventScript_OldWoman",
       "flag": "0"
     }
   ],
   "warp_events": [
     {
-      "x": 8,
-      "y": 1,
+      "x": 2,
+      "y": 8,
       "elevation": 0,
-      "dest_map": "MAP_JUBILIFE_CITY_JUBILIFE_TV_1F",
-      "dest_warp_id": "2"
+      "dest_map": "MAP_JUBILIFE_CITY",
+      "dest_warp_id": "9"
     },
     {
-      "x": 13,
+      "x": 3,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_JUBILIFE_CITY",
+      "dest_warp_id": "9"
+    },
+    {
+      "x": 3,
       "y": 1,
       "elevation": 0,
-      "dest_map": "MAP_JUBILIFE_CITY_JUBILIFE_TV_3F",
+      "dest_map": "MAP_JUBILIFE_CITY_APARTMENTS_2F",
       "dest_warp_id": "0"
     }
   ],

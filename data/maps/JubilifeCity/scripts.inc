@@ -181,8 +181,8 @@ JubilifeCity_EventScript_TunnelSign::
 	msgbox JubilifeCity_Text_TunnelNearingCompletion, MSGBOX_SIGN
 	end
 
-JubilifeCity_EventScript_DevonCorpSign::
-	msgbox JubilifeCity_Text_DevonCorpSign, MSGBOX_SIGN
+JubilifeCity_EventScript_JubilifeTVSign::
+	msgbox JubilifeCity_Text_JubilifeTVSign, MSGBOX_SIGN
 	end
 
 JubilifeCity_EventScript_GymSign::
@@ -1128,8 +1128,8 @@ JubilifeCity_Text_TunnelNearingCompletion:
 	.string "there's also a big “X” splashed\l"
 	.string "across it in red paint…$"
 
-JubilifeCity_Text_DevonCorpSign:
-	.string "POKéTCH COMPANY$"
+JubilifeCity_Text_JubilifeTVSign:
+	.string "JUBILIFE TV$"
 
 JubilifeCity_Text_GymSign:
 	.string "RUSTBORO CITY POKéMON GYM\n"

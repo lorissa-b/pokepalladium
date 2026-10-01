@@ -204,10 +204,14 @@
     "JubilifeCity_House1",
     "JubilifeCity_House4",
     "JubilifeCity_House2",
+    "JubilifeCity_Apartments_1F",
+    "JubilifeCity_Apartments_2F",
+    "JubilifeCity_Apartments_3F",
+    "JubilifeCity_House3",
     "JubilifeCity_JubilifeTV_1F",
     "JubilifeCity_JubilifeTV_2F",
     "JubilifeCity_JubilifeTV_3F",
-    "JubilifeCity_House3"
+    "JubilifeCity_JubilifeTV_4F"
   ],
   "gMapGroup_IndoorFortree": [
     "FortreeCity_House1",

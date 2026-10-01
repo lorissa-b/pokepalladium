@@ -1,37 +1,17 @@
 JubilifeCity_JubilifeTV_2F_MapScripts::
 	.byte 0
 
-JubilifeCity_JubilifeTV_2F_EventScript_OldMan::
-	msgbox JubilifeCity_JubilifeTV_2F_Text_DevonWasTinyInOldDays, MSGBOX_NPC
+JubilifeCity_JubilifeTV_2F_EventScript_Cameraman::
+	msgbox JubilifeCity_JubilifeTV_2F_Text_CameramanQuiet, MSGBOX_NPC
 	end
 
-JubilifeCity_JubilifeTV_2F_EventScript_NinjaBoy::
-	lock
-	faceplayer
-	goto_if_set FLAG_RECEIVED_PREMIER_BALL_JUBILIFE, JubilifeCity_JubilifeTV_2F_EventScript_GavePremierBall
-	msgbox JubilifeCity_JubilifeTV_2F_Text_MyDaddyMadeThisYouCanHaveIt, MSGBOX_DEFAULT
-	giveitem ITEM_PREMIER_BALL
-	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	setflag FLAG_RECEIVED_PREMIER_BALL_JUBILIFE
-	release
+JubilifeCity_JubilifeTV_2F_EventScript_Reporter::
+	msgbox JubilifeCity_JubilifeTV_2F_Text_ReporterLiveFromJubilife, MSGBOX_NPC
 	end
 
-JubilifeCity_JubilifeTV_2F_EventScript_GavePremierBall::
-	msgbox JubilifeCity_JubilifeTV_2F_Text_GoingToWorkAtDevonToo, MSGBOX_DEFAULT
-	release
-	end
+JubilifeCity_JubilifeTV_2F_Text_CameramanQuiet:
+	.string "Shh! We're rolling!$"
 
-JubilifeCity_JubilifeTV_2F_Text_DevonWasTinyInOldDays:
-	.string "Way back in the old days, DEVON was just\n"
-	.string "a teeny, tiny company.$"
-
-JubilifeCity_JubilifeTV_2F_Text_MyDaddyMadeThisYouCanHaveIt:
-	.string "My daddy's working at the CORPORATION.\p"
-	.string "My daddy made this!\n"
-	.string "But I can't use it, so you can have it.$"
-
-JubilifeCity_JubilifeTV_2F_Text_GoingToWorkAtDevonToo:
-	.string "My daddy's working at the CORPORATION.\p"
-	.string "When I grow up, I'm going to work for\n"
-	.string "DEVON, too.$"
-
+JubilifeCity_JubilifeTV_2F_Text_ReporterLiveFromJubilife:
+	.string "This is JUBILIFE TV, coming to you\n"
+	.string "live from the heart of SINNOH!$"

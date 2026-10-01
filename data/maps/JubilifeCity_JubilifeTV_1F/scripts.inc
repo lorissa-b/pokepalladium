@@ -1,24 +1,11 @@
 JubilifeCity_JubilifeTV_1F_MapScripts::
 	.byte 0
 
-JubilifeCity_JubilifeTV_1F_EventScript_OldWoman::
-	msgbox JubilifeCity_JubilifeTV_1F_Text_DevonWorkersLiveHere, MSGBOX_NPC
+JubilifeCity_JubilifeTV_1F_EventScript_Receptionist::
+	msgbox JubilifeCity_JubilifeTV_1F_Text_WelcomeToJubilifeTV, MSGBOX_NPC
 	end
 
-JubilifeCity_JubilifeTV_1F_EventScript_Skitty::
-	lock
-	faceplayer
-	waitse
-	playmoncry SPECIES_SKITTY, CRY_MODE_NORMAL
-	msgbox JubilifeCity_JubilifeTV_1F_Text_Skitty, MSGBOX_DEFAULT
-	waitmoncry
-	release
-	end
-
-JubilifeCity_JubilifeTV_1F_Text_DevonWorkersLiveHere:
-	.string "DEVON CORPORATION's workers live in\n"
-	.string "this building.$"
-
-JubilifeCity_JubilifeTV_1F_Text_Skitty:
-	.string "SKITTY: Gyaaaah!$"
-
+JubilifeCity_JubilifeTV_1F_Text_WelcomeToJubilifeTV:
+	.string "Welcome to JUBILIFE TV!\p"
+	.string "Our studios are upstairs. Please\n"
+	.string "enjoy your visit!$"
