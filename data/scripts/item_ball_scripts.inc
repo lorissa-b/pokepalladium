@@ -318,6 +318,10 @@ JubilifeCity_EventScript_ItemXDefend::
 	finditem ITEM_X_DEFEND
 	end
 
+JubilifeCity_TrainersSchool_EventScript_ItemXAttack::
+	finditem ITEM_X_ATTACK
+	end
+
 LilycoveCity_EventScript_ItemMaxRepel::
 	finditem ITEM_MAX_REPEL
 	end

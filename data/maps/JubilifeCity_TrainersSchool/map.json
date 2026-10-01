@@ -15,8 +15,21 @@
   "connections": null,
   "object_events": [
     {
-      "graphics_id": "OBJ_EVENT_GFX_GAMEBOY_KID",
-      "x": 8,
+      "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
+      "x": 4,
+      "y": 4,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "JubilifeCity_TrainersSchool_EventScript_Teacher",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_SCHOOL_KID_M",
+      "x": 1,
       "y": 6,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
@@ -24,12 +37,12 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "JubilifeCity_TrainersSchool_EventScript_GameboyKid1",
+      "script": "JubilifeCity_TrainersSchool_EventScript_StudentLeft",
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_GAMEBOY_KID",
-      "x": 9,
+      "graphics_id": "OBJ_EVENT_GFX_BOY_1",
+      "x": 4,
       "y": 6,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
@@ -37,86 +50,73 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "JubilifeCity_TrainersSchool_EventScript_GameboyKid2",
+      "script": "JubilifeCity_TrainersSchool_EventScript_StudentRight",
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_RICH_BOY",
-      "x": 3,
-      "y": 8,
+      "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
+      "x": 13,
+      "y": 7,
       "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "JubilifeCity_TrainersSchool_EventScript_RichBoy",
-      "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_LASS",
-      "x": 10,
-      "y": 8,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_UP",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "JubilifeCity_TrainersSchool_EventScript_Lass",
+      "script": "JubilifeCity_TrainersSchool_EventScript_ComputerStudent",
       "flag": "0"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SCHOOL_KID_M",
-      "x": 3,
-      "y": 6,
+      "x": 11,
+      "y": 4,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
       "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "JubilifeCity_TrainersSchool_EventScript_SchoolKidM",
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "2",
+      "script": "JubilifeCity_TrainersSchool_EventScript_Harrison",
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_GENTLEMAN",
-      "x": 5,
-      "y": 3,
+      "graphics_id": "OBJ_EVENT_GFX_LASS",
+      "x": 13,
+      "y": 4,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "JubilifeCity_TrainersSchool_EventScript_Teacher",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "2",
+      "script": "JubilifeCity_TrainersSchool_EventScript_Christine",
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_SCOTT",
+      "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
       "x": 0,
-      "y": 10,
-      "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_FACE_UP",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
+      "y": 4,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "JubilifeCity_TrainersSchool_EventScript_Scott",
-      "flag": "FLAG_HIDE_JUBILIFE_CITY_TRAINERS_SCHOOL_SCOTT"
+      "script": "JubilifeCity_TrainersSchool_EventScript_ItemXAttack",
+      "flag": "FLAG_ITEM_JUBILIFE_CITY_TRAINERS_SCHOOL_X_ATTACK"
     }
   ],
   "warp_events": [
     {
-      "x": 5,
-      "y": 10,
+      "x": 6,
+      "y": 9,
       "elevation": 0,
       "dest_map": "MAP_JUBILIFE_CITY",
       "dest_warp_id": "3"
     },
     {
-      "x": 6,
-      "y": 10,
+      "x": 7,
+      "y": 9,
       "elevation": 0,
       "dest_map": "MAP_JUBILIFE_CITY",
       "dest_warp_id": "3"
@@ -126,7 +126,7 @@
   "bg_events": [
     {
       "type": "sign",
-      "x": 5,
+      "x": 3,
       "y": 2,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
@@ -142,6 +142,14 @@
     },
     {
       "type": "sign",
+      "x": 5,
+      "y": 2,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "JubilifeCity_TrainersSchool_EventScript_Blackboard"
+    },
+    {
+      "type": "sign",
       "x": 6,
       "y": 2,
       "elevation": 0,
@@ -150,19 +158,19 @@
     },
     {
       "type": "sign",
-      "x": 7,
-      "y": 2,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "JubilifeCity_TrainersSchool_EventScript_Blackboard"
-    },
-    {
-      "type": "sign",
       "x": 3,
-      "y": 5,
+      "y": 6,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "JubilifeCity_TrainersSchool_EventScript_StudentNotebook"
+    },
+    {
+      "type": "sign",
+      "x": 14,
+      "y": 7,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "JubilifeCity_TrainersSchool_EventScript_Computer"
     }
   ]
 }

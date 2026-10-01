@@ -1120,8 +1120,8 @@
     {
       "id": "LAYOUT_JUBILIFE_CITY_TRAINERS_SCHOOL",
       "name": "JubilifeCity_TrainersSchool_Layout",
-      "width": 12,
-      "height": 11,
+      "width": 15,
+      "height": 10,
       "primary_tileset": "gTileset_Building",
       "secondary_tileset": "gTileset_PokemonSchool",
       "border_filepath": "data/layouts/JubilifeCity_TrainersSchool/border.bin",

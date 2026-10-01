@@ -56,7 +56,7 @@
 #define FLAG_RECEIVED_TICKET_JUBILIFE_CENTER_CLOWN   0x2A
 #define FLAG_RECEIVED_TICKET_JUBILIFE_TV_CLOWN       0x2B
 #define FLAG_RECEIVED_TICKET_JUBILIFE_FOUNTAIN_CLOWN 0x2C
-#define FLAG_UNUSED_0x02D    0x2D // Unused Flag
+#define FLAG_RECEIVED_TRAINERS_SCHOOL_PRIZE          0x2D
 #define FLAG_UNUSED_0x02E    0x2E // Unused Flag
 #define FLAG_UNUSED_0x02F    0x2F // Unused Flag
 #define FLAG_UNUSED_0x030    0x30 // Unused Flag
@@ -298,7 +298,7 @@
 #define FLAG_RECEIVED_EXP_SHARE              0x110
 #define FLAG_POKERUS_EXPLAINED               0x111
 #define FLAG_RECEIVED_RUNNING_SHOES          0x112
-#define FLAG_RECEIVED_QUICK_CLAW             0x113
+#define FLAG_UNUSED_0x113                    0x113 // Unused Flag
 #define FLAG_RECEIVED_KINGS_ROCK             0x114
 #define FLAG_RECEIVED_MACHO_BRACE            0x115
 #define FLAG_RECEIVED_SOOTHE_BELL            0x116
@@ -333,7 +333,7 @@
 #define FLAG_STEVEN_GUIDES_TO_CAVE_OF_ORIGIN 0x133 // Set after you follow Steven to the entrance of the Cave of Origin.
 #define FLAG_MET_ARCHIE_SOOTOPOLIS           0x134
 #define FLAG_MET_MAXIE_SOOTOPOLIS            0x135
-#define FLAG_MET_SCOTT_JUBILIFE              0x136
+#define FLAG_UNUSED_0x136                    0x136 // Unused Flag
 #define FLAG_WALLACE_GOES_TO_SKY_PILLAR      0x137 // Set after speaking to Wallace within the Cave of Origin.
 #define FLAG_RECEIVED_HM_WATERFALL           0x138
 #define FLAG_BEAT_MAGMA_GRUNT_JAGGED_PASS    0x139
@@ -494,7 +494,7 @@
 #define FLAG_DEFEATED_LATIAS_OR_LATIOS       0x1C8
 #define FLAG_CAUGHT_LATIAS_OR_LATIOS         0x1C9
 #define FLAG_CAUGHT_MEW                      0x1CA
-#define FLAG_MET_SCOTT_AFTER_OBTAINING_STONE_BADGE 0x1CB
+#define FLAG_UNUSED_0x1CB                          0x1CB // Unused Flag
 #define FLAG_MET_SCOTT_IN_VERDANTURF         0x1CC
 #define FLAG_MET_SCOTT_IN_FALLARBOR          0x1CD
 #define FLAG_MET_SCOTT_IN_LILYCOVE           0x1CE
@@ -1047,7 +1047,7 @@
 #define FLAG_HIDE_SOOTOPOLIS_CITY_RAYQUAZA                          0x3E4
 #define FLAG_HIDE_SOOTOPOLIS_CITY_KYOGRE                            0x3E5
 #define FLAG_HIDE_SOOTOPOLIS_CITY_GROUDON                           0x3E6
-#define FLAG_HIDE_JUBILIFE_CITY_TRAINERS_SCHOOL_SCOTT                0x3E7
+#define FLAG_UNUSED_0x3E7                                            0x3E7 // Unused Flag
 
 // Item Ball Flags
 #define FLAG_ITEM_ROUTE_219_POTION                                  0x3E8
@@ -1178,7 +1178,7 @@
 #define FLAG_ITEM_OLD_MAGMA_HIDEOUT_B1F_MASTER_BALL                 0x465 // Unused Flag, leftover from the Ruby Magma hideout
 #define FLAG_ITEM_OLD_MAGMA_HIDEOUT_B1F_MAX_ELIXIR                  0x466 // Unused Flag, leftover from the Ruby Magma hideout
 #define FLAG_ITEM_OLD_MAGMA_HIDEOUT_B2F_NEST_BALL                   0x467 // Unused Flag, leftover from the Ruby Magma hideout
-#define FLAG_UNUSED_0x468                                           0x468 // Unused Flag
+#define FLAG_ITEM_JUBILIFE_CITY_TRAINERS_SCHOOL_X_ATTACK            0x468
 #define FLAG_ITEM_MT_PYRE_2F_ULTRA_BALL                             0x469
 #define FLAG_ITEM_MT_PYRE_4F_SEA_INCENSE                            0x46A
 #define FLAG_ITEM_SAFARI_ZONE_SOUTH_WEST_MAX_REVIVE                 0x46B
