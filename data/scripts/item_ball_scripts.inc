@@ -322,6 +322,22 @@ JubilifeCity_TrainersSchool_EventScript_ItemXAttack::
 	finditem ITEM_X_ATTACK
 	end
 
+RavagedPath_EventScript_ItemPotion::
+	finditem ITEM_POTION
+	end
+
+RavagedPath_EventScript_ItemTM39::
+	finditem ITEM_TM39
+	end
+
+RavagedPath_EventScript_ItemAmuletCoin::
+	finditem ITEM_AMULET_COIN
+	end
+
+RavagedPath_EventScript_ItemTM03::
+	finditem ITEM_TM03
+	end
+
 LilycoveCity_EventScript_ItemMaxRepel::
 	finditem ITEM_MAX_REPEL
 	end
