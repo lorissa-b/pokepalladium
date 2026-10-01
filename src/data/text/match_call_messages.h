@@ -133,15 +133,15 @@ const u8 gText_MatchCallGentleman_Walter_Pokemon[] = _("POKéMON of distinction.
 const u8 gText_MatchCallGentleman_Walter_Intro1[] = _("We enjoy a spot of tea");
 const u8 gText_MatchCallGentleman_Walter_Intro2[] = _("every day. It's imported.");
 
-const u8 gText_MatchCallSchoolKid_Karen_Strategy[] = _("I use my head to battle.");
-const u8 gText_MatchCallSchoolKid_Karen_Pokemon[] = _("I love any kind of POKéMON!");
-const u8 gText_MatchCallSchoolKid_Karen_Intro1[] = _("My daddy gives me spending");
-const u8 gText_MatchCallSchoolKid_Karen_Intro2[] = _("money if I ace a test.");
+const u8 gText_MatchCallSchoolKid_Karen_Strategy[] = _("I battle with GRASS types.");
+const u8 gText_MatchCallSchoolKid_Karen_Pokemon[] = _("I love cute GRASS POKéMON!");
+const u8 gText_MatchCallSchoolKid_Karen_Intro1[] = _("My POKéMON battle best when");
+const u8 gText_MatchCallSchoolKid_Karen_Intro2[] = _("they're really happy!");
 
-const u8 gText_MatchCallSchoolKid_Jerry_Strategy[] = _("My knowledge rules!");
-const u8 gText_MatchCallSchoolKid_Jerry_Pokemon[] = _("Any smart POKéMON!");
-const u8 gText_MatchCallSchoolKid_Jerry_Intro1[] = _("I want to be a POKéMON");
-const u8 gText_MatchCallSchoolKid_Jerry_Intro2[] = _("researcher in the future.");
+const u8 gText_MatchCallSchoolKid_Jerry_Strategy[] = _("BUG POKéMON evolve fast!");
+const u8 gText_MatchCallSchoolKid_Jerry_Pokemon[] = _("BUG POKéMON, of course!");
+const u8 gText_MatchCallSchoolKid_Jerry_Intro1[] = _("I catch BUG POKéMON in the");
+const u8 gText_MatchCallSchoolKid_Jerry_Intro2[] = _("trees on ROUTE 204.");
 
 const u8 gText_MatchCallSrAndJr_AnnaAndMeg_Strategy[] = _("We talk it over first.");
 const u8 gText_MatchCallSrAndJr_AnnaAndMeg_Pokemon[] = _("POKéMON that we both like.");
