@@ -59,7 +59,6 @@ TwinleafTown_EventScript_HideMapNamePopup::
 	return
 
 TwinleafTown_EventScript_SetRivalLeftForRoute202::
-	setflag FLAG_RIVAL_LEFT_FOR_ROUTE202
 	return
 
 TwinleafTown_EventScript_MoveRivalFromSandgem::
@@ -287,7 +286,6 @@ TwinleafTown_EventScript_StepOffTruckMale::
 	setvar VAR_0x8004, 5
 	setvar VAR_0x8005, 8
 	call TwinleafTown_EventScript_GoInsideWithMom
-	setflag FLAG_HIDE_TWINLEAF_TOWN_LUCAS_HOUSE_TRUCK
 	warpsilent MAP_TWINLEAF_TOWN_LUCAS_HOUSE_1F, 8, 8
 	waitstate
 	releaseall
@@ -298,7 +296,6 @@ TwinleafTown_EventScript_StepOffTruckFemale::
 	setvar VAR_0x8004, 14
 	setvar VAR_0x8005, 8
 	call TwinleafTown_EventScript_GoInsideWithMom
-	setflag FLAG_HIDE_TWINLEAF_TOWN_DAWN_HOUSE_TRUCK
 	warpsilent MAP_TWINLEAF_TOWN_DAWN_HOUSE_1F, 2, 8
 	waitstate
 	releaseall

@@ -15,7 +15,6 @@ JubilifeCity_Gym_EventScript_RoxanneDefeated::
 	waitmessage
 	call Common_EventScript_PlayGymBadgeFanfare
 	msgbox JubilifeCity_Gym_Text_StoneBadgeInfoTakeThis, MSGBOX_DEFAULT
-	setflag FLAG_DEFEATED_JUBILIFE_GYM
 	setflag FLAG_BADGE01_GET
 	setvar VAR_JUBILIFE_CITY_STATE, 1
 	addvar VAR_PETALBURG_GYM_STATE, 1
@@ -56,7 +55,6 @@ JubilifeCity_Gym_EventScript_Marc::
 JubilifeCity_Gym_EventScript_GymGuide::
 	lock
 	faceplayer
-	goto_if_set FLAG_DEFEATED_JUBILIFE_GYM, JubilifeCity_Gym_EventScript_GymGuidePostVictory
 	msgbox JubilifeCity_Gym_Text_GymGuideAdvice, MSGBOX_DEFAULT
 	release
 	end

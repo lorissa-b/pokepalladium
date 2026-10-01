@@ -57,13 +57,11 @@ JubilifeCity_PoketchCompany_3F_EventScript_MeetPresident::
 	closemessage
 	call Common_EventScript_OutOfCenterPartyHeal
 	msgbox JubilifeCity_PoketchCompany_3F_Text_MrStoneGoWithCautionAndCare, MSGBOX_DEFAULT
-	setflag FLAG_HIDE_ROUTE_204_WANDAS_BOYFRIEND
 	clearflag FLAG_HIDE_RUSTURF_TUNNEL_WANDAS_BOYFRIEND
 	clearflag FLAG_HIDE_RUSTURF_TUNNEL_WANDA
 	clearflag FLAG_HIDE_BRINEYS_HOUSE_MR_BRINEY
 	clearflag FLAG_HIDE_BRINEYS_HOUSE_PEEKO
 	setvar VAR_BRINEY_LOCATION, 1
-	clearflag FLAG_HIDE_JUBILIFE_CITY_RIVAL
 	setvar VAR_DEVON_CORP_3F_STATE, 1
 	setvar VAR_JUBILIFE_CITY_STATE, 6
 	releaseall

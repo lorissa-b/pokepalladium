@@ -9,7 +9,6 @@ Route104_MrBrineysHouse_OnTransition:
 	end
 
 Route104_MrBrineysHouse_EventScript_HideJubilifeRival::
-	setflag FLAG_HIDE_JUBILIFE_CITY_RIVAL
 	return
 
 Route104_MrBrineysHouse_EventScript_SetBrineyPeekoPos::
@@ -77,7 +76,6 @@ Route104_MrBrineysHouse_EventScript_SailToDewford::
 	setflag FLAG_HIDE_BRINEYS_HOUSE_PEEKO
 	setvar VAR_JUBILIFE_CITY_STATE, 8
 	setvar VAR_ROUTE104_STATE, 2
-	setflag FLAG_HIDE_JUBILIFE_CITY_RIVAL
 	setflag FLAG_HIDE_ROUTE_104_RIVAL
 	warp MAP_ROUTE104, 13, 51
 	waitstate

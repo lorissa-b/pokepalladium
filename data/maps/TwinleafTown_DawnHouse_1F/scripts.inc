@@ -189,7 +189,6 @@ RivalsHouse_1F_EventScript_RivalMom::
 	lock
 	faceplayer
 	goto_if_ge VAR_TWINLEAF_TOWN_STATE, 4, RivalsHouse_1F_EventScript_PleaseDeliverTownMap
-	goto_if_set FLAG_DEFEATED_RIVAL_ROUTE202, RivalsHouse_1F_EventScript_GoHomeEverySoOften
 	goto_if_set FLAG_SYS_POKEMON_GET, RivalsHouse_1F_EventScript_RivalIsOnRoute202
 	goto_if_eq VAR_TWINLEAF_INTRO_STATE, 10, RivalsHouse_1F_EventScript_RivalRanOffToRoute201
 	goto_if_eq VAR_TWINLEAF_RIVAL_STATE, 3, RivalsHouse_1F_EventScript_RivalTooBusy

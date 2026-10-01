@@ -30,7 +30,6 @@ Route104_EventScript_HideWhiteHerbFlorist::
 
 Route104_EventScript_TrySetRivalPos::
 	goto_if_ge VAR_BOARD_BRINEY_BOAT_STATE, 1, Route104_EventScript_DontSetRivalPos
-	goto_if_set FLAG_MET_RIVAL_JUBILIFE, Route104_EventScript_DontSetRivalPos
 	goto_if_unset FLAG_REGISTER_RIVAL_POKENAV, Route104_EventScript_DontSetRivalPos
 	setobjectxyperm LOCALID_ROUTE104_RIVAL, 17, 52
 	return
@@ -46,7 +45,6 @@ Route104_EventScript_Rival::
 
 Route104_EventScript_RivalTrigger::
 	lockall
-	setflag FLAG_HIDE_JUBILIFE_CITY_RIVAL
 	setvar VAR_JUBILIFE_CITY_STATE, 8
 	setvar VAR_ROUTE104_STATE, 2
 	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
@@ -57,7 +55,6 @@ Route104_EventScript_RivalTrigger::
 	applywaitmovement LOCALID_ROUTE104_RIVAL, Route104_Movement_RivalExitBrineysCottage
 	delay 20
 	setvar VAR_0x8008, 0
-	call JubilifeCity_EventScript_PlayRivalMusic
 	playse SE_PIN
 	applywaitmovement LOCALID_ROUTE104_RIVAL, Common_Movement_ExclamationMark
 	applywaitmovement LOCALID_ROUTE104_RIVAL, Common_Movement_Delay48
