@@ -1,5 +1,7 @@
 @ The gate between Jubilife City's west end and Route 218, using Emerald's
-@ Seaside Cycling Road gate interior. The east door leads back to Jubilife;
+@ Seaside Cycling Road gate interior. From Jubilife it is entered through an
+@ invisible door in the building's east side (west-arrow warps on the road
+@ next to it); its east door leads back there;
 @ the west door has no warp until Route 218 exists.
 JubilifeCity_Route218Gate_MapScripts::
 	.byte 0

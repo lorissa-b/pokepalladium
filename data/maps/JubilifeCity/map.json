@@ -315,8 +315,36 @@
       "dest_warp_id": "0"
     },
     {
-      "x": 4,
+      "x": 6,
+      "y": 16,
+      "elevation": 0,
+      "dest_map": "MAP_JUBILIFE_CITY_ROUTE218_GATE",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 6,
       "y": 14,
+      "elevation": 0,
+      "dest_map": "MAP_JUBILIFE_CITY_ROUTE218_GATE",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 6,
+      "y": 15,
+      "elevation": 0,
+      "dest_map": "MAP_JUBILIFE_CITY_ROUTE218_GATE",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 6,
+      "y": 17,
+      "elevation": 0,
+      "dest_map": "MAP_JUBILIFE_CITY_ROUTE218_GATE",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 6,
+      "y": 18,
       "elevation": 0,
       "dest_map": "MAP_JUBILIFE_CITY_ROUTE218_GATE",
       "dest_warp_id": "0"
