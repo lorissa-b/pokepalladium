@@ -1,223 +1,223 @@
-Route103_Text_TristanIntro:
+Route202_Text_TristanIntro:
 	.string "If you have POKéMON with you, then\n"
 	.string "you're an official POKéMON TRAINER!\l"
 	.string "You can't say no to my challenge!$"
 
-Route103_Text_TristanDefeated:
+Route202_Text_TristanDefeated:
 	.string "Arrgh, I lost…\n"
 	.string "I should have trained mine more…$"
 
-Route103_Text_TristanPostBattle:
+Route202_Text_TristanPostBattle:
 	.string "Listen, you. If you're strong,\n"
 	.string "you should have told me before!$"
 
-Route103_Text_TristanRegister:
+Route202_Text_TristanRegister:
 	.string "I've been working hard at this since\n"
 	.string "I saw you before.\p"
 	.string "I'd like to battle you again, so can\n"
 	.string "you register me in your POKéNAV?$"
 
-Route103_Text_TristanRegisterShort:
+Route202_Text_TristanRegisterShort:
 	.string "I'd like to battle you again, so can\n"
 	.string "you register me in your POKéNAV?$"
 
-Route103_Text_TristanRematchIntro:
+Route202_Text_TristanRematchIntro:
 	.string "Ever since I lost to you, I desperately\n"
 	.string "trained my POKéMON.\l"
 	.string "You can't say no to my challenge!$"
 
-Route103_Text_TristanRematchDefeated:
+Route202_Text_TristanRematchDefeated:
 	.string "Arrgh, I lost…\n"
 	.string "Is my training method not right?$"
 
-Route103_Text_TristanRematchPostBattle:
+Route202_Text_TristanRematchPostBattle:
 	.string "If you're going to get stronger,\n"
 	.string "I'll get stronger, too.$"
 
-Route102_Text_AllenIntro:
+Route219_Text_AllenIntro:
 	.string "Did you just become a TRAINER?\n"
 	.string "We're both beginners!$"
 
-Route102_Text_AllenDefeated:
+Route219_Text_AllenDefeated:
 	.string "I called you because I thought\n"
 	.string "I could beat you…$"
 
-Route102_Text_AllenPostBattle:
+Route219_Text_AllenPostBattle:
 	.string "I haven't won once yet…\n"
 	.string "I wish I would win soon…$"
 
-Route102_Text_TianaIntro:
+Route219_Text_TianaIntro:
 	.string "I'm going to keep winning and aim\n"
 	.string "to be the best TRAINER.\p"
 	.string "Help me further my career!$"
 
-Route102_Text_TianaDefeated:
+Route219_Text_TianaDefeated:
 	.string "I ended up furthering your career…$"
 
-Route102_Text_TianaPostBattle:
+Route219_Text_TianaPostBattle:
 	.string "To keep winning my way up, I see that\n"
 	.string "I have to catch more POKéMON.$"
 
-Route103_Text_AmyIntro:
+Route202_Text_AmyIntro:
 	.string "AMY: I'm AMY.\n"
 	.string "And this is my little sister LIV.\l"
 	.string "We battle together!$"
 
-Route103_Text_AmyDefeated:
+Route202_Text_AmyDefeated:
 	.string "AMY: Uh-oh, we lost.$"
 
-Route103_Text_AmyPostBattle:
+Route202_Text_AmyPostBattle:
 	.string "AMY: You have to think about all\n"
 	.string "kinds of things when you're battling\l"
 	.string "against two TRAINERS.$"
 
-Route103_Text_AmyNotEnoughPokemon:
+Route202_Text_AmyNotEnoughPokemon:
 	.string "AMY: Uh-oh, you have only one\n"
 	.string "POKéMON with you.\l"
 	.string "You can't battle us like that.$"
 
-Route103_Text_LivIntro:
+Route202_Text_LivIntro:
 	.string "LIV: We battle together as one\n"
 	.string "team.$"
 
-Route103_Text_LivDefeated:
+Route202_Text_LivDefeated:
 	.string "LIV: Oh, we lost, big sister…$"
 
-Route103_Text_LivPostBattle:
+Route202_Text_LivPostBattle:
 	.string "LIV: We work perfectly together,\n"
 	.string "me and my big sister…\p"
 	.string "But we still lost…$"
 
-Route103_Text_AmyLivRegister:
+Route202_Text_AmyLivRegister:
 	.string "LIV: Really, we're a lot better…\n"
 	.string "It's true! We'll show you next time!$"
 
-Route103_Text_LivNotEnoughPokemon:
+Route202_Text_LivNotEnoughPokemon:
 	.string "LIV: If you want to battle us,\n"
 	.string "you have to have two POKéMON!\l"
 	.string "It's not fair if you don't!$"
 
-Route103_Text_AmyRematchIntro:
+Route202_Text_AmyRematchIntro:
 	.string "AMY: I'm AMY.\n"
 	.string "And this is my little sister LIV.\l"
 	.string "We battle together!$"
 
-Route103_Text_AmyRematchDefeated:
+Route202_Text_AmyRematchDefeated:
 	.string "AMY: Aww, boo!\n"
 	.string "We couldn't win again…$"
 
-Route103_Text_AmyRematchPostBattle:
+Route202_Text_AmyRematchPostBattle:
 	.string "AMY: You have to think about all\n"
 	.string "kinds of things when you're battling\l"
 	.string "against two TRAINERS.$"
 
-Route103_Text_AmyRematchNotEnoughPokemon:
+Route202_Text_AmyRematchNotEnoughPokemon:
 	.string "AMY: Uh-oh, you have only one\n"
 	.string "POKéMON with you.\l"
 	.string "You can't battle us like that.$"
 
-Route103_Text_LivRematchIntro:
+Route202_Text_LivRematchIntro:
 	.string "LIV: We battle together as one\n"
 	.string "team.$"
 
-Route103_Text_LivRematchDefeated:
+Route202_Text_LivRematchDefeated:
 	.string "LIV: Awww, we lost again…\n"
 	.string "Big sister…$"
 
-Route103_Text_LivRematchPostBattle:
+Route202_Text_LivRematchPostBattle:
 	.string "LIV: We work perfectly together,\n"
 	.string "me and my big sister…\p"
 	.string "But why did we lose again?$"
 
-Route103_Text_LivRematchNotEnoughPokemon:
+Route202_Text_LivRematchNotEnoughPokemon:
 	.string "LIV: If you want to battle us, you\n"
 	.string "have to have two POKéMON!\l"
 	.string "It's not fair if you don't!$"
 
-Route103_Text_AndrewIntro:
+Route202_Text_AndrewIntro:
 	.string "Gah! My fishing line's all snarled up!\n"
 	.string "I'm getting frustrated and mean!\l"
 	.string "That's it! Battle me!$"
 
-Route103_Text_AndrewDefeated:
+Route202_Text_AndrewDefeated:
 	.string "Gah! Lost it!\n"
 	.string "I'm even more annoyed now!$"
 
-Route103_Text_AndrewPostBattle:
+Route202_Text_AndrewPostBattle:
 	.string "Gah, I'm still boiling mad…\n"
 	.string "Grrrrr…$"
 
-Route103_Text_MiguelIntro:
+Route202_Text_MiguelIntro:
 	.string "My POKéMON is delightfully adorable!\n"
 	.string "Don't be shy--I'll show you!$"
 
-Route103_Text_MiguelDefeated:
+Route202_Text_MiguelDefeated:
 	.string "Oh, my gosh!\n"
 	.string "My darling POKéMON!$"
 
-Route103_Text_MiguelPostBattle:
+Route202_Text_MiguelPostBattle:
 	.string "My delightful POKéMON looks darling\n"
 	.string "even when it's fainted!$"
 
-Route103_Text_MiguelRegister:
+Route202_Text_MiguelRegister:
 	.string "I'll get you to come out and look in\n"
 	.string "on my delightful POKéMON again!$"
 
-Route103_Text_MiguelRematchIntro:
+Route202_Text_MiguelRematchIntro:
 	.string "Hi, you! My delightfully adorable\n"
 	.string "POKéMON has become more darling!$"
 
-Route103_Text_MiguelRematchDefeated:
+Route202_Text_MiguelRematchDefeated:
 	.string "Oh!\n"
 	.string "My darling POKéMON!$"
 
-Route103_Text_MiguelRematchPostBattle:
+Route202_Text_MiguelRematchPostBattle:
 	.string "The more I spend time with it,\n"
 	.string "the more adorable my POKéMON becomes.$"
 
-Route103_Text_PeteIntro:
+Route202_Text_PeteIntro:
 	.string "This sort of distance…\n"
 	.string "You should just swim it!$"
 
-Route103_Text_PeteDefeated:
+Route202_Text_PeteDefeated:
 	.string "Oh, that's good going!$"
 
-Route103_Text_PetePostBattle:
+Route202_Text_PetePostBattle:
 	.string "Oh, I understand where you're coming\n"
 	.string "from now.\p"
 	.string "If I had a POKéMON that trusty,\n"
 	.string "I'd want to SURF on it, too!$"
 
-Route103_Text_IsabelleIntro:
+Route202_Text_IsabelleIntro:
 	.string "Watch where you're going!\n"
 	.string "We're going to crash!$"
 
-Route103_Text_IsabelleDefeated:
+Route202_Text_IsabelleDefeated:
 	.string "Groan…$"
 
-Route103_Text_IsabellePostBattle:
+Route202_Text_IsabellePostBattle:
 	.string "I'm a poor swimmer so I was practicing…\n"
 	.string "Sorry for almost crashing into you.$"
 
-Route103_Text_RhettIntro:
+Route202_Text_RhettIntro:
 	.string "Whoa!\n"
 	.string "How'd you get into a space this small?$"
 
-Route103_Text_RhettDefeated:
+Route202_Text_RhettDefeated:
 	.string "Whoa!\n"
 	.string "The kid can rock!$"
 
-Route103_Text_RhettPostBattle:
+Route202_Text_RhettPostBattle:
 	.string "Do you like cramped quarters\n"
 	.string "like this?$"
 
-Route103_Text_MarcosIntro:
+Route202_Text_MarcosIntro:
 	.string "Did my guitar's wailing draw you in?$"
 
-Route103_Text_MarcosDefeated:
+Route202_Text_MarcosDefeated:
 	.string "My one-man show is ruined…$"
 
-Route103_Text_MarcosPostBattle:
+Route202_Text_MarcosPostBattle:
 	.string "I was playing my guitar where few\n"
 	.string "people were around, but a lot of fans\l"
 	.string "have gathered.\p"

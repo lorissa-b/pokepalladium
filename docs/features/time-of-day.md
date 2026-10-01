@@ -87,7 +87,7 @@ Changes from the tutorial:
 Every map with wild Pokémon except caves and interiors (`MAP_TYPE_UNDERGROUND`
 and `MAP_TYPE_INDOOR`) has four encounter tables, named after the map with
 `_Morning`, `_Day`, `_Evening` and `_Night` on the end — for example
-`gRoute101_Night`. They start out as identical copies of the vanilla table, so
+`gRoute201_Night`. They start out as identical copies of the vanilla table, so
 nothing changes until they're edited. In Porymap, they show up as four encounter
 groups on the map's Wild Pokémon tab.
 

@@ -1,0 +1,52 @@
+JubilifeCity_House4_MapScripts::
+	.byte 0
+
+JubilifeCity_House4_EventScript_Cutter::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_HM_CUT, JubilifeCity_House4_EventScript_ExplainCut
+	msgbox JubilifeCity_House4_Text_YouCanPutThisHMToGoodUse, MSGBOX_DEFAULT
+	giveitem ITEM_HM_CUT
+	setflag FLAG_RECEIVED_HM_CUT
+	msgbox JubilifeCity_House4_Text_ExplainCut, MSGBOX_DEFAULT
+	release
+	end
+
+JubilifeCity_House4_EventScript_ExplainCut::
+	msgbox JubilifeCity_House4_Text_ExplainCut, MSGBOX_DEFAULT
+	release
+	end
+
+JubilifeCity_House4_EventScript_Lass::
+	msgbox JubilifeCity_House4_Text_DadHelpedClearLandOfTrees, MSGBOX_NPC
+	end
+
+JubilifeCity_House4_Text_YouCanPutThisHMToGoodUse:
+	.string "That determined expression…\n"
+	.string "That limber way you move…\l"
+	.string "And your well-trained POKéMON…\p"
+	.string "You're obviously a skilled TRAINER!\p"
+	.string "No, wait, don't say a word.\n"
+	.string "I can tell just by looking at you.\p"
+	.string "I'm sure that you can put this\n"
+	.string "HIDDEN MACHINE to good use.\p"
+	.string "No need to be modest or shy.\n"
+	.string "Go on, take it!$"
+
+JubilifeCity_House4_Text_ExplainCut:
+	.string "That HIDDEN MACHINE, or HM for\n"
+	.string "short, is CUT.\p"
+	.string "An HM move is one that can be used\n"
+	.string "by POKéMON outside of battle.\p"
+	.string "Any POKéMON that's learned CUT can\n"
+	.string "chop down thin trees if the TRAINER\l"
+	.string "has earned the STONE BADGE.\p"
+	.string "And, unlike a TM, an HM can be used\n"
+	.string "more than once.$"
+
+JubilifeCity_House4_Text_DadHelpedClearLandOfTrees:
+	.string "When they were expanding the city of\n"
+	.string "RUSTBORO, my dad helped out.\p"
+	.string "He made his POKéMON use CUT to clear\n"
+	.string "the land of trees.$"
+

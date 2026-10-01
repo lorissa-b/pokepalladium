@@ -319,13 +319,13 @@ LilycoveCity_EventScript_BattleBrendanMudkip::
 	end
 
 LilycoveCity_EventScript_DefeatedMay::
-	msgbox LilycoveCity_Text_MayGoingBackToLittleroot, MSGBOX_DEFAULT
+	msgbox LilycoveCity_Text_MayGoingBackToTwinleaf, MSGBOX_DEFAULT
 	setvar VAR_RESULT, FALSE
 	call_if_set FLAG_BADGE06_GET, LilycoveCity_EventScript_CheckFinalBadge
 	call_if_eq VAR_RESULT, FALSE, LilycoveCity_EventScript_MayCollectBadges
 	call_if_eq VAR_RESULT, TRUE, LilycoveCity_EventScript_MayPokemonLeague
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_BEDROOM
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_2F_PICHU_DOLL
+	clearflag FLAG_HIDE_TWINLEAF_TOWN_DAWN_HOUSE_RIVAL_BEDROOM
+	clearflag FLAG_HIDE_TWINLEAF_TOWN_DAWN_HOUSE_2F_PICHU_DOLL
 	goto LilycoveCity_EventScript_RivalFlyAway
 	end
 
@@ -351,13 +351,13 @@ LilycoveCity_EventScript_MayBattleFrontier::
 	return
 
 LilycoveCity_EventScript_DefeatedBrendan::
-	msgbox LilycoveCity_Text_BrendanGoingBackToLittleroot, MSGBOX_DEFAULT
+	msgbox LilycoveCity_Text_BrendanGoingBackToTwinleaf, MSGBOX_DEFAULT
 	setvar VAR_RESULT, FALSE
 	call_if_set FLAG_BADGE06_GET, LilycoveCity_EventScript_CheckFinalBadge
 	call_if_eq VAR_RESULT, FALSE, LilycoveCity_EventScript_BrendanCollectBadges
 	call_if_eq VAR_RESULT, TRUE, LilycoveCity_EventScript_BrendanPokemonLeague
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_BEDROOM
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F_SWABLU_DOLL
+	clearflag FLAG_HIDE_TWINLEAF_TOWN_LUCAS_HOUSE_RIVAL_BEDROOM
+	clearflag FLAG_HIDE_TWINLEAF_TOWN_LUCAS_HOUSE_2F_SWABLU_DOLL
 	goto LilycoveCity_EventScript_RivalFlyAway
 	end
 
@@ -440,7 +440,7 @@ LilycoveCity_Text_MayDefeat:
 	.string "That battle helped you become this\n"
 	.string "strong, {PLAYER}{KUN}, didn't it?$"
 
-LilycoveCity_Text_MayGoingBackToLittleroot:
+LilycoveCity_Text_MayGoingBackToTwinleaf:
 	.string "MAY: I'm thinking of going back to\n"
 	.string "TWINLEAF soon.\p"
 	.string "I've caught a decent group of POKéMON,\n"
@@ -502,7 +502,7 @@ LilycoveCity_Text_BrendanDefeat:
 	.string "That stings a bit--I had a head start\n"
 	.string "on you as a TRAINER…$"
 
-LilycoveCity_Text_BrendanGoingBackToLittleroot:
+LilycoveCity_Text_BrendanGoingBackToTwinleaf:
 	.string "BRENDAN: I…\n"
 	.string "I plan on going home to TWINLEAF.\p"
 	.string "You know I'm helping out my dad on his\n"

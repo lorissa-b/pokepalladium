@@ -6781,7 +6781,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_WallyVR1[] = {
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BrendanRoute103Mudkip[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BrendanRoute202Mudkip[] = {
     {
     .iv = 0,
     .lvl = 5,
@@ -6825,7 +6825,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BrendanRoute119Mudkip[] 
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BrendanRoute103Treecko[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BrendanRoute202Treecko[] = {
     {
     .iv = 0,
     .lvl = 5,
@@ -6869,7 +6869,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BrendanRoute119Treecko[]
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BrendanRoute103Torchic[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BrendanRoute202Torchic[] = {
     {
     .iv = 0,
     .lvl = 5,
@@ -6913,7 +6913,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BrendanRoute119Torchic[]
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_MayRoute103Mudkip[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_MayRoute202Mudkip[] = {
     {
     .iv = 0,
     .lvl = 5,
@@ -6957,7 +6957,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_MayRoute119Mudkip[] = {
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_MayRoute103Treecko[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_MayRoute202Treecko[] = {
     {
     .iv = 0,
     .lvl = 5,
@@ -7001,7 +7001,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_MayRoute119Treecko[] = {
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_MayRoute103Torchic[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_MayRoute202Torchic[] = {
     {
     .iv = 0,
     .lvl = 5,
@@ -7833,7 +7833,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Macey[] = {
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BrendanRustboroTreecko[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BrendanJubilifeTreecko[] = {
     {
     .iv = 25,
     .lvl = 13,
@@ -7846,7 +7846,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BrendanRustboroTreecko[]
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BrendanRustboroMudkip[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BrendanJubilifeMudkip[] = {
     {
     .iv = 25,
     .lvl = 13,
@@ -7929,7 +7929,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Jonathan[] = {
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_BrendanRustboroTorchic[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_BrendanJubilifeTorchic[] = {
     {
     .iv = 25,
     .lvl = 13,
@@ -7942,7 +7942,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BrendanRustboroTorchic[]
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_MayRustboroMudkip[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_MayJubilifeMudkip[] = {
     {
     .iv = 25,
     .lvl = 13,
@@ -10267,7 +10267,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Cristin1[] = {
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_MayRustboroTreecko[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_MayJubilifeTreecko[] = {
     {
     .iv = 25,
     .lvl = 13,
@@ -10280,7 +10280,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_MayRustboroTreecko[] = {
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_MayRustboroTorchic[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_MayJubilifeTorchic[] = {
     {
     .iv = 25,
     .lvl = 13,

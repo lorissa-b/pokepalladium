@@ -379,8 +379,8 @@ extern const u8 EventScript_UseCut[];
 extern const u8 EventScript_UseRockSmash[];
 
 //player pc
-extern const u8 LittlerootTown_BrendansHouse_2F_EventScript_TurnOffPlayerPC[];
-extern const u8 LittlerootTown_MaysHouse_2F_EventScript_TurnOffPlayerPC[];
+extern const u8 TwinleafTown_LucasHouse_2F_EventScript_TurnOffPlayerPC[];
+extern const u8 TwinleafTown_DawnHouse_2F_EventScript_TurnOffPlayerPC[];
 
 // Mauville Old Man (Giddy)
 extern const u8 GiddyText_Is[];
@@ -512,8 +512,8 @@ extern const u8 MauvilleCity_PokemonCenter_1F_Text_HotSpringsTitle[];
 extern const u8 MauvilleCity_PokemonCenter_1F_Text_HotSpringsAction[];
 extern const u8 MauvilleCity_PokemonCenter_1F_Text_HotSpringsStory[];
 
-extern const u8 LittlerootTown_BrendansHouse_2F_EventScript_PC[];
-extern const u8 LittlerootTown_MaysHouse_2F_EventScript_PC[];
+extern const u8 TwinleafTown_LucasHouse_2F_EventScript_PC[];
+extern const u8 TwinleafTown_DawnHouse_2F_EventScript_PC[];
 extern const u8 EventScript_PC[];
 extern const u8 EventScript_TestSignpostMsg[];
 extern const u8 EventScript_HiddenItemScript[];
@@ -548,8 +548,8 @@ extern const u8 AbnormalWeather_EventScript_EndEventAndCleanup_1[];
 extern const u8 IslandCave_EventScript_OpenRegiEntrance[];
 extern const u8 MauvilleCity_EventScript_RegisterWallyCall[];
 extern const u8 Route119_EventScript_ScottWonAtFortreeGymCall[];
-extern const u8 LittlerootTown_ProfessorBirchsLab_EventScript_ScottAboardSSTidalCall[];
-extern const u8 RustboroCity_Gym_EventScript_RegisterRoxanne[];
+extern const u8 SandgemTown_PokemonResearchLab_EventScript_ScottAboardSSTidalCall[];
+extern const u8 JubilifeCity_Gym_EventScript_RegisterRoxanne[];
 extern const u8 MossdeepCity_SpaceCenter_2F_EventScript_RivalRayquazaCall[];
 extern const u8 SSTidalCorridor_EventScript_ReachedStepCount[];
 extern const u8 EventScript_FallDownHoleMtPyre[];

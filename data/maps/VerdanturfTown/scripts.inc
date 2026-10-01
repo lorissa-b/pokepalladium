@@ -39,7 +39,7 @@ VerdanturfTown_EventScript_Boy::
 	end
 
 VerdanturfTown_EventScript_BoyTunnelOpen::
-	msgbox VerdanturfTown_Text_EasyToGetToRustboroNow, MSGBOX_DEFAULT
+	msgbox VerdanturfTown_Text_EasyToGetToJubilifeNow, MSGBOX_DEFAULT
 	release
 	end
 
@@ -97,7 +97,7 @@ VerdanturfTown_Text_GuyTryingToBustThroughCave:
 	.string "It'd be great if we could go through…\n"
 	.string "It'll make it easy to visit RUSTBORO.$"
 
-VerdanturfTown_Text_EasyToGetToRustboroNow:
+VerdanturfTown_Text_EasyToGetToJubilifeNow:
 	.string "That cave next to the POKéMON MART\n"
 	.string "is now a tunnel to the other side.\p"
 	.string "It's great--it's easy to go shop for\n"

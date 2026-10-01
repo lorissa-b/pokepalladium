@@ -1,14 +1,14 @@
 {
   "heal_locations": [
     {
-      "id": "HEAL_LOCATION_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F",
-      "map": "MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F",
+      "id": "HEAL_LOCATION_TWINLEAF_TOWN_LUCAS_HOUSE_2F",
+      "map": "MAP_TWINLEAF_TOWN_LUCAS_HOUSE_2F",
       "x": 4,
       "y": 2
     },
     {
-      "id": "HEAL_LOCATION_LITTLEROOT_TOWN_MAYS_HOUSE_2F",
-      "map": "MAP_LITTLEROOT_TOWN_MAYS_HOUSE_2F",
+      "id": "HEAL_LOCATION_TWINLEAF_TOWN_DAWN_HOUSE_2F",
+      "map": "MAP_TWINLEAF_TOWN_DAWN_HOUSE_2F",
       "x": 4,
       "y": 2
     },
@@ -31,8 +31,8 @@
       "y": 6
     },
     {
-      "id": "HEAL_LOCATION_RUSTBORO_CITY",
-      "map": "MAP_RUSTBORO_CITY",
+      "id": "HEAL_LOCATION_JUBILIFE_CITY",
+      "map": "MAP_JUBILIFE_CITY",
       "x": 50,
       "y": 30
     },
@@ -67,20 +67,20 @@
       "y": 49
     },
     {
-      "id": "HEAL_LOCATION_LITTLEROOT_TOWN_BRENDANS_HOUSE",
-      "map": "MAP_LITTLEROOT_TOWN",
+      "id": "HEAL_LOCATION_TWINLEAF_TOWN_LUCAS_HOUSE",
+      "map": "MAP_TWINLEAF_TOWN",
       "x": 3,
       "y": 11
     },
     {
-      "id": "HEAL_LOCATION_LITTLEROOT_TOWN_MAYS_HOUSE",
-      "map": "MAP_LITTLEROOT_TOWN",
+      "id": "HEAL_LOCATION_TWINLEAF_TOWN_DAWN_HOUSE",
+      "map": "MAP_TWINLEAF_TOWN",
       "x": 14,
       "y": 19
     },
     {
-      "id": "HEAL_LOCATION_OLDALE_TOWN",
-      "map": "MAP_OLDALE_TOWN",
+      "id": "HEAL_LOCATION_SANDGEM_TOWN",
+      "map": "MAP_SANDGEM_TOWN",
       "x": 17,
       "y": 7
     },

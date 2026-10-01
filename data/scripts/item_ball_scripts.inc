@@ -1,12 +1,12 @@
-Route102_EventScript_ItemAntidote::
+Route219_EventScript_ItemAntidote::
 	finditem ITEM_ANTIDOTE
 	end
 
-Route103_EventScript_ItemPotion::
+Route202_EventScript_ItemPotion::
 	finditem ITEM_POTION
 	end
 
-Route103_EventScript_ItemPPUp::
+Route202_EventScript_ItemPPUp::
 	finditem ITEM_PP_UP
 	end
 
@@ -314,7 +314,7 @@ MauvilleCity_EventScript_ItemXSpeed::
 	finditem ITEM_X_SPEED
 	end
 
-RustboroCity_EventScript_ItemXDefend::
+JubilifeCity_EventScript_ItemXDefend::
 	finditem ITEM_X_DEFEND
 	end
 
@@ -470,7 +470,7 @@ SafariZone_North_EventScript_ItemCalcium::
 	finditem ITEM_CALCIUM
 	end
 
-SafariZone_Southwest_EventScript_ItemMaxRevive::
+LakeVerity_EventScript_ItemMaxRevive::
 	finditem ITEM_MAX_REVIVE
 	end
 

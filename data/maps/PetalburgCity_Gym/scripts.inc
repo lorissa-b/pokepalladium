@@ -183,7 +183,7 @@ PetalburgCity_Gym_EventScript_BeginWallyTutorial::
 	setvar VAR_PETALBURG_CITY_STATE, 2
 	clearflag FLAG_HIDE_PETALBURG_CITY_WALLY
 	clearflag FLAG_HIDE_PETALBURG_GYM_WALLY
-	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL
+	setflag FLAG_HIDE_SANDGEM_TOWN_RESEARCH_LAB_RIVAL
 	special InitBirchState
 	warp MAP_PETALBURG_CITY, 15, 8
 	waitstate
@@ -282,7 +282,7 @@ PetalburgCity_Gym_EventScript_WallyFaceDown::
 	return
 
 PetalburgCity_Gym_EventScript_NormanNoBadges::
-	msgbox PetalburgCity_Gym_Text_NormanGoToRustboro, MSGBOX_DEFAULT
+	msgbox PetalburgCity_Gym_Text_NormanGoToJubilife, MSGBOX_DEFAULT
 	release
 	end
 
@@ -1207,7 +1207,7 @@ PetalburgCity_Gym_Text_DadGoCollectBadges:
 	.string "But that's only after you become\n"
 	.string "stronger.$"
 
-PetalburgCity_Gym_Text_NormanGoToRustboro:
+PetalburgCity_Gym_Text_NormanGoToJubilife:
 	.string "DAD: Hm? Aren't you going to the\n"
 	.string "POKéMON GYM in RUSTBORO CITY?\p"
 	.string "There's no challenge for me to\n"
