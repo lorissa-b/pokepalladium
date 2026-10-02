@@ -99,6 +99,11 @@ struct DisableStruct
     u8 filler_18_2:2; // Unused field.
     u8 mimickedMoves:4;
     u8 rechargeTimer;
+    u8 embargoTimer;
+    u8 healBlockTimer;
+    u8 magnetRiseTimer;
+    u8 usedMoves:4; // Move slots used since switching in, for Last Resort
+    u8 unused:4;
 };
 
 struct ProtectStruct
@@ -159,6 +164,17 @@ struct SideTimer
     u8 followmeTimer;
     u8 followmeTarget;
     u8 spikesAmount;
+    u8 toxicSpikesAmount;
+    u8 tailwindTimer;
+    u8 tailwindBattlerId;
+    u8 luckyChantTimer;
+    u8 luckyChantBattlerId;
+};
+
+struct FieldTimer
+{
+    u8 gravityTimer;
+    u8 trickRoomTimer;
 };
 
 struct WishFutureKnock
@@ -444,6 +460,10 @@ struct BattleStruct
     u8 arenaLostPlayerMons; // Bits for party member, lost as in referee's decision, not by fainting.
     u8 arenaLostOpponentMons;
     u8 alreadyStatusedMoveAttempt; // As bits for battlers; For example when using Thunder Wave on an already paralyzed Pokémon.
+    u8 healingWishPending; // As bits for battlers: the next Pokémon sent out at that position is fully healed.
+    u8 lunarDancePending;  // As bits for battlers: as above, also restoring PP.
+    u16 lastUsedMove;      // The last move used by anyone, for Copycat.
+    bool8 meFirstBoost;
 };
 
 // The palaceFlags member of struct BattleStruct contains 1 flag per move to indicate which moves the AI should consider,
@@ -469,7 +489,8 @@ STATIC_ASSERT(sizeof(((struct BattleStruct *)0)->palaceFlags) * 8 >= MAX_BATTLER
 
 #define TARGET_TURN_DAMAGED ((gSpecialStatuses[gBattlerTarget].physicalDmg != 0 || gSpecialStatuses[gBattlerTarget].specialDmg != 0))
 
-#define IS_BATTLER_OF_TYPE(battler, type) ((gBattleMons[battler].types[0] == type || gBattleMons[battler].types[1] == type))
+bool32 IsBattlerOfType(u8 battler, u8 type);
+#define IS_BATTLER_OF_TYPE(battler, type) (IsBattlerOfType(battler, type))
 #define SET_BATTLER_TYPE(battler, type)   \
 {                                           \
     gBattleMons[battler].types[0] = type;    \
@@ -684,6 +705,8 @@ extern u8 gBideTarget[MAX_BATTLERS_COUNT];
 extern u8 gUnusedFirstBattleVar2;
 extern u16 gSideStatuses[NUM_BATTLE_SIDES];
 extern struct SideTimer gSideTimers[NUM_BATTLE_SIDES];
+extern u16 gFieldStatuses;
+extern struct FieldTimer gFieldTimers;
 extern u32 gStatuses3[MAX_BATTLERS_COUNT];
 extern struct DisableStruct gDisableStructs[MAX_BATTLERS_COUNT];
 extern u16 gPauseCounterBattle;

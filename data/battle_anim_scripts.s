@@ -371,8 +371,120 @@ gBattleAnims_Moves::
 	.4byte Move_WATER_PULSE
 	.4byte Move_DOOM_DESIRE
 	.4byte Move_PSYCHO_BOOST
+	.4byte Move_ROOST
+	.4byte Move_GRAVITY
+	.4byte Move_MIRACLE_EYE
+	.4byte Move_WAKE_UP_SLAP
+	.4byte Move_HAMMER_ARM
+	.4byte Move_GYRO_BALL
+	.4byte Move_HEALING_WISH
+	.4byte Move_BRINE
+	.4byte Move_NATURAL_GIFT
+	.4byte Move_FEINT
+	.4byte Move_PLUCK
+	.4byte Move_TAILWIND
+	.4byte Move_ACUPRESSURE
+	.4byte Move_METAL_BURST
+	.4byte Move_U_TURN
+	.4byte Move_CLOSE_COMBAT
+	.4byte Move_PAYBACK
+	.4byte Move_ASSURANCE
+	.4byte Move_EMBARGO
+	.4byte Move_FLING
+	.4byte Move_PSYCHO_SHIFT
+	.4byte Move_TRUMP_CARD
+	.4byte Move_HEAL_BLOCK
+	.4byte Move_WRING_OUT
+	.4byte Move_POWER_TRICK
+	.4byte Move_GASTRO_ACID
+	.4byte Move_LUCKY_CHANT
+	.4byte Move_ME_FIRST
+	.4byte Move_COPYCAT
+	.4byte Move_POWER_SWAP
+	.4byte Move_GUARD_SWAP
+	.4byte Move_PUNISHMENT
+	.4byte Move_LAST_RESORT
+	.4byte Move_WORRY_SEED
+	.4byte Move_SUCKER_PUNCH
+	.4byte Move_TOXIC_SPIKES
+	.4byte Move_HEART_SWAP
+	.4byte Move_AQUA_RING
+	.4byte Move_MAGNET_RISE
+	.4byte Move_FLARE_BLITZ
+	.4byte Move_FORCE_PALM
+	.4byte Move_AURA_SPHERE
+	.4byte Move_ROCK_POLISH
+	.4byte Move_POISON_JAB
+	.4byte Move_DARK_PULSE
+	.4byte Move_NIGHT_SLASH
+	.4byte Move_AQUA_TAIL
+	.4byte Move_SEED_BOMB
+	.4byte Move_AIR_SLASH
+	.4byte Move_X_SCISSOR
+	.4byte Move_BUG_BUZZ
+	.4byte Move_DRAGON_PULSE
+	.4byte Move_DRAGON_RUSH
+	.4byte Move_POWER_GEM
+	.4byte Move_DRAIN_PUNCH
+	.4byte Move_VACUUM_WAVE
+	.4byte Move_FOCUS_BLAST
+	.4byte Move_ENERGY_BALL
+	.4byte Move_BRAVE_BIRD
+	.4byte Move_EARTH_POWER
+	.4byte Move_SWITCHEROO
+	.4byte Move_GIGA_IMPACT
+	.4byte Move_NASTY_PLOT
+	.4byte Move_BULLET_PUNCH
+	.4byte Move_AVALANCHE
+	.4byte Move_ICE_SHARD
+	.4byte Move_SHADOW_CLAW
+	.4byte Move_THUNDER_FANG
+	.4byte Move_ICE_FANG
+	.4byte Move_FIRE_FANG
+	.4byte Move_SHADOW_SNEAK
+	.4byte Move_MUD_BOMB
+	.4byte Move_PSYCHO_CUT
+	.4byte Move_ZEN_HEADBUTT
+	.4byte Move_MIRROR_SHOT
+	.4byte Move_FLASH_CANNON
+	.4byte Move_ROCK_CLIMB
+	.4byte Move_DEFOG
+	.4byte Move_TRICK_ROOM
+	.4byte Move_DRACO_METEOR
+	.4byte Move_DISCHARGE
+	.4byte Move_LAVA_PLUME
+	.4byte Move_LEAF_STORM
+	.4byte Move_POWER_WHIP
+	.4byte Move_ROCK_WRECKER
+	.4byte Move_CROSS_POISON
+	.4byte Move_GUNK_SHOT
+	.4byte Move_IRON_HEAD
+	.4byte Move_MAGNET_BOMB
+	.4byte Move_STONE_EDGE
+	.4byte Move_CAPTIVATE
+	.4byte Move_STEALTH_ROCK
+	.4byte Move_GRASS_KNOT
+	.4byte Move_CHATTER
+	.4byte Move_JUDGMENT
+	.4byte Move_BUG_BITE
+	.4byte Move_CHARGE_BEAM
+	.4byte Move_WOOD_HAMMER
+	.4byte Move_AQUA_JET
+	.4byte Move_ATTACK_ORDER
+	.4byte Move_DEFEND_ORDER
+	.4byte Move_HEAL_ORDER
+	.4byte Move_HEAD_SMASH
 	.4byte Move_DOUBLE_HIT
-	.4byte Move_COUNT @ cannot be reached, because last move is Double Hit
+	.4byte Move_ROAR_OF_TIME
+	.4byte Move_SPACIAL_REND
+	.4byte Move_LUNAR_DANCE
+	.4byte Move_CRUSH_GRIP
+	.4byte Move_MAGMA_STORM
+	.4byte Move_DARK_VOID
+	.4byte Move_SEED_FLARE
+	.4byte Move_OMINOUS_WIND
+	.4byte Move_SHADOW_FORCE
+	.4byte Move_COUNT @ cannot be reached, because last move is Shadow Force
 
 	.align 2
 gBattleAnims_StatusConditions::
@@ -423,6 +535,7 @@ gBattleAnims_Special::
 	.4byte Special_MonToSubstitute          @ B_ANIM_MON_TO_SUBSTITUTE
 
 Move_NONE:
+Move_ME_FIRST: @ Placeholder: reuses Mirror Move's animation
 Move_MIRROR_MOVE:
 Move_POUND:
 	loadspritegfx ANIM_TAG_IMPACT
@@ -529,6 +642,7 @@ Move_SLEEP_POWDER:
 	waitforvisualfinish
 	end
 
+Move_TRUMP_CARD: @ Placeholder: reuses Swift's animation
 Move_SWIFT:
 	loadspritegfx ANIM_TAG_YELLOW_STAR
 	loadspritegfx ANIM_TAG_IMPACT
@@ -556,6 +670,7 @@ Move_SWIFT:
 	blendoff
 	end
 
+Move_ROCK_CLIMB: @ Placeholder: reuses Strength's animation
 Move_STRENGTH:
 	loadspritegfx ANIM_TAG_IMPACT
 	monbg ANIM_DEF_PARTNER
@@ -659,6 +774,7 @@ ScreechRing:
 	delay 2
 	return
 
+Move_FLARE_BLITZ: @ Placeholder: reuses Flame Wheel's animation
 Move_FLAME_WHEEL:
 	loadspritegfx ANIM_TAG_SMALL_EMBER
 	monbg ANIM_DEF_PARTNER
@@ -701,6 +817,7 @@ FlameWheel1: @ Unused
 	delay 4
 	return
 
+Move_ATTACK_ORDER: @ Placeholder: reuses Pin Missile's animation
 Move_PIN_MISSILE:
 	loadspritegfx ANIM_TAG_NEEDLE
 	loadspritegfx ANIM_TAG_IMPACT
@@ -730,6 +847,7 @@ Move_PIN_MISSILE:
 	blendoff
 	end
 
+Move_ICE_SHARD: @ Placeholder: reuses Icicle Spear's animation
 Move_ICICLE_SPEAR:
 	loadspritegfx ANIM_TAG_ICICLE_SPEAR
 	loadspritegfx ANIM_TAG_IMPACT
@@ -759,6 +877,7 @@ Move_ICICLE_SPEAR:
 	blendoff
 	end
 
+Move_GIGA_IMPACT: @ Placeholder: reuses Take Down's animation
 Move_TAKE_DOWN:
 	loadspritegfx ANIM_TAG_IMPACT
 	monbg ANIM_DEF_PARTNER
@@ -782,6 +901,7 @@ Move_TAKE_DOWN:
 	blendoff
 	end
 
+Move_LAST_RESORT: @ Placeholder: reuses Double Edge's animation
 Move_DOUBLE_EDGE:
 	loadspritegfx ANIM_TAG_IMPACT
 	playsewithpan SE_M_SWIFT, SOUND_PAN_ATTACKER
@@ -815,6 +935,7 @@ Move_DOUBLE_EDGE:
 	waitforvisualfinish
 	end
 
+Move_POISON_JAB: @ Placeholder: reuses Poison Sting's animation
 Move_POISON_STING:
 	loadspritegfx ANIM_TAG_NEEDLE
 	loadspritegfx ANIM_TAG_IMPACT
@@ -903,6 +1024,7 @@ FireBlastCross:
 	createsprite gFireBlastCrossSpriteTemplate, ANIM_TARGET, 2, 0, 0, 15, 2, 2
 	return
 
+Move_WORRY_SEED: @ Placeholder: reuses Leech Seed's animation
 Move_LEECH_SEED:
 	loadspritegfx ANIM_TAG_SEED
 	playsewithpan SE_M_POISON_POWDER, SOUND_PAN_ATTACKER
@@ -938,6 +1060,7 @@ EmberFireHit:
 	delay 4
 	return
 
+Move_HAMMER_ARM: @ Placeholder: reuses Mega Punch's animation
 Move_MEGA_PUNCH:
 	loadspritegfx ANIM_TAG_IMPACT
 	loadspritegfx ANIM_TAG_HANDS_AND_FEET
@@ -1006,6 +1129,7 @@ Move_MEGA_KICK:
 	waitbgfadein
 	end
 
+Move_BULLET_PUNCH: @ Placeholder: reuses Comet Punch's animation
 Move_COMET_PUNCH:
 	loadspritegfx ANIM_TAG_IMPACT
 	loadspritegfx ANIM_TAG_HANDS_AND_FEET
@@ -1074,6 +1198,7 @@ Move_THUNDER_SHOCK:
 	waitforvisualfinish
 	end
 
+Move_DISCHARGE: @ Placeholder: reuses Thunderbolt's animation
 Move_THUNDERBOLT:
 	loadspritegfx ANIM_TAG_SPARK
 	loadspritegfx ANIM_TAG_SHOCK_3
@@ -1214,6 +1339,7 @@ Move_CUT:
 	waitforvisualfinish
 	end
 
+Move_POWER_GEM: @ Placeholder: reuses Hidden Power's animation
 Move_HIDDEN_POWER:
 	loadspritegfx ANIM_TAG_RED_ORB
 	playsewithpan SE_M_TAKE_DOWN, SOUND_PAN_ATTACKER
@@ -1272,6 +1398,7 @@ Move_REVERSAL:
 	createvisualtask AnimTask_ShakeTargetBasedOnMovePowerOrDmg, 5, FALSE, 1, 8, 1, 0
 	end
 
+Move_PUNISHMENT: @ Placeholder: reuses Pursuit's animation
 Move_PURSUIT:
 	loadspritegfx ANIM_TAG_IMPACT
 	monbg ANIM_TARGET
@@ -1338,6 +1465,7 @@ Move_SWORDS_DANCE:
 	delay 1
 	end
 
+Move_POWER_TRICK: @ Placeholder: reuses Psych Up's animation
 Move_PSYCH_UP:
 	loadspritegfx ANIM_TAG_SPIRAL
 	monbg ANIM_ATK_PARTNER
@@ -1394,6 +1522,7 @@ DizzyPunchLunge:
 	createvisualtask AnimTask_ShakeMon2, 2, ANIM_TARGET, 3, 0, 7, 1
 	return
 
+Move_MAGMA_STORM: @ Placeholder: reuses Fire Spin's animation
 Move_FIRE_SPIN:
 	loadspritegfx ANIM_TAG_SMALL_EMBER
 	playsewithpan SE_M_SACRED_FIRE2, SOUND_PAN_TARGET
@@ -1419,6 +1548,7 @@ FireSpinEffect:
 	delay 2
 	return
 
+Move_X_SCISSOR: @ Placeholder: reuses Fury Cutter's animation
 Move_FURY_CUTTER:
 	loadspritegfx ANIM_TAG_CUT
 	monbg ANIM_TARGET
@@ -1488,6 +1618,7 @@ SelfDestructExplode:
 	delay 6
 	return
 
+Move_WOOD_HAMMER: @ Placeholder: reuses Slam's animation
 Move_SLAM:
 	loadspritegfx ANIM_TAG_SLAM_HIT
 	loadspritegfx ANIM_TAG_IMPACT
@@ -1512,6 +1643,7 @@ Move_SLAM:
 	blendoff
 	end
 
+Move_POWER_WHIP: @ Placeholder: reuses Vine Whip's animation
 Move_VINE_WHIP:
 	loadspritegfx ANIM_TAG_WHIP_HIT
 	playsewithpan SE_M_JUMP_KICK, SOUND_PAN_ATTACKER
@@ -1523,6 +1655,7 @@ Move_VINE_WHIP:
 	createvisualtask AnimTask_ShakeMon2, 2, ANIM_TARGET, 2, 0, 6, 1
 	end
 
+Move_BRAVE_BIRD: @ Placeholder: reuses Drill Peck's animation
 Move_DRILL_PECK:
 	loadspritegfx ANIM_TAG_IMPACT
 	loadspritegfx ANIM_TAG_WHIRLWIND_LINES
@@ -1542,6 +1675,7 @@ Move_DRILL_PECK:
 	waitforvisualfinish
 	end
 
+Move_AQUA_JET: @ Placeholder: reuses Waterfall's animation
 Move_WATERFALL:
 	loadspritegfx ANIM_TAG_WATER_IMPACT
 	loadspritegfx ANIM_TAG_SMALL_BUBBLES
@@ -1798,6 +1932,7 @@ Frustration_Weak:
 	createvisualtask AnimTask_ShakeMon2, 2, ANIM_TARGET, 1, 0, 6, 1
 	goto Frustration_Continue
 
+Move_LUCKY_CHANT: @ Placeholder: reuses Safeguard's animation
 Move_SAFEGUARD:
 	loadspritegfx ANIM_TAG_GUARD_RING
 	monbg ANIM_ATK_PARTNER
@@ -1840,6 +1975,7 @@ Move_PAIN_SPLIT:
 	createvisualtask AnimTask_PainSplitMovement, 2, ANIM_TARGET, 2
 	end
 
+Move_CRUSH_GRIP: @ Placeholder: reuses Vice Grip's animation
 Move_VICE_GRIP:
 	loadspritegfx ANIM_TAG_CUT
 	loadspritegfx ANIM_TAG_IMPACT
@@ -1990,6 +2126,7 @@ Move_SPARK:
 	waitforvisualfinish
 	end
 
+Move_CAPTIVATE: @ Placeholder: reuses Attract's animation
 Move_ATTRACT:
 	loadspritegfx ANIM_TAG_RED_HEART
 	loopsewithpan SE_M_CHARM, SOUND_PAN_ATTACKER, 12, 3
@@ -2097,6 +2234,7 @@ Move_MEAN_LOOK:
 	waitforvisualfinish
 	end
 
+Move_STEALTH_ROCK: @ Placeholder: reuses Rock Throw's animation
 Move_ROCK_THROW:
 	loadspritegfx ANIM_TAG_ROCKS
 	shake_mon_or_platform unused_anim_battler=ANIM_TARGET, velocity=6, shake_timer=1, shake_duration=15, type=SHAKE_BG_Y
@@ -2118,6 +2256,7 @@ Move_ROCK_THROW:
 	waitforvisualfinish
 	end
 
+Move_STONE_EDGE: @ Placeholder: reuses Rock Slide's animation
 Move_ROCK_SLIDE:
 	loadspritegfx ANIM_TAG_ROCKS
 	monbg ANIM_DEF_PARTNER
@@ -2227,6 +2366,7 @@ BubblebeamCreateBubbles:
 	delay 3
 	return
 
+Move_AVALANCHE: @ Placeholder: reuses Icy Wind's animation
 Move_ICY_WIND:
 	loadspritegfx ANIM_TAG_ICE_CRYSTALS
 	loadspritegfx ANIM_TAG_ICE_SPIKES
@@ -2406,6 +2546,7 @@ Move_ROLLING_KICK:
 	blendoff
 	end
 
+Move_ZEN_HEADBUTT: @ Placeholder: reuses Headbutt's animation
 Move_HEADBUTT:
 	loadspritegfx ANIM_TAG_IMPACT
 	createsprite gBowMonSpriteTemplate, ANIM_ATTACKER, 2, 0
@@ -2549,6 +2690,7 @@ Move_THRASH:
 	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
 	end
 
+Move_CHATTER: @ Placeholder: reuses Sing's animation
 Move_SING:
 	loadspritegfx ANIM_TAG_MUSIC_NOTES
 	monbg ANIM_DEF_PARTNER
@@ -2598,6 +2740,7 @@ Move_LOW_KICK:
 	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0, 1, 4
 	end
 
+Move_EARTH_POWER: @ Placeholder: reuses Earthquake's animation
 Move_EARTHQUAKE:
 	createvisualtask AnimTask_HorizontalShake, 5, (MAX_BATTLERS_COUNT + 1), 10, 50
 	createvisualtask AnimTask_HorizontalShake, 5, MAX_BATTLERS_COUNT, 10, 50
@@ -2709,6 +2852,7 @@ Move_MEDITATE:
 	call UnsetPsychicBackground
 	end
 
+Move_ROCK_POLISH: @ Placeholder: reuses Agility's animation
 Move_AGILITY:
 	monbg ANIM_ATK_PARTNER
 	setalpha 12, 8
@@ -2730,6 +2874,7 @@ Move_AGILITY:
 	delay 1
 	end
 
+Move_FEINT: @ Placeholder: reuses Quick Attack's animation
 Move_QUICK_ATTACK:
 	loadspritegfx ANIM_TAG_IMPACT
 	monbg ANIM_ATK_PARTNER
@@ -2906,6 +3051,7 @@ Move_GLARE:
 	createvisualtask AnimTask_BlendBattleAnimPal, 5, F_PAL_BG, 0, 16, 0, RGB_BLACK
 	end
 
+Move_FLING: @ Placeholder: reuses Barrage's animation
 Move_BARRAGE:
 	loadspritegfx ANIM_TAG_RED_BALL
 	createvisualtask AnimTask_BarrageBall, 3
@@ -2983,6 +3129,7 @@ SkyAttackUnleash:
 	call UnsetSkyBg
 	goto SkyAttackEnd
 
+Move_MIRROR_SHOT: @ Placeholder: reuses Flash's animation
 Move_FLASH:
 	playsewithpan SE_M_LEER, SOUND_PAN_ATTACKER
 	createvisualtask AnimTask_Flash, 2
@@ -3033,6 +3180,7 @@ Move_SUPER_FANG:
 	blendoff
 	end
 
+Move_NIGHT_SLASH: @ Placeholder: reuses Slash's animation
 Move_SLASH:
 	loadspritegfx ANIM_TAG_SLASH
 	createsprite gSlashSliceSpriteTemplate, ANIM_TARGET, 2, 1, -8, 0
@@ -3124,6 +3272,7 @@ Move_SPITE:
 	clearmonbg ANIM_TARGET
 	end
 
+Move_VACUUM_WAVE: @ Placeholder: reuses Mach Punch's animation
 Move_MACH_PUNCH:
 	loadspritegfx ANIM_TAG_IMPACT
 	loadspritegfx ANIM_TAG_HANDS_AND_FEET
@@ -3156,6 +3305,7 @@ MachPunchAgainstPlayer:
 	fadetobg BG_HIGHSPEED_PLAYER
 	goto MachPunchContinue
 
+Move_MIRACLE_EYE: @ Placeholder: reuses Foresight's animation
 Move_FORESIGHT:
 	loadspritegfx ANIM_TAG_MAGNIFYING_GLASS
 	monbg ANIM_DEF_PARTNER
@@ -3345,6 +3495,7 @@ MagnitudeIntense:
 	complex_palette_blend unused_anim_battler=ANIM_ATTACKER, unused_subpriority_offset=2, selector=F_PAL_BG, delay=3, num_blends=1, color1=RGB_BLACK, blend_y1=14, color2=RGB_WHITE, blend_y2=14
 	goto MagnitudeEnd
 
+Move_GYRO_BALL: @ Placeholder: reuses Rapid Spin's animation
 Move_RAPID_SPIN:
 	loadspritegfx ANIM_TAG_IMPACT
 	loadspritegfx ANIM_TAG_RAPID_SPIN
@@ -3364,6 +3515,7 @@ Move_RAPID_SPIN:
 	clearmonbg ANIM_ATTACKER
 	end
 
+Move_LUNAR_DANCE: @ Placeholder: reuses Moonlight's animation
 Move_MOONLIGHT:
 	loadspritegfx ANIM_TAG_MOON
 	loadspritegfx ANIM_TAG_GREEN_SPARKLE
@@ -3500,6 +3652,7 @@ Move_HAIL:
 	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_BG, 3, 6, 0, RGB_BLACK
 	end
 
+Move_EMBARGO: @ Placeholder: reuses Torment's animation
 Move_TORMENT:
 	loadspritegfx ANIM_TAG_ANGER
 	loadspritegfx ANIM_TAG_THOUGHT_BUBBLE
@@ -3544,6 +3697,7 @@ Move_FACADE:
 	loopsewithpan SE_M_SWAGGER, SOUND_PAN_ATTACKER, 24, 3
 	end
 
+Move_WAKE_UP_SLAP: @ Placeholder: reuses Smelling Salt's animation
 Move_SMELLING_SALT:
 	loadspritegfx ANIM_TAG_TAG_HAND
 	loadspritegfx ANIM_TAG_SMELLINGSALT_EFFECT
@@ -3569,6 +3723,7 @@ Move_FOLLOW_ME:
 	loopsewithpan SE_M_TAIL_WHIP, SOUND_PAN_ATTACKER, 22, 3
 	end
 
+Move_MAGNET_RISE: @ Placeholder: reuses Charge's animation
 Move_CHARGE:
 	loadspritegfx ANIM_TAG_ELECTRIC_ORBS
 	loadspritegfx ANIM_TAG_CIRCLE_OF_LIGHT
@@ -3658,6 +3813,7 @@ Move_ASSIST:
 	playsewithpan SE_M_SCRATCH, 0
 	end
 
+Move_CLOSE_COMBAT: @ Placeholder: reuses Superpower's animation
 Move_SUPERPOWER:
 	loadspritegfx ANIM_TAG_CIRCLE_OF_LIGHT
 	loadspritegfx ANIM_TAG_METEOR
@@ -3804,6 +3960,7 @@ Move_ENDEAVOR:
 	playsewithpan SE_M_COMET_PUNCH, SOUND_PAN_TARGET
 	end
 
+Move_LAVA_PLUME: @ Placeholder: reuses Eruption's animation
 Move_ERUPTION:
 	loadspritegfx ANIM_TAG_WARM_ROCK
 	simple_palette_blend selector=F_PAL_BG | F_PAL_BATTLERS, delay=2, initial_blend_y=0, target_blend_y=4, color=RGB_RED
@@ -3829,6 +3986,10 @@ Move_ERUPTION:
 	simple_palette_blend unused_subpriority_offset=40, selector=F_PAL_BG | F_PAL_BATTLERS, delay=4, initial_blend_y=4, target_blend_y=0, color=RGB_RED
 	end
 
+Move_PSYCHO_SHIFT: @ Placeholder: reuses Skill Swap's animation
+Move_POWER_SWAP: @ Placeholder: reuses Skill Swap's animation
+Move_GUARD_SWAP: @ Placeholder: reuses Skill Swap's animation
+Move_HEART_SWAP: @ Placeholder: reuses Skill Swap's animation
 Move_SKILL_SWAP:
 	loadspritegfx ANIM_TAG_BLUEGREEN_ORB
 	call SetPsychicBackground
@@ -3842,6 +4003,7 @@ Move_SKILL_SWAP:
 	call UnsetPsychicBackground
 	end
 
+Move_GRAVITY: @ Placeholder: reuses Imprison's animation
 Move_IMPRISON:
 	loadspritegfx ANIM_TAG_HOLLOW_ORB
 	loadspritegfx ANIM_TAG_X_SIGN
@@ -4198,6 +4360,7 @@ Move_FAKE_TEARS:
 	waitforvisualfinish
 	end
 
+Move_AIR_SLASH: @ Placeholder: reuses Air Cutter's animation
 Move_AIR_CUTTER:
 	loadspritegfx ANIM_TAG_AIR_WAVE
 	loadspritegfx ANIM_TAG_CUT
@@ -4307,6 +4470,7 @@ Move_WATER_SPOUT:
 	blendoff
 	end
 
+Move_SHADOW_CLAW: @ Placeholder: reuses Shadow Punch's animation
 Move_SHADOW_PUNCH:
 	loadspritegfx ANIM_TAG_IMPACT
 	loadspritegfx ANIM_TAG_HANDS_AND_FEET
@@ -4349,6 +4513,7 @@ Move_EXTRASENSORY:
 	call UnsetPsychicBackground
 	end
 
+Move_U_TURN: @ Placeholder: reuses Aerial Ace's animation
 Move_AERIAL_ACE:
 	loadspritegfx ANIM_TAG_CUT
 	monbg ANIM_TARGET
@@ -4366,6 +4531,7 @@ Move_AERIAL_ACE:
 	blendoff
 	end
 
+Move_DEFEND_ORDER: @ Placeholder: reuses Iron Defense's animation
 Move_IRON_DEFENSE:
 	loopsewithpan SE_SHINY, SOUND_PAN_ATTACKER, 28, 2
 	metallic_shine permanent=FALSE
@@ -4463,6 +4629,7 @@ Move_VOLT_TACKLE:
 	waitforvisualfinish
 	end
 
+Move_AQUA_RING: @ Placeholder: reuses Water Sport's animation
 Move_WATER_SPORT:
 	loadspritegfx ANIM_TAG_GLOWY_BLUE_ORB
 	createvisualtask AnimTask_WaterSport, 5
@@ -4476,6 +4643,7 @@ Move_WATER_SPORT:
 	panse SE_M_SURF, SOUND_PAN_ATTACKER, SOUND_PAN_TARGET, +2, 0
 	end
 
+Move_NASTY_PLOT: @ Placeholder: reuses Calm Mind's animation
 Move_CALM_MIND:
 	loadspritegfx ANIM_TAG_THIN_RING
 	monbg ANIM_ATK_PARTNER
@@ -4499,6 +4667,7 @@ Move_CALM_MIND:
 	clearmonbg ANIM_ATK_PARTNER
 	end
 
+Move_GRASS_KNOT: @ Placeholder: reuses Leaf Blade's animation
 Move_LEAF_BLADE:
 	loadspritegfx ANIM_TAG_LEAF
 	loadspritegfx ANIM_TAG_CROSS_IMPACT
@@ -4548,6 +4717,7 @@ Move_DRAGON_DANCE:
 	delay 1
 	end
 
+Move_CHARGE_BEAM: @ Placeholder: reuses Shock Wave's animation
 Move_SHOCK_WAVE:
 	loadspritegfx ANIM_TAG_ELECTRIC_ORBS
 	loadspritegfx ANIM_TAG_CIRCLE_OF_LIGHT
@@ -4667,6 +4837,7 @@ MindReaderEyeSpikeEffect:
 	delay 2
 	return
 
+Move_ICE_FANG: @ Placeholder: reuses Ice Punch's animation
 Move_ICE_PUNCH:
 	monbg ANIM_DEF_PARTNER
 	setalpha 12, 8
@@ -4827,6 +4998,7 @@ Move_THUNDER:
 	waitbgfadein
 	end
 
+Move_THUNDER_FANG: @ Placeholder: reuses Thunder Punch's animation
 Move_THUNDER_PUNCH:
 	loadspritegfx ANIM_TAG_IMPACT
 	loadspritegfx ANIM_TAG_HANDS_AND_FEET
@@ -4930,6 +5102,7 @@ Move_SCRATCH:
 	waitforvisualfinish
 	end
 
+Move_DRAGON_PULSE: @ Placeholder: reuses Dragon Breath's animation
 Move_DRAGON_BREATH:
 	loadspritegfx ANIM_TAG_SMALL_EMBER
 	monbg ANIM_DEF_PARTNER
@@ -5155,6 +5328,7 @@ SmogCloud:
 	delay 7
 	return
 
+Move_ASSURANCE: @ Placeholder: reuses Faint Attack's animation
 Move_FAINT_ATTACK:
 	loadspritegfx ANIM_TAG_IMPACT
 	monbg ANIM_ATTACKER
@@ -5242,6 +5416,7 @@ MudSlapMud:
 	delay 2
 	return
 
+Move_DRACO_METEOR: @ Placeholder: reuses Dragon Rage's animation
 Move_DRAGON_RAGE:
 	loadspritegfx ANIM_TAG_SMALL_EMBER
 	loadspritegfx ANIM_TAG_FIRE_PLUME
@@ -5288,6 +5463,7 @@ Move_RAIN_DANCE:
 	waitforvisualfinish
 	end
 
+Move_BUG_BITE: @ Placeholder: reuses Bite's animation
 Move_BITE:
 	loadspritegfx ANIM_TAG_SHARP_TEETH
 	loadspritegfx ANIM_TAG_IMPACT
@@ -5400,6 +5576,7 @@ Move_WITHDRAW:
 	waitforvisualfinish
 	end
 
+Move_FLASH_CANNON: @ Placeholder: reuses Aurora Beam's animation
 Move_AURORA_BEAM:
 	loadspritegfx ANIM_TAG_RAINBOW_RINGS
 	fadetobg BG_AURORA
@@ -5658,6 +5835,7 @@ HydroPumpHitSplats:
 	createsprite gWaterHitSplatSpriteTemplate, ANIM_ATTACKER, 4, 0, -15, ANIM_TARGET, 1
 	return
 
+Move_BUG_BUZZ: @ Placeholder: reuses Signal Beam's animation
 Move_SIGNAL_BEAM:
 	loadspritegfx ANIM_TAG_GLOWY_RED_ORB
 	loadspritegfx ANIM_TAG_GLOWY_GREEN_ORB
@@ -5813,6 +5991,7 @@ MegaDrainAbsorbEffect:
 	delay 4
 	return
 
+Move_DRAIN_PUNCH: @ Placeholder: reuses Giga Drain's animation
 Move_GIGA_DRAIN:
 	loadspritegfx ANIM_TAG_ORBS
 	loadspritegfx ANIM_TAG_BLUE_STAR
@@ -5961,6 +6140,7 @@ Move_SLUDGE:
 	waitforvisualfinish
 	end
 
+Move_GUNK_SHOT: @ Placeholder: reuses Sludge Bomb's animation
 Move_SLUDGE_BOMB:
 	loadspritegfx ANIM_TAG_POISON_BUBBLE
 	call SludgeBombProjectile
@@ -6004,6 +6184,7 @@ SludgeBombProjectile:
 	delay 3
 	return
 
+Move_GASTRO_ACID: @ Placeholder: reuses Acid's animation
 Move_ACID:
 	loadspritegfx ANIM_TAG_POISON_BUBBLE
 	monbg ANIM_DEF_PARTNER
@@ -6091,6 +6272,7 @@ Move_BONE_RUSH:
 	blendoff
 	end
 
+Move_TOXIC_SPIKES: @ Placeholder: reuses Spikes's animation
 Move_SPIKES:
 	loadspritegfx ANIM_TAG_SPIKES
 	monbg ANIM_DEF_PARTNER
@@ -6193,6 +6375,7 @@ Move_WING_ATTACK:
 	blendoff
 	end
 
+Move_PLUCK: @ Placeholder: reuses Peck's animation
 Move_PECK:
 	loadspritegfx ANIM_TAG_IMPACT
 	playsewithpan SE_M_HORN_ATTACK, SOUND_PAN_TARGET
@@ -6266,6 +6449,7 @@ Move_WATER_GUN:
 	blendoff
 	end
 
+Move_AQUA_TAIL: @ Placeholder: reuses Crabhammer's animation
 Move_CRABHAMMER:
 	loadspritegfx ANIM_TAG_ICE_CRYSTALS
 	loadspritegfx ANIM_TAG_WATER_IMPACT
@@ -6397,6 +6581,7 @@ WhirlpoolEffect:
 	delay 2
 	return
 
+Move_SHADOW_FORCE: @ Placeholder: reuses Fly's animation
 Move_FLY:
 	loadspritegfx ANIM_TAG_ROUND_SHADOW
 	loadspritegfx ANIM_TAG_IMPACT
@@ -6467,6 +6652,7 @@ Move_KARATE_CHOP:
 	blendoff
 	end
 
+Move_CROSS_POISON: @ Placeholder: reuses Cross Chop's animation
 Move_CROSS_CHOP:
 	loadspritegfx ANIM_TAG_HANDS_AND_FEET
 	loadspritegfx ANIM_TAG_CROSS_IMPACT
@@ -6609,6 +6795,7 @@ Move_DYNAMIC_PUNCH:
 	blendoff
 	end
 
+Move_METAL_BURST: @ Placeholder: reuses Counter's animation
 Move_COUNTER:
 	loadspritegfx ANIM_TAG_IMPACT
 	loadspritegfx ANIM_TAG_HANDS_AND_FEET
@@ -6664,6 +6851,7 @@ Move_VITAL_THROW:
 	blendoff
 	end
 
+Move_HEAD_SMASH: @ Placeholder: reuses Rock Smash's animation
 Move_ROCK_SMASH:
 	loadspritegfx ANIM_TAG_ROCKS
 	loadspritegfx ANIM_TAG_IMPACT
@@ -6793,6 +6981,7 @@ CreateSpore:
 	delay 12
 	return
 
+Move_SEED_FLARE: @ Placeholder: reuses Petal Dance's animation
 Move_PETAL_DANCE:
 	loadspritegfx ANIM_TAG_FLOWER
 	loadspritegfx ANIM_TAG_IMPACT
@@ -6831,6 +7020,7 @@ Move_PETAL_DANCE:
 	blendoff
 	end
 
+Move_LEAF_STORM: @ Placeholder: reuses Razor Leaf's animation
 Move_RAZOR_LEAF:
 	loadspritegfx ANIM_TAG_LEAF
 	loadspritegfx ANIM_TAG_RAZOR_LEAF
@@ -6924,6 +7114,7 @@ Move_OCTAZOOKA:
 	waitforvisualfinish
 	end
 
+Move_TAILWIND: @ Placeholder: reuses Mist's animation
 Move_MIST:
 	loadspritegfx ANIM_TAG_MIST_CLOUD
 	monbg ANIM_ATK_PARTNER
@@ -6948,6 +7139,7 @@ MistCloud:
 	delay 7
 	return
 
+Move_DEFOG: @ Placeholder: reuses Haze's animation
 Move_HAZE:
 	waitforvisualfinish
 	playsewithpan SE_M_HAZE, 0
@@ -6958,6 +7150,7 @@ Move_HAZE:
 	createvisualtask AnimTask_BlendBattleAnimPal, 10, F_PAL_BATTLERS_2, 1, 16, 0, RGB_BLACK
 	end
 
+Move_FIRE_FANG: @ Placeholder: reuses Fire Punch's animation
 Move_FIRE_PUNCH:
 	loadspritegfx ANIM_TAG_HANDS_AND_FEET
 	loadspritegfx ANIM_TAG_SMALL_EMBER
@@ -7114,6 +7307,7 @@ Move_POISON_GAS:
 	delay 0
 	end
 
+Move_WRING_OUT: @ Placeholder: reuses Bind's animation
 Move_BIND:
 	createvisualtask AnimTask_SwayMon, 5, 0, 6, 3328, 4, ANIM_ATTACKER
 	goto BindWrap
@@ -7133,6 +7327,7 @@ Move_WRAP:
 	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, ANIM_ATTACKER, 6, 4, 2, 4
 	goto BindWrap
 
+Move_PSYCHO_CUT: @ Placeholder: reuses Psybeam's animation
 Move_PSYBEAM:
 	loadspritegfx ANIM_TAG_GOLD_RING
 	playsewithpan SE_M_PSYBEAM, SOUND_PAN_ATTACKER
@@ -7160,6 +7355,7 @@ PsybeamRings:
 	delay 4
 	return
 
+Move_DARK_VOID: @ Placeholder: reuses Hypnosis's animation
 Move_HYPNOSIS:
 	loadspritegfx ANIM_TAG_GOLD_RING
 	call SetPsychicBackground
@@ -7202,6 +7398,7 @@ PsywaveRings:
 	delay 4
 	return
 
+Move_MAGNET_BOMB: @ Placeholder: reuses Zap Cannon's animation
 Move_ZAP_CANNON:
 	loadspritegfx ANIM_TAG_BLACK_BALL_2
 	loadspritegfx ANIM_TAG_SPARK_2
@@ -7250,6 +7447,7 @@ Move_STEEL_WING:
 	blendoff
 	end
 
+Move_IRON_HEAD: @ Placeholder: reuses Iron Tail's animation
 Move_IRON_TAIL:
 	loadspritegfx ANIM_TAG_IMPACT
 	loopsewithpan SE_M_HARDEN, SOUND_PAN_ATTACKER, 28, 2
@@ -7311,6 +7509,7 @@ Move_METAL_CLAW:
 	waitforvisualfinish
 	end
 
+Move_DARK_PULSE: @ Placeholder: reuses Night Shade's animation
 Move_NIGHT_SHADE:
 	monbg ANIM_ATTACKER
 	splitbgprio ANIM_ATTACKER
@@ -7355,6 +7554,7 @@ Move_EGG_BOMB:
 	waitforvisualfinish
 	end
 
+Move_AURA_SPHERE: @ Placeholder: reuses Shadow Ball's animation
 Move_SHADOW_BALL:
 	loadspritegfx ANIM_TAG_SHADOW_BALL
 	fadetobg BG_GHOST
@@ -7379,6 +7579,7 @@ Move_LICK:
 	waitforvisualfinish
 	end
 
+Move_ACUPRESSURE: @ Placeholder: reuses Focus Energy's animation
 Move_FOCUS_ENERGY:
 	loadspritegfx ANIM_TAG_FOCUS_ENERGY
 	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
@@ -7552,6 +7753,7 @@ RazorWindUnleash:
 	blendoff
 	goto RazorWindEnd
 
+Move_HEAL_BLOCK: @ Placeholder: reuses Disable's animation
 Move_DISABLE:
 	loadspritegfx ANIM_TAG_SPARKLE_4
 	monbg ANIM_TARGET
@@ -7568,6 +7770,8 @@ Move_DISABLE:
 	blendoff
 	end
 
+Move_ROOST: @ Placeholder: reuses Recover's animation
+Move_HEAL_ORDER: @ Placeholder: reuses Recover's animation
 Move_RECOVER:
 	loadspritegfx ANIM_TAG_ORBS
 	loadspritegfx ANIM_TAG_BLUE_STAR
@@ -7603,6 +7807,7 @@ RecoverAbsorbEffect:
 	delay 3
 	return
 
+Move_COPYCAT: @ Placeholder: reuses Mimic's animation
 Move_MIMIC:
 	loadspritegfx ANIM_TAG_ORBS
 	setalpha 11, 5
@@ -7759,6 +7964,7 @@ HealBellRing:
 	playsewithpan SE_M_HEAL_BELL, SOUND_PAN_ATTACKER
 	return
 
+Move_SUCKER_PUNCH: @ Placeholder: reuses Fake Out's animation
 Move_FAKE_OUT:
 	playsewithpan SE_M_FLATTER, 0
 	createvisualtask AnimTask_FakeOut, 5
@@ -8126,6 +8332,7 @@ Move_ENCORE:
 	createvisualtask AnimTask_RemoveSpotlight, 2
 	end
 
+Move_SWITCHEROO: @ Placeholder: reuses Trick's animation
 Move_TRICK:
 	loadspritegfx ANIM_TAG_ITEM_BAG
 	loadspritegfx ANIM_TAG_SPEED_DUST
@@ -8154,6 +8361,7 @@ Move_TRICK:
 	waitforvisualfinish
 	end
 
+Move_HEALING_WISH: @ Placeholder: reuses Wish's animation
 Move_WISH:
 	loadspritegfx ANIM_TAG_GOLD_STARS
 	loadspritegfx ANIM_TAG_SPARKLE_2
@@ -8361,6 +8569,7 @@ SweetScentEffect:
 	delay 2
 	return
 
+Move_JUDGMENT: @ Placeholder: reuses Hyper Beam's animation
 Move_HYPER_BEAM:
 	loadspritegfx ANIM_TAG_ORBS
 	simple_palette_blend selector=F_PAL_BG, delay=4, initial_blend_y=0, target_blend_y=16, color=RGB_BLACK
@@ -8506,6 +8715,7 @@ Move_BLAZE_KICK:
 	blendoff
 	end
 
+Move_ROAR_OF_TIME: @ Placeholder: reuses Hyper Voice's animation
 Move_HYPER_VOICE:
 	loadspritegfx ANIM_TAG_THIN_RING
 	createvisualtask SoundTask_PlayCryWithEcho, 5, FALSE
@@ -8573,6 +8783,7 @@ Move_SHEER_COLD:
 	waitbgfadein
 	end
 
+Move_FORCE_PALM: @ Placeholder: reuses Arm Thrust's animation
 Move_ARM_THRUST:
 	loadspritegfx ANIM_TAG_HANDS_AND_FEET
 	loadspritegfx ANIM_TAG_IMPACT
@@ -8606,6 +8817,8 @@ Move_MUDDY_WATER:
 	waitforvisualfinish
 	end
 
+Move_NATURAL_GIFT: @ Placeholder: reuses Bullet Seed's animation
+Move_SEED_BOMB: @ Placeholder: reuses Bullet Seed's animation
 Move_BULLET_SEED:
 	loadspritegfx ANIM_TAG_SEED
 	createsprite gBulletSeedSpriteTemplate, ANIM_TARGET, 2, 20, 0
@@ -8631,6 +8844,7 @@ Move_BULLET_SEED:
 	waitforvisualfinish
 	end
 
+Move_DRAGON_RUSH: @ Placeholder: reuses Dragon Claw's animation
 Move_DRAGON_CLAW:
 	loadspritegfx ANIM_TAG_SMALL_EMBER
 	loadspritegfx ANIM_TAG_CLAW_SLASH
@@ -8691,6 +8905,7 @@ DragonClawFireSpiral:
 	return
 	end
 
+Move_MUD_BOMB: @ Placeholder: reuses Mud Shot's animation
 Move_MUD_SHOT:
 	loadspritegfx ANIM_TAG_BROWN_ORB
 	monbg ANIM_DEF_PARTNER
@@ -8748,6 +8963,7 @@ Move_METEOR_MASH:
 	waitforvisualfinish
 	end
 
+Move_PAYBACK: @ Placeholder: reuses Revenge's animation
 Move_REVENGE:
 	loadspritegfx ANIM_TAG_PURPLE_SCRATCH
 	monbg ANIM_TARGET
@@ -8875,6 +9091,7 @@ MetalSoundRings:
 	delay 2
 	return
 
+Move_FOCUS_BLAST: @ Placeholder: reuses Focus Punch's animation
 Move_FOCUS_PUNCH:
 	goto FocusPunch
 FocusPunchEnd:
@@ -9130,6 +9347,7 @@ Move_BLAST_BURN:
 	blendoff
 	end
 
+Move_ROCK_WRECKER: @ Placeholder: reuses Rock Tomb's animation
 Move_ROCK_TOMB:
 	loadspritegfx ANIM_TAG_X_SIGN
 	loadspritegfx ANIM_TAG_ROCKS
@@ -9162,6 +9380,7 @@ Move_ROCK_TOMB:
 	waitforvisualfinish
 	end
 
+Move_OMINOUS_WIND: @ Placeholder: reuses Silver Wind's animation
 Move_SILVER_WIND:
 	loadspritegfx ANIM_TAG_SPARKLE_6
 	panse SE_M_GUST, SOUND_PAN_ATTACKER, SOUND_PAN_TARGET, +2, 0
@@ -9410,6 +9629,7 @@ HydroCannonBeam:
 	createsprite gHydroCannonBeamSpriteTemplate, ANIM_TARGET, 2, 10, -10, 0, 0, 15, 257
 	return
 
+Move_SHADOW_SNEAK: @ Placeholder: reuses Astonish's animation
 Move_ASTONISH:
 	loadspritegfx ANIM_TAG_SWEAT_BEAD
 	playsewithpan SE_M_ENCORE, SOUND_PAN_ATTACKER
@@ -9490,6 +9710,7 @@ SeismicTossRockScatter2:
 	createsprite gRockScatterSpriteTemplate, ANIM_TARGET, 2, 12, 30, 4, 3
 	return
 
+Move_TRICK_ROOM: @ Placeholder: reuses Magic Coat's animation
 Move_MAGIC_COAT:
 	loadspritegfx ANIM_TAG_ORANGE_LIGHT_WALL
 	setalpha 0, 16
@@ -9500,6 +9721,7 @@ Move_MAGIC_COAT:
 	blendoff
 	end
 
+Move_BRINE: @ Placeholder: reuses Water Pulse's animation
 Move_WATER_PULSE:
 	loadspritegfx ANIM_TAG_SMALL_BUBBLES
 	loadspritegfx ANIM_TAG_BLUE_RING_2
@@ -9531,6 +9753,7 @@ Move_WATER_PULSE:
 	clearmonbg ANIM_DEF_PARTNER
 	end
 
+Move_SPACIAL_REND: @ Placeholder: reuses Psycho Boost's animation
 Move_PSYCHO_BOOST:
 	loadspritegfx ANIM_TAG_CIRCLE_OF_LIGHT
 	monbg ANIM_ATK_PARTNER
@@ -9701,6 +9924,7 @@ Move_TWISTER:
 	blendoff
 	end
 
+Move_ENERGY_BALL: @ Placeholder: reuses Magical Leaf's animation
 Move_MAGICAL_LEAF:
 	loadspritegfx ANIM_TAG_LEAF
 	loadspritegfx ANIM_TAG_RAZOR_LEAF

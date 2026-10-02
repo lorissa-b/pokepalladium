@@ -7,6 +7,8 @@
 #define MOVE_LIMITATION_TORMENTED               (1 << 3)
 #define MOVE_LIMITATION_TAUNT                   (1 << 4)
 #define MOVE_LIMITATION_IMPRISON                (1 << 5)
+#define MOVE_LIMITATION_GRAVITY                 (1 << 6)
+#define MOVE_LIMITATION_HEAL_BLOCK              (1 << 7)
 #define MOVE_LIMITATIONS_ALL                    0xFF
 
 #define ABILITYEFFECT_ON_SWITCHIN                0
@@ -99,5 +101,13 @@ void ClearFuryCutterDestinyBondGrudge(u8 battler);
 void HandleAction_RunBattleScript(void);
 u8 GetMoveTarget(u16 move, u8 setTarget);
 u8 IsMonDisobedient(void);
+u8 GetBattlerHoldEffect(u8 battler);
+u8 GetBattlerHoldEffectParam(u8 battler);
+void GetBattlerTypes(u8 battler, u8 *type1, u8 *type2);
+bool32 IsBattlerGrounded(u8 battler);
+u32 GetBattlerSpeed(u8 battler);
+bool32 IsHealingMove(u16 move);
+bool32 IsThawingMove(u16 move);
+bool32 IsMoveBlockedByGravity(u16 move);
 
 #endif // GUARD_BATTLE_UTIL_H

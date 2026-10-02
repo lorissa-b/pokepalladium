@@ -3458,6 +3458,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         attackerHoldEffect = GetItemHoldEffect(attacker->item);
         attackerHoldEffectParam = GetItemHoldEffectParam(attacker->item);
     }
+    if (gStatuses3[battlerIdAtk] & STATUS3_EMBARGO)
+        attackerHoldEffect = HOLD_EFFECT_NONE;
 
     // Get defender hold item info
     if (defender->item == ITEM_ENIGMA_BERRY)
@@ -3470,6 +3472,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         defenderHoldEffect = GetItemHoldEffect(defender->item);
         defenderHoldEffectParam = GetItemHoldEffectParam(defender->item);
     }
+    if (gStatuses3[battlerIdDef] & STATUS3_EMBARGO)
+        defenderHoldEffect = HOLD_EFFECT_NONE;
 
     if (attacker->ability == ABILITY_HUGE_POWER || attacker->ability == ABILITY_PURE_POWER)
         attack *= 2;

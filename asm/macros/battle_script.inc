@@ -1438,3 +1438,178 @@
 	.macro jumpifnotbattletype flags:req, jumpptr:req
 	jumpifword CMP_NO_COMMON_BITS, gBattleTypeFlags, \flags, \jumpptr
 	.endm
+
+@ Gen 4
+	.macro setroost
+	various BS_ATTACKER, VARIOUS_SET_ROOST
+	.endm
+
+	.macro trysetgravity ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_SET_GRAVITY
+	.4byte \ptr
+	.endm
+
+	.macro trybringdownairborne battler:req, ptr:req
+	various \battler, VARIOUS_TRY_BRING_DOWN_AIRBORNE
+	.4byte \ptr
+	.endm
+
+	.macro setmiracleeye
+	various BS_ATTACKER, VARIOUS_SET_MIRACLE_EYE
+	.endm
+
+	.macro calcvariablepower
+	various BS_ATTACKER, VARIOUS_CALC_VARIABLE_POWER
+	.endm
+
+	.macro sethealingwish
+	various BS_ATTACKER, VARIOUS_SET_HEALING_WISH
+	.endm
+
+	.macro trynaturalgift ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_NATURAL_GIFT
+	.4byte \ptr
+	.endm
+
+	.macro jumpiftargetnotprotected ptr:req
+	various BS_ATTACKER, VARIOUS_JUMP_IF_NOT_PROTECTED
+	.4byte \ptr
+	.endm
+
+	.macro trysettailwind ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_SET_TAILWIND
+	.4byte \ptr
+	.endm
+
+	.macro tryacupressure ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_ACUPRESSURE
+	.4byte \ptr
+	.endm
+
+	.macro metalburstdamagecalculator ptr:req
+	various BS_ATTACKER, VARIOUS_METAL_BURST_DAMAGE
+	.4byte \ptr
+	.endm
+
+	.macro trysetembargo ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_SET_EMBARGO
+	.4byte \ptr
+	.endm
+
+	.macro tryfling ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_FLING
+	.4byte \ptr
+	.endm
+
+	.macro trypsychoshift ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_PSYCHO_SHIFT
+	.4byte \ptr
+	.endm
+
+	.macro curestatus1 battler:req
+	various \battler, VARIOUS_CURE_STATUS1
+	.endm
+
+	.macro restorepp battler:req
+	various \battler, VARIOUS_RESTORE_PP
+	.endm
+
+	.macro trysethealblock ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_SET_HEAL_BLOCK
+	.4byte \ptr
+	.endm
+
+	.macro powertrick
+	various BS_ATTACKER, VARIOUS_POWER_TRICK
+	.endm
+
+	.macro trygastroacid ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_GASTRO_ACID
+	.4byte \ptr
+	.endm
+
+	.macro trysetluckychant ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_SET_LUCKY_CHANT
+	.4byte \ptr
+	.endm
+
+	.macro trymefirst ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_ME_FIRST
+	.4byte \ptr
+	.endm
+
+	.macro trycopycat ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_COPYCAT
+	.4byte \ptr
+	.endm
+
+	.macro swapstatstages mode:req
+	various \mode, VARIOUS_SWAP_STAT_STAGES
+	.endm
+
+	.macro jumpifcantlastresort ptr:req
+	various BS_ATTACKER, VARIOUS_JUMP_IF_CANT_LAST_RESORT
+	.4byte \ptr
+	.endm
+
+	.macro tryworryseed ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_WORRY_SEED
+	.4byte \ptr
+	.endm
+
+	.macro jumpifsuckerpunchfails ptr:req
+	various BS_ATTACKER, VARIOUS_JUMP_IF_SUCKER_PUNCH_FAILS
+	.4byte \ptr
+	.endm
+
+	.macro trysettoxicspikes ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_SET_TOXIC_SPIKES
+	.4byte \ptr
+	.endm
+
+	.macro trysetaquaring ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_SET_AQUA_RING
+	.4byte \ptr
+	.endm
+
+	.macro trysetmagnetrise ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_SET_MAGNET_RISE
+	.4byte \ptr
+	.endm
+
+	.macro setfangeffect
+	various BS_ATTACKER, VARIOUS_SET_FANG_EFFECT
+	.endm
+
+	.macro trydefogclear ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_DEFOG_CLEAR
+	.4byte \ptr
+	.endm
+
+	.macro toggletrickroom
+	various BS_ATTACKER, VARIOUS_TOGGLE_TRICK_ROOM
+	.endm
+
+	.macro setadjacenthiteffect
+	various BS_ATTACKER, VARIOUS_SET_ADJACENT_HIT_EFFECT
+	.endm
+
+	.macro jumpifcantcaptivate ptr:req
+	various BS_ATTACKER, VARIOUS_JUMP_IF_CANT_CAPTIVATE
+	.4byte \ptr
+	.endm
+
+	.macro trysetstealthrock ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_SET_STEALTH_ROCK
+	.4byte \ptr
+	.endm
+
+	.macro jumpifhealblocked battler:req, ptr:req
+	various \battler, VARIOUS_JUMP_IF_HEAL_BLOCKED
+	.4byte \ptr
+	.endm
+
+	.macro jumpifsidedefeated battler:req, ptr:req
+	various \battler, VARIOUS_JUMP_IF_SIDE_DEFEATED
+	.4byte \ptr
+	.endm

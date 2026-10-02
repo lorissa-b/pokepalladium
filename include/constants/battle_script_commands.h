@@ -358,6 +358,48 @@ enum BattleScriptOpcode
 #define VARIOUS_PALACE_TRY_ESCAPE_STATUS        24
 #define VARIOUS_SET_TELEPORT_OUTCOME            25
 #define VARIOUS_PLAY_TRAINER_DEFEATED_MUSIC     26
+#define VARIOUS_SET_ROOST                        27
+#define VARIOUS_TRY_SET_GRAVITY                  28
+#define VARIOUS_TRY_BRING_DOWN_AIRBORNE          29
+#define VARIOUS_SET_MIRACLE_EYE                  30
+#define VARIOUS_CALC_VARIABLE_POWER              31
+#define VARIOUS_SET_HEALING_WISH                 32
+#define VARIOUS_TRY_NATURAL_GIFT                 33
+#define VARIOUS_JUMP_IF_NOT_PROTECTED            34
+#define VARIOUS_TRY_SET_TAILWIND                 35
+#define VARIOUS_TRY_ACUPRESSURE                  36
+#define VARIOUS_METAL_BURST_DAMAGE               37
+#define VARIOUS_TRY_SET_EMBARGO                  38
+#define VARIOUS_TRY_FLING                        39
+#define VARIOUS_TRY_PSYCHO_SHIFT                 40
+#define VARIOUS_CURE_STATUS1                     41
+#define VARIOUS_TRY_SET_HEAL_BLOCK               42
+#define VARIOUS_POWER_TRICK                      43
+#define VARIOUS_TRY_GASTRO_ACID                  44
+#define VARIOUS_TRY_SET_LUCKY_CHANT              45
+#define VARIOUS_TRY_ME_FIRST                     46
+#define VARIOUS_TRY_COPYCAT                      47
+#define VARIOUS_SWAP_STAT_STAGES                 48
+#define VARIOUS_JUMP_IF_CANT_LAST_RESORT         49
+#define VARIOUS_TRY_WORRY_SEED                   50
+#define VARIOUS_JUMP_IF_SUCKER_PUNCH_FAILS       51
+#define VARIOUS_TRY_SET_TOXIC_SPIKES             52
+#define VARIOUS_TRY_SET_AQUA_RING                53
+#define VARIOUS_TRY_SET_MAGNET_RISE              54
+#define VARIOUS_SET_FANG_EFFECT                  55
+#define VARIOUS_TRY_DEFOG_CLEAR                  56
+#define VARIOUS_TOGGLE_TRICK_ROOM                57
+#define VARIOUS_SET_ADJACENT_HIT_EFFECT          58
+#define VARIOUS_JUMP_IF_CANT_CAPTIVATE           59
+#define VARIOUS_TRY_SET_STEALTH_ROCK             60
+#define VARIOUS_JUMP_IF_HEAL_BLOCKED             61
+#define VARIOUS_RESTORE_PP                       62
+#define VARIOUS_JUMP_IF_SIDE_DEFEATED            63
+
+// swapstatstages
+#define SWAP_STATS_POWER 0
+#define SWAP_STATS_GUARD 1
+#define SWAP_STATS_ALL   2
 
 // Cmd_manipulatedmg
 #define DMG_CHANGE_SIGN            0

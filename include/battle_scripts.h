@@ -223,4 +223,27 @@ extern const u8 BattleScript_ActionWatchesCarefully[];
 extern const u8 BattleScript_ActionGetNear[];
 extern const u8 BattleScript_ActionThrowPokeblock[];
 
+// Gen 4
+extern const u8 BattleScript_DefSpDefDown[];
+extern const u8 BattleScript_TargetWokeUp[];
+extern const u8 BattleScript_PluckEatBerry[];
+extern const u8 BattleScript_HealingWishActivates[];
+extern const u8 BattleScript_StealthRockOnAttacker[];
+extern const u8 BattleScript_StealthRockOnTarget[];
+extern const u8 BattleScript_StealthRockOnFaintedBattler[];
+extern const u8 BattleScript_ToxicSpikesAbsorbed[];
+extern const u8 BattleScript_ToxicSpikesPoisoned[];
+extern const u8 BattleScript_AquaRingHeal[];
+extern const u8 BattleScript_GravityEnds[];
+extern const u8 BattleScript_TrickRoomEnds[];
+extern const u8 BattleScript_EmbargoEnds[];
+extern const u8 BattleScript_HealBlockEnds[];
+extern const u8 BattleScript_MagnetRiseEnds[];
+extern const u8 BattleScript_MoveUsedGravityPrevents[];
+extern const u8 BattleScript_MoveUsedHealBlockPrevents[];
+extern const u8 BattleScript_SelectingNotAllowedMoveGravity[];
+extern const u8 BattleScript_SelectingNotAllowedMoveHealBlock[];
+extern const u8 BattleScript_SelectingNotAllowedMoveGravityInPalace[];
+extern const u8 BattleScript_SelectingNotAllowedMoveHealBlockInPalace[];
+
 #endif // GUARD_BATTLE_SCRIPTS_H
