@@ -10,7 +10,6 @@
 #include "pokemon_storage_system.h"
 #include "trainer_hill.h"
 #include "link.h"
-#include "item.h"
 #include "constants/game_stat.h"
 
 static u16 CalculateChecksum(void *, u16);
@@ -871,33 +870,6 @@ bool8 WriteSaveBlock1Sector(void)
     return finished;
 }
 
-// Old saves depend on these offsets staying put.
-#define OLD_BAG_TMHM_COUNT 64
-// In old saves, the data from the end of the 64-slot TM/HM pocket up to the unused
-// block. It now starts MIGRATED_SHIFT bytes later and ends where unused_3598 begins.
-#define MIGRATED_START (offsetof(struct SaveBlock1, bagPocket_TMHM) + OLD_BAG_TMHM_COUNT * sizeof(struct ItemSlot))
-#define MIGRATED_SHIFT ((BAG_TMHM_COUNT - OLD_BAG_TMHM_COUNT) * sizeof(struct ItemSlot))
-#define MIGRATED_SIZE  (offsetof(struct SaveBlock1, unused_3598) - MIGRATED_START - MIGRATED_SHIFT)
-STATIC_ASSERT(offsetof(struct SaveBlock1, bagPocket_TMHM) == 0x690, SaveBlock1TMHMOffset);
-STATIC_ASSERT(offsetof(struct SaveBlock1, saveVersion) == 0x3723, SaveBlock1VersionOffset);
-STATIC_ASSERT(offsetof(struct SaveBlock1, trainerHillTimes) == 0x3724, SaveBlock1TrainerHillTimesOffset);
-STATIC_ASSERT(sizeof(struct SaveBlock1) == 0x3DA4, SaveBlock1Size);
-
-// Brings a SaveBlock1 loaded from an older version of the game up to the current layout.
-static void MigrateSaveBlock1(void)
-{
-    u8 *sav1 = (u8 *)gSaveBlock1Ptr;
-
-    if (gSaveBlock1Ptr->saveVersion == SAVE_VERSION_ORIGINAL)
-    {
-        // The TM/HM pocket grew, which pushed everything up to the old unused
-        // block further along. Move that data to its new place and empty the new slots.
-        memmove(sav1 + MIGRATED_START + MIGRATED_SHIFT, sav1 + MIGRATED_START, MIGRATED_SIZE);
-        ClearItemSlots(&gSaveBlock1Ptr->bagPocket_TMHM[OLD_BAG_TMHM_COUNT], BAG_TMHM_COUNT - OLD_BAG_TMHM_COUNT);
-        gSaveBlock1Ptr->saveVersion = SAVE_VERSION_TMHM_100;
-    }
-}
-
 u8 LoadGameSave(u8 saveType)
 {
     u8 status;
@@ -914,8 +886,6 @@ u8 LoadGameSave(u8 saveType)
     case SAVE_NORMAL:
     default:
         status = TryLoadSaveSlot(FULL_SAVE_SLOT, gRamSaveSectorLocations);
-        if (status == SAVE_STATUS_OK)
-            MigrateSaveBlock1();
         CopyPartyAndObjectsFromSave();
         gSaveFileStatus = status;
         gGameContinueCallback = NULL;
