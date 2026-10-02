@@ -182,8 +182,7 @@ void NewGameInitData(void)
     gPlayerPartyCount = 0;
     ZeroPlayerPartyMons();
     ResetPokemonStorageSystem();
-    ClearRoamerData();
-    ClearRoamerLocationData();
+    StopAllRoamers();
     gSaveBlock1Ptr->registeredItem = ITEM_NONE;
     ClearBag();
     NewGameInitPCItems();
@@ -213,6 +212,10 @@ void NewGameInitData(void)
     // Start in daylight rather than whatever time the clock happens to be at.
     // The player sets the real time on the bedroom clock shortly after.
     RtcInitLocalTimeOffset(10, 0);
+#if MULTIPLE_ROAMERS_EXAMPLE
+    InitRoamer();
+    FlagSet(FLAG_SYS_POKEDEX_GET);
+#endif
 }
 
 static void ResetMiniGamesRecords(void)

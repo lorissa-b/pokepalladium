@@ -65,6 +65,8 @@
 #define SAVED_TRENDS_COUNT 5
 #define PYRAMID_BAG_ITEMS_COUNT 10
 
+#define ROAMER_COUNT 4 // Number of maximum concurrent active roamers, can only fit 4 without expanding saveblock1
+
 // Number of facilities for Ranking Hall.
 // 7 facilities for single mode + tower double mode + tower multi mode.
 // Excludes link modes. See RANKING_HALL_* in include/constants/battle_frontier.h
