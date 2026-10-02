@@ -1024,7 +1024,22 @@ static void Task_BuyMenu(u8 taskId)
                 if (sMartInfo.martType == MART_TYPE_NORMAL)
                 {
                     CopyItemName(itemId, gStringVar1);
-                    if (GetItemPocket(itemId) == POCKET_TM_HM)
+                    if (IsItemTM(itemId))
+                    {
+                        // TMs are reusable, so they're sold one at a time and only once.
+                        if (CheckBagHasItem(itemId, 1))
+                        {
+                            BuyMenuDisplayMessage(taskId, gText_YouAlreadyHaveVar1, BuyMenuReturnToItemList);
+                        }
+                        else
+                        {
+                            tItemCount = 1;
+                            ConvertIntToDecimalStringN(gStringVar2, sShopData->totalCost, STR_CONV_MODE_LEFT_ALIGN, 6);
+                            StringExpandPlaceholders(gStringVar4, gText_YouWantedVar1ThatllBeVar2);
+                            BuyMenuDisplayMessage(taskId, gStringVar4, BuyMenuConfirmPurchase);
+                        }
+                    }
+                    else if (GetItemPocket(itemId) == POCKET_TM_HM)
                     {
                         StringCopy(gStringVar2, gMoveNames[ItemIdToBattleMoveId(itemId)]);
                         BuyMenuDisplayMessage(taskId, gText_Var1CertainlyHowMany2, Task_BuyHowManyDialogueInit);
