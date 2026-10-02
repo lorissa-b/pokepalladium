@@ -1,16 +1,15 @@
 #ifndef GUARD_ROAMER_H
 #define GUARD_ROAMER_H
 
-/* If set to TRUE, at the start of a new game or when InitRoamer() is called,
-/* the following roamers are created to showcase the branch's features:
-/* A basic Latias roamer that respawns weekly
-/* A terrestrial Pikachu roamer that respawns daily
-/* A terrestrial Pikachu that does not flee from battle
-/* A scaling Weedle stalker that does not flee from battle and respawns instantly
-/* All these species are also added to the Pokedex so you can track them*/
-#define MULTIPLE_ROAMERS_EXAMPLE TRUE
-/* Shows stalkers on the PokeDex. A bit pointless as
-/* stalkers are always either at your location or nowhere */
+// If TRUE, a new game (or a call to InitRoamer) creates these roamers to show
+// off RoamersPlus, and marks them as seen in the Pokédex so they can be tracked:
+// - a basic Latias roamer that respawns weekly
+// - a terrestrial Pikachu roamer that respawns daily
+// - a terrestrial Pikachu that doesn't flee from battle
+// - a scaling Weedle stalker that doesn't flee and respawns instantly
+#define MULTIPLE_ROAMERS_EXAMPLE FALSE
+// Shows stalkers on the Pokédex. A bit pointless, as stalkers are always
+// either at your location or nowhere.
 #define SHOW_STALKERS_ON_POKEDEX FALSE
 
 void StopAllRoamers(void);

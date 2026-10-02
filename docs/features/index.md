@@ -16,6 +16,8 @@ fake-rtc
 time-of-day
 hidden-abilities
 nature-stat-colours
+bag-capacity
+roamers
 ```
 
 ## What belongs here
