@@ -134,8 +134,8 @@ struct PokemonSubstruct3
  /* 0x01 */ metloc_u8_t metLocation;
 
  /* 0x02 */ u16 metLevel:7;
- /* 0x02 */ u16 metGame:4;
- /* 0x03 */ u16 pokeball:4;
+ /* 0x02 */ u16 metGame:3; // Up to VERSION_LEAF_GREEN; the game only stores its own version
+ /* 0x03 */ u16 pokeball:5; // The ball's item id, so it has to fit LAST_BALL
  /* 0x03 */ u16 otGender:1;
 
  /* 0x04 */ u32 hpIV:5;

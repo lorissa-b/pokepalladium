@@ -8,6 +8,7 @@
 #include "util.h"
 #include "pokemon.h"
 #include "random.h"
+#include "rtc.h"
 #include "battle_controllers.h"
 #include "battle_interface.h"
 #include "text.h"
@@ -46,6 +47,7 @@
 #include "constants/hold_effects.h"
 #include "constants/items.h"
 #include "constants/map_types.h"
+#include "constants/time_of_day.h"
 #include "constants/moves.h"
 #include "constants/party_menu.h"
 #include "constants/rgb.h"
@@ -10984,6 +10986,29 @@ static void Cmd_removelightscreenreflect(void)
     gBattlescriptCurrInstr++;
 }
 
+// Records the ball the target was caught in. A Heal Ball also heals it fully.
+static void SetCaughtMonBall(void)
+{
+    struct Pokemon *mon = &gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]];
+
+    SetMonData(mon, MON_DATA_POKEBALL, &gLastUsedItem);
+    if (gLastUsedItem == ITEM_HEAL_BALL)
+    {
+        u32 i, value;
+        u8 ppBonuses = GetMonData(mon, MON_DATA_PP_BONUSES);
+
+        value = GetMonData(mon, MON_DATA_MAX_HP);
+        SetMonData(mon, MON_DATA_HP, &value);
+        value = STATUS1_NONE;
+        SetMonData(mon, MON_DATA_STATUS, &value);
+        for (i = 0; i < MAX_MON_MOVES; i++)
+        {
+            value = CalculatePPWithBonus(GetMonData(mon, MON_DATA_MOVE1 + i), ppBonuses, i);
+            SetMonData(mon, MON_DATA_PP1 + i, &value);
+        }
+    }
+}
+
 static void Cmd_handleballthrow(void)
 {
     u8 ballMultiplier = 0;
@@ -11055,8 +11080,22 @@ static void Cmd_handleballthrow(void)
                 if (ballMultiplier > 40)
                     ballMultiplier = 40;
                 break;
+            case ITEM_DUSK_BALL:
+                if (GetTimeOfDay() == TIME_NIGHT || GetCurrentMapType() == MAP_TYPE_UNDERGROUND)
+                    ballMultiplier = 35;
+                else
+                    ballMultiplier = 10;
+                break;
+            case ITEM_QUICK_BALL:
+                if (gBattleResults.battleTurnCounter == 0)
+                    ballMultiplier = 40;
+                else
+                    ballMultiplier = 10;
+                break;
             case ITEM_LUXURY_BALL:
             case ITEM_PREMIER_BALL:
+            case ITEM_HEAL_BALL:
+            case ITEM_CHERISH_BALL:
                 ballMultiplier = 10;
                 break;
             }
@@ -11093,7 +11132,7 @@ static void Cmd_handleballthrow(void)
             BtlController_EmitBallThrowAnim(B_COMM_TO_CONTROLLER, BALL_3_SHAKES_SUCCESS);
             MarkBattlerForControllerExec(gActiveBattler);
             gBattlescriptCurrInstr = BattleScript_SuccessBallThrow;
-            SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_POKEBALL, &gLastUsedItem);
+            SetCaughtMonBall();
 
             if (CalculatePlayerPartyCount() == PARTY_SIZE)
                 gBattleCommunication[MULTISTRING_CHOOSER] = 0;
@@ -11118,7 +11157,7 @@ static void Cmd_handleballthrow(void)
             if (shakes == BALL_3_SHAKES_SUCCESS) // mon caught, copy of the code above
             {
                 gBattlescriptCurrInstr = BattleScript_SuccessBallThrow;
-                SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_POKEBALL, &gLastUsedItem);
+                SetCaughtMonBall();
 
                 if (CalculatePlayerPartyCount() == PARTY_SIZE)
                     gBattleCommunication[MULTISTRING_CHOOSER] = 0;

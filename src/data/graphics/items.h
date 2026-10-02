@@ -40,6 +40,18 @@ const u32 gItemIconPalette_LuxuryBall[] = INCGFX_U32("graphics/items/icon_palett
 
 const u32 gItemIcon_PremierBall[] = INCGFX_U32("graphics/items/icons/premier_ball.png", ".4bpp.lz");
 
+const u32 gItemIcon_DuskBall[] = INCGFX_U32("graphics/items/icons/dusk_ball.png", ".4bpp.lz");
+const u32 gItemIconPalette_DuskBall[] = INCGFX_U32("graphics/items/icon_palettes/dusk_ball.pal", ".gbapal.lz");
+
+const u32 gItemIcon_HealBall[] = INCGFX_U32("graphics/items/icons/heal_ball.png", ".4bpp.lz");
+const u32 gItemIconPalette_HealBall[] = INCGFX_U32("graphics/items/icon_palettes/heal_ball.pal", ".gbapal.lz");
+
+const u32 gItemIcon_QuickBall[] = INCGFX_U32("graphics/items/icons/quick_ball.png", ".4bpp.lz");
+const u32 gItemIconPalette_QuickBall[] = INCGFX_U32("graphics/items/icon_palettes/quick_ball.pal", ".gbapal.lz");
+
+const u32 gItemIcon_CherishBall[] = INCGFX_U32("graphics/items/icons/cherish_ball.png", ".4bpp.lz");
+const u32 gItemIconPalette_CherishBall[] = INCGFX_U32("graphics/items/icon_palettes/cherish_ball.pal", ".gbapal.lz");
+
 // Medicine
 
 const u32 gItemIcon_Potion[] = INCGFX_U32("graphics/items/icons/potion.png", ".4bpp.lz");

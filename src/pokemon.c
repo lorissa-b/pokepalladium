@@ -50,6 +50,9 @@
 
 #define FRIENDSHIP_EVO_THRESHOLD 220
 
+// A Pokémon stores the item id of its ball in 5 bits (see struct PokemonSubstruct3)
+STATIC_ASSERT(LAST_BALL < (1 << 5), PokeBallIdFitsInMonData);
+
 struct SpeciesItem
 {
     u16 species;

@@ -19,6 +19,10 @@ enum {
     ITEM_TIMER_BALL,
     ITEM_LUXURY_BALL,
     ITEM_PREMIER_BALL,
+    ITEM_DUSK_BALL,
+    ITEM_HEAL_BALL,
+    ITEM_QUICK_BALL,
+    ITEM_CHERISH_BALL,
 
     // Pokémon Items
     // Only items from this point through to the end of the berries may be considered valid for use on a pokémon.
@@ -461,7 +465,7 @@ enum {
 #define ITEM_LIST_END 0xFFFF
 
 #define FIRST_BALL ITEM_MASTER_BALL
-#define LAST_BALL  ITEM_PREMIER_BALL
+#define LAST_BALL  ITEM_CHERISH_BALL
 
 #define FIRST_MAIL_INDEX ITEM_ORANGE_MAIL
 
