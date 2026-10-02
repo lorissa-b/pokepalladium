@@ -675,10 +675,10 @@ void ClearBag(void)
     }
 }
 
-u16 CountTotalItemQuantityInBag(u16 itemId)
+u32 CountTotalItemQuantityInBag(u16 itemId)
 {
     u16 i;
-    u16 ownedCount = 0;
+    u32 ownedCount = 0;
     struct BagPocket *bagPocket = &gBagPockets[GetItemPocket(itemId) - 1];
 
     for (i = 0; i < bagPocket->capacity; i++)
