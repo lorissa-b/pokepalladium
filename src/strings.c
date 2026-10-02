@@ -349,7 +349,6 @@ const u8 gText_Var1AndYouWantedVar2[] = _("{STR_VAR_1}? And you wanted {STR_VAR_
 const u8 gText_Var1IsItThatllBeVar2[] = _("{STR_VAR_1}, is it?\nThat'll be ¥{STR_VAR_2}. Do you want it?");
 const u8 gText_YouWantedVar1ThatllBeVar2[] = _("You wanted {STR_VAR_1}?\nThat'll be ¥{STR_VAR_2}. Will that be okay?");
 const u8 gText_HereYouGoThankYou[] = _("Here you go!\nThank you very much.");
-const u8 gText_YouAlreadyHaveVar1[] = _("You already have {STR_VAR_1}.\nIt can be used again and again.");
 const u8 gText_ThankYouIllSendItHome[] = _("Thank you!\nI'll send it to your home PC.");
 const u8 gText_ThanksIllSendItHome[] = _("Thanks!\nI'll send it to your PC at home.");
 const u8 gText_YouDontHaveMoney[] = _("You don't have enough money.{PAUSE_UNTIL_PRESS}");

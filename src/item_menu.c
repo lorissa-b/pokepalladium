@@ -2067,7 +2067,8 @@ static void Task_ItemContext_Sell(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
 
-    if (GetItemPrice(gSpecialVar_ItemId) == 0)
+    // TMs are reusable and can't be bought again, so they can't be sold either.
+    if (GetItemPrice(gSpecialVar_ItemId) == 0 || IsItemTM(gSpecialVar_ItemId))
     {
         CopyItemName(gSpecialVar_ItemId, gStringVar2);
         StringExpandPlaceholders(gStringVar4, gText_CantBuyKeyItem);

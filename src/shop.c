@@ -87,6 +87,7 @@ struct MartInfo
     const struct MenuAction *menuActions;
     const u16 *itemList;
     u16 itemCount;
+    u16 numShownItems; // Items in the buy list, which leaves out TMs the player already has
     u8 windowId;
     u8 martType;
 };
@@ -150,6 +151,7 @@ static void Task_BuyHowManyDialogueHandleInput(u8 taskId);
 static void BuyMenuSubtractMoney(u8 taskId);
 static void RecordItemPurchase(u8 taskId);
 static void Task_ReturnToItemListAfterItemPurchase(u8 taskId);
+static void BuyMenuRebuildItemList(u8 taskId);
 static void Task_ReturnToItemListAfterDecorationPurchase(u8 taskId);
 static void Task_HandleShopMenuBuy(u8 taskId);
 static void Task_HandleShopMenuSell(u8 taskId);
@@ -553,22 +555,35 @@ static void BuyMenuFreeMemory(void)
     FreeAllWindowBuffers();
 }
 
+// TMs are reusable, so a mart stops offering one once the player has it.
+static bool32 IsItemSoldOut(u16 item)
+{
+    return sMartInfo.martType == MART_TYPE_NORMAL && IsItemTM(item) && CheckBagHasItem(item, 1);
+}
+
 static void BuyMenuBuildListMenuTemplate(void)
 {
-    u16 i;
+    u16 i, n;
 
     sListMenuItems = Alloc((sMartInfo.itemCount + 1) * sizeof(*sListMenuItems));
     sItemNames = Alloc((sMartInfo.itemCount + 1) * sizeof(*sItemNames));
-    for (i = 0; i < sMartInfo.itemCount; i++)
-        BuyMenuSetListEntry(&sListMenuItems[i], sMartInfo.itemList[i], sItemNames[i]);
+    for (i = 0, n = 0; i < sMartInfo.itemCount; i++)
+    {
+        if (!IsItemSoldOut(sMartInfo.itemList[i]))
+        {
+            BuyMenuSetListEntry(&sListMenuItems[n], sMartInfo.itemList[i], sItemNames[n]);
+            n++;
+        }
+    }
+    sMartInfo.numShownItems = n;
 
-    StringCopy(sItemNames[i], gText_Cancel2);
-    sListMenuItems[i].name = sItemNames[i];
-    sListMenuItems[i].id = LIST_CANCEL;
+    StringCopy(sItemNames[n], gText_Cancel2);
+    sListMenuItems[n].name = sItemNames[n];
+    sListMenuItems[n].id = LIST_CANCEL;
 
     gMultiuseListMenuTemplate = sShopBuyMenuListTemplate;
     gMultiuseListMenuTemplate.items = sListMenuItems;
-    gMultiuseListMenuTemplate.totalItems = sMartInfo.itemCount + 1;
+    gMultiuseListMenuTemplate.totalItems = n + 1;
     if (gMultiuseListMenuTemplate.totalItems > MAX_ITEMS_SHOWN)
         gMultiuseListMenuTemplate.maxShowed = MAX_ITEMS_SHOWN;
     else
@@ -648,14 +663,14 @@ static void BuyMenuPrintPriceInList(u8 windowId, u32 itemId, u8 y)
 
 static void BuyMenuAddScrollIndicatorArrows(void)
 {
-    if (sShopData->scrollIndicatorsTaskId == TASK_NONE && sMartInfo.itemCount + 1 > MAX_ITEMS_SHOWN)
+    if (sShopData->scrollIndicatorsTaskId == TASK_NONE && sMartInfo.numShownItems + 1 > MAX_ITEMS_SHOWN)
     {
         sShopData->scrollIndicatorsTaskId = AddScrollIndicatorArrowPairParameterized(
             SCROLL_ARROW_UP,
             172,
             12,
             148,
-            sMartInfo.itemCount - (MAX_ITEMS_SHOWN - 1),
+            sMartInfo.numShownItems - (MAX_ITEMS_SHOWN - 1),
             TAG_SCROLL_ARROW,
             TAG_SCROLL_ARROW,
             &sShopData->scrollOffset);
@@ -1026,18 +1041,11 @@ static void Task_BuyMenu(u8 taskId)
                     CopyItemName(itemId, gStringVar1);
                     if (IsItemTM(itemId))
                     {
-                        // TMs are reusable, so they're sold one at a time and only once.
-                        if (CheckBagHasItem(itemId, 1))
-                        {
-                            BuyMenuDisplayMessage(taskId, gText_YouAlreadyHaveVar1, BuyMenuReturnToItemList);
-                        }
-                        else
-                        {
-                            tItemCount = 1;
-                            ConvertIntToDecimalStringN(gStringVar2, sShopData->totalCost, STR_CONV_MODE_LEFT_ALIGN, 6);
-                            StringExpandPlaceholders(gStringVar4, gText_YouWantedVar1ThatllBeVar2);
-                            BuyMenuDisplayMessage(taskId, gStringVar4, BuyMenuConfirmPurchase);
-                        }
+                        // TMs are reusable, so they're sold one at a time.
+                        tItemCount = 1;
+                        ConvertIntToDecimalStringN(gStringVar2, sShopData->totalCost, STR_CONV_MODE_LEFT_ALIGN, 6);
+                        StringExpandPlaceholders(gStringVar4, gText_YouWantedVar1ThatllBeVar2);
+                        BuyMenuDisplayMessage(taskId, gStringVar4, BuyMenuConfirmPurchase);
                     }
                     else if (GetItemPocket(itemId) == POCKET_TM_HM)
                     {
@@ -1181,6 +1189,31 @@ static void BuyMenuSubtractMoney(u8 taskId)
         gTasks[taskId].func = Task_ReturnToItemListAfterDecorationPurchase;
 }
 
+// Recreates the item list, keeping the cursor in place, after an item drops out of it.
+static void BuyMenuRebuildItemList(u8 taskId)
+{
+    s16 *data = gTasks[taskId].data;
+    u16 cursorPos, maxScroll;
+
+    DestroyListMenuTask(tListTaskId, &sShopData->scrollOffset, &sShopData->selectedRow);
+    BuyMenuRemoveScrollIndicatorArrows();
+    Free(sListMenuItems);
+    Free(sItemNames);
+    BuyMenuBuildListMenuTemplate();
+
+    // The item under the cursor is gone, so the cursor now points at the one after it.
+    cursorPos = sShopData->scrollOffset + sShopData->selectedRow;
+    if (cursorPos >= gMultiuseListMenuTemplate.totalItems)
+        cursorPos = gMultiuseListMenuTemplate.totalItems - 1;
+    maxScroll = gMultiuseListMenuTemplate.totalItems - gMultiuseListMenuTemplate.maxShowed;
+    if (sShopData->scrollOffset > maxScroll)
+        sShopData->scrollOffset = maxScroll;
+    sShopData->selectedRow = cursorPos - sShopData->scrollOffset;
+
+    FillWindowPixelBuffer(WIN_ITEM_LIST, PIXEL_FILL(gMultiuseListMenuTemplate.fillValue));
+    tListTaskId = ListMenuInit(&gMultiuseListMenuTemplate, sShopData->scrollOffset, sShopData->selectedRow);
+}
+
 static void Task_ReturnToItemListAfterItemPurchase(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
@@ -1191,9 +1224,15 @@ static void Task_ReturnToItemListAfterItemPurchase(u8 taskId)
 
         // Purchasing 10+ Poke Balls gets the player a Premier Ball
         if (tItemId == ITEM_POKE_BALL && tItemCount >= 10 && AddBagItem(ITEM_PREMIER_BALL, 1) == TRUE)
+        {
             BuyMenuDisplayMessage(taskId, gText_ThrowInPremierBall, BuyMenuReturnToItemList);
+        }
         else
+        {
+            if (IsItemSoldOut(tItemId))
+                BuyMenuRebuildItemList(taskId);
             BuyMenuReturnToItemList(taskId);
+        }
     }
 }
 
