@@ -418,6 +418,15 @@ static u8 PickWildMonNature(void)
     return Random() % NUM_NATURES;
 }
 
+static void TryGiveWildHiddenAbility(struct Pokemon *mon, u16 species)
+{
+    if (HasHiddenAbility(species) && Random() % WILD_HIDDEN_ABILITY_CHANCE == 0)
+    {
+        u8 abilityNum = ABILITY_SLOT_HIDDEN;
+        SetMonData(mon, MON_DATA_ABILITY_NUM, &abilityNum);
+    }
+}
+
 static void CreateWildMon(u16 species, u8 level)
 {
     bool32 checkCuteCharm;
@@ -450,10 +459,12 @@ static void CreateWildMon(u16 species, u8 level)
             gender = MON_FEMALE;
 
         CreateMonWithGenderNatureLetter(&gEnemyParty[0], species, level, USE_RANDOM_IVS, gender, PickWildMonNature(), 0);
+        TryGiveWildHiddenAbility(&gEnemyParty[0], species);
         return;
     }
 
     CreateMonWithNature(&gEnemyParty[0], species, level, USE_RANDOM_IVS, PickWildMonNature());
+    TryGiveWildHiddenAbility(&gEnemyParty[0], species);
 }
 #ifdef BUGFIX
 #define TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildPokemon, type, ability, ptr, count) TryGetAbilityInfluencedWildMonIndex(wildPokemon, type, ability, ptr, count)

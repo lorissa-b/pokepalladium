@@ -14,6 +14,8 @@ section is where divergences get recorded as they land.
 physical-special-split
 fake-rtc
 time-of-day
+hidden-abilities
+nature-stat-colours
 ```
 
 ## What belongs here

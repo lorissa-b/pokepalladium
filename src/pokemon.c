@@ -4251,7 +4251,10 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
         retVal = substruct3->isEgg;
         break;
     case MON_DATA_ABILITY_NUM:
-        retVal = substruct3->abilityNum;
+        if (substruct3->hiddenAbility)
+            retVal = ABILITY_SLOT_HIDDEN;
+        else
+            retVal = substruct3->abilityNum;
         break;
     case MON_DATA_COOL_RIBBON:
         retVal = substruct3->coolRibbon;
@@ -4657,7 +4660,10 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
             boxMon->isEgg = FALSE;
         break;
     case MON_DATA_ABILITY_NUM:
-        SET8(substruct3->abilityNum);
+        // The hidden ability slot has its own bit, as abilityNum has no room to grow.
+        substruct3->hiddenAbility = (*data == ABILITY_SLOT_HIDDEN);
+        if (*data != ABILITY_SLOT_HIDDEN)
+            SET8(substruct3->abilityNum);
         break;
     case MON_DATA_COOL_RIBBON:
         SET8(substruct3->coolRibbon);
@@ -4866,12 +4872,21 @@ u8 GetMonsStateToDoubles_2(void)
 
 u8 GetAbilityBySpecies(u16 species, u8 abilityNum)
 {
-    if (abilityNum)
-        gLastUsedAbility = gSpeciesInfo[species].abilities[1];
+    if (abilityNum < NUM_ABILITY_SLOTS)
+        gLastUsedAbility = gSpeciesInfo[species].abilities[abilityNum];
     else
+        gLastUsedAbility = ABILITY_NONE;
+
+    // A species without a second or hidden ability falls back to its first.
+    if (gLastUsedAbility == ABILITY_NONE)
         gLastUsedAbility = gSpeciesInfo[species].abilities[0];
 
     return gLastUsedAbility;
+}
+
+bool8 HasHiddenAbility(u16 species)
+{
+    return gSpeciesInfo[species].abilities[ABILITY_SLOT_HIDDEN] != ABILITY_NONE;
 }
 
 u8 GetMonAbility(struct Pokemon *mon)
