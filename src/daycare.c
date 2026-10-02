@@ -12,6 +12,7 @@
 #include "text.h"
 #include "menu.h"
 #include "international_string_util.h"
+#include "item.h"
 #include "script.h"
 #include "strings.h"
 #include "task.h"
@@ -680,9 +681,9 @@ static void BuildEggMoveset(struct Pokemon *egg, struct BoxPokemon *father, stru
     {
         if (sHatchedEggFatherMoves[i] != MOVE_NONE)
         {
-            for (j = 0; j < NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES; j++)
+            for (j = 0; j < NUM_TECHNICAL_AND_HIDDEN_MACHINES; j++)
             {
-                if (sHatchedEggFatherMoves[i] == ItemIdToBattleMoveId(ITEM_TM01 + j) && CanMonLearnTMHM(egg, j))
+                if (sHatchedEggFatherMoves[i] == ItemIdToBattleMoveId(GetTMHMItemByIndex(j)) && CanMonLearnTMHM(egg, j))
                 {
                     if (GiveMoveToMon(egg, sHatchedEggFatherMoves[i]) == MON_HAS_MAX_MOVES)
                         DeleteFirstMoveAndGiveMoveToMon(egg, sHatchedEggFatherMoves[i]);

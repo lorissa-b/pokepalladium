@@ -612,6 +612,14 @@ void CompactItemsInBagPocket(struct BagPocket *bagPocket)
     }
 }
 
+// TMs and HMs sort by number rather than item ID, since TM51-TM92 come after the HMs' IDs.
+static u16 GetBagSortKey(u16 itemId)
+{
+    if (IsItemTMHM(itemId))
+        return GetTMHMIndex(itemId);
+    return itemId;
+}
+
 void SortBerriesOrTMHMs(struct BagPocket *bagPocket)
 {
     u16 i, j;
@@ -624,7 +632,7 @@ void SortBerriesOrTMHMs(struct BagPocket *bagPocket)
             {
                 if (GetBagItemQuantity(&bagPocket->itemSlots[j].quantity) == 0)
                     continue;
-                if (bagPocket->itemSlots[i].itemId <= bagPocket->itemSlots[j].itemId)
+                if (GetBagSortKey(bagPocket->itemSlots[i].itemId) <= GetBagSortKey(bagPocket->itemSlots[j].itemId))
                     continue;
             }
             SwapItemSlots(&bagPocket->itemSlots[i], &bagPocket->itemSlots[j]);
@@ -940,4 +948,48 @@ ItemUseFunc GetItemBattleFunc(u16 itemId)
 u8 GetItemSecondaryId(u16 itemId)
 {
     return gItems[SanitizeItemId(itemId)].secondaryId;
+}
+
+// TM01-TM50 and the HMs have consecutive IDs, and TM51-TM92 come after the other items.
+// The TM/HM index follows the order of FOREACH_TMHM: TM01-TM92, then HM01-HM08.
+bool32 IsItemTM(u16 itemId)
+{
+    return (itemId >= ITEM_TM01 && itemId < ITEM_TM01 + NUM_GEN3_TECHNICAL_MACHINES)
+        || (itemId >= ITEM_TM51 && itemId <= ITEM_TM92);
+}
+
+bool32 IsItemHM(u16 itemId)
+{
+    return itemId >= ITEM_HM01 && itemId <= ITEM_HM08;
+}
+
+bool32 IsItemTMHM(u16 itemId)
+{
+    return IsItemTM(itemId) || IsItemHM(itemId);
+}
+
+u8 GetTMHMIndex(u16 itemId)
+{
+    if (itemId >= ITEM_TM51)
+        return itemId - ITEM_TM51 + NUM_GEN3_TECHNICAL_MACHINES;
+    if (itemId >= ITEM_HM01)
+        return itemId - ITEM_HM01 + NUM_TECHNICAL_MACHINES;
+    return itemId - ITEM_TM01;
+}
+
+u16 GetTMHMItemByIndex(u8 index)
+{
+    if (index >= NUM_TECHNICAL_MACHINES)
+        return ITEM_HM01 + index - NUM_TECHNICAL_MACHINES;
+    if (index >= NUM_GEN3_TECHNICAL_MACHINES)
+        return ITEM_TM51 + index - NUM_GEN3_TECHNICAL_MACHINES;
+    return ITEM_TM01 + index;
+}
+
+// The number shown after "TM" or "HM".
+u8 GetTMHMNumber(u16 itemId)
+{
+    if (IsItemHM(itemId))
+        return itemId - ITEM_HM01 + 1;
+    return GetTMHMIndex(itemId) + 1;
 }
