@@ -409,6 +409,50 @@ enum {
     ITEM_MAGMA_EMBLEM,
     ITEM_OLD_SEA_MAP,
 
+    // Gen 4 TMs. These come after the other items so existing item IDs don't change.
+    ITEM_TM51,
+    ITEM_TM52,
+    ITEM_TM53,
+    ITEM_TM54,
+    ITEM_TM55,
+    ITEM_TM56,
+    ITEM_TM57,
+    ITEM_TM58,
+    ITEM_TM59,
+    ITEM_TM60,
+    ITEM_TM61,
+    ITEM_TM62,
+    ITEM_TM63,
+    ITEM_TM64,
+    ITEM_TM65,
+    ITEM_TM66,
+    ITEM_TM67,
+    ITEM_TM68,
+    ITEM_TM69,
+    ITEM_TM70,
+    ITEM_TM71,
+    ITEM_TM72,
+    ITEM_TM73,
+    ITEM_TM74,
+    ITEM_TM75,
+    ITEM_TM76,
+    ITEM_TM77,
+    ITEM_TM78,
+    ITEM_TM79,
+    ITEM_TM80,
+    ITEM_TM81,
+    ITEM_TM82,
+    ITEM_TM83,
+    ITEM_TM84,
+    ITEM_TM85,
+    ITEM_TM86,
+    ITEM_TM87,
+    ITEM_TM88,
+    ITEM_TM89,
+    ITEM_TM90,
+    ITEM_TM91,
+    ITEM_TM92,
+
     ITEMS_COUNT
 };
 
@@ -447,8 +491,10 @@ enum {
 #define ITEM_TO_MAIL(itemId) ((itemId) - FIRST_MAIL_INDEX)
 #define MAIL_NONE 0xFF
 
-#define NUM_TECHNICAL_MACHINES 50
+#define NUM_GEN3_TECHNICAL_MACHINES 50 // TM01-TM50, whose IDs come before the HMs
+#define NUM_TECHNICAL_MACHINES 92
 #define NUM_HIDDEN_MACHINES     8
+#define NUM_TECHNICAL_AND_HIDDEN_MACHINES (NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES)
 
 #define MAX_BAG_ITEM_CAPACITY  99
 #define MAX_PC_ITEM_CAPACITY   999

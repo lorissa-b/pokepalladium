@@ -143,6 +143,43 @@ static const u8 sText_PkmnSprangUp[] = _("{B_ATK_NAME_WITH_PREFIX} sprang up!");
 static const u8 sText_PkmnSqueezedByBind[] = _("{B_DEF_NAME_WITH_PREFIX} was squeezed by\n{B_ATK_NAME_WITH_PREFIX}'s BIND!");
 static const u8 sText_PkmnTrappedInVortex[] = _("{B_DEF_NAME_WITH_PREFIX} was trapped\nin the vortex!");
 static const u8 sText_PkmnTrappedBySandTomb[] = _("{B_DEF_NAME_WITH_PREFIX} was trapped\nby SAND TOMB!");
+static const u8 sText_GravityIntensified[] = _("Gravity intensified!");
+static const u8 sText_GravityEnded[] = _("Gravity returned to normal!");
+static const u8 sText_PkmnFellFromSky[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} couldn't stay\nairborne because of gravity!");
+static const u8 sText_GravityPreventsUse[] = _("{B_ATK_NAME_WITH_PREFIX} can't use\n{B_CURRENT_MOVE} because of gravity!");
+static const u8 sText_HealBlockPreventsUse[] = _("{B_ATK_NAME_WITH_PREFIX} can't use\n{B_CURRENT_MOVE} because of HEAL BLOCK!");
+static const u8 sText_PkmnPreventedFromHealing[] = _("{B_DEF_NAME_WITH_PREFIX} was prevented\nfrom healing!");
+static const u8 sText_HealBlockEnded[] = _("{B_ATK_NAME_WITH_PREFIX}'s HEAL BLOCK\nwore off!");
+static const u8 sText_PkmnCantUseItemsAnymore[] = _("{B_DEF_NAME_WITH_PREFIX} can't use\nitems anymore!");
+static const u8 sText_PkmnCanUseItemsAgain[] = _("{B_ATK_NAME_WITH_PREFIX} can use\nitems again!");
+static const u8 sText_PkmnLevitatedWithElectromagnetism[] = _("{B_ATK_NAME_WITH_PREFIX} levitated\nwith electromagnetism!");
+static const u8 sText_PkmnElectromagnetismWoreOff[] = _("{B_ATK_NAME_WITH_PREFIX}'s\nelectromagnetism wore off!");
+static const u8 sText_PkmnSurroundedWithVeilOfWater[] = _("{B_ATK_NAME_WITH_PREFIX} surrounded\nitself with a veil of water!");
+static const u8 sText_AquaRingRestoredHP[] = _("A veil of water restored\n{B_ATK_NAME_WITH_PREFIX}'s HP!");
+static const u8 sText_TailwindBlew[] = _("The tailwind blew from behind\n{B_ATK_PREFIX2}'s party!");
+static const u8 sText_LuckyChantShielded[] = _("The LUCKY CHANT shielded {B_ATK_PREFIX2}'s\nparty from critical hits!");
+static const u8 sText_PkmnTwistedDimensions[] = _("{B_ATK_NAME_WITH_PREFIX} twisted\nthe dimensions!");
+static const u8 sText_TrickRoomEnded[] = _("The twisted dimensions\nreturned to normal!");
+static const u8 sText_ToxicSpikesScattered[] = _("Poison spikes were scattered all\naround the opponent's side!");
+static const u8 sText_ToxicSpikesAbsorbed[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} absorbed\nthe poison spikes!");
+static const u8 sText_StealthRockSet[] = _("Pointed stones float in the air\naround the opponent's side!");
+static const u8 sText_PkmnHurtByStealthRock[] = _("Pointed stones dug into\n{B_SCR_ACTIVE_NAME_WITH_PREFIX}!");
+static const u8 sText_HealingWishCameTrue[] = _("The healing wish came true\nfor {B_SCR_ACTIVE_NAME_WITH_PREFIX}!");
+static const u8 sText_LunarDanceCameTrue[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} became cloaked\nin mystical moonlight!");
+static const u8 sText_TargetWokeUp[] = _("{B_EFF_NAME_WITH_PREFIX} woke up!");
+static const u8 sText_PkmnFellForFeint[] = _("{B_DEF_NAME_WITH_PREFIX} fell for\nthe feint!");
+static const u8 sText_PkmnAteBerry[] = _("{B_ATK_NAME_WITH_PREFIX} stole and ate\nthe foe's {B_LAST_ITEM}!");
+static const u8 sText_PkmnFlungItem[] = _("{B_ATK_NAME_WITH_PREFIX} flung its\n{B_LAST_ITEM}!");
+static const u8 sText_PkmnSwitchedAtkAndDef[] = _("{B_ATK_NAME_WITH_PREFIX} switched its\nATTACK and DEFENSE!");
+static const u8 sText_PkmnSwappedPowerChanges[] = _("{B_ATK_NAME_WITH_PREFIX} swapped ATTACK and\nSP. ATK changes with the foe!");
+static const u8 sText_PkmnSwappedGuardChanges[] = _("{B_ATK_NAME_WITH_PREFIX} swapped DEFENSE and\nSP. DEF changes with the foe!");
+static const u8 sText_PkmnSwappedStatChanges[] = _("{B_ATK_NAME_WITH_PREFIX} swapped stat\nchanges with the foe!");
+static const u8 sText_PkmnAbilitySuppressed[] = _("{B_DEF_NAME_WITH_PREFIX}'s ability\nwas suppressed!");
+static const u8 sText_PkmnAcquiredInsomnia[] = _("{B_DEF_NAME_WITH_PREFIX} acquired\nINSOMNIA!");
+static const u8 sText_PkmnsXWasBlownAway[] = _("{B_DEF_PREFIX1}'s {B_BUFF1}\nwas blown away!");
+static const u8 sText_PkmnVanishedInstantly[] = _("{B_ATK_NAME_WITH_PREFIX} vanished\ninstantly!");
+static const u8 sText_PkmnTrappedByMagma[] = _("{B_DEF_NAME_WITH_PREFIX} became trapped\nby swirling magma!");
+static const u8 sText_PkmnShiftedStatus[] = _("{B_ATK_NAME_WITH_PREFIX}'s status\nreturned to normal!");
 static const u8 sText_PkmnWrappedBy[] = _("{B_DEF_NAME_WITH_PREFIX} was WRAPPED by\n{B_ATK_NAME_WITH_PREFIX}!");
 static const u8 sText_PkmnClamped[] = _("{B_ATK_NAME_WITH_PREFIX} CLAMPED\n{B_DEF_NAME_WITH_PREFIX}!");
 static const u8 sText_PkmnHurtBy[] = _("{B_ATK_NAME_WITH_PREFIX} is hurt\nby {B_BUFF1}!");
@@ -886,6 +923,43 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_ST
     [STRINGID_PKMNBOXLANETTESPCFULL - BATTLESTRINGS_TABLE_START] = gText_PkmnTransferredLanettesPCBoxFull,
     [STRINGID_TRAINER1WINTEXT - BATTLESTRINGS_TABLE_START] = sText_Trainer1WinText,
     [STRINGID_TRAINER2WINTEXT - BATTLESTRINGS_TABLE_START] = sText_Trainer2WinText,
+    [STRINGID_GRAVITYINTENSIFIED - BATTLESTRINGS_TABLE_START] = sText_GravityIntensified,
+    [STRINGID_GRAVITYENDED - BATTLESTRINGS_TABLE_START] = sText_GravityEnded,
+    [STRINGID_PKMNFELLFROMSKY - BATTLESTRINGS_TABLE_START] = sText_PkmnFellFromSky,
+    [STRINGID_GRAVITYPREVENTSUSE - BATTLESTRINGS_TABLE_START] = sText_GravityPreventsUse,
+    [STRINGID_HEALBLOCKPREVENTSUSE - BATTLESTRINGS_TABLE_START] = sText_HealBlockPreventsUse,
+    [STRINGID_PKMNPREVENTEDFROMHEALING - BATTLESTRINGS_TABLE_START] = sText_PkmnPreventedFromHealing,
+    [STRINGID_HEALBLOCKENDED - BATTLESTRINGS_TABLE_START] = sText_HealBlockEnded,
+    [STRINGID_PKMNCANTUSEITEMSANYMORE - BATTLESTRINGS_TABLE_START] = sText_PkmnCantUseItemsAnymore,
+    [STRINGID_PKMNCANUSEITEMSAGAIN - BATTLESTRINGS_TABLE_START] = sText_PkmnCanUseItemsAgain,
+    [STRINGID_PKMNLEVITATEDWITHELECTROMAGNETISM - BATTLESTRINGS_TABLE_START] = sText_PkmnLevitatedWithElectromagnetism,
+    [STRINGID_PKMNELECTROMAGNETISMWOREOFF - BATTLESTRINGS_TABLE_START] = sText_PkmnElectromagnetismWoreOff,
+    [STRINGID_PKMNSURROUNDEDWITHVEILOFWATER - BATTLESTRINGS_TABLE_START] = sText_PkmnSurroundedWithVeilOfWater,
+    [STRINGID_AQUARINGRESTOREDHP - BATTLESTRINGS_TABLE_START] = sText_AquaRingRestoredHP,
+    [STRINGID_TAILWINDBLEW - BATTLESTRINGS_TABLE_START] = sText_TailwindBlew,
+    [STRINGID_LUCKYCHANTSHIELDED - BATTLESTRINGS_TABLE_START] = sText_LuckyChantShielded,
+    [STRINGID_PKMNTWISTEDDIMENSIONS - BATTLESTRINGS_TABLE_START] = sText_PkmnTwistedDimensions,
+    [STRINGID_TRICKROOMENDED - BATTLESTRINGS_TABLE_START] = sText_TrickRoomEnded,
+    [STRINGID_TOXICSPIKESSCATTERED - BATTLESTRINGS_TABLE_START] = sText_ToxicSpikesScattered,
+    [STRINGID_TOXICSPIKESABSORBED - BATTLESTRINGS_TABLE_START] = sText_ToxicSpikesAbsorbed,
+    [STRINGID_STEALTHROCKSET - BATTLESTRINGS_TABLE_START] = sText_StealthRockSet,
+    [STRINGID_PKMNHURTBYSTEALTHROCK - BATTLESTRINGS_TABLE_START] = sText_PkmnHurtByStealthRock,
+    [STRINGID_HEALINGWISHCAMETRUE - BATTLESTRINGS_TABLE_START] = sText_HealingWishCameTrue,
+    [STRINGID_LUNARDANCECAMETRUE - BATTLESTRINGS_TABLE_START] = sText_LunarDanceCameTrue,
+    [STRINGID_TARGETWOKEUP - BATTLESTRINGS_TABLE_START] = sText_TargetWokeUp,
+    [STRINGID_PKMNFELLFORFEINT - BATTLESTRINGS_TABLE_START] = sText_PkmnFellForFeint,
+    [STRINGID_PKMNATEBERRY - BATTLESTRINGS_TABLE_START] = sText_PkmnAteBerry,
+    [STRINGID_PKMNFLUNGITEM - BATTLESTRINGS_TABLE_START] = sText_PkmnFlungItem,
+    [STRINGID_PKMNSWITCHEDATKANDDEF - BATTLESTRINGS_TABLE_START] = sText_PkmnSwitchedAtkAndDef,
+    [STRINGID_PKMNSWAPPEDPOWERCHANGES - BATTLESTRINGS_TABLE_START] = sText_PkmnSwappedPowerChanges,
+    [STRINGID_PKMNSWAPPEDGUARDCHANGES - BATTLESTRINGS_TABLE_START] = sText_PkmnSwappedGuardChanges,
+    [STRINGID_PKMNSWAPPEDSTATCHANGES - BATTLESTRINGS_TABLE_START] = sText_PkmnSwappedStatChanges,
+    [STRINGID_PKMNABILITYSUPPRESSED - BATTLESTRINGS_TABLE_START] = sText_PkmnAbilitySuppressed,
+    [STRINGID_PKMNACQUIREDINSOMNIA - BATTLESTRINGS_TABLE_START] = sText_PkmnAcquiredInsomnia,
+    [STRINGID_PKMNSXWASBLOWNAWAY - BATTLESTRINGS_TABLE_START] = sText_PkmnsXWasBlownAway,
+    [STRINGID_PKMNVANISHEDINSTANTLY - BATTLESTRINGS_TABLE_START] = sText_PkmnVanishedInstantly,
+    [STRINGID_PKMNTRAPPEDBYMAGMA - BATTLESTRINGS_TABLE_START] = sText_PkmnTrappedByMagma,
+    [STRINGID_PKMNSHIFTEDSTATUS - BATTLESTRINGS_TABLE_START] = sText_PkmnShiftedStatus,
 };
 
 const u16 gMissStringIds[] =
@@ -1033,6 +1107,7 @@ const u16 gFirstTurnOfTwoStringIds[] =
     [B_MSG_TURN1_DIG]        = STRINGID_PKMNDUGHOLE,
     [B_MSG_TURN1_DIVE]       = STRINGID_PKMNHIDUNDERWATER,
     [B_MSG_TURN1_BOUNCE]     = STRINGID_PKMNSPRANGUP,
+    [B_MSG_TURN1_SHADOW_FORCE] = STRINGID_PKMNVANISHEDINSTANTLY,
 };
 
 // Index copied from move's index in gTrappingMoves
@@ -1043,7 +1118,26 @@ const u16 gWrappedStringIds[NUM_TRAPPING_MOVES] =
     STRINGID_PKMNTRAPPEDINVORTEX,  // MOVE_FIRE_SPIN
     STRINGID_PKMNCLAMPED,          // MOVE_CLAMP
     STRINGID_PKMNTRAPPEDINVORTEX,  // MOVE_WHIRLPOOL
-    STRINGID_PKMNTRAPPEDBYSANDTOMB // MOVE_SAND_TOMB
+    STRINGID_PKMNTRAPPEDBYSANDTOMB, // MOVE_SAND_TOMB
+    STRINGID_PKMNTRAPPEDBYMAGMA     // MOVE_MAGMA_STORM
+};
+
+const u16 gHealingWishStringIds[] =
+{
+    [B_MSG_HEALING_WISH] = STRINGID_HEALINGWISHCAMETRUE,
+    [B_MSG_LUNAR_DANCE]  = STRINGID_LUNARDANCECAMETRUE,
+};
+
+const u16 gToxicSpikesStringIds[] =
+{
+    [B_MSG_TOXIC_SPIKES_POISONED]       = STRINGID_PKMNWASPOISONED,
+    [B_MSG_TOXIC_SPIKES_BADLY_POISONED] = STRINGID_PKMNBADLYPOISONED,
+};
+
+const u16 gTrickRoomStringIds[] =
+{
+    [B_MSG_TRICK_ROOM_SET]   = STRINGID_PKMNTWISTEDDIMENSIONS,
+    [B_MSG_TRICK_ROOM_ENDED] = STRINGID_TRICKROOMENDED,
 };
 
 const u16 gMistUsedStringIds[] =
@@ -1262,6 +1356,7 @@ const u16 gTrappingMoves[NUM_TRAPPING_MOVES + 1] =
     MOVE_CLAMP,
     MOVE_WHIRLPOOL,
     MOVE_SAND_TOMB,
+    MOVE_MAGMA_STORM,
     0xFFFF // Never read
 };
 

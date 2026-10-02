@@ -251,12 +251,17 @@
 	.4byte \param1
 	.endm
 
-	.macro nop_2A
+	@ Like if_equal / if_not_equal, but compares against a halfword (e.g. a move effect)
+	.macro if_equal_u16 param0:req, param1:req
 	.byte 0x2a
+	.2byte \param0
+	.4byte \param1
 	.endm
 
-	.macro nop_2B
+	.macro if_not_equal_u16 param0:req, param1:req
 	.byte 0x2b
+	.2byte \param0
+	.4byte \param1
 	.endm
 
 	.macro count_usable_party_mons battler:req
@@ -315,13 +320,13 @@
 
 	.macro if_effect param0:req, param1:req
 	.byte 0x37
-	.byte \param0
+	.2byte \param0
 	.4byte \param1
 	.endm
 
 	.macro if_not_effect param0:req, param1:req
 	.byte 0x38
-	.byte \param0
+	.2byte \param0
 	.4byte \param1
 	.endm
 
@@ -384,14 +389,14 @@
 	.macro if_has_move_with_effect battler:req, param1:req, param2:req
 	.byte 0x41
 	.byte \battler
-	.byte \param1
+	.2byte \param1
 	.4byte \param2
 	.endm
 
 	.macro if_doesnt_have_move_with_effect battler:req, param1:req, param2:req
 	.byte 0x42
 	.byte \battler
-	.byte \param1
+	.2byte \param1
 	.4byte \param2
 	.endm
 

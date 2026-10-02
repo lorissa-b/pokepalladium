@@ -202,6 +202,8 @@ EWRAM_DATA u8 gBideTarget[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u8 gUnusedFirstBattleVar2 = 0; // Never read
 EWRAM_DATA u16 gSideStatuses[NUM_BATTLE_SIDES] = {0};
 EWRAM_DATA struct SideTimer gSideTimers[NUM_BATTLE_SIDES] = {0};
+EWRAM_DATA u16 gFieldStatuses = 0;
+EWRAM_DATA struct FieldTimer gFieldTimers = {0};
 EWRAM_DATA u32 gStatuses3[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA struct DisableStruct gDisableStructs[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gPauseCounterBattle = 0;
@@ -3075,6 +3077,11 @@ static void BattleStartClearSetData(void)
     gBattlerAttacker = 0;
     gBattlerTarget = 0;
     gBattleWeather = 0;
+    gFieldStatuses = 0;
+    memset(&gFieldTimers, 0, sizeof(gFieldTimers));
+    gBattleStruct->healingWishPending = 0;
+    gBattleStruct->lunarDancePending = 0;
+    gBattleStruct->lastUsedMove = MOVE_NONE;
 
     dataPtr = (u8 *)&gWishFutureKnock;
     for (i = 0; i < sizeof(struct WishFutureKnock); i++)
@@ -3175,7 +3182,8 @@ void SwitchInClearSetData(void)
     if (gBattleMoves[gCurrentMove].effect == EFFECT_BATON_PASS)
     {
         gBattleMons[gActiveBattler].status2 &= (STATUS2_CONFUSION | STATUS2_FOCUS_ENERGY | STATUS2_SUBSTITUTE | STATUS2_ESCAPE_PREVENTION | STATUS2_CURSED);
-        gStatuses3[gActiveBattler] &= (STATUS3_LEECHSEED_BATTLER | STATUS3_LEECHSEED | STATUS3_ALWAYS_HITS | STATUS3_PERISH_SONG | STATUS3_ROOTED | STATUS3_MUDSPORT | STATUS3_WATERSPORT);
+        gStatuses3[gActiveBattler] &= (STATUS3_LEECHSEED_BATTLER | STATUS3_LEECHSEED | STATUS3_ALWAYS_HITS | STATUS3_PERISH_SONG | STATUS3_ROOTED | STATUS3_MUDSPORT | STATUS3_WATERSPORT
+                                     | STATUS3_AQUA_RING | STATUS3_MAGNET_RISE | STATUS3_EMBARGO | STATUS3_HEAL_BLOCK);
 
         for (i = 0; i < gBattlersCount; i++)
         {
@@ -3216,6 +3224,9 @@ void SwitchInClearSetData(void)
         gDisableStructs[gActiveBattler].perishSongTimer = disableStructCopy.perishSongTimer;
         gDisableStructs[gActiveBattler].perishSongTimerStartValue = disableStructCopy.perishSongTimerStartValue;
         gDisableStructs[gActiveBattler].battlerPreventingEscape = disableStructCopy.battlerPreventingEscape;
+        gDisableStructs[gActiveBattler].embargoTimer = disableStructCopy.embargoTimer;
+        gDisableStructs[gActiveBattler].healBlockTimer = disableStructCopy.healBlockTimer;
+        gDisableStructs[gActiveBattler].magnetRiseTimer = disableStructCopy.magnetRiseTimer;
     }
 
     gMoveResultFlags = 0;
@@ -4026,10 +4037,7 @@ u8 IsRunningFromBattleImpossible(void)
     u8 side;
     s32 i;
 
-    if (gBattleMons[gActiveBattler].item == ITEM_ENIGMA_BERRY)
-        holdEffect = gEnigmaBerries[gActiveBattler].holdEffect;
-    else
-        holdEffect = GetItemHoldEffect(gBattleMons[gActiveBattler].item);
+    holdEffect = GetBattlerHoldEffect(gActiveBattler);
 
     gPotentialItemEffectBattler = gActiveBattler;
 
@@ -4594,100 +4602,43 @@ void SwapTurnOrder(u8 id1, u8 id2)
     SWAP(gBattlerByTurnOrder[id1], gBattlerByTurnOrder[id2], temp);
 }
 
+static bool32 HasQuickClawActivated(u8 battler)
+{
+    return GetBattlerHoldEffect(battler) == HOLD_EFFECT_QUICK_CLAW
+        && gRandomTurnNumber < (0xFFFF * GetBattlerHoldEffectParam(battler)) / 100;
+}
+
+// Returns 0 if battler1 moves first, 1 if battler2 moves first, and 2 if it was decided at random.
+static u8 CompareSpeeds(u8 battler1, u8 battler2)
+{
+    bool32 quickClaw1 = HasQuickClawActivated(battler1);
+    bool32 quickClaw2 = HasQuickClawActivated(battler2);
+    u32 speedBattler1, speedBattler2;
+
+    // A Quick Claw that activates moves its holder first, even in Trick Room.
+    if (quickClaw1 && !quickClaw2)
+        return 0;
+    if (quickClaw2 && !quickClaw1)
+        return 1;
+    if (quickClaw1 && quickClaw2)
+        return (Random() & 1) ? 2 : 0;
+
+    speedBattler1 = GetBattlerSpeed(battler1);
+    speedBattler2 = GetBattlerSpeed(battler2);
+
+    if (speedBattler1 == speedBattler2)
+        return (Random() & 1) ? 2 : 0;
+
+    // Trick Room lets slower battlers move first.
+    if (gFieldStatuses & STATUS_FIELD_TRICK_ROOM)
+        return (speedBattler1 > speedBattler2) ? 1 : 0;
+    else
+        return (speedBattler1 < speedBattler2) ? 1 : 0;
+}
+
 u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
 {
-    u8 strikesFirst = 0;
-    u8 speedMultiplierBattler1 = 0, speedMultiplierBattler2 = 0;
-    u32 speedBattler1 = 0, speedBattler2 = 0;
-    u8 holdEffect = 0;
-    u8 holdEffectParam = 0;
     u16 moveBattler1 = 0, moveBattler2 = 0;
-
-    if (WEATHER_HAS_EFFECT)
-    {
-        if ((gBattleMons[battler1].ability == ABILITY_SWIFT_SWIM && gBattleWeather & B_WEATHER_RAIN)
-            || (gBattleMons[battler1].ability == ABILITY_CHLOROPHYLL && gBattleWeather & B_WEATHER_SUN))
-            speedMultiplierBattler1 = 2;
-        else
-            speedMultiplierBattler1 = 1;
-
-        if ((gBattleMons[battler2].ability == ABILITY_SWIFT_SWIM && gBattleWeather & B_WEATHER_RAIN)
-            || (gBattleMons[battler2].ability == ABILITY_CHLOROPHYLL && gBattleWeather & B_WEATHER_SUN))
-            speedMultiplierBattler2 = 2;
-        else
-            speedMultiplierBattler2 = 1;
-    }
-    else
-    {
-        speedMultiplierBattler1 = 1;
-        speedMultiplierBattler2 = 1;
-    }
-
-    speedBattler1 = (gBattleMons[battler1].speed * speedMultiplierBattler1)
-                * (gStatStageRatios[gBattleMons[battler1].statStages[STAT_SPEED]][0])
-                / (gStatStageRatios[gBattleMons[battler1].statStages[STAT_SPEED]][1]);
-
-    if (gBattleMons[battler1].item == ITEM_ENIGMA_BERRY)
-    {
-        holdEffect = gEnigmaBerries[battler1].holdEffect;
-        holdEffectParam = gEnigmaBerries[battler1].holdEffectParam;
-    }
-    else
-    {
-        holdEffect = GetItemHoldEffect(gBattleMons[battler1].item);
-        holdEffectParam = GetItemHoldEffectParam(gBattleMons[battler1].item);
-    }
-
-    // badge boost
-    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK | BATTLE_TYPE_FRONTIER))
-        && FlagGet(FLAG_BADGE03_GET)
-        && GetBattlerSide(battler1) == B_SIDE_PLAYER)
-    {
-        speedBattler1 = (speedBattler1 * 110) / 100;
-    }
-
-    if (holdEffect == HOLD_EFFECT_MACHO_BRACE)
-        speedBattler1 /= 2;
-
-    if (gBattleMons[battler1].status1 & STATUS1_PARALYSIS)
-        speedBattler1 /= 4;
-
-    if (holdEffect == HOLD_EFFECT_QUICK_CLAW && gRandomTurnNumber < (0xFFFF * holdEffectParam) / 100)
-        speedBattler1 = UINT_MAX;
-
-    // check second battler's speed
-
-    speedBattler2 = (gBattleMons[battler2].speed * speedMultiplierBattler2)
-                * (gStatStageRatios[gBattleMons[battler2].statStages[STAT_SPEED]][0])
-                / (gStatStageRatios[gBattleMons[battler2].statStages[STAT_SPEED]][1]);
-
-    if (gBattleMons[battler2].item == ITEM_ENIGMA_BERRY)
-    {
-        holdEffect = gEnigmaBerries[battler2].holdEffect;
-        holdEffectParam = gEnigmaBerries[battler2].holdEffectParam;
-    }
-    else
-    {
-        holdEffect = GetItemHoldEffect(gBattleMons[battler2].item);
-        holdEffectParam = GetItemHoldEffectParam(gBattleMons[battler2].item);
-    }
-
-    // badge boost
-    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK | BATTLE_TYPE_FRONTIER))
-        && FlagGet(FLAG_BADGE03_GET)
-        && GetBattlerSide(battler2) == B_SIDE_PLAYER)
-    {
-        speedBattler2 = (speedBattler2 * 110) / 100;
-    }
-
-    if (holdEffect == HOLD_EFFECT_MACHO_BRACE)
-        speedBattler2 /= 2;
-
-    if (gBattleMons[battler2].status1 & STATUS1_PARALYSIS)
-        speedBattler2 /= 4;
-
-    if (holdEffect == HOLD_EFFECT_QUICK_CLAW && gRandomTurnNumber < (0xFFFF * holdEffectParam) / 100)
-        speedBattler2 = UINT_MAX;
 
     if (ignoreChosenMoves)
     {
@@ -4721,38 +4672,12 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
         }
     }
 
-    // both move priorities are different than 0
-    if (gBattleMoves[moveBattler1].priority != 0 || gBattleMoves[moveBattler2].priority != 0)
-    {
-        // both priorities are the same
-        if (gBattleMoves[moveBattler1].priority == gBattleMoves[moveBattler2].priority)
-        {
-            if (speedBattler1 == speedBattler2 && Random() & 1)
-                strikesFirst = 2; // same speeds, same priorities
-            else if (speedBattler1 < speedBattler2)
-                strikesFirst = 1; // battler2 has more speed
-
-            // else battler1 has more speed
-        }
-        else if (gBattleMoves[moveBattler1].priority < gBattleMoves[moveBattler2].priority)
-        {
-            strikesFirst = 1; // battler2's move has greater priority
-        }
-
-        // else battler1's move has greater priority
-    }
-    // both priorities are equal to 0
-    else
-    {
-        if (speedBattler1 == speedBattler2 && Random() & 1)
-            strikesFirst = 2; // same speeds, same priorities
-        else if (speedBattler1 < speedBattler2)
-            strikesFirst = 1; // battler2 has more speed
-
-        // else battler1 has more speed
-    }
-
-    return strikesFirst;
+    // The move with the higher priority goes first; within a priority, the faster battler does.
+    if (gBattleMoves[moveBattler1].priority > gBattleMoves[moveBattler2].priority)
+        return 0;
+    if (gBattleMoves[moveBattler1].priority < gBattleMoves[moveBattler2].priority)
+        return 1;
+    return CompareSpeeds(battler1, battler2);
 }
 
 static void SetActionsAndBattlersTurnOrder(void)
@@ -4867,6 +4792,7 @@ static void TurnValuesCleanUp(bool8 var0)
         {
             gProtectStructs[gActiveBattler].protected = 0;
             gProtectStructs[gActiveBattler].endured = 0;
+            gStatuses3[gActiveBattler] &= ~STATUS3_ROOSTED;
         }
         else
         {

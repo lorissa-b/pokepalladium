@@ -113,4 +113,9 @@ void Task_LinkFullSave(u8 taskId);
 // save_failed_screen.c
 void DoSaveFailedScreen(u8 saveType);
 
+// Versions of the SaveBlock1 layout, stored in gSaveBlock1Ptr->saveVersion.
+#define SAVE_VERSION_ORIGINAL   0
+#define SAVE_VERSION_TMHM_100   1 // The TM/HM pocket holds 100 items (was 64)
+#define SAVE_VERSION_CURRENT    SAVE_VERSION_TMHM_100
+
 #endif // GUARD_SAVE_H

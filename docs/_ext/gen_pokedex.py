@@ -185,7 +185,7 @@ def parse_tmhm() -> tuple[dict[str, list[str]], dict[str, str]]:
         m = re.search(rf"#define {macro}\(F\)(.*?)(?=\n#define|\n#endif)", tms_text, re.S)
         return re.findall(r"F\((\w+)\)", m.group(1)) if m else []
 
-    tms = macro_list("FOREACH_TM")
+    tms = macro_list("FOREACH_TM_GEN3") + macro_list("FOREACH_TM_GEN4")
     hms = macro_list("FOREACH_HM")
     labels = {}
     for i, mid in enumerate(tms, 1):
@@ -377,7 +377,7 @@ def render_moves_table(lu, tms, eggs) -> list[str]:
 
 
 def tmhm_sort_key(mid: str, tm_labels: dict[str, str]) -> tuple[int, int]:
-    """Sort TM01..TM50 before HM01..HM08, numerically within each."""
+    """Sort TM01..TM92 before HM01..HM08, numerically within each."""
     label = tm_labels.get(mid, "")
     kind = 0 if label.startswith("TM") else 1
     num = int(label[2:]) if label[2:].isdigit() else 0

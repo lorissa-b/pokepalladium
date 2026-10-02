@@ -2050,9 +2050,9 @@ static u8 CanMonLearnTMTutor(struct Pokemon *mon, u16 item, u8 tutor)
     if (GetMonData(mon, MON_DATA_IS_EGG))
         return CANNOT_LEARN_MOVE_IS_EGG;
 
-    if (item >= ITEM_TM01)
+    if (IsItemTMHM(item))
     {
-        if (!CanMonLearnTMHM(mon, item - ITEM_TM01))
+        if (!CanMonLearnTMHM(mon, GetTMHMIndex(item)))
             return CANNOT_LEARN_MOVE;
         else
             move = ItemIdToBattleMoveId(item);
@@ -4700,8 +4700,7 @@ void ItemUseCB_PPUp(u8 taskId, TaskFunc task)
 
 u16 ItemIdToBattleMoveId(u16 item)
 {
-    u16 tmNumber = item - ITEM_TM01;
-    return sTMHMMoves[tmNumber];
+    return sTMHMMoves[GetTMHMIndex(item)];
 }
 
 bool8 IsMoveHm(u16 move)
@@ -4785,12 +4784,9 @@ static void Task_LearnedMove(u8 taskId)
     s16 *move = &gPartyMenu.data[0];
     u16 item = gSpecialVar_ItemId;
 
+    // TMs and HMs aren't used up.
     if (move[1] == 0)
-    {
         AdjustFriendship(mon, FRIENDSHIP_EVENT_LEARN_TMHM);
-        if (item < ITEM_HM01)
-            RemoveBagItem(item, 1);
-    }
     GetMonNickname(mon, gStringVar1);
     StringCopy(gStringVar2, gMoveNames[move[0]]);
     StringExpandPlaceholders(gStringVar4, gText_PkmnLearnedMove3);

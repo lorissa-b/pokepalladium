@@ -175,7 +175,16 @@ enum BattlerId
 #define STATUS3_UNDERWATER              (1 << 18)
 #define STATUS3_INTIMIDATE_POKES        (1 << 19)
 #define STATUS3_TRACE                   (1 << 20)
-#define STATUS3_SEMI_INVULNERABLE       (STATUS3_UNDERGROUND | STATUS3_ON_AIR | STATUS3_UNDERWATER)
+#define STATUS3_PHANTOM_FORCE           (1 << 21) // Vanished by Shadow Force
+#define STATUS3_ROOSTED                 (1 << 22) // Lost its Flying type until the end of the turn
+#define STATUS3_AQUA_RING               (1 << 23)
+#define STATUS3_MIRACLE_EYED            (1 << 24)
+#define STATUS3_GASTRO_ACID             (1 << 25)
+#define STATUS3_POWER_TRICK             (1 << 26)
+#define STATUS3_EMBARGO                 (1 << 27)
+#define STATUS3_HEAL_BLOCK              (1 << 28)
+#define STATUS3_MAGNET_RISE             (1 << 29)
+#define STATUS3_SEMI_INVULNERABLE       (STATUS3_UNDERGROUND | STATUS3_ON_AIR | STATUS3_UNDERWATER | STATUS3_PHANTOM_FORCE)
 
 // Not really sure what a "hitmarker" is.
 #define HITMARKER_WAKE_UP_CLEAR         (1 << 4) // Cleared when waking up. Never set or checked.
@@ -215,6 +224,17 @@ enum BattlerId
 #define SIDE_STATUS_FUTUREATTACK     (1 << 6)
 #define SIDE_STATUS_MIST             (1 << 8)
 #define SIDE_STATUS_SPIKES_DAMAGED   (1 << 9)
+#define SIDE_STATUS_TOXIC_SPIKES     (1 << 10)
+#define SIDE_STATUS_STEALTH_ROCK     (1 << 11)
+#define SIDE_STATUS_TAILWIND         (1 << 12)
+#define SIDE_STATUS_LUCKY_CHANT      (1 << 13)
+#define SIDE_STATUS_STEALTH_ROCK_DAMAGED (1 << 14)
+#define SIDE_STATUS_TOXIC_SPIKES_DONE    (1 << 15)
+#define SIDE_STATUS_HAZARDS_DONE     (SIDE_STATUS_SPIKES_DAMAGED | SIDE_STATUS_STEALTH_ROCK_DAMAGED | SIDE_STATUS_TOXIC_SPIKES_DONE)
+
+// Field-wide statuses, from gFieldStatuses.
+#define STATUS_FIELD_GRAVITY         (1 << 0)
+#define STATUS_FIELD_TRICK_ROOM      (1 << 1)
 
 // Flags describing move's result
 #define MOVE_RESULT_MISSED             (1 << 0)
@@ -299,10 +319,10 @@ enum BattlerId
 #define MOVE_EFFECT_EVS_MINUS_2         52
 #define MOVE_EFFECT_THRASH              53
 #define MOVE_EFFECT_KNOCK_OFF           54
-#define MOVE_EFFECT_NOTHING_37          55
-#define MOVE_EFFECT_NOTHING_38          56
-#define MOVE_EFFECT_NOTHING_39          57
-#define MOVE_EFFECT_NOTHING_3A          58
+#define MOVE_EFFECT_DEF_SPDEF_DOWN      55 // Close Combat
+#define MOVE_EFFECT_RECOIL_50           56 // Head Smash
+#define MOVE_EFFECT_REMOVE_SLEEP        57 // Wake-Up Slap
+#define MOVE_EFFECT_EAT_BERRY           58 // Pluck / Bug Bite
 #define MOVE_EFFECT_SP_ATK_TWO_DOWN     59
 #define NUM_MOVE_EFFECTS                60
 

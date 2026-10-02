@@ -651,6 +651,8 @@ const u32 gItemIconPalette_RockTMHM[] = INCGFX_U32("graphics/items/icon_palettes
 
 const u32 gItemIconPalette_FlyingTMHM[] = INCGFX_U32("graphics/items/icon_palettes/flying_tm_hm.pal", ".gbapal.lz");
 
+const u32 gItemIconPalette_BugTMHM[] = INCGFX_U32("graphics/items/icon_palettes/bug_tm_hm.pal", ".gbapal.lz");
+
 const u32 gItemIcon_HM[] = INCGFX_U32("graphics/items/icons/hm.png", ".4bpp.lz");
 
 // FireRed/LeafGreen key items

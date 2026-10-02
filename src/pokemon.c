@@ -2423,8 +2423,8 @@ static const s8 sFriendshipEventModifiers[][3] =
 
 static const u16 sHMMoves[] =
 {
-    MOVE_CUT, MOVE_FLY, MOVE_SURF, MOVE_STRENGTH, MOVE_FLASH,
-    MOVE_ROCK_SMASH, MOVE_WATERFALL, MOVE_DIVE, HM_MOVES_END
+    MOVE_CUT, MOVE_FLY, MOVE_SURF, MOVE_STRENGTH, MOVE_DEFOG,
+    MOVE_ROCK_SMASH, MOVE_WATERFALL, MOVE_ROCK_CLIMB, HM_MOVES_END
 };
 
 static const struct SpeciesItem sAlteringCaveWildMonHeldItems[] =
@@ -3458,6 +3458,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         attackerHoldEffect = GetItemHoldEffect(attacker->item);
         attackerHoldEffectParam = GetItemHoldEffectParam(attacker->item);
     }
+    if (gStatuses3[battlerIdAtk] & STATUS3_EMBARGO)
+        attackerHoldEffect = HOLD_EFFECT_NONE;
 
     // Get defender hold item info
     if (defender->item == ITEM_ENIGMA_BERRY)
@@ -3470,6 +3472,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         defenderHoldEffect = GetItemHoldEffect(defender->item);
         defenderHoldEffectParam = GetItemHoldEffectParam(defender->item);
     }
+    if (gStatuses3[battlerIdDef] & STATUS3_EMBARGO)
+        defenderHoldEffect = HOLD_EFFECT_NONE;
 
     if (attacker->ability == ABILITY_HUGE_POWER || attacker->ability == ABILITY_PURE_POWER)
         attack *= 2;

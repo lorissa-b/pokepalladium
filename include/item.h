@@ -75,6 +75,12 @@ ItemUseFunc GetItemFieldFunc(u16 itemId);
 u8 GetItemBattleUsage(u16 itemId);
 ItemUseFunc GetItemBattleFunc(u16 itemId);
 u8 GetItemSecondaryId(u16 itemId);
+bool32 IsItemTM(u16 itemId);
+bool32 IsItemHM(u16 itemId);
+bool32 IsItemTMHM(u16 itemId);
+u8 GetTMHMIndex(u16 itemId);
+u16 GetTMHMItemByIndex(u8 index);
+u8 GetTMHMNumber(u16 itemId);
 
 /* Expands to:
  * enum
@@ -89,7 +95,10 @@ u8 GetItemSecondaryId(u16 itemId);
 enum
 {
     ENUM_TM_START_ = ITEM_TM01 - 1,
-    FOREACH_TM(ENUM_TM)
+    FOREACH_TM_GEN3(ENUM_TM)
+
+    ENUM_TM51_START_ = ITEM_TM51 - 1,
+    FOREACH_TM_GEN4(ENUM_TM)
 
     ENUM_HM_START_ = ITEM_HM01 - 1,
     FOREACH_HM(ENUM_HM)
