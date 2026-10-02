@@ -194,7 +194,7 @@ def load_maps() -> dict[str, dict]:
 
 def area_name(parent: str, name: str) -> str:
     """The part of a building's map name after its town or route:
-    JubilifeCity_PoketchCompany_3F -> Poketch Company 3F; Underwater_Route124 -> Underwater."""
+    JubilifeCity_PoketchCompany_1F -> Poketch Company 1F; Underwater_Route124 -> Underwater."""
     if name == parent:
         return "Outside"
     if name == f"Underwater_{parent}":

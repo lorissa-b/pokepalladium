@@ -814,7 +814,7 @@ MtChimney_Text_SawyerPostBattle:
 
 MtChimney_Text_SawyerRegister:
 	.string "I like little fireballs like you.\n"
-	.string "Let me register you in my POKéNAV.$"
+	.string "Let me register you in my POKéTCH.$"
 
 MtChimney_Text_SawyerRematchIntro:
 	.string "I'm happily surrounded by hot people\n"

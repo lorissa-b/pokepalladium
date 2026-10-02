@@ -92,7 +92,8 @@
     "Underwater_Route128",
     "Underwater_Route129",
     "Underwater_Route105",
-    "Underwater_Route125"
+    "Underwater_Route125",
+    "Route218"
   ],
   "gMapGroup_IndoorTwinleaf": [
     "TwinleafTown_LucasHouse_1F",
@@ -192,8 +193,6 @@
   ],
   "gMapGroup_IndoorJubilife": [
     "JubilifeCity_PoketchCompany_1F",
-    "JubilifeCity_PoketchCompany_2F",
-    "JubilifeCity_PoketchCompany_3F",
     "JubilifeCity_Gym",
     "JubilifeCity_TrainersSchool",
     "JubilifeCity_PokemonCenter_1F",
@@ -211,7 +210,8 @@
     "JubilifeCity_JubilifeTV_1F",
     "JubilifeCity_JubilifeTV_2F",
     "JubilifeCity_JubilifeTV_3F",
-    "JubilifeCity_JubilifeTV_4F"
+    "JubilifeCity_JubilifeTV_4F",
+    "JubilifeCity_Route218Gate"
   ],
   "gMapGroup_IndoorFortree": [
     "FortreeCity_House1",
@@ -433,7 +433,8 @@
     "TerraCave_Entrance",
     "TerraCave_End",
     "AlteringCave",
-    "MeteorFalls_StevensCave"
+    "MeteorFalls_StevensCave",
+    "RavagedPath"
   ],
   "gMapGroup_IndoorDynamic": [
     "SecretBase_RedCave1",

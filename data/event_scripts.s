@@ -139,6 +139,7 @@ gStdScripts_End::
 	.include "data/maps/Route114/scripts.inc"
 	.include "data/maps/Route115/scripts.inc"
 	.include "data/maps/Route204/scripts.inc"
+	.include "data/maps/Route218/scripts.inc"
 	.include "data/maps/Route117/scripts.inc"
 	.include "data/maps/Route118/scripts.inc"
 	.include "data/maps/Route119/scripts.inc"
@@ -241,8 +242,6 @@ gStdScripts_End::
 	.include "data/maps/MauvilleCity_PokemonCenter_2F/scripts.inc"
 	.include "data/maps/MauvilleCity_Mart/scripts.inc"
 	.include "data/maps/JubilifeCity_PoketchCompany_1F/scripts.inc"
-	.include "data/maps/JubilifeCity_PoketchCompany_2F/scripts.inc"
-	.include "data/maps/JubilifeCity_PoketchCompany_3F/scripts.inc"
 	.include "data/maps/JubilifeCity_Gym/scripts.inc"
 	.include "data/maps/JubilifeCity_TrainersSchool/scripts.inc"
 	.include "data/maps/JubilifeCity_PokemonCenter_1F/scripts.inc"
@@ -260,6 +259,7 @@ gStdScripts_End::
 	.include "data/maps/JubilifeCity_JubilifeTV_2F/scripts.inc"
 	.include "data/maps/JubilifeCity_JubilifeTV_3F/scripts.inc"
 	.include "data/maps/JubilifeCity_JubilifeTV_4F/scripts.inc"
+	.include "data/maps/JubilifeCity_Route218Gate/scripts.inc"
 	.include "data/maps/JubilifeCity_House3/scripts.inc"
 	.include "data/maps/FortreeCity_House1/scripts.inc"
 	.include "data/maps/FortreeCity_Gym/scripts.inc"
@@ -457,6 +457,7 @@ gStdScripts_End::
 	.include "data/maps/TerraCave_End/scripts.inc"
 	.include "data/maps/AlteringCave/scripts.inc"
 	.include "data/maps/MeteorFalls_StevensCave/scripts.inc"
+	.include "data/maps/RavagedPath/scripts.inc"
 	.include "data/scripts/shared_secret_base.inc"
 	.include "data/maps/BattleColosseum_2P/scripts.inc"
 	.include "data/maps/TradeCenter/scripts.inc"
@@ -886,7 +887,7 @@ gText_PlayerWhitedOut::
 
 gText_RegisteredTrainerinPokeNav::
 	.string "Registered {STR_VAR_1} {STR_VAR_2}\n"
-	.string "in the POKéNAV.$"
+	.string "in the POKéTCH.$"
 
 gText_ComeBackWithSecretPower::
 	.string "Do you know the TM SECRET POWER?\p"
