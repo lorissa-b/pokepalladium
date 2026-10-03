@@ -94,7 +94,8 @@ struct DisableStruct
     u8 battlerWithSureHit;
     u8 isFirstTurn;
     u8 canUnburden:1; // Has held an item while it had Unburden
-    u8 filler_17:7; // Unused field.
+    u8 micleBerryBoost:1; // Ate a Micle Berry, boosting its next move's accuracy
+    u8 filler_17:6; // Unused field.
     u8 truantCounter:1;
     u8 truantSwitchInHack:1;
     u8 filler_18_2:2; // Unused field.
@@ -104,7 +105,7 @@ struct DisableStruct
     u8 healBlockTimer;
     u8 magnetRiseTimer;
     u8 usedMoves:4; // Move slots used since switching in, for Last Resort
-    u8 unused:4;
+    u8 metronomeCount:4; // Times in a row the move has been used with a Metronome held
 };
 
 struct ProtectStruct
@@ -129,6 +130,7 @@ struct ProtectStruct
     u32 flinchImmobility:1;
     u32 notFirstStrike:1;
     u32 palaceUnableToUseMove:1;
+    u32 lifeOrbRecoil:1; // Lost HP to its Life Orb this turn
     u32 physicalDmg;
     u32 specialDmg;
     u8 physicalBattlerId;
@@ -146,6 +148,7 @@ struct SpecialStatus
     u32 faintedHasReplacement:1;
     u32 focusBanded:1;
     u32 switchInAbilityDone:1; // Download, Anticipation, Forewarn, Frisk, Slow Start and Mold Breaker
+    u32 resistBerryUsed:1; // A type-resist berry weakened the hit, and is eaten after the move
     s32 shellBellDmg;
     s32 physicalDmg;
     s32 specialDmg;
@@ -466,6 +469,7 @@ struct BattleStruct
     u8 lunarDancePending;  // As bits for battlers: as above, also restoring PP.
     u16 lastUsedMove;      // The last move used by anyone, for Copycat.
     bool8 meFirstBoost;
+    u8 custapBattlerId;
 };
 
 // The palaceFlags member of struct BattleStruct contains 1 flag per move to indicate which moves the AI should consider,

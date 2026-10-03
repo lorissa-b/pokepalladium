@@ -1568,6 +1568,23 @@
 	.4byte \ptr
 	.endm
 
+	@ If the battler just fell in love while holding a Destiny Knot, the
+	@ Pokémon it fell for falls in love too, and the script jumps.
+	@ Jumps if the attacker holds a Power Herb, which skips a move's charging turn.
+	.macro setjudgmenttype
+	various BS_ATTACKER, VARIOUS_SET_JUDGMENT_TYPE
+	.endm
+
+	.macro trypowerherb ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_POWER_HERB
+	.4byte \ptr
+	.endm
+
+	.macro trydestinyknot battler:req, ptr:req
+	various \battler, VARIOUS_TRY_DESTINY_KNOT
+	.4byte \ptr
+	.endm
+
 	.macro jumpifsuckerpunchfails ptr:req
 	various BS_ATTACKER, VARIOUS_JUMP_IF_SUCKER_PUNCH_FAILS
 	.4byte \ptr

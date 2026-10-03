@@ -92,8 +92,13 @@ filled in too; see {doc}`hidden-abilities`.
 - **Quick Feet** raises Speed by 1.5× while it has a status problem, and
   paralysis doesn't slow it.
 - **Stall** always moves last in its priority bracket.
-- **Multitype** can't be suppressed, swapped, copied or replaced: Gastro Acid,
-  Worry Seed, Skill Swap, Role Play and Trace fail on it.
+- **Multitype** makes Arceus the type of the plate it holds, in battle and on
+  the summary screen. It can't be suppressed, swapped, copied or replaced:
+  Gastro Acid, Worry Seed, Skill Swap, Role Play and Trace fail on it. A
+  Pokémon with Multitype can't use Conversion, Conversion 2 or Camouflage, and
+  Thief and Covet can't take items from or give items to it.
+- **Honey Gather** may find Honey after a battle if its holder has no item: a 5%
+  chance at levels 1–10, rising by 5% every 10 levels to 50% at levels 91–100.
 
 **Out of battle**, with the ability on the first Pokémon in the party, Quick Feet
 halves the wild encounter rate, Snow Cloak halves it in snow, and No Guard
@@ -101,11 +106,10 @@ doubles it.
 
 ## Not yet in the game
 
-- **Honey Gather** does nothing yet. In Platinum it finds Honey after battle,
-  and there's no Honey item yet.
 - **Flower Gift** powers up the team, but Cherrim doesn't change to its
   Sunshine Form, since the game has no forms for it.
-- **Multitype** doesn't change Arceus's type, since there are no plates.
+- **Multitype** changes Arceus's type but not its sprite, since the game has
+  no forms for it.
 - Trace copies Download, Frisk and the other switch-in abilities, but they
   don't activate when copied.
 - The AI doesn't know about the new immunities (Motor Drive, Dry Skin) and may
@@ -129,6 +133,8 @@ doubles it.
 | Damage formula | `CalculateBaseDamage` in `src/pokemon.c` |
 | Battle scripts and messages | `data/battle_scripts_1.s`, `src/battle_message.c` |
 | Wild encounter rate | `WildEncounterCheck` in `src/wild_encounter.c` |
+| Multitype's type | `GetBattlerTypes` in `src/battle_util.c`, `GetPlateType` in `src/pokemon.c` |
+| Honey Gather | `Cmd_pickup` in `src/battle_script_commands.c` |
 
 The IDs are one higher than Platinum's, because Emerald keeps the unused
 Cacophony at 76.

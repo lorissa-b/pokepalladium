@@ -2256,6 +2256,27 @@ static const u8 sHoldEffectToType[][2] =
     {HOLD_EFFECT_NORMAL_POWER, TYPE_NORMAL},
 };
 
+// The type each plate gives Arceus and Judgment, in plate order.
+static const u8 sPlateTypes[] =
+{
+    [ITEM_FLAME_PLATE - FIRST_PLATE]  = TYPE_FIRE,
+    [ITEM_SPLASH_PLATE - FIRST_PLATE] = TYPE_WATER,
+    [ITEM_ZAP_PLATE - FIRST_PLATE]    = TYPE_ELECTRIC,
+    [ITEM_MEADOW_PLATE - FIRST_PLATE] = TYPE_GRASS,
+    [ITEM_ICICLE_PLATE - FIRST_PLATE] = TYPE_ICE,
+    [ITEM_FIST_PLATE - FIRST_PLATE]   = TYPE_FIGHTING,
+    [ITEM_TOXIC_PLATE - FIRST_PLATE]  = TYPE_POISON,
+    [ITEM_EARTH_PLATE - FIRST_PLATE]  = TYPE_GROUND,
+    [ITEM_SKY_PLATE - FIRST_PLATE]    = TYPE_FLYING,
+    [ITEM_MIND_PLATE - FIRST_PLATE]   = TYPE_PSYCHIC,
+    [ITEM_INSECT_PLATE - FIRST_PLATE] = TYPE_BUG,
+    [ITEM_STONE_PLATE - FIRST_PLATE]  = TYPE_ROCK,
+    [ITEM_SPOOKY_PLATE - FIRST_PLATE] = TYPE_GHOST,
+    [ITEM_DRACO_PLATE - FIRST_PLATE]  = TYPE_DRAGON,
+    [ITEM_DREAD_PLATE - FIRST_PLATE]  = TYPE_DARK,
+    [ITEM_IRON_PLATE - FIRST_PLATE]   = TYPE_STEEL,
+};
+
 const struct SpriteTemplate gBattlerSpriteTemplates[MAX_BATTLERS_COUNT] =
 {
     [B_POSITION_PLAYER_LEFT] = {
@@ -3578,6 +3599,16 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     // Apply boosts from hold items
     if (attackerHoldEffect == HOLD_EFFECT_CHOICE_BAND)
         attack = (150 * attack) / 100;
+    if (attackerHoldEffect == HOLD_EFFECT_CHOICE_SPECS)
+        spAttack = (150 * spAttack) / 100;
+    if (attackerHoldEffect == HOLD_EFFECT_MUSCLE_BAND && IS_MOVE_PHYSICAL(gCurrentMove))
+        gBattleMovePower = gBattleMovePower * (100 + attackerHoldEffectParam) / 100;
+    if (attackerHoldEffect == HOLD_EFFECT_WISE_GLASSES && IS_MOVE_SPECIAL(gCurrentMove))
+        gBattleMovePower = gBattleMovePower * (100 + attackerHoldEffectParam) / 100;
+    if ((attackerHoldEffect == HOLD_EFFECT_ADAMANT_ORB && attacker->species == SPECIES_DIALGA && (type == TYPE_DRAGON || type == TYPE_STEEL))
+     || (attackerHoldEffect == HOLD_EFFECT_LUSTROUS_ORB && attacker->species == SPECIES_PALKIA && (type == TYPE_DRAGON || type == TYPE_WATER))
+     || (attackerHoldEffect == HOLD_EFFECT_GRISEOUS_ORB && attacker->species == SPECIES_GIRATINA && (type == TYPE_DRAGON || type == TYPE_GHOST)))
+        gBattleMovePower = gBattleMovePower * (100 + attackerHoldEffectParam) / 100;
     if (attackerHoldEffect == HOLD_EFFECT_SOUL_DEW && !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER)) && (attacker->species == SPECIES_LATIAS || attacker->species == SPECIES_LATIOS))
         spAttack = (150 * spAttack) / 100;
     if (defenderHoldEffect == HOLD_EFFECT_SOUL_DEW && !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER)) && (defender->species == SPECIES_LATIAS || defender->species == SPECIES_LATIOS))
@@ -5113,6 +5144,14 @@ void RemoveBattleMonPPBonus(struct BattlePokemon *mon, u8 moveIndex)
     mon->ppBonuses &= gPPUpClearMask[moveIndex];
 }
 
+// Returns the type of a plate, or TYPE_NORMAL for any other item.
+u8 GetPlateType(u16 item)
+{
+    if (item >= FIRST_PLATE && item <= LAST_PLATE)
+        return sPlateTypes[item - FIRST_PLATE];
+    return TYPE_NORMAL;
+}
+
 void CopyPlayerPartyMonToBattleData(u8 battler, u8 partyIndex)
 {
     u16 *hpSwitchout;
@@ -6512,6 +6551,17 @@ void AdjustFriendship(struct Pokemon *mon, u8 event)
     }
 }
 
+// The Power item that promotes each stat's EVs.
+static const u8 sPowerItemHoldEffects[NUM_STATS] =
+{
+    [STAT_HP]    = HOLD_EFFECT_POWER_WEIGHT,
+    [STAT_ATK]   = HOLD_EFFECT_POWER_BRACER,
+    [STAT_DEF]   = HOLD_EFFECT_POWER_BELT,
+    [STAT_SPEED] = HOLD_EFFECT_POWER_ANKLET,
+    [STAT_SPATK] = HOLD_EFFECT_POWER_LENS,
+    [STAT_SPDEF] = HOLD_EFFECT_POWER_BAND,
+};
+
 void MonGainEVs(struct Pokemon *mon, u16 defeatedSpecies)
 {
     u8 evs[NUM_STATS];
@@ -6575,6 +6625,10 @@ void MonGainEVs(struct Pokemon *mon, u16 defeatedSpecies)
         {
             holdEffect = GetItemHoldEffect(heldItem);
         }
+
+        // The Power items add to their stat's EV gain, which Pokérus also doubles.
+        if (holdEffect == sPowerItemHoldEffects[i])
+            evIncrease += GetItemHoldEffectParam(heldItem) * multiplier;
 
         if (holdEffect == HOLD_EFFECT_MACHO_BRACE)
             evIncrease *= 2;

@@ -1838,3 +1838,409 @@ static const u8 sOldSeaMapDesc[] = _(
     "A faded sea chart\n"
     "that shows the way\n"
     "to a certain island.");
+
+// Gen 4 held items and berries
+static const u8 sOccaBerryDesc[] = _(
+    "Weakens a foe's\n"
+    "super-effective\n"
+    "FIRE-type move.");
+
+static const u8 sPasshoBerryDesc[] = _(
+    "Weakens a foe's\n"
+    "super-effective\n"
+    "WATER-type move.");
+
+static const u8 sWacanBerryDesc[] = _(
+    "Weakens a foe's\n"
+    "super-effective\n"
+    "ELECTRIC-type move.");
+
+static const u8 sRindoBerryDesc[] = _(
+    "Weakens a foe's\n"
+    "super-effective\n"
+    "GRASS-type move.");
+
+static const u8 sYacheBerryDesc[] = _(
+    "Weakens a foe's\n"
+    "super-effective\n"
+    "ICE-type move.");
+
+static const u8 sChopleBerryDesc[] = _(
+    "Weakens a foe's\n"
+    "super-effective\n"
+    "FIGHTING-type move.");
+
+static const u8 sKebiaBerryDesc[] = _(
+    "Weakens a foe's\n"
+    "super-effective\n"
+    "POISON-type move.");
+
+static const u8 sShucaBerryDesc[] = _(
+    "Weakens a foe's\n"
+    "super-effective\n"
+    "GROUND-type move.");
+
+static const u8 sCobaBerryDesc[] = _(
+    "Weakens a foe's\n"
+    "super-effective\n"
+    "FLYING-type move.");
+
+static const u8 sPayapaBerryDesc[] = _(
+    "Weakens a foe's\n"
+    "super-effective\n"
+    "PSYCHIC-type move.");
+
+static const u8 sTangaBerryDesc[] = _(
+    "Weakens a foe's\n"
+    "super-effective\n"
+    "BUG-type move.");
+
+static const u8 sChartiBerryDesc[] = _(
+    "Weakens a foe's\n"
+    "super-effective\n"
+    "ROCK-type move.");
+
+static const u8 sKasibBerryDesc[] = _(
+    "Weakens a foe's\n"
+    "super-effective\n"
+    "GHOST-type move.");
+
+static const u8 sHabanBerryDesc[] = _(
+    "Weakens a foe's\n"
+    "super-effective\n"
+    "DRAGON-type move.");
+
+static const u8 sColburBerryDesc[] = _(
+    "Weakens a foe's\n"
+    "super-effective\n"
+    "DARK-type move.");
+
+static const u8 sBabiriBerryDesc[] = _(
+    "Weakens a foe's\n"
+    "super-effective\n"
+    "STEEL-type move.");
+
+static const u8 sChilanBerryDesc[] = _(
+    "A hold item that\n"
+    "weakens a foe's\n"
+    "NORMAL-type move.");
+
+static const u8 sMicleBerryDesc[] = _(
+    "A hold item that\n"
+    "raises accuracy in\n"
+    "a pinch.");
+
+static const u8 sCustapBerryDesc[] = _(
+    "A hold item that\n"
+    "moves the holder\n"
+    "first in a pinch.");
+
+static const u8 sJabocaBerryDesc[] = _(
+    "Hurts a foe whose\n"
+    "physical move hits\n"
+    "the holder.");
+
+static const u8 sRowapBerryDesc[] = _(
+    "Hurts a foe whose\n"
+    "special move hits\n"
+    "the holder.");
+
+static const u8 sWideLensDesc[] = _(
+    "A lens that\n"
+    "slightly boosts the\n"
+    "accuracy of moves.");
+
+static const u8 sMuscleBandDesc[] = _(
+    "A headband that\n"
+    "slightly boosts\n"
+    "physical moves.");
+
+static const u8 sWiseGlassesDesc[] = _(
+    "Thick glasses that\n"
+    "slightly boost\n"
+    "special moves.");
+
+static const u8 sExpertBeltDesc[] = _(
+    "A well-worn belt\n"
+    "that boosts super-\n"
+    "effective moves.");
+
+static const u8 sLightClayDesc[] = _(
+    "Makes barriers like\n"
+    "REFLECT used by the\n"
+    "holder last longer.");
+
+static const u8 sLifeOrbDesc[] = _(
+    "Boosts moves, but\n"
+    "the holder loses\n"
+    "HP on each hit.");
+
+static const u8 sPowerHerbDesc[] = _(
+    "Lets a charging\n"
+    "move be used at\n"
+    "once. One use only.");
+
+static const u8 sToxicOrbDesc[] = _(
+    "A bizarre orb that\n"
+    "badly poisons the\n"
+    "holder in battle.");
+
+static const u8 sFlameOrbDesc[] = _(
+    "A bizarre orb that\n"
+    "burns the holder\n"
+    "in battle.");
+
+static const u8 sQuickPowderDesc[] = _(
+    "An odd powder that\n"
+    "boosts the SPEED\n"
+    "of DITTO.");
+
+static const u8 sFocusSashDesc[] = _(
+    "At full HP, the\n"
+    "holder survives a\n"
+    "KO hit with 1 HP.");
+
+static const u8 sZoomLensDesc[] = _(
+    "Boosts accuracy if\n"
+    "the holder moves\n"
+    "after the foe.");
+
+static const u8 sMetronomeDesc[] = _(
+    "Boosts a move used\n"
+    "several times in a\n"
+    "row.");
+
+static const u8 sIronBallDesc[] = _(
+    "Cuts SPEED and lets\n"
+    "GROUND moves hit\n"
+    "the holder.");
+
+static const u8 sLaggingTailDesc[] = _(
+    "A heavy item that\n"
+    "makes the holder\n"
+    "move last.");
+
+static const u8 sDestinyKnotDesc[] = _(
+    "If the holder falls\n"
+    "in love, the foe\n"
+    "does too.");
+
+static const u8 sBlackSludgeDesc[] = _(
+    "Restores the HP of\n"
+    "POISON types. Hurts\n"
+    "other types.");
+
+static const u8 sIcyRockDesc[] = _(
+    "Makes HAIL used\n"
+    "by the holder last\n"
+    "longer.");
+
+static const u8 sSmoothRockDesc[] = _(
+    "Makes SANDSTORM\n"
+    "used by the holder\n"
+    "last longer.");
+
+static const u8 sHeatRockDesc[] = _(
+    "Makes SUNNY DAY\n"
+    "used by the holder\n"
+    "last longer.");
+
+static const u8 sDampRockDesc[] = _(
+    "Makes RAIN DANCE\n"
+    "used by the holder\n"
+    "last longer.");
+
+static const u8 sGripClawDesc[] = _(
+    "Makes moves like\n"
+    "WRAP and BIND last\n"
+    "longer.");
+
+static const u8 sChoiceScarfDesc[] = _(
+    "Raises SPEED, but\n"
+    "permits only one\n"
+    "move to be used.");
+
+static const u8 sStickyBarbDesc[] = _(
+    "Hurts the holder\n"
+    "each turn. May\n"
+    "stick to attackers.");
+
+static const u8 sPowerBracerDesc[] = _(
+    "Promotes ATTACK\n"
+    "gain, but reduces\n"
+    "SPEED.");
+
+static const u8 sPowerBeltDesc[] = _(
+    "Promotes DEFENSE\n"
+    "gain, but reduces\n"
+    "SPEED.");
+
+static const u8 sPowerLensDesc[] = _(
+    "Promotes SP. ATK\n"
+    "gain, but reduces\n"
+    "SPEED.");
+
+static const u8 sPowerBandDesc[] = _(
+    "Promotes SP. DEF\n"
+    "gain, but reduces\n"
+    "SPEED.");
+
+static const u8 sPowerAnkletDesc[] = _(
+    "Promotes SPEED\n"
+    "gain, but reduces\n"
+    "SPEED.");
+
+static const u8 sPowerWeightDesc[] = _(
+    "Promotes HP gain,\n"
+    "but reduces SPEED.");
+
+static const u8 sShedShellDesc[] = _(
+    "A discarded shell\n"
+    "that lets the\n"
+    "holder switch out.");
+
+static const u8 sBigRootDesc[] = _(
+    "Boosts the HP that\n"
+    "HP-stealing moves\n"
+    "restore.");
+
+static const u8 sChoiceSpecsDesc[] = _(
+    "Raises SP. ATK, but\n"
+    "permits only one\n"
+    "move to be used.");
+
+static const u8 sFlamePlateDesc[] = _(
+    "A stone tablet that\n"
+    "boosts FIRE-type\n"
+    "moves.");
+
+static const u8 sSplashPlateDesc[] = _(
+    "A stone tablet that\n"
+    "boosts WATER-type\n"
+    "moves.");
+
+static const u8 sZapPlateDesc[] = _(
+    "A stone tablet that\n"
+    "boosts ELECTRIC-\n"
+    "type moves.");
+
+static const u8 sMeadowPlateDesc[] = _(
+    "A stone tablet that\n"
+    "boosts GRASS-type\n"
+    "moves.");
+
+static const u8 sIciclePlateDesc[] = _(
+    "A stone tablet that\n"
+    "boosts ICE-type\n"
+    "moves.");
+
+static const u8 sFistPlateDesc[] = _(
+    "A stone tablet that\n"
+    "boosts FIGHTING-\n"
+    "type moves.");
+
+static const u8 sToxicPlateDesc[] = _(
+    "A stone tablet that\n"
+    "boosts POISON-type\n"
+    "moves.");
+
+static const u8 sEarthPlateDesc[] = _(
+    "A stone tablet that\n"
+    "boosts GROUND-type\n"
+    "moves.");
+
+static const u8 sSkyPlateDesc[] = _(
+    "A stone tablet that\n"
+    "boosts FLYING-type\n"
+    "moves.");
+
+static const u8 sMindPlateDesc[] = _(
+    "A stone tablet that\n"
+    "boosts PSYCHIC-\n"
+    "type moves.");
+
+static const u8 sInsectPlateDesc[] = _(
+    "A stone tablet that\n"
+    "boosts BUG-type\n"
+    "moves.");
+
+static const u8 sStonePlateDesc[] = _(
+    "A stone tablet that\n"
+    "boosts ROCK-type\n"
+    "moves.");
+
+static const u8 sSpookyPlateDesc[] = _(
+    "A stone tablet that\n"
+    "boosts GHOST-type\n"
+    "moves.");
+
+static const u8 sDracoPlateDesc[] = _(
+    "A stone tablet that\n"
+    "boosts DRAGON-type\n"
+    "moves.");
+
+static const u8 sDreadPlateDesc[] = _(
+    "A stone tablet that\n"
+    "boosts DARK-type\n"
+    "moves.");
+
+static const u8 sIronPlateDesc[] = _(
+    "A stone tablet that\n"
+    "boosts STEEL-type\n"
+    "moves.");
+
+static const u8 sOddIncenseDesc[] = _(
+    "An exotic incense\n"
+    "that boosts\n"
+    "PSYCHIC-type moves.");
+
+static const u8 sRockIncenseDesc[] = _(
+    "An exotic incense\n"
+    "that boosts\n"
+    "ROCK-type moves.");
+
+static const u8 sFullIncenseDesc[] = _(
+    "An exotic incense\n"
+    "that makes the\n"
+    "holder move last.");
+
+static const u8 sWaveIncenseDesc[] = _(
+    "An exotic incense\n"
+    "that boosts\n"
+    "WATER-type moves.");
+
+static const u8 sRoseIncenseDesc[] = _(
+    "An exotic incense\n"
+    "that boosts\n"
+    "GRASS-type moves.");
+
+static const u8 sLuckIncenseDesc[] = _(
+    "Doubles prize money\n"
+    "if the holder takes\n"
+    "part in battle.");
+
+static const u8 sPureIncenseDesc[] = _(
+    "Helps keep wild\n"
+    "POKéMON away if\n"
+    "held by the leader.");
+
+static const u8 sAdamantOrbDesc[] = _(
+    "Boosts DIALGA's\n"
+    "DRAGON- and\n"
+    "STEEL-type moves.");
+
+static const u8 sLustrousOrbDesc[] = _(
+    "Boosts PALKIA's\n"
+    "DRAGON- and\n"
+    "WATER-type moves.");
+
+static const u8 sGriseousOrbDesc[] = _(
+    "Boosts GIRATINA's\n"
+    "DRAGON- and\n"
+    "GHOST-type moves.");
+
+static const u8 sHoneyDesc[] = _(
+    "Sweet honey that\n"
+    "attracts wild\n"
+    "POKéMON when used.");
+

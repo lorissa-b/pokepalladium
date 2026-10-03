@@ -4256,18 +4256,21 @@ static void HandleTurnActionSelectionState(void)
                     break;
                 case B_ACTION_SWITCH:
                     *(gBattleStruct->battlerPartyIndexes + gActiveBattler) = gBattlerPartyIndexes[gActiveBattler];
-                    if (gBattleMons[gActiveBattler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION)
-                        || gBattleTypeFlags & BATTLE_TYPE_ARENA
-                        || gStatuses3[gActiveBattler] & STATUS3_ROOTED)
+                    // Shed Shell lets its holder switch out even when it's trapped.
+                    if (gBattleTypeFlags & BATTLE_TYPE_ARENA
+                        || (GetBattlerHoldEffect(gActiveBattler) != HOLD_EFFECT_SHED_SHELL
+                            && (gBattleMons[gActiveBattler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION)
+                                || gStatuses3[gActiveBattler] & STATUS3_ROOTED)))
                     {
                         BtlController_EmitChoosePokemon(B_COMM_TO_CONTROLLER, PARTY_ACTION_CANT_SWITCH, PARTY_SIZE, ABILITY_NONE, gBattleStruct->battlerPartyOrders[gActiveBattler]);
                     }
-                    else if ((i = ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_SHADOW_TAG))
+                    else if (GetBattlerHoldEffect(gActiveBattler) != HOLD_EFFECT_SHED_SHELL
+                             && ((i = ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_SHADOW_TAG))
                              || ((i = ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_ARENA_TRAP))
                                  && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_FLYING)
                                  && gBattleMons[gActiveBattler].ability != ABILITY_LEVITATE)
                              || ((i = AbilityBattleEffects(ABILITYEFFECT_CHECK_FIELD_EXCEPT_BATTLER, gActiveBattler, ABILITY_MAGNET_PULL, 0, 0))
-                                 && IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_STEEL)))
+                                 && IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_STEEL))))
                     {
                         BtlController_EmitChoosePokemon(B_COMM_TO_CONTROLLER, ((i - 1) << 4) | PARTY_ACTION_ABILITY_PREVENTS, PARTY_SIZE, gLastUsedAbility, gBattleStruct->battlerPartyOrders[gActiveBattler]);
                     }
@@ -4609,10 +4612,31 @@ void SwapTurnOrder(u8 id1, u8 id2)
     SWAP(gBattlerByTurnOrder[id1], gBattlerByTurnOrder[id2], temp);
 }
 
+// Custap Berry moves its holder first in its priority bracket once its HP
+// falls to 1/4, or 1/2 with Gluttony.
+static bool32 HasCustapBerryActivated(u8 battler)
+{
+    u8 param = GetBattlerHoldEffectParam(battler);
+
+    if (GetBattlerHoldEffect(battler) != HOLD_EFFECT_CUSTAP_BERRY || gBattleMons[battler].hp == 0)
+        return FALSE;
+    if (gBattleMons[battler].ability == ABILITY_GLUTTONY)
+        param /= 2;
+    return gBattleMons[battler].hp <= gBattleMons[battler].maxHP / param;
+}
+
 static bool32 HasQuickClawActivated(u8 battler)
 {
+    if (HasCustapBerryActivated(battler))
+        return TRUE;
     return GetBattlerHoldEffect(battler) == HOLD_EFFECT_QUICK_CLAW
         && gRandomTurnNumber < (0xFFFF * GetBattlerHoldEffectParam(battler)) / 100;
+}
+
+// Lagging Tail and Full Incense move their holder last in its priority bracket.
+static bool32 HasLaggingTail(u8 battler)
+{
+    return GetBattlerHoldEffect(battler) == HOLD_EFFECT_LAGGING_TAIL;
 }
 
 // Returns 0 if battler1 moves first, 1 if battler2 moves first, and 2 if it was decided at random.
@@ -4633,6 +4657,21 @@ static u8 CompareSpeeds(u8 battler1, u8 battler2)
 
     speedBattler1 = GetBattlerSpeed(battler1);
     speedBattler2 = GetBattlerSpeed(battler2);
+
+    // Lagging Tail moves its holder last, before Stall is considered. Between
+    // two holders, the slower one moves first, as in Platinum.
+    stall1 = HasLaggingTail(battler1);
+    stall2 = HasLaggingTail(battler2);
+    if (stall1 && !stall2)
+        return 1;
+    if (stall2 && !stall1)
+        return 0;
+    if (stall1 && stall2)
+    {
+        if (speedBattler1 == speedBattler2)
+            return (Random() & 1) ? 2 : 0;
+        return (speedBattler1 > speedBattler2) ? 1 : 0;
+    }
 
     // Stall moves its holder last. Between two Stall users, the slower one
     // moves first, as in Platinum.
@@ -4760,6 +4799,7 @@ static void SetActionsAndBattlersTurnOrder(void)
             }
             gBattleMainFunc = CheckFocusPunch_ClearVarsBeforeTurnStarts;
             gBattleStruct->focusPunchBattlerId = 0;
+            gBattleStruct->custapBattlerId = 0;
             return;
         }
         else
@@ -4802,6 +4842,7 @@ static void SetActionsAndBattlersTurnOrder(void)
     }
     gBattleMainFunc = CheckFocusPunch_ClearVarsBeforeTurnStarts;
     gBattleStruct->focusPunchBattlerId = 0;
+    gBattleStruct->custapBattlerId = 0;
 }
 
 static void TurnValuesCleanUp(bool8 var0)
@@ -4868,6 +4909,21 @@ static void CheckFocusPunch_ClearVarsBeforeTurnStarts(void)
                 && !(gProtectStructs[gActiveBattler].noValidMoves))
             {
                 BattleScriptExecute(BattleScript_FocusPunchSetUp);
+                return;
+            }
+        }
+    }
+
+    if (!(gHitMarker & HITMARKER_RUN))
+    {
+        while (gBattleStruct->custapBattlerId < gBattlersCount)
+        {
+            gActiveBattler = gBattlerAttacker = gBattleStruct->custapBattlerId;
+            gBattleStruct->custapBattlerId++;
+            if (gChosenActionByBattler[gActiveBattler] == B_ACTION_USE_MOVE && HasCustapBerryActivated(gActiveBattler))
+            {
+                gLastUsedItem = gBattleMons[gActiveBattler].item;
+                BattleScriptExecute(BattleScript_CustapBerryActivates);
                 return;
             }
         }

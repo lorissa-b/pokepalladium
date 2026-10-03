@@ -263,4 +263,15 @@ extern const u8 BattleScript_MotorDriveActivates[];
 extern const u8 BattleScript_MotorDriveActivates_PPLoss[];
 extern const u8 BattleScript_MoveUsedFlinchedSteadfast[];
 
+// Gen 4 held items
+extern const u8 BattleScript_LifeOrbRecoil[];
+extern const u8 BattleScript_JabocaRowapBerryActivates[];
+extern const u8 BattleScript_StickyBarbTransfers[];
+extern const u8 BattleScript_ResistBerryActivates[];
+extern const u8 BattleScript_CustapBerryActivates[];
+extern const u8 BattleScript_MicleBerryActivatesEnd2[];
+extern const u8 BattleScript_ItemHurtsHolder_End2[];
+extern const u8 BattleScript_FlameOrbActivates[];
+extern const u8 BattleScript_ToxicOrbActivates[];
+
 #endif // GUARD_BATTLE_SCRIPTS_H

@@ -1021,8 +1021,11 @@ static void ApplyFluteEncounterRateMod(u32 *encRate)
         *encRate = *encRate / 2;
 }
 
+// Cleanse Tag and Pure Incense on the lead Pokémon keep wild Pokémon away.
 static void ApplyCleanseTagEncounterRateMod(u32 *encRate)
 {
-    if (GetMonData(&gPlayerParty[0], MON_DATA_HELD_ITEM) == ITEM_CLEANSE_TAG)
+    u16 heldItem = GetMonData(&gPlayerParty[0], MON_DATA_HELD_ITEM);
+
+    if (heldItem == ITEM_CLEANSE_TAG || heldItem == ITEM_PURE_INCENSE)
         *encRate = *encRate * 2 / 3;
 }

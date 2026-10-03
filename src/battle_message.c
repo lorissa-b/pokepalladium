@@ -191,6 +191,17 @@ static const u8 sText_PkmnHasAbility[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} has\
 static const u8 sText_PkmnHurtByItsAbility[] = _("{B_ATK_NAME_WITH_PREFIX} is hurt by\nits {B_ATK_ABILITY}!");
 static const u8 sText_PkmnTormentedByBadDreams[] = _("{B_ATK_NAME_WITH_PREFIX} is tormented\nby {B_LAST_ABILITY}!");
 static const u8 sText_PkmnMaxedAttack[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nmaxed its ATTACK!");
+static const u8 sText_PkmnLostSomeHP[] = _("{B_ATK_NAME_WITH_PREFIX} lost some\nof its HP!");
+static const u8 sText_PkmnHurtByFoesItem[] = _("{B_ATK_NAME_WITH_PREFIX} was hurt by\n{B_DEF_NAME_WITH_PREFIX}'s {B_LAST_ITEM}!");
+static const u8 sText_ItemLatchedOn[] = _("The {B_LAST_ITEM} latched\non to {B_ATK_NAME_WITH_PREFIX}!");
+static const u8 sText_ItemWeakenedDamage[] = _("The {B_LAST_ITEM} weakened\nthe damage to {B_DEF_NAME_WITH_PREFIX}!");
+static const u8 sText_PkmnMovedFirstFromItem[] = _("{B_ATK_NAME_WITH_PREFIX}'s {B_LAST_ITEM}\nlet it move first!");
+static const u8 sText_PkmnBoostedAccuracyFromItem[] = _("{B_ATK_NAME_WITH_PREFIX}'s {B_LAST_ITEM}\nboosted its accuracy!");
+static const u8 sText_PkmnHurtByItsItem[] = _("{B_ATK_NAME_WITH_PREFIX} is hurt by\nits {B_LAST_ITEM}!");
+static const u8 sText_PkmnBurnedByItem[] = _("{B_ATK_NAME_WITH_PREFIX} was burned\nby its {B_LAST_ITEM}!");
+static const u8 sText_PkmnBadlyPoisonedByItem[] = _("{B_ATK_NAME_WITH_PREFIX} was badly\npoisoned by its {B_LAST_ITEM}!");
+static const u8 sText_PkmnFullyChargedFromItem[] = _("{B_ATK_NAME_WITH_PREFIX} became fully\ncharged due to its {B_LAST_ITEM}!");
+static const u8 sText_PkmnFellInLoveFromItem[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} fell in love\nfrom the {B_LAST_ITEM}!");
 static const u8 sText_PkmnWrappedBy[] = _("{B_DEF_NAME_WITH_PREFIX} was WRAPPED by\n{B_ATK_NAME_WITH_PREFIX}!");
 static const u8 sText_PkmnClamped[] = _("{B_ATK_NAME_WITH_PREFIX} CLAMPED\n{B_DEF_NAME_WITH_PREFIX}!");
 static const u8 sText_PkmnHurtBy[] = _("{B_ATK_NAME_WITH_PREFIX} is hurt\nby {B_BUFF1}!");
@@ -982,6 +993,17 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_ST
     [STRINGID_PKMNHURTBYITSABILITY - BATTLESTRINGS_TABLE_START] = sText_PkmnHurtByItsAbility,
     [STRINGID_PKMNTORMENTEDBYBADDREAMS - BATTLESTRINGS_TABLE_START] = sText_PkmnTormentedByBadDreams,
     [STRINGID_PKMNMAXEDATTACK - BATTLESTRINGS_TABLE_START] = sText_PkmnMaxedAttack,
+    [STRINGID_PKMNLOSTSOMEHP - BATTLESTRINGS_TABLE_START] = sText_PkmnLostSomeHP,
+    [STRINGID_PKMNHURTBYFOESITEM - BATTLESTRINGS_TABLE_START] = sText_PkmnHurtByFoesItem,
+    [STRINGID_ITEMLATCHEDON - BATTLESTRINGS_TABLE_START] = sText_ItemLatchedOn,
+    [STRINGID_ITEMWEAKENEDDAMAGE - BATTLESTRINGS_TABLE_START] = sText_ItemWeakenedDamage,
+    [STRINGID_PKMNMOVEDFIRSTFROMITEM - BATTLESTRINGS_TABLE_START] = sText_PkmnMovedFirstFromItem,
+    [STRINGID_PKMNBOOSTEDACCURACYFROMITEM - BATTLESTRINGS_TABLE_START] = sText_PkmnBoostedAccuracyFromItem,
+    [STRINGID_PKMNHURTBYITSITEM - BATTLESTRINGS_TABLE_START] = sText_PkmnHurtByItsItem,
+    [STRINGID_PKMNBURNEDBYITEM - BATTLESTRINGS_TABLE_START] = sText_PkmnBurnedByItem,
+    [STRINGID_PKMNBADLYPOISONEDBYITEM - BATTLESTRINGS_TABLE_START] = sText_PkmnBadlyPoisonedByItem,
+    [STRINGID_PKMNFULLYCHARGEDFROMITEM - BATTLESTRINGS_TABLE_START] = sText_PkmnFullyChargedFromItem,
+    [STRINGID_PKMNFELLINLOVEFROMITEM - BATTLESTRINGS_TABLE_START] = sText_PkmnFellInLoveFromItem,
 };
 
 const u16 gMissStringIds[] =

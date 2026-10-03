@@ -161,6 +161,17 @@ void HandleAction_UseMove(void)
             gBattleResults.lastUsedMoveOpponent = gCurrentMove;
     }
 
+    // Metronome counts how many times in a row the holder has used this move.
+    if (GetBattlerHoldEffect(gBattlerAttacker) == HOLD_EFFECT_METRONOME && gLastMoves[gBattlerAttacker] == gCurrentMove)
+    {
+        if (gDisableStructs[gBattlerAttacker].metronomeCount < 10)
+            gDisableStructs[gBattlerAttacker].metronomeCount++;
+    }
+    else
+    {
+        gDisableStructs[gBattlerAttacker].metronomeCount = 0;
+    }
+
     // choose target
     redirectAbility = GetRedirectionAbility(gCurrentMove);
     side = BATTLE_OPPOSITE(GetBattlerSide(gBattlerAttacker));
@@ -1091,7 +1102,7 @@ u8 TrySetCantSelectMoveBattleScript(void)
 
     gPotentialItemEffectBattler = gActiveBattler;
 
-    if (holdEffect == HOLD_EFFECT_CHOICE_BAND && *choicedMove != MOVE_NONE && *choicedMove != MOVE_UNAVAILABLE && *choicedMove != move)
+    if (IS_CHOICE_HOLD_EFFECT(holdEffect) && *choicedMove != MOVE_NONE && *choicedMove != MOVE_UNAVAILABLE && *choicedMove != move)
     {
         gCurrentMove = *choicedMove;
         gLastUsedItem = gBattleMons[gActiveBattler].item;
@@ -1162,7 +1173,7 @@ u8 CheckMoveLimitations(u8 battler, u8 unusableMoves, u8 check)
         if (gDisableStructs[battler].encoreTimer && gDisableStructs[battler].encoredMove != gBattleMons[battler].moves[i])
             unusableMoves |= gBitTable[i];
         // Choice Band
-        if (holdEffect == HOLD_EFFECT_CHOICE_BAND && *choicedMove != MOVE_NONE && *choicedMove != MOVE_UNAVAILABLE && *choicedMove != gBattleMons[battler].moves[i])
+        if (IS_CHOICE_HOLD_EFFECT(holdEffect) && *choicedMove != MOVE_NONE && *choicedMove != MOVE_UNAVAILABLE && *choicedMove != gBattleMons[battler].moves[i])
             unusableMoves |= gBitTable[i];
     }
     return unusableMoves;
@@ -1643,6 +1654,7 @@ u8 DoBattlerEndTurnEffects(void)
                     if (gBattleMoveDamage == 0)
                         gBattleMoveDamage = 1;
                     gBattleMoveDamage *= -1;
+                    gBattleMoveDamage = ApplyBigRoot(gBattleMoveDamage, gActiveBattler);
                     BattleScriptExecute(BattleScript_IngrainTurnHeal);
                     effect++;
                 }
@@ -1658,6 +1670,7 @@ u8 DoBattlerEndTurnEffects(void)
                     if (gBattleMoveDamage == 0)
                         gBattleMoveDamage = 1;
                     gBattleMoveDamage *= -1;
+                    gBattleMoveDamage = ApplyBigRoot(gBattleMoveDamage, gActiveBattler);
                     BattleScriptExecute(BattleScript_AquaRingHeal);
                     effect++;
                 }
@@ -3888,6 +3901,70 @@ enum
         effect = ITEM_STATS_CHANGE;                                                         \
     }
 
+// Items held by the target that react to being hit: Jaboca and Rowap Berries
+// hurt the attacker, and a Sticky Barb latches on to an attacker that made
+// contact and holds no item.
+static u8 TryTargetItemOnHit(void)
+{
+    u8 holdEffect = GetBattlerHoldEffect(gBattlerTarget);
+
+    // The berry that weakened the hit is eaten afterwards.
+    if (gSpecialStatuses[gBattlerTarget].resistBerryUsed && holdEffect == HOLD_EFFECT_RESIST_BERRY)
+    {
+        gSpecialStatuses[gBattlerTarget].resistBerryUsed = FALSE;
+        gLastUsedItem = gBattleMons[gBattlerTarget].item;
+        BattleScriptPushCursor();
+        gBattlescriptCurrInstr = BattleScript_ResistBerryActivates;
+        return 1;
+    }
+
+    if (gMoveResultFlags & MOVE_RESULT_NO_EFFECT
+     || gBattlerAttacker == gBattlerTarget
+     || gBattleMons[gBattlerAttacker].hp == 0
+     || !TARGET_TURN_DAMAGED)
+        return 0;
+
+    if ((holdEffect == HOLD_EFFECT_JABOCA_BERRY && gSpecialStatuses[gBattlerTarget].physicalDmg != 0)
+     || (holdEffect == HOLD_EFFECT_ROWAP_BERRY && gSpecialStatuses[gBattlerTarget].specialDmg != 0))
+    {
+        if (gBattleMons[gBattlerAttacker].ability == ABILITY_MAGIC_GUARD)
+            return 0;
+        gLastUsedItem = gBattleMons[gBattlerTarget].item;
+        gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / GetBattlerHoldEffectParam(gBattlerTarget);
+        if (gBattleMoveDamage == 0)
+            gBattleMoveDamage = 1;
+        BattleScriptPushCursor();
+        gBattlescriptCurrInstr = BattleScript_JabocaRowapBerryActivates;
+        return 1;
+    }
+
+    if (holdEffect == HOLD_EFFECT_STICKY_BARB
+     && (gBattleMoves[gCurrentMove].flags & FLAG_MAKES_CONTACT)
+     && gBattleMons[gBattlerAttacker].item == ITEM_NONE
+     && gBattleMons[gBattlerTarget].hp != 0)
+    {
+        gLastUsedItem = gBattleMons[gBattlerTarget].item;
+        gBattleMons[gBattlerAttacker].item = gLastUsedItem;
+        gBattleMons[gBattlerTarget].item = ITEM_NONE;
+        gActiveBattler = gBattlerAttacker;
+        BtlController_EmitSetMonData(B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gBattlerAttacker].item), &gBattleMons[gBattlerAttacker].item);
+        MarkBattlerForControllerExec(gActiveBattler);
+        gActiveBattler = gBattlerTarget;
+        BtlController_EmitSetMonData(B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gBattlerTarget].item), &gBattleMons[gBattlerTarget].item);
+        MarkBattlerForControllerExec(gActiveBattler);
+        BattleScriptPushCursor();
+        gBattlescriptCurrInstr = BattleScript_StickyBarbTransfers;
+        return 1;
+    }
+    return 0;
+}
+
+// Leaf Guard prevents status problems in sunshine.
+static bool32 IsLeafGuardActive(u8 battler)
+{
+    return gBattleMons[battler].ability == ABILITY_LEAF_GUARD && WEATHER_HAS_EFFECT && (gBattleWeather & B_WEATHER_SUN);
+}
+
 // Berries eaten at 1/4 HP, which Gluttony eats at 1/2 HP instead.
 static bool32 IsPinchBerryHoldEffect(u8 holdEffect)
 {
@@ -3900,6 +3977,7 @@ static bool32 IsPinchBerryHoldEffect(u8 holdEffect)
     case HOLD_EFFECT_SP_DEFENSE_UP:
     case HOLD_EFFECT_CRITICAL_UP:
     case HOLD_EFFECT_RANDOM_STAT_UP:
+    case HOLD_EFFECT_MICLE_BERRY:
         return TRUE;
     default:
         return FALSE;
@@ -4041,6 +4119,67 @@ u8 ItemBattleEffects(u8 caseID, u8 battler, bool8 moveTurn)
                     RecordItemEffectBattle(battler, battlerHoldEffect);
                 }
                 break;
+            case HOLD_EFFECT_BLACK_SLUDGE:
+                // Restores the HP of a Poison type, and hurts any other type.
+                if (moveTurn)
+                    break;
+                if (IS_BATTLER_OF_TYPE(battler, TYPE_POISON))
+                {
+                    if (gBattleMons[battler].hp < gBattleMons[battler].maxHP)
+                    {
+                        gBattleMoveDamage = gBattleMons[battler].maxHP / battlerHoldEffectParam;
+                        if (gBattleMoveDamage == 0)
+                            gBattleMoveDamage = 1;
+                        if (gBattleMons[battler].hp + gBattleMoveDamage > gBattleMons[battler].maxHP)
+                            gBattleMoveDamage = gBattleMons[battler].maxHP - gBattleMons[battler].hp;
+                        gBattleMoveDamage *= -1;
+                        BattleScriptExecute(BattleScript_ItemHealHP_End2);
+                        effect = ITEM_HP_CHANGE;
+                    }
+                    break;
+                }
+                // fallthrough
+            case HOLD_EFFECT_STICKY_BARB:
+                if (!moveTurn && gBattleMons[battler].ability != ABILITY_MAGIC_GUARD)
+                {
+                    gBattleMoveDamage = gBattleMons[battler].maxHP / 8;
+                    if (gBattleMoveDamage == 0)
+                        gBattleMoveDamage = 1;
+                    BattleScriptExecute(BattleScript_ItemHurtsHolder_End2);
+                    effect = ITEM_HP_CHANGE;
+                }
+                break;
+            case HOLD_EFFECT_FLAME_ORB:
+                if (!moveTurn
+                 && gBattleMons[battler].status1 == 0
+                 && !IS_BATTLER_OF_TYPE(battler, TYPE_FIRE)
+                 && gBattleMons[battler].ability != ABILITY_WATER_VEIL
+                 && !IsLeafGuardActive(battler))
+                {
+                    gBattleMons[battler].status1 = STATUS1_BURN;
+                    gBattleScripting.battler = gActiveBattler = battler;
+                    BtlController_EmitSetMonData(B_COMM_TO_CONTROLLER, REQUEST_STATUS_BATTLE, 0, sizeof(gBattleMons[battler].status1), &gBattleMons[battler].status1);
+                    MarkBattlerForControllerExec(gActiveBattler);
+                    BattleScriptExecute(BattleScript_FlameOrbActivates);
+                    effect = ITEM_STATUS_CHANGE;
+                }
+                break;
+            case HOLD_EFFECT_TOXIC_ORB:
+                if (!moveTurn
+                 && gBattleMons[battler].status1 == 0
+                 && !IS_BATTLER_OF_TYPE(battler, TYPE_POISON)
+                 && !IS_BATTLER_OF_TYPE(battler, TYPE_STEEL)
+                 && gBattleMons[battler].ability != ABILITY_IMMUNITY
+                 && !IsLeafGuardActive(battler))
+                {
+                    gBattleMons[battler].status1 = STATUS1_TOXIC_POISON;
+                    gBattleScripting.battler = gActiveBattler = battler;
+                    BtlController_EmitSetMonData(B_COMM_TO_CONTROLLER, REQUEST_STATUS_BATTLE, 0, sizeof(gBattleMons[battler].status1), &gBattleMons[battler].status1);
+                    MarkBattlerForControllerExec(gActiveBattler);
+                    BattleScriptExecute(BattleScript_ToxicOrbActivates);
+                    effect = ITEM_STATUS_CHANGE;
+                }
+                break;
             case HOLD_EFFECT_CONFUSE_SPICY:
                 TRY_EAT_CONFUSE_BERRY(FLAVOR_SPICY);
                 break;
@@ -4088,6 +4227,15 @@ u8 ItemBattleEffects(u8 caseID, u8 battler, bool8 moveTurn)
                 {
                     gBattleMons[battler].status2 |= STATUS2_FOCUS_ENERGY;
                     BattleScriptExecute(BattleScript_BerryFocusEnergyEnd2);
+                    effect = ITEM_EFFECT_OTHER;
+                }
+                break;
+            case HOLD_EFFECT_MICLE_BERRY:
+                if (!moveTurn && gBattleMons[battler].hp <= gBattleMons[battler].maxHP / battlerHoldEffectParam
+                    && !gDisableStructs[battler].micleBerryBoost)
+                {
+                    gDisableStructs[battler].micleBerryBoost = TRUE;
+                    BattleScriptExecute(BattleScript_MicleBerryActivatesEnd2);
                     effect = ITEM_EFFECT_OTHER;
                 }
                 break;
@@ -4426,8 +4574,31 @@ u8 ItemBattleEffects(u8 caseID, u8 battler, bool8 moveTurn)
                     effect++;
                 }
                 break;
+            case HOLD_EFFECT_LIFE_ORB:
+                if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                    && gSpecialStatuses[gBattlerTarget].shellBellDmg != 0
+                    && gBattlerAttacker != gBattlerTarget
+                    && gBattleMoves[gCurrentMove].power != 0
+                    && gBattleMons[gBattlerAttacker].hp != 0
+                    && gBattleMons[gBattlerAttacker].ability != ABILITY_MAGIC_GUARD
+                    && !gProtectStructs[gBattlerAttacker].lifeOrbRecoil)
+                {
+                    gProtectStructs[gBattlerAttacker].lifeOrbRecoil = TRUE;
+                    gLastUsedItem = atkItem;
+                    gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 10;
+                    if (gBattleMoveDamage == 0)
+                        gBattleMoveDamage = 1;
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_LifeOrbRecoil;
+                    effect++;
+                }
+                break;
             }
         }
+        break;
+    case ITEMEFFECT_TARGET_ON_HIT:
+        if (gBattleMoveDamage)
+            effect = TryTargetItemOnHit();
         break;
     }
 
@@ -4663,6 +4834,15 @@ u8 IsMonDisobedient(void)
 
 // Gen 4 helpers
 
+// Big Root boosts the HP its holder restores by draining moves, Leech Seed,
+// Ingrain and Aqua Ring by 30%.
+s32 ApplyBigRoot(s32 hpChange, u8 battler)
+{
+    if (GetBattlerHoldEffect(battler) == HOLD_EFFECT_BIG_ROOT)
+        return hpChange * (100 + GetBattlerHoldEffectParam(battler)) / 100;
+    return hpChange;
+}
+
 // Embargo and Klutz suppress the battler's held item.
 bool32 IsBattlerItemSuppressed(u8 battler)
 {
@@ -4692,6 +4872,10 @@ void GetBattlerTypes(u8 battler, u8 *type1, u8 *type2)
     u8 t1 = gBattleMons[battler].types[0];
     u8 t2 = gBattleMons[battler].types[1];
 
+    // Arceus with Multitype takes the type of the plate it holds.
+    if (gBattleMons[battler].species == SPECIES_ARCEUS && gBattleMons[battler].ability == ABILITY_MULTITYPE)
+        t1 = t2 = GetPlateType(gBattleMons[battler].item);
+
     if (gStatuses3[battler] & STATUS3_ROOSTED)
     {
         if (t1 == TYPE_FLYING && t2 == TYPE_FLYING)
@@ -4718,6 +4902,8 @@ bool32 IsBattlerGrounded(u8 battler)
 {
     if (gFieldStatuses & STATUS_FIELD_GRAVITY)
         return TRUE;
+    if (GetBattlerHoldEffect(battler) == HOLD_EFFECT_IRON_BALL)
+        return TRUE;
     if (gStatuses3[battler] & STATUS3_ROOTED)
         return TRUE;
     if (gStatuses3[battler] & STATUS3_MAGNET_RISE)
@@ -4729,6 +4915,26 @@ bool32 IsBattlerGrounded(u8 battler)
     return TRUE;
 }
 
+// Items that halve their holder's Speed: Macho Brace, Iron Ball and the Power
+// items.
+static bool32 IsSpeedHalvingHoldEffect(u8 holdEffect)
+{
+    switch (holdEffect)
+    {
+    case HOLD_EFFECT_MACHO_BRACE:
+    case HOLD_EFFECT_IRON_BALL:
+    case HOLD_EFFECT_POWER_WEIGHT:
+    case HOLD_EFFECT_POWER_BRACER:
+    case HOLD_EFFECT_POWER_BELT:
+    case HOLD_EFFECT_POWER_LENS:
+    case HOLD_EFFECT_POWER_BAND:
+    case HOLD_EFFECT_POWER_ANKLET:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+
 // The battler's speed for turn order, without Quick Claw.
 u32 GetBattlerSpeed(u8 battler)
 {
@@ -4736,7 +4942,6 @@ u32 GetBattlerSpeed(u8 battler)
     u8 multiplier = 1;
     u8 ability = gBattleMons[battler].ability;
     u8 stage = ApplySimple(gBattleMons[battler].statStages[STAT_SPEED], ability);
-    // Embargo and Klutz don't stop Macho Brace slowing its holder.
     u8 holdEffect = GetItemHoldEffect(gBattleMons[battler].item);
 
     if (WEATHER_HAS_EFFECT)
@@ -4758,8 +4963,13 @@ u32 GetBattlerSpeed(u8 battler)
         speed = (speed * 110) / 100;
     }
 
-    if (holdEffect == HOLD_EFFECT_MACHO_BRACE)
+    // Embargo and Klutz don't stop these items slowing their holder.
+    if (IsSpeedHalvingHoldEffect(holdEffect))
         speed /= 2;
+    if (GetBattlerHoldEffect(battler) == HOLD_EFFECT_CHOICE_SCARF)
+        speed = speed * 15 / 10;
+    if (GetBattlerHoldEffect(battler) == HOLD_EFFECT_QUICK_POWDER && gBattleMons[battler].species == SPECIES_DITTO)
+        speed *= 2;
 
     if (ability == ABILITY_QUICK_FEET && (gBattleMons[battler].status1 & STATUS1_ANY))
         speed = speed * 15 / 10;
