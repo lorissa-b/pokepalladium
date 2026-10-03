@@ -19,6 +19,10 @@ enum {
     ITEM_TIMER_BALL,
     ITEM_LUXURY_BALL,
     ITEM_PREMIER_BALL,
+    ITEM_DUSK_BALL,
+    ITEM_HEAL_BALL,
+    ITEM_QUICK_BALL,
+    ITEM_CHERISH_BALL,
 
     // Pokémon Items
     // Only items from this point through to the end of the berries may be considered valid for use on a pokémon.
@@ -461,7 +465,7 @@ enum {
 #define ITEM_LIST_END 0xFFFF
 
 #define FIRST_BALL ITEM_MASTER_BALL
-#define LAST_BALL  ITEM_PREMIER_BALL
+#define LAST_BALL  ITEM_CHERISH_BALL
 
 #define FIRST_MAIL_INDEX ITEM_ORANGE_MAIL
 
@@ -496,11 +500,11 @@ enum {
 #define NUM_HIDDEN_MACHINES     8
 #define NUM_TECHNICAL_AND_HIDDEN_MACHINES (NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES)
 
-#define MAX_BAG_ITEM_CAPACITY  99
+#define MAX_BAG_ITEM_CAPACITY  999
 #define MAX_PC_ITEM_CAPACITY   999
 #define MAX_BERRY_CAPACITY     999
 
-#define BAG_ITEM_CAPACITY_DIGITS 2
+#define BAG_ITEM_CAPACITY_DIGITS 3
 #define BERRY_CAPACITY_DIGITS 3
 #define MAX_ITEM_DIGITS BERRY_CAPACITY_DIGITS
 

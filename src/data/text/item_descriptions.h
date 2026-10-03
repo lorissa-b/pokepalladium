@@ -62,6 +62,26 @@ static const u8 sPremierBallDesc[] = _(
     "in commemoration\n"
     "of some event.");
 
+static const u8 sDuskBallDesc[] = _(
+    "A BALL that works\n"
+    "well at night and\n"
+    "in dark caves.");
+
+static const u8 sHealBallDesc[] = _(
+    "A remedial BALL\n"
+    "that restores the\n"
+    "caught POKéMON.");
+
+static const u8 sQuickBallDesc[] = _(
+    "A BALL that works\n"
+    "well if it's used\n"
+    "early in a battle.");
+
+static const u8 sCherishBallDesc[] = _(
+    "A quite rare BALL\n"
+    "made to celebrate\n"
+    "a special event.");
+
 // Medicine
 static const u8 sPotionDesc[] = _(
     "Restores the HP of\n"

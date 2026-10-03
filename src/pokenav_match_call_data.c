@@ -859,14 +859,22 @@ static bool32 MatchCall_IsRematchable_NPC(match_call_t matchCall)
 
 static bool32 MatchCall_IsRematchable_Trainer(match_call_t matchCall)
 {
+    #ifndef FREE_MATCH_CALL
     if (matchCall.trainer->rematchTableIdx >= REMATCH_ELITE_FOUR_ENTRIES)
         return FALSE;
     return gSaveBlock1Ptr->trainerRematches[matchCall.trainer->rematchTableIdx] ? TRUE : FALSE;
+    #else
+    return FALSE;
+    #endif
 }
 
 static bool32 MatchCall_IsRematchable_Wally(match_call_t matchCall)
 {
+    #ifndef FREE_MATCH_CALL
     return gSaveBlock1Ptr->trainerRematches[matchCall.wally->rematchTableIdx] ? TRUE : FALSE;
+    #else
+    return FALSE;
+    #endif
 }
 
 static bool32 MatchCall_IsRematchable_Rival(match_call_t matchCall)
@@ -1021,6 +1029,7 @@ static void MatchCall_BufferCallMessageText(const match_call_text_data_t *textDa
 
 static void MatchCall_BufferCallMessageTextByRematchTeam(const match_call_text_data_t *textData, u16 idx, u8 *dest)
 {
+    #ifndef FREE_MATCH_CALL
     u32 i;
     for (i = 0; textData[i].text != NULL; i++)
     {
@@ -1056,6 +1065,7 @@ static void MatchCall_BufferCallMessageTextByRematchTeam(const match_call_text_d
         // If the game hasn't been cleared yet, the index remains on the basic "preparing for rematch" call.
         StringExpandPlaceholders(dest, textData[i].text);
     }
+    #endif
 }
 
 void MatchCall_GetNameAndDesc(u32 idx, const u8 **desc, const u8 **name)

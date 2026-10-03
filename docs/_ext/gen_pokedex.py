@@ -297,11 +297,10 @@ def render_species(m, members, names, info, evos, levelup, eggmoves, tmhm, tm_la
     # A single-typed mon repeats its type in the data; collapse the duplicate.
     if len(types) == 2 and types[0] == types[1]:
         types = types[:1]
-    abils = [
-        const_name(a, "ABILITY_")
-        for a in meta.get("abilities", [])
-        if a != "ABILITY_NONE"
-    ]
+    # The first two are the regular abilities; a third is the hidden ability.
+    all_abils = meta.get("abilities", [])
+    abils = [const_name(a, "ABILITY_") for a in all_abils[:2] if a != "ABILITY_NONE"]
+    hidden = [const_name(a, "ABILITY_") for a in all_abils[2:3] if a != "ABILITY_NONE"]
     evo_cell = (
         "<br>".join(f"{names.get(t, t)} ({c})" for t, c in evos.get(m, [])) or "—"
     )
@@ -310,6 +309,7 @@ def render_species(m, members, names, info, evos, levelup, eggmoves, tmhm, tm_la
     lines += ["| Attribute | Value |", "| --- | --- |"]
     lines.append(f"| Types | {md_escape(' · '.join(types) or '—')} |")
     lines.append(f"| Abilities | {md_escape(', '.join(abils) or '—')} |")
+    lines.append(f"| Hidden ability | {md_escape(', '.join(hidden) or '—')} |")
     lines.append(f"| Evolves into | {md_escape(evo_cell)} |")
     for _field, label in STAT_FIELDS:
         lines.append(f"| {label} | {stats.get(label, '—')} |")

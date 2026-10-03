@@ -245,15 +245,9 @@
 #define OBJ_EVENT_GFX_HOOH                       238
 #define OBJ_EVENT_GFX_BARRY                      239
 
-// NOTE: The max value for NUM_OBJ_EVENT_GFX is 240.
-//
-// Object event graphics ids are 1 byte in size (max value of 255), and the dynamic
-// graphics ids that start after NUM_OBJ_EVENT_GFX reach this limit. Barry took the
-// spare id 239 by dropping the "+ 1" from OBJ_EVENT_GFX_VARS, so the dynamic ids
-// still start at 240. There are also a handful of unused object graphics that
-// can be removed. If more graphics are needed, anything that
-// stores graphics ids will need to be increased in size. See wiki entry below:
-// https://github.com/pret/pokeemerald/wiki/Feature-Branches#overworld-expansion
+// Object event graphics ids are 2 bytes in size (Overworld Expansion), so new
+// graphics can be added after Barry. The dynamic graphics ids below start
+// right after NUM_OBJ_EVENT_GFX and move up with it.
 #define NUM_OBJ_EVENT_GFX                        240
 
 

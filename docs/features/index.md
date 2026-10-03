@@ -14,6 +14,10 @@ section is where divergences get recorded as they land.
 physical-special-split
 fake-rtc
 time-of-day
+hidden-abilities
+nature-stat-colours
+bag-capacity
+roamers
 ```
 
 ## What belongs here

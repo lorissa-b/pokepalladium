@@ -285,4 +285,15 @@
 
 #define SKIP_FRONT_ANIM (1 << 7)
 
+// Ability slots (a Pokémon's MON_DATA_ABILITY_NUM)
+#define ABILITY_SLOT_1        0
+#define ABILITY_SLOT_2        1
+#define ABILITY_SLOT_HIDDEN   2
+#define NUM_ABILITY_SLOTS     3
+
+// A wild Pokémon whose species has a hidden ability has it 1 time in this many.
+#define WILD_HIDDEN_ABILITY_CHANCE  20
+// The percent chance an egg gets its hidden ability from a parent that has one.
+#define EGG_HIDDEN_ABILITY_CHANCE   60
+
 #endif // GUARD_CONSTANTS_POKEMON_H

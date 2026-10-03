@@ -802,6 +802,33 @@ static u16 DetermineEggSpeciesAndParentSlots(struct DayCare *daycare, u8 *parent
     return eggSpecies;
 }
 
+// The mother passes on its hidden ability, or with Ditto the other parent does (as in Gen 6 on).
+static void InheritHiddenAbility(struct Pokemon *egg, u16 eggSpecies, struct DayCare *daycare)
+{
+    u32 i, parent = DAYCARE_MON_COUNT;
+    u8 abilityNum;
+
+    for (i = 0; i < DAYCARE_MON_COUNT; i++)
+    {
+        if (GetBoxMonData(&daycare->mons[i].mon, MON_DATA_SPECIES) == SPECIES_DITTO)
+        {
+            parent = i ^ 1;
+            break;
+        }
+        if (GetBoxMonGender(&daycare->mons[i].mon) == MON_FEMALE)
+            parent = i;
+    }
+
+    if (parent == DAYCARE_MON_COUNT
+     || GetBoxMonData(&daycare->mons[parent].mon, MON_DATA_ABILITY_NUM) != ABILITY_SLOT_HIDDEN
+     || !HasHiddenAbility(eggSpecies)
+     || Random() % 100 >= EGG_HIDDEN_ABILITY_CHANCE)
+        return;
+
+    abilityNum = ABILITY_SLOT_HIDDEN;
+    SetMonData(egg, MON_DATA_ABILITY_NUM, &abilityNum);
+}
+
 static void _GiveEggFromDaycare(struct DayCare *daycare)
 {
     struct Pokemon egg;
@@ -813,6 +840,7 @@ static void _GiveEggFromDaycare(struct DayCare *daycare)
     AlterEggSpeciesWithIncenseItem(&species, daycare);
     SetInitialEggData(&egg, species, daycare);
     InheritIVs(&egg, daycare);
+    InheritHiddenAbility(&egg, species, daycare);
     BuildEggMoveset(&egg, &daycare->mons[parentSlots[1]].mon, &daycare->mons[parentSlots[0]].mon);
 
     if (species == SPECIES_PICHU)
