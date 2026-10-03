@@ -571,9 +571,13 @@ static bool8 WildEncounterCheck(u32 encounterRate, bool8 ignoreAbility)
             encounterRate *= 2;
         else if (ability == ABILITY_WHITE_SMOKE)
             encounterRate /= 2;
-        else if (ability == ABILITY_ARENA_TRAP)
+        else if (ability == ABILITY_ARENA_TRAP || ability == ABILITY_NO_GUARD)
             encounterRate *= 2;
         else if (ability == ABILITY_SAND_VEIL && gSaveBlock1Ptr->weather == WEATHER_SANDSTORM)
+            encounterRate /= 2;
+        else if (ability == ABILITY_SNOW_CLOAK && gSaveBlock1Ptr->weather == WEATHER_SNOW)
+            encounterRate /= 2;
+        else if (ability == ABILITY_QUICK_FEET)
             encounterRate /= 2;
     }
     if (encounterRate > MAX_ENCOUNTER_RATE)
@@ -1017,8 +1021,11 @@ static void ApplyFluteEncounterRateMod(u32 *encRate)
         *encRate = *encRate / 2;
 }
 
+// Cleanse Tag and Pure Incense on the lead Pokémon keep wild Pokémon away.
 static void ApplyCleanseTagEncounterRateMod(u32 *encRate)
 {
-    if (GetMonData(&gPlayerParty[0], MON_DATA_HELD_ITEM) == ITEM_CLEANSE_TAG)
+    u16 heldItem = GetMonData(&gPlayerParty[0], MON_DATA_HELD_ITEM);
+
+    if (heldItem == ITEM_CLEANSE_TAG || heldItem == ITEM_PURE_INCENSE)
         *encRate = *encRate * 2 / 3;
 }

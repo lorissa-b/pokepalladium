@@ -8,6 +8,7 @@
 #include "random.h"
 #include "util.h"
 #include "constants/abilities.h"
+#include "constants/hold_effects.h"
 #include "constants/item_effects.h"
 #include "constants/items.h"
 #include "constants/moves.h"
@@ -436,18 +437,22 @@ static bool8 ShouldSwitch(void)
     s32 i;
     s32 availableToSwitch;
 
-    if (gBattleMons[*(activeBattlerPtr = &gActiveBattler)].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION))
-        return FALSE;
-    if (gStatuses3[gActiveBattler] & STATUS3_ROOTED)
-        return FALSE;
-    if (ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_SHADOW_TAG))
-        return FALSE;
-    if (ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_ARENA_TRAP)) // Misses the flying type and Levitate check.
-        return FALSE;
-    if (ABILITY_ON_FIELD2(ABILITY_MAGNET_PULL))
+    // Shed Shell lets its holder switch out even when it's trapped.
+    if (GetBattlerHoldEffect(*(activeBattlerPtr = &gActiveBattler)) != HOLD_EFFECT_SHED_SHELL)
     {
-        if (IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_STEEL))
+        if (gBattleMons[gActiveBattler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION))
             return FALSE;
+        if (gStatuses3[gActiveBattler] & STATUS3_ROOTED)
+            return FALSE;
+        if (ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_SHADOW_TAG))
+            return FALSE;
+        if (ABILITY_ON_OPPOSING_FIELD(gActiveBattler, ABILITY_ARENA_TRAP)) // Misses the flying type and Levitate check.
+            return FALSE;
+        if (ABILITY_ON_FIELD2(ABILITY_MAGNET_PULL))
+        {
+            if (IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_STEEL))
+                return FALSE;
+        }
     }
     if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
         return FALSE;

@@ -45,6 +45,10 @@
 #define ITEMEFFECT_DUMMY                        2 // Unused, empty
 #define ITEMEFFECT_MOVE_END                     3
 #define ITEMEFFECT_KINGSROCK_SHELLBELL          4
+#define ITEMEFFECT_TARGET_ON_HIT                5 // Type-resist, Jaboca and Rowap Berries, Sticky Barb
+
+// Choice Band, Choice Scarf and Choice Specs lock the holder into one move.
+#define IS_CHOICE_HOLD_EFFECT(holdEffect) ((holdEffect) == HOLD_EFFECT_CHOICE_BAND || (holdEffect) == HOLD_EFFECT_CHOICE_SCARF || (holdEffect) == HOLD_EFFECT_CHOICE_SPECS)
 
 #define WEATHER_HAS_EFFECT ((!ABILITY_ON_FIELD(ABILITY_CLOUD_NINE) && !ABILITY_ON_FIELD(ABILITY_AIR_LOCK)))
 #define WEATHER_HAS_EFFECT2 ((!ABILITY_ON_FIELD2(ABILITY_CLOUD_NINE) && !ABILITY_ON_FIELD2(ABILITY_AIR_LOCK)))
@@ -106,6 +110,10 @@ u8 GetBattlerHoldEffectParam(u8 battler);
 void GetBattlerTypes(u8 battler, u8 *type1, u8 *type2);
 bool32 IsBattlerGrounded(u8 battler);
 u32 GetBattlerSpeed(u8 battler);
+bool32 IsBattlerItemSuppressed(u8 battler);
+s32 ApplyBigRoot(s32 hpChange, u8 battler);
+u8 ApplySimple(u8 stage, u8 ability);
+u8 GetDefenderAbility(u8 attacker, u8 defender);
 bool32 IsHealingMove(u16 move);
 bool32 IsThawingMove(u16 move);
 bool32 IsMoveBlockedByGravity(u16 move);

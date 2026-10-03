@@ -30,6 +30,7 @@
 #include "party_menu.h"
 #include "pokeblock.h"
 #include "pokemon.h"
+#include "fldeff.h"
 #include "script.h"
 #include "sound.h"
 #include "strings.h"
@@ -961,6 +962,20 @@ void ItemUseOutOfBattle_EscapeRope(u8 taskId)
     {
         DisplayDadsAdviceCannotUseItemMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem);
     }
+}
+
+static void ItemUseOnFieldCB_Honey(u8 taskId)
+{
+    RemoveBagItem(gSpecialVar_ItemId, 1);
+    StartHoneyFieldEffect();
+    DestroyTask(taskId);
+}
+
+// Honey attracts wild Pokémon, like Sweet Scent.
+void ItemUseOutOfBattle_Honey(u8 taskId)
+{
+    sItemUseOnFieldCB = ItemUseOnFieldCB_Honey;
+    SetUpItemUseOnFieldCallback(taskId);
 }
 
 void ItemUseOutOfBattle_EvolutionStone(u8 taskId)

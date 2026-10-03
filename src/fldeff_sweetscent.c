@@ -47,6 +47,13 @@ bool8 FldEff_SweetScent(void)
     return FALSE;
 }
 
+// Honey, used from the bag, works like Sweet Scent.
+void StartHoneyFieldEffect(void)
+{
+    LockPlayerFieldControls();
+    StartSweetScentFieldEffect();
+}
+
 static void StartSweetScentFieldEffect(void)
 {
     u8 taskId;

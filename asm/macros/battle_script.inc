@@ -154,6 +154,11 @@
 	.4byte \ptr
 	.endm
 
+	@ Like jumpifability, but Mold Breaker ignores the battler's ability.
+	.macro jumpifignorableability battler:req, ability:req, ptr:req
+	jumpifability \battler | BS_IGNORABLE_ABILITY, \ability, \ptr
+	.endm
+
 	.macro jumpifsideaffecting battler:req, sidestatus:req, ptr:req
 	.byte B_SCR_OP_JUMPIFSIDEAFFECTING
 	.byte \battler
@@ -1554,6 +1559,29 @@
 
 	.macro tryworryseed ptr:req
 	various BS_ATTACKER, VARIOUS_TRY_WORRY_SEED
+	.4byte \ptr
+	.endm
+
+	@ Jumps if Leaf Guard protects the battler from status problems.
+	.macro jumpifleafguardprotected battler:req, ptr:req
+	various \battler, VARIOUS_JUMP_IF_LEAF_GUARD_PROTECTS
+	.4byte \ptr
+	.endm
+
+	@ If the battler just fell in love while holding a Destiny Knot, the
+	@ Pokémon it fell for falls in love too, and the script jumps.
+	@ Jumps if the attacker holds a Power Herb, which skips a move's charging turn.
+	.macro setjudgmenttype
+	various BS_ATTACKER, VARIOUS_SET_JUDGMENT_TYPE
+	.endm
+
+	.macro trypowerherb ptr:req
+	various BS_ATTACKER, VARIOUS_TRY_POWER_HERB
+	.4byte \ptr
+	.endm
+
+	.macro trydestinyknot battler:req, ptr:req
+	various \battler, VARIOUS_TRY_DESTINY_KNOT
 	.4byte \ptr
 	.endm
 

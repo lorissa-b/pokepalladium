@@ -40,6 +40,7 @@
 #include "text.h"
 #include "tv.h"
 #include "window.h"
+#include "constants/abilities.h"
 #include "constants/items.h"
 #include "constants/moves.h"
 #include "constants/party_menu.h"
@@ -3838,10 +3839,18 @@ static void SetMonTypeIcons(void)
     }
     else
     {
-        SetTypeSpritePosAndPal(gSpeciesInfo[summary->species].types[0], 120, 48, SPRITE_ARR_ID_TYPE);
-        if (gSpeciesInfo[summary->species].types[0] != gSpeciesInfo[summary->species].types[1])
+        u8 type1 = gSpeciesInfo[summary->species].types[0];
+        u8 type2 = gSpeciesInfo[summary->species].types[1];
+
+        // Arceus with Multitype takes the type of the plate it holds.
+        if (summary->species == SPECIES_ARCEUS
+         && GetAbilityBySpecies(summary->species, summary->abilityNum) == ABILITY_MULTITYPE)
+            type1 = type2 = GetPlateType(summary->item);
+
+        SetTypeSpritePosAndPal(type1, 120, 48, SPRITE_ARR_ID_TYPE);
+        if (type1 != type2)
         {
-            SetTypeSpritePosAndPal(gSpeciesInfo[summary->species].types[1], 160, 48, SPRITE_ARR_ID_TYPE + 1);
+            SetTypeSpritePosAndPal(type2, 160, 48, SPRITE_ARR_ID_TYPE + 1);
             SetSpriteInvisibility(SPRITE_ARR_ID_TYPE + 1, FALSE);
         }
         else

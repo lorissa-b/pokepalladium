@@ -729,21 +729,35 @@ void RejectEggFromDayCare(void)
     RemoveEggFromDayCare(&gSaveBlock1Ptr->daycare);
 }
 
+// Baby Pokémon that only hatch when a parent holds an incense.
+static const u16 sIncenseBabies[][3] =
+{
+    // baby, incense, species hatched without it
+    {SPECIES_WYNAUT,    ITEM_LAX_INCENSE,  SPECIES_WOBBUFFET},
+    {SPECIES_AZURILL,   ITEM_SEA_INCENSE,  SPECIES_MARILL},
+    {SPECIES_MUNCHLAX,  ITEM_FULL_INCENSE, SPECIES_SNORLAX},
+    {SPECIES_MIME_JR,   ITEM_ODD_INCENSE,  SPECIES_MR_MIME},
+    {SPECIES_BONSLY,    ITEM_ROCK_INCENSE, SPECIES_SUDOWOODO},
+    {SPECIES_BUDEW,     ITEM_ROSE_INCENSE, SPECIES_ROSELIA},
+    {SPECIES_MANTYKE,   ITEM_WAVE_INCENSE, SPECIES_MANTINE},
+    {SPECIES_CHINGLING, ITEM_PURE_INCENSE, SPECIES_CHIMECHO},
+    {SPECIES_HAPPINY,   ITEM_LUCK_INCENSE, SPECIES_CHANSEY},
+};
+
 static void AlterEggSpeciesWithIncenseItem(u16 *species, struct DayCare *daycare)
 {
     u16 motherItem, fatherItem;
-    if (*species == SPECIES_WYNAUT || *species == SPECIES_AZURILL)
-    {
-        motherItem = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_HELD_ITEM);
-        fatherItem = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_HELD_ITEM);
-        if (*species == SPECIES_WYNAUT && motherItem != ITEM_LAX_INCENSE && fatherItem != ITEM_LAX_INCENSE)
-        {
-            *species = SPECIES_WOBBUFFET;
-        }
+    u32 i;
 
-        if (*species == SPECIES_AZURILL && motherItem != ITEM_SEA_INCENSE && fatherItem != ITEM_SEA_INCENSE)
+    for (i = 0; i < ARRAY_COUNT(sIncenseBabies); i++)
+    {
+        if (*species == sIncenseBabies[i][0])
         {
-            *species = SPECIES_MARILL;
+            motherItem = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_HELD_ITEM);
+            fatherItem = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_HELD_ITEM);
+            if (motherItem != sIncenseBabies[i][1] && fatherItem != sIncenseBabies[i][1])
+                *species = sIncenseBabies[i][2];
+            break;
         }
     }
 }
