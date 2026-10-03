@@ -15,6 +15,7 @@ physical-special-split
 fake-rtc
 time-of-day
 hidden-abilities
+gen4-abilities
 nature-stat-colours
 bag-capacity
 roamers

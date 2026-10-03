@@ -246,4 +246,21 @@ extern const u8 BattleScript_SelectingNotAllowedMoveHealBlock[];
 extern const u8 BattleScript_SelectingNotAllowedMoveGravityInPalace[];
 extern const u8 BattleScript_SelectingNotAllowedMoveHealBlockInPalace[];
 
+// Gen 4 abilities
+extern const u8 BattleScript_SnowWarningActivates[];
+extern const u8 BattleScript_DownloadActivates[];
+extern const u8 BattleScript_AnticipationActivates[];
+extern const u8 BattleScript_ForewarnActivates[];
+extern const u8 BattleScript_FriskActivates[];
+extern const u8 BattleScript_SlowStartActivates[];
+extern const u8 BattleScript_SlowStartEnds[];
+extern const u8 BattleScript_MoldBreakerActivates[];
+extern const u8 BattleScript_AbilityHurtsInSun[];
+extern const u8 BattleScript_PoisonHealActivates[];
+extern const u8 BattleScript_BadDreamsTurnDmg[];
+extern const u8 BattleScript_AngerPointActivates[];
+extern const u8 BattleScript_MotorDriveActivates[];
+extern const u8 BattleScript_MotorDriveActivates_PPLoss[];
+extern const u8 BattleScript_MoveUsedFlinchedSteadfast[];
+
 #endif // GUARD_BATTLE_SCRIPTS_H

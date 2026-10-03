@@ -154,6 +154,11 @@
 	.4byte \ptr
 	.endm
 
+	@ Like jumpifability, but Mold Breaker ignores the battler's ability.
+	.macro jumpifignorableability battler:req, ability:req, ptr:req
+	jumpifability \battler | BS_IGNORABLE_ABILITY, \ability, \ptr
+	.endm
+
 	.macro jumpifsideaffecting battler:req, sidestatus:req, ptr:req
 	.byte B_SCR_OP_JUMPIFSIDEAFFECTING
 	.byte \battler
@@ -1554,6 +1559,12 @@
 
 	.macro tryworryseed ptr:req
 	various BS_ATTACKER, VARIOUS_TRY_WORRY_SEED
+	.4byte \ptr
+	.endm
+
+	@ Jumps if Leaf Guard protects the battler from status problems.
+	.macro jumpifleafguardprotected battler:req, ptr:req
+	various \battler, VARIOUS_JUMP_IF_LEAF_GUARD_PROTECTS
 	.4byte \ptr
 	.endm
 

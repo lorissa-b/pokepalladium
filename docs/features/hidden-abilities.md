@@ -13,11 +13,11 @@ other ability.
   otherwise.
 - Eggs keep the hidden ability when they hatch.
 
-Only official hidden abilities that already exist in the game are used, so 159
-species have one. The rest have a comment in `species_info.h` naming the
-official one (`// Hidden ability not yet in the game: Sheer Force`), so they can
-be filled in as those abilities are added. Most are Generation IV and V
-abilities.
+Only official hidden abilities that already exist in the game are used, so 261
+species have one now that the {doc}`Generation IV abilities <gen4-abilities>`
+are in. The rest have a comment in `species_info.h` naming the official one
+(`// Hidden ability not yet in the game: Sheer Force`), so they can be filled in
+as those abilities are added. They're all Generation V or later abilities.
 
 ## Where it lives
 

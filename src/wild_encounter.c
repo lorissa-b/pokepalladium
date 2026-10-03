@@ -571,9 +571,13 @@ static bool8 WildEncounterCheck(u32 encounterRate, bool8 ignoreAbility)
             encounterRate *= 2;
         else if (ability == ABILITY_WHITE_SMOKE)
             encounterRate /= 2;
-        else if (ability == ABILITY_ARENA_TRAP)
+        else if (ability == ABILITY_ARENA_TRAP || ability == ABILITY_NO_GUARD)
             encounterRate *= 2;
         else if (ability == ABILITY_SAND_VEIL && gSaveBlock1Ptr->weather == WEATHER_SANDSTORM)
+            encounterRate /= 2;
+        else if (ability == ABILITY_SNOW_CLOAK && gSaveBlock1Ptr->weather == WEATHER_SNOW)
+            encounterRate /= 2;
+        else if (ability == ABILITY_QUICK_FEET)
             encounterRate /= 2;
     }
     if (encounterRate > MAX_ENCOUNTER_RATE)

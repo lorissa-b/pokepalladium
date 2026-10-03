@@ -417,8 +417,19 @@
 #define STRINGID_PKMNVANISHEDINSTANTLY        415
 #define STRINGID_PKMNTRAPPEDBYMAGMA           416
 #define STRINGID_PKMNSHIFTEDSTATUS            417
+#define STRINGID_PKMNSXWHIPPEDUPHAILSTORM     418
+#define STRINGID_PKMNSABILITYRAISEDSTAT       419
+#define STRINGID_PKMNSHUDDERED                420
+#define STRINGID_PKMNALERTEDTOMOVE            421
+#define STRINGID_PKMNFRISKEDITEM              422
+#define STRINGID_PKMNCANTGETGOING             423
+#define STRINGID_PKMNGOTACTTOGETHER           424
+#define STRINGID_PKMNHASABILITY               425
+#define STRINGID_PKMNHURTBYITSABILITY         426
+#define STRINGID_PKMNTORMENTEDBYBADDREAMS     427
+#define STRINGID_PKMNMAXEDATTACK              428
 
-#define BATTLESTRINGS_COUNT                 418
+#define BATTLESTRINGS_COUNT                 429
 
 // This is the string id that gBattleStringsTable starts with.
 // String ids before this (e.g. STRINGID_INTROMSG) are not in the table,

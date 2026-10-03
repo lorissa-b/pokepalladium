@@ -317,6 +317,10 @@ enum BattleScriptOpcode
 #define BS_PLAYER2                  13 // for Cmd_updatestatusicon
 #define BS_OPPONENT2                14
 
+// For Cmd_jumpifability: OR'd into the battler to check its ability as the
+// attacker's move meets it, so that Mold Breaker can ignore it.
+#define BS_IGNORABLE_ABILITY        0x80
+
 // Cmd_accuracycheck
 #define NO_ACC_CALC 0xFFFE
 #define NO_ACC_CALC_CHECK_LOCK_ON 0xFFFF
@@ -395,6 +399,7 @@ enum BattleScriptOpcode
 #define VARIOUS_JUMP_IF_HEAL_BLOCKED             61
 #define VARIOUS_RESTORE_PP                       62
 #define VARIOUS_JUMP_IF_SIDE_DEFEATED            63
+#define VARIOUS_JUMP_IF_LEAF_GUARD_PROTECTS      64
 
 // swapstatstages
 #define SWAP_STATS_POWER 0

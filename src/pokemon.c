@@ -3416,10 +3416,73 @@ void DeleteFirstMoveAndGiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 move)
     SetBoxMonData(boxMon, MON_DATA_PP_BONUSES, &ppBonuses);
 }
 
-#define APPLY_STAT_MOD(var, mon, stat, statIndex)                                   \
-{                                                                                   \
-    (var) = (stat) * (gStatStageRatios)[(mon)->statStages[(statIndex)]][0];         \
-    (var) /= (gStatStageRatios)[(mon)->statStages[(statIndex)]][1];                 \
+#define APPLY_STAT_MOD(var, stage, stat)                    \
+{                                                           \
+    (var) = (stat) * (gStatStageRatios)[(stage)][0];        \
+    (var) /= (gStatStageRatios)[(stage)][1];                \
+}
+
+static const u16 sPunchingMoves[] =
+{
+    MOVE_ICE_PUNCH,
+    MOVE_FIRE_PUNCH,
+    MOVE_THUNDER_PUNCH,
+    MOVE_MACH_PUNCH,
+    MOVE_FOCUS_PUNCH,
+    MOVE_DIZZY_PUNCH,
+    MOVE_DYNAMIC_PUNCH,
+    MOVE_HAMMER_ARM,
+    MOVE_MEGA_PUNCH,
+    MOVE_COMET_PUNCH,
+    MOVE_METEOR_MASH,
+    MOVE_SHADOW_PUNCH,
+    MOVE_DRAIN_PUNCH,
+    MOVE_BULLET_PUNCH,
+    MOVE_SKY_UPPERCUT,
+};
+
+// Moves Iron Fist powers up.
+static bool32 IsPunchingMove(u16 move)
+{
+    u32 i;
+
+    for (i = 0; i < ARRAY_COUNT(sPunchingMoves); i++)
+    {
+        if (sPunchingMoves[i] == move)
+            return TRUE;
+    }
+    return FALSE;
+}
+
+// Moves Reckless powers up.
+static bool32 IsRecoilMove(u16 move)
+{
+    switch (gBattleMoves[move].effect)
+    {
+    case EFFECT_RECOIL:
+    case EFFECT_RECOIL_IF_MISS:
+    case EFFECT_DOUBLE_EDGE:
+    case EFFECT_FLARE_BLITZ:
+    case EFFECT_HEAD_SMASH:
+        return move != MOVE_STRUGGLE;
+    default:
+        return FALSE;
+    }
+}
+
+// Whether a battler on the battler's side has Flower Gift.
+static bool32 IsFlowerGiftOnSide(u8 battler)
+{
+    u32 i;
+
+    for (i = 0; i < gBattlersCount; i++)
+    {
+        if (GetBattlerSide(i) == GetBattlerSide(battler)
+         && gBattleMons[i].ability == ABILITY_FLOWER_GIFT
+         && gBattleMons[i].hp != 0)
+            return TRUE;
+    }
+    return FALSE;
 }
 
 s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u16 sideStatus, u16 powerOverride, u8 typeOverride, u8 battlerIdAtk, u8 battlerIdDef)
@@ -3434,16 +3497,24 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     u8 defenderHoldEffectParam;
     u8 attackerHoldEffect;
     u8 attackerHoldEffectParam;
+    u8 defenderAbility = GetDefenderAbility(battlerIdAtk, battlerIdDef);
+    u8 atkStage, defStage, spAtkStage, spDefStage;
+    u8 attackerGender, defenderGender;
 
     if (!powerOverride)
         gBattleMovePower = gBattleMoves[move].power;
     else
         gBattleMovePower = powerOverride;
 
-    if (!typeOverride)
+    if (attacker->ability == ABILITY_NORMALIZE)
+        type = TYPE_NORMAL;
+    else if (!typeOverride)
         type = gBattleMoves[move].type;
     else
         type = typeOverride & DYNAMIC_TYPE_MASK;
+
+    if (attacker->ability == ABILITY_TECHNICIAN && move != MOVE_STRUGGLE && gBattleMovePower <= 60)
+        gBattleMovePower = (150 * gBattleMovePower) / 100;
 
     attack = attacker->attack;
     defense = defender->defense;
@@ -3461,7 +3532,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         attackerHoldEffect = GetItemHoldEffect(attacker->item);
         attackerHoldEffectParam = GetItemHoldEffectParam(attacker->item);
     }
-    if (gStatuses3[battlerIdAtk] & STATUS3_EMBARGO)
+    if (IsBattlerItemSuppressed(battlerIdAtk))
         attackerHoldEffect = HOLD_EFFECT_NONE;
 
     // Get defender hold item info
@@ -3475,11 +3546,13 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         defenderHoldEffect = GetItemHoldEffect(defender->item);
         defenderHoldEffectParam = GetItemHoldEffectParam(defender->item);
     }
-    if (gStatuses3[battlerIdDef] & STATUS3_EMBARGO)
+    if (IsBattlerItemSuppressed(battlerIdDef))
         defenderHoldEffect = HOLD_EFFECT_NONE;
 
     if (attacker->ability == ABILITY_HUGE_POWER || attacker->ability == ABILITY_PURE_POWER)
         attack *= 2;
+    if (attacker->ability == ABILITY_SLOW_START && gDisableStructs[battlerIdAtk].slowStartTimer != 0)
+        attack /= 2;
 
     if (ShouldGetStatBadgeBoost(FLAG_BADGE01_GET, battlerIdAtk))
         attack = (110 * attack) / 100;
@@ -3521,7 +3594,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         attack *= 2;
 
     // Apply abilities / field sports
-    if (defender->ability == ABILITY_THICK_FAT && (type == TYPE_FIRE || type == TYPE_ICE))
+    if (defenderAbility == ABILITY_THICK_FAT && (type == TYPE_FIRE || type == TYPE_ICE))
         gBattleMovePower /= 2;
     if (attacker->ability == ABILITY_HUSTLE)
         attack = (150 * attack) / 100;
@@ -3531,7 +3604,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         spAttack = (150 * spAttack) / 100;
     if (attacker->ability == ABILITY_GUTS && attacker->status1)
         attack = (150 * attack) / 100;
-    if (defender->ability == ABILITY_MARVEL_SCALE && defender->status1)
+    if (defenderAbility == ABILITY_MARVEL_SCALE && defender->status1)
         defense = (150 * defense) / 100;
     if (type == TYPE_ELECTRIC && AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, 0, ABILITYEFFECT_MUD_SPORT, 0))
         gBattleMovePower /= 2;
@@ -3545,6 +3618,45 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         gBattleMovePower = (150 * gBattleMovePower) / 100;
     if (type == TYPE_BUG && attacker->ability == ABILITY_SWARM && attacker->hp <= (attacker->maxHP / 3))
         gBattleMovePower = (150 * gBattleMovePower) / 100;
+    if (type == TYPE_FIRE && defenderAbility == ABILITY_HEATPROOF)
+        gBattleMovePower /= 2;
+    if (type == TYPE_FIRE && defenderAbility == ABILITY_DRY_SKIN)
+        gBattleMovePower = (125 * gBattleMovePower) / 100;
+
+    // Rivalry powers up moves against the same gender and weakens them against the other.
+    attackerGender = GetGenderFromSpeciesAndPersonality(attacker->species, attacker->personality);
+    defenderGender = GetGenderFromSpeciesAndPersonality(defender->species, defender->personality);
+    if (attacker->ability == ABILITY_RIVALRY && attackerGender != MON_GENDERLESS && defenderGender != MON_GENDERLESS)
+    {
+        if (attackerGender == defenderGender)
+            gBattleMovePower = (125 * gBattleMovePower) / 100;
+        else
+            gBattleMovePower = (75 * gBattleMovePower) / 100;
+    }
+    if (attacker->ability == ABILITY_IRON_FIST && IsPunchingMove(move))
+        gBattleMovePower = (120 * gBattleMovePower) / 100;
+    if (attacker->ability == ABILITY_RECKLESS && IsRecoilMove(move))
+        gBattleMovePower = (120 * gBattleMovePower) / 100;
+
+    if (WEATHER_HAS_EFFECT2 && (gBattleWeather & B_WEATHER_SUN))
+    {
+        if (attacker->ability == ABILITY_SOLAR_POWER)
+            spAttack = (150 * spAttack) / 100;
+        if (IsFlowerGiftOnSide(battlerIdAtk))
+            attack = (150 * attack) / 100;
+        if (attacker->ability != ABILITY_MOLD_BREAKER && IsFlowerGiftOnSide(battlerIdDef))
+            spDefense = (150 * spDefense) / 100;
+    }
+
+    // Simple doubles stat stages, and Unaware ignores the other battler's.
+    atkStage = ApplySimple(attacker->statStages[STAT_ATK], attacker->ability);
+    spAtkStage = ApplySimple(attacker->statStages[STAT_SPATK], attacker->ability);
+    defStage = ApplySimple(defender->statStages[STAT_DEF], defenderAbility);
+    spDefStage = ApplySimple(defender->statStages[STAT_SPDEF], defenderAbility);
+    if (defenderAbility == ABILITY_UNAWARE)
+        atkStage = spAtkStage = DEFAULT_STAT_STAGE;
+    if (attacker->ability == ABILITY_UNAWARE)
+        defStage = spDefStage = DEFAULT_STAT_STAGE;
 
     // Self-destruct / Explosion cut defense in half
     if (gBattleMoves[gCurrentMove].effect == EFFECT_EXPLOSION)
@@ -3555,13 +3667,13 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if (gCritMultiplier == 2)
         {
             // Critical hit, if attacker has lost attack stat stages then ignore stat drop
-            if (attacker->statStages[STAT_ATK] > DEFAULT_STAT_STAGE)
-                APPLY_STAT_MOD(damage, attacker, attack, STAT_ATK)
+            if (atkStage > DEFAULT_STAT_STAGE)
+                APPLY_STAT_MOD(damage, atkStage, attack)
             else
                 damage = attack;
         }
         else
-            APPLY_STAT_MOD(damage, attacker, attack, STAT_ATK)
+            APPLY_STAT_MOD(damage, atkStage, attack)
 
         damage = damage * gBattleMovePower;
         damage *= (2 * attacker->level / 5 + 2);
@@ -3569,13 +3681,13 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if (gCritMultiplier == 2)
         {
             // Critical hit, if defender has gained defense stat stages then ignore stat increase
-            if (defender->statStages[STAT_DEF] < DEFAULT_STAT_STAGE)
-                APPLY_STAT_MOD(damageHelper, defender, defense, STAT_DEF)
+            if (defStage < DEFAULT_STAT_STAGE)
+                APPLY_STAT_MOD(damageHelper, defStage, defense)
             else
                 damageHelper = defense;
         }
         else
-            APPLY_STAT_MOD(damageHelper, defender, defense, STAT_DEF)
+            APPLY_STAT_MOD(damageHelper, defStage, defense)
 
         damage = damage / damageHelper;
         damage /= 50;
@@ -3610,13 +3722,13 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if (gCritMultiplier == 2)
         {
             // Critical hit, if attacker has lost sp. attack stat stages then ignore stat drop
-            if (attacker->statStages[STAT_SPATK] > DEFAULT_STAT_STAGE)
-                APPLY_STAT_MOD(damage, attacker, spAttack, STAT_SPATK)
+            if (spAtkStage > DEFAULT_STAT_STAGE)
+                APPLY_STAT_MOD(damage, spAtkStage, spAttack)
             else
                 damage = spAttack;
         }
         else
-            APPLY_STAT_MOD(damage, attacker, spAttack, STAT_SPATK)
+            APPLY_STAT_MOD(damage, spAtkStage, spAttack)
 
         damage = damage * gBattleMovePower;
         damage *= (2 * attacker->level / 5 + 2);
@@ -3624,13 +3736,13 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if (gCritMultiplier == 2)
         {
             // Critical hit, if defender has gained sp. defense stat stages then ignore stat increase
-            if (defender->statStages[STAT_SPDEF] < DEFAULT_STAT_STAGE)
-                APPLY_STAT_MOD(damageHelper, defender, spDefense, STAT_SPDEF)
+            if (spDefStage < DEFAULT_STAT_STAGE)
+                APPLY_STAT_MOD(damageHelper, spDefStage, spDefense)
             else
                 damageHelper = spDefense;
         }
         else
-            APPLY_STAT_MOD(damageHelper, defender, spDefense, STAT_SPDEF)
+            APPLY_STAT_MOD(damageHelper, spDefStage, spDefense)
 
         damage = (damage / damageHelper);
         damage /= 50;

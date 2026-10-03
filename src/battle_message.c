@@ -180,6 +180,17 @@ static const u8 sText_PkmnsXWasBlownAway[] = _("{B_DEF_PREFIX1}'s {B_BUFF1}\nwas
 static const u8 sText_PkmnVanishedInstantly[] = _("{B_ATK_NAME_WITH_PREFIX} vanished\ninstantly!");
 static const u8 sText_PkmnTrappedByMagma[] = _("{B_DEF_NAME_WITH_PREFIX} became trapped\nby swirling magma!");
 static const u8 sText_PkmnShiftedStatus[] = _("{B_ATK_NAME_WITH_PREFIX}'s status\nreturned to normal!");
+static const u8 sText_PkmnsXWhippedUpHailstorm[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nwhipped up a hailstorm!");
+static const u8 sText_PkmnsAbilityRaisedStat[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nraised its {B_BUFF1}!");
+static const u8 sText_PkmnShuddered[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nmade it shudder!");
+static const u8 sText_PkmnAlertedToMove[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nalerted it to {B_BUFF1}!");
+static const u8 sText_PkmnFriskedItem[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} frisked its foe\nand found one {B_LAST_ITEM}!");
+static const u8 sText_PkmnCantGetGoing[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} can't get it going\nbecause of its {B_SCR_ACTIVE_ABILITY}!");
+static const u8 sText_PkmnGotActTogether[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} finally got its\nact together!");
+static const u8 sText_PkmnHasAbility[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} has\n{B_SCR_ACTIVE_ABILITY}!");
+static const u8 sText_PkmnHurtByItsAbility[] = _("{B_ATK_NAME_WITH_PREFIX} is hurt by\nits {B_ATK_ABILITY}!");
+static const u8 sText_PkmnTormentedByBadDreams[] = _("{B_ATK_NAME_WITH_PREFIX} is tormented\nby {B_LAST_ABILITY}!");
+static const u8 sText_PkmnMaxedAttack[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nmaxed its ATTACK!");
 static const u8 sText_PkmnWrappedBy[] = _("{B_DEF_NAME_WITH_PREFIX} was WRAPPED by\n{B_ATK_NAME_WITH_PREFIX}!");
 static const u8 sText_PkmnClamped[] = _("{B_ATK_NAME_WITH_PREFIX} CLAMPED\n{B_DEF_NAME_WITH_PREFIX}!");
 static const u8 sText_PkmnHurtBy[] = _("{B_ATK_NAME_WITH_PREFIX} is hurt\nby {B_BUFF1}!");
@@ -960,6 +971,17 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_ST
     [STRINGID_PKMNVANISHEDINSTANTLY - BATTLESTRINGS_TABLE_START] = sText_PkmnVanishedInstantly,
     [STRINGID_PKMNTRAPPEDBYMAGMA - BATTLESTRINGS_TABLE_START] = sText_PkmnTrappedByMagma,
     [STRINGID_PKMNSHIFTEDSTATUS - BATTLESTRINGS_TABLE_START] = sText_PkmnShiftedStatus,
+    [STRINGID_PKMNSXWHIPPEDUPHAILSTORM - BATTLESTRINGS_TABLE_START] = sText_PkmnsXWhippedUpHailstorm,
+    [STRINGID_PKMNSABILITYRAISEDSTAT - BATTLESTRINGS_TABLE_START] = sText_PkmnsAbilityRaisedStat,
+    [STRINGID_PKMNSHUDDERED - BATTLESTRINGS_TABLE_START] = sText_PkmnShuddered,
+    [STRINGID_PKMNALERTEDTOMOVE - BATTLESTRINGS_TABLE_START] = sText_PkmnAlertedToMove,
+    [STRINGID_PKMNFRISKEDITEM - BATTLESTRINGS_TABLE_START] = sText_PkmnFriskedItem,
+    [STRINGID_PKMNCANTGETGOING - BATTLESTRINGS_TABLE_START] = sText_PkmnCantGetGoing,
+    [STRINGID_PKMNGOTACTTOGETHER - BATTLESTRINGS_TABLE_START] = sText_PkmnGotActTogether,
+    [STRINGID_PKMNHASABILITY - BATTLESTRINGS_TABLE_START] = sText_PkmnHasAbility,
+    [STRINGID_PKMNHURTBYITSABILITY - BATTLESTRINGS_TABLE_START] = sText_PkmnHurtByItsAbility,
+    [STRINGID_PKMNTORMENTEDBYBADDREAMS - BATTLESTRINGS_TABLE_START] = sText_PkmnTormentedByBadDreams,
+    [STRINGID_PKMNMAXEDATTACK - BATTLESTRINGS_TABLE_START] = sText_PkmnMaxedAttack,
 };
 
 const u16 gMissStringIds[] =

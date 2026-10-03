@@ -3057,6 +3057,7 @@ static void BattleStartClearSetData(void)
             dataPtr[j] = 0;
 
         gDisableStructs[i].isFirstTurn = 2;
+        gDisableStructs[i].slowStartTimer = 5;
         sUnusedBattlersArray[i] = 0;
         gLastMoves[i] = MOVE_NONE;
         gLastLandedMoves[i] = MOVE_NONE;
@@ -3236,6 +3237,8 @@ void SwitchInClearSetData(void)
     gMoveResultFlags = 0;
     gDisableStructs[gActiveBattler].isFirstTurn = 2;
     gDisableStructs[gActiveBattler].truantSwitchInHack = disableStructCopy.truantSwitchInHack;
+    gDisableStructs[gActiveBattler].slowStartTimer = 5;
+    gSpecialStatuses[gActiveBattler].switchInAbilityDone = FALSE;
     gLastMoves[gActiveBattler] = MOVE_NONE;
     gLastLandedMoves[gActiveBattler] = MOVE_NONE;
     gLastHitByType[gActiveBattler] = 0;
@@ -4617,6 +4620,7 @@ static u8 CompareSpeeds(u8 battler1, u8 battler2)
 {
     bool32 quickClaw1 = HasQuickClawActivated(battler1);
     bool32 quickClaw2 = HasQuickClawActivated(battler2);
+    bool32 stall1, stall2;
     u32 speedBattler1, speedBattler2;
 
     // A Quick Claw that activates moves its holder first, even in Trick Room.
@@ -4629,6 +4633,21 @@ static u8 CompareSpeeds(u8 battler1, u8 battler2)
 
     speedBattler1 = GetBattlerSpeed(battler1);
     speedBattler2 = GetBattlerSpeed(battler2);
+
+    // Stall moves its holder last. Between two Stall users, the slower one
+    // moves first, as in Platinum.
+    stall1 = gBattleMons[battler1].ability == ABILITY_STALL;
+    stall2 = gBattleMons[battler2].ability == ABILITY_STALL;
+    if (stall1 && !stall2)
+        return 1;
+    if (stall2 && !stall1)
+        return 0;
+    if (stall1 && stall2)
+    {
+        if (speedBattler1 == speedBattler2)
+            return (Random() & 1) ? 2 : 0;
+        return (speedBattler1 > speedBattler2) ? 1 : 0;
+    }
 
     if (speedBattler1 == speedBattler2)
         return (Random() & 1) ? 2 : 0;
