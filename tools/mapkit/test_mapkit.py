@@ -15,7 +15,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import blueprint  # noqa: E402
 import check  # noqa: E402
 import platinum  # noqa: E402
-from project import Blockdata, consts, layouts, resolve_layout  # noqa: E402
+from project import Blockdata, behaviors, consts, layouts, resolve_layout  # noqa: E402
 
 
 class GridFormat(unittest.TestCase):
@@ -115,6 +115,56 @@ class FinishedDrafts(unittest.TestCase):
                 self.assertIn(materials.family(mats, "tree"), (None, "dense"), (x, y))
 
 
+    def test_fixed_blocks_are_kept_and_tiled_around(self):
+        import autotile
+        import buildings
+
+        layout = resolve_layout("LAYOUT_SANDGEM_TOWN")
+        house = next(p for p in buildings.library(layout) if p.name == "OLDALE_TOWN@4,4")
+        fixed = {(2 + dx, 1 + dy): b for dx, dy, b in house.blocks()}
+        grid = ["########", "#......#", "#......#", "#......#", "#......#", "#......#", "########"]
+        grid = buildings.apply([buildings.Placement(house, 2, 1, fixed, [(3, 4)])], grid, layout)
+        blocks, _, _ = autotile.fill(grid, layout, "town", fixed=fixed)
+        for (x, y), b in fixed.items():
+            self.assertEqual(blocks.get(x, y), b, (x, y))
+        self.assertFalse(consts().unpack(blocks.get(3, 5))[1], "the doorstep stays walkable")
+
+
+class Buildings(unittest.TestCase):
+    def test_pieces_come_whole_from_the_originals(self):
+        import buildings
+
+        by_name = {p.name: p for p in buildings.pieces("gTileset_General")}
+        house = by_name["OLDALE_TOWN@4,4"]
+        self.assertEqual((house.w, house.h, house.doors, house.kind), (4, 4, ((1, 3),), "house"))
+        self.assertTrue(all(b is not None for row in house.cells for b in row), "the roof is part of it")
+        self.assertEqual(by_name["OLDALE_TOWN@5,13"].kind, "pokecenter")
+        self.assertEqual(by_name["OLDALE_TOWN@13,3"].kind, "mart")
+        # Two shops under one roof stay one piece, with both doors.
+        self.assertEqual(by_name["LAVARIDGE_TOWN@11,12"].doors, ((1, 3), (5, 3)))
+
+    def test_pieces_only_on_tilesets_that_draw_them(self):
+        import buildings
+
+        for layout_id in ("LAYOUT_SANDGEM_TOWN", "LAYOUT_JUBILIFE_CITY"):
+            layout = resolve_layout(layout_id)
+            tiles_ok = buildings.library(layout)
+            self.assertTrue(any(p.kind == "pokecenter" for p in tiles_ok), layout_id)
+            from tileset import TilesetPair
+
+            pair_ = TilesetPair.for_layout(layout)
+            for p in tiles_ok:
+                for _, _, b in p.blocks():
+                    self.assertTrue(pair_.exists(b & consts().metatile_mask), (layout_id, p.name))
+
+    def test_cells_text_sets_only_its_cells(self):
+        g = blueprint.Blueprint(
+            "layout LAYOUT_JUBILIFE_CITY\nsize 3 2\nbase none\nfill 0x001/c0/e3\n"
+            + blueprint.cells_text({(1, 0): consts().pack(0x1D4, 1, 0), (2, 1): consts().pack(0x00D, 0, 3)})
+        ).build()
+        self.assertEqual([b & consts().metatile_mask for b in g.blocks], [0x001, 0x1D4, 0x001, 0x001, 0x001, 0x00D])
+
+
 class Checks(unittest.TestCase):
     def test_whole_repo_runs(self):
         findings = check.run()
@@ -137,6 +187,31 @@ class Platinum(unittest.TestCase):
         warp = next(w for w in ref.warps if w["dest_header_id"] == "MAP_HEADER_JUBILIFE_CITY_POKECENTER_1F")
         door = next(p for p in ref.props if p.name == "pokecenter_door" and int(p.y) == warp["y"])
         self.assertEqual(int(door.x), warp["x"])
+
+    def test_buildings_and_their_doors(self):
+        ref = platinum.load("SANDGEM_TOWN")
+        found = {b.kind: b for b in ref.buildings()}
+        self.assertEqual(found["pokecenter"].box, (15, 7, 5, 4))
+        self.assertEqual(found["pokecenter"].doors, [(17, 10)])
+        self.assertEqual(found["mart"].doors, [(27, 10)])
+        self.assertEqual(found["lab"].doors, [(8, 10)])
+
+    def test_placed_buildings_put_doors_on_platinums(self):
+        import buildings
+        from tileset import TilesetPair
+
+        ref = platinum.load("SANDGEM_TOWN")
+        layout = resolve_layout("LAYOUT_SANDGEM_TOWN")
+        placed, missing = buildings.plan(ref, layout, ref.grid(), (0, 0, ref.width, ref.height))
+        self.assertEqual(missing, [])
+        tiles = TilesetPair.for_layout(layout)
+        doors = set()
+        for p in placed:
+            self.assertEqual(p.piece.kind if p.target.kind in ("pokecenter", "mart") else p.target.kind, p.target.kind)
+            for x, y in p.doors:
+                self.assertIn("DOOR", behaviors().get(tiles.behavior(p.cells[(x, y)] & consts().metatile_mask), ""))
+                doors.add((x, y))
+        self.assertEqual(doors, {(w["x"], w["y"]) for w in ref.warps})
 
 
 if __name__ == "__main__":

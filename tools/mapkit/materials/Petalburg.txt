@@ -46,7 +46,7 @@
 0x86F       path
 0x870-0x872 grass
 0x873       path
-0x874-0x876 path            # brick paving
+0x874-0x876 building        # roof shingles (Oldale houses)
 0x877       path
 0x878-0x87A grass
 0x87B       cliff grass     # ledge

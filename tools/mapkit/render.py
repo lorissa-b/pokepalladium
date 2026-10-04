@@ -226,6 +226,26 @@ def overlay_reference(img: Image.Image, ref, ts: int, origin=(0, 0)) -> None:
         _mark(d, ts, e["x"] - ox, e["y"] - oy, WARP, f"W{i}", label_at="top")
 
 
+def pieces_sheet(pieces, tiles: TilesetPair, scale: int = 2, columns: int = 6) -> Image.Image:
+    """Buildings (buildings.Piece) drawn one per cell with their names; doors outlined."""
+    if not pieces:
+        return Image.new("RGB", (64, 32), (32, 32, 32))
+    ts = 16 * scale
+    cw = max(p.w for p in pieces) * ts + 12
+    ch = max(p.h for p in pieces) * ts + 30
+    rows = (len(pieces) + columns - 1) // columns
+    img = Image.new("RGB", (min(columns, len(pieces)) * cw, rows * ch), (32, 32, 32))
+    d = drawer(img)
+    for n, p in enumerate(pieces):
+        ox, oy = (n % columns) * cw + 6, (n // columns) * ch + 18
+        for dx, dy, block in p.blocks():
+            img.paste(scaled(tiles.draw(block & consts().metatile_mask), scale), (ox + dx * ts, oy + dy * ts))
+        for dx, dy in p.doors:
+            d.rectangle([ox + dx * ts, oy + dy * ts, ox + (dx + 1) * ts - 1, oy + (dy + 1) * ts - 1], outline=WARP, width=2)
+        text(d, (ox, oy - 16), f"{p.name} {p.w}x{p.h} {p.kind}", size=10)
+    return img
+
+
 def side_by_side(*images: Image.Image, gap: int = 8, titles: list[str] | None = None) -> Image.Image:
     """Images next to each other, top-aligned, with optional titles above."""
     head = 18 if titles else 0

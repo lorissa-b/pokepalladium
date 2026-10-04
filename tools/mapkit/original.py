@@ -30,6 +30,35 @@ def _git(*args: str, data: bytes | None = None) -> bytes:
         ) from None
 
 
+def _batch(paths: list[str]) -> list[bytes | None]:
+    """The contents of these files at ORIGINAL (None for any that's missing)."""
+    out = _git("cat-file", "--batch", data="".join(f"{ORIGINAL}:{p}\n" for p in paths).encode())
+    result, pos = [], 0
+    for _ in paths:
+        end = out.index(b"\n", pos)
+        header = out[pos:end].split()
+        if header[-1] == b"missing":
+            result.append(None)
+            pos = end + 1
+            continue
+        size = int(header[2])
+        result.append(out[end + 1 : end + 1 + size])
+        pos = end + 1 + size + 1
+    return result
+
+
+@lru_cache(maxsize=None)
+def maps() -> dict[str, list[dict]]:
+    """Layout id -> the original map.json of every map using it."""
+    files = [f for f in _git("ls-tree", "-r", "--name-only", ORIGINAL, "data/maps").decode().split() if f.endswith("/map.json")]
+    out: dict[str, list[dict]] = {}
+    for blob in _batch(files):
+        if blob:
+            info = json.loads(blob)
+            out.setdefault(info.get("layout"), []).append(info)
+    return out
+
+
 @lru_cache(maxsize=None)
 def layouts() -> list[tuple[dict, Blockdata]]:
     """(layouts.json entry, blocks) for every original layout."""

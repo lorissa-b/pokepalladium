@@ -21,12 +21,16 @@ guessed from screenshots. It needs Pillow
    `mapkit.py info <Map>` and `render <Map> --grid --events`. Note which
    neighbours it connects to and which tilesets they use.
 3. **Draft.** `mapkit.py draft <HEADER> <LAYOUT> -o build/mapkit/<map>.bp`
-   gives a blockout with exits, roads, grass, water and ledges in the right
-   places and the Platinum events/props listed as comments. Keep the Platinum
+   gives a blockout with exits, roads, grass, water, ledges and buildings in
+   the right places and the Platinum events/props listed as comments. Keep the Platinum
    proportions; crop with `--region` only when the map must be smaller.
-4. **Detail.** Replace placeholders with real Emerald buildings:
-   `stamp` from a map on the same tilesets, or paste `extract --region`
-   output. Find metatiles with `tileset <Map>` (PNG) and
+4. **Detail.** The draft already places a whole Emerald building on every
+   Platinum building (town or route), door on Platinum's door. Its notes list
+   each placement and anything unmatched (`no Emerald building fits`, `no
+   door for Platinum's door`). Swap a building using
+   `buildings <LAYOUT> --render build/mapkit/pieces.png` and
+   `buildings <LAYOUT> --piece <NAME> --at X,Y`, or `stamp`/`extract` from
+   another map. Find metatiles with `tileset <Map>` (PNG) and
    `tileset <Map> --list --behavior <NAME>`. Keep each building's door on the
    tile where Platinum has its door warp.
 5. **Preview, then build.** Run `build <file> --dry-run --render build/mapkit/preview.png`

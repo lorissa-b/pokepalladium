@@ -147,17 +147,19 @@ DRAFT_LEGENDS = {
         "<": "0x085  # ledge, jump west",
         ">": "0x086  # ledge, jump east",
         "^": "[0x1D4 0x1D5; 0x1DC 0x1DD]  # Emerald has no north ledges",
-        "D": "General_Door  # placeholder: stamp the real building",
+        "D": "General_Door  # a door with no building placed: stamp the real building",
         "|": "0x04C  # waterfall",
         "E": "General_Grass  # TODO: warp tile (cave entrance, arrow warp...)",
     },
 }
 
 
-def draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, int] | None = None) -> str:
+def draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, int] | None = None,
+          with_buildings: bool = True) -> str:
     x0, y0, w, h = region or (0, 0, ref.width, ref.height)
     grid = ref.grid()
     rows = [grid[y][x0 : x0 + w] if 0 <= y < ref.height else "" for y in range(y0, y0 + h)]
+    placements, unplaced = _buildings(ref, layout, rows, (x0, y0, w, h), with_buildings)
     used = sorted({ch for r in rows for ch in r} - {" "})
     legends = DRAFT_LEGENDS.get(layout["primary_tileset"], {})
     try:
@@ -187,12 +189,34 @@ def draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, in
     out += [r.rstrip() for r in rows]
     out.append("end")
     out.append("")
+    if placements or unplaced:
+        from blueprint import cells_text
+        from render import describe_metatile
+
+        tiles = TilesetPair.for_layout(layout)
+        out.append("# ---- Buildings: Emerald pieces where Platinum has buildings (see buildings.py) ----")
+        out += [f"# {n}" for n in unplaced]
+        for p in placements:
+            out.append(f"# {p.describe()}")
+            out.append(cells_text(p.cells, lambda mid: describe_metatile(tiles, mid).split(" ", 1)[1]).rstrip())
+        out.append("")
     out += notes(ref, (x0, y0, w, h))
     return "\n".join(out) + "\n"
 
 
+def _buildings(ref, layout, rows, region, enabled: bool):
+    """Placements for the region's buildings (none when disabled)."""
+    if not enabled:
+        return [], []
+    import buildings
+
+    w = region[2]
+    return buildings.plan(ref, layout, [r.ljust(w) for r in rows], region)
+
+
 def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, int] | None = None,
-                   style: str = "route", trees: str | None = "dense", water: str | None = "sea"):
+                   style: str = "route", trees: str | None = "dense", water: str | None = "sea",
+                   with_buildings: bool = True):
     """A blueprint with every block chosen, tiled by example (see autotile.py).
 
     Returns (blueprint text, blocks, tally, seams).
@@ -205,7 +229,11 @@ def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int
     x0, y0, w, h = region or (0, 0, ref.width, ref.height)
     grid = ref.grid()
     rows = [grid[y][x0 : x0 + w].ljust(w) if 0 <= y < ref.height else " " * w for y in range(y0, y0 + h)]
-    blocks, tally, seams = autotile.fill(rows, layout, style, trees, water)
+    import buildings
+
+    placements, unplaced = _buildings(ref, layout, rows, (x0, y0, w, h), with_buildings)
+    tiled = buildings.apply(placements, rows, layout)
+    blocks, tally, seams = autotile.fill(tiled, layout, style, trees, water, buildings.fixed(placements))
     tiles = TilesetPair.for_layout(layout)
     try:
         rev = platinum.revision()
@@ -222,10 +250,15 @@ def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int
         + (f" --region {x0},{y0},{w},{h}" if region else "")
         + (f" --style {style}" if style != "route" else "")
         + (f" --trees {trees or 'any'}" if trees != "dense" else "")
-        + (f" --water {water or 'any'}" if water != "sea" else ""),
+        + (f" --water {water or 'any'}" if water != "sea" else "")
+        + ("" if with_buildings else " --no-buildings"),
         "#",
-        "# Tile classes it was drawn from:",
-        *[f"#   {r.rstrip()}" for r in rows],
+        *(["# Buildings, placed whole from the original maps (buildings.py):"]
+          + [f"#   {p.describe()}" for p in placements] + [f"#   {n}" for n in unplaced]
+          if placements or unplaced else []),
+        "#",
+        "# Tile classes it was drawn from (with the buildings in):",
+        *[f"#   {r.rstrip()}" for r in tiled],
         "",
         f"layout {layout['id']}",
         f"size {w} {h}",
@@ -257,6 +290,14 @@ def notes(ref: platinum.Reference, region: tuple[int, int, int, int]) -> list[st
     for i, e in enumerate(ref.triggers):
         if inside(e["x"], e["y"]):
             out.append(f"# trigger {i}: ({e['x'] - x0},{e['y'] - y0}) {e.get('width', 1)}x{e.get('length', 1)} {e.get('var')}={e.get('value')}")
+    found = [b for b in ref.buildings() if any(inside(x, y) for x, y in b.tiles)]
+    if found:
+        out.append("# ---- Platinum buildings (footprint x, y, w x h; doors) ----")
+        for b in found:
+            bx, by, bw, bh = b.box
+            doors = " ".join(f"({x - x0},{y - y0})" for x, y in b.doors) or "none"
+            side = (" side " + " ".join(f"({x - x0},{y - y0})" for x, y in b.side)) if b.side else ""
+            out.append(f"# {b.prop.name} {b.kind}: ({bx - x0},{by - y0}) {bw}x{bh}, doors {doors}{side}")
     props = [p for p in ref.props if inside(int(p.x), int(p.y))]
     if props:
         out.append("# ---- Platinum props (model, centre x, y) ----")

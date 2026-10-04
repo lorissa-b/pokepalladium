@@ -294,10 +294,10 @@ def cmd_draft(a) -> None:
     if a.finish:
         family = {"any": None}
         text, blocks, tally, seams = cmp.finished_draft(
-            ref, layout, region, a.style, family.get(a.trees, a.trees), family.get(a.water, a.water))
+            ref, layout, region, a.style, family.get(a.trees, a.trees), family.get(a.water, a.water), not a.no_buildings)
         print(f"{tally.get('off_style', 0)} off-style blocks, {len(seams)} seams", file=sys.stderr)
     else:
-        text = cmp.draft(ref, layout, region)
+        text = cmp.draft(ref, layout, region, not a.no_buildings)
         blocks = None
     if a.render:
         if blocks is None:
@@ -317,6 +317,31 @@ def cmd_draft(a) -> None:
         print(a.output)
     else:
         sys.stdout.write(text)
+
+
+def cmd_buildings(a) -> None:
+    import buildings
+
+    layout = resolve_layout(a.layout)
+    lib = [p for p in buildings.library(layout) if not a.kind or p.kind == a.kind]
+    if a.piece:
+        hits = [p for p in lib if p.name.lower() == a.piece.lower()]
+        if not hits:
+            raise SystemExit(f"error: no piece {a.piece!r} for {layout['id']}; list them with `buildings {a.layout}`")
+        p = hits[0]
+        x, y = region_arg(a.at)[:2] if a.at else (0, 0)
+        tiles = TilesetPair.for_layout(layout)
+        cells = {(x + dx, y + dy): b for dx, dy, b in p.blocks()}
+        doors = " ".join(f"({x + dx},{y + dy})" for dx, dy in p.doors)
+        print(f"# {p.name} {p.w}x{p.h} ({p.kind}), doors {doors}")
+        sys.stdout.write(blueprint.cells_text(cells, lambda m: render.describe_metatile(tiles, m).split(" ", 1)[1]))
+        return
+    for p in lib:
+        doors = " ".join(f"{dx},{dy}" for dx, dy in p.doors)
+        print(f"{p.name:<36} {p.w:>2}x{p.h:<2} {p.kind:<10} door {doors:<8} -> {p.dests[0]}")
+    if a.render:
+        tiles = TilesetPair.for_layout(layout)
+        save(render.pieces_sheet(lib, tiles, a.scale), a.render)
 
 
 def cmd_materials(a) -> None:
@@ -475,6 +500,8 @@ def main(argv=None) -> None:
     s.add_argument("--trees", choices=["dense", "round", "jungle", "pine", "any"], default="dense",
                    help="with --finish, the one tree family to use")
     s.add_argument("--water", choices=["sea", "pond", "any"], default="sea", help="with --finish, the one water family to use")
+    s.add_argument("--no-buildings", action="store_true",
+                   help="don't place Emerald buildings where Platinum has buildings (see buildings.py)")
     s.add_argument("--seams", action="store_true", help="with --render, outline spots worth checking by eye")
     s.add_argument("--render", help="draw the draft to this PNG")
     s.add_argument("--events", action="store_true", help="with --render, mark Platinum's events and props")
@@ -482,6 +509,15 @@ def main(argv=None) -> None:
     s.add_argument("--scale", type=int, default=2)
     s.add_argument("-o", "--output")
     s.set_defaults(func=cmd_draft)
+
+    s = sub.add_parser("buildings", help="Emerald buildings that can be drawn on a layout (see buildings.py)")
+    s.add_argument("layout", help="the layout whose tilesets the buildings must draw with")
+    s.add_argument("--kind", choices=["pokecenter", "mart", "gym", "lab", "gate", "house", "other"])
+    s.add_argument("--piece", help="print this piece (a name from the list) as a blueprint grid")
+    s.add_argument("--at", help="with --piece, X,Y of its top-left (default 0,0)")
+    s.add_argument("--render", help="draw every piece to this PNG")
+    s.add_argument("--scale", type=int, default=2)
+    s.set_defaults(func=cmd_buildings)
 
     s = sub.add_parser("materials", help="label coverage, and suggested labels for a tileset to review")
     s.add_argument("action", choices=["status", "suggest"])

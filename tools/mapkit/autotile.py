@@ -61,7 +61,8 @@ STYLES = {
         "fallback": {"cliff", "rock", "sand"},
     },
     "town": {
-        "allow": {"grass", "tallgrass", "flowers", "tree", "water", "ledge", "bridge", "path", "fence", "building", "object"},
+        # No "building": buildings are placed whole beforehand (buildings.py), never pieced together.
+        "allow": {"grass", "tallgrass", "flowers", "tree", "water", "ledge", "bridge", "path", "fence", "object"},
         "need": {"#": None, ".": None, '"': "tallgrass", "~": "water", "=": "bridge",
                  "^": "ledge", "v": "ledge", "<": "ledge", ">": "ledge"},
         "extra": {"~": {"cliff", "rock", "sand"}, "^": {"cliff"}, "v": {"cliff"}, "<": {"cliff"}, ">": {"cliff"}},
@@ -168,22 +169,17 @@ class Model:
             self.class_mask[ch] |= 1 << i
             self.group_mask[GROUP_OF.get(ch, "walk")] |= 1 << i
         self.all_mask = (1 << len(self.blocks)) - 1
-        self._support: dict = {}
+        self._target = target
 
-    def support(self, d: int, domain: int) -> int:
-        """Every block allowed in direction d of some block in domain."""
-        key = (d, domain)
-        hit = self._support.get(key)
-        if hit is None:
-            allow, hit, rest = self.allow[d], 0, domain
-            while rest:
-                low = rest & -rest
-                hit |= allow.get(low.bit_length() - 1, 0)
-                rest ^= low
-            if len(self._support) > 200_000:
-                self._support.clear()
-            self._support[key] = hit
-        return hit
+    def index_of(self, metatile: int) -> int:
+        """The index of a metatile, adding it (with no examples) if the originals never showed it."""
+        if metatile not in self.index:
+            c = consts()
+            self.index[metatile] = len(self.blocks)
+            self.blocks.append(metatile)
+            self.materials.append(materials.of(self._target, metatile))
+            self.classes.append(emerald_symbol(self._target, c.pack(metatile, 0, 0)))
+        return self.index[metatile]
 
 
 @lru_cache(maxsize=None)
@@ -210,7 +206,8 @@ PATCH_ROUNDS = 6         # rounds of patch moves over the problem spots
 
 
 def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None = "dense",
-         water: str | None = "sea") -> tuple[Blockdata, Counter, list[tuple[int, int]]]:
+         water: str | None = "sea", fixed: dict[tuple[int, int], int] | None = None
+         ) -> tuple[Blockdata, Counter, list[tuple[int, int]]]:
     """Blocks for a class grid (rows of class characters, ' ' = outside the map).
 
     Picks, for every cell, a block that moves the same way as its class,
@@ -224,7 +221,9 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
     Where Platinum's shape can't be built exactly, an area settles on the
     least-bad combination.
 
-    trees/water pick the family the style keeps to (None: any).
+    trees/water pick the family the style keeps to (None: any). fixed: blocks
+    already decided (buildings, see buildings.py), by (x, y); they're kept as
+    they are, collision and elevation included, and the rest fits around them.
 
     Returns the blocks, a tally (context levels used, sweeps, seams,
     off-style cells) and the seams: cells beside a block they never sit
@@ -310,15 +309,24 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
                 c += weight[d] * pair_cost(d, b, nb)
         return c
 
-    # A first version in reading order: each cell sees its decided west and north neighbours.
+    # A first version in reading order: each cell sees its decided west and north neighbours
+    # (and every fixed block).
+    cc = consts()
     assign: list = [None] * (w * h)
-    for i in range(w * h):
+    pinned = set()
+    for (x, y), block in (fixed or {}).items():
+        if 0 <= x < w and 0 <= y < h:
+            i = y * w + x
+            assign[i] = m.index_of(block & cc.metatile_mask)
+            pinned.add(i)
+    free = [i for i in range(w * h) if i not in pinned]
+    for i in free:
         assign[i] = min(cands[i], key=lambda b: cost(i, b, assign))
 
     # Improve: swap each block for its best option given all its neighbours, until settled.
     for sweep in range(SWEEPS):
         changed = 0
-        for i in range(w * h):
+        for i in free:
             current = cost(i, assign[i], assign)
             best = min(cands[i], key=lambda b: cost(i, b, assign))
             if cost(i, best, assign) < current - 1e-9:
@@ -328,9 +336,13 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
         if not changed:
             break
 
+    def seam(i: int) -> bool:
+        """Beside a block it's never seen next to (two fixed blocks are left alone)."""
+        return any(d in HARD and not m.pairs[d].get((assign[i], assign[n])) and not (i in pinned and n in pinned)
+                   for d, n in neighbours[i])
+
     def is_problem(i: int) -> bool:
-        return assign[i] not in pref[i] or any(
-            d in HARD and not m.pairs[d].get((assign[i], assign[n])) for d, n in neighbours[i])
+        return i not in pinned and (assign[i] not in pref[i] or seam(i))
 
     # Patch moves: a tree or a shoreline is several blocks, so single swaps can't move it.
     # Around each problem cell, try whole 2x2 patches from the original maps that fit
@@ -360,6 +372,8 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
                    if 0 <= x < w - 1 and 0 <= y < h - 1}
         for x, y in sorted(windows):
             cells = (y * w + x, y * w + x + 1, (y + 1) * w + x, (y + 1) * w + x + 1)
+            if any(cell in pinned for cell in cells):
+                continue
             sig = tuple(target[c] for c in cells)
             current = window_cost(cells, [assign[c] for c in cells])
             best, best_cost = None, current - 1e-9
@@ -375,16 +389,17 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
         if not improved:
             break
 
-    seams = [(i % w, i // w) for i in range(w * h)
-             if any(d in HARD and not m.pairs[d].get((assign[i], assign[n])) for d, n in neighbours[i])]
+    seams = [(i % w, i // w) for i in range(w * h) if seam(i)]
     tally["seams"] = len(seams)
-    tally["off_style"] = sum(1 for i in range(w * h) if assign[i] not in pref[i])
+    tally["off_style"] = sum(1 for i in free if assign[i] not in pref[i])
 
     from blueprint import default_attrs
 
-    c = consts()
     out = Blockdata(w, h)
     for i, b in enumerate(assign):
         mid = m.blocks[b]
-        out.blocks[i] = c.pack(mid, *default_attrs(mid, layout))
+        out.blocks[i] = cc.pack(mid, *default_attrs(mid, layout))
+    for (x, y), block in (fixed or {}).items():
+        if 0 <= x < w and 0 <= y < h:
+            out.blocks[y * w + x] = block
     return out, tally, seams
