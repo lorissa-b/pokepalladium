@@ -1,0 +1,91 @@
+# What each gTileset_Unused2 metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest Unused2`. An unused puzzle tileset:
+# arrows, pads, gates and walls.
+# Tiles it had to guess default to floor or wall by how maps use them
+# (walkable or blocked), with exceptions reviewed by eye.
+
+
+0x800       path                    # dup: BattleFrontierOutsideEast 0x800
+0x801-0x802 object                  # guess
+0x803       path                    # guess: BattlePalace 0x801 d=162
+0x804-0x806 object                  # guess
+0x807       building                # guess: Lilycove 0x8fb d=189
+0x808       dark                    # dup: BattleTent 0x85b
+0x809       object                  # guess: SecretBaseYellowCave 0x86d d=189
+0x80a       floor                   # guess: MeteorFalls 0x83e d=204
+0x80b       path                    # guess: BattlePalace 0x801 d=162
+0x80c       object                  # guess: SecretBaseBlueCave 0x83d d=125
+0x80d-0x80e floor                   # guess
+0x80f       wall                    # guess: Facility 0x9b2 d=90
+0x810       path                    # guess: BattleFrontierOutsideEast 0x9c5 d=54
+0x811-0x814 stairs                  # guess
+0x815       building                # guess: BattleFrontierOutsideWest 0x8ba d=203
+0x816       object                  # guess: SecretBaseBlueCave 0x93e d=160
+0x817-0x818 stairs                  # guess
+0x819       object                  # guess: Facility 0x837 d=149
+0x81a       building                # guess: Dewford 0x815 d=131
+0x81b       object                  # guess: Facility 0x837 d=147
+0x81c-0x81d building                # guess
+0x81e       water                   # guess: Slateport 0x969 d=126
+0x81f       path                    # dup: BattleFrontierOutsideEast 0x800
+0x820       dark                    # guess: Facility 0x9bc d=74
+0x821       object path             # guess: Rustboro 0x812 d=252
+0x822       building                # guess: Mauville 0x9d0 d=224
+0x823-0x824 floor                   # beh
+0x825-0x828 path                    # dup
+0x829       object                  # guess: SecretBaseYellowCave 0x86a d=187
+0x82a-0x82b fence path              # dup
+0x82c-0x82f path                    # guess
+0x830       path                    # dup: BattleFrontierOutsideEast 0x800
+0x831-0x833 object                  # guess
+0x834-0x837 path                    # guess
+0x838       cliff                   # guess: Fallarbor 0x936 d=125
+0x839       path                    # guess: Fallarbor 0x899 d=130
+
+# ---- Reviewed: guessed tiles ---------------------------------------------
+0x801       floor
+0x802       floor
+0x803       floor
+0x804       floor
+0x805       floor
+0x806       object
+0x807       object
+0x809       floor
+0x80a       floor
+0x80b       floor
+0x80c       floor
+0x80d       floor
+0x80e       floor
+0x80f       floor
+0x810       floor
+0x811       wall
+0x812       wall
+0x813       wall
+0x814       wall
+0x815       wall
+0x816       wall
+0x817       wall
+0x818       wall
+0x819       wall
+0x81a       wall
+0x81b       wall
+0x81c       wall
+0x81d       wall
+0x81e       wall
+0x820       wall
+0x821       wall
+0x822       wall
+0x829       floor
+0x82c       floor
+0x82d       floor
+0x82e       floor
+0x82f       floor
+0x831       floor
+0x832       wall
+0x833       wall
+0x834       floor
+0x835       floor
+0x836       floor
+0x837       floor
+0x838       object
+0x839       object

@@ -1,0 +1,77 @@
+# What each gTileset_UnionRoom metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest UnionRoom`. Green floor, walls, counter
+# and the escalator.
+# Tiles it had to guess default to floor or wall by how maps use them
+# (walkable or blocked), with exceptions reviewed by eye.
+
+
+0x800       wall                    # dup: BattleFrontier 0x89a
+0x801       wall                    # guess: BikeShop 0x860 d=360
+0x802-0x803 object                  # guess
+0x804       building                # guess: Petalburg 0x836 d=152
+0x805       floor                   # guess: Contest 0x889 d=277
+0x806       building                # guess: BattleFrontierOutsideWest 0x9c5 d=261
+0x807       grass water             # guess: Fortree 0x891 d=148
+0x808       wall                    # dup: BattleFrontier 0x89a
+0x809       floor object            # guess: InsideShip 0x839 d=139
+0x80a-0x80d object                  # guess
+0x80e       building                # guess: Sootopolis 0x85b d=373
+0x80f       object                  # guess: Contest 0x8a9 d=131
+0x810       floor object            # guess: InsideShip 0x88b d=136
+0x811       object                  # guess: Contest 0x8a9 d=137
+0x812       floor object            # guess: InsideShip 0x88b d=136
+0x813       path                    # guess: BattleFrontierOutsideEast 0x8b9 d=146
+0x814       grass water             # guess: Fortree 0x891 d=148
+0x815-0x817 object                  # guess
+0x818       floor                   # guess: Contest 0x871 d=149
+0x819       grass water             # guess: Fortree 0x891 d=141
+0x81a       floor                   # guess: Contest 0x871 d=149
+0x81b       object                  # guess: BattleTent 0x860 d=149
+0x81c       grass water             # guess: Fortree 0x891 d=148
+0x81d       floor                   # guess: Contest 0x871 d=182
+0x81e       bridge                  # beh: MB_BRIDGE_OVER_OCEAN
+0x81f       floor                   # guess: Contest 0x871 d=182
+0x820       floor object            # guess: InsideShip 0x88b d=136
+0x821       floor                   # guess: Contest 0x871 d=150
+0x822       floor object            # guess: InsideShip 0x88b d=136
+0x823       object                  # guess: Contest 0x840 d=155
+0x824-0x827 wall                    # dup
+0x828       wall                    # guess: BikeShop 0x861 d=361
+0x829-0x82f wall                    # dup
+0x830       floor object            # guess: InsideShip 0x839 d=139
+
+# ---- Reviewed: guessed tiles ---------------------------------------------
+0x801       stairs
+0x802       wall
+0x803       wall
+0x804       object
+0x805       floor
+0x806       floor
+0x807       floor
+0x809       wall
+0x80a       wall
+0x80b       wall
+0x80c       object
+0x80d       floor
+0x80e       floor
+0x80f       floor
+0x810       floor
+0x811       floor
+0x812       floor
+0x814       floor
+0x815       floor
+0x816       floor
+0x817       floor
+0x818       floor
+0x819       floor
+0x81a       floor
+0x81b       wall
+0x81c       floor
+0x81d       floor
+0x81f       floor
+0x820       floor
+0x821       floor
+0x822       floor
+0x823       wall
+0x828       stairs
+0x830       wall

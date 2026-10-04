@@ -1,0 +1,290 @@
+# What each gTileset_TrickHousePuzzle metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest TrickHousePuzzle`. The Trick House
+# puzzle rooms: spin arrows and switches, gates, scrolls, crates and mats.
+# Tiles it had to guess default to floor or wall by how maps use them
+# (walkable or blocked), with exceptions reviewed by eye.
+
+
+0x800       wall                    # dup: BattleFrontier 0x89a
+0x801       building                # guess: Rustboro 0x8cb d=130
+0x802       floor                   # guess: BikeShop 0x8a4 d=139
+0x803       wall                    # guess: GenericBuilding 0x803 d=167
+0x804       floor                   # guess: BikeShop 0x8a3 d=141
+0x805       wall                    # guess: InsideShip 0x863 d=180
+0x806-0x807 object                  # guess
+0x808       floor                   # shape: GenericBuilding 0x829
+0x809       wall                    # shape: GenericBuilding 0x81d
+0x80a       object                  # guess: GenericBuilding 0x8f5 d=74
+0x80b       dark                    # dup: GenericBuilding 0x819
+0x80c       object                  # guess: GenericBuilding 0x8f7 d=66
+0x80d-0x80e object                  # shape
+0x80f       wall                    # shape: GenericBuilding 0x8ec
+0x810       floor                   # dup: GenericBuilding 0x821
+0x811-0x812 floor                   # beh
+0x813       object                  # guess: BattleFrontier 0x846 d=155
+0x814-0x815 object                  # beh
+0x816       stairs                  # shape: GenericBuilding 0x8f3
+0x817       floor                   # shape: GenericBuilding 0x8f4
+0x818-0x81d floor                   # guess
+0x81e       object                  # guess: Facility 0x8f5 d=192
+0x81f       cliff ledge             # guess: NavelRock 0x852 d=207
+0x820-0x823 object                  # guess
+0x824       wall                    # guess: InsideShip 0x827 d=195
+0x825-0x826 object                  # guess
+0x827       floor                   # guess: SecretBaseShrub 0x804 d=96
+0x828-0x82c object                  # guess
+0x82d-0x82f cliff ledge             # guess
+0x830-0x831 object                  # guess
+0x832-0x834 floor                   # guess
+0x835       object                  # guess: SecretBaseBlueCave 0x936 d=127
+0x836-0x839 floor                   # guess
+0x83a       object                  # guess: SecretBaseRedCave 0x8ba d=140
+0x83b       building                # guess: Lilycove 0x80d d=306
+0x83c       object                  # guess: GenericBuilding 0x8a4 d=304
+0x83d       building                # guess: BattleFrontierOutsideWest 0x9d2 d=149
+0x83e-0x83f cliff                   # guess
+0x840-0x842 object                  # guess
+0x843-0x845 building                # guess
+0x846-0x849 floor                   # guess
+0x84a       cliff                   # guess: Lavaridge 0x91c d=162
+0x84b-0x84c floor                   # guess
+0x84d       cliff                   # guess: MeteorFalls 0x82a d=194
+0x84e-0x84f bridge water            # guess
+0x850-0x851 floor                   # guess
+0x852       floor                   # shape: GenericBuilding 0x8d6
+0x853       floor                   # guess: GenericBuilding 0x829 d=165
+0x854       building                # guess: Mossdeep 0x9a5 d=158
+0x855       floor                   # shape: GenericBuilding 0x8d6
+0x856       object rock             # guess: Cave 0x878 d=274
+0x857       floor                   # guess: GenericBuilding 0x829 d=91
+0x858       object                  # guess: SecretBaseShrub 0x940 d=135
+0x859       floor                   # guess: SecretBaseShrub 0x804 d=97
+0x85a       floor                   # shape: GenericBuilding 0x8d6
+0x85b       building                # guess: Slateport 0x8ab d=296
+0x85c       water                   # guess: Pacifidlog 0x808 d=314
+0x85d       building                # guess: Dewford 0x813 d=313
+0x85e       water                   # guess: Lilycove 0x8c5 d=270
+0x85f       floor                   # guess: GenericBuilding 0x8d6 d=156
+0x860-0x863 object                  # guess
+0x864       cliff water             # guess: Sootopolis 0x892 d=278
+0x865       water                   # guess: Lilycove 0x8c5 d=277
+0x866       rock water              # guess: General 0x16d d=272
+0x866       +sea
+0x867       water                   # guess: Lilycove 0x8c5 d=279
+0x868       dark                    # dup: Fortree 0x8ca
+0x869       object                  # guess: SecretBaseShrub 0x833 d=183
+0x86a-0x86b sand                    # guess
+0x86c       object                  # beh: MB_TRASH_CAN
+0x86d       water                   # guess: Pacifidlog 0x808 d=314
+0x86e-0x86f building                # guess
+0x870       stairs                  # guess: Cave 0x83d d=166
+0x871-0x873 floor                   # shape
+0x874       floor                   # guess: GenericBuilding 0x829 d=91
+0x875       building                # guess: Rustboro 0x8b5 d=324
+0x876       floor                   # guess: Facility 0x8da d=314
+0x877       building                # guess: Mossdeep 0x9b4 d=85
+0x878       object                  # guess: GenericBuilding 0x8cf d=131
+0x879       water                   # shape: InsideShip 0x8dc
+0x87a       building                # guess: BattleFrontierOutsideEast 0x842 d=214
+0x87b-0x87c path                    # guess
+0x87d-0x87e object                  # guess
+0x87f       bridge                  # guess: Fortree 0x857 d=183
+0x880       floor object            # guess: InsideShip 0x8e0 d=221
+0x881       building                # guess: Fallarbor 0x922 d=174
+0x882       floor                   # guess: BattlePalace 0x899 d=196
+0x883       building                # guess: Fallarbor 0x924 d=165
+0x884       object sand             # guess: SecretBaseTree 0x88d d=181
+0x885       building                # guess: Fallarbor 0x8ad d=149
+0x886       ledge                   # beh: MB_JUMP_SOUTH
+0x887       floor                   # guess: Cave 0x8dd d=111
+0x888       sand                    # guess: Lavaridge 0x898 d=216
+0x889       object                  # guess: GenericBuilding 0x9dd d=175
+0x88a       floor                   # guess: GenericBuilding 0x87c d=174
+0x88b       bridge                  # guess: Pacifidlog 0x81c d=184
+0x88c       object                  # guess: GenericBuilding 0x84c d=191
+0x88d       sand                    # guess: Lavaridge 0x8b9 d=123
+0x88e       object                  # guess: SecretBaseShrub 0x829 d=103
+0x88f       wall                    # dup: BattleFrontier 0x89a
+0x890       object                  # guess: GenericBuilding 0x895 d=198
+0x891       floor                   # guess: Building 0x006 d=225
+0x892       building                # guess: Fallarbor 0x924 d=215
+0x893       sand                    # guess: Dewford 0x88e d=176
+0x894       building                # guess: Dewford 0x8a2 d=190
+0x895-0x897 wall                    # dup
+0x898       wall                    # guess: GenericBuilding 0x8a7 d=240
+0x899       floor object            # guess: BikeShop 0x8d6 d=245
+0x89a       path water              # guess: Sootopolis 0x882 d=235
+0x89b       floor                   # guess: BikeShop 0x831 d=231
+0x89c       object                  # guess: GenericBuilding 0x844 d=201
+0x89d-0x89f wall                    # dup
+0x8a0       object                  # guess: SecretBaseBrownCave 0x827 d=220
+0x8a1       building                # guess: BattleFrontierOutsideWest 0x88a d=206
+0x8a2-0x8a4 object                  # guess
+0x8a5-0x8a7 wall                    # dup
+0x8a8       path                    # guess: Fallarbor 0x829 d=250
+0x8a9       floor object            # guess: BikeShop 0x8c8 d=202
+0x8aa       wall                    # guess: Facility 0x96d d=248
+0x8ab       object                  # guess: BikeShop 0x82e d=229
+0x8ac       floor                   # guess: GenericBuilding 0x821 d=137
+0x8ad-0x8af wall                    # dup
+0x8b0       water                   # guess: MeteorFalls 0x856 d=205
+0x8b1-0x8b3 building                # guess
+0x8b4       object                  # guess: SecretBaseYellowCave 0x8d1 d=223
+0x8b5-0x8b7 wall                    # dup
+0x8b8       path                    # guess: BattlePalace 0x801 d=263
+0x8b9-0x8bc object                  # guess
+
+# ---- Reviewed: guessed tiles ---------------------------------------------
+0x801       wall
+0x802       wall
+0x803       wall
+0x804       wall
+0x805       wall
+0x806       wall
+0x807       wall
+0x80a       wall
+0x80c       wall
+0x813       object
+0x818       floor
+0x819       floor
+0x81a       floor
+0x81b       floor
+0x81c       floor
+0x81d       floor
+0x81e       wall
+0x81f       wall
+0x820       wall
+0x821       wall
+0x822       wall
+0x823       wall
+0x824       wall
+0x825       wall
+0x826       wall
+0x827       wall
+0x828       wall
+0x829       wall
+0x82a       wall
+0x82b       wall
+0x82c       wall
+0x82d       wall
+0x82e       wall
+0x82f       wall
+0x830       wall
+0x831       wall
+0x832       wall
+0x833       wall
+0x834       wall
+0x835       wall
+0x836       wall
+0x837       wall
+0x838       floor
+0x839       floor
+0x83a       wall
+0x83b       floor
+0x83c       floor
+0x83d       wall
+0x83e       object
+0x83f       object
+0x840       wall
+0x841       wall
+0x842       wall
+0x843       wall
+0x844       wall
+0x845       wall
+0x846       floor
+0x847       floor
+0x848       unknown
+0x849       wall
+0x84a       wall
+0x84b       floor
+0x84c       floor
+0x84d       wall
+0x84e       floor
+0x84f       floor
+0x850       wall
+0x851       wall
+0x853       floor
+0x854       floor
+0x856       floor
+0x857       unknown
+0x858       floor
+0x859       floor
+0x85b       floor
+0x85c       floor
+0x85d       floor
+0x85e       floor
+0x85f       floor
+0x860       floor
+0x861       floor
+0x862       floor
+0x863       floor
+0x864       floor
+0x865       floor
+0x866       floor
+0x867       floor
+0x869       wall
+0x86a       wall
+0x86b       floor
+0x86d       floor
+0x86e       floor
+0x86f       wall
+0x870       object
+0x874       floor
+0x875       floor
+0x876       floor
+0x877       wall
+0x878       object
+0x87a       wall
+0x87b       floor
+0x87c       floor
+0x87d       unknown
+0x87e       object
+0x87f       object
+0x880       wall
+0x881       wall
+0x882       wall
+0x883       wall
+0x884       wall
+0x885       wall
+0x887       floor
+0x888       wall
+0x889       wall
+0x88a       wall
+0x88b       wall
+0x88c       wall
+0x88d       unknown
+0x88e       floor
+0x890       wall
+0x891       wall
+0x892       wall
+0x893       wall
+0x894       wall
+0x898       floor
+0x899       floor
+0x89a       floor
+0x89b       floor
+0x89c       floor
+0x8a0       floor
+0x8a1       floor
+0x8a2       floor
+0x8a3       floor
+0x8a4       floor
+0x8a8       floor
+0x8a9       floor
+0x8aa       floor
+0x8ab       floor
+0x8ac       floor
+0x8b0       floor
+0x8b1       floor
+0x8b2       floor
+0x8b3       floor
+0x8b4       floor
+0x8b8       floor
+0x8b9       floor
+0x8ba       floor
+0x8bb       floor
+0x8bc       floor
+0x848       floor
+0x857       floor
+0x87D       object
+0x88D       floor

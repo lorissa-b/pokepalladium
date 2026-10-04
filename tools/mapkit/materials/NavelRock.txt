@@ -1,0 +1,348 @@
+# What each gTileset_NavelRock metatile depicts (format as in General.txt).
+# Navel Rock reuses Cave's layout in olive colours, so most labels come from
+# `mapkit.py materials suggest NavelRock` (exact and recoloured copies of
+# labelled tiles); the corrections at the end were reviewed by eye.
+
+
+0x800       floor                   # dup: Cave 0x800
+0x801       floor                   # shape: Cave 0x801
+0x802-0x803 rock                    # shape
+0x804-0x805 stairs                  # shape
+0x806       dark                    # shape: Cave 0x806
+0x807       floor                   # shape: Cave 0x807
+0x808       cliff                   # shape: Cave 0x808
+0x809       floor                   # shape: Cave 0x809
+0x80a-0x80b cliff                   # shape
+0x80c       cave                    # shape: Cave 0x80c
+0x80d       cliff                   # shape: Cave 0x80d
+0x80e-0x80f stairs                  # shape
+0x810       cliff                   # shape: Cave 0x810
+0x811       floor                   # shape: Cave 0x811
+0x812-0x813 cliff                   # shape
+0x814       cave                    # shape: Cave 0x814
+0x815       cliff                   # shape: Cave 0x815
+0x816-0x817 stairs                  # shape
+0x818-0x81c cliff                   # shape
+0x81d       floor                   # shape: Cave 0x81d
+0x81e       cliff                   # shape: Cave 0x81e
+0x81f       rock                    # shape: Cave 0x81f
+0x820       cliff                   # shape: Cave 0x820
+0x821       floor                   # shape: Cave 0x821
+0x822       cliff                   # shape: Cave 0x822
+0x823-0x824 floor                   # shape
+0x825-0x82a cliff                   # shape
+0x82b       cave                    # shape: Cave 0x82b
+0x82c       cliff                   # shape: Cave 0x82c
+0x82d       floor                   # shape: Cave 0x82d
+0x82e       cliff                   # shape: Cave 0x82e
+0x82f       floor                   # shape: Cave 0x82f
+0x830-0x831 cliff                   # shape
+0x832       object                  # shape: Cave 0x832
+0x833       cave                    # shape: Cave 0x833
+0x834       floor                   # shape: Cave 0x834
+0x835       object                  # shape: Cave 0x835
+0x836       cliff                   # shape: Cave 0x836
+0x837       object                  # shape: Cave 0x835
+0x838-0x83b cliff ledge             # shape
+0x83c       floor                   # shape: Cave 0x811
+0x83d-0x83f stairs                  # shape
+0x840-0x843 cliff ledge             # shape
+0x844       cliff floor             # shape: Cave 0x844
+0x845       dark                    # dup: Cave 0x845
+0x846       cliff ledge             # shape: Cave 0x846
+0x847       floor                   # shape: Cave 0x847
+0x848-0x849 cliff                   # shape
+0x84a       floor                   # shape: Cave 0x84a
+0x84b       cliff                   # shape: Cave 0x84b
+0x84c-0x84f cliff ledge             # shape
+0x850       rock                    # shape: Cave 0x802
+0x851-0x852 cliff ledge             # shape
+0x853-0x857 cliff                   # shape
+0x858       floor                   # shape: Cave 0x858
+0x859       bridge                  # shape: Cave 0x859
+0x85a       floor                   # shape: Cave 0x85a
+0x85b       cliff water             # shape: Cave 0x85b
+0x85c       floor                   # dup: Cave 0x800
+0x85d       cliff water             # shape: Cave 0x85d
+0x85e-0x85f floor                   # shape
+0x860-0x861 cliff                   # shape
+0x862       rock                    # shape: Cave 0x862
+0x863       cliff water             # shape: Cave 0x863
+0x864       cliff                   # shape: Cave 0x864
+0x865       rock water              # shape: Cave 0x865
+0x866       floor rock water        # shape: Cave 0x866
+0x867       floor                   # shape: Cave 0x867
+0x868-0x869 cliff sand              # shape
+0x86a       cliff water             # shape: Cave 0x86a
+0x86b       floor                   # shape: Cave 0x86b
+0x86c-0x86d cliff water             # shape
+0x86e       floor                   # shape: Cave 0x86e
+0x86f       cliff water             # shape: Cave 0x86f
+0x870-0x871 cliff sand              # shape
+0x872       cliff water             # shape: Cave 0x872
+0x873       floor                   # shape: Cave 0x873
+0x874       cliff water             # shape: Cave 0x874
+0x875       sand water              # dup: Cave 0x875
+0x876       floor sand              # dup: Cave 0x876
+0x877       cliff ledge             # shape: Cave 0x84c
+0x878       object rock             # shape: Cave 0x878
+0x879       floor                   # dup: Cave 0x800
+0x87a       cliff                   # shape: Cave 0x87a
+0x87b       water                   # dup: Cave 0x87b
+0x87c       cliff                   # shape: Cave 0x87c
+0x87d-0x87e rock water              # dup
+0x87f       cliff ledge             # shape: Cave 0x84d
+0x880-0x882 cliff water             # shape
+0x883       floor water             # dup: Cave 0x87b
+0x884       floor                   # shape: Cave 0x884
+0x885-0x886 rock water              # dup
+0x887       cliff ledge             # shape: Cave 0x851
+0x888-0x88a cliff water             # shape
+0x88b-0x88c bridge                  # shape
+0x88d-0x88e cliff                   # shape
+0x88f       ice water               # shape: Cave 0x88f
+0x890-0x892 cliff water             # shape
+0x893-0x894 water                   # dup
+0x895-0x896 cliff                   # shape
+0x897       floor                   # shape: Cave 0x86e
+0x898-0x8a0 floor sand              # shape
+0x8a1       floor sand              # dup: Cave 0x8a1
+0x8a2       floor sand              # shape: Cave 0x8a2
+0x8a3       cliff                   # shape: Cave 0x8a3
+0x8a4       floor                   # shape: Cave 0x8a4
+0x8a5       cliff                   # shape: Cave 0x8a5
+0x8a6       sand water              # dup: Cave 0x8a6
+0x8a7       cliff water             # shape: Cave 0x86f
+0x8a8-0x8aa floor sand              # shape
+0x8ab       rock                    # shape: Cave 0x8ab
+0x8ac       cliff                   # shape: Cave 0x8ac
+0x8ad       rock                    # shape: Cave 0x8ad
+0x8ae       sand water              # dup: Cave 0x8ae
+0x8af       cliff water             # shape: Cave 0x86d
+0x8b0-0x8b2 floor sand              # dup
+0x8b3-0x8b7 cliff water             # shape
+0x8b8       floor sand              # dup: Cave 0x8b8
+0x8b9       floor                   # dup: Cave 0x800
+0x8ba       floor sand              # dup: Cave 0x8ba
+0x8bb-0x8bd floor object            # shape
+0x8be-0x8bf bridge object           # dup
+0x8c0-0x8c2 floor sand              # dup
+0x8c3-0x8c5 floor object            # shape
+0x8c6-0x8c7 bridge object           # dup
+0x8c8-0x8cd grass sand              # dup
+0x8ce-0x8cf sand                    # dup
+0x8d0-0x8d4 cliff                   # shape
+0x8d5-0x8d7 rock                    # shape
+0x8d8       cliff                   # shape: Cave 0x8d8
+0x8d9-0x8de floor                   # shape
+0x8df-0x8e4 cliff                   # shape
+0x8e5       floor                   # shape: Cave 0x858
+0x8e6       bridge                  # shape: Cave 0x859
+0x8e7       floor                   # shape: Cave 0x85a
+0x8e8-0x8ec cliff                   # shape
+0x8ed-0x8ef rock                    # shape
+0x8f0       cliff                   # shape: Cave 0x8d8
+0x8f1-0x8f6 floor                   # shape
+0x8f7-0x8fa cliff                   # shape
+0x8fb       floor                   # shape: Cave 0x8fb
+0x8fc-0x8fd cliff sand              # shape
+0x8fe       cave                    # shape: Cave 0x80c
+0x8ff-0x905 cliff                   # shape
+0x906       cave                    # shape: Cave 0x814
+0x907-0x908 cliff                   # shape
+0x909       floor                   # shape: Cave 0x8da
+0x90a       cliff                   # shape: Cave 0x8d8
+0x90b       floor                   # shape: Cave 0x8da
+0x90c-0x90d cliff sand              # shape
+0x90e       cliff                   # shape: Cave 0x80b
+0x90f       cliff                   # dup: Cave 0x90f
+0x910-0x916 cliff                   # shape
+0x917       cliff                   # dup: Cave 0x917
+0x918       rock                    # dup: Cave 0x918
+0x919       floor                   # dup: Cave 0x919
+0x91a       cliff                   # dup: Cave 0x91a
+0x91b       floor                   # dup: Cave 0x91b
+0x91c-0x91d cliff                   # dup
+0x91e-0x91f object                  # dup
+0x920       rock                    # dup: Cave 0x920
+0x921       floor                   # dup: Cave 0x921
+0x922       cliff                   # dup: Cave 0x922
+0x923-0x925 floor                   # dup
+0x926-0x927 object                  # dup
+0x928-0x92a cliff                   # dup
+0x92b       floor                   # dup: Cave 0x921
+0x92c       rock                    # dup: Cave 0x92c
+0x92d       cliff                   # dup: Cave 0x92d
+0x92e       cave                    # dup: Cave 0x92e
+0x92f       cliff                   # dup: Cave 0x92f
+0x930-0x931 rock                    # dup
+0x932-0x933 floor                   # dup
+0x934-0x935 cliff                   # dup
+0x936       cave                    # dup: Cave 0x936
+0x937-0x938 cliff                   # dup
+0x939       floor                   # dup: Cave 0x939
+0x93a       cliff                   # dup: Cave 0x93a
+0x93b       floor                   # dup: Cave 0x91b
+0x93c       cliff water             # dup: General 0x0a1
+0x93c       +pond
+0x93d-0x93e rock                    # shape
+0x93f       floor                   # dup: Cave 0x800
+0x940-0x942 building                # guess
+0x943       cliff water             # guess: Cave 0x8af d=236
+0x944       wall                    # guess: Pacifidlog 0x8a2 d=139
+0x945       cliff water             # guess: Cave 0x86f d=254
+0x946-0x947 floor                   # shape
+0x948       rock water              # guess: Cave 0x944 d=183
+0x949       building                # guess: Mossdeep 0x8e4 d=161
+0x94a       rock                    # guess: Cave 0x8ad d=197
+0x94b       tree                    # guess: Mauville 0x987 d=194
+0x94b       +round
+0x94c       building                # guess: Pacifidlog 0x812 d=133
+0x94d       cliff water             # guess: Cave 0x85d d=262
+0x94e-0x94f cliff                   # shape
+0x950-0x951 sand                    # guess
+0x952       bridge object           # guess: Rustboro 0x944 d=239
+0x953       tree                    # guess: General 0x026 d=203
+0x953       +round
+0x954       grass tree              # guess: Mossdeep 0x913 d=220
+0x954       +round
+0x955       rock                    # guess: Cave 0x8ad d=251
+0x956       grass sand              # guess: Cave 0x8cc d=125
+0x957       floor                   # dup: Cave 0x800
+0x958       sand                    # guess: Mossdeep 0x933 d=151
+0x959-0x95a building                # guess
+0x95b       cliff                   # shape: Cave 0x820
+0x95c       floor                   # shape: Cave 0x821
+0x95d       cliff                   # shape: Cave 0x822
+0x95e       sand                    # guess: Mauville 0x9e0 d=128
+0x95f       floor                   # dup: Cave 0x800
+0x960-0x962 building                # guess
+0x963       cliff                   # shape: Cave 0x856
+0x964       building                # guess: Pacifidlog 0x812 d=133
+0x965       cliff                   # shape: Cave 0x857
+0x966       stairs                  # beh: MB_LADDER
+0x967       floor                   # dup: Cave 0x800
+0x968       cliff                   # shape: Cave 0x820
+0x969       floor                   # shape: Cave 0x821
+0x96a-0x96d cliff                   # shape
+0x96e-0x96f floor                   # dup
+0x970       cliff                   # shape: Cave 0x856
+0x971       building                # guess: Lilycove 0x931 d=106
+0x972-0x974 cliff                   # shape
+0x975       dark water              # dup: Mossdeep 0x800
+0x976-0x977 floor                   # dup
+0x978-0x97a cliff                   # shape
+0x97b       dark                    # guess: General 0x023 d=184
+0x97c-0x97f floor                   # dup
+0x980       cliff water             # shape: Cave 0x872
+0x981       floor                   # shape: Cave 0x873
+0x982       cliff water             # shape: Cave 0x874
+0x983       stairs                  # shape: Cave 0x80f
+0x984-0x987 floor                   # dup
+0x988       cliff                   # shape: Cave 0x87a
+0x989       building                # guess: Pacifidlog 0x812 d=133
+0x98a       cliff                   # shape: Cave 0x87c
+0x98b       stairs                  # shape: Cave 0x816
+0x98c-0x98f floor                   # dup
+0x990       cliff water             # shape: Cave 0x8b3
+0x991       dark                    # guess: General 0x023 d=212
+0x992       cliff water             # shape: Cave 0x8b5
+0x993       building                # guess: Lilycove 0x92b d=160
+0x994       bridge                  # guess: Cave 0x88b d=168
+0x995-0x997 floor                   # dup
+0x998       cliff                   # shape: Cave 0x820
+0x999       floor                   # shape: Cave 0x821
+0x99a       cliff                   # shape: Cave 0x822
+0x99b-0x99c building                # guess
+0x99d-0x99f floor                   # dup
+0x9a0       cliff                   # shape: Cave 0x856
+0x9a1       building                # guess: Petalburg 0x815 d=76
+0x9a2       cliff                   # shape: Cave 0x857
+0x9a3-0x9a4 building                # guess
+0x9a5-0x9a7 floor                   # dup
+0x9a8-0x9aa cliff                   # shape
+0x9ab-0x9ac dark                    # guess
+0x9ad-0x9af floor                   # dup
+0x9b0       cliff                   # shape: Cave 0x820
+0x9b1       floor                   # shape: Cave 0x821
+0x9b2       cliff                   # shape: Cave 0x822
+0x9b3-0x9b7 floor                   # dup
+0x9b8       cliff                   # shape: Cave 0x856
+0x9b9       building                # guess: Petalburg 0x815 d=76
+0x9ba       cliff                   # shape: Cave 0x857
+0x9bb-0x9bf floor                   # dup
+0x9c0-0x9c2 cliff                   # shape
+
+# ---- Reviewed corrections (later lines replace earlier ones) ------------
+0x93C       water
+0x93D-0x93E rock
+0x93F       floor
+0x940-0x943 cliff water
+0x944       cliff
+0x945       cliff water
+0x946-0x947 floor
+0x948       cliff water
+0x949       cliff
+0x94A-0x94B rock
+0x94C       cliff
+0x94D       cliff water
+0x94E       cliff
+0x94F       sand
+0x950       cliff water
+0x951       floor
+0x952       cliff water
+0x953       rock
+0x954       dark
+0x955-0x956 rock
+0x957       floor
+0x958-0x95C cliff
+0x95D       rock
+0x95E       stairs
+0x95F       floor
+0x960-0x962 cliff water
+0x963       rock
+0x964       cliff
+0x965       dark
+0x966       stairs
+0x967       floor
+0x968-0x96A cliff
+0x96B       rock
+0x96C       dark
+0x96D       cave
+0x96E-0x96F floor
+0x970-0x972 cliff
+0x973       stairs
+0x974       rock
+0x975       dark water
+0x976-0x977 floor
+0x978-0x97A cliff
+0x97B       stairs
+0x97C-0x97F floor
+0x980       cliff water
+0x981       cliff
+0x982       cliff water
+0x983       stairs
+0x984-0x987 floor
+0x988       stairs
+0x989       cliff
+0x98A       dark
+0x98B       stairs
+0x98C-0x98F floor
+0x990-0x992 cliff water dark
+0x993-0x994 rock
+0x995-0x998 floor
+0x999-0x99A cliff
+0x99B-0x99C rock
+0x99D-0x9A0 floor
+0x9A1-0x9A2 cliff
+0x9A3-0x9A4 rock
+0x9A5-0x9A7 floor
+0x9A8       stairs
+0x9A9-0x9AA cliff
+0x9AB-0x9AC dark
+0x9AD-0x9AF floor
+0x9B0-0x9B2 cliff
+0x9B3-0x9B7 floor
+0x9B8-0x9BA cliff
+0x9BB-0x9BF floor
+0x9C0-0x9C2 cliff

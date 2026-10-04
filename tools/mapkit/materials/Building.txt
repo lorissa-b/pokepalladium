@@ -1,0 +1,10 @@
+# What each gTileset_Building metatile depicts (format as in General.txt).
+# The interiors' primary tileset: eight shared metatiles.
+
+
+0x000       wall
+0x001       dark
+0x002       object
+0x003-0x004 object
+0x005       object
+0x006-0x007 floor

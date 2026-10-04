@@ -1,0 +1,67 @@
+# What each gTileset_EverGrande metatile depicts (format as in General.txt).
+# Suggested by `mapkit.py materials suggest EverGrande`, reviewed by eye.
+# The Pokémon League outside: orange buildings, cobble and brick paths,
+# stone stairs, kerbs and the big flower beds.
+
+0x800-0x802 building
+0x803       grass
+0x804       object grass
+0x805       object
+0x806       object grass
+0x807       grass
+0x808-0x817 building
+0x818       building grass
+0x819-0x81F building
+0x820       tree
+0x821-0x822 grass
+0x823-0x827 path            # flower paving
+0x828-0x829 building
+0x82A-0x82F fence grass     # stone kerb
+0x830-0x831 building
+0x832       path            # cobbles
+0x833-0x835 stairs
+0x836-0x837 path
+0x838-0x839 building
+0x83A       stairs
+0x83B       tree
+0x83C-0x83E path            # brick
+0x83F       tree
+0x840-0x843 building
+0x844-0x847 cliff
+0x848       grass building
+0x849-0x860 building
+0x861       grass
+0x862       tree
+0x863       path
+0x864       building
+0x865       path grass
+0x866-0x867 path
+0x868       building
+0x869       path
+0x86A       tree
+0x86B       path
+0x86C       building
+0x86D       path grass
+0x86E-0x86F path
+0x870       path grass
+0x871       path
+0x872       path grass
+0x873       path
+0x874-0x876 object          # flower planters
+0x877       cliff
+0x878-0x87B path
+0x87C-0x87D grass
+0x87E-0x87F path
+0x880       path grass
+0x881       path
+0x882       path grass
+0x883-0x887 path
+0x888-0x897 flowers grass
+0x898-0x8A7 flowers fence   # flowers over the stone edge
+
+# ---- Families (see General.txt) ----------------------------------------
+0x820       +round
+0x83B       +round
+0x83F       +round
+0x86A       +round
+0x862       +jungle

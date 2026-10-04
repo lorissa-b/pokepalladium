@@ -1,0 +1,584 @@
+# What each gTileset_EliteFour metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest EliteFour`. The Elite Four and Champion
+# rooms: patterned floors, walls and doors, glass panels, stairs and machinery.
+# Tiles it had to guess default to floor or wall by how maps use them
+# (walkable or blocked), with exceptions reviewed by eye.
+
+
+0x800       wall                    # dup: BattleFrontier 0x89a
+0x801       water                   # guess: Fortree 0x877 d=101
+0x802       object                  # guess: Mauville 0x87d d=193
+0x803       water                   # guess: Fortree 0x877 d=100
+0x804       building                # guess: Dewford 0x815 d=90
+0x805-0x808 water                   # guess
+0x809-0x80b building                # guess
+0x80c-0x80d fence grass             # guess
+0x80e       building                # guess: Dewford 0x8d4 d=107
+0x80f       water                   # guess: Sootopolis 0x873 d=159
+0x810       building                # guess: BattleFrontierOutsideEast 0x8aa d=132
+0x811       floor                   # guess: Facility 0x8fd d=208
+0x812       path                    # guess: Lavaridge 0x914 d=75
+0x813-0x814 sand                    # guess
+0x815-0x816 building                # guess
+0x817       path                    # guess: EverGrande 0x83d d=134
+0x818       building                # guess: BattleFrontierOutsideEast 0x8a9 d=113
+0x819       floor object            # guess: InsideShip 0x802 d=145
+0x81a       path                    # guess: Fallarbor 0x8d4 d=136
+0x81b       floor object            # guess: InsideShip 0x802 d=145
+0x81c       building                # guess: BattleFrontierOutsideEast 0x8bb d=113
+0x81d       cliff                   # guess: MeteorFalls 0x84c d=110
+0x81e-0x81f cliff ledge             # guess
+0x820       floor                   # guess: Contest 0x8c6 d=106
+0x821       path                    # guess: Fallarbor 0x8e4 d=134
+0x822       floor                   # guess: Cave 0x919 d=127
+0x823       path                    # guess: Fallarbor 0x8e4 d=129
+0x824       floor                   # guess: Contest 0x85e d=101
+0x825-0x826 water                   # guess
+0x827       cliff                   # guess: MirageTower 0x87c d=119
+0x828       path                    # guess: Lavaridge 0x914 d=75
+0x829       bridge                  # guess: Cave 0x88b d=159
+0x82a       object                  # guess: SecretBaseShrub 0x89c d=98
+0x82b       cliff                   # guess: MirageTower 0x810 d=156
+0x82c       floor                   # guess: Contest 0x861 d=69
+0x82d-0x82e water                   # guess
+0x82f       cliff                   # guess: MirageTower 0x87c d=148
+0x830       building                # guess: BattleFrontierOutsideEast 0x848 d=111
+0x831-0x833 floor                   # guess
+0x834       object                  # guess: SecretBaseShrub 0x8b1 d=77
+0x835-0x837 floor                   # guess
+0x838-0x839 object                  # guess
+0x83a       cliff                   # guess: MirageTower 0x90a d=148
+0x83b       path                    # guess: Lavaridge 0x945 d=120
+0x83c       bridge                  # guess: Cave 0x859 d=133
+0x83d       wall                    # guess: Pacifidlog 0x8a1 d=145
+0x83e       path                    # guess: Fallarbor 0x899 d=104
+0x83f-0x840 water                   # guess
+0x841       building                # guess: Mossdeep 0x969 d=138
+0x842       path                    # guess: Fallarbor 0x92d d=71
+0x843-0x844 water                   # guess
+0x845       path                    # guess: Fallarbor 0x899 d=83
+0x846       building                # guess: Mauville 0x8e0 d=151
+0x847       wall                    # guess: InsideShip 0x8c8 d=133
+0x848       cliff ledge water       # guess: MeteorFalls 0x85d d=120
+0x849-0x84b path                    # guess
+0x84c       cliff ledge water       # guess: MeteorFalls 0x85f d=125
+0x84d-0x84f object                  # guess
+0x850       building                # guess: Mauville 0x8d9 d=127
+0x851-0x853 floor                   # guess
+0x854       path                    # guess: Slateport 0x83e d=127
+0x855       object                  # guess: SecretBaseTree 0x822 d=135
+0x856-0x857 cliff                   # guess
+0x858-0x859 path                    # guess
+0x85a       object                  # guess: SecretBaseYellowCave 0x91f d=123
+0x85b       path                    # guess: Fallarbor 0x937 d=141
+0x85c       building                # guess: Mauville 0x88b d=83
+0x85d       dark                    # guess: Mauville 0x8d3 d=111
+0x85e-0x85f cliff                   # guess
+0x860       floor                   # guess: InsideShip 0x8c7 d=170
+0x861-0x865 building                # guess
+0x866-0x867 cliff                   # guess
+0x868       water                   # guess: MeteorFalls 0x857 d=116
+0x869       bridge water            # guess: Pacifidlog 0x860 d=176
+0x86a-0x86b building                # guess
+0x86c       water                   # guess: MeteorFalls 0x857 d=116
+0x86d       wall                    # guess: Pacifidlog 0x8a1 d=99
+0x86e-0x86f building                # guess
+0x870       wall                    # guess: Facility 0x905 d=81
+0x871       path                    # guess: Fallarbor 0x8b3 d=206
+0x872       sand water              # guess: Cave 0x875 d=30
+0x873       floor                   # guess: BattleTent 0x810 d=83
+0x874       wall                    # guess: Facility 0x905 d=81
+0x875       building                # guess: Rustboro 0x842 d=166
+0x876       building grass          # guess: Lilycove 0x905 d=194
+0x877       building                # guess: Lilycove 0x903 d=194
+0x878       floor                   # guess: BattleTent 0x810 d=81
+0x879       object path             # guess: Slateport 0x839 d=152
+0x87a       building                # guess: Lilycove 0x909 d=141
+0x87b       object path             # guess: Slateport 0x838 d=155
+0x87c       floor                   # guess: BattleTent 0x810 d=81
+0x87d       building                # guess: Lilycove 0x844 d=144
+0x87e       floor                   # guess: BattleTent 0x81c d=220
+0x87f       path                    # guess: Lilycove 0x8f4 d=216
+0x880       wall                    # guess: Facility 0x905 d=76
+0x881       floor                   # guess: BattleTent 0x82a d=175
+0x882       object                  # guess: SecretBaseBlueCave 0x843 d=168
+0x883       building                # guess: Mauville 0x9d0 d=171
+0x884       wall                    # guess: Facility 0x905 d=76
+0x885       object                  # guess: SecretBaseBlueCave 0x93e d=120
+0x886-0x887 wall                    # guess
+0x888       sand water              # guess: Cave 0x875 d=30
+0x889       building                # guess: Lilycove 0x8eb d=126
+0x88a-0x88b object                  # guess
+0x88c       floor                   # guess: BattleTent 0x810 d=55
+0x88d       building                # guess: Lilycove 0x907 d=147
+0x88e       path                    # guess: Fallarbor 0x90a d=213
+0x88f       building                # guess: Dewford 0x861 d=202
+0x890       object                  # guess: SecretBaseBlueCave 0x835 d=122
+0x891       floor                   # guess: BattleTent 0x810 d=60
+0x892       object                  # guess: SecretBaseBlueCave 0x909 d=78
+0x893       floor                   # guess: BattleTent 0x810 d=60
+0x894       building                # guess: Lilycove 0x953 d=111
+0x895       object                  # guess: SecretBaseRedCave 0x843 d=156
+0x896-0x898 floor                   # guess
+0x899-0x89a object                  # guess
+0x89b-0x89c floor                   # guess
+0x89d       water                   # guess: Facility 0x934 d=152
+0x89e-0x8a0 building                # guess
+0x8a1       wall                    # guess: Contest 0x865 d=232
+0x8a2       object                  # guess: Facility 0x827 d=57
+0x8a3-0x8a5 building                # guess
+0x8a6       floor object            # guess: InsideShip 0x83d d=165
+0x8a7-0x8a8 floor                   # guess
+0x8a9-0x8ab building                # guess
+0x8ac       floor                   # guess: BattleFrontier 0x857 d=131
+0x8ad       wall                    # guess: GenericBuilding 0x920 d=214
+0x8ae       path                    # guess: Fallarbor 0x8fd d=292
+0x8af       building                # guess: Lavaridge 0x83d d=287
+0x8b0       floor object            # guess: InsideShip 0x838 d=141
+0x8b1       building                # guess: Mauville 0x89c d=237
+0x8b2       floor                   # guess: SecretBaseShrub 0x804 d=238
+0x8b3-0x8b4 building                # guess
+0x8b5       object                  # guess: GenericBuilding 0x89c d=122
+0x8b6       stairs                  # guess: Sootopolis 0x8bd d=223
+0x8b7       building                # guess: Dewford 0x895 d=209
+0x8b8-0x8bb object                  # guess
+0x8bc       floor object            # guess: InsideShip 0x838 d=106
+0x8bd       object                  # guess: GenericBuilding 0x89c d=140
+0x8be       stairs                  # guess: Sootopolis 0x8bd d=237
+0x8bf       rock sand               # guess: Lavaridge 0x8b1 d=226
+0x8c0-0x8c1 floor object            # guess
+0x8c2       building                # guess: Lavaridge 0x821 d=140
+0x8c3       floor object            # guess: InsideShip 0x838 d=105
+0x8c4       building                # guess: EverGrande 0x812 d=144
+0x8c5       fence path              # guess: BattleFrontierOutsideWest 0x9da d=197
+0x8c6-0x8c8 floor object            # guess
+0x8c9-0x8ca building                # guess
+0x8cb-0x8cc floor object            # guess
+0x8cd       object                  # guess: Facility 0x81f d=144
+0x8ce       path                    # guess: Lavaridge 0x914 d=162
+0x8cf       stairs                  # guess: Pacifidlog 0x89d d=111
+0x8d0       bridge                  # guess: Mauville 0x8fe d=26
+0x8d1       path                    # guess: IslandHarbor 0x802 d=31
+0x8d2       object                  # guess: Facility 0x8bc d=75
+0x8d3       floor                   # guess: BikeShop 0x855 d=115
+0x8d4-0x8d5 building                # guess
+0x8d6-0x8d7 water                   # guess
+0x8d8-0x8db building                # guess
+0x8dc       object                  # guess: Contest 0x881 d=114
+0x8dd-0x8df building                # guess
+0x8e0       wall                    # guess: BattleFrontier 0x994 d=154
+0x8e1       object                  # guess: Contest 0x8da d=193
+0x8e2       stairs                  # guess: GenericBuilding 0x830 d=171
+0x8e3       wall                    # guess: BattleFrontier 0x830 d=154
+0x8e4       wall                    # shape: GenericBuilding 0x923
+0x8e5       water                   # guess: Fortree 0x877 d=68
+0x8e6       building                # guess: Dewford 0x8d5 d=112
+0x8e7       dark                    # dup: Fortree 0x8ca
+0x8e8       dark                    # guess: BattleTent 0x85b d=81
+0x8e9       object                  # guess: GenericBuilding 0x9c8 d=388
+0x8ea-0x8eb fence                   # guess
+0x8ec-0x8ed floor                   # guess
+0x8ee       object                  # guess: GenericBuilding 0x9ca d=388
+0x8ef       dark                    # guess: BattleTent 0x85b d=81
+0x8f0       object                  # guess: BattleFrontierOutsideWest 0x8e8 d=141
+0x8f1       floor                   # guess: Facility 0x9e6 d=127
+0x8f2-0x8f4 building                # guess
+0x8f5       dark floor              # guess: BattleTent 0x830 d=464
+0x8f6       floor                   # guess: Facility 0x9e6 d=124
+0x8f7       building                # guess: Slateport 0x91c d=140
+0x8f8       floor                   # guess: BattleTent 0x83b d=130
+0x8f9       object                  # guess: SecretBaseBlueCave 0x80b d=121
+0x8fa       fence                   # guess: Lilycove 0x849 d=100
+0x8fb       floor                   # guess: SecretBaseBlueCave 0x804 d=104
+0x8fc-0x8fd dark                    # guess
+0x8fe       wall                    # guess: Facility 0x944 d=120
+0x8ff       floor                   # guess: BattleTent 0x83b d=130
+0x900       path                    # guess: BattleFrontierOutsideWest 0x898 d=94
+0x901       object                  # guess: SecretBaseBlueCave 0x80b d=138
+0x902       building                # guess: Slateport 0x8e8 d=142
+0x903       wall                    # guess: GenericBuilding 0x99d d=115
+0x904       floor                   # guess: BattleTent 0x823 d=100
+0x905       building                # guess: Lilycove 0x8eb d=103
+0x906       object                  # guess: SecretBaseBlueCave 0x80d d=155
+0x907       building                # guess: BattleFrontierOutsideWest 0x8fa d=94
+0x908       path                    # guess: BattleFrontierOutsideWest 0x889 d=42
+0x909       grass                   # guess: Lilycove 0x858 d=163
+0x90a-0x90b floor                   # guess
+0x90c       path                    # guess: BattleFrontierOutsideWest 0x898 d=97
+0x90d       floor                   # guess: BattleTent 0x83b d=138
+0x90e       grass                   # guess: EverGrande 0x807 d=159
+0x90f-0x910 path                    # guess
+0x911-0x912 floor                   # guess
+0x913       floor                   # shape: Contest 0x803
+0x914       building                # guess: BattleFrontierOutsideWest 0x8fa d=97
+0x915       floor                   # guess: BattleTent 0x83b d=98
+0x916       grass                   # guess: Mauville 0x81a d=169
+0x917       path                    # guess: BattleFrontierOutsideWest 0x838 d=27
+0x918       building                # guess: Rustboro 0x8b0 d=144
+0x919       floor                   # guess: BattleTent 0x83b d=98
+0x91a       dark                    # shape: Contest 0x801
+0x91b       floor                   # guess: BattleTent 0x83b d=98
+0x91c       object                  # guess: GenericBuilding 0x8b5 d=135
+0x91d       building                # guess: Lilycove 0x92c d=171
+0x91e-0x91f object                  # guess
+0x920       floor                   # guess: Facility 0x9e6 d=42
+0x921       building                # guess: Slateport 0x867 d=138
+0x922-0x923 object                  # guess
+0x924       floor                   # guess: Facility 0x9e6 d=41
+0x925       building                # guess: Dewford 0x813 d=153
+0x926       wall                    # guess: GenericBuilding 0x90b d=141
+0x927       floor                   # guess: Facility 0x803 d=162
+0x928       wall                    # guess: Facility 0x944 d=96
+0x929       floor                   # guess: Facility 0x9e6 d=17
+0x92a       wall                    # guess: Pacifidlog 0x839 d=39
+0x92b       floor                   # guess: Facility 0x9e6 d=16
+0x92c       wall                    # guess: Facility 0x944 d=96
+0x92d-0x92f stairs                  # guess
+0x930       object                  # guess: SecretBaseBlueCave 0x803 d=93
+0x931       wall                    # guess: Facility 0x944 d=94
+0x932       dark                    # dup: Fortree 0x8ca
+0x933       wall                    # guess: Facility 0x944 d=92
+0x934       fence                   # guess: Lilycove 0x849 d=104
+0x935-0x937 stairs                  # guess
+0x938       bridge water            # guess: Mauville 0x942 d=462
+0x939-0x93a object                  # guess
+0x93b       bridge water            # guess: Mauville 0x943 d=460
+0x93c-0x93d object                  # guess
+0x93e-0x93f building                # guess
+0x940       object                  # guess: SecretBaseBrownCave 0x802 d=129
+0x941       dark                    # guess: Mauville 0x8d3 d=111
+0x942       cliff                   # guess: Fallarbor 0x864 d=115
+0x943       dark                    # guess: Mauville 0x8d3 d=111
+0x944       building                # guess: BattleFrontierOutsideEast 0x901 d=139
+0x945       dark                    # dup: Fortree 0x8ca
+0x946       bridge water            # guess: Mauville 0x915 d=128
+0x947-0x949 building                # guess
+0x94a       stairs                  # guess: Slateport 0x8db d=214
+0x94b       bridge                  # guess: Mauville 0x8f6 d=146
+
+# ---- Reviewed: guessed tiles ---------------------------------------------
+0x801       wall
+0x802       object
+0x803       wall
+0x804       wall
+0x805       wall
+0x806       floor
+0x807       wall
+0x808       wall
+0x809       wall
+0x80a       object
+0x80b       wall
+0x80c       object
+0x80d       object
+0x80e       floor
+0x80f       wall
+0x810       floor
+0x811       floor
+0x812       floor
+0x813       floor
+0x814       floor
+0x815       wall
+0x816       wall
+0x817       wall
+0x818       floor
+0x819       floor
+0x81a       floor
+0x81b       floor
+0x81c       floor
+0x81d       stairs
+0x81e       wall
+0x81f       wall
+0x820       floor
+0x821       floor
+0x822       floor
+0x823       floor
+0x824       floor
+0x825       stairs
+0x826       stairs
+0x827       wall
+0x828       floor
+0x829       floor
+0x82a       floor
+0x82b       floor
+0x82c       floor
+0x82d       stairs
+0x82e       stairs
+0x82f       wall
+0x830       floor
+0x831       floor
+0x832       floor
+0x833       floor
+0x834       floor
+0x835       floor
+0x836       floor
+0x837       floor
+0x838       floor
+0x839       floor
+0x83a       stairs
+0x83b       floor
+0x83c       floor
+0x83d       floor
+0x83e       wall
+0x83f       stairs
+0x840       floor
+0x841       wall
+0x842       floor
+0x843       floor
+0x844       floor
+0x845       wall
+0x846       wall
+0x847       wall
+0x848       floor
+0x849       floor
+0x84a       floor
+0x84b       floor
+0x84c       floor
+0x84d       wall
+0x84e       wall
+0x84f       wall
+0x850       floor
+0x851       floor
+0x852       floor
+0x853       floor
+0x854       floor
+0x855       wall
+0x856       wall
+0x857       wall
+0x858       floor
+0x859       floor
+0x85a       floor
+0x85b       floor
+0x85c       floor
+0x85d       wall
+0x85e       wall
+0x85f       wall
+0x860       floor
+0x861       floor
+0x862       floor
+0x863       floor
+0x864       floor
+0x865       wall
+0x866       wall
+0x867       wall
+0x868       floor
+0x869       floor
+0x86a       floor
+0x86b       floor
+0x86c       floor
+0x86d       floor
+0x86e       floor
+0x86f       floor
+0x870       floor
+0x871       wall
+0x872       floor
+0x873       floor
+0x874       floor
+0x875       wall
+0x876       wall
+0x877       wall
+0x878       floor
+0x879       floor
+0x87a       floor
+0x87b       floor
+0x87c       floor
+0x87d       wall
+0x87e       wall
+0x87f       wall
+0x880       floor
+0x881       floor
+0x882       floor
+0x883       floor
+0x884       floor
+0x885       wall
+0x886       wall
+0x887       wall
+0x888       floor
+0x889       floor
+0x88a       floor
+0x88b       floor
+0x88c       floor
+0x88d       wall
+0x88e       wall
+0x88f       wall
+0x890       floor
+0x891       floor
+0x892       floor
+0x893       floor
+0x894       floor
+0x895       floor
+0x896       floor
+0x897       floor
+0x898       floor
+0x899       floor
+0x89a       floor
+0x89b       floor
+0x89c       floor
+0x89d       floor
+0x89e       wall
+0x89f       wall
+0x8a0       floor
+0x8a1       wall
+0x8a2       floor
+0x8a3       floor
+0x8a4       floor
+0x8a5       wall
+0x8a6       wall
+0x8a7       wall
+0x8a8       floor
+0x8a9       floor
+0x8aa       floor
+0x8ab       floor
+0x8ac       floor
+0x8ad       wall
+0x8ae       wall
+0x8af       wall
+0x8b0       floor
+0x8b1       floor
+0x8b2       floor
+0x8b3       floor
+0x8b4       floor
+0x8b5       wall
+0x8b6       wall
+0x8b7       wall
+0x8b8       floor
+0x8b9       floor
+0x8ba       floor
+0x8bb       floor
+0x8bc       floor
+0x8bd       wall
+0x8be       wall
+0x8bf       wall
+0x8c0       floor
+0x8c1       floor
+0x8c2       floor
+0x8c3       floor
+0x8c4       floor
+0x8c5       floor
+0x8c6       floor
+0x8c7       floor
+0x8c8       floor
+0x8c9       floor
+0x8ca       floor
+0x8cb       floor
+0x8cc       floor
+0x8cd       floor
+0x8ce       wall
+0x8cf       wall
+0x8d0       floor
+0x8d1       floor
+0x8d2       floor
+0x8d3       floor
+0x8d4       floor
+0x8d5       wall
+0x8d6       wall
+0x8d7       wall
+0x8d8       wall
+0x8d9       floor
+0x8da       floor
+0x8db       wall
+0x8dc       wall
+0x8dd       object
+0x8de       object
+0x8df       wall
+0x8e0       wall
+0x8e1       floor
+0x8e2       floor
+0x8e3       wall
+0x8e5       wall
+0x8e6       wall
+0x8e8       wall
+0x8e9       wall
+0x8ea       wall
+0x8eb       wall
+0x8ec       wall
+0x8ed       wall
+0x8ee       wall
+0x8ef       wall
+0x8f0       wall
+0x8f1       wall
+0x8f2       wall
+0x8f3       wall
+0x8f4       wall
+0x8f5       wall
+0x8f6       wall
+0x8f7       wall
+0x8f8       wall
+0x8f9       wall
+0x8fa       wall
+0x8fb       wall
+0x8fc       wall
+0x8fd       wall
+0x8fe       wall
+0x8ff       wall
+0x900       wall
+0x901       wall
+0x902       wall
+0x903       floor
+0x904       floor
+0x905       floor
+0x906       wall
+0x907       wall
+0x908       wall
+0x909       wall
+0x90a       wall
+0x90b       floor
+0x90c       wall
+0x90d       wall
+0x90e       wall
+0x90f       wall
+0x910       floor
+0x911       wall
+0x912       floor
+0x914       wall
+0x915       floor
+0x916       wall
+0x917       floor
+0x918       wall
+0x919       floor
+0x91b       floor
+0x91c       wall
+0x91d       object
+0x91e       object
+0x91f       object
+0x920       wall
+0x921       wall
+0x922       floor
+0x923       wall
+0x924       wall
+0x925       object
+0x926       object
+0x927       object
+0x928       wall
+0x929       wall
+0x92a       wall
+0x92b       wall
+0x92c       wall
+0x92d       stairs
+0x92e       stairs
+0x92f       stairs
+0x930       floor
+0x931       wall
+0x933       wall
+0x934       floor
+0x935       stairs
+0x936       stairs
+0x937       stairs
+0x938       wall
+0x939       wall
+0x93a       wall
+0x93b       wall
+0x93c       wall
+0x93d       wall
+0x93e       floor
+0x93f       floor
+0x940       wall
+0x941       wall
+0x942       wall
+0x943       wall
+0x944       object
+0x946       wall
+0x947       wall
+0x948       object
+0x949       object
+0x94a       floor
+0x94b       floor

@@ -1,0 +1,115 @@
+# What each gTileset_LavaridgeGym metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest LavaridgeGym`. Flannery's Gym: brick floors,
+# sand pits and vents, walls and statues.
+# Tiles it had to guess default to floor or wall by how maps use them
+# (walkable or blocked), with exceptions reviewed by eye.
+
+
+0x800       wall                    # dup: BattleFrontier 0x89a
+0x801       floor                   # guess: Cave 0x858 d=93
+0x802       floor object            # guess: InsideShip 0x805 d=85
+0x803       sand                    # guess: Mauville 0x9e8 d=176
+0x804       floor                   # guess: BattleFrontier 0x83e d=188
+0x805       wall                    # guess: BikeShop 0x889 d=213
+0x806       building                # guess: BattleFrontierOutsideEast 0x80d d=132
+0x807       wall                    # guess: BikeShop 0x88a d=213
+0x808-0x80a floor object            # guess
+0x80b       object                  # guess: Facility 0x82f d=104
+0x80c       sand                    # guess: Mauville 0x9e8 d=185
+0x80d       wall                    # guess: BikeShop 0x870 d=235
+0x80e       path                    # guess: Fallarbor 0x899 d=144
+0x80f       wall                    # guess: BikeShop 0x872 d=235
+0x810       floor object            # guess: InsideShip 0x805 d=87
+0x811       path                    # guess: EverGrande 0x83d d=98
+0x812-0x813 object                  # guess
+0x814       building                # guess: Slateport 0x81e d=128
+0x815       floor                   # guess: Facility 0x9fb d=142
+0x816       building                # guess: BattleFrontierOutsideEast 0x80d d=115
+0x817       floor                   # guess: Facility 0x9fb d=142
+0x818       object                  # guess: Facility 0x81f d=135
+0x819       building                # guess: EverGrande 0x84b d=143
+0x81a       path                    # guess: BattleFrontierOutsideEast 0x8ad d=105
+0x81b       floor object            # guess: InsideShip 0x8e1 d=156
+0x81c       cliff                   # guess: Cave 0x81e d=155
+0x81d       object                  # guess: SecretBaseTree 0x8a6 d=119
+0x81e       path                    # guess: Fallarbor 0x899 d=122
+0x81f-0x820 object                  # guess
+0x821-0x823 floor                   # guess
+0x824       wall                    # guess: Pacifidlog 0x843 d=129
+0x825-0x826 ledge                   # beh
+0x827       object                  # guess: SecretBaseRedCave 0x8b4 d=136
+0x828       floor                   # guess: MirageTower 0x939 d=215
+0x829       cliff                   # guess: Mauville 0x81c d=191
+0x82a       wall                    # guess: BikeShop 0x889 d=164
+0x82b       cliff                   # guess: General 0x0eb d=156
+0x82c       wall                    # guess: BikeShop 0x88a d=164
+0x82d       object                  # guess: SecretBaseRedCave 0x8b8 d=187
+0x82e       sand                    # guess: Mauville 0x9df d=161
+0x82f       floor                   # guess: GenericBuilding 0x837 d=144
+0x830-0x831 object                  # guess
+0x832       wall                    # guess: BikeShop 0x870 d=187
+0x833       building                # guess: Mossdeep 0x899 d=152
+0x834       wall                    # guess: BikeShop 0x872 d=187
+0x835       floor                   # guess: Lavaridge 0x974 d=208
+0x836-0x837 wall                    # dup
+0x838-0x83c object                  # guess
+
+# ---- Reviewed: guessed tiles ---------------------------------------------
+0x801       floor
+0x802       floor
+0x803       wall
+0x804       wall
+0x805       wall
+0x806       wall
+0x807       wall
+0x808       floor
+0x809       floor
+0x80a       floor
+0x80b       wall
+0x80c       wall
+0x80d       wall
+0x80e       wall
+0x80f       wall
+0x810       floor
+0x811       floor
+0x812       floor
+0x813       floor
+0x814       wall
+0x815       object
+0x816       wall
+0x817       object
+0x818       wall
+0x819       floor
+0x81a       floor
+0x81b       floor
+0x81c       wall
+0x81d       floor
+0x81e       wall
+0x81f       object
+0x820       wall
+0x821       floor
+0x822       floor
+0x823       floor
+0x824       wall
+0x827       floor
+0x828       wall
+0x829       wall
+0x82a       wall
+0x82b       wall
+0x82c       wall
+0x82d       wall
+0x82e       wall
+0x82f       unknown
+0x830       wall
+0x831       wall
+0x832       unknown
+0x833       wall
+0x834       wall
+0x835       wall
+0x838       floor
+0x839       floor
+0x83a       floor
+0x83b       floor
+0x83c       floor
+0x82F       wall
+0x832       wall

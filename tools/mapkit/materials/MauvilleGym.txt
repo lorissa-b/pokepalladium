@@ -1,0 +1,152 @@
+# What each gTileset_MauvilleGym metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest MauvilleGym`. Wattson's Gym: yellow floor,
+# electric barriers, pylons and switches.
+# Tiles it had to guess default to floor or wall by how maps use them
+# (walkable or blocked), with exceptions reviewed by eye.
+
+
+0x800       wall                    # dup: BattleFrontier 0x89a
+0x801-0x802 grass sand              # guess
+0x803       floor                   # guess: BattleFrontier 0x83a d=185
+0x804-0x805 floor sand              # guess
+0x806       floor                   # guess: BattleFrontier 0x83a d=172
+0x807       dark floor              # guess: BattleTent 0x82c d=130
+0x808       wall                    # dup: BattleFrontier 0x89a
+0x809-0x80a floor                   # guess
+0x80b-0x80c sand water              # guess
+0x80b-0x80c +sea
+0x80d       wall                    # guess: BikeShop 0x870 d=142
+0x80e       building                # guess: BattleFrontierOutsideEast 0x972 d=118
+0x80f       dark floor              # guess: BattleTent 0x82c d=128
+0x810-0x811 floor                   # guess
+0x812       wall                    # guess: BikeShop 0x889 d=135
+0x813       sand water              # guess: Underwater 0x88f d=105
+0x814       path                    # guess: Slateport 0x83e d=131
+0x815-0x819 object                  # guess
+0x81a       floor                   # guess: BattleFrontier 0x83a d=184
+0x81b       wall                    # dup: BattleFrontier 0x89a
+0x81c       wall                    # guess: Facility 0x856 d=164
+0x81d-0x81f building                # guess
+0x820       floor object            # guess: InsideShip 0x88b d=250
+0x821       floor                   # guess: NavelRock 0x801 d=236
+0x822       path sand               # guess: BattleFrontierOutsideEast 0x866 d=245
+0x823       floor                   # guess: BattleFrontier 0x83a d=233
+0x824       floor object            # guess: BikeShop 0x8ad d=123
+0x825-0x826 sand                    # guess
+0x827       object                  # guess: BikeShop 0x83d d=160
+0x828       cliff floor             # guess: NavelRock 0x844 d=221
+0x829       object                  # guess: InsideShip 0x870 d=250
+0x82a       building                # guess: Slateport 0x816 d=231
+0x82b       sand                    # guess: Fallarbor 0x8b2 d=267
+0x82c       wall                    # guess: BattlePalace 0x842 d=124
+0x82d-0x82e building                # guess
+0x82f       object                  # guess: Contest 0x87a d=147
+0x830-0x833 floor                   # guess
+0x834-0x835 dark floor              # guess
+0x836       object sand             # guess: BattleFrontierOutsideEast 0x9d1 d=191
+0x837-0x83b floor                   # guess
+0x83c       wall                    # guess: BikeShop 0x870 d=142
+0x83d       dark floor              # guess: BattleTent 0x82c d=128
+0x83e       building                # guess: Mauville 0x993 d=174
+0x83f       object                  # guess: Contest 0x891 d=158
+0x840       grass                   # guess: Mauville 0x829 d=234
+0x841       water                   # guess: MeteorFalls 0x856 d=222
+0x842-0x843 object                  # guess
+0x844       dark                    # guess: BattleTent 0x853 d=102
+0x845       wall                    # dup: BattleFrontier 0x89a
+0x846-0x847 stairs                  # guess
+0x848       floor object            # guess: InsideShip 0x88b d=268
+0x849       floor                   # guess: GenericBuilding 0x83e d=268
+0x84a       sand water              # guess: Underwater 0x88f d=106
+0x84b       path                    # guess: Fallarbor 0x90a d=133
+0x84c-0x84d wall                    # dup
+0x84e       sand water              # guess: General 0x1a5 d=175
+0x84e       +sea
+0x84f-0x851 floor                   # guess
+0x852-0x853 building                # guess
+0x854-0x868 wall                    # dup
+0x869       floor wall              # dup: BattleFrontier 0x89a
+0x86a       wall                    # dup: BattleFrontier 0x89a
+0x86b-0x86c floor wall              # dup
+0x86d-0x872 wall                    # dup
+0x873-0x874 floor wall              # dup
+
+# ---- Reviewed: guessed tiles ---------------------------------------------
+0x801       floor
+0x802       floor
+0x803       floor
+0x804       floor
+0x805       floor
+0x806       floor
+0x807       wall
+0x809       floor
+0x80a       floor
+0x80b       floor
+0x80c       floor
+0x80d       wall
+0x80e       wall
+0x80f       wall
+0x810       floor
+0x811       floor
+0x812       wall
+0x813       wall
+0x814       wall
+0x815       wall
+0x816       object
+0x817       wall
+0x818       object
+0x819       object
+0x81a       floor
+0x81c       wall
+0x81d       wall
+0x81e       object
+0x81f       wall
+0x820       wall
+0x821       wall
+0x822       wall
+0x823       wall
+0x824       wall
+0x825       floor
+0x826       floor
+0x827       wall
+0x828       wall
+0x829       wall
+0x82a       wall
+0x82b       wall
+0x82c       wall
+0x82d       floor
+0x82e       floor
+0x82f       wall
+0x830       floor
+0x831       floor
+0x832       floor
+0x833       floor
+0x834       wall
+0x835       wall
+0x836       floor
+0x837       floor
+0x838       floor
+0x839       floor
+0x83a       floor
+0x83b       floor
+0x83c       wall
+0x83d       wall
+0x83e       object
+0x83f       object
+0x840       wall
+0x841       wall
+0x842       object
+0x843       object
+0x844       wall
+0x846       floor
+0x847       floor
+0x848       wall
+0x849       wall
+0x84a       wall
+0x84b       wall
+0x84e       object
+0x84f       floor
+0x850       floor
+0x851       floor
+0x852       wall
+0x853       wall

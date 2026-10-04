@@ -12,6 +12,7 @@ Scaffold page. Region and route write-ups still to be written.
 
 towns/index
 routes/index
+tooling
 ```
 
 ## Where the data lives
@@ -43,6 +44,11 @@ own.
 
 Prefer editing `map.json` through Porymap over editing it directly; the tool
 keeps the layout, border and blockdata files consistent with each other.
+
+For Sinnoh replicas, [the map tooling](tooling.md) pulls the original map out of
+pokeplatinum, drafts a layout from it, builds layouts from text blueprints,
+scores a replica against the original and checks warps, connections and
+tilesets. Run `tools/mapkit/mapkit.py check <map>` after changing a map.
 
 ## Planned pages
 

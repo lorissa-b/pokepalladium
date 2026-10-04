@@ -1,0 +1,93 @@
+# What each gTileset_SeashoreHouse metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest SeashoreHouse`. Sand-coloured floor,
+# wooden walls, tables, benches and the counter.
+# Tiles it had to guess default to floor or wall by how maps use them
+# (walkable or blocked), with exceptions reviewed by eye.
+
+
+0x800       wall                    # dup: BattleFrontier 0x89a
+0x801-0x803 object                  # guess
+0x804       path water              # guess: Sootopolis 0x884 d=174
+0x805-0x807 building                # guess
+0x808       wall                    # dup: BattleFrontier 0x89a
+0x809       object sand             # guess: Slateport 0x87c d=182
+0x80a       grass sand              # guess: Cave 0x8cc d=105
+0x80b       object sand             # guess: Slateport 0x87b d=181
+0x80c-0x80d sand                    # guess
+0x80e-0x80f bridge                  # guess
+0x810       sand                    # guess: Mauville 0x9e9 d=103
+0x811       building                # guess: Lilycove 0x934 d=163
+0x812       object                  # guess: SecretBaseBrownCave 0x8d8 d=215
+0x813       building                # guess: BattleFrontierOutsideEast 0x918 d=148
+0x814       sand                    # guess: Mossdeep 0x9a0 d=118
+0x815       building                # guess: Rustboro 0x889 d=94
+0x816-0x817 floor                   # beh
+0x818       bridge                  # guess: Rustboro 0x871 d=122
+0x819       object                  # guess: SecretBaseBrownCave 0x920 d=123
+0x81a       building                # guess: Rustboro 0x889 d=76
+0x81b       floor                   # guess: NavelRock 0x858 d=71
+0x81c       path                    # guess: Sootopolis 0x825 d=126
+0x81d-0x81e building                # guess
+0x81f       object sand             # guess: Slateport 0x8e1 d=206
+0x820-0x821 object                  # guess
+0x822       floor                   # guess: BikeShop 0x855 d=130
+0x823       lava                    # guess: GenericBuilding 0x818 d=105
+0x824-0x825 path                    # guess
+0x826       lava                    # guess: GenericBuilding 0x818 d=114
+0x827       object                  # guess: SecretBaseYellowCave 0x8cb d=156
+0x828-0x829 wall                    # dup
+0x82a       path                    # guess: Sootopolis 0x826 d=77
+0x82b       cliff grass             # guess: Fallarbor 0x839 d=63
+0x82c       building                # guess: Lilycove 0x931 d=102
+0x82d       lava                    # guess: GenericBuilding 0x818 d=99
+0x82e       path                    # guess: Mossdeep 0x94a d=239
+0x82f       object                  # guess: BattleFrontier 0x911 d=182
+0x830-0x835 wall                    # dup
+0x836       building                # guess: Dewford 0x83b d=185
+0x837       floor                   # guess: MirageTower 0x85a d=155
+
+# ---- Reviewed: guessed tiles ---------------------------------------------
+0x801       object
+0x802       object
+0x803       object
+0x804       object
+0x805       object
+0x806       object
+0x807       object
+0x809       wall
+0x80a       wall
+0x80b       wall
+0x80c       object
+0x80d       object
+0x80e       object
+0x80f       object
+0x810       object
+0x811       floor
+0x812       object
+0x813       object
+0x814       floor
+0x815       floor
+0x818       floor
+0x819       floor
+0x81a       floor
+0x81b       floor
+0x81c       floor
+0x81d       floor
+0x81e       floor
+0x81f       object
+0x820       object
+0x821       object
+0x822       floor
+0x823       floor
+0x824       floor
+0x825       floor
+0x826       floor
+0x827       object
+0x82a       floor
+0x82b       floor
+0x82c       floor
+0x82d       floor
+0x82e       object
+0x82f       object
+0x836       object
+0x837       object
