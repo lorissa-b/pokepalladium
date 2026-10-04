@@ -95,7 +95,7 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
 | `platinum list [QUERY]` | Search Platinum's map headers. |
 | `platinum show HEADER` | The Platinum map as text, with events and props. `--events`, `--region`, `--render [PNG]`, `--json FILE`. |
 | `platinum update` | Move the cached pokeplatinum checkout to its latest commit. |
-| `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map. `--region X,Y,W,H`, `--finish`, `--render PNG [--events --grid]`. |
+| `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map. `--region X,Y,W,H`, `--finish [--style --trees --water]`, `--render PNG [--events --grid --seams]`. |
 | `compare MAP HEADER` | Score a map against the Platinum original. `--origin X,Y\|auto`, `--render PNG`, `-q`. |
 
 ### Tile classes
@@ -161,24 +161,36 @@ are different tiles.
 
 ## Finished drafts
 
-`draft --finish` picks real Emerald metatiles for every tile, by example
+`draft --finish` picks a real Emerald metatile for every tile, by example
 (`autotile.py`):
 
 - It learns from the **original Emerald layouts**, read from this repo's
   history at commit `73761a50` (before any map was redrawn), and only from
   blocks the player can see: within the 15x10 screen of some passable block.
-- **Adjacency rules:** metatiles may only sit side by side the way they do in
-  those maps; diagonal pairs count towards the score.
-- **Materials:** each metatile is labelled with what it shows (see below), and
-  the `route` style only builds from grass, tall grass, trees, water, ledges
-  and bridges: blocked tiles must be trees, walkable tiles grass.
-- **Preferences:** among what fits, it picks what the originals use most in
-  the same surroundings, next to the same neighbours.
+- **Pairings:** how often each metatile sits beside each other one, side by
+  side and diagonally. Pairings never seen in an original map cost a lot.
+- **Materials and families:** each metatile is labelled with what it shows
+  (see below). The `route` style builds blocked tiles from trees and walkable
+  tiles from grass, with tall grass, water, ledges and bridges where Platinum
+  has them, and falls back on cliff, rock or sand only where nothing else
+  fits. One tree family and one water family are kept for the whole map:
+  `--trees dense|round|jungle|pine|any` (default `dense`, the Sinnoh-like
+  canopy) and `--water sea|pond|any` (default `sea`). `--style town` also
+  allows paths, fences, buildings and objects.
+- **Surroundings:** among what fits, metatiles the originals use in the same
+  class surroundings cost less.
 
-It solves this like Wave Function Collapse. Where Platinum's shape can't be
-built from Emerald's pieces, cells widen to looser classes or take the closest
-fit; the blueprint's header says how many, and those spots are the ones to
-check. A finished draft is a starting point to touch up, not a final map.
+It then minimises the total cost: a greedy first version, sweeps that swap
+each tile for its cheapest option given all its neighbours, and moves that
+replace whole 2x2 patches (taken from the original maps) around every
+remaining problem, since a tree or a shoreline can't move one tile at a time.
+Where Platinum's shape can't be built from Emerald's pieces, an area settles
+on the least-bad combination.
+
+The blueprint header counts the off-style tiles and the **seams** (tiles next
+to one they never sit beside in the originals); `--render out.png --seams`
+outlines them. Those are the spots to touch up. A finished draft is a strong
+starting point, not a final map.
 
 ### Materials
 
@@ -186,7 +198,8 @@ check. A finished draft is a starting point to touch up, not a final map.
 (grass, path, sand, tallgrass, flowers, tree, cliff, rock, water, ledge,
 bridge, fence, building, object, cave, dark), labelled by eye; behaviours add
 water, tall grass, sand, ledges, doors and bridges automatically. General and
-Rustboro are labelled so far. `tileset MAP --materials` draws the catalog with
+Rustboro are labelled so far, including the tree and water families (the
+`+` lines at the end of each file). `tileset MAP --materials` draws the catalog with
 each tile's materials under it, to check or extend the labels.
 
 ## Checks
@@ -238,7 +251,7 @@ building's footprint shows as a block of `#` behind them.
 | `check.py` | The checks. |
 | `platinum.py` | The pokeplatinum reader. |
 | `compare.py` | Tile classes for Emerald, `compare`, `draft`. |
-| `autotile.py` | `draft --finish`: learning from the original maps and the constraint solver. |
+| `autotile.py` | `draft --finish`: learning from the original maps, and the cost-minimising fill. |
 | `original.py` | The original Emerald layouts from history, and which blocks are visible. |
 | `materials.py`, `materials/` | What each metatile depicts. |
 | `test_mapkit.py` | Tests: `python3 -m unittest discover tools/mapkit`. |

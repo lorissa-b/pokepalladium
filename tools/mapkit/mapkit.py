@@ -289,8 +289,12 @@ def cmd_draft(a) -> None:
     region = tuple(a.region) if a.region else None
     if region and len(region) == 2:
         region = (region[0], region[1], ref.width - region[0], ref.height - region[1])
+    seams = []
     if a.finish:
-        text, blocks, _ = cmp.finished_draft(ref, layout, region)
+        family = {"any": None}
+        text, blocks, tally, seams = cmp.finished_draft(
+            ref, layout, region, a.style, family.get(a.trees, a.trees), family.get(a.water, a.water))
+        print(f"{tally.get('off_style', 0)} off-style blocks, {len(seams)} seams", file=sys.stderr)
     else:
         text = cmp.draft(ref, layout, region)
         blocks = None
@@ -303,6 +307,8 @@ def cmd_draft(a) -> None:
             render.overlay_reference(img, ref, ts, (region or (0, 0))[:2])
         if a.grid:
             render.overlay_grid(img, blocks.width, blocks.height, ts)
+        if a.seams and seams:
+            render.outline_cells(img, seams, ts, render.SEAM)
         save(img, a.render)
     if a.output:
         Path(a.output).parent.mkdir(parents=True, exist_ok=True)
@@ -430,6 +436,11 @@ def main(argv=None) -> None:
     s.add_argument("--region", type=region_arg, help="X,Y,W,H of the Platinum map to use")
     s.add_argument("--finish", action="store_true",
                    help="choose every block by example from the original Emerald maps (see autotile.py)")
+    s.add_argument("--style", choices=["route", "town"], default="route", help="with --finish, what to build from")
+    s.add_argument("--trees", choices=["dense", "round", "jungle", "pine", "any"], default="dense",
+                   help="with --finish, the one tree family to use")
+    s.add_argument("--water", choices=["sea", "pond", "any"], default="sea", help="with --finish, the one water family to use")
+    s.add_argument("--seams", action="store_true", help="with --render, outline spots worth checking by eye")
     s.add_argument("--render", help="draw the draft to this PNG")
     s.add_argument("--events", action="store_true", help="with --render, mark Platinum's events and props")
     s.add_argument("--grid", action="store_true", help="with --render, add a coordinate grid")

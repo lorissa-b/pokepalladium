@@ -107,3 +107,10 @@
 0x959-0x95A path
 0x95B-0x95D bridge water
 0x95E-0x960 path
+
+# ---- Families (see General.txt) ----------------------------------------
+0x8C0-0x8C1 +jungle
+0x907       +jungle
+0x916       +jungle
+0x808-0x80F +pond           # light sea, drawn like the ponds
+0x95B-0x95D +sea

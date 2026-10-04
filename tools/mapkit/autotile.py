@@ -27,6 +27,7 @@ any block.
 
 from __future__ import annotations
 
+import math
 from collections import Counter, defaultdict
 from functools import lru_cache
 
@@ -56,23 +57,18 @@ STYLES = {
                  ",": "water", ":": "sand", "^": "ledge", "v": "ledge", "<": "ledge", ">": "ledge", "=": "bridge"},
         "extra": {"~": {"cliff", "rock", "sand"}, "|": {"cliff"}, ":": {"sand"}, "^": {"cliff"}, "v": {"cliff"},
                   "<": {"cliff"}, ">": {"cliff"}, "=": {"water", "path"}},
+        # What a cell may fall back on, at a cost, where its own materials can't fit.
+        "fallback": {"cliff", "rock", "sand"},
     },
     "town": {
         "allow": {"grass", "tallgrass", "flowers", "tree", "water", "ledge", "bridge", "path", "fence", "building", "object"},
         "need": {"#": None, ".": None, '"': "tallgrass", "~": "water", "=": "bridge",
                  "^": "ledge", "v": "ledge", "<": "ledge", ">": "ledge"},
         "extra": {"~": {"cliff", "rock", "sand"}, "^": {"cliff"}, "v": {"cliff"}, "<": {"cliff"}, ">": {"cliff"}},
+        "fallback": {"cliff", "rock", "sand"},
     },
 }
 
-# How much less a block of another class (but the same movement) is wanted.
-CLASS_PENALTY = 0.01
-# How much each earlier use of a block (up to 20) raises its score.
-REUSE_BONUS = 0.5
-# Blocks tried per cell before treating it as a dead end.
-MAX_OPTIONS = 40
-# Times one cell's surroundings are cleared and re-solved before it's forced.
-MAX_REPAIRS = 0
 
 
 def _context(get, x: int, y: int, offsets) -> str:
@@ -98,6 +94,7 @@ class Model:
         pairs: list[Counter] = [Counter() for _ in DIRS]
         contexts: dict = defaultdict(Counter)
         collision: dict[int, Counter] = defaultdict(Counter)
+        patches: Counter = Counter()
         self.examples = 0
         self.maps = 0
         target = TilesetPair(primary, secondary)
@@ -151,6 +148,10 @@ class Model:
                             pairs[d][(i, j)] += 1
                     for key in _keys(get, x, y):
                         contexts[key][i] += 1
+                    # 2x2 patches (this block at the top-left), for moves that keep shapes whole.
+                    r, d, rd = idx(x + 1, y), idx(x, y + 1), idx(x + 1, y + 1)
+                    if r is not None and d is not None and rd is not None:
+                        patches[(i, r, d, rd)] += 1
 
         # A metatile's class, with the collision it usually has.
         self.classes = [
@@ -159,6 +160,7 @@ class Model:
         ]
         self.allow = [dict(a) for a in allow]
         self.pairs = pairs
+        self.patches = patches
         self.contexts = dict(contexts)
         self.class_mask: dict[str, int] = defaultdict(int)
         self.group_mask: dict[str, int] = defaultdict(int)
@@ -189,10 +191,6 @@ def model(primary: str, secondary: str) -> Model:
     return Model(primary, secondary)
 
 
-class Contradiction(Exception):
-    pass
-
-
 def _bits(mask: int) -> list[int]:
     out = []
     while mask:
@@ -202,233 +200,191 @@ def _bits(mask: int) -> list[int]:
     return out
 
 
-def fill(grid: list[str], layout: dict, style: str = "route", passes: int = 2) -> tuple[Blockdata, Counter]:
+# Costs. Lower is better; a unit is roughly "e times less likely".
+DIAGONAL_WEIGHT = 0.5    # diagonal neighbours count half as much as side-by-side ones
+OFF_STYLE_COST = 8.0     # a block that isn't the style's material or family for its cell
+SWEEPS = 12              # improvement passes over the whole map (stops early when settled)
+MAX_CANDIDATES = 400     # blocks considered per cell, preferred ones first
+PATCH_CANDIDATES = 300   # 2x2 patches tried per problem spot, most common first
+PATCH_ROUNDS = 6         # rounds of patch moves over the problem spots
+
+
+def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None = "dense",
+         water: str | None = "sea") -> tuple[Blockdata, Counter, list[tuple[int, int]]]:
     """Blocks for a class grid (rows of class characters, ' ' = outside the map).
 
-    With passes=2 the grid is filled twice: the second pass starts out
-    preferring the blocks the first pass used most, so the whole map settles
-    on one style of tree and water instead of switching between areas.
-    """
-    prefer: Counter = Counter()
-    for n in range(passes):
-        blocks, tally, used = _fill(grid, layout, style, prefer)
-        prefer = Counter({b: k for b, k in used.most_common(40)})
-    return blocks, tally
+    Picks, for every cell, a block that moves the same way as its class,
+    minimising the total cost of blocks unusual for their surroundings and
+    of neighbours that rarely or never sit together in the original maps.
+    A greedy pass lays out a first version; then each block is repeatedly
+    swapped for whichever option lowers the cost given all its neighbours,
+    until nothing changes. Then, around every cell still off-style or beside
+    a block it's never seen next to, whole 2x2 patches from the original maps
+    are tried, since a tree or a shoreline can't move one block at a time.
+    Where Platinum's shape can't be built exactly, an area settles on the
+    least-bad combination.
 
+    trees/water pick the family the style keeps to (None: any).
 
-def _fill(grid: list[str], layout: dict, style: str, prefer: Counter) -> tuple[Blockdata, Counter, Counter]:
-    """One filling pass; see fill.
-
-    Returns the blocks and a tally: which context level decided each cell,
-    how many cells had to be relaxed to a looser class, and how much
-    backtracking it took.
+    Returns the blocks, a tally (context levels used, sweeps, seams,
+    off-style cells) and the seams: cells beside a block they never sit
+    next to in the original maps, which are the places to check by eye.
     """
     m = model(layout["primary_tileset"], layout["secondary_tileset"])
     h, w = len(grid), max(len(r) for r in grid)
     rows = [r.ljust(w) for r in grid]
     target = [rows[y][x] if rows[y][x] != " " else OUTSIDE for y in range(h) for x in range(w)]
+    chosen = {"tree": trees, "water": water}
+    spec = STYLES[style]
+    family_tags = set().union(*materials.FAMILIES.values())
+    tally: Counter = Counter()
 
     def get(x, y):
         return target[y * w + x] if 0 <= x < w and 0 <= y < h else OUTSIDE
 
-    # Level 0: blocks that move the same way as the cell's class and are made
-    # of what the style allows for it (a forest cell must show trees, and may
-    # only show allowed materials). Level 1: the same movement, any material.
-    # Level 2: anything. Cells the examples can't build at level 0 widen.
-    level = [0] * (w * h)
-    spec = STYLES[style]
-    style_masks: dict[str, int] = {}
+    # Candidates: the cell's movement group. Preferred: also the style's materials and families.
+    preferred: dict[str, set[int]] = {}
+    candidates: dict[str, list[int]] = {}
+    for ch in set(target):
+        need = spec["need"].get(ch)
+        ok = spec["allow"] | spec["extra"].get(ch, set())
+        group = _bits(m.group_mask.get(GROUP_OF.get(ch, "walk"), 0)) or list(range(len(m.blocks)))
+        good = set()
+        for i in group:
+            mats = m.materials[i]
+            core = mats - family_tags
+            if not core <= ok or (need is not None and need not in core):
+                continue
+            if any(fam and materials.family(mats, mat) not in (None, fam) for mat, fam in chosen.items()):
+                continue
+            good.add(i)
+        preferred[ch] = good
+        # Off-style blocks stay possible (at a cost) so impossible shapes still get the nearest
+        # fit, but only natural ones: never buildings, signs or paving on a route.
+        fallback = spec["allow"] | spec.get("fallback", set())
+        rest = [i for i in group if i not in good and (m.materials[i] - family_tags) <= fallback]
+        by_use = sorted(good, key=lambda i: -m.freq[i]) + sorted(rest, key=lambda i: -m.freq[i])
+        candidates[ch] = by_use[:MAX_CANDIDATES] or group[:MAX_CANDIDATES]
 
-    def style_mask(ch: str) -> int:
-        if ch not in style_masks:
-            need = spec["need"].get(ch)
-            ok = spec["allow"] | spec["extra"].get(ch, set())
-            group = m.group_mask.get(GROUP_OF.get(ch, "walk"), 0)
-            mask = 0
-            for i in _bits(group):
-                mats = m.materials[i]
-                if mats <= ok and (need is None or need in mats):
-                    mask |= 1 << i
-            style_masks[ch] = mask
-        return style_masks[ch]
+    def context_costs(i: int) -> dict[int, float]:
+        x, y = i % w, i // w
+        for key in _keys(get, x, y):
+            counts = m.contexts.get(key)
+            if counts and (sum(counts.values()) >= MIN_EXAMPLES or key[0] == "c"):
+                tally[key[0]] += 1
+                total = sum(counts.values())
+                return {b: -math.log(n / total) for b, n in counts.items()}
+        tally["none"] += 1
+        return {}
 
-    def base(i: int) -> int:
-        ch = target[i]
-        masks = [style_mask(ch), m.group_mask.get(GROUP_OF.get(ch, "walk"), 0), m.all_mask]
-        for lv in range(level[i], 3):
-            if masks[lv]:
-                return masks[lv]
-        return m.all_mask
+    unseen_context = -math.log(1e-4)
+    ctx = [context_costs(i) for i in range(w * h)]
+    pref = [preferred[target[i]] for i in range(w * h)]
+    cands = [candidates[target[i]] for i in range(w * h)]
 
     neighbours = []
     for i in range(w * h):
         x, y = i % w, i // w
-        neighbours.append([(d, (y + dy) * w + x + dx) for d, (dx, dy) in enumerate(DIRS) if 0 <= x + dx < w and 0 <= y + dy < h])
-    hard_neighbours = [[(d, n) for d, n in ns if d in HARD] for ns in neighbours]
+        neighbours.append([(d, (y + dy) * w + x + dx) for d, (dx, dy) in enumerate(DIRS)
+                           if 0 <= x + dx < w and 0 <= y + dy < h])
+    weight = [1.0 if d in HARD else DIAGONAL_WEIGHT for d in range(len(DIRS))]
+    pair_cache: dict = {}
 
-    def propagate(domains: list[int], queue: list[int]) -> None:
-        pending = set(queue)
-        while queue:
-            i = queue.pop()
-            pending.discard(i)
-            for d, n in hard_neighbours[i]:
-                nd = domains[n] & m.support(d, domains[i])
-                if nd != domains[n]:
-                    if not nd:
-                        raise Contradiction(n)
-                    domains[n] = nd
-                    if n not in pending:
-                        pending.add(n)
-                        queue.append(n)
+    def pair_cost(d: int, a: int, b: int) -> float:
+        """Cost of block b sitting in direction d of block a."""
+        key = (d, a, b)
+        hit = pair_cache.get(key)
+        if hit is None:
+            n = m.pairs[d].get((a, b), 0)
+            hit = -math.log((n + 0.05) / (min(m.freq[a], m.freq[b]) + 1))
+            pair_cache[key] = hit
+        return hit
 
-    def relax_around(i: int) -> None:
-        """Widen one cell; if it's already wide open, its neighbours."""
-        if level[i] < 2:
-            level[i] += 1
-            return
-        for _, n in hard_neighbours[i]:
-            level[n] = min(2, level[n] + 1)
+    def cost(i: int, b: int, assign: list) -> float:
+        c = ctx[i].get(b, unseen_context)
+        if b not in pref[i]:
+            c += OFF_STYLE_COST
+        for d, n in neighbours[i]:
+            nb = assign[n]
+            if nb is not None:
+                c += weight[d] * pair_cost(d, b, nb)
+        return c
 
-    # Make the starting domains consistent, widening where the shape can't be built.
-    domains = [base(i) for i in range(w * h)]
-    for _ in range(w * h * 3):
-        domains = [base(i) for i in range(w * h)]
-        try:
-            propagate(domains, list(range(w * h)))
+    # A first version in reading order: each cell sees its decided west and north neighbours.
+    assign: list = [None] * (w * h)
+    for i in range(w * h):
+        assign[i] = min(cands[i], key=lambda b: cost(i, b, assign))
+
+    # Improve: swap each block for its best option given all its neighbours, until settled.
+    for sweep in range(SWEEPS):
+        changed = 0
+        for i in range(w * h):
+            current = cost(i, assign[i], assign)
+            best = min(cands[i], key=lambda b: cost(i, b, assign))
+            if cost(i, best, assign) < current - 1e-9:
+                assign[i] = best
+                changed += 1
+        tally["sweeps"] = sweep + 1
+        if not changed:
             break
-        except Contradiction as e:
-            relax_around(e.args[0])
 
-    tally: Counter = Counter()
-    tally["relaxed"] = sum(1 for lv in level if lv)
+    def is_problem(i: int) -> bool:
+        return assign[i] not in pref[i] or any(
+            d in HARD and not m.pairs[d].get((assign[i], assign[n])) for d, n in neighbours[i])
 
-    def ranked(i: int, dom: int) -> tuple[str, list[int]]:
-        """The blocks in a domain, best first, and the context level that ranked them.
+    # Patch moves: a tree or a shoreline is several blocks, so single swaps can't move it.
+    # Around each problem cell, try whole 2x2 patches from the original maps that fit
+    # the four cells' classes and the style, and keep the cheapest.
+    patches_for: dict[tuple[str, ...], list] = {}
 
-        A block scores by how often it's used in this cell's class context,
-        times how often it sits next to each neighbour already decided, with
-        a heavy penalty for not being the cell's own class.
-        """
-        x, y = i % w, i // w
-        name, wts = "none", {}
-        for key in _keys(get, x, y):
-            counts = m.contexts.get(key)
-            if counts and (sum(counts.values()) >= MIN_EXAMPLES or key[0] == "c"):
-                total = sum(counts.values())
-                name, wts = key[0], {b: n / total for b, n in counts.items()}
-                break
-        decided = [(d, domains[n].bit_length() - 1) for d, n in neighbours[i] if domains[n].bit_count() == 1]
-        want = target[i]
+    def fitting(sig, cells):
+        if sig not in patches_for:
+            allowed = [pref[c] for c in cells]
+            found = [p for p, n in m.patches.most_common() if all(p[k] in allowed[k] for k in range(4))]
+            patches_for[sig] = found[:PATCH_CANDIDATES]
+        return patches_for[sig]
 
-        def score(b: int) -> float:
-            s = wts.get(b, 0.0) + 1e-6 * m.freq[b] / m.examples
-            if m.classes[b] != want:
-                s *= CLASS_PENALTY
-            for d, nb in decided:
-                s *= (m.pairs[d].get((b, nb), 0) + 0.01) / (m.freq[b] + 1)
-            # Keep to the blocks the map already uses, so one tree and water style carries through.
-            return s * (1 + REUSE_BONUS * min(used[b], 20))
+    def window_cost(cells, values) -> float:
+        saved = [assign[c] for c in cells]
+        for c, v in zip(cells, values):
+            assign[c] = v
+        total = sum(cost(c, assign[c], assign) for c in cells)
+        for c, v in zip(cells, saved):
+            assign[c] = v
+        return total
 
-        return name, sorted(_bits(dom), key=score, reverse=True)
-
-    used: Counter = Counter(prefer)
-    undecided = set(range(w * h))
-    repairs: Counter = Counter()
-    backtracks = 0
-
-    def reset(centre: int, radius: int) -> None:
-        """Undo every decision within radius of centre and make the area consistent again."""
-        nonlocal domains
-        cx, cy = centre % w, centre // w
-        area = [y * w + x for y in range(max(0, cy - radius), min(h, cy + radius + 1))
-                for x in range(max(0, cx - radius), min(w, cx + radius + 1))]
-        # Undecided cells just outside were narrowed by the old decisions too.
-        margin = [y * w + x for y in range(max(0, cy - radius - 2), min(h, cy + radius + 3))
-                  for x in range(max(0, cx - radius - 2), min(w, cx + radius + 3))]
-        area = set(area)
-        loose = {i for i in margin if i in undecided}
-        for _ in range(500):
-            trial = domains[:]
-            for i in area | loose:
-                trial[i] = base(i)
-            region = area | loose
-            queue = list(region) + [n for i in region for _, n in hard_neighbours[i] if n not in region]
-            try:
-                propagate(trial, queue)
-            except Contradiction as e:
-                bad = e.args[0]
-                if bad in region and level[bad] < 2:
-                    relax_around(bad)
-                elif bad in region:
-                    # Even any block clashes: its fixed neighbours disagree, so re-solve them.
-                    grown = {n for _, n in hard_neighbours[bad] if n not in region}
-                    if not grown:
-                        break
-                    area |= {n for n in grown if n not in undecided}
-                    loose |= {n for n in grown if n in undecided}
-                elif bad in undecided:
-                    loose.add(bad)  # narrowed by older decisions: start it afresh
-                else:
-                    area.add(bad)  # a decision outside clashes: re-solve it too
-                continue
-            for i in area:
-                if i not in undecided:
-                    used[domains[i].bit_length() - 1] -= 1
-            domains = trial
-            undecided.update(area)
-            return
-        # Couldn't make the area consistent: leave it as it was and let the cell be forced.
-        repairs[centre] = MAX_REPAIRS
-
-    while undecided:
-        cell = min(undecided, key=lambda i: (domains[i].bit_count(), i))
-        name, opts = ranked(cell, domains[cell])
-        tally[name] += 1
-        for pick in opts[:MAX_OPTIONS]:
-            trial = domains[:]
-            trial[cell] = 1 << pick
-            try:
-                propagate(trial, [cell])
-            except Contradiction:
-                backtracks += 1
-                continue
-            domains = trial
-            undecided.discard(cell)
-            used[pick] += 1
+    for _ in range(PATCH_ROUNDS):
+        improved = 0
+        problems = [i for i in range(w * h) if is_problem(i)]
+        windows = {(x, y) for i in problems for x in (i % w - 1, i % w) for y in (i // w - 1, i // w)
+                   if 0 <= x < w - 1 and 0 <= y < h - 1}
+        for x, y in sorted(windows):
+            cells = (y * w + x, y * w + x + 1, (y + 1) * w + x, (y + 1) * w + x + 1)
+            sig = tuple(target[c] for c in cells)
+            current = window_cost(cells, [assign[c] for c in cells])
+            best, best_cost = None, current - 1e-9
+            for p in fitting(sig, cells):
+                pc = window_cost(cells, p)
+                if pc < best_cost:
+                    best, best_cost = p, pc
+            if best is not None:
+                for c, v in zip(cells, best):
+                    assign[c] = v
+                improved += 1
+        tally["patch_moves"] += improved
+        if not improved:
             break
-        else:
-            # A dead end: clear the area around it and solve it again, wider each time.
-            repairs[cell] += 1
-            if repairs[cell] <= MAX_REPAIRS:
-                tally["repairs"] += 1
-                reset(cell, min(1 + repairs[cell], 5))
-                continue
-            # Still stuck: take the block that agrees with the most neighbours and carry on.
-            tally["forced"] += 1
-            _, opts = ranked(cell, base(cell))
-            decided = [(d, domains[n].bit_length() - 1) for d, n in hard_neighbours[cell] if domains[n].bit_count() == 1]
 
-            def agreement(b):
-                return sum(1 for d, nb in decided if (m.allow[d].get(b, 0) >> nb) & 1)
-
-            best = max(opts[:200], key=agreement)
-            domains = domains[:]
-            domains[cell] = 1 << best
-            undecided.discard(cell)
-            used[best] += 1
-            for d, n in hard_neighbours[cell]:
-                if n in undecided:
-                    nd = domains[n] & m.support(d, domains[cell])
-                    if nd:
-                        domains[n] = nd
-    tally["backtracks"] = backtracks
+    seams = [(i % w, i // w) for i in range(w * h)
+             if any(d in HARD and not m.pairs[d].get((assign[i], assign[n])) for d, n in neighbours[i])]
+    tally["seams"] = len(seams)
+    tally["off_style"] = sum(1 for i in range(w * h) if assign[i] not in pref[i])
 
     from blueprint import default_attrs
 
     c = consts()
     out = Blockdata(w, h)
-    for i, dom in enumerate(domains):
-        mid = m.blocks[dom.bit_length() - 1]
+    for i, b in enumerate(assign):
+        mid = m.blocks[b]
         out.blocks[i] = c.pack(mid, *default_attrs(mid, layout))
-    used = Counter(dom.bit_length() - 1 for dom in domains)
-    return out, tally, used
+    return out, tally, seams

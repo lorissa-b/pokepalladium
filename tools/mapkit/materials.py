@@ -1,6 +1,7 @@
 """What each metatile depicts: grass, tree, cliff, water, building...
 
-Labels live in materials/<Tileset>.txt (see General.txt for the format),
+Labels live in materials/<Tileset>.txt (see General.txt for the format,
+including the families that split trees and water by look),
 written by looking at the tileset catalogs. Behaviours add what they make
 certain, so water, tall grass, sand, ledges, doors and bridges are always
 known. Tiles with no label are "unknown", and tilesets without a file are
@@ -22,6 +23,13 @@ MATERIALS = {
     "grass", "path", "sand", "tallgrass", "flowers", "tree", "cliff", "rock", "water",
     "ledge", "bridge", "fence", "building", "object", "cave", "dark", "unknown",
 }
+
+# Families split a material by look; a style keeps one per material.
+FAMILIES = {
+    "tree": {"dense", "round", "jungle", "pine"},
+    "water": {"sea", "pond"},
+}
+TAGS = MATERIALS | set().union(*FAMILIES.values())
 
 _FROM_BEHAVIOR = [
     (r"WATER|WATERFALL|PUDDLE|SEAWEED|NO_SURFACING|CURRENT", "water"),
@@ -46,7 +54,9 @@ def labels(tileset_name: str) -> dict[int, frozenset[str]]:
         if not line:
             continue
         ids, *mats = line.split()
-        bad = set(mats) - MATERIALS
+        add = all(t.startswith("+") for t in mats)
+        mats = [t.lstrip("+") for t in mats]
+        bad = set(mats) - TAGS
         if bad or not mats:
             raise ValueError(f"{path}:{n}: unknown material {', '.join(sorted(bad)) or '(none)'}")
         m = re.fullmatch(r"(0x[0-9A-Fa-f]+)(?:-(0x[0-9A-Fa-f]+))?", ids)
@@ -55,7 +65,7 @@ def labels(tileset_name: str) -> dict[int, frozenset[str]]:
         lo = int(m.group(1), 16)
         hi = int(m.group(2), 16) if m.group(2) else lo
         for i in range(lo, hi + 1):
-            out[i] = frozenset(mats)
+            out[i] = out.get(i, frozenset()) | frozenset(mats) if add else frozenset(mats)
     return out
 
 
@@ -71,3 +81,9 @@ def of(tiles: TilesetPair, metatile: int) -> frozenset[str]:
     if len(mats) > 1:
         mats.discard("unknown")
     return frozenset(mats)
+
+
+def family(mats: frozenset[str], material: str) -> str | None:
+    """Which family of `material` a tile belongs to, if it's tagged with one."""
+    tags = mats & FAMILIES.get(material, set())
+    return next(iter(tags)) if tags else None

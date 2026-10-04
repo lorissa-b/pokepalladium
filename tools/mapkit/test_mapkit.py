@@ -87,6 +87,34 @@ class Blueprints(unittest.TestCase):
             self.build("layout LAYOUT_JUBILIFE_CITY\nfill NotAMetatile\n")
 
 
+class FinishedDrafts(unittest.TestCase):
+    def test_route_fill_keeps_movement_and_style(self):
+        import autotile
+        import materials
+        from compare import GROUP_OF, emerald_symbol
+        from tileset import TilesetPair
+
+        layout = resolve_layout("LAYOUT_ROUTE218")
+        grid = [
+            "##########",
+            "##......##",
+            "##..\"\"..##",
+            "##......##",
+            "##~~~~~~##",
+            "##~~~~~~##",
+        ]
+        blocks, tally, _ = autotile.fill(grid, layout)
+        tiles = TilesetPair.for_layout(layout)
+        for y, row in enumerate(grid):
+            for x, ch in enumerate(row):
+                b = blocks.get(x, y)
+                got = emerald_symbol(tiles, b)
+                self.assertEqual(GROUP_OF[got], GROUP_OF[ch], (x, y, hex(b)))
+                mats = materials.of(tiles, b & consts().metatile_mask)
+                self.assertNotIn("building", mats, (x, y))
+                self.assertIn(materials.family(mats, "tree"), (None, "dense"), (x, y))
+
+
 class Checks(unittest.TestCase):
     def test_whole_repo_runs(self):
         findings = check.run()

@@ -17,6 +17,7 @@ GRID = (0, 0, 0, 90)
 BLOCKED = (255, 0, 0, 100)
 MISMATCH = (255, 0, 0, 115)
 PROP = (255, 255, 255)
+SEAM = (255, 60, 200)
 
 # One colour per elevation for the elevation overlay.
 ELEVATION_COLOURS = [
@@ -93,6 +94,12 @@ def tint(img: Image.Image, cells, ts: int, rgba) -> None:
     d = drawer(img)
     for x, y in cells:
         d.rectangle([x * ts, y * ts, (x + 1) * ts - 1, (y + 1) * ts - 1], fill=rgba)
+
+
+def outline_cells(img: Image.Image, cells, ts: int, rgb) -> None:
+    d = drawer(img)
+    for x, y in cells:
+        d.rectangle([x * ts, y * ts, (x + 1) * ts - 1, (y + 1) * ts - 1], outline=rgb + (220,), width=max(1, ts // 10))
 
 
 def overlay_collision(img: Image.Image, blocks: Blockdata, ts: int, region=None) -> None:
