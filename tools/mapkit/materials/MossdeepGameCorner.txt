@@ -1,0 +1,84 @@
+# What each gTileset_MossdeepGameCorner metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest MossdeepGameCorner`. Wooden floors, walls,
+# tables and seats.
+# Tiles it had to guess default to floor or wall by how maps use them
+# (walkable or blocked), with exceptions reviewed by eye.
+
+
+0x800       wall                    # dup: BattleFrontier 0x89a
+0x801-0x802 floor                   # guess
+0x803-0x807 cliff ledge sand        # guess
+0x808-0x80c building                # guess
+0x80d       wall                    # guess: GenericBuilding 0x8ec d=182
+0x80e       object                  # guess: GenericBuilding 0x8f7 d=182
+0x80f       building                # guess: Mauville 0x89e d=161
+0x810       object                  # guess: SecretBaseBlueCave 0x864 d=158
+0x811-0x812 building                # guess
+0x813-0x815 object                  # guess
+0x816-0x819 building                # guess
+0x81a       sand                    # guess: Mauville 0x9e8 d=119
+0x81b-0x81d building                # guess
+0x81e       floor                   # guess: Contest 0x85e d=144
+0x81f       sand                    # guess: Mauville 0x9ea d=118
+0x820-0x821 building                # guess
+0x822       object                  # guess: Lavaridge 0x85a d=138
+0x823-0x826 object                  # beh
+0x827-0x828 object                  # guess
+0x829       cliff ledge sand        # guess: Mauville 0x84e d=99
+0x82a       object                  # guess: SecretBaseBlueCave 0x922 d=121
+0x82b       floor                   # guess: Contest 0x85e d=117
+0x82c       object                  # guess: SecretBaseBlueCave 0x922 d=119
+0x82d-0x82e floor                   # beh
+0x82f       wall                    # dup: BattleFrontier 0x89a
+0x830       object                  # guess: Contest 0x855 d=65
+0x831       dark                    # guess: GenericBuilding 0x819 d=72
+0x832       wall                    # guess: GenericBuilding 0x940 d=130
+0x833       stairs                  # guess: MirageTower 0x80e d=153
+0x834       building                # guess: BattleFrontierOutsideEast 0x813 d=115
+
+# ---- Reviewed: guessed tiles ---------------------------------------------
+0x801       floor
+0x802       floor
+0x803       wall
+0x804       wall
+0x805       wall
+0x806       wall
+0x807       wall
+0x808       floor
+0x809       floor
+0x80a       floor
+0x80b       wall
+0x80c       wall
+0x80d       wall
+0x80e       wall
+0x80f       wall
+0x810       object
+0x811       object
+0x812       wall
+0x813       object
+0x814       object
+0x815       object
+0x816       object
+0x817       wall
+0x818       wall
+0x819       wall
+0x81a       wall
+0x81b       wall
+0x81c       wall
+0x81d       wall
+0x81e       wall
+0x81f       wall
+0x820       wall
+0x821       wall
+0x822       wall
+0x827       wall
+0x828       object
+0x829       floor
+0x82a       floor
+0x82b       floor
+0x82c       floor
+0x830       object
+0x831       floor
+0x832       wall
+0x833       wall
+0x834       wall

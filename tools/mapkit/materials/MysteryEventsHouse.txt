@@ -1,0 +1,67 @@
+# What each gTileset_MysteryEventsHouse metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest MysteryEventsHouse`. Plants, shelves and
+# the pool room.
+# Tiles it had to guess default to floor or wall by how maps use them
+# (walkable or blocked), with exceptions reviewed by eye.
+
+
+0x800       wall                    # dup: BattleFrontier 0x89a
+0x801       dark                    # dup: BattleTent 0x85b
+0x802-0x805 wall                    # dup
+0x806-0x807 object                  # dup
+0x808-0x809 floor                   # dup
+0x80a       object                  # beh: MB_COUNTER
+0x80b       object                  # dup: GenericBuilding 0x80b
+0x80c       object                  # beh: MB_COUNTER
+0x80d       floor                   # shape: GenericBuilding 0x9f8
+0x80e-0x811 object                  # shape
+0x812       object                  # guess: GenericBuilding 0x91a d=75
+0x813       object                  # shape: GenericBuilding 0x894
+0x814-0x815 wall                    # guess
+0x816-0x817 floor                   # shape
+0x818       object                  # guess: GenericBuilding 0x919 d=106
+0x819       dark                    # dup: GenericBuilding 0x819
+0x81a       object                  # guess: GenericBuilding 0x925 d=89
+0x81b-0x81d object                  # dup
+0x81e       object                  # shape: GenericBuilding 0x9fb
+0x81f       object                  # dup: GenericBuilding 0x9fc
+0x820       floor                   # dup: GenericBuilding 0x994
+0x821       floor                   # guess: GenericBuilding 0x995 d=0
+0x822       floor                   # dup: GenericBuilding 0x996
+0x823-0x825 object                  # guess
+0x826       wall                    # dup: BattleFrontier 0x89a
+0x827       stairs                  # guess: GenericBuilding 0x830 d=13
+0x828       floor                   # dup: GenericBuilding 0x99c
+0x829       wall                    # dup: GenericBuilding 0x99d
+0x82a       floor                   # dup: GenericBuilding 0x99e
+0x82b       object                  # guess: GenericBuilding 0x91a d=117
+0x82c       wall                    # dup: BattleFrontier 0x89a
+0x82d       object                  # dup: GenericBuilding 0x8b5
+0x82e       wall                    # dup: BattleFrontier 0x89a
+0x82f       object                  # dup: GenericBuilding 0x8cd
+0x830       floor                   # dup: GenericBuilding 0x9a4
+0x831       floor                   # guess: GenericBuilding 0x9a5 d=0
+0x832       floor                   # dup: GenericBuilding 0x9a6
+0x833-0x834 wall                    # dup
+0x835       floor                   # shape: GenericBuilding 0x9fe
+0x836       floor                   # dup: GenericBuilding 0x9ff
+0x837       object                  # dup: GenericBuilding 0x8d5
+0x838-0x83f wall                    # dup
+0x840       object                  # beh: MB_COUNTER
+0x841       object                  # guess: GenericBuilding 0x919 d=115
+0x842       object                  # beh: MB_COUNTER
+
+# ---- Reviewed: guessed tiles ---------------------------------------------
+0x812       object
+0x814       wall
+0x815       wall
+0x818       object
+0x81a       object
+0x821       floor
+0x823       object
+0x824       object
+0x825       object
+0x827       wall
+0x82b       object
+0x831       floor
+0x841       object

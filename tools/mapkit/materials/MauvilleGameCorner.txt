@@ -1,0 +1,108 @@
+# What each gTileset_MauvilleGameCorner metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest MauvilleGameCorner`. Carpet, slot machines,
+# the prize counter and seats.
+# Tiles it had to guess default to floor or wall by how maps use them
+# (walkable or blocked), with exceptions reviewed by eye.
+
+
+0x800-0x801 wall                    # dup
+0x802       floor                   # guess: BattlePalace 0x861 d=97
+0x803       path                    # guess: Dewford 0x84a d=35
+0x804-0x805 floor object            # guess
+0x806-0x807 floor                   # beh
+0x808       wall                    # dup: BattleFrontier 0x89a
+0x809       floor                   # guess: Contest 0x81a d=54
+0x80a       path                    # dup: BattleFrontierOutsideWest 0x838
+0x80b       floor                   # guess: Contest 0x81b d=54
+0x80c-0x80d floor object            # guess
+0x80e-0x80f object                  # guess
+0x810       wall                    # dup: BattleFrontier 0x89a
+0x811-0x813 building                # guess
+0x814-0x815 floor object            # guess
+0x816       floor                   # guess: Facility 0x813 d=102
+0x817       water                   # guess: InsideShip 0x8f8 d=149
+0x818       wall                    # dup: BattleFrontier 0x89a
+0x819       wall                    # guess: Facility 0x848 d=200
+0x81a       floor                   # guess: BattleFrontier 0x832 d=249
+0x81b       wall                    # guess: Facility 0x84a d=232
+0x81c       floor                   # guess: BattleFrontier 0x96e d=120
+0x81d       floor object            # guess: InsideShip 0x839 d=119
+0x81e-0x81f building                # guess
+0x820-0x821 wall                    # dup
+0x822-0x825 object                  # beh
+0x826-0x827 object                  # guess
+0x828-0x829 wall                    # dup
+0x82a-0x82e object                  # beh
+0x82f       object                  # guess: BattleFrontier 0x956 d=189
+0x830-0x831 wall                    # dup
+0x832-0x836 object                  # beh
+0x837       object                  # guess: BattleFrontier 0x88f d=195
+0x838-0x83a wall                    # dup
+0x83b       object                  # guess: SecretBaseRedCave 0x93c d=175
+0x83c-0x83e building                # guess
+0x83f       object                  # guess: Rustboro 0x939 d=207
+0x840-0x842 wall                    # dup
+0x843       floor                   # guess: Facility 0x986 d=179
+0x844-0x846 building                # guess
+0x847       wall                    # guess: Facility 0x9b3 d=179
+0x848-0x84b wall                    # dup
+0x84c       object                  # beh: MB_COUNTER
+0x84d       building                # guess: BattleFrontierOutsideWest 0x9a6 d=201
+0x84e       floor                   # guess: Facility 0x986 d=185
+0x84f       object                  # beh: MB_COUNTER
+0x850-0x853 wall                    # dup
+0x854       object                  # guess: GenericBuilding 0x95c d=195
+0x855-0x856 object                  # beh
+0x857       wall                    # guess: GenericBuilding 0x89b d=195
+0x858-0x85b wall                    # dup
+0x85c       wall                    # guess: Contest 0x812 d=207
+0x85d-0x85e building                # guess
+0x85f       wall                    # guess: Contest 0x810 d=209
+
+# ---- Reviewed: guessed tiles ---------------------------------------------
+0x802       floor
+0x803       floor
+0x804       floor
+0x805       floor
+0x809       wall
+0x80b       wall
+0x80c       floor
+0x80d       floor
+0x80e       object
+0x80f       object
+0x811       wall
+0x812       wall
+0x813       wall
+0x814       floor
+0x815       floor
+0x816       object
+0x817       object
+0x819       wall
+0x81a       wall
+0x81b       wall
+0x81c       floor
+0x81d       floor
+0x81e       object
+0x81f       object
+0x826       object
+0x827       object
+0x82f       object
+0x837       object
+0x83b       object
+0x83c       wall
+0x83d       wall
+0x83e       wall
+0x83f       wall
+0x843       floor
+0x844       wall
+0x845       wall
+0x846       wall
+0x847       wall
+0x84d       floor
+0x84e       floor
+0x854       wall
+0x857       wall
+0x85c       floor
+0x85d       floor
+0x85e       floor
+0x85f       floor
