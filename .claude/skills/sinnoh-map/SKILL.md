@@ -8,7 +8,8 @@ description: Build or redraw a Sinnoh map (town, city, route, interior) as a rep
 Use `tools/mapkit/mapkit.py` (see `docs/map/tooling.md` for every option)
 rather than one-off scripts. It reads Platinum's real map data, so tile
 positions, exits, warps and NPC spots can be copied exactly instead of
-guessed from screenshots.
+guessed from screenshots. It needs Pillow
+(`pip install -r tools/mapkit/requirements.txt`).
 
 ## Workflow
 

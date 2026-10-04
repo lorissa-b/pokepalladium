@@ -178,7 +178,7 @@ def check_map(info: dict) -> list[tuple[str, str, str]]:
             if m == c.undefined:
                 continue
             # Fine if it happens to look the same with this map's tilesets.
-            if tiles.draw(m) != otiles.draw(m):
+            if tiles.pixels(m) != otiles.pixels(m):
                 bad.append((x, y))
         if bad:
             pts = ", ".join(f"({x},{y})" for x, y in bad[:4]) + (f" and {len(bad) - 4} more" if len(bad) > 4 else "")

@@ -15,6 +15,11 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
+try:
+    import PIL  # noqa: F401
+except ImportError:
+    raise SystemExit(f"mapkit needs Pillow: pip install -r {HERE / 'requirements.txt'}")
+
 import blueprint  # noqa: E402
 import check as checks  # noqa: E402
 import compare as cmp  # noqa: E402
@@ -43,6 +48,13 @@ def full_region(layout: dict, region) -> tuple[int, int, int, int]:
 
 def out_path(arg: str | None, default_name: str) -> Path:
     return Path(arg) if arg else DEFAULT_OUT / default_name
+
+
+def save(img, path) -> None:
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    img.save(path)
+    print(path)
 
 
 def map_for(name: str) -> tuple[dict | None, dict]:
@@ -140,9 +152,7 @@ def cmd_render(a) -> None:
         render.overlay_grid(img, region[2], region[3], ts, region[:2])
     if a.events and info:
         render.overlay_events(img, info, ts, region)
-    path = out_path(a.output, f"{layout['name'].removesuffix('_Layout')}.png")
-    img.save(path)
-    print(path)
+    save(img, out_path(a.output, f"{layout['name'].removesuffix('_Layout')}.png"))
 
 
 def cmd_tileset(a) -> None:
@@ -171,9 +181,7 @@ def cmd_tileset(a) -> None:
             print(f"{render.describe_metatile(tiles, i)}  ({usual})")
         return
     img = render.catalog(tiles, a.columns, a.scale, ids)
-    path = out_path(a.output, f"tileset_{name}.png")
-    img.save(path)
-    print(path)
+    save(img, out_path(a.output, f"tileset_{name}.png"))
 
 
 def cmd_extract(a) -> None:
@@ -206,9 +214,7 @@ def cmd_build(a) -> None:
     if a.render:
         img = render.draw_blocks(blocks, TilesetPair.for_layout(layout), a.scale)
         render.overlay_grid(img, blocks.width, blocks.height, 16 * a.scale)
-        Path(a.render).parent.mkdir(parents=True, exist_ok=True)
-        img.save(Path(a.render))
-        print(a.render)
+        save(img, a.render)
     if not a.dry_run:
         findings = checks.run([layout["id"]])
         report(findings)
@@ -250,9 +256,7 @@ def cmd_platinum(a) -> None:
         img = render.draw_classes(ref.grid(), a.scale)
         render.overlay_reference(img, ref, a.scale)
         render.overlay_grid(img, ref.width, ref.height, a.scale, labels=a.scale >= 8)
-        path = out_path(a.render or None, f"platinum_{ref.header[len('MAP_HEADER_'):].lower()}.png")
-        img.save(path)
-        print(path)
+        save(img, out_path(a.render or None, f"platinum_{ref.header[len('MAP_HEADER_'):].lower()}.png"))
     if a.json or a.render is not None:
         return
     print(f"{ref.header}: {ref.width}x{ref.height} tiles from {ref.matrix}, origin {ref.origin} in matrix tiles")
@@ -299,15 +303,22 @@ def cmd_compare(a) -> None:
         info = resolve_map(a.map)
         img = render.draw_blocks(Blockdata.for_layout(layout), TilesetPair.for_layout(layout), a.scale)
         ts = 16 * a.scale
-        for x, y, *_ in result["mismatches"]:
-            img.rect(x * ts, y * ts, ts, ts, (255, 0, 0), 0.45)
+        render.tint(img, [(x, y) for x, y, *_ in result["mismatches"]], ts, render.MISMATCH)
         render.overlay_reference(img, ref, ts, origin)
         render.overlay_grid(img, layout["width"], layout["height"], ts)
         if info and a.events:
             render.overlay_events(img, info, ts)
-        Path(a.render).parent.mkdir(parents=True, exist_ok=True)
-        img.save(Path(a.render))
-        print(a.render)
+        # The Platinum reference, cropped to the same area and scale, alongside.
+        ox, oy = origin
+        crop = [
+            "".join(ref.symbol(x + ox, y + oy) if 0 <= x + ox < ref.width and 0 <= y + oy < ref.height else " " for x in range(layout["width"]))
+            for y in range(layout["height"])
+        ]
+        refimg = render.draw_classes(crop, ts)
+        render.overlay_reference(refimg, ref, ts, origin)
+        render.overlay_grid(refimg, layout["width"], layout["height"], ts, origin)
+        title = f"{layout['id']} (red: movement differs)"
+        save(render.side_by_side(img, refimg, titles=[title, f"{ref.header} from {ox},{oy}"]), a.render)
     if not a.quiet:
         print_ruled(result["grid"], 0, 0, 1)
         print("\n  'X' = movement differs from Platinum; blank = outside the reference\n")

@@ -13,7 +13,8 @@ import struct
 from functools import lru_cache
 from pathlib import Path
 
-from png import read_indexed
+from PIL import Image
+
 from project import REPO, consts, read
 
 
@@ -89,12 +90,16 @@ class Tileset:
     def tiles(self) -> list[bytes]:
         """8x8 tiles as 64 palette indices each."""
         if self._tiles is None:
-            w, h, rows = read_indexed(self.tiles_png)
-            tiles = []
-            for ty in range(h // 8):
-                for tx in range(w // 8):
-                    tiles.append(bytes(rows[ty * 8 + j][tx * 8 + i] & 0xF for j in range(8) for i in range(8)))
-            self._tiles = tiles
+            with Image.open(self.tiles_png) as img:
+                if img.mode not in ("P", "L"):
+                    raise ValueError(f"{self.tiles_png}: expected an indexed PNG, got {img.mode}")
+                w, h = img.size
+                px = img.tobytes()
+            self._tiles = [
+                bytes(px[(ty * 8 + j) * w + tx * 8 + i] & 0xF for j in range(8) for i in range(8))
+                for ty in range(h // 8)
+                for tx in range(w // 8)
+            ]
         return self._tiles
 
     @property
@@ -119,7 +124,8 @@ class TilesetPair:
     def __init__(self, primary: str, secondary: str) -> None:
         self.primary = load(primary)
         self.secondary = load(secondary)
-        self._cache: dict[int, bytes] = {}
+        self._cache: dict[int, Image.Image] = {}
+        self._tile_cache: dict[int, tuple[Image.Image, Image.Image] | None] = {}
         c = consts()
         pals = []
         for i in range(c.pals_total):
@@ -161,33 +167,48 @@ class TilesetPair:
         tiles = ts.tiles
         return tiles[idx] if idx < len(tiles) else None
 
-    def draw(self, metatile: int) -> bytes:
-        """16x16 packed RGB pixels for a metatile (magenta if it doesn't exist)."""
+    def _tile_image(self, entry: int) -> tuple[Image.Image, Image.Image] | None:
+        """An 8x8 tile entry (id, flips, palette) as an RGB image and its transparency mask."""
+        key = entry
+        if key in self._tile_cache:
+            return self._tile_cache[key]
+        tile = self._tile(entry & 0x3FF)
+        if tile is None:
+            self._tile_cache[key] = None
+            return None
+        pal = self.palettes[(entry >> 12) % len(self.palettes)]
+        img = Image.frombytes("P", (8, 8), tile)
+        img.putpalette([v for rgb in pal for v in rgb])
+        img = img.convert("RGB")
+        mask = Image.frombytes("L", (8, 8), bytes(255 if c else 0 for c in tile))
+        if entry & 0x400:
+            img, mask = img.transpose(Image.Transpose.FLIP_LEFT_RIGHT), mask.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
+        if entry & 0x800:
+            img, mask = img.transpose(Image.Transpose.FLIP_TOP_BOTTOM), mask.transpose(Image.Transpose.FLIP_TOP_BOTTOM)
+        self._tile_cache[key] = (img, mask)
+        return img, mask
+
+    def draw(self, metatile: int) -> Image.Image:
+        """A metatile as a 16x16 RGB image (magenta if it doesn't exist). Don't modify the result."""
         if metatile in self._cache:
             return self._cache[metatile]
         ts, idx = self._split(metatile)
         if idx >= len(ts.metatiles):
-            px = bytes((255, 0, 255)) * 256
-            self._cache[metatile] = px
-            return px
-        out = bytearray(bytes(self.backdrop) * 256)
-        for n, entry in enumerate(ts.metatiles[idx]):
-            tile = self._tile(entry & 0x3FF)
-            if tile is None:
-                continue
-            hflip, vflip, pal = entry & 0x400, entry & 0x800, self.palettes[(entry >> 12) % len(self.palettes)]
-            quad = n % 4
-            ox, oy = (quad % 2) * 8, (quad // 2) * 8
-            for j in range(8):
-                sy = 7 - j if vflip else j
-                for i in range(8):
-                    c = tile[sy * 8 + (7 - i if hflip else i)]
-                    if c:
-                        p = ((oy + j) * 16 + ox + i) * 3
-                        out[p : p + 3] = bytes(pal[c])
-        px = bytes(out)
-        self._cache[metatile] = px
-        return px
+            out = Image.new("RGB", (16, 16), (255, 0, 255))
+        else:
+            out = Image.new("RGB", (16, 16), self.backdrop)
+            # Bottom, middle and top layers, four tiles each (top-left, top-right, bottom-left, bottom-right).
+            for n, entry in enumerate(ts.metatiles[idx]):
+                tile = self._tile_image(entry)
+                if tile:
+                    quad = n % 4
+                    out.paste(tile[0], ((quad % 2) * 8, (quad // 2) * 8), tile[1])
+        self._cache[metatile] = out
+        return out
+
+    def pixels(self, metatile: int) -> bytes:
+        """The drawn metatile's raw RGB bytes, for comparing how metatiles look."""
+        return self.draw(metatile).tobytes()
 
 
 @lru_cache(maxsize=None)

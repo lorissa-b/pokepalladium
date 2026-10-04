@@ -7,9 +7,11 @@ as a reference, drafts and builds layouts from a plain-text blueprint, scores
 a replica against the original, and checks maps for the mistakes that are easy
 to make by hand.
 
-It needs only Python 3 (no packages to install) and runs from the repo root:
+It needs Python 3 and [Pillow](https://python-pillow.org/), and runs from the
+repo root:
 
 ```sh
+pip install -r tools/mapkit/requirements.txt
 tools/mapkit/mapkit.py <command> --help
 ```
 
@@ -66,8 +68,8 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
 5. **Score it.** `compare` lines the replica up with the original
    (`--origin auto` finds the best offset), marks every tile where movement
    differs, and lists Platinum warps with no warp nearby. `--render` tints the
-   differences red on the Emerald map and outlines Platinum's events and
-   props.
+   differences red on the Emerald map, outlines Platinum's events and props,
+   and puts the Platinum map, cropped to the same area, alongside.
 
    ```sh
    tools/mapkit/mapkit.py compare JubilifeCity JUBILIFE_CITY --origin auto --render build/mapkit/jubilife_vs.png
@@ -198,8 +200,7 @@ building's footprint shows as a block of `#` behind them.
 | --- | --- |
 | `project.py` | Grid and tileset constants read from the headers, layouts, maps, metatile labels, `Blockdata` (read/write `map.bin`). |
 | `tileset.py` | Tilesets traced from their symbols to their files, metatile drawing (three layers). |
-| `png.py` | Standard-library PNG reading and writing, and a 3x5 label font. |
-| `render.py` | Map, overlay and catalog drawing. |
+| `render.py` | Map, overlay, catalog and side-by-side drawing (Pillow). |
 | `blueprint.py` | The blueprint format: parse, build, extract. |
 | `check.py` | The checks. |
 | `platinum.py` | The pokeplatinum reader. |
