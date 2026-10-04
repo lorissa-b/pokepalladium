@@ -1,0 +1,306 @@
+# What each gTileset_BattleTent metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest BattleTent`, guessed tiles reviewed by eye
+# below. The Battle Tents: purple floor tiles, the yellow battle floor with red
+# markings, curtains and counters.
+
+
+0x800-0x801 wall                    # dup
+0x802       path                    # guess: Lavaridge 0x8ff d=242
+0x803       building                # guess: Slateport 0x926 d=204
+0x804       wall                    # dup: Contest 0x800
+0x805-0x806 floor                   # guess
+0x807       path                    # guess: Lavaridge 0x910 d=245
+0x808       bridge                  # guess: Mauville 0x8f6 d=121
+0x809       cliff water             # guess: Underwater 0x813 d=145
+0x80a-0x80b building                # guess
+0x80c       wall                    # dup: Contest 0x800
+0x80d       object                  # guess: Contest 0x8bc d=147
+0x80e-0x810 building                # guess
+0x811       path                    # guess: Lilycove 0x8f5 d=119
+0x812       building                # guess: Fallarbor 0x8a1 d=142
+0x813-0x815 floor                   # beh
+0x816-0x817 building                # guess
+0x818-0x819 building water          # guess
+0x81a       building                # guess: BattleFrontierOutsideEast 0x942 d=103
+0x81b       water                   # guess: Slateport 0x96a d=73
+0x81c-0x81d floor                   # beh
+0x81e       object                  # beh: MB_PC
+0x81f       building                # guess: Lilycove 0x950 d=88
+0x820-0x821 rock water              # guess
+0x820-0x821 +sea
+0x822       building                # guess: BattleFrontierOutsideWest 0x882 d=169
+0x823       path                    # guess: Slateport 0x887 d=94
+0x824       sand water              # guess: Cave 0x875 d=83
+0x825       floor                   # beh: MB_SOUTH_ARROW_WARP
+0x826       water                   # guess: Slateport 0x96a d=180
+0x827       building                # guess: BattleFrontierOutsideWest 0x882 d=197
+0x828-0x829 building water          # guess
+0x82a       water                   # guess: Slateport 0x96a d=80
+0x82b-0x82c building                # guess
+0x82d       wall                    # dup: Contest 0x800
+0x82e-0x82f floor                   # beh
+0x830-0x831 building                # guess
+0x832       wall                    # guess: Contest 0x825 d=67
+0x833       sand water              # guess: Cave 0x875 d=61
+0x834-0x837 wall                    # dup
+0x838       building                # guess: Lilycove 0x904 d=133
+0x839-0x83a path                    # guess
+0x83b       building                # guess: Lilycove 0x901 d=77
+0x83c-0x83f wall                    # dup
+0x840-0x841 building                # guess
+0x842-0x844 wall                    # dup
+0x845-0x847 building                # guess
+0x848-0x84c wall                    # dup
+0x84d       object                  # guess: Lavaridge 0x95a d=215
+0x84e       fence path              # guess: BattleFrontierOutsideEast 0x9af d=131
+0x84f       building                # guess: Sootopolis 0x853 d=213
+0x850-0x851 wall                    # dup
+0x852       floor                   # guess: MeteorFalls 0x872 d=195
+0x853       cave                    # guess: NavelRock 0x82b d=291
+0x854-0x855 floor                   # guess
+0x856       building                # guess: Mauville 0x88c d=468
+0x857       floor                   # guess: MeteorFalls 0x870 d=204
+0x858-0x859 wall                    # dup
+0x85a       object                  # guess: Contest 0x87a d=151
+0x85b       dark                    # dup: Cave 0x845
+0x85c-0x85d object                  # guess
+0x85e       wall                    # dup: Contest 0x800
+0x85f-0x861 object                  # guess
+0x862       floor                   # guess: MeteorFalls 0x872 d=195
+0x863       rock water              # guess: General 0x1be d=178
+0x863       +sea
+0x864       floor                   # guess: MeteorFalls 0x870 d=204
+0x865       wall                    # dup: Contest 0x800
+0x866-0x867 object                  # guess
+0x868       sand                    # guess: Mauville 0x851 d=125
+0x869       object sand             # guess: Dewford 0x808 d=119
+0x86a       object                  # guess: Contest 0x87a d=151
+0x86b       building                # beh: MB_ANIMATED_DOOR
+0x86c       object                  # guess: Contest 0x878 d=166
+0x86d       wall                    # dup: Contest 0x800
+0x86e       object sand             # guess: Dewford 0x808 d=122
+0x86f-0x870 sand                    # guess
+0x871-0x876 wall                    # dup
+0x877-0x878 sand                    # guess
+0x879-0x87a building                # guess
+0x87b       bridge                  # guess: Mauville 0x8d6 d=127
+0x87c       path                    # guess: Slateport 0x94c d=124
+0x87d-0x87e building                # guess
+0x87f       sand                    # guess: Mauville 0x851 d=143
+0x880       sand water              # guess: General 0x1a5 d=218
+0x880       +sea
+0x881       cliff                   # guess: Sootopolis 0x81b d=187
+0x882       building                # guess: Lilycove 0x929 d=173
+0x883-0x886 object sand             # guess
+0x887       sand water              # guess: General 0x1a7 d=216
+0x887       +sea
+0x888       cliff water             # guess: Underwater 0x813 d=145
+0x889       sand water              # guess: Underwater 0x8aa d=176
+0x88a       cliff water             # guess: General 0x0bb d=196
+0x88a       +sea
+0x88b-0x88c bridge                  # guess
+0x88d       cliff water             # guess: Underwater 0x813 d=145
+0x88e       bridge                  # guess: Mauville 0x8f6 d=121
+0x88f       cliff water             # guess: Underwater 0x813 d=145
+0x890       bridge                  # guess: Mauville 0x8f6 d=121
+0x891       cliff water             # guess: Underwater 0x813 d=145
+0x892       bridge water            # guess: Mauville 0x901 d=119
+0x893-0x894 sand water              # guess
+0x895       rock water              # guess: General 0x168 d=424
+0x895       +sea
+0x896-0x897 floor                   # guess
+0x898-0x8af wall                    # dup
+0x8b0-0x8b5 building                # guess
+0x8b6-0x8b7 wall                    # dup
+0x8b8-0x8b9 sand                    # guess
+0x8ba-0x8bb bridge                  # guess
+0x8bc-0x8bd sand                    # guess
+0x8be-0x8bf wall                    # dup
+0x8c0-0x8c5 sand                    # guess
+0x8c6-0x8c7 wall                    # dup
+0x8c8-0x8cd sand                    # guess
+0x8ce-0x8cf wall                    # dup
+0x8d0-0x8d5 building                # guess
+0x8d6-0x8df wall                    # dup
+0x8e0-0x8e5 path                    # guess
+0x8e6-0x8e7 wall                    # dup
+0x8e8-0x8e9 sand                    # guess
+0x8ea-0x8eb bridge                  # guess
+0x8ec-0x8ed sand                    # guess
+0x8ee-0x8ef wall                    # dup
+0x8f0-0x8f5 sand                    # guess
+0x8f6-0x8f7 wall                    # dup
+0x8f8-0x8fd sand                    # guess
+0x8fe-0x8ff wall                    # dup
+0x900-0x905 building                # guess
+0x906-0x909 wall                    # dup
+0x90a-0x90c floor                   # beh
+
+# ---- Reviewed corrections to the guessed tiles ---------------------------
+0x802       wall
+0x803       wall
+0x806       wall
+0x807       wall
+0x80a       wall
+0x80f       wall
+0x812       wall
+0x817       wall
+0x81a       wall
+0x81f       wall
+0x822       wall
+0x827       wall
+0x832       wall
+0x84f       wall
+0x852       wall
+0x854       wall
+0x855       wall
+0x857       wall
+0x862       wall
+0x864       wall
+0x856       wall
+0x8b0       wall
+0x8b1       wall
+0x8b2       wall
+0x8b3       wall
+0x8b4       wall
+0x8b5       wall
+0x8d0       wall
+0x8d1       wall
+0x8d2       wall
+0x8d3       wall
+0x8d4       wall
+0x8d5       wall
+0x80b       object
+0x80d       object
+0x80e       object
+0x816       object
+0x826       object
+0x845       object
+0x846       object
+0x847       object
+0x84d       object
+0x84e       object
+0x85a       object
+0x85c       object
+0x85d       object
+0x85f       object
+0x860       object
+0x861       object
+0x866       object
+0x867       object
+0x86a       object
+0x86c       object
+0x869       object
+0x86e       object
+0x880       object
+0x881       object
+0x882       object
+0x883       object
+0x884       object
+0x885       object
+0x886       object
+0x887       object
+0x88a       object
+0x863       object
+0x818       floor dark
+0x819       floor dark
+0x820       floor dark
+0x821       floor dark
+0x828       floor dark
+0x829       floor dark
+0x82c       floor dark
+0x830       floor dark
+0x831       floor dark
+0x895       floor dark
+0x853       dark
+0x805       floor
+0x808       floor
+0x809       floor
+0x810       floor
+0x811       floor
+0x81b       floor
+0x823       floor
+0x824       floor
+0x82a       floor
+0x82b       floor
+0x833       floor
+0x838       floor
+0x839       floor
+0x83a       floor
+0x83b       floor
+0x840       floor
+0x841       floor
+0x868       floor
+0x86f       floor
+0x870       floor
+0x877       floor
+0x878       floor
+0x879       floor
+0x87a       floor
+0x87b       floor
+0x87c       floor
+0x87d       floor
+0x87e       floor
+0x87f       floor
+0x888       floor
+0x889       floor
+0x88b       floor
+0x88c       floor
+0x88d       floor
+0x88e       floor
+0x88f       floor
+0x890       floor
+0x891       floor
+0x892       floor
+0x893       floor
+0x894       floor
+0x896       floor
+0x897       floor
+0x8b8       floor
+0x8b9       floor
+0x8ba       floor
+0x8bb       floor
+0x8bc       floor
+0x8bd       floor
+0x8c0       floor
+0x8c1       floor
+0x8c2       floor
+0x8c3       floor
+0x8c4       floor
+0x8c5       floor
+0x8c8       floor
+0x8c9       floor
+0x8ca       floor
+0x8cb       floor
+0x8cc       floor
+0x8cd       floor
+0x8e0       floor
+0x8e1       floor
+0x8e2       floor
+0x8e3       floor
+0x8e4       floor
+0x8e5       floor
+0x8e8       floor
+0x8e9       floor
+0x8ea       floor
+0x8eb       floor
+0x8ec       floor
+0x8ed       floor
+0x8f0       floor
+0x8f1       floor
+0x8f2       floor
+0x8f3       floor
+0x8f4       floor
+0x8f5       floor
+0x8f8       floor
+0x8f9       floor
+0x8fa       floor
+0x8fb       floor
+0x8fc       floor
+0x8fd       floor
+0x900       floor
+0x901       floor
+0x902       floor
+0x903       floor
+0x904       floor
+0x905       floor

@@ -1,0 +1,282 @@
+# What each gTileset_BattlePalace metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest BattlePalace`, guessed tiles reviewed
+# by eye below: pink stone paving, red and gold walls, the orange battle floor,
+# white floors, rugs, a fountain and a pond.
+
+
+0x800       path                    # dup: BattleFrontierOutsideEast 0x800
+0x801-0x803 path                    # guess
+0x804-0x805 floor                   # beh
+0x806       building                # guess: Slateport 0x8b2 d=68
+0x807       path                    # guess: General 0x10c d=138
+0x808       building                # guess: EverGrande 0x852 d=224
+0x809       sand                    # shape: Mossdeep 0x917
+0x80a-0x80b building                # guess
+0x80c-0x80d sand                    # guess
+0x80e       building                # guess: EverGrande 0x852 d=191
+0x80f       cliff                   # guess: Dewford 0x941 d=142
+0x810-0x813 building                # guess
+0x814       bridge                  # guess: Pacifidlog 0x821 d=87
+0x815       building                # guess: Slateport 0x89f d=273
+0x816       cliff                   # guess: Dewford 0x941 d=142
+0x817       path                    # guess: Fallarbor 0x8f4 d=144
+0x818       cliff ledge             # guess: MirageTower 0x83a d=192
+0x819       building                # beh: MB_ANIMATED_DOOR
+0x81a-0x81d building                # guess
+0x81e       path                    # guess: General 0x10c d=118
+0x81f       cliff lava              # guess: Cave 0x96a d=245
+0x820       floor                   # guess: Contest 0x80b d=94
+0x821       path                    # guess: Lilycove 0x870 d=197
+0x822       cliff                   # guess: Dewford 0x941 d=142
+0x823       building                # guess: Lavaridge 0x82f d=197
+0x824       object                  # beh: MB_PC
+0x825       building                # guess: Lavaridge 0x82b d=188
+0x826       cliff water             # dup: General 0x179
+0x826       +sea
+0x827       building                # guess: BattleFrontierOutsideEast 0x823 d=222
+0x828       floor                   # guess: Contest 0x80b d=92
+0x829       path                    # guess: Mossdeep 0x8b1 d=103
+0x82a       floor                   # guess: Contest 0x802 d=92
+0x82b       path                    # guess: Petalburg 0x874 d=220
+0x82c       bridge grass            # guess: Dewford 0x8ec d=223
+0x82d       cliff                   # guess: MirageTower 0x914 d=208
+0x82e       water                   # beh: MB_POND_WATER
+0x82f       fence path              # guess: BattleFrontierOutsideWest 0x9ea d=235
+0x830       tallgrass               # guess: Lavaridge 0x807 d=172
+0x831-0x832 cliff                   # guess
+0x833       building                # guess: Slateport 0x8a8 d=112
+0x834       path                    # dup: BattleFrontierOutsideEast 0x800
+0x835-0x83a building                # guess
+0x83b       path                    # guess: Fallarbor 0x879 d=132
+0x83c       building                # guess: Slateport 0x899 d=124
+0x83d       floor                   # guess: Cave 0x91b d=130
+0x83e-0x840 building                # guess
+0x841       floor                   # guess: Contest 0x802 d=109
+0x842       building                # guess: Sootopolis 0x840 d=128
+0x843       cliff ledge             # guess: Lavaridge 0x8ea d=237
+0x844       cliff                   # guess: Lavaridge 0x889 d=342
+0x845       building                # guess: Fallarbor 0x94e d=350
+0x846       cliff                   # guess: Lavaridge 0x87a d=107
+0x847       building                # guess: BattleFrontierOutsideEast 0x834 d=233
+0x848       cliff                   # guess: Lavaridge 0x889 d=290
+0x849-0x84a cliff ledge             # guess
+0x84b       cliff                   # guess: Lavaridge 0x87c d=345
+0x84c       cliff ledge             # guess: Lavaridge 0x8e9 d=314
+0x84d-0x84e flowers                 # guess
+0x84f       floor                   # guess: Mossdeep 0x9a6 d=81
+0x850       building                # guess: Lavaridge 0x834 d=304
+0x851       dark                    # dup: Fallarbor 0x877
+0x852       cliff ledge             # guess: MirageTower 0x953 d=263
+0x853       lava                    # guess: Cave 0x971 d=242
+0x854       cliff                   # guess: MirageTower 0x909 d=245
+0x855-0x85e building                # guess
+0x85f       path                    # dup: BattleFrontierOutsideEast 0x800
+0x860       building                # guess: Dewford 0x95a d=193
+0x861       wall                    # guess: Contest 0x813 d=205
+0x862-0x864 building                # guess
+0x865       wall                    # guess: Contest 0x813 d=205
+0x866       building                # guess: Lavaridge 0x82b d=220
+0x867       path                    # dup: BattleFrontierOutsideEast 0x800
+0x868       building                # guess: Dewford 0x95a d=194
+0x869       wall                    # guess: Contest 0x813 d=205
+0x86a-0x86c building                # guess
+0x86d       wall                    # guess: Contest 0x813 d=205
+0x86e       building                # guess: Lavaridge 0x82b d=221
+0x86f       path                    # dup: BattleFrontierOutsideEast 0x800
+0x870       building                # guess: Dewford 0x95a d=193
+0x871       wall                    # guess: Contest 0x813 d=205
+0x872-0x874 building                # guess
+0x875       wall                    # guess: Contest 0x813 d=205
+0x876       building                # guess: Lavaridge 0x82b d=220
+0x877       path                    # dup: BattleFrontierOutsideEast 0x800
+0x878-0x87e building                # guess
+0x87f       path                    # dup: BattleFrontierOutsideEast 0x800
+0x880       path                    # guess: Fallarbor 0x8fd d=132
+0x881       building                # guess: Lilycove 0x948 d=203
+0x882-0x883 path                    # guess
+0x884       building                # guess: BattleFrontierOutsideWest 0x9f2 d=133
+0x885       path                    # guess: Fallarbor 0x914 d=144
+0x886-0x887 path                    # dup
+0x888       floor                   # guess: Contest 0x80b d=92
+0x889       path                    # guess: Mossdeep 0x8b1 d=103
+0x88a       floor                   # guess: Contest 0x802 d=92
+0x88b-0x88d sand                    # shape
+0x88e       object water            # guess: BattleFrontierOutsideWest 0x83e d=165
+0x88f       path                    # dup: BattleFrontierOutsideEast 0x800
+0x890       tallgrass               # guess: Lavaridge 0x807 d=172
+0x891-0x892 cliff                   # guess
+0x893       cliff grass ledge       # guess: Lavaridge 0x8ed d=283
+0x894       cliff water             # guess: General 0x0c9 d=96
+0x894       +pond
+0x895       cliff water             # guess: Mossdeep 0x8c9 d=277
+0x896       cliff grass ledge       # guess: General 0x106 d=228
+0x897       path                    # dup: BattleFrontierOutsideEast 0x800
+0x898       path                    # guess: Lavaridge 0x908 d=185
+0x899       floor                   # guess: Contest 0x804 d=189
+0x89a       path                    # guess: Fallarbor 0x914 d=194
+0x89b       stairs                  # guess: Mauville 0x8e8 d=225
+0x89c-0x89e building                # guess
+0x89f       path                    # dup: BattleFrontierOutsideEast 0x800
+0x8a0       path                    # guess: Fallarbor 0x8fd d=202
+0x8a1       floor                   # guess: Contest 0x804 d=189
+0x8a2-0x8a3 path                    # guess
+0x8a4       floor                   # guess: Contest 0x804 d=189
+0x8a5       path                    # guess: Fallarbor 0x914 d=187
+0x8a6-0x8a7 path                    # dup
+0x8a8       object                  # guess: Mossdeep 0x992 d=196
+0x8a9       building grass          # guess: EverGrande 0x848 d=235
+0x8aa       tallgrass               # guess: Lavaridge 0x807 d=185
+0x8ab       path                    # guess: Fallarbor 0x8be d=203
+0x8ac       building                # guess: BattleFrontierOutsideEast 0x93f d=155
+0x8ad       tallgrass               # guess: Lavaridge 0x807 d=196
+
+# ---- Reviewed corrections to the guessed tiles ---------------------------
+0x801       path
+0x802       path
+0x803       path
+0x806       path
+0x807       path
+0x80f       path
+0x816       path
+0x817       path
+0x81e       path
+0x821       path
+0x822       path
+0x82b       path
+0x833       path
+0x835       path
+0x838       path
+0x839       path
+0x83a       path
+0x83b       path
+0x83c       path
+0x83d       path
+0x855       path
+0x856       path
+0x857       path
+0x880       path
+0x882       path
+0x883       path
+0x885       path
+0x898       path
+0x89a       path
+0x8a0       path
+0x8a2       path
+0x8a3       path
+0x8a5       path
+0x820       floor
+0x828       floor
+0x829       floor
+0x82a       floor
+0x840       floor
+0x841       floor
+0x84f       floor
+0x858       floor
+0x859       floor
+0x85a       floor
+0x85b       floor
+0x85c       floor
+0x85d       floor
+0x85e       floor
+0x860       floor
+0x861       floor
+0x862       floor
+0x863       floor
+0x864       floor
+0x865       floor
+0x866       floor
+0x868       floor
+0x869       floor
+0x86a       floor
+0x86b       floor
+0x86c       floor
+0x86d       floor
+0x86e       floor
+0x870       floor
+0x871       floor
+0x872       floor
+0x873       floor
+0x874       floor
+0x875       floor
+0x876       floor
+0x878       floor
+0x879       floor
+0x87a       floor
+0x87b       floor
+0x87c       floor
+0x87d       floor
+0x87e       floor
+0x888       floor
+0x889       floor
+0x88a       floor
+0x899       floor
+0x8a1       floor
+0x8a4       floor
+0x82c       water path
+0x84d       object
+0x84e       object
+0x881       object
+0x884       object
+0x88e       object water
+0x893       water path
+0x894       water path
+0x895       water path
+0x896       water path
+0x89b       water path
+0x89c       water path
+0x89d       water path
+0x89e       water path
+0x8a8       water
+0x8a9       water
+0x808       wall
+0x80a       wall
+0x80b       wall
+0x80c       wall
+0x80d       wall
+0x80e       wall
+0x810       wall
+0x811       wall
+0x812       wall
+0x813       wall
+0x814       wall
+0x815       wall
+0x818       wall
+0x81a       wall
+0x81b       wall
+0x81c       wall
+0x81d       wall
+0x81f       wall
+0x823       wall
+0x825       wall
+0x827       wall
+0x82d       wall
+0x82f       wall
+0x830       wall
+0x831       wall
+0x832       wall
+0x836       wall
+0x837       wall
+0x83e       wall
+0x83f       wall
+0x842       wall
+0x843       wall
+0x844       wall
+0x845       wall
+0x846       wall
+0x847       wall
+0x848       wall
+0x849       wall
+0x84a       wall
+0x84b       wall
+0x84c       wall
+0x850       wall
+0x852       wall
+0x853       wall
+0x854       wall
+0x890       wall
+0x891       wall
+0x892       wall
+0x8aa       wall
+0x8ab       wall
+0x8ac       wall
+0x8ad       wall
