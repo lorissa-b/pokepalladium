@@ -178,9 +178,17 @@ def cmd_tileset(a) -> None:
             ts = tiles.primary if i < c.metatiles_in_primary else tiles.secondary
             col_elev = defaults.get((ts.symbol, i))
             usual = f"usually c{col_elev[0]}/e{col_elev[1]}" if col_elev else "unused"
-            print(f"{render.describe_metatile(tiles, i)}  ({usual})")
+            import materials
+
+            mats = " ".join(sorted(materials.of(tiles, i)))
+            print(f"{render.describe_metatile(tiles, i)}  ({usual})  [{mats}]")
         return
-    img = render.catalog(tiles, a.columns, a.scale, ids)
+    notes = None
+    if a.materials:
+        import materials
+
+        notes = {i: " ".join(sorted(materials.of(tiles, i))) for i in ids}
+    img = render.catalog(tiles, a.columns, a.scale, ids, notes)
     save(img, out_path(a.output, f"tileset_{name}.png"))
 
 
@@ -281,7 +289,21 @@ def cmd_draft(a) -> None:
     region = tuple(a.region) if a.region else None
     if region and len(region) == 2:
         region = (region[0], region[1], ref.width - region[0], ref.height - region[1])
-    text = cmp.draft(ref, layout, region)
+    if a.finish:
+        text, blocks, _ = cmp.finished_draft(ref, layout, region)
+    else:
+        text = cmp.draft(ref, layout, region)
+        blocks = None
+    if a.render:
+        if blocks is None:
+            blocks = blueprint.Blueprint(text, "<draft>").build()
+        ts = 16 * a.scale
+        img = render.draw_blocks(blocks, TilesetPair.for_layout(layout), a.scale)
+        if a.events:
+            render.overlay_reference(img, ref, ts, (region or (0, 0))[:2])
+        if a.grid:
+            render.overlay_grid(img, blocks.width, blocks.height, ts)
+        save(img, a.render)
     if a.output:
         Path(a.output).parent.mkdir(parents=True, exist_ok=True)
         Path(a.output).write_text(text)
@@ -366,6 +388,7 @@ def main(argv=None) -> None:
     s.add_argument("-o", "--output")
     s.add_argument("--list", action="store_true", help="print ids, behaviours, labels and usual collision/elevation")
     s.add_argument("--only", choices=["primary", "secondary"])
+    s.add_argument("--materials", action="store_true", help="write each metatile's materials under it")
     s.add_argument("--behavior", help="only metatiles whose MB_* name contains this")
     s.add_argument("--columns", type=int, default=16)
     s.add_argument("--scale", type=int, default=2)
@@ -405,6 +428,12 @@ def main(argv=None) -> None:
     s.add_argument("header", help="Platinum map header")
     s.add_argument("layout", help="layout the blueprint builds (sets tilesets and output path)")
     s.add_argument("--region", type=region_arg, help="X,Y,W,H of the Platinum map to use")
+    s.add_argument("--finish", action="store_true",
+                   help="choose every block by example from the original Emerald maps (see autotile.py)")
+    s.add_argument("--render", help="draw the draft to this PNG")
+    s.add_argument("--events", action="store_true", help="with --render, mark Platinum's events and props")
+    s.add_argument("--grid", action="store_true", help="with --render, add a coordinate grid")
+    s.add_argument("--scale", type=int, default=2)
     s.add_argument("-o", "--output")
     s.set_defaults(func=cmd_draft)
 

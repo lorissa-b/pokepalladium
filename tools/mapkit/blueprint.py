@@ -333,21 +333,28 @@ def extract(layout: dict, region: tuple[int, int, int, int], standalone: bool = 
     """Write a region of a layout as a blueprint (legend + grid) that rebuilds it exactly."""
     x0, y0, w, h = region
     blocks = Blockdata.for_layout(layout).crop(x0, y0, w, h)
+    head = []
+    if standalone:
+        whole = region == (0, 0, layout["width"], layout["height"])
+        head = [f"layout {layout['id']}", f"size {layout['width']} {layout['height']}" if whole else "base self", ""]
+    return "\n".join(head) + ("\n" if head else "") + blocks_text(blocks, (x0, y0), describe)
+
+
+def blocks_text(blocks: Blockdata, at: tuple[int, int] = (0, 0), describe=None) -> str:
+    """Legend and grid lines that draw these blocks with their top-left at `at`."""
     order = [b for b, _ in Counter(blocks.blocks).most_common()]
     width = 1 if len(order) <= len(KEY_CHARS) else 2
     keys = list(KEY_CHARS) if width == 1 else [a + b for a in KEY_CHARS for b in KEY_CHARS]
     key_of = dict(zip(order, keys))
     c = consts()
     out = []
-    if standalone:
-        out += [f"layout {layout['id']}", f"size {layout['width']} {layout['height']}" if region == (0, 0, layout["width"], layout["height"]) else "base self", ""]
     for b in order:
         mid, col, elev = c.unpack(b)
         note = f"  # {describe(mid)}" if describe else ""
         out.append(f"legend {key_of[b]} = {mid:#05x}/c{col}/e{elev}{note}")
-    out.append(f"grid {x0} {y0}" + (" w2" if width == 2 else ""))
-    for y in range(h):
-        out.append("".join(key_of[blocks.get(x, y)] for x in range(w)))
+    out.append(f"grid {at[0]} {at[1]}" + (" w2" if width == 2 else ""))
+    for y in range(blocks.height):
+        out.append("".join(key_of[blocks.get(x, y)] for x in range(blocks.width)))
     out.append("end")
     return "\n".join(out) + "\n"
 

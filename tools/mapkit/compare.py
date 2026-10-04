@@ -191,6 +191,46 @@ def draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, in
     return "\n".join(out) + "\n"
 
 
+def finished_draft(ref: platinum.Reference, layout: dict,
+                   region: tuple[int, int, int, int] | None = None) -> tuple[str, "Blockdata", dict]:
+    """A blueprint with every block chosen, tiled by example (see autotile.py)."""
+    import autotile
+    from blueprint import blocks_text
+    from render import describe_metatile
+
+    x0, y0, w, h = region or (0, 0, ref.width, ref.height)
+    grid = ref.grid()
+    rows = [grid[y][x0 : x0 + w].ljust(w) if 0 <= y < ref.height else " " * w for y in range(y0, y0 + h)]
+    blocks, levels = autotile.fill(rows, layout)
+    tiles = TilesetPair.for_layout(layout)
+    try:
+        rev = platinum.revision()
+    except Exception:
+        rev = "?"
+    import original
+
+    cells = w * h
+    head = [
+        f"# Finished draft of {ref.header} from pret/pokeplatinum@{rev}, tiled by example from",
+        f"# the original Emerald {layout['primary_tileset']} layouts (commit {original.ORIGINAL}) in the",
+        "# 'route' style. Reference region "
+        f"{x0},{y0} {w}x{h}. {levels.get('relaxed', 0)} cells were widened to looser classes and",
+        f"# {levels.get('forced', 0)} of {cells} took the closest fit where no seen pairing worked; check those by eye.",
+        f"#   tools/mapkit/mapkit.py draft {ref.header} {layout['id']} --finish" + (f" --region {x0},{y0},{w},{h}" if region else ""),
+        "#",
+        "# Tile classes it was drawn from:",
+        *[f"#   {r.rstrip()}" for r in rows],
+        "",
+        f"layout {layout['id']}",
+        f"size {w} {h}",
+        "base none",
+        "",
+    ]
+    body = blocks_text(blocks, (0, 0), lambda m: describe_metatile(tiles, m).split(" ", 1)[1])
+    text = "\n".join(head) + "\n" + body + "\n" + "\n".join(notes(ref, (x0, y0, w, h))) + "\n"
+    return text, blocks, dict(levels)
+
+
 def notes(ref: platinum.Reference, region: tuple[int, int, int, int]) -> list[str]:
     """Platinum's events and props in the draft's coordinates, as comments."""
     x0, y0, w, h = region

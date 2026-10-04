@@ -141,18 +141,26 @@ def overlay_events(img: Image.Image, info: dict, ts: int, region=None) -> None:
         _mark(d, ts, e["x"] - x0, e["y"] - y0, WARP, f"W{i}")
 
 
-def catalog(tiles: TilesetPair, columns: int = 16, scale: int = 2, only: list[int] | None = None) -> Image.Image:
-    """Every metatile in a tileset pair, labelled with its hex id."""
+def catalog(tiles: TilesetPair, columns: int = 16, scale: int = 2, only: list[int] | None = None,
+            notes: dict[int, str] | None = None) -> Image.Image:
+    """Every metatile in a tileset pair, labelled with its hex id (and a note under each, if given)."""
     ids = only if only is not None else tiles.ids()
     cell = 16 * scale
+    if notes:
+        cell = max(cell, 56)
     pad = 12
+    foot = 24 if notes else 0
     rows = max(1, (len(ids) + columns - 1) // columns)
-    img = Image.new("RGB", (columns * cell, rows * (cell + pad)), (32, 32, 32))
+    img = Image.new("RGB", (columns * cell, rows * (cell + pad + foot)), (32, 32, 32))
     d = drawer(img)
     for n, mid in enumerate(ids):
-        x, y = (n % columns) * cell, (n // columns) * (cell + pad)
-        img.paste(scaled(tiles.draw(mid), scale), (x, y + pad))
+        x, y = (n % columns) * cell, (n // columns) * (cell + pad + foot)
+        tile = scaled(tiles.draw(mid), scale)
+        img.paste(tile, (x + (cell - tile.width) // 2, y + pad))
         d.text((x + cell // 2, y + pad // 2), f"{mid:03X}", fill=(255, 255, 255), font=font(10), anchor="mm")
+        if notes and notes.get(mid):
+            for k, line in enumerate(notes[mid].split()[:2]):
+                d.text((x + cell // 2, y + pad + 16 * scale + 6 + k * 10), line, fill=(255, 230, 120), font=font(9), anchor="mm")
     return img
 
 

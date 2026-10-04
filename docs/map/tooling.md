@@ -42,6 +42,9 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
    tools/mapkit/mapkit.py draft JUBILIFE_CITY LAYOUT_JUBILIFE_CITY -o jubilife.bp
    ```
 
+   Add `--finish` to choose every block instead (see [Finished drafts](#finished-drafts)), and
+   `--render out.png --events` to preview it with Platinum's events marked.
+
 3. **Find the pieces.** `tileset` draws every metatile the layout can use,
    labelled with its id; `--list` prints ids with their behaviour, label and
    usual collision/elevation. `extract` copies a region of any existing map as
@@ -85,14 +88,14 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
 | `info MAP` | Layout, size, tilesets, connections, and every event with the behaviour of the tile under each warp. |
 | `dump MAP` | The layout as text. `--layer metatile\|collision\|elevation\|behavior\|block`, or `--classes` for the same tile classes the Platinum commands use. `--region X,Y,W,H`. |
 | `render MAP` | PNG of the map. `--grid` (coordinates every 4 tiles), `--events`, `--collision`, `--elevation`, `--region`, `--scale`. |
-| `tileset MAP` or `tileset PRIMARY SECONDARY` | Metatile catalog PNG, or `--list` as text. `--only primary\|secondary`, `--behavior NAME`. |
+| `tileset MAP` or `tileset PRIMARY SECONDARY` | Metatile catalog PNG, or `--list` as text. `--only primary\|secondary`, `--behavior NAME`, `--materials`. |
 | `extract MAP` | A region as a blueprint that rebuilds it exactly. `--standalone` adds the header so it builds on its own. |
 | `build FILE` | Build a blueprint into its layout's `map.bin`, then check it. `--dry-run`, `--render PNG`. |
 | `check [MAP...]` | Check layouts and maps (all of them by default). `-w` adds warnings. Exits non-zero on errors. |
 | `platinum list [QUERY]` | Search Platinum's map headers. |
 | `platinum show HEADER` | The Platinum map as text, with events and props. `--events`, `--region`, `--render [PNG]`, `--json FILE`. |
 | `platinum update` | Move the cached pokeplatinum checkout to its latest commit. |
-| `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map. `--region X,Y,W,H`. |
+| `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map. `--region X,Y,W,H`, `--finish`, `--render PNG [--events --grid]`. |
 | `compare MAP HEADER` | Score a map against the Platinum original. `--origin X,Y\|auto`, `--render PNG`, `-q`. |
 
 ### Tile classes
@@ -156,6 +159,36 @@ than there are single characters. `#` works as a key.
 layout with a different secondary tileset prints a warning, because those ids
 are different tiles.
 
+## Finished drafts
+
+`draft --finish` picks real Emerald metatiles for every tile, by example
+(`autotile.py`):
+
+- It learns from the **original Emerald layouts**, read from this repo's
+  history at commit `73761a50` (before any map was redrawn), and only from
+  blocks the player can see: within the 15x10 screen of some passable block.
+- **Adjacency rules:** metatiles may only sit side by side the way they do in
+  those maps; diagonal pairs count towards the score.
+- **Materials:** each metatile is labelled with what it shows (see below), and
+  the `route` style only builds from grass, tall grass, trees, water, ledges
+  and bridges: blocked tiles must be trees, walkable tiles grass.
+- **Preferences:** among what fits, it picks what the originals use most in
+  the same surroundings, next to the same neighbours.
+
+It solves this like Wave Function Collapse. Where Platinum's shape can't be
+built from Emerald's pieces, cells widen to looser classes or take the closest
+fit; the blueprint's header says how many, and those spots are the ones to
+check. A finished draft is a starting point to touch up, not a final map.
+
+### Materials
+
+`tools/mapkit/materials/<Tileset>.txt` lists what each metatile depicts
+(grass, path, sand, tallgrass, flowers, tree, cliff, rock, water, ledge,
+bridge, fence, building, object, cave, dark), labelled by eye; behaviours add
+water, tall grass, sand, ledges, doors and bridges automatically. General and
+Rustboro are labelled so far. `tileset MAP --materials` draws the catalog with
+each tile's materials under it, to check or extend the labels.
+
 ## Checks
 
 `check` reports:
@@ -205,6 +238,9 @@ building's footprint shows as a block of `#` behind them.
 | `check.py` | The checks. |
 | `platinum.py` | The pokeplatinum reader. |
 | `compare.py` | Tile classes for Emerald, `compare`, `draft`. |
+| `autotile.py` | `draft --finish`: learning from the original maps and the constraint solver. |
+| `original.py` | The original Emerald layouts from history, and which blocks are visible. |
+| `materials.py`, `materials/` | What each metatile depicts. |
 | `test_mapkit.py` | Tests: `python3 -m unittest discover tools/mapkit`. |
 
 The map grid and metatile formats are read from `include/fieldmap.h` and
