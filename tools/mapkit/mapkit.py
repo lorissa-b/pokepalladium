@@ -8,6 +8,7 @@ docs/map/tooling.md for the workflow these support.
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import json
 import sys
 from pathlib import Path
@@ -318,6 +319,39 @@ def cmd_draft(a) -> None:
         sys.stdout.write(text)
 
 
+def cmd_materials(a) -> None:
+    import label_assist
+    import materials
+    from tileset import _headers, load
+
+    symbols = sorted(_headers())
+    if a.action == "status":
+        total = done = 0
+        for symbol in symbols:
+            name = symbol[len("gTileset_"):]
+            n = len(load(symbol))
+            have = sum(1 for i in label_assist.own_ids(symbol) if i in materials.labels(name))
+            total, done = total + n, done + have
+            print(f"{name:<28} {have:>4}/{n:<4} {'done' if have == n else ''}")
+        print(f"{done}/{total} metatiles labelled")
+        return
+    for target in a.tilesets:
+        symbol = target if target.startswith("gTileset_") else "gTileset_" + target
+        name = symbol[len("gTileset_"):]
+        rows = label_assist.suggest(symbol)
+        out = Path(a.output or DEFAULT_OUT / "materials" / "suggest")
+        label_assist.write(symbol, rows, out / f"{name}.txt")
+        kinds = Counter(r[2] for r in rows)
+        print(f"{out / (name + '.txt')}: {kinds['dup']} duplicates, {kinds['beh']} from behaviour, {kinds['guess']} guesses")
+        colours = {"dup": (255, 255, 255), "beh": (120, 255, 140), "guess": (255, 220, 90)}
+        notes = {mid: (" ".join(sorted(m for m in mats if m not in ("unknown",)))[:24], colours[kind]) for mid, mats, kind, _ in rows}
+        pair = label_assist.pair_for(symbol)
+        ids = [r[0] for r in rows]
+        for k in range(0, len(ids), 128):
+            img = render.catalog(pair, 16, 3, ids[k : k + 128], notes)
+            save(img, out / f"{name}_{k // 128}.png")
+
+
 def cmd_compare(a) -> None:
     _, layout = map_for(a.map)
     ref = platinum.load(a.header)
@@ -447,6 +481,12 @@ def main(argv=None) -> None:
     s.add_argument("--scale", type=int, default=2)
     s.add_argument("-o", "--output")
     s.set_defaults(func=cmd_draft)
+
+    s = sub.add_parser("materials", help="label coverage, and suggested labels for a tileset to review")
+    s.add_argument("action", choices=["status", "suggest"])
+    s.add_argument("tilesets", nargs="*", help="tilesets to suggest labels for, e.g. Cave or gTileset_Cave")
+    s.add_argument("-o", "--output", help="directory for the suggestions and review sheets")
+    s.set_defaults(func=cmd_materials)
 
     s = sub.add_parser("compare", help="score a map against its Platinum original")
     s.add_argument("map")

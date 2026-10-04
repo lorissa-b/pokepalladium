@@ -22,6 +22,8 @@ DIR = Path(__file__).resolve().parent / "materials"
 MATERIALS = {
     "grass", "path", "sand", "tallgrass", "flowers", "tree", "cliff", "rock", "water",
     "ledge", "bridge", "fence", "building", "object", "cave", "dark", "unknown",
+    # Interiors and caves.
+    "floor", "wall", "stairs", "ice", "lava",
 }
 
 # Families split a material by look; a style keeps one per material.
@@ -78,6 +80,8 @@ def of(tiles: TilesetPair, metatile: int) -> frozenset[str]:
     for pattern, mat in _FROM_BEHAVIOR:
         if re.search(pattern, name):
             mats.add(mat)
+    if "lava" in mats:
+        mats.discard("water")  # Magma Hideout's lava has a water behaviour
     if len(mats) > 1:
         mats.discard("unknown")
     return frozenset(mats)

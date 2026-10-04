@@ -166,8 +166,10 @@ def catalog(tiles: TilesetPair, columns: int = 16, scale: int = 2, only: list[in
         img.paste(tile, (x + (cell - tile.width) // 2, y + pad))
         d.text((x + cell // 2, y + pad // 2), f"{mid:03X}", fill=(255, 255, 255), font=font(10), anchor="mm")
         if notes and notes.get(mid):
-            for k, line in enumerate(notes[mid].split()[:2]):
-                d.text((x + cell // 2, y + pad + 16 * scale + 6 + k * 10), line, fill=(255, 230, 120), font=font(9), anchor="mm")
+            note = notes[mid]
+            text_, colour = (note, (255, 230, 120)) if isinstance(note, str) else note
+            for k, line in enumerate(text_.split()[:2]):
+                d.text((x + cell // 2, y + pad + 16 * scale + 6 + k * 10), line, fill=colour, font=font(9), anchor="mm")
     return img
 
 
