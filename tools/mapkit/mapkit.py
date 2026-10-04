@@ -342,8 +342,9 @@ def cmd_materials(a) -> None:
         out = Path(a.output or DEFAULT_OUT / "materials" / "suggest")
         label_assist.write(symbol, rows, out / f"{name}.txt")
         kinds = Counter(r[2] for r in rows)
-        print(f"{out / (name + '.txt')}: {kinds['dup']} duplicates, {kinds['beh']} from behaviour, {kinds['guess']} guesses")
-        colours = {"dup": (255, 255, 255), "beh": (120, 255, 140), "guess": (255, 220, 90)}
+        print(f"{out / (name + '.txt')}: {kinds['dup']} duplicates, {kinds['shape']} recoloured copies, "
+              f"{kinds['beh']} from behaviour, {kinds['guess']} guesses")
+        colours = {"dup": (255, 255, 255), "shape": (110, 230, 255), "beh": (120, 255, 140), "guess": (255, 220, 90)}
         notes = {mid: (" ".join(sorted(m for m in mats if m not in ("unknown",)))[:24], colours[kind]) for mid, mats, kind, _ in rows}
         pair = label_assist.pair_for(symbol)
         ids = [r[0] for r in rows]

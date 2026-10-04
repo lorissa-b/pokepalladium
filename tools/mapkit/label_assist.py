@@ -4,12 +4,15 @@ Labels come from, in order of trust:
 
 1. dup:   the metatile draws exactly like one already labelled (any
           labelled tileset), so it gets the same labels;
-2. beh:   its behaviour says what it is (water, a counter, stairs...);
-3. guess: the closest-looking labelled metatile, by a coarse colour layout.
+2. shape: the same pixel pattern as a labelled tile in other colours (the
+          secret base caves, Navel Rock's copy of Cave...);
+3. beh:   its behaviour says what it is (water, a counter, stairs...);
+4. guess: the closest-looking labelled metatile, by a coarse colour layout.
 
 The result is a materials file (same format as materials/*.txt) with each
 line's source in a comment, and a catalog sheet with the suggestions written
-under each tile (dup in white, behaviour in green, guesses in yellow), so a
+under each tile (dup in white, shape in cyan, behaviour in green, guesses
+in yellow), so a
 reviewer only has to correct what's wrong.
 """
 
@@ -48,6 +51,27 @@ def own_ids(symbol: str) -> list[int]:
     return [base + i for i in range(len(ts))]
 
 
+def shape(pair: TilesetPair, mid: int) -> bytes | None:
+    """The metatile's pixel pattern without its colours, to spot recoloured copies."""
+    ts, idx = pair._split(mid)
+    if idx >= len(ts.metatiles):
+        return None
+    out = bytearray()
+    for entry in ts.metatiles[idx]:
+        tile = pair._tile(entry & 0x3FF)
+        if tile is None:
+            out += bytes(64)
+            continue
+        rows = [tile[j * 8 : j * 8 + 8] for j in range(8)]
+        if entry & 0x400:
+            rows = [r[::-1] for r in rows]
+        if entry & 0x800:
+            rows = rows[::-1]
+        out += b"".join(rows)
+    # A blank pattern says nothing.
+    return bytes(out) if any(out) else None
+
+
 def _features(img) -> tuple[float, ...]:
     """A coarse colour layout: the average colour of each 4x4 pixel square."""
     small = img.resize((4, 4), resample=4)  # BOX
@@ -55,9 +79,10 @@ def _features(img) -> tuple[float, ...]:
 
 
 @lru_cache(maxsize=None)
-def reference() -> tuple[dict[bytes, tuple[frozenset, str]], list[tuple[tuple[float, ...], frozenset, str]]]:
-    """Every labelled metatile: (pixels -> labels, [(features, labels, name)])."""
+def reference():
+    """Every labelled metatile: (pixels -> labels, shape -> labels, [(features, labels, name)])."""
     exact: dict[bytes, tuple[frozenset, str]] = {}
+    shapes: dict[bytes, tuple[frozenset, str]] = {}
     feats = []
     for symbol in sorted(_headers()):
         name = symbol[len("gTileset_"):]
@@ -77,8 +102,11 @@ def reference() -> tuple[dict[bytes, tuple[frozenset, str]], list[tuple[tuple[fl
             img = pair.draw(mid)
             src = f"{name} {mid:#05x}"
             exact.setdefault(img.tobytes(), (mats, src))
+            sig = shape(pair, mid)
+            if sig:
+                shapes.setdefault(sig, (mats, src))
             feats.append((_features(img), mats, src))
-    return exact, feats
+    return exact, shapes, feats
 
 
 # Behaviours that say what a tile is (beyond materials.py's, which always apply).
@@ -96,7 +124,7 @@ _BEHAVIOR_HINTS = [
 
 def suggest(symbol: str) -> list[tuple[int, frozenset, str, str]]:
     """(metatile, labels, source kind, note) for every metatile of a tileset."""
-    exact, feats = reference()
+    exact, shapes, feats = reference()
     pair = pair_for(symbol)
     names = project.behaviors()
     c = project.consts()
@@ -110,6 +138,12 @@ def suggest(symbol: str) -> list[tuple[int, frozenset, str, str]]:
         if key in exact:
             mats, src = exact[key]
             out.append((mid, frozenset(set(mats) | base | hints), "dup", src))
+            continue
+        sig = shape(pair, mid)
+        if sig in shapes:
+            mats, src = shapes[sig]
+            # Colours differ, so water or lava may not carry over: trust the behaviour for those.
+            out.append((mid, frozenset(set(mats) | base | hints), "shape", src))
             continue
         if hints or base:
             out.append((mid, frozenset(base | hints), "beh", beh))
