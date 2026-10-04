@@ -1,0 +1,127 @@
+# What each gTileset_FortreeGym metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest FortreeGym`. Winona's Gym: grated floors,
+# walls and the rotating turnstiles.
+# Tiles it had to guess default to floor or wall by how maps use them
+# (walkable or blocked), with exceptions reviewed by eye.
+
+
+0x800       wall                    # dup: BattleFrontier 0x89a
+0x801-0x802 floor                   # guess
+0x803-0x805 sand                    # guess
+0x806       floor                   # guess: NavelRock 0x807 d=92
+0x807       sand                    # guess: Mauville 0x9d8 d=98
+0x808-0x809 floor                   # guess
+0x80a-0x80b object                  # guess
+0x80c-0x80d ledge                   # beh
+0x80e       floor                   # guess: Facility 0x9ed d=179
+0x80f       stairs                  # guess: Sootopolis 0x829 d=169
+0x810-0x811 object                  # guess
+0x812       floor                   # guess: NavelRock 0x801 d=143
+0x813-0x814 fence                   # guess
+0x815       object                  # guess: SecretBaseBlueCave 0x80e d=149
+0x816-0x817 fence                   # guess
+0x818       object                  # guess: SecretBaseBlueCave 0x862 d=140
+0x819       floor                   # guess: Facility 0x9ee d=174
+0x81a       object                  # guess: BattleFrontier 0x818 d=172
+0x81b-0x81c path                    # guess
+0x81d-0x81f floor                   # guess
+0x820       object                  # guess: BattleFrontier 0x818 d=172
+0x821-0x825 floor                   # guess
+0x826       stairs                  # guess: Sootopolis 0x829 d=175
+0x827       object                  # guess: BattleTent 0x81e d=143
+0x828-0x829 floor                   # guess
+0x82a       object                  # guess: Facility 0x80f d=195
+0x82b       floor                   # guess: NavelRock 0x801 d=131
+0x82c       object                  # guess: BattleFrontier 0x818 d=226
+0x82d       wall                    # dup: BattleFrontier 0x89a
+0x82e       object                  # guess: BattleTent 0x81e d=143
+0x82f       building                # guess: Mossdeep 0x8cb d=107
+0x830       sand                    # guess: Mauville 0x851 d=103
+0x831-0x832 floor                   # guess
+0x833-0x834 wall                    # guess
+0x835       object                  # guess: Facility 0x8f5 d=140
+0x836-0x837 wall                    # guess
+0x838       floor object            # guess: BikeShop 0x80d d=95
+0x839       floor                   # guess: GenericBuilding 0x9f8 d=144
+0x83a       building                # guess: Rustboro 0x8b1 d=116
+0x83b-0x83d object                  # guess
+0x83e       wall                    # guess: GenericBuilding 0x8bd d=166
+0x83f       building                # guess: Sootopolis 0x852 d=172
+0x840       wall                    # guess: Facility 0x96a d=150
+0x841-0x843 object water            # guess
+0x844       object                  # guess: SecretBaseBlueCave 0x912 d=183
+0x845       floor                   # guess: NavelRock 0x807 d=100
+0x846-0x847 object                  # guess
+0x848-0x84e wall                    # dup
+0x84f       wall                    # guess: BikeShop 0x85a d=108
+
+# ---- Reviewed: guessed tiles ---------------------------------------------
+0x801       floor
+0x802       floor
+0x803       floor
+0x804       floor
+0x805       floor
+0x806       floor
+0x807       floor
+0x808       object
+0x809       object
+0x80a       object
+0x80b       object
+0x80e       wall
+0x80f       wall
+0x810       wall
+0x811       wall
+0x812       object
+0x813       wall
+0x814       wall
+0x815       wall
+0x816       wall
+0x817       wall
+0x818       object
+0x819       wall
+0x81a       object
+0x81b       wall
+0x81c       floor
+0x81d       floor
+0x81e       floor
+0x81f       wall
+0x820       object
+0x821       floor
+0x822       floor
+0x823       floor
+0x824       floor
+0x825       floor
+0x826       wall
+0x827       object
+0x828       object
+0x829       wall
+0x82a       wall
+0x82b       floor
+0x82c       wall
+0x82e       object
+0x82f       object
+0x830       floor
+0x831       floor
+0x832       floor
+0x833       wall
+0x834       wall
+0x835       object
+0x836       wall
+0x837       wall
+0x838       wall
+0x839       object
+0x83a       wall
+0x83b       wall
+0x83c       object
+0x83d       object
+0x83e       wall
+0x83f       wall
+0x840       wall
+0x841       floor
+0x842       floor
+0x843       floor
+0x844       wall
+0x845       floor
+0x846       wall
+0x847       wall
+0x84f       wall

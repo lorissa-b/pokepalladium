@@ -1,0 +1,83 @@
+# What each gTileset_PokemonSchool metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest PokemonSchool`. Rustboro's Trainers' School:
+# desks, blackboards, plants and shelves.
+# Tiles it had to guess default to floor or wall by how maps use them
+# (walkable or blocked), with exceptions reviewed by eye.
+
+
+0x800       wall                    # dup: BattleFrontier 0x89a
+0x801-0x802 path                    # guess
+0x803-0x804 floor                   # guess
+0x805-0x806 wall                    # dup
+0x807       dark                    # dup: BattleTent 0x85b
+0x808-0x809 dark                    # guess
+0x80a       floor                   # guess: Facility 0x80b d=175
+0x80b       path                    # guess: Mossdeep 0x8ae d=129
+0x80c       floor object            # guess: InsideShip 0x89e d=190
+0x80d       object                  # guess: InsideShip 0x8fb d=146
+0x80e       floor object            # guess: InsideShip 0x89d d=172
+0x80f       wall                    # dup: BattleFrontier 0x89a
+0x810       path                    # guess: Sootopolis 0x827 d=107
+0x811-0x812 floor                   # guess
+0x813-0x815 path                    # guess
+0x816       floor                   # guess: BattleTent 0x805 d=154
+0x817       wall                    # dup: BattleFrontier 0x89a
+0x818       building                # guess: Sootopolis 0x87e d=192
+0x819       floor                   # guess: BikeShop 0x831 d=192
+0x81a-0x81b building                # guess
+0x81c-0x81d path                    # guess
+0x81e-0x81f wall                    # dup
+0x820-0x821 building                # guess
+0x822-0x823 floor wall              # dup
+0x824       object                  # guess: GenericBuilding 0x895 d=206
+0x825       rock                    # guess: NavelRock 0x99b d=205
+0x826-0x827 wall                    # dup
+0x828       object                  # guess: SecretBaseBrownCave 0x8d3 d=135
+0x829       grass                   # guess: IslandHarbor 0x80a d=140
+0x82a       bridge                  # guess: Fortree 0x857 d=142
+0x82b       floor                   # guess: Facility 0x829 d=165
+0x82c-0x82f wall                    # dup
+0x830-0x833 floor                   # guess
+0x834-0x837 wall                    # dup
+0x838-0x839 building                # guess
+
+# ---- Reviewed: guessed tiles ---------------------------------------------
+0x801       floor
+0x802       floor
+0x803       floor
+0x804       floor
+0x808       wall
+0x809       wall
+0x80a       object
+0x80b       object
+0x80c       object
+0x80d       object
+0x80e       object
+0x810       wall
+0x811       wall
+0x812       wall
+0x813       unknown
+0x814       object
+0x815       object
+0x816       object
+0x818       object
+0x819       object
+0x81a       object
+0x81b       object
+0x81c       object
+0x81d       object
+0x820       floor
+0x821       floor
+0x824       object
+0x825       object
+0x828       wall
+0x829       wall
+0x82a       wall
+0x82b       wall
+0x830       object
+0x831       object
+0x832       object
+0x833       object
+0x838       floor
+0x839       floor
+0x813       wall

@@ -1,0 +1,277 @@
+# What each gTileset_Lab metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest Lab`. Birch's lab: bookshelves, computers
+# and machines, desks, cabinets, plants and benches.
+# Tiles it had to guess default to floor or wall by how maps use them
+# (walkable or blocked), with exceptions reviewed by eye.
+
+
+0x800       wall                    # dup: BattleFrontier 0x89a
+0x801       dark                    # dup: BattleTent 0x85b
+0x802-0x805 building                # guess
+0x806-0x807 floor                   # beh
+0x808       floor                   # guess: Lavaridge 0x973 d=47
+0x809       path                    # guess: Sootopolis 0x80e d=74
+0x80a-0x80b floor                   # guess
+0x80c-0x80e object                  # guess
+0x80f       building                # guess: Mossdeep 0x929 d=146
+0x810-0x811 path                    # guess
+0x812-0x813 floor                   # guess
+0x814       cliff ledge             # guess: Fallarbor 0x82f d=237
+0x815       cliff                   # guess: Lavaridge 0x8ce d=242
+0x816       building                # guess: Rustboro 0x829 d=54
+0x817       fence                   # guess: Facility 0x897 d=173
+0x818       stairs                  # guess: Facility 0x9c1 d=151
+0x819       floor object            # guess: BikeShop 0x80a d=163
+0x81a       cliff                   # guess: MirageTower 0x934 d=171
+0x81b       building                # guess: BattleFrontierOutsideWest 0x84c d=202
+0x81c       object                  # guess: Lavaridge 0x99d d=196
+0x81d       wall                    # guess: InsideShip 0x8c8 d=174
+0x81e       building                # guess: Sootopolis 0x880 d=110
+0x81f       floor object            # guess: BikeShop 0x8b9 d=177
+0x820       building                # guess: Slateport 0x8da d=140
+0x821       floor object            # guess: BikeShop 0x8a9 d=116
+0x822       wall                    # guess: BikeShop 0x839 d=126
+0x823       building                # guess: Fortree 0x8a2 d=138
+0x824       wall                    # guess: BikeShop 0x8d8 d=216
+0x825-0x827 building                # guess
+0x828       object                  # guess: SecretBaseShrub 0x887 d=122
+0x829       wall                    # guess: Contest 0x8b1 d=126
+0x82a-0x82d building                # guess
+0x82e       object                  # guess: SecretBaseBrownCave 0x8da d=164
+0x82f       floor object            # guess: BikeShop 0x8a9 d=140
+0x830       wall                    # guess: BikeShop 0x898 d=143
+0x831       object                  # guess: SecretBaseShrub 0x887 d=122
+0x832-0x833 building                # guess
+0x834-0x835 stairs                  # guess
+0x836       wall                    # guess: BikeShop 0x8d8 d=207
+0x837       building                # guess: Slateport 0x81f d=205
+0x838       wall                    # guess: GenericBuilding 0x8ed d=149
+0x839       object                  # guess: Contest 0x893 d=148
+0x83a       cliff                   # guess: NavelRock 0x80b d=165
+0x83b       wall                    # guess: BikeShop 0x898 d=142
+0x83c       floor                   # guess: GenericBuilding 0x9f8 d=46
+0x83d-0x83e building                # guess
+0x83f       cliff grass             # guess: Fallarbor 0x839 d=78
+0x840-0x842 object                  # guess
+0x843       wall                    # guess: GenericBuilding 0x8be d=152
+0x844       object                  # guess: SecretBaseBrownCave 0x8da d=136
+0x845       sand                    # guess: Mauville 0x852 d=139
+0x846       object                  # guess: GenericBuilding 0x91b d=80
+0x847-0x848 building                # guess
+0x849       object                  # guess: SecretBaseRedCave 0x92a d=172
+0x84a       wall                    # guess: GenericBuilding 0x81d d=149
+0x84b       object                  # guess: GenericBuilding 0x868 d=178
+0x84c       building                # guess: Sootopolis 0x820 d=150
+0x84d       object                  # guess: BattleFrontier 0x8fa d=174
+0x84e-0x84f building                # guess
+0x850-0x851 wall                    # guess
+0x852       floor object            # guess: BikeShop 0x810 d=32
+0x853-0x854 wall                    # guess
+0x855       floor object            # guess: BikeShop 0x810 d=45
+0x856-0x859 object                  # guess
+0x85a       floor                   # guess: BikeShop 0x856 d=45
+0x85b-0x85d object                  # guess
+0x85e       wall                    # guess: Facility 0x958 d=183
+0x85f       path                    # guess: Slateport 0x8d5 d=67
+0x860-0x861 wall                    # guess
+0x862       water                   # guess: Facility 0x934 d=87
+0x863-0x865 wall                    # guess
+0x866       floor                   # guess: Facility 0x9ee d=173
+0x867       path                    # guess: Petalburg 0x83b d=80
+0x868       floor                   # guess: BikeShop 0x856 d=130
+0x869       floor object            # guess: BikeShop 0x810 d=32
+0x86a       building                # guess: Rustboro 0x815 d=58
+0x86b       wall                    # dup: Facility 0x80a
+0x86c-0x86d building                # guess
+0x86e       wall                    # guess: Facility 0x97d d=193
+0x86f       building                # guess: Rustboro 0x815 d=37
+0x870       object                  # dup: Facility 0x810
+0x871       floor                   # guess: MeteorFalls 0x809 d=116
+0x872       path                    # guess: Slateport 0x83e d=94
+0x873       wall                    # guess: Facility 0x809 d=14
+0x874       building                # guess: Rustboro 0x8c8 d=174
+0x875       object                  # guess: SecretBaseBrownCave 0x867 d=222
+0x876       building                # guess: Mauville 0x8a7 d=94
+0x877       wall                    # guess: BikeShop 0x890 d=101
+0x878       building                # dup: Facility 0x820
+0x879       water                   # guess: Facility 0x934 d=75
+0x87a       building                # guess: BattleFrontierOutsideEast 0x910 d=94
+0x87b       wall                    # dup: Facility 0x811
+0x87c       object path             # guess: Slateport 0x839 d=131
+0x87d       building                # dup: Facility 0x8b4
+0x87e       fence path              # guess: BattleFrontierOutsideEast 0x9f5 d=201
+0x87f       path                    # guess: Petalburg 0x83b d=73
+0x880       floor                   # guess: MeteorFalls 0x809 d=116
+0x881       fence path              # guess: BattleFrontierOutsideEast 0x9af d=129
+0x882       wall                    # guess: Facility 0x811 d=24
+0x883       path                    # guess: Facility 0x8cc d=9
+0x884       object                  # guess: Rustboro 0x938 d=117
+0x885       floor                   # guess: Facility 0x928 d=74
+0x886       wall                    # guess: Facility 0x84c d=169
+0x887       object                  # guess: SecretBaseBrownCave 0x8da d=174
+0x888-0x889 floor                   # guess
+0x88a-0x88b object                  # guess
+0x88c       floor                   # guess: Facility 0x9ed d=118
+0x88d       building                # guess: BattleFrontierOutsideEast 0x910 d=94
+0x88e       floor                   # guess: Facility 0x9ed d=114
+0x88f       wall                    # guess: BikeShop 0x890 d=133
+0x890       cliff                   # guess: MirageTower 0x934 d=172
+0x891       building                # guess: BattleFrontierOutsideWest 0x84c d=207
+0x892       cliff grass             # guess: Fallarbor 0x839 d=84
+0x893       path                    # guess: Sootopolis 0x84b d=124
+0x894       path water              # guess: BattleFrontierOutsideWest 0x914 d=74
+0x895       floor                   # guess: InsideShip 0x832 d=133
+0x896-0x897 wall                    # dup
+0x898-0x899 wall                    # guess
+0x89a       building                # guess: Mossdeep 0x931 d=172
+0x89b       wall                    # guess: Facility 0x933 d=117
+0x89c-0x89d floor object            # guess
+
+# ---- Reviewed: guessed tiles ---------------------------------------------
+0x802       floor
+0x803       floor
+0x804       floor
+0x805       floor
+0x808       wall
+0x809       object
+0x80a       wall
+0x80b       object
+0x80c       object
+0x80d       object
+0x80e       object
+0x80f       object
+0x810       wall
+0x811       wall
+0x812       object
+0x813       object
+0x814       object
+0x815       object
+0x816       floor
+0x817       object
+0x818       object
+0x819       object
+0x81a       object
+0x81b       object
+0x81c       object
+0x81d       object
+0x81e       object
+0x81f       object
+0x820       object
+0x821       object
+0x822       floor
+0x823       object
+0x824       object
+0x825       object
+0x826       floor
+0x827       object
+0x828       object
+0x829       object
+0x82a       floor
+0x82b       floor
+0x82c       object
+0x82d       object
+0x82e       object
+0x82f       object
+0x830       object
+0x831       object
+0x832       object
+0x833       object
+0x834       object
+0x835       object
+0x836       object
+0x837       object
+0x838       object
+0x839       object
+0x83a       object
+0x83b       object
+0x83c       wall
+0x83d       floor
+0x83e       floor
+0x83f       floor
+0x840       object
+0x841       object
+0x842       object
+0x843       object
+0x844       object
+0x845       object
+0x846       floor
+0x847       floor
+0x848       object
+0x849       object
+0x84a       object
+0x84b       object
+0x84c       object
+0x84d       object
+0x84e       floor
+0x84f       floor
+0x850       object
+0x851       object
+0x852       floor
+0x853       object
+0x854       object
+0x855       floor
+0x856       object
+0x857       object
+0x858       object
+0x859       object
+0x85a       floor
+0x85b       object
+0x85c       object
+0x85d       object
+0x85e       object
+0x85f       wall
+0x860       object
+0x861       object
+0x862       floor
+0x863       floor
+0x864       object
+0x865       object
+0x866       object
+0x867       wall
+0x868       floor
+0x869       floor
+0x86a       floor
+0x86c       object
+0x86d       object
+0x86e       wall
+0x86f       floor
+0x871       floor
+0x872       floor
+0x873       wall
+0x874       object
+0x875       object
+0x876       object
+0x877       floor
+0x879       floor
+0x87a       floor
+0x87c       wall
+0x87e       wall
+0x87f       wall
+0x880       floor
+0x881       wall
+0x882       wall
+0x883       floor
+0x884       wall
+0x885       floor
+0x886       wall
+0x887       object
+0x888       wall
+0x889       wall
+0x88a       object
+0x88b       object
+0x88c       floor
+0x88d       floor
+0x88e       floor
+0x88f       floor
+0x890       object
+0x891       object
+0x892       floor
+0x893       wall
+0x894       wall
+0x895       wall
+0x898       object
+0x899       object
+0x89a       object
+0x89b       floor
+0x89c       floor
+0x89d       floor

@@ -1,0 +1,123 @@
+# What each gTileset_PokemonDayCare metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest PokemonDayCare`. Blue floors, grass mats,
+# furniture and a picket fence.
+# Tiles it had to guess default to floor or wall by how maps use them
+# (walkable or blocked), with exceptions reviewed by eye.
+
+
+0x800       wall                    # dup: BattleFrontier 0x89a
+0x801       cliff water             # guess: General 0x0b9 d=126
+0x801       +sea
+0x802       water                   # guess: Cave 0x87b d=44
+0x803       dark                    # dup: BattleTent 0x85b
+0x804       floor                   # guess: GenericBuilding 0x829 d=122
+0x805-0x807 bridge water            # guess
+0x808       object water            # guess: BattleFrontierOutsideWest 0x83c d=151
+0x809-0x80a wall                    # guess
+0x80b       building water          # guess: Slateport 0x94a d=144
+0x80c-0x80d wall                    # guess
+0x80e-0x80f object water            # guess
+0x810       building                # guess: Lavaridge 0x843 d=234
+0x811       object                  # guess: Contest 0x89c d=169
+0x812       wall                    # dup: BattleFrontier 0x89a
+0x813       wall                    # guess: Contest 0x8b1 d=195
+0x814-0x815 bridge                  # guess
+0x816       object                  # guess: Contest 0x89c d=174
+0x817-0x818 building                # guess
+0x819       rock water              # guess: General 0x1ae d=197
+0x819       +sea
+0x81a       floor                   # guess: GenericBuilding 0x8d6 d=113
+0x81b       object                  # beh: MB_COUNTER
+0x81c       building                # guess: Petalburg 0x836 d=159
+0x81d       floor                   # guess: Facility 0x86b d=222
+0x81e       cliff water             # guess: General 0x0b9 d=134
+0x81e       +sea
+0x81f       cliff water             # guess: Mossdeep 0x8d9 d=179
+0x820-0x822 object                  # beh
+0x823       floor                   # guess: GenericBuilding 0x98f d=184
+0x824       bridge                  # guess: Mauville 0x877 d=235
+0x825       object                  # guess: SecretBaseBlueCave 0x833 d=193
+0x826       rock water              # guess: General 0x1ae d=205
+0x826       +sea
+0x827       wall                    # dup: BattleFrontier 0x89a
+0x828       object                  # guess: SecretBaseBlueCave 0x8c9 d=136
+0x829-0x82a building                # guess
+0x82b       bridge water            # guess: Mauville 0x8f0 d=94
+0x82c       water                   # guess: Pacifidlog 0x80d d=136
+0x82d       floor                   # guess: GenericBuilding 0x829 d=122
+0x82e       object                  # beh: MB_COUNTER
+0x82f       wall                    # dup: BattleFrontier 0x89a
+0x830       object                  # guess: SecretBaseBrownCave 0x8c9 d=119
+0x831-0x832 floor                   # guess
+0x833       cliff water             # guess: General 0x0b9 d=126
+0x833       +sea
+0x834       object                  # guess: SecretBaseYellowCave 0x8dc d=148
+0x835       wall                    # guess: Facility 0x81b d=182
+0x836       building                # guess: Facility 0x8b4 d=124
+0x837       object water            # guess: BattleFrontierOutsideWest 0x83d d=189
+0x838-0x83a floor                   # guess
+0x83b-0x83c floor                   # beh
+0x83d       object                  # guess: GenericBuilding 0x95d d=185
+0x83e       path                    # guess: Facility 0x8cc d=46
+0x83f       object                  # guess: GenericBuilding 0x95c d=186
+0x840       floor                   # guess: Facility 0x9cf d=160
+0x841       object                  # guess: SecretBaseRedCave 0x8cb d=146
+0x842-0x843 cliff water             # guess
+
+# ---- Reviewed: guessed tiles ---------------------------------------------
+0x801       floor
+0x802       floor
+0x804       floor
+0x805       floor
+0x806       floor
+0x807       floor
+0x808       wall
+0x809       wall
+0x80a       object
+0x80b       object
+0x80c       object
+0x80d       object
+0x80e       object
+0x80f       wall
+0x810       wall
+0x811       wall
+0x813       object
+0x814       object
+0x815       object
+0x816       object
+0x817       wall
+0x818       floor
+0x819       floor
+0x81a       floor
+0x81c       object
+0x81d       object
+0x81e       floor
+0x81f       floor
+0x823       wall
+0x824       object
+0x825       object
+0x826       floor
+0x828       object
+0x829       object
+0x82a       object
+0x82b       floor
+0x82c       floor
+0x82d       floor
+0x830       object
+0x831       object
+0x832       object
+0x833       floor
+0x834       object
+0x835       wall
+0x836       wall
+0x837       wall
+0x838       floor
+0x839       floor
+0x83a       floor
+0x83d       wall
+0x83e       floor
+0x83f       wall
+0x840       fence
+0x841       fence
+0x842       fence
+0x843       fence

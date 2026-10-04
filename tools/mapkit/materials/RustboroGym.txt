@@ -1,0 +1,93 @@
+# What each gTileset_RustboroGym metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest RustboroGym`. Roxanne's Gym: tiled floors,
+# walls, rock ridges and statues.
+# Tiles it had to guess default to floor or wall by how maps use them
+# (walkable or blocked), with exceptions reviewed by eye.
+
+
+0x800       wall                    # dup: BattleFrontier 0x89a
+0x801-0x802 path                    # guess
+0x803       floor                   # guess: Lavaridge 0x96b d=144
+0x804-0x805 path                    # guess
+0x806       object                  # guess: Facility 0x99c d=156
+0x807-0x808 path                    # guess
+0x809-0x80c building                # guess
+0x80d-0x80f object                  # guess
+0x810       building                # guess: Sootopolis 0x87f d=207
+0x811       path                    # guess: Rustboro 0x87d d=71
+0x812-0x813 floor                   # guess
+0x814       cliff                   # guess: Sootopolis 0x81b d=220
+0x815       object                  # guess: Facility 0x891 d=115
+0x816       path                    # guess: Sootopolis 0x84f d=150
+0x817       fence path              # guess: Lavaridge 0x896 d=126
+0x818-0x81b object                  # guess
+0x81c-0x81d floor                   # guess
+0x81e-0x81f object                  # guess
+0x820-0x825 floor                   # guess
+0x826       object                  # guess: SecretBaseBlueCave 0x8bc d=107
+0x827       building                # guess: Mossdeep 0x931 d=141
+0x828-0x82b object                  # guess
+0x82c-0x82e cliff                   # guess
+0x82f       path                    # guess: Rustboro 0x8bd d=162
+0x830       cliff                   # guess: NavelRock 0x813 d=143
+0x831       floor                   # guess: Facility 0x9db d=102
+0x832-0x833 cliff                   # guess
+0x834-0x835 object                  # guess
+0x836       wall                    # dup: BattleFrontier 0x89a
+0x837       floor                   # guess: Lavaridge 0x96b d=128
+
+# ---- Reviewed: guessed tiles ---------------------------------------------
+0x801       floor
+0x802       floor
+0x803       floor
+0x804       floor
+0x805       wall
+0x806       wall
+0x807       wall
+0x808       wall
+0x809       floor
+0x80a       floor
+0x80b       floor
+0x80c       wall
+0x80d       wall
+0x80e       wall
+0x80f       wall
+0x810       wall
+0x811       floor
+0x812       floor
+0x813       floor
+0x814       wall
+0x815       wall
+0x816       floor
+0x817       wall
+0x818       floor
+0x819       floor
+0x81a       floor
+0x81b       floor
+0x81c       floor
+0x81d       wall
+0x81e       object
+0x81f       wall
+0x820       wall
+0x821       wall
+0x822       wall
+0x823       wall
+0x824       wall
+0x825       wall
+0x826       object
+0x827       object
+0x828       wall
+0x829       wall
+0x82a       wall
+0x82b       wall
+0x82c       floor
+0x82d       floor
+0x82e       floor
+0x82f       floor
+0x830       floor
+0x831       wall
+0x832       floor
+0x833       floor
+0x834       floor
+0x835       floor
+0x837       floor

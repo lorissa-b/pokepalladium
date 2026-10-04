@@ -1,0 +1,193 @@
+# What each gTileset_SootopolisGym metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest SootopolisGym`. Juan's Gym: ice floor and
+# cracked ice, crystal walls, statues and the water below.
+# Tiles it had to guess default to floor or wall by how maps use them
+# (walkable or blocked), with exceptions reviewed by eye.
+
+
+0x800       wall                    # dup: BattleFrontier 0x89a
+0x801       path                    # guess: Fallarbor 0x8b3 d=155
+0x802       dark                    # shape: Contest 0x801
+0x803-0x805 water                   # guess
+0x806       building                # guess: Slateport 0x921 d=231
+0x807       object                  # guess: SecretBaseBlueCave 0x8c3 d=72
+0x808       fence                   # guess: Lilycove 0x849 d=92
+0x809       water                   # guess: Pacifidlog 0x857 d=217
+0x80a-0x80b object water            # guess
+0x80c       water                   # guess: Fortree 0x877 d=170
+0x80d-0x80e ice                     # beh
+0x80f       grass path              # guess: BattleFrontierOutsideWest 0x87c d=122
+0x810       stairs                  # guess: BattleFrontierOutsideEast 0x8dd d=111
+0x811       path                    # guess: BattleFrontierOutsideWest 0x889 d=35
+0x812-0x813 building                # guess
+0x814       stairs                  # beh: MB_LADDER
+0x815       ice                     # beh: MB_THIN_ICE
+0x816       water                   # guess: Sootopolis 0x873 d=159
+0x817       object                  # guess: BattleTent 0x81e d=148
+0x818       water                   # guess: InsideShip 0x8f7 d=111
+0x819       floor                   # guess: BattleFrontier 0x832 d=253
+0x81a-0x81b dark                    # dup
+0x81c       stairs                  # beh: MB_LADDER
+0x81d-0x81e floor                   # guess
+0x81f       object                  # guess: Facility 0x977 d=109
+0x820       wall                    # guess: Facility 0x8f9 d=110
+0x821       object water            # guess: BattleFrontierOutsideWest 0x83c d=139
+0x822-0x824 wall                    # guess
+0x825-0x827 water                   # guess
+0x828       path                    # guess: Fallarbor 0x908 d=120
+0x829       building                # guess: Mauville 0x8e1 d=105
+0x82a       floor                   # guess: BattleTent 0x823 d=200
+0x82b       path                    # guess: BattleFrontierOutsideWest 0x813 d=150
+0x82c       building                # guess: Slateport 0x80d d=204
+0x82d       water                   # guess: Sootopolis 0x8ad d=160
+0x82e       object                  # guess: SecretBaseBrownCave 0x827 d=168
+0x82f       water                   # guess: Fortree 0x877 d=154
+0x830       object                  # guess: Rustboro 0x940 d=121
+0x831       water                   # guess: Slateport 0x96b d=148
+0x832       building                # guess: Dewford 0x85d d=141
+0x833       floor object            # guess: InsideShip 0x8ba d=139
+0x834       building                # guess: Dewford 0x85d d=138
+0x835       water                   # guess: Cave 0x894 d=128
+0x836       rock water              # guess: General 0x13c d=168
+0x837       water                   # guess: Sootopolis 0x8af d=128
+0x838       building                # guess: Lilycove 0x909 d=109
+0x839       fence path              # guess: BattleFrontierOutsideEast 0x9a2 d=151
+0x83a-0x83b object water            # guess
+0x83c       object path             # guess: Slateport 0x839 d=145
+0x83d       floor                   # guess: BattleFrontier 0x832 d=267
+0x83e       path                    # guess: BattleFrontierOutsideWest 0x814 d=53
+0x83f       bridge                  # guess: Mauville 0x8e5 d=81
+0x840       path                    # guess: Rustboro 0x836 d=120
+0x841       fence path              # guess: BattleFrontierOutsideWest 0x9e7 d=112
+0x842       building                # guess: Lilycove 0x8ec d=125
+0x843-0x844 path                    # guess
+0x845       object                  # guess: Facility 0x8bc d=118
+0x846-0x847 bridge                  # guess
+0x848       object                  # guess: SecretBaseRedCave 0x908 d=140
+0x849       fence path              # guess: BattleFrontierOutsideEast 0x9c7 d=148
+0x84a       object water            # guess: BattleFrontierOutsideWest 0x83c d=139
+0x84b       floor object            # guess: InsideShip 0x8b9 d=92
+0x84c       building                # guess: BattleFrontierOutsideWest 0x80e d=161
+0x84d       wall                    # guess: Facility 0x91c d=101
+0x84e       building                # guess: BattleFrontierOutsideWest 0x80f d=154
+0x84f       path                    # guess: General 0x110 d=87
+0x850       building                # guess: Lilycove 0x908 d=131
+0x851       wall                    # dup: BattleFrontier 0x89a
+0x852       building                # guess: Mauville 0x8e1 d=105
+0x853       wall                    # guess: Facility 0x917 d=94
+0x854       object water            # guess: BattlePalace 0x88e d=140
+0x855-0x856 building                # guess
+0x857       bridge                  # guess: Mauville 0x8ce d=86
+0x858       building                # guess: Lilycove 0x868 d=137
+0x859       path                    # guess: Slateport 0x83e d=76
+0x85a       building                # guess: BattleFrontierOutsideWest 0x80f d=114
+0x85b       path                    # guess: Slateport 0x83e d=76
+0x85c       floor                   # guess: Pacifidlog 0x834 d=151
+0x85d-0x85e water                   # guess
+0x85f       path                    # guess: General 0x100 d=82
+0x860-0x861 floor                   # guess
+0x862       building                # guess: Lilycove 0x8e8 d=150
+0x863-0x867 wall                    # dup
+0x868-0x869 building                # guess
+0x86a-0x86f wall                    # dup
+0x870-0x871 building                # guess
+0x872-0x877 wall                    # dup
+0x878       floor                   # guess: GenericBuilding 0x9ac d=151
+0x879       path                    # guess: Fallarbor 0x909 d=144
+
+# ---- Reviewed: guessed tiles ---------------------------------------------
+0x801       wall
+0x803       wall
+0x804       floor
+0x805       floor
+0x806       object
+0x807       floor
+0x808       wall
+0x809       wall
+0x80a       wall
+0x80b       wall
+0x80c       floor
+0x80f       ice floor
+0x810       wall
+0x811       ice floor
+0x812       wall
+0x813       wall
+0x816       wall
+0x817       object
+0x818       wall
+0x819       wall
+0x81d       wall
+0x81e       wall
+0x81f       object
+0x820       wall
+0x821       wall
+0x822       wall
+0x823       wall
+0x824       wall
+0x825       wall
+0x826       wall
+0x827       wall
+0x828       wall
+0x829       wall
+0x82a       ice floor
+0x82b       ice floor
+0x82c       ice floor
+0x82d       wall
+0x82e       wall
+0x82f       wall
+0x830       wall
+0x831       floor
+0x832       floor
+0x833       floor
+0x834       floor
+0x835       wall
+0x836       floor
+0x837       wall
+0x838       wall
+0x839       wall
+0x83a       wall
+0x83b       wall
+0x83c       wall
+0x83d       wall
+0x83e       ice floor
+0x83f       ice floor
+0x840       wall
+0x841       wall
+0x842       wall
+0x843       wall
+0x844       wall
+0x845       wall
+0x846       ice floor
+0x847       ice floor
+0x848       wall
+0x849       wall
+0x84a       wall
+0x84b       wall
+0x84c       wall
+0x84d       wall
+0x84e       wall
+0x84f       ice floor
+0x850       wall
+0x852       wall
+0x853       wall
+0x854       wall
+0x855       wall
+0x856       wall
+0x857       ice floor
+0x858       wall
+0x859       wall
+0x85a       wall
+0x85b       wall
+0x85c       object
+0x85d       wall
+0x85e       wall
+0x85f       ice floor
+0x860       wall
+0x861       wall
+0x862       wall
+0x868       wall
+0x869       wall
+0x870       wall
+0x871       wall
+0x878       wall
+0x879       wall

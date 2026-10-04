@@ -1,0 +1,128 @@
+# What each gTileset_MossdeepGym metatile depicts (format as in General.txt).
+# From `mapkit.py materials suggest MossdeepGym`. Tate and Liza's Gym: tiled
+# floors, warp pads, spin arrows, walls and statues.
+# Tiles it had to guess default to floor or wall by how maps use them
+# (walkable or blocked), with exceptions reviewed by eye.
+
+
+0x800       wall                    # dup: BattleFrontier 0x89a
+0x801       path                    # guess: Slateport 0x83e d=65
+0x802-0x803 floor object            # guess
+0x804       object                  # guess: BattleTent 0x81e d=134
+0x805       wall                    # guess: BikeShop 0x863 d=290
+0x806       object                  # guess: Contest 0x840 d=128
+0x807       wall                    # guess: BikeShop 0x862 d=290
+0x808       dark                    # dup: BattleTent 0x85b
+0x809       floor object            # guess: BikeShop 0x87d d=93
+0x80a-0x80b stairs                  # guess
+0x80c-0x814 object                  # guess
+0x815-0x816 bridge                  # guess
+0x817       wall                    # guess: Pacifidlog 0x83b d=179
+0x818       water                   # guess: BattleFrontierOutsideEast 0x916 d=187
+0x819-0x81a floor                   # guess
+0x81b       water                   # guess: BattleFrontierOutsideEast 0x8eb d=201
+0x81c       floor                   # guess: BikeShop 0x855 d=98
+0x81d-0x81f wall                    # guess
+0x820       building                # guess: General 0x030 d=214
+0x821-0x822 cliff water             # guess
+0x821-0x822 +pond
+0x823       building                # guess: General 0x033 d=265
+0x824       floor                   # guess: BattleFrontier 0x861 d=91
+0x825       object                  # guess: SecretBaseBlueCave 0x864 d=165
+0x826-0x827 wall                    # dup
+0x828-0x829 wall                    # guess
+0x82a-0x84f wall                    # dup
+0x850-0x852 building                # guess
+0x853       floor                   # guess: NavelRock 0x807 d=230
+0x854       object                  # guess: SecretBaseBrownCave 0x940 d=206
+0x855-0x857 wall                    # dup
+0x858       object                  # guess: Slateport 0x92d d=268
+0x859       floor                   # guess: BattleFrontier 0x81a d=287
+0x85a       path                    # guess: Lilycove 0x8f0 d=277
+0x85b       building                # guess: Lilycove 0x802 d=269
+0x85c       object                  # guess: SecretBaseYellowCave 0x827 d=162
+0x85d       building                # guess: BattleFrontierOutsideWest 0x827 d=174
+0x85e-0x85f wall                    # dup
+0x860       floor                   # guess: BattleFrontier 0x81a d=254
+0x861       object path             # guess: Rustboro 0x81a d=250
+0x862       building                # guess: Rustboro 0x890 d=252
+0x863-0x864 wall                    # guess
+0x865-0x867 wall                    # dup
+0x868       building                # guess: Rustboro 0x892 d=261
+0x869       floor                   # guess: MeteorFalls 0x849 d=269
+0x86a       building                # guess: Rustboro 0x890 d=259
+0x86b       object                  # guess: SecretBaseYellowCave 0x86a d=250
+0x86c       building                # guess: Mauville 0x885 d=169
+0x86d       object                  # guess: SecretBaseBrownCave 0x860 d=165
+0x86e-0x86f wall                    # dup
+0x870       object                  # guess: SecretBaseYellowCave 0x86a d=240
+0x871       object path             # guess: Rustboro 0x81a d=255
+0x872       building                # guess: Rustboro 0x890 d=240
+0x873-0x874 object                  # guess
+
+# ---- Reviewed: guessed tiles ---------------------------------------------
+0x801       floor
+0x802       floor
+0x803       floor
+0x804       object
+0x805       wall
+0x806       wall
+0x807       wall
+0x809       floor
+0x80a       floor
+0x80b       floor
+0x80c       object
+0x80d       wall
+0x80e       wall
+0x80f       wall
+0x810       floor
+0x811       floor
+0x812       floor
+0x813       floor
+0x814       wall
+0x815       wall
+0x816       wall
+0x817       wall
+0x818       wall
+0x819       wall
+0x81a       wall
+0x81b       wall
+0x81c       floor
+0x81d       wall
+0x81e       wall
+0x81f       wall
+0x820       wall
+0x821       floor
+0x822       floor
+0x823       wall
+0x824       floor
+0x825       floor
+0x828       object
+0x829       object
+0x850       floor
+0x851       floor
+0x852       floor
+0x853       floor
+0x854       floor
+0x858       floor
+0x859       floor
+0x85a       floor
+0x85b       floor
+0x85c       floor
+0x85d       floor
+0x860       floor
+0x861       floor
+0x862       floor
+0x863       floor
+0x864       floor
+0x868       floor
+0x869       floor
+0x86a       floor
+0x86b       floor
+0x86c       floor
+0x86d       floor
+0x870       floor
+0x871       floor
+0x872       floor
+0x873       floor
+0x874       floor
