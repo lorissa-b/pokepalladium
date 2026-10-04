@@ -1,0 +1,762 @@
+# What each gTileset_BattleFrontierOutsideEast metatile depicts (format as in General.txt).
+# Exact copies of labelled tiles from `mapkit.py materials suggest
+# BattleFrontierOutsideEast`; the guessed tiles were reviewed by eye below:
+# Battle Tower's stone platforms, Battle Palace's red brick, plaza paving,
+# glass stairways, white kerbs and fountains.
+
+
+0x800       path                    # dup: BattleFrontierOutsideWest 0x800
+0x801       grass                   # dup: BattleFrontierOutsideWest 0x801
+0x802-0x803 tree                    # dup
+0x802-0x803 +round
+0x804       path                    # dup: BattleFrontierOutsideWest 0x804
+0x805       tree                    # dup: BattleFrontierOutsideWest 0x803
+0x805       +round
+0x806       tree                    # guess: Dewford 0x8d2 d=18
+0x806       +round
+0x807       path                    # dup: BattleFrontierOutsideWest 0x800
+0x808-0x809 object                  # guess
+0x80a       flowers grass           # guess: Lavaridge 0x81f d=182
+0x80b       sand                    # guess: Pacifidlog 0x8ba d=103
+0x80c       building                # guess: Dewford 0x8a2 d=171
+0x80d       cliff ledge sand        # guess: General 0x0e5 d=193
+0x80e       cliff                   # guess: MirageTower 0x84b d=165
+0x80f       sand                    # guess: Lavaridge 0x8a6 d=102
+0x810-0x811 bridge                  # guess
+0x812       floor                   # guess: Contest 0x861 d=160
+0x813       sand                    # guess: Dewford 0x823 d=117
+0x814-0x816 floor                   # guess
+0x817       sand                    # guess: Dewford 0x823 d=117
+0x818       cliff                   # guess: MirageTower 0x900 d=101
+0x819       floor                   # guess: Pacifidlog 0x82b d=74
+0x81a       cliff                   # guess: MirageTower 0x900 d=110
+0x81b       bridge                  # guess: Lilycove 0x897 d=94
+0x81c       sand                    # guess: Dewford 0x823 d=113
+0x81d       cliff ledge sand        # guess: General 0x0e5 d=193
+0x81e       sand                    # guess: Dewford 0x823 d=113
+0x81f       bridge                  # guess: Dewford 0x94b d=112
+0x820       rock                    # guess: Cave 0x8d5 d=157
+0x821       path                    # guess: Dewford 0x84a d=160
+0x822       rock                    # guess: Cave 0x8d5 d=157
+0x823       cliff                   # guess: Cave 0x900 d=129
+0x824       bridge                  # guess: Lilycove 0x897 d=94
+0x825       floor                   # guess: Pacifidlog 0x82b d=67
+0x826       bridge                  # guess: Dewford 0x94b d=112
+0x827-0x828 path                    # guess
+0x829       cliff                   # guess: Fallarbor 0x881 d=216
+0x82a-0x82b path                    # guess
+0x82c       floor                   # guess: Pacifidlog 0x82b d=140
+0x82d       cliff                   # guess: Cave 0x8d0 d=141
+0x82e       floor                   # guess: Cave 0x8dd d=131
+0x82f       path                    # guess: Fallarbor 0x82c d=186
+0x830       grass object            # guess: Fortree 0x8d0 d=46
+0x831       flowers grass           # dup: Dewford 0x8c8
+0x832       grass                   # guess: Fortree 0x868 d=214
+0x833       floor                   # guess: RusturfTunnel 0x833 d=213
+0x834       building                # guess: EverGrande 0x80a d=157
+0x835       cliff                   # guess: Cave 0x8eb d=227
+0x836       building                # guess: EverGrande 0x80a d=157
+0x837       grass                   # guess: Fortree 0x868 d=214
+0x838       flowers grass           # guess: Lavaridge 0x81e d=207
+0x839-0x83a object                  # guess
+0x83b       water                   # dup: BattleFrontierOutsideWest 0x837
+0x83c-0x83e cliff                   # guess
+0x83f       grass                   # dup: BattleFrontierOutsideWest 0x801
+0x840       cliff sand              # guess: MirageTower 0x870 d=155
+0x841       cliff                   # guess: MirageTower 0x8d0 d=99
+0x842       stairs                  # guess: NavelRock 0x804 d=116
+0x843       floor                   # guess: Contest 0x8be d=137
+0x844       sand                    # guess: Cave 0x8a9 d=80
+0x845       building                # guess: Rustboro 0x851 d=140
+0x846-0x847 sand                    # guess
+0x848       bridge                  # guess: Dewford 0x94b d=117
+0x849-0x84a floor                   # guess
+0x84b       path                    # guess: Lavaridge 0x808 d=142
+0x84c       path                    # dup: BattleFrontierOutsideWest 0x800
+0x84d       fence path              # guess: Mauville 0x83a d=123
+0x84e-0x84f sand                    # guess
+0x850-0x852 path                    # guess
+0x853       building                # guess: Lilycove 0x950 d=132
+0x854       floor                   # guess: Contest 0x866 d=132
+0x855       fence path              # guess: Mauville 0x83a d=142
+0x856       floor                   # guess: Contest 0x8be d=124
+0x857       building                # guess: Slateport 0x89d d=148
+0x858       path                    # guess: Fallarbor 0x82d d=193
+0x859       cliff                   # guess: Fallarbor 0x881 d=215
+0x85a       path                    # guess: Fallarbor 0x82d d=193
+0x85b-0x85c building                # guess
+0x85d       fence                   # guess: Lavaridge 0x88f d=157
+0x85e-0x85f building                # guess
+0x860       floor                   # guess: RusturfTunnel 0x833 d=213
+0x861       flowers grass           # dup: Dewford 0x8c8
+0x862       grass object            # guess: Fortree 0x8d1 d=82
+0x863-0x865 building                # guess
+0x866       floor sand              # guess: NavelRock 0x8a9 d=84
+0x867       building sand           # guess: Dewford 0x806 d=156
+0x868-0x869 building                # guess
+0x86a       grass sand              # guess: Lavaridge 0x891 d=270
+0x86b       path                    # guess: Sootopolis 0x862 d=273
+0x86c-0x86e building                # guess
+0x86f       path                    # guess: Lavaridge 0x808 d=142
+0x870-0x876 building                # guess
+0x877       bridge                  # guess: Lilycove 0x899 d=106
+0x878       building                # guess: Lilycove 0x881 d=134
+0x879       path                    # guess: Lilycove 0x870 d=134
+0x87a       grass                   # guess: General 0x001 d=54
+0x87b       cliff                   # guess: Sootopolis 0x8ce d=316
+0x87c       cliff ledge             # guess: NavelRock 0x83b d=284
+0x87d-0x87f building                # guess
+0x880       bridge water            # guess: Mauville 0x928 d=159
+0x881       dark floor              # guess: Pacifidlog 0x837 d=94
+0x882       cliff                   # guess: MeteorFalls 0x82c d=74
+0x883       path                    # dup: BattleFrontierOutsideWest 0x800
+0x884-0x886 sand                    # guess
+0x887       bridge                  # guess: Lilycove 0x898 d=108
+0x888       stairs                  # guess: Pacifidlog 0x89e d=112
+0x889       building                # guess: Mossdeep 0x895 d=259
+0x88a       dark                    # guess: Fortree 0x8ca d=49
+0x88b       path                    # dup: BattleFrontierOutsideWest 0x800
+0x88c       path                    # guess: Fallarbor 0x8d1 d=125
+0x88d       sand                    # guess: Mossdeep 0x9b0 d=112
+0x88e       path                    # guess: Fallarbor 0x8d1 d=131
+0x88f       building                # guess: Fortree 0x902 d=116
+0x890       stairs                  # guess: Pacifidlog 0x89e d=115
+0x891       building                # beh: MB_ANIMATED_DOOR
+0x892-0x894 building                # guess
+0x895       cliff ledge             # guess: General 0x0a5 d=174
+0x896-0x897 sand                    # guess
+0x898       stairs                  # guess: Pacifidlog 0x89e d=125
+0x899       wall                    # guess: Pacifidlog 0x838 d=84
+0x89a-0x89c dark                    # guess
+0x89d       path                    # guess: Fallarbor 0x8e3 d=147
+0x89e       building                # guess: Dewford 0x8a2 d=125
+0x89f       sand                    # guess: Mossdeep 0x936 d=112
+0x8a0       bridge                  # guess: MirageTower 0x8e5 d=180
+0x8a1-0x8a4 building                # guess
+0x8a5       dark floor              # guess: Pacifidlog 0x837 d=87
+0x8a6       bridge water            # guess: Mauville 0x939 d=188
+0x8a7       sand                    # guess: Cave 0x89d d=182
+0x8a8       path                    # guess: EverGrande 0x83d d=86
+0x8a9       flowers                 # guess: BattleFrontierOutsideWest 0x810 d=104
+0x8aa       sand                    # guess: Dewford 0x8b4 d=60
+0x8ab       building                # guess: Rustboro 0x8ab d=184
+0x8ac       floor                   # guess: MirageTower 0x8e7 d=193
+0x8ad       sand                    # guess: Cave 0x89c d=100
+0x8ae       stairs                  # guess: Pacifidlog 0x89e d=111
+0x8af       floor                   # guess: MirageTower 0x8e7 d=174
+0x8b0       path                    # guess: EverGrande 0x83d d=94
+0x8b1       building                # guess: Petalburg 0x838 d=267
+0x8b2       path                    # guess: BattleFrontierOutsideWest 0x924 d=235
+0x8b3-0x8b4 building                # guess
+0x8b5       path                    # dup: BattleFrontierOutsideWest 0x800
+0x8b6       stairs                  # guess: Pacifidlog 0x89e d=115
+0x8b7       building                # guess: Lilycove 0x90a d=118
+0x8b8       path                    # guess: Dewford 0x86c d=59
+0x8b9       path                    # dup: Dewford 0x86d
+0x8ba       path                    # guess: Dewford 0x86e d=59
+0x8bb       floor                   # guess: Contest 0x85e d=99
+0x8bc       path                    # guess: EverGrande 0x83d d=86
+0x8bd       bridge water            # guess: Pacifidlog 0x85d d=83
+0x8be       stairs                  # guess: Pacifidlog 0x89e d=125
+0x8bf       building                # guess: Slateport 0x8af d=96
+0x8c0-0x8c2 path                    # guess
+0x8c3       building                # guess: Lilycove 0x8b7 d=262
+0x8c4       path                    # guess: EverGrande 0x83d d=96
+0x8c5       building                # guess: Mauville 0x999 d=294
+0x8c6       floor                   # guess: Cave 0x884 d=183
+0x8c7       building                # guess: Slateport 0x8af d=153
+0x8c8-0x8c9 flowers                 # dup
+0x8ca       sand                    # guess: Cave 0x8b2 d=115
+0x8cb-0x8cd flowers                 # dup
+0x8ce       path                    # dup: BattleFrontierOutsideWest 0x800
+0x8cf       grass                   # guess: Dewford 0x867 d=152
+0x8d0       flowers                 # dup: BattleFrontierOutsideWest 0x810
+0x8d1       sand                    # guess: Dewford 0x8b4 d=156
+0x8d2       flowers                 # guess: BattleFrontierOutsideWest 0x810 d=200
+0x8d3-0x8d4 building                # guess
+0x8d5       stairs                  # guess: Lilycove 0x81a d=67
+0x8d6       building                # guess: Lilycove 0x835 d=133
+0x8d7       grass                   # guess: Mauville 0x95f d=173
+0x8d8       building                # guess: Dewford 0x85c d=140
+0x8d9       path                    # guess: Fallarbor 0x8d1 d=126
+0x8da-0x8dc building                # guess
+0x8dd-0x8de stairs                  # guess
+0x8df       building grass          # guess: Lilycove 0x860 d=126
+0x8e0       building                # guess: Slateport 0x8ad d=126
+0x8e1-0x8e2 path                    # guess
+0x8e3-0x8e4 cliff                   # guess
+0x8e5       building                # guess: Slateport 0x8d1 d=160
+0x8e6       cliff                   # guess: MeteorFalls 0x82c d=120
+0x8e7-0x8e8 building                # guess
+0x8e9-0x8ea path                    # guess
+0x8eb       cliff water             # guess: General 0x0ca d=139
+0x8eb       +pond
+0x8ec       building                # guess: General 0x033 d=201
+0x8ed       fence grass             # guess: Dewford 0x87c d=169
+0x8ee       building                # guess: General 0x030 d=200
+0x8ef       fence grass             # guess: Mauville 0x9b0 d=176
+0x8f0       grass path              # guess: BattleFrontierOutsideWest 0x906 d=105
+0x8f1-0x8f2 bridge                  # guess
+0x8f3       grass                   # guess: Dewford 0x867 d=145
+0x8f4-0x8f5 building                # guess
+0x8f6       path                    # guess: Dewford 0x86e d=85
+0x8f7       flowers                 # dup: BattleFrontierOutsideWest 0x80a
+0x8f8       building                # guess: Dewford 0x8e8 d=112
+0x8f9-0x8fa water                   # guess
+0x8fb       building                # guess: Lilycove 0x837 d=126
+0x8fc       stairs                  # guess: Lilycove 0x81a d=67
+0x8fd-0x8fe building                # guess
+0x8ff       flowers                 # dup: BattleFrontierOutsideWest 0x812
+0x900-0x903 building                # guess
+0x904-0x905 stairs                  # guess
+0x906       building                # guess: Lilycove 0x846 d=106
+0x907       flowers                 # dup: BattleFrontierOutsideWest 0x81a
+0x908-0x90a building                # guess
+0x90b       cliff                   # guess: MeteorFalls 0x82c d=119
+0x90c       building                # guess: Slateport 0x8d1 d=160
+0x90d-0x90e cliff                   # guess
+0x90f       fence grass             # guess: Dewford 0x87d d=28
+0x910-0x913 building                # guess
+0x914       fence grass             # guess: Dewford 0x87c d=169
+0x915       building                # guess: General 0x030 d=199
+0x916       cliff water             # guess: General 0x0c8 d=145
+0x916       +pond
+0x917       fence grass             # guess: Dewford 0x87d d=28
+0x918       building                # guess: Lilycove 0x934 d=109
+0x919-0x91a path                    # guess
+0x91b       fence grass             # guess: Mauville 0x9b0 d=176
+0x91c       grass                   # guess: Slateport 0x910 d=132
+0x91d       fence grass             # guess: Dewford 0x87d d=28
+0x91e-0x91f grass                   # guess
+0x920       fence                   # guess: Lavaridge 0x887 d=128
+0x921       cliff                   # guess: MeteorFalls 0x82c d=122
+0x922       fence path              # guess: Mauville 0x838 d=144
+0x923       building                # guess: General 0x009 d=129
+0x924       fence                   # guess: Lavaridge 0x885 d=123
+0x925       building                # guess: General 0x009 d=142
+0x926       path                    # guess: Lavaridge 0x814 d=142
+0x927-0x928 building                # guess
+0x929       building                # beh: MB_ANIMATED_DOOR
+0x92a       sand                    # guess: Fallarbor 0x8f8 d=66
+0x92b-0x92e building                # guess
+0x92f       path                    # guess: Lavaridge 0x908 d=142
+0x930-0x931 building                # guess
+0x932       floor                   # guess: MirageTower 0x8f4 d=177
+0x933       building                # guess: Mossdeep 0x8a1 d=160
+0x934       bridge                  # guess: MirageTower 0x8e5 d=151
+0x935       building                # guess: Lilycove 0x939 d=114
+0x936-0x937 floor                   # guess
+0x938       building                # guess: Lilycove 0x952 d=132
+0x939       sand                    # guess: Mossdeep 0x9b5 d=163
+0x93a       building                # guess: Slateport 0x89d d=104
+0x93b       floor                   # guess: Contest 0x867 d=152
+0x93c-0x93d building                # guess
+0x93e       path                    # guess: Lavaridge 0x908 d=123
+0x93f-0x942 building                # guess
+0x943-0x945 building                # dup
+0x946-0x947 path                    # dup
+0x948       building                # guess: BattleFrontierOutsideWest 0x98a d=82
+0x949       path                    # dup: BattleFrontierOutsideWest 0x800
+0x94a       building                # guess: BattleFrontierOutsideWest 0x96f d=82
+0x94b       path                    # guess: Fallarbor 0x904 d=236
+0x94c       building                # guess: Slateport 0x896 d=148
+0x94d       path                    # guess: Fallarbor 0x82c d=226
+0x94e-0x950 building                # guess
+0x951       path                    # dup: BattleFrontierOutsideWest 0x800
+0x952-0x957 building                # guess
+0x958       sand                    # guess: Cave 0x89d d=156
+0x959-0x95a path                    # dup
+0x95b       building                # guess: General 0x1c8 d=130
+0x95c       path                    # dup: BattleFrontierOutsideWest 0x800
+0x95d       grass                   # guess: Slateport 0x914 d=133
+0x95e-0x95f path                    # dup
+0x960-0x961 grass tree              # guess
+0x960-0x961 +round
+0x962-0x963 grass water             # guess
+0x964       path                    # dup: BattleFrontierOutsideWest 0x800
+0x965       cliff                   # guess: General 0x092 d=115
+0x966       building                # guess: BattleFrontierOutsideWest 0x9a9 d=75
+0x967       object                  # guess: Cave 0x8bb d=110
+0x968-0x969 grass tree              # guess
+0x968-0x969 +round
+0x96a       building                # dup: BattleFrontierOutsideWest 0x96f
+0x96b-0x96c path                    # dup
+0x96d-0x96f building                # dup
+0x970       building                # guess: BattleFrontierOutsideWest 0x98e d=139
+0x971-0x972 building                # dup
+0x973-0x974 path                    # dup
+0x975-0x977 building                # dup
+0x978-0x979 building                # guess
+0x97a-0x980 building                # dup
+0x981       building                # guess: BattleFrontierOutsideWest 0x98e d=139
+0x982-0x988 building                # dup
+0x989       building                # guess: BattleFrontierOutsideWest 0x9a1 d=157
+0x98a       building                # dup: BattleFrontierOutsideWest 0x98a
+0x98b       path                    # dup: BattleFrontierOutsideWest 0x800
+0x98c-0x98f building                # dup
+0x990       fence path              # dup: BattleFrontierOutsideWest 0x867
+0x991       fence grass             # guess: Slateport 0x908 d=141
+0x992       building                # dup: BattleFrontierOutsideWest 0x992
+0x993       path                    # dup: BattleFrontierOutsideWest 0x800
+0x994-0x997 building                # dup
+0x998-0x99a fence path              # guess
+0x99b-0x99d path                    # dup
+0x99e-0x99f building                # dup
+0x9a0       fence path              # dup: BattleFrontierOutsideWest 0x864
+0x9a1-0x9a2 fence path              # guess
+0x9a3-0x9a5 path                    # dup
+0x9a6-0x9a7 fence path              # guess
+0x9a8       floor                   # guess: Lavaridge 0x976 d=131
+0x9a9       path                    # guess: Dewford 0x89a d=94
+0x9aa       floor                   # guess: MeteorFalls 0x849 d=146
+0x9ab-0x9ac building                # dup
+0x9ad       path                    # dup: BattleFrontierOutsideWest 0x800
+0x9ae-0x9af fence path              # dup
+0x9b0       path                    # guess: Mossdeep 0x8ae d=150
+0x9b1       fence path              # guess: General 0x056 d=17
+0x9b2       building                # guess: BattleFrontierOutsideWest 0x8e4 d=160
+0x9b3-0x9b4 fence path              # guess
+0x9b5       grass path              # dup: BattleFrontierOutsideWest 0x86a
+0x9b6       grass path              # guess: BattleFrontierOutsideWest 0x86b d=20
+0x9b7       fence path              # dup: BattleFrontierOutsideWest 0x85f
+0x9b8       floor                   # guess: Lavaridge 0x96c d=175
+0x9b9-0x9ba building                # guess
+0x9bb-0x9bc fence path              # dup
+0x9bd-0x9be grass path              # dup
+0x9bf       fence path              # dup: BattleFrontierOutsideWest 0x857
+0x9c0       floor                   # guess: Lavaridge 0x976 d=159
+0x9c1       path                    # guess: Dewford 0x89a d=152
+0x9c2       building                # guess: BattleFrontierOutsideWest 0x8e4 d=173
+0x9c3       fence path              # dup: BattleFrontierOutsideWest 0x86d
+0x9c4       fence path              # guess: BattleFrontierOutsideWest 0x86c d=112
+0x9c5-0x9c6 path                    # dup
+0x9c7       fence path              # dup: BattleFrontierOutsideWest 0x84f
+0x9c8       building                # guess: BattleFrontierOutsideWest 0x852 d=134
+0x9c9       fence path              # guess: General 0x066 d=20
+0x9ca       building                # guess: BattleFrontierOutsideWest 0x851 d=134
+0x9cb-0x9cc fence path              # dup
+0x9cd-0x9ce path                    # dup
+0x9cf       fence path              # dup: BattleFrontierOutsideWest 0x847
+0x9d0       building                # guess: Sootopolis 0x845 d=175
+0x9d1       object sand             # guess: Dewford 0x808 d=155
+0x9d2       path                    # guess: BattleFrontierOutsideWest 0x859 d=173
+0x9d3-0x9d4 fence path              # dup
+0x9d5-0x9d6 path                    # dup
+0x9d7       fence grass             # dup: General 0x142
+0x9d8       building                # dup: BattleFrontierOutsideWest 0x97e
+0x9d9-0x9da bridge grass            # guess
+0x9db       fence                   # guess: IslandHarbor 0x821 d=217
+0x9dc       water                   # dup: BattleFrontierOutsideWest 0x9a7
+0x9dd       fence path              # dup: BattleFrontierOutsideWest 0x865
+0x9de       fence path              # guess: BattleFrontierOutsideWest 0x866 d=20
+0x9df       fence path              # dup: BattleFrontierOutsideWest 0x86f
+0x9e0       sand                    # guess: Fallarbor 0x8f1 d=55
+0x9e1       building                # guess: BattleFrontierOutsideWest 0x9a1 d=157
+0x9e2-0x9e3 building                # dup
+0x9e4       water                   # dup: BattleFrontierOutsideWest 0x83f
+0x9e5-0x9e7 fence path              # guess
+0x9e8-0x9e9 building                # guess
+0x9ea-0x9eb building water          # guess
+0x9ec       building                # dup: BattleFrontierOutsideWest 0x9a1
+0x9ed       fence grass             # guess: General 0x04e d=122
+0x9ee       cliff grass             # guess: Lilycove 0x8d5 d=125
+0x9ef       path sand               # guess: Petalburg 0x801 d=214
+0x9f0       building                # guess: General 0x009 d=129
+0x9f1       fence grass             # guess: Slateport 0x908 d=141
+0x9f2       bridge water            # guess: Mauville 0x92a d=126
+0x9f3       building water          # guess: Slateport 0x949 d=203
+0x9f4       building                # dup: BattleFrontierOutsideWest 0x9f4
+0x9f5-0x9f6 fence path              # dup
+0x9f7       building                # dup: BattleFrontierOutsideWest 0x99f
+0x9f8       path                    # dup: BattleFrontierOutsideWest 0x800
+0x9f9       building                # guess: Dewford 0x83c d=169
+0x9fa       fence path              # guess: General 0x056 d=112
+0x9fb       fence grass             # guess: General 0x03e d=112
+0x9fc       building                # dup: BattleFrontierOutsideWest 0x9fc
+0x9fd       fence path              # dup: BattleFrontierOutsideWest 0x9fd
+
+# ---- Reviewed corrections to the guessed tiles ---------------------------
+0x806       tree
+0x808       flowers object
+0x809       flowers object
+0x80a       flowers grass
+0x814       path
+0x815       path
+0x816       path
+0x819       path
+0x825       path
+0x849       path
+0x84a       path
+0x80b       building
+0x80c       building
+0x80d       building
+0x80e       building
+0x80f       building
+0x810       building
+0x811       building
+0x812       building
+0x813       building
+0x817       building
+0x818       building
+0x81a       building
+0x81b       building
+0x81c       building
+0x81d       building
+0x81e       building
+0x81f       building
+0x820       building
+0x821       building
+0x822       building
+0x823       building
+0x824       building
+0x826       building
+0x827       building
+0x828       building
+0x829       building
+0x82a       building
+0x82b       building
+0x82c       building
+0x82d       building
+0x82e       building
+0x82f       building
+0x830       building
+0x832       building
+0x833       building
+0x834       building
+0x835       building
+0x836       building
+0x837       building
+0x838       building
+0x839       building
+0x83a       building
+0x83c       building
+0x83d       building
+0x83e       building
+0x840       building
+0x841       building
+0x842       building
+0x843       building
+0x844       building
+0x845       building
+0x846       building
+0x847       building
+0x848       building
+0x853       building
+0x85b       building
+0x85c       building
+0x85e       building
+0x85f       building
+0x84d       fence path
+0x855       fence path
+0x85d       fence path
+0x84b       path
+0x84e       path
+0x84f       path
+0x850       path
+0x851       path
+0x852       path
+0x854       path
+0x856       path
+0x857       path
+0x858       path
+0x859       path
+0x85a       path
+0x860       flowers path
+0x862       grass object
+0x863       fence grass
+0x864       fence grass
+0x865       fence grass
+0x866       sand path
+0x867       building
+0x868       building
+0x869       building
+0x86a       building
+0x86b       building
+0x86c       building
+0x86d       building
+0x86e       building
+0x86f       building
+0x870       building
+0x871       building
+0x872       building
+0x873       building
+0x874       building
+0x875       building
+0x876       building
+0x877       water rock
+0x878       building
+0x879       path
+0x87a       grass
+0x87b       building
+0x87c       fence path
+0x87d       building
+0x87e       building
+0x87f       building
+0x880       bridge water
+0x881       building
+0x882       building
+0x884       sand path
+0x885       sand path
+0x886       sand path
+0x887       water object
+0x888       stairs
+0x889       building
+0x88a       dark
+0x88c       path
+0x88d       sand
+0x88e       path
+0x88f       building
+0x890       stairs
+0x892       building
+0x893       building
+0x894       building
+0x895       building
+0x896       sand path
+0x897       sand path
+0x898       stairs
+0x899       building
+0x89a       building
+0x89b       building
+0x89c       building
+0x89d       building
+0x89e       building
+0x89f       sand
+0x8ad       path
+0x8ae       stairs
+0x8b1       path
+0x8b2       path
+0x8b6       stairs
+0x8b8       path
+0x8ba       path
+0x8bc       path
+0x8bd       bridge water
+0x8be       stairs
+0x8c0       path
+0x8c1       path
+0x8c2       path
+0x8c7       building water
+0x8ca       sand
+0x8cf       grass
+0x8d1       sand
+0x8d5       stairs
+0x8d7       grass
+0x8dd       stairs
+0x8de       stairs
+0x8df       grass building
+0x8e1       path
+0x8e2       path
+0x8e9       path
+0x8ea       path
+0x8eb       water
+0x8ed       fence grass
+0x8ef       fence grass
+0x8f0       grass
+0x8f1       path
+0x8f2       path
+0x8f3       grass
+0x8f4       path
+0x8f5       path
+0x8f6       path
+0x8f9       water
+0x8fa       water
+0x8fc       stairs
+0x904       stairs
+0x90f       fence grass
+0x914       fence grass
+0x916       water
+0x917       fence grass
+0x919       path
+0x91a       path
+0x91b       fence grass
+0x91c       grass
+0x91d       fence grass
+0x91e       grass
+0x91f       grass
+0x920       fence
+0x922       fence path
+0x924       fence
+0x926       path
+0x92a       sand
+0x92f       path
+0x932       path
+0x936       path
+0x937       path
+0x939       sand
+0x93b       path
+0x93e       path
+0x94b       path
+0x94d       path
+0x958       sand
+0x95d       grass
+0x960       tree
+0x961       tree
+0x962       grass
+0x963       grass
+0x965       cliff
+0x967       object
+0x968       tree
+0x969       tree
+0x8a0       building
+0x8a1       building
+0x8a2       building
+0x8a3       building
+0x8a4       building
+0x8a5       building
+0x8a6       building
+0x8a7       building
+0x8a8       building
+0x8a9       building
+0x8aa       building
+0x8ab       building
+0x8ac       building
+0x8af       building
+0x8b0       building
+0x8b3       building
+0x8b4       building
+0x8b7       building
+0x8bb       building
+0x8bf       building
+0x8c3       building
+0x8c4       building
+0x8c5       building
+0x8c6       building
+0x8d2       building
+0x8d3       building
+0x8d4       building
+0x8d6       building
+0x8d8       building
+0x8d9       building
+0x8da       building
+0x8db       building
+0x8dc       building
+0x8e0       building
+0x8e3       building
+0x8e4       building
+0x8e5       building
+0x8e6       building
+0x8e7       building
+0x8e8       building
+0x8ec       building
+0x8ee       building
+0x8f8       building
+0x8fb       building
+0x8fd       building
+0x8fe       building
+0x900       building
+0x901       building
+0x902       building
+0x903       building
+0x905       building
+0x906       building
+0x908       building
+0x909       building
+0x90a       building
+0x90b       building
+0x90c       building
+0x90d       building
+0x90e       building
+0x910       building
+0x911       building
+0x912       building
+0x913       building
+0x915       building
+0x918       building
+0x921       building
+0x923       building
+0x925       building
+0x927       building
+0x928       building
+0x92b       building
+0x92c       building
+0x92d       building
+0x92e       building
+0x930       building
+0x931       building
+0x933       building
+0x934       building
+0x935       building
+0x938       building
+0x93a       building
+0x93c       building
+0x93d       building
+0x93f       building
+0x940       building
+0x941       building
+0x942       building
+0x948       building
+0x94a       building
+0x94c       building
+0x94e       building
+0x94f       building
+0x950       building
+0x952       building
+0x953       building
+0x954       building
+0x955       building
+0x956       building
+0x957       building
+0x95b       building
+0x966       building
+0x970       building
+0x978       building
+0x979       building
+0x981       building
+0x989       building
+0x991       fence grass
+0x998       fence path
+0x999       fence path
+0x99a       fence path
+0x9a1       fence path
+0x9a2       fence path
+0x9a6       fence path
+0x9a7       fence path
+0x9a8       path
+0x9a9       path
+0x9aa       path
+0x9b0       path
+0x9b1       fence path
+0x9b2       building
+0x9b3       fence path
+0x9b4       fence path
+0x9b6       grass path
+0x9b8       building
+0x9b9       building
+0x9ba       building
+0x9c0       path
+0x9c1       path
+0x9c2       building
+0x9c4       fence path
+0x9c8       building
+0x9c9       building
+0x9ca       building
+0x9d0       building
+0x9d1       object sand
+0x9d2       path
+0x9d9       bridge grass
+0x9da       bridge grass
+0x9db       bridge grass
+0x9de       fence path
+0x9e0       sand
+0x9e1       building
+0x9e5       fence path
+0x9e6       fence path
+0x9e7       fence path
+0x9e8       building
+0x9e9       building
+0x9ea       building water
+0x9eb       building water
+0x9ed       fence grass
+0x9ee       fence grass
+0x9ef       path sand
+0x9f0       building
+0x9f1       fence grass
+0x9f2       bridge water
+0x9f3       building water
+0x9f9       building
+0x9fa       fence path
+0x9fb       fence grass
+
+# ---- Families (see General.txt) ----------------------------------------
+0x806       +round
+0x960-0x961 +round
+0x968-0x969 +round
