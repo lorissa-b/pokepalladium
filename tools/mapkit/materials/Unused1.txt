@@ -1,0 +1,6 @@
+# What each gTileset_Unused1 metatile depicts (format as in General.txt).
+# Two unused metatiles, both exact copies of labelled tiles.
+
+
+0x800       path
+0x801       dark

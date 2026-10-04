@@ -89,6 +89,8 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
 | `dump MAP` | The layout as text. `--layer metatile\|collision\|elevation\|behavior\|block`, or `--classes` for the same tile classes the Platinum commands use. `--region X,Y,W,H`. |
 | `render MAP` | PNG of the map. `--grid` (coordinates every 4 tiles), `--events`, `--collision`, `--elevation`, `--region`, `--scale`. |
 | `tileset MAP` or `tileset PRIMARY SECONDARY` | Metatile catalog PNG, or `--list` as text. `--only primary\|secondary`, `--behavior NAME`, `--materials`. |
+| `materials status` | How many metatiles of each tileset are labelled. |
+| `materials suggest TILESET...` | Draft labels and review sheets for tilesets. `--guesses-only`. |
 | `extract MAP` | A region as a blueprint that rebuilds it exactly. `--standalone` adds the header so it builds on its own. |
 | `build FILE` | Build a blueprint into its layout's `map.bin`, then check it. `--dry-run`, `--render PNG`. |
 | `check [MAP...]` | Check layouts and maps (all of them by default). `-w` adds warnings. Exits non-zero on errors. |
@@ -194,13 +196,30 @@ starting point, not a final map.
 
 ### Materials
 
-`tools/mapkit/materials/<Tileset>.txt` lists what each metatile depicts
-(grass, path, sand, tallgrass, flowers, tree, cliff, rock, water, ledge,
-bridge, fence, building, object, cave, dark), labelled by eye; behaviours add
-water, tall grass, sand, ledges, doors and bridges automatically. General and
-Rustboro are labelled so far, including the tree and water families (the
-`+` lines at the end of each file). `tileset MAP --materials` draws the catalog with
-each tile's materials under it, to check or extend the labels.
+`tools/mapkit/materials/<Tileset>.txt` lists what each metatile depicts, for
+all 74 tilesets (every metatile is labelled):
+
+- outdoors: grass, path, sand, tallgrass, flowers, tree, cliff, rock, water,
+  ledge, bridge, fence, building, object, cave, dark;
+- caves and interiors: floor, wall, stairs, ice, lava (and object for
+  furniture);
+- families, which split trees (dense, round, jungle, pine) and water (sea,
+  pond) by look, so a map can keep to one of each.
+
+Each file is one id or id range per line with its materials; a `+` line adds
+to what's already there, and a later line replaces an earlier one, so
+corrections can go at the end. Behaviours add water, tall grass, sand,
+ledges, doors and bridges on top. `tileset MAP --materials` draws a catalog
+with each tile's labels under it.
+
+**Labelling a new or changed tileset.** `materials suggest TILESET` writes a
+draft file and review sheets to `build/mapkit/materials/suggest/`. Each tile
+is labelled from, in order of trust: an exact copy of a labelled tile, a
+recoloured copy (the same pixel pattern in other colours), its behaviour, or a
+guess from the closest-looking labelled tile. Sheets colour each label by its
+source (white, cyan, green, yellow); `--guesses-only` shows only the guesses,
+which are what need checking. Copy the draft to `tools/mapkit/materials/`,
+fix what's wrong, and `materials status` shows coverage.
 
 ## Checks
 
@@ -253,7 +272,8 @@ building's footprint shows as a block of `#` behind them.
 | `compare.py` | Tile classes for Emerald, `compare`, `draft`. |
 | `autotile.py` | `draft --finish`: learning from the original maps, and the cost-minimising fill. |
 | `original.py` | The original Emerald layouts from history, and which blocks are visible. |
-| `materials.py`, `materials/` | What each metatile depicts. |
+| `materials.py`, `materials/` | What each metatile depicts, for every tileset. |
+| `label_assist.py` | `materials suggest`: labels from copies, behaviours and look-alikes. |
 | `test_mapkit.py` | Tests: `python3 -m unittest discover tools/mapkit`. |
 
 The map grid and metatile formats are read from `include/fieldmap.h` and
