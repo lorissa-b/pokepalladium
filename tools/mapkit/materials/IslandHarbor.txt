@@ -1,0 +1,161 @@
+# What each gTileset_IslandHarbor metatile depicts (format as in General.txt).
+# Mostly exact copies of labelled tiles, from `mapkit.py materials suggest
+# IslandHarbor`; the dock pieces it had to guess were reviewed by eye below.
+
+
+0x800       floor                   # dup: Cave 0x800
+0x801       dark                    # dup: Cave 0x845
+0x802       path                    # guess: General 0x024 d=66
+0x803       building grass          # guess: Lilycove 0x918 d=137
+0x804       cliff water             # dup: General 0x189
+0x804       +sea
+0x805-0x806 building                # guess
+0x807       fence                   # guess: Rustboro 0x955 d=192
+0x808       object                  # beh: MB_COUNTER
+0x809       cliff water             # guess: Mossdeep 0x8c9 d=200
+0x80a       building                # guess: Petalburg 0x815 d=111
+0x80b       bridge water            # guess: Mauville 0x933 d=227
+0x80c       building                # guess: Rustboro 0x81f d=107
+0x80d       cliff                   # guess: MeteorFalls 0x818 d=196
+0x80e       stairs                  # guess: Pacifidlog 0x84c d=15
+0x80f       bridge water            # guess: Mauville 0x948 d=227
+0x810       building                # guess: Rustboro 0x816 d=77
+0x811-0x812 bridge water            # guess
+0x813       cliff water             # guess: Mossdeep 0x8d0 d=152
+0x814       stairs                  # guess: Pacifidlog 0x89e d=116
+0x815       building                # guess: Slateport 0x86e d=137
+0x816-0x817 floor                   # dup
+0x818       stairs                  # guess: Pacifidlog 0x89e d=135
+0x819-0x81a floor                   # guess
+0x81b-0x81c building                # guess
+0x81d       bridge water            # guess: Mauville 0x954 d=158
+0x81e-0x821 building                # guess
+0x822       fence grass             # guess: General 0x140 d=146
+0x823-0x825 floor                   # dup
+0x826       building                # guess: Rustboro 0x816 d=109
+0x827       floor                   # dup: Cave 0x800
+0x828       building                # guess: Mossdeep 0x932 d=115
+0x829       floor                   # dup: Cave 0x800
+0x82a       floor                   # guess: Pacifidlog 0x834 d=81
+0x82b-0x82c building                # guess
+0x82d       floor                   # guess: Pacifidlog 0x834 d=98
+0x82e       building                # guess: Petalburg 0x825 d=80
+0x82f       floor                   # dup: Cave 0x800
+0x830       cliff water             # guess: General 0x181 d=171
+0x830       +sea
+0x831-0x837 floor                   # dup
+0x838-0x83a building                # guess
+0x83b-0x83f floor                   # dup
+0x840       cliff water             # guess: General 0x181 d=171
+0x840       +sea
+0x841       bridge water            # guess: Pacifidlog 0x85b d=145
+0x842       cliff water             # guess: General 0x188 d=149
+0x842       +sea
+0x843-0x99f floor                   # dup
+0x9a0       path                    # guess: General 0x024 d=66
+0x9a1       building grass          # guess: Lilycove 0x918 d=137
+0x9a2-0x9a3 building                # guess
+0x9a4       fence                   # guess: Rustboro 0x955 d=192
+0x9a5       object                  # beh: MB_COUNTER
+0x9a6-0x9a7 floor                   # dup
+0x9a8       cliff water             # dup: General 0x189
+0x9a8       +sea
+0x9a9       floor                   # dup: Cave 0x800
+0x9aa       cliff                   # guess: MeteorFalls 0x818 d=196
+0x9ab       stairs                  # guess: Pacifidlog 0x84c d=15
+0x9ac       bridge water            # guess: Mauville 0x948 d=227
+0x9ad       building                # guess: Rustboro 0x816 d=77
+0x9ae-0x9af floor                   # dup
+0x9b0       cliff water             # guess: Mossdeep 0x8c9 d=200
+0x9b1       building                # guess: Petalburg 0x815 d=111
+0x9b2       bridge water            # guess: Mauville 0x933 d=227
+0x9b3-0x9b4 floor                   # dup
+0x9b5       stairs                  # guess: Pacifidlog 0x89e d=135
+0x9b6-0x9b7 floor                   # dup
+0x9b8-0x9b9 bridge water            # guess
+0x9ba       cliff water             # guess: Mossdeep 0x8d0 d=152
+0x9bb-0x9bf floor                   # dup
+0x9c0-0x9c1 building                # guess
+0x9c2-0x9c3 floor                   # guess
+0x9c4       floor                   # dup: Cave 0x800
+0x9c5-0x9c6 building                # guess
+0x9c7-0x9c8 floor                   # dup
+0x9c9       fence grass             # guess: General 0x140 d=146
+0x9ca-0x9cb building                # guess
+0x9cc       floor                   # dup: Cave 0x800
+0x9cd       building                # guess: Rustboro 0x816 d=109
+0x9ce-0x9d0 floor                   # dup
+0x9d1       floor                   # guess: Pacifidlog 0x834 d=81
+0x9d2-0x9d3 building                # guess
+0x9d4       floor                   # guess: Pacifidlog 0x834 d=98
+0x9d5       building                # guess: Petalburg 0x825 d=80
+
+# ---- Reviewed corrections (later lines replace earlier ones) ------------
+0x802       path            # teal stone paving
+0x803       path grass
+0x805-0x806 building        # dock wall
+0x807       building
+0x809       tree water
+0x80A       grass
+0x80B       bridge water    # mooring posts
+0x80C       building
+0x80D       building
+0x80E       path
+0x80F-0x810 building
+0x811       bridge water
+0x812       grass
+0x813       tree water
+0x814       stairs
+0x815       building
+0x818       path
+0x819       fence           # railing
+0x81a       fence           # railing
+0x81b       fence           # railing
+0x81c       fence           # railing
+0x81e       fence           # railing
+0x81f       fence           # railing
+0x820       fence           # railing
+0x821       fence           # railing
+0x822       fence           # railing
+0x826       fence           # railing
+0x828       fence           # railing
+0x82a       fence           # railing
+0x82b       fence           # railing
+0x82c       fence           # railing
+0x82d       fence           # railing
+0x82e       fence           # railing
+0x81D       bridge water
+0x830       tree water
+0x838       fence
+0x839       grass
+0x83A       fence
+0x840       tree water
+0x841       grass
+0x842       tree water
+0x9A0-0x9A1 path
+0x9A2-0x9A4 building
+0x9AA       building
+0x9AB       stairs
+0x9AC-0x9AD building
+0x9B0       tree water
+0x9B1       grass
+0x9B2       bridge water
+0x9B5       path
+0x9B8       bridge water
+0x9B9       grass
+0x9BA       tree water
+0x9c0       fence
+0x9c1       fence
+0x9c2       fence
+0x9c3       fence
+0x9c5       fence
+0x9c6       fence
+0x9c9       fence
+0x9ca       fence
+0x9cb       fence
+0x9cd       fence
+0x9d1       fence
+0x9d2       fence
+0x9d3       fence
+0x9d4       fence
+0x9d5       fence

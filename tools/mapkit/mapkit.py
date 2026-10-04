@@ -347,7 +347,7 @@ def cmd_materials(a) -> None:
         colours = {"dup": (255, 255, 255), "shape": (110, 230, 255), "beh": (120, 255, 140), "guess": (255, 220, 90)}
         notes = {mid: (" ".join(sorted(m for m in mats if m not in ("unknown",)))[:24], colours[kind]) for mid, mats, kind, _ in rows}
         pair = label_assist.pair_for(symbol)
-        ids = [r[0] for r in rows]
+        ids = [r[0] for r in rows if not a.guesses_only or r[2] == "guess"]
         for k in range(0, len(ids), 128):
             img = render.catalog(pair, 16, 3, ids[k : k + 128], notes)
             save(img, out / f"{name}_{k // 128}.png")
@@ -487,6 +487,7 @@ def main(argv=None) -> None:
     s.add_argument("action", choices=["status", "suggest"])
     s.add_argument("tilesets", nargs="*", help="tilesets to suggest labels for, e.g. Cave or gTileset_Cave")
     s.add_argument("-o", "--output", help="directory for the suggestions and review sheets")
+    s.add_argument("--guesses-only", action="store_true", help="review sheets show only the guessed tiles")
     s.set_defaults(func=cmd_materials)
 
     s = sub.add_parser("compare", help="score a map against its Platinum original")
