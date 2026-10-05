@@ -19,6 +19,7 @@ POKEPLATINUM_DIR to use an existing full checkout instead.
 from __future__ import annotations
 
 import json
+import math
 import os
 import re
 import struct
@@ -230,6 +231,41 @@ def _land_path(name: str) -> str:
     return f"res/field/maps/data/{land_data_files()[int(name.split('_')[1])]}"
 
 
+@lru_cache(maxsize=None)
+def model_box(model: int) -> tuple[float, float, float, float] | None:
+    """A prop model's ground footprint in tiles, relative to its position: (x, z, width, depth).
+
+    Read from the bounding box an NSBMD file keeps for its (first) model:
+    six fx16 values (x, y, z, width, height, depth) scaled by a box scale.
+    """
+    names = prop_model_names()
+    if not 0 <= model < len(names):
+        return None
+    rel = f"res/field/props/models/{names[model]}.nsbmd"
+    try:
+        raw = (ensure(rel) / rel).read_bytes()
+    except (subprocess.CalledProcessError, SystemExit):
+        return None
+    try:
+        if raw[:4] != b"BMD0":
+            return None
+        blocks = struct.unpack_from("<H", raw, 0x0E)[0]
+        for i in range(blocks):
+            off = struct.unpack_from("<I", raw, 0x10 + 4 * i)[0]
+            if raw[off : off + 4] != b"MDL0":
+                continue
+            # The block's dictionary: its data section starts with an entry size, then one offset per model.
+            entries = off + 8 + struct.unpack_from("<H", raw, off + 8 + 6)[0]
+            model_off = off + struct.unpack_from("<I", raw, entries + 4)[0]
+            info = model_off + 20  # after the size and four section offsets
+            bx, _, bz, bw, _, bd = struct.unpack_from("<6h", raw, info + 24)
+            scale = struct.unpack_from("<i", raw, info + 36)[0] / FX32_ONE / FX32_ONE / TILE_UNITS
+            return (bx * scale, bz * scale, bw * scale, bd * scale)
+    except struct.error:
+        return None
+    return None
+
+
 # ---------------------------------------------------------------- reference
 
 
@@ -240,6 +276,61 @@ class Prop:
     x: float  # tile coordinates (centre of the model), local to the map
     y: float
     height: float
+
+    def footprint(self) -> tuple[int, int, int, int] | None:
+        """Tiles under the model's bounding box, as (x, y, w, h): those whose centre it covers."""
+        box = model_box(self.model)
+        if box is None:
+            return None
+        bx, bz, bw, bd = box
+        x0 = math.ceil(self.x + bx - 0.5)
+        x1 = math.floor(self.x + bx + bw - 0.5)
+        y0 = math.ceil(self.y + bz - 0.5)
+        y1 = math.floor(self.y + bz + bd - 0.5)
+        if x1 < x0 or y1 < y0:
+            return None
+        return (x0, y0, x1 - x0 + 1, y1 - y0 + 1)
+
+
+@dataclass
+class Building:
+    """A building in a Platinum map: a prop over a block of blocked tiles, and its doors."""
+
+    prop: Prop
+    tiles: set[tuple[int, int]]  # the blocked (or door) tiles it stands on
+    doors: list[tuple[int, int]]  # warp tiles on its front row
+    dests: list[str]  # where those warps lead
+    side: list[tuple[int, int]]  # warps on its sides or back (gates are entered from the side)
+    side_dests: list[str] = field(default_factory=list)
+
+    @property
+    def box(self) -> tuple[int, int, int, int]:
+        xs = [x for x, _ in self.tiles]
+        ys = [y for _, y in self.tiles]
+        return (min(xs), min(ys), max(xs) - min(xs) + 1, max(ys) - min(ys) + 1)
+
+    @property
+    def kind(self) -> str:
+        return building_kind((self.dests or self.side_dests or [""])[0])
+
+
+def building_kind(dest: str) -> str:
+    """pokecenter, mart, gym, lab, gate, house or other, from the name of the map a door leads to."""
+    d = dest.upper()
+    for pattern, kind in BUILDING_KINDS:
+        if re.search(pattern, d):
+            return kind
+    return "other" if d else "house"
+
+
+BUILDING_KINDS = [
+    (r"GATE|CYCLING_ROAD|CABLE_CAR|SAFARI_ZONE_ENTRANCE", "gate"),
+    (r"POKECENTER|POKEMON_CENTER", "pokecenter"),
+    (r"(^|_)MART($|_)|DEPARTMENT_STORE", "mart"),
+    (r"GYM", "gym"),
+    (r"(^|_)LAB($|_)|RESEARCH_LAB", "lab"),
+    (r"HOUSE|CONDO|APARTMENT|FLAT|HOTEL|MOTEL|COTTAGE|VILLA|REST_STOP|_HOME", "house"),
+]
 
 
 @dataclass
@@ -272,6 +363,72 @@ class Reference:
                             if 0 <= x < self.width and 0 <= y < self.height:
                                 rows[y][x] = ch
         return ["".join(r) for r in rows]
+
+    def blocked(self, x: int, y: int) -> bool:
+        if not (0 <= x < self.width and 0 <= y < self.height):
+            return False
+        a = self.attrs[y][x]
+        return a is not None and bool(a & COLLISION_BIT)
+
+    def buildings(self) -> list[Building]:
+        """Props that stand on a block of blocked tiles at least 2x2: houses, centres, gates.
+
+        A prop's bounding box often overhangs (roofs, awnings), so a building is
+        the blocked tiles under it that connect to its doors, or the largest
+        blocked patch for one with none. Warps on the patch's bottom row, or
+        just below it, are its doors; warps on its other edges are side
+        entrances, as on route gates.
+        """
+        warps = [(e["x"], e["y"], e.get("dest_header_id", "")) for e in self.warps]
+        taken: set[tuple[int, int]] = set()
+        found = []
+        # Big props first, so a door prop or a lamp never claims a building's tiles.
+        props = [(p, p.footprint()) for p in self.props]
+        props = sorted([(p, f) for p, f in props if f and f[2] >= 2 and f[3] >= 2], key=lambda pf: -pf[1][2] * pf[1][3])
+        for prop, (fx, fy, fw, fh) in props:
+            box = {(x, y) for x in range(fx, fx + fw) for y in range(fy, fy + fh)}
+            blocked = {t for t in box if t not in taken and self.blocked(*t)}
+            if not blocked:
+                continue
+            # Warps on the box or touching it (a bounding box can fall a little short of the door).
+            near = {(x, y): d for x, y, d in warps if (x, y) not in taken and (
+                (x, y) in box or any(n in blocked for n in ((x + 1, y), (x - 1, y), (x, y - 1))))}
+            solid = blocked | set(near)
+            # Split into 4-connected patches; keep the ones with warps, else the largest.
+            patches, left = [], set(solid)
+            while left:
+                start = left.pop()
+                patch, stack = {start}, [start]
+                while stack:
+                    x, y = stack.pop()
+                    for n in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
+                        if n in left:
+                            left.remove(n)
+                            patch.add(n)
+                            stack.append(n)
+                patches.append(patch)
+            with_warps = [p for p in patches if any(t in p for t in near) and len(p) > 1]
+            tiles = set().union(*with_warps) if with_warps else max(patches, key=len)
+            xs = [x for x, _ in tiles]
+            ys = [y for _, y in tiles]
+            if max(xs) - min(xs) < 1 or max(ys) - min(ys) < 1:
+                continue
+            if not with_warps and (len(tiles) < 6 or len(tiles) < 0.6 * fw * fh):
+                continue  # lamps, signs, fences, statues: not a building
+            bottom = max(ys)
+            doors, dests, side, side_dests = [], [], [], []
+            for t, d in near.items():
+                if t not in tiles:
+                    continue
+                if t[1] == bottom:
+                    doors.append(t)
+                    dests.append(d)
+                else:
+                    side.append(t)
+                    side_dests.append(d)
+            taken |= tiles
+            found.append(Building(prop, tiles, doors, dests, side, side_dests))
+        return sorted(found, key=lambda b: (b.box[1], b.box[0]))
 
     def to_json(self) -> dict:
         return {

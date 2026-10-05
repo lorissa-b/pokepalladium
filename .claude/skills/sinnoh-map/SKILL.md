@@ -21,12 +21,19 @@ guessed from screenshots. It needs Pillow
    `mapkit.py info <Map>` and `render <Map> --grid --events`. Note which
    neighbours it connects to and which tilesets they use.
 3. **Draft.** `mapkit.py draft <HEADER> <LAYOUT> -o build/mapkit/<map>.bp`
-   gives a blockout with exits, roads, grass, water and ledges in the right
-   places and the Platinum events/props listed as comments. Keep the Platinum
+   gives a blockout with exits, roads, grass, water, ledges and buildings in
+   the right places and the Platinum events/props listed as comments. Keep the Platinum
    proportions; crop with `--region` only when the map must be smaller.
-4. **Detail.** Replace placeholders with real Emerald buildings:
-   `stamp` from a map on the same tilesets, or paste `extract --region`
-   output. Find metatiles with `tileset <Map>` (PNG) and
+4. **Detail.** The draft already places a whole Emerald building on every
+   Platinum building (town or route), door on Platinum's door. Its notes list
+   each placement and anything unmatched (`no Emerald building fits`, `no
+   door for Platinum's door`). Buildings whose name has `~WxH` were made
+   from parts to Platinum's exact size; `--originals-only` keeps to the
+   originals' own buildings. Swap a building using
+   `buildings <LAYOUT> --render build/mapkit/pieces.png` and
+   `buildings <LAYOUT> --piece <NAME> --at X,Y` (add `--size WxH --doors
+   1,5` to make it another size), or `stamp`/`extract` from
+   another map. Find metatiles with `tileset <Map>` (PNG) and
    `tileset <Map> --list --behavior <NAME>`. Keep each building's door on the
    tile where Platinum has its door warp.
 5. **Preview, then build.** Run `build <file> --dry-run --render build/mapkit/preview.png`
@@ -45,6 +52,11 @@ guessed from screenshots. It needs Pillow
    0x800) unless both maps share a secondary tileset.
 
 ## Rules that keep biting
+
+- Where the player can go must stay as in Platinum: what's blocked by Surf,
+  Cut, Rock Climb or a ledge stays blocked. A finished draft's header says
+  "Access is the same as Platinum's" or lists what differs; fix anything it
+  lists before building, and keep it that way when editing by hand.
 
 - Connection offsets: a connection on map A with offset `o` puts the
   neighbour's x (or y) 0 at A's x (or y) = `o`. The way back uses `-o`.

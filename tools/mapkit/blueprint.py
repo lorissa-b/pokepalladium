@@ -359,5 +359,32 @@ def blocks_text(blocks: Blockdata, at: tuple[int, int] = (0, 0), describe=None) 
     return "\n".join(out) + "\n"
 
 
+def cells_text(cells: dict[tuple[int, int], int], describe=None, prefix: str = "B") -> str:
+    """Legend and grid lines that set just these cells, keeping every other block.
+
+    Keys are two characters starting with `prefix`, so they never clash with
+    a draft's one-character legend.
+    """
+    if not cells:
+        return ""
+    xs = [x for x, _ in cells]
+    ys = [y for _, y in cells]
+    order = [b for b, _ in Counter(cells.values()).most_common()]
+    if len(order) > len(KEY_CHARS):
+        raise ValueError("too many distinct blocks for one cells grid")
+    key_of = {b: prefix + k for b, k in zip(order, KEY_CHARS)}
+    c = consts()
+    out = []
+    for b in order:
+        mid, col, elev = c.unpack(b)
+        note = f"  # {describe(mid)}" if describe else ""
+        out.append(f"legend {key_of[b]} = {mid:#05x}/c{col}/e{elev}{note}")
+    out.append(f"grid {min(xs)} {min(ys)} w2")
+    for y in range(min(ys), max(ys) + 1):
+        out.append("".join(key_of[cells[(x, y)]] if (x, y) in cells else "  " for x in range(min(xs), max(xs) + 1)).rstrip())
+    out.append("end")
+    return "\n".join(out) + "\n"
+
+
 def load(path: Path, layout_override: str | None = None) -> Blueprint:
     return Blueprint(path.read_text(), str(path), layout_override)

@@ -15,7 +15,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import blueprint  # noqa: E402
 import check  # noqa: E402
 import platinum  # noqa: E402
-from project import Blockdata, consts, layouts, resolve_layout  # noqa: E402
+from project import Blockdata, behaviors, consts, layouts, resolve_layout  # noqa: E402
 
 
 class GridFormat(unittest.TestCase):
@@ -115,6 +115,162 @@ class FinishedDrafts(unittest.TestCase):
                 self.assertIn(materials.family(mats, "tree"), (None, "dense"), (x, y))
 
 
+    def test_fixed_blocks_are_kept_and_tiled_around(self):
+        import autotile
+        import buildings
+
+        layout = resolve_layout("LAYOUT_SANDGEM_TOWN")
+        house = next(p for p in buildings.library(layout) if p.name == "OLDALE_TOWN@4,4")
+        fixed = {(2 + dx, 1 + dy): b for dx, dy, b in house.blocks()}
+        grid = ["########", "#......#", "#......#", "#......#", "#......#", "#......#", "########"]
+        grid = buildings.apply([buildings.Placement(house, 2, 1, fixed, [(3, 4)])], grid, layout)
+        blocks, _, _ = autotile.fill(grid, layout, "town", fixed=fixed)
+        for (x, y), b in fixed.items():
+            self.assertEqual(blocks.get(x, y), b, (x, y))
+        self.assertFalse(consts().unpack(blocks.get(3, 5))[1], "the doorstep stays walkable")
+
+
+class Access(unittest.TestCase):
+    """Finishing sprites may move a walkable/solid border, never change where the player can go."""
+
+    @staticmethod
+    def kinds(rows):
+        import autotile
+
+        return [autotile._kind(ch) for row in rows for ch in row]
+
+    def test_a_new_shore_is_a_change(self):
+        import autotile
+
+        before = ["....#~~", "....#~~", "....#~~"]
+        after = ["....#~~", ".....~~", "....#~~"]  # the tree between field and water opened
+        diff = autotile.access_differences(self.kinds(before), self.kinds(after), 7, 3, set())
+        self.assertTrue(any(line.startswith("now touch") for line in diff), diff)
+
+    def test_a_way_around_a_cut_tree_is_a_change(self):
+        import autotile
+
+        before = ["#####", "..@..", "#####"]
+        pocket = ["#.###", "..@..", "#####"]  # a dead end off the west side: nothing new to reach
+        self.assertTrue(autotile._same_access(self.kinds(before), self.kinds(pocket), 5, 3, {1 * 5 + 2}))
+        behind = ["#####", "..@..", "##.##"]  # a spot only reachable through the tree: new
+        self.assertFalse(autotile._same_access(self.kinds(before), self.kinds(behind), 5, 3, {1 * 5 + 2}))
+        bypass = ["#.#.#", "..@..", "#...#"]
+        bypass_before = ["#.#.#", "..@..", "#####"]
+        self.assertFalse(autotile._same_access(self.kinds(bypass_before), self.kinds(bypass), 5, 3, {1 * 5 + 2}))
+
+    def test_an_unreachable_pocket_is_not_a_change(self):
+        import autotile
+
+        before = ["#####", "#####", "....."]
+        after = ["#.###", "#####", "....."]  # a sealed walkable tile, like a roof's top row
+        self.assertEqual(autotile.access_differences(self.kinds(before), self.kinds(after), 5, 3, set()), [])
+
+    def test_finished_blocks_move_as_their_classes_say(self):
+        import autotile
+        from compare import GROUP_OF, emerald_symbol
+        from tileset import TilesetPair
+
+        layout = resolve_layout("LAYOUT_ROUTE218")
+        grid = ["##########", "#........#", "#.#......#", "#........#", "##########"]
+        blocks, _, _ = autotile.fill(grid, layout)
+        tiles = TilesetPair.for_layout(layout)
+        for y, row in enumerate(grid):
+            for x, ch in enumerate(row):
+                self.assertEqual(GROUP_OF[emerald_symbol(tiles, blocks.get(x, y))], GROUP_OF[ch], (x, y))
+
+    def test_flexible_cells_keep_access(self):
+        import autotile
+        from compare import emerald_symbol
+        from tileset import TilesetPair
+
+        layout = resolve_layout("LAYOUT_ROUTE218")
+        # A tree line one block thick between a field and the water, and a lone tree.
+        grid = ["##########", "#.....#~~#", "#.#...#~~#", "#.....#~~#", "##########"]
+        flexible = {(x, y) for y in range(1, 4) for x in range(1, 9) if grid[y][x] in "#."}
+        blocks, tally, _ = autotile.fill(grid, layout, flexible=flexible)
+        tiles = TilesetPair.for_layout(layout)
+        after = [autotile._kind(emerald_symbol(tiles, blocks.get(x, y))) for y in range(5) for x in range(10)]
+        self.assertEqual(autotile.access_differences(self.kinds(grid), after, 10, 5, set()), [])
+
+
+class Buildings(unittest.TestCase):
+    def test_pieces_come_whole_from_the_originals(self):
+        import buildings
+
+        by_name = {p.name: p for p in buildings.pieces("gTileset_General")}
+        house = by_name["OLDALE_TOWN@4,4"]
+        self.assertEqual((house.w, house.h, house.doors, house.kind), (4, 4, ((1, 3),), "house"))
+        self.assertTrue(all(b is not None for row in house.cells for b in row), "the roof is part of it")
+        self.assertEqual(by_name["OLDALE_TOWN@5,13"].kind, "pokecenter")
+        self.assertEqual(by_name["OLDALE_TOWN@13,3"].kind, "mart")
+        # Two shops under one roof stay one piece, with both doors.
+        self.assertEqual(by_name["LAVARIDGE_TOWN@11,12"].doors, ((1, 3), (5, 3)))
+
+    def test_pieces_only_on_tilesets_that_draw_them(self):
+        import buildings
+
+        for layout_id in ("LAYOUT_SANDGEM_TOWN", "LAYOUT_JUBILIFE_CITY"):
+            layout = resolve_layout(layout_id)
+            tiles_ok = buildings.library(layout)
+            self.assertTrue(any(p.kind == "pokecenter" for p in tiles_ok), layout_id)
+            from tileset import TilesetPair
+
+            pair_ = TilesetPair.for_layout(layout)
+            for p in tiles_ok:
+                for _, _, b in p.blocks():
+                    self.assertTrue(pair_.exists(b & consts().metatile_mask), (layout_id, p.name))
+
+    def test_cells_text_sets_only_its_cells(self):
+        g = blueprint.Blueprint(
+            "layout LAYOUT_JUBILIFE_CITY\nsize 3 2\nbase none\nfill 0x001/c0/e3\n"
+            + blueprint.cells_text({(1, 0): consts().pack(0x1D4, 1, 0), (2, 1): consts().pack(0x00D, 0, 3)})
+        ).build()
+        self.assertEqual([b & consts().metatile_mask for b in g.blocks], [0x001, 0x1D4, 0x001, 0x001, 0x001, 0x00D])
+
+
+class Parts(unittest.TestCase):
+    def test_a_wider_house_with_its_door_moved(self):
+        import buildings
+        import parts
+        from tileset import TilesetPair
+
+        layout = resolve_layout("LAYOUT_SANDGEM_TOWN")
+        seed = next(p for p in buildings.library(layout) if p.name == "PETALBURG_CITY@19,21")
+        made = parts.make(seed, layout, 7, 4, (3,))
+        self.assertIsNotNone(made)
+        piece, _ = made
+        self.assertEqual((piece.w, piece.h, piece.doors), (7, 4, ((3, 3),)))
+        tiles = TilesetPair.for_layout(layout)
+        j = parts.joins(layout["primary_tileset"], layout["secondary_tileset"])
+        mid = consts().metatile_mask
+        for dx, dy, b in piece.blocks():
+            is_door = "DOOR" in behaviors().get(tiles.behavior(b & mid), "")
+            self.assertEqual(is_door, (dx, dy) == (3, 3), (dx, dy))
+            if dx + 1 < piece.w and piece.cells[dy][dx + 1] is not None:
+                self.assertLessEqual(j.h(b & mid, piece.cells[dy][dx + 1] & mid), parts.JOIN_MAX)
+            if dy + 1 < piece.h and piece.cells[dy + 1][dx] is not None:
+                self.assertLessEqual(j.v(b & mid, piece.cells[dy + 1][dx] & mid), parts.JOIN_MAX)
+
+    def test_signs_and_emblems_are_never_repeated(self):
+        import buildings
+        import parts
+
+        layout = resolve_layout("LAYOUT_SANDGEM_TOWN")
+        centre = next(p for p in buildings.library(layout) if p.name == "OLDALE_TOWN@5,13")
+        self.assertIsNone(parts.make(centre, layout, 6, 4, (2,)))
+
+    def test_sequences_keep_ends_and_cap_runs(self):
+        import parts
+
+        # Four inputs to six: the middle two each repeat once, ends stay ends.
+        cost, seq = parts._sequence(6, 4, lambda a, b: 0.0 if b == a + 1 else 1.0, max_run=2, forward=True)
+        self.assertEqual(seq, [0, 1, 1, 2, 2, 3])
+        self.assertEqual(cost, 2.0)
+        # Three inputs can't make six when one middle input may only run twice.
+        self.assertEqual(parts._sequence(6, 3, lambda a, b: 0.0, max_run=2, forward=True), (float("inf"), None))
+
+
 class Checks(unittest.TestCase):
     def test_whole_repo_runs(self):
         findings = check.run()
@@ -137,6 +293,37 @@ class Platinum(unittest.TestCase):
         warp = next(w for w in ref.warps if w["dest_header_id"] == "MAP_HEADER_JUBILIFE_CITY_POKECENTER_1F")
         door = next(p for p in ref.props if p.name == "pokecenter_door" and int(p.y) == warp["y"])
         self.assertEqual(int(door.x), warp["x"])
+
+    def test_buildings_and_their_doors(self):
+        ref = platinum.load("SANDGEM_TOWN")
+        found = {b.kind: b for b in ref.buildings()}
+        self.assertEqual(found["pokecenter"].box, (15, 7, 5, 4))
+        self.assertEqual(found["pokecenter"].doors, [(17, 10)])
+        self.assertEqual(found["mart"].doors, [(27, 10)])
+        self.assertEqual(found["lab"].doors, [(8, 10)])
+
+    def test_placed_buildings_put_doors_on_platinums(self):
+        import buildings
+        from tileset import TilesetPair
+
+        ref = platinum.load("SANDGEM_TOWN")
+        layout = resolve_layout("LAYOUT_SANDGEM_TOWN")
+        placed, missing = buildings.plan(ref, layout, ref.grid(), (0, 0, ref.width, ref.height))
+        self.assertEqual(missing, [])
+        tiles = TilesetPair.for_layout(layout)
+        doors = set()
+        for p in placed:
+            self.assertEqual(p.piece.kind if p.target.kind in ("pokecenter", "mart") else p.target.kind, p.target.kind)
+            for x, y in p.doors:
+                self.assertIn("DOOR", behaviors().get(tiles.behavior(p.cells[(x, y)] & consts().metatile_mask), ""))
+                doors.add((x, y))
+        self.assertEqual(doors, {(w["x"], w["y"]) for w in ref.warps})
+        # The lab is made from parts to Platinum's footprint exactly.
+        lab = next(p for p in placed if p.target.kind == "lab")
+        self.assertEqual((lab.piece.w, lab.piece.h), lab.target.box[2:])
+        self.assertTrue(lab.piece.made)
+        originals, _ = buildings.plan(ref, layout, ref.grid(), (0, 0, ref.width, ref.height), make_new=False)
+        self.assertFalse(any(p.piece.made for p in originals))
 
 
 if __name__ == "__main__":
