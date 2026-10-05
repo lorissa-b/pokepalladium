@@ -53,16 +53,16 @@ def emerald_symbol(tiles: TilesetPair, block: int) -> str:
     c = consts()
     mid, col, _ = c.unpack(block)
     name = behaviors().get(tiles.behavior(mid), "")
+    mats = materials.of(tiles, mid)
+    if "snow" in mats and not col:
+        return "s"  # snow leaves sand's footprints, but it's still snow
     for pattern, sym in _EMERALD_RULES:
         if re.search(pattern, name):
             # Furniture, counters and ledges are blocked by collision in Emerald too.
             return sym
     if col:
         return "#"
-    # Walkable ground labelled as a path or snow (materials/), so drafts know them apart from grass.
-    mats = materials.of(tiles, mid)
-    if "snow" in mats:
-        return "s"
+    # Walkable ground labelled as a path (materials/), so drafts know it apart from grass.
     return "p" if "path" in mats else "."
 
 

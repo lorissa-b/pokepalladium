@@ -371,6 +371,7 @@ class Ground(unittest.TestCase):
         c = consts()
         self.assertIn("snow", materials.of(tiles, 0x0B5))
         self.assertEqual(emerald_symbol(tiles, c.pack(0x0B5, 0, 3)), "s")
+        self.assertEqual(behaviors().get(tiles.behavior(0x0B5)), "MB_SAND", "footprints, like sand")
         # Its pixels are the sand pit's with the sand shades swapped for whites.
         sand, snow = tiles.draw(0x121).convert("RGB"), tiles.draw(0x0B5).convert("RGB")
         self.assertEqual(sand.size, snow.size)

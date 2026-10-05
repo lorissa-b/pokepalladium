@@ -88,7 +88,7 @@
 0x0B0-0x0B2 water cliff     # pond with rock rim
 0x0B3       water           # waterfall
 0x0B4       cliff
-0x0B5       snow            # the sand pit's texture in palette 5's whites (was an unused cliff)
+0x0B5       snow            # the sand pit's texture in palette 5's whites, with sand's footprints (was an unused cliff)
 0x0B6-0x0B7 cliff
 0x0B8-0x0BC water cliff
 0x0BD       rock            # boulder
