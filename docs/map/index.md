@@ -13,6 +13,7 @@ Scaffold page. Region and route write-ups still to be written.
 towns/index
 routes/index
 tooling
+encounters
 ```
 
 ## Where the data lives
@@ -61,4 +62,5 @@ tilesets. Run `tools/mapkit/mapkit.py check <map>` after changing a map.
 - Name maps by their `MAP_*` constant when precision matters, and by their
   in-game name otherwise.
 - Give encounter rates as the percentages produced by the slot weights in
-  `wild_encounters.json`, not as raw slot counts.
+  `wild_encounters.json`, not as raw slot counts. [The encounter tooling](encounters.md)
+  prints them.
