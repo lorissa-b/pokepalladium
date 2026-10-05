@@ -338,6 +338,26 @@ RavagedPath_EventScript_ItemTM03::
 	finditem ITEM_TM03
 	end
 
+OreburghGate_B1F_EventScript_ItemTM01::
+	finditem ITEM_TM01
+	end
+
+OreburghGate_B1F_EventScript_ItemEarthPlate::
+	finditem ITEM_EARTH_PLATE
+	end
+
+OreburghGate_B1F_EventScript_ItemTM31::
+	finditem ITEM_TM31
+	end
+
+OreburghGate_B1F_EventScript_ItemTM70::
+	finditem ITEM_TM70
+	end
+
+OreburghGate_B1F_EventScript_ItemBigPearl::
+	finditem ITEM_BIG_PEARL
+	end
+
 LilycoveCity_EventScript_ItemMaxRepel::
 	finditem ITEM_MAX_REPEL
 	end

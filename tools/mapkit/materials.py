@@ -21,15 +21,18 @@ DIR = Path(__file__).resolve().parent / "materials"
 
 MATERIALS = {
     "grass", "path", "sand", "tallgrass", "flowers", "tree", "cliff", "rock", "water",
-    "ledge", "bridge", "fence", "building", "object", "cave", "dark", "unknown",
+    "ledge", "bridge", "fence", "building", "object", "cave", "dark", "snow", "unknown",
     # Interiors and caves.
     "floor", "wall", "stairs", "ice", "lava",
 }
 
 # Families split a material by look; a style keeps one per material.
+# Paths get theirs from their other labels (see of()): sandy where they're
+# also sand, stone (gravel, paving, ash) otherwise.
 FAMILIES = {
     "tree": {"dense", "round", "jungle", "pine"},
     "water": {"sea", "pond"},
+    "path": {"sandy", "stone"},
 }
 TAGS = MATERIALS | set().union(*FAMILIES.values())
 
@@ -84,6 +87,8 @@ def of(tiles: TilesetPair, metatile: int) -> frozenset[str]:
         mats.discard("water")  # Magma Hideout's lava has a water behaviour
     if len(mats) > 1:
         mats.discard("unknown")
+    if "path" in mats and not mats & FAMILIES["path"]:
+        mats.add("sandy" if "sand" in mats else "stone")
     return frozenset(mats)
 
 

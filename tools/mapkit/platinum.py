@@ -28,6 +28,8 @@ from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
 
+import ground
+
 REMOTE = "https://github.com/pret/pokeplatinum"
 CHUNK = 32  # tiles per land data side
 TILE_UNITS = 16  # world units per tile
@@ -109,6 +111,7 @@ LEGEND = [
     ("i", "ice"), ("m", "mud"), ("s", "snow"), ("^v<>", "ledge (jump direction)"),
     ("D", "door"), ("E", "warp/entrance"), ("S", "stairs/escalator"), ("R", "rock climb"),
     ("=", "bridge"), ("B", "berry patch"), ("t", "table/counter"), ("o", "furniture (PC, TV, shelf...)"),
+    ("p", "path (walkable, painted as a path in the ground model)"),
     (" ", "outside this map"),
 ]
 
@@ -348,12 +351,23 @@ class Reference:
     props: list[Prop] = field(default_factory=list)
     neighbours: dict[str, list[str]] = field(default_factory=dict)
     void: set[tuple[int, int]] = field(default_factory=set)  # passable tiles counted as solid
+    # The material painted on each tile's ground in the chunk's 3D model (see ground.py), None where unknown.
+    ground: list[list[str | None]] = field(default_factory=list)
+
+    def ground_kind(self, x: int, y: int) -> str | None:
+        return ground.kind(self.ground[y][x]) if self.ground else None
 
     def symbol(self, x: int, y: int) -> str:
         a = self.attrs[y][x]
         if a is None:
             return " "
-        return "#" if (x, y) in self.void else symbol_for(a)
+        if (x, y) in self.void:
+            return "#"
+        sym = symbol_for(a)
+        # Plain walkable ground painted as a path is "p": it walks like ".", and drafts draw it as a path.
+        if sym == "." and self.ground_kind(x, y) == "path":
+            return "p"
+        return sym
 
     def solidify_unreachable(self) -> int:
         """Count every passable tile that no warp leads to as solid; return how many.
@@ -464,6 +478,7 @@ class Reference:
             "height": self.height,
             "origin": list(self.origin),
             "grid": self.grid(),
+            "ground": self.ground,
             "behaviors": [[None if a is None else tile_behaviors().get(a & BEHAVIOR_MASK, hex(a & BEHAVIOR_MASK)) for a in row] for row in self.attrs],
             "collision": [[None if a is None else int(bool(a & COLLISION_BIT)) for a in row] for row in self.attrs],
             "warps": self.warps,
@@ -475,18 +490,31 @@ class Reference:
         }
 
 
+@lru_cache(maxsize=64)
+def _chunk_ground(model: bytes) -> tuple[tuple[str | None, ...], ...]:
+    """A chunk's ground materials (ground.py), cached since neighbouring maps share chunks."""
+    try:
+        return tuple(tuple(row) for row in ground.ground_materials(model))
+    except (struct.error, IndexError, UnicodeDecodeError):
+        return tuple((None,) * CHUNK for _ in range(CHUNK))
+
+
 def _strip(name: str) -> str:
     return name.strip().rstrip(",")
 
 
 def load(query: str) -> Reference:
-    header = find_header(query)
-    info = headers()[header]
-    matrix_id = _strip(info["mapMatrixID"])
-    events_id = _strip(info.get("eventsArchiveID", "events_empty"))
+    """One Platinum map, or several side by side in one matrix joined with '+'
+    ("ROUTE_201+VERITY_LAKEFRONT"), as a single reference with all their events."""
+    parts = [find_header(q) for q in query.split("+")]
+    header = "+".join(parts)
+    infos = [headers()[h] for h in parts]
+    matrix_id = _strip(infos[0]["mapMatrixID"])
+    if any(_strip(i["mapMatrixID"]) != matrix_id for i in infos):
+        raise SystemExit(f"error: {header} aren't in one matrix, so they can't be joined")
+    events_paths = [f"res/field/events/{_strip(i.get('eventsArchiveID', 'events_empty'))}.json" for i in infos]
     matrix_path = f"res/field/matrices/{matrix_id}.json"
-    events_path = f"res/field/events/{events_id}.json"
-    root = ensure(matrix_path, events_path)
+    root = ensure(matrix_path, *events_paths)
     matrix = json.loads((root / matrix_path).read_text())
     grid_maps = matrix["maps"]
     grid_headers = matrix.get("headers") or []
@@ -495,7 +523,7 @@ def load(query: str) -> Reference:
     def owns(r, c):
         if grid_maps[r][c] == "MAP_NONE":
             return False
-        return grid_headers[r][c] == header if grid_headers else True
+        return grid_headers[r][c] in parts if grid_headers else True
 
     chunks = [(r, c) for r in range(rows) for c in range(cols) if owns(r, c)]
     if not chunks:
@@ -507,15 +535,19 @@ def load(query: str) -> Reference:
 
     ensure(*{_land_path(grid_maps[r][c]) for r, c in chunks})
     attrs: list[list[int | None]] = [[None] * width for _ in range(height)]
+    ground_grid: list[list[str | None]] = [[None] * width for _ in range(height)]
     props: list[Prop] = []
     names = prop_model_names()
     for r, c in chunks:
         raw = (root / _land_path(grid_maps[r][c])).read_bytes()
-        attr_size, prop_size, _, _ = struct.unpack("<4I", raw[:16])
+        attr_size, prop_size, model_size, _ = struct.unpack("<4I", raw[:16])
         tiles = struct.unpack(f"<{attr_size // 2}H", raw[16 : 16 + attr_size])
         bx, by = (c - c0) * CHUNK, (r - r0) * CHUNK
         for i, a in enumerate(tiles):
             attrs[by + i // CHUNK][bx + i % CHUNK] = a
+        model_at = 16 + attr_size + prop_size
+        for y, row in enumerate(_chunk_ground(raw[model_at : model_at + model_size])):
+            ground_grid[by + y][bx : bx + CHUNK] = row
         base = 16 + attr_size
         for off in range(base, base + prop_size, 48):
             model, px, py, pz = struct.unpack("<i3i", raw[off : off + 16])
@@ -525,7 +557,11 @@ def load(query: str) -> Reference:
             name = names[model] if 0 <= model < len(names) else "?"
             props.append(Prop(model, name, round(tx, 2), round(ty, 2), round(py / FX32_ONE / TILE_UNITS, 2)))
 
-    events = json.loads((root / events_path).read_text())
+    events: dict[str, list] = {}
+    for path in events_paths:
+        for kind, items in json.loads((root / path).read_text()).items():
+            if isinstance(items, list):
+                events.setdefault(kind, []).extend(items)
 
     def local(e: dict) -> dict:
         out = dict(e)
@@ -537,6 +573,7 @@ def load(query: str) -> Reference:
         return out
 
     ref = Reference(header, matrix_id, width, height, origin, attrs)
+    ref.ground = ground_grid
     ref.warps = [local(e) for e in events.get("warp_events", [])]
     ref.objects = [local(e) for e in events.get("object_events", [])]
     ref.signs = [local(e) for e in events.get("bg_events", [])]
@@ -550,7 +587,7 @@ def load(query: str) -> Reference:
                 rr, cc = r + dr, c + dc
                 if 0 <= rr < rows and 0 <= cc < cols and grid_maps[rr][cc] != "MAP_NONE":
                     other = grid_headers[rr][cc]
-                    if other != header and other.startswith("MAP_HEADER_") and other != "MAP_HEADER_EVERYWHERE":
+                    if other not in parts and other.startswith("MAP_HEADER_") and other != "MAP_HEADER_EVERYWHERE":
                         seen[d].add(other)
         ref.neighbours = {d: sorted(v) for d, v in seen.items() if v}
     return ref

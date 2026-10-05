@@ -52,21 +52,28 @@ MIN_EXAMPLES = 3
 # their cliff faces). Classes not listed only keep their movement.
 STYLES = {
     "route": {
-        "allow": {"grass", "tallgrass", "tree", "water", "ledge", "bridge"},
-        "need": {"#": "tree", ".": "grass", '"': "tallgrass", "Y": "tallgrass", "~": "water", "|": "water",
+        "allow": {"grass", "tallgrass", "tree", "water", "ledge", "bridge", "path"},
+        "need": {"#": "tree", ".": "grass", "p": "path", '"': "tallgrass", "Y": "tallgrass", "~": "water", "|": "water",
                  ",": "water", ":": "sand", "^": "ledge", "v": "ledge", "<": "ledge", ">": "ledge", "=": "bridge"},
         "extra": {"~": {"cliff", "rock", "sand"}, "|": {"cliff"}, ":": {"sand"}, "^": {"cliff"}, "v": {"cliff"},
-                  "<": {"cliff"}, ">": {"cliff"}, "=": {"water", "path"}},
+                  "<": {"cliff"}, ">": {"cliff"}, "=": {"water", "path"},
+                  # Path pieces show the sand or grass at their edges (Littleroot's sand pit).
+                  "p": {"sand", "grass"}},
         # What a cell may fall back on, at a cost, where its own materials can't fit.
         "fallback": {"cliff", "rock", "sand"},
+        # Classes painted with one flat block after the fill: no original map
+        # uses these blocks, so there is nothing to learn their edges from.
+        "flat": {"s": "snow"},
     },
     "town": {
         # No "building": buildings are placed whole beforehand (buildings.py), never pieced together.
         "allow": {"grass", "tallgrass", "flowers", "tree", "water", "ledge", "bridge", "path", "fence", "object"},
-        "need": {"#": None, ".": None, '"': "tallgrass", "~": "water", "=": "bridge",
+        "need": {"#": None, ".": None, "p": "path", '"': "tallgrass", "~": "water", "=": "bridge",
                  "^": "ledge", "v": "ledge", "<": "ledge", ">": "ledge"},
-        "extra": {"~": {"cliff", "rock", "sand"}, "^": {"cliff"}, "v": {"cliff"}, "<": {"cliff"}, ">": {"cliff"}},
+        "extra": {"~": {"cliff", "rock", "sand"}, "^": {"cliff"}, "v": {"cliff"}, "<": {"cliff"}, ">": {"cliff"},
+                  "p": {"sand", "grass"}},
         "fallback": {"cliff", "rock", "sand"},
+        "flat": {"s": "snow"},
     },
     "cave": {
         # Emerald's caves fill solid rock with the cave set's raised floor and edge it with wall
@@ -399,8 +406,30 @@ FLIPPABLE = "#.="        # classes a flexible cell may swap (# and . with each o
 ACCESS_ROUNDS = 4        # rounds of undoing swaps that change access before undoing them all
 
 
+def path_centre(m: Model, family: str | None) -> int | None:
+    """The block the originals put in the middle of a path (path on all eight sides), of `family` if given."""
+    def ok(i: int) -> bool:
+        return m.classes[i] == "p" and (family is None or materials.family(m.materials[i], "path") in (None, family))
+
+    for key in (("n8", "p", "p" * 8), ("n4", "p", "p" * 4), ("c", "p")):
+        counts = [(n, i) for i, n in m.contexts.get(key, {}).items() if ok(i)]
+        if counts:
+            return max(counts)[1]
+    return None
+
+
+def flat_block(m: Model, layout: dict, material: str) -> int | None:
+    """The model index of the first walkable block in the layout's tilesets labelled `material`."""
+    tiles = TilesetPair.for_layout(layout)
+    c = consts()
+    for metatile in tiles.ids():
+        if material in materials.of(tiles, metatile) and GROUP_OF.get(emerald_symbol(tiles, c.pack(metatile, 0, 3))) == "walk":
+            return m.index_of(metatile)
+    return None
+
+
 def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None = "dense",
-         water: str | None = "sea", fixed: dict[tuple[int, int], int] | None = None,
+         water: str | None = "sea", path: str | None = None, fixed: dict[tuple[int, int], int] | None = None,
          flexible: set[tuple[int, int]] | None = None, barriers: set[tuple[int, int]] | None = None,
          ) -> tuple[Blockdata, Counter, list[tuple[int, int]]]:
     """Blocks for a class grid (rows of class characters, ' ' = outside the map).
@@ -416,7 +445,7 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
     Where Platinum's shape can't be built exactly, an area settles on the
     least-bad combination.
 
-    trees/water pick the family the style keeps to (None: any). fixed: blocks
+    trees/water/path pick the family the style keeps to (None: any). fixed: blocks
     already decided (buildings, see buildings.py), by (x, y); they're kept as
     they are, collision and elevation included, and the rest fits around them.
 
@@ -437,7 +466,7 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
     h, w = len(grid), max(len(r) for r in grid)
     rows = [r.ljust(w) for r in grid]
     target = [rows[y][x] if rows[y][x] != " " else OUTSIDE for y in range(h) for x in range(w)]
-    chosen = {"tree": trees, "water": water}
+    chosen = {"tree": trees, "water": water, "path": path}
     spec = STYLES[style]
     family_tags = set().union(*materials.FAMILIES.values())
     tally: Counter = Counter()
@@ -510,7 +539,7 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
     want_group = [GROUP_OF.get(ch, "walk") for ch in target]
 
     # Flexible cells may take the other class too, at a cost (its context as if it were that class).
-    other = {"#": ".", ".": "#", "=": "~"}  # a bridge lane may go back to the water it crosses
+    other = {"#": ".", ".": "#", "p": "#", "=": "~"}  # a bridge lane may go back to the water it crosses
     alt_ctx: dict[int, dict[int, float]] = {}
 
     def make_flexible(i: int) -> None:
@@ -685,9 +714,67 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
         settle()
     tally["flipped"] = sum(1 for i in free if GROUP_OF.get(m.classes[assign[i]], "walk") != want_group[i])
 
-    seams = [(i % w, i // w) for i in range(w * h) if seam(i)]
+    # A path one tile thick has no room for edge pieces, so it's drawn with the
+    # path's middle block alone (the originals' block with path all round).
+    centre = path_centre(m, chosen["path"])
+    if centre is not None:
+        def is_path(x, y):
+            return 0 <= x < w and 0 <= y < h and target[y * w + x] == "p"
+
+        thin = set()
+        for i in range(w * h):
+            x, y = i % w, i // w
+            if target[i] != "p" or i in pinned or GROUP_OF.get(m.classes[assign[i]], "walk") != "walk":
+                continue
+            # No path on either side across it, one way or the other.
+            if not (is_path(x - 1, y) or is_path(x + 1, y)) or not (is_path(x, y - 1) or is_path(x, y + 1)):
+                assign[i] = centre
+                thin.add(i)
+        tally["thin_path"] = len(thin)
+        # Where a thin path meets a wider one, the wider one's edge piece would close it off:
+        # re-pick those cells from the path blocks that sit best beside their actual neighbours.
+        options = [b for b in range(len(m.blocks)) if m.classes[b] == "p"
+                   and (chosen["path"] is None or materials.family(m.materials[b], "path") in (None, chosen["path"]))]
+        side = [(d, DIRS[d]) for d in sorted(HARD)]
+
+        def fit(i: int, b: int) -> float:
+            x, y = i % w, i // w
+            total = 0.0
+            for d, (dx, dy) in side:
+                if 0 <= x + dx < w and 0 <= y + dy < h:
+                    n = m.pairs[d].get((b, assign[(y + dy) * w + x + dx]), 0)
+                    total += 10.0 if n == 0 else -math.log(1 + n)
+            return total
+
+        for i in range(w * h):
+            x, y = i % w, i // w
+            if target[i] != "p" or i in thin or i in pinned:
+                continue
+            if any(0 <= x + dx < w and 0 <= y + dy < h and (y + dy) * w + x + dx in thin for _, (dx, dy) in side):
+                best = min(options, key=lambda b: (fit(i, b), b != assign[i]))
+                if fit(i, best) < fit(i, assign[i]):
+                    assign[i] = best
+
+    # Flat classes (snow) take their one block wherever they're still walkable. They're
+    # chosen, not learned, so they don't count as off-style or as seams.
+    painted = set()
+    for ch, material in spec.get("flat", {}).items():
+        block = flat_block(m, layout, material)
+        if block is None:
+            continue
+        for i in range(w * h):
+            if target[i] == ch and i not in pinned and GROUP_OF.get(m.classes[assign[i]], "walk") == "walk":
+                assign[i] = block
+                painted.add(i)
+                tally[material] += 1
+
+    def painted_seam(i: int) -> bool:
+        return any(d in HARD and n not in painted and not m.pairs[d].get((assign[i], assign[n]))
+                   and not (i in pinned and n in pinned) for d, n in neighbours[i])
+
+    seams = [(i % w, i // w) for i in range(w * h) if i not in painted and painted_seam(i)]
     tally["seams"] = len(seams)
-    tally["off_style"] = sum(1 for i in free if assign[i] not in pref[i])
+    tally["off_style"] = sum(1 for i in free if assign[i] not in pref[i] and i not in painted)
 
     from blueprint import default_attrs
 

@@ -87,7 +87,9 @@
 0x0AF       path            # stone steps
 0x0B0-0x0B2 water cliff     # pond with rock rim
 0x0B3       water           # waterfall
-0x0B4-0x0B7 cliff
+0x0B4       cliff
+0x0B5       snow            # the sand pit's texture in palette 5's whites, with sand's footprints (was an unused cliff)
+0x0B6-0x0B7 cliff
 0x0B8-0x0BC water cliff
 0x0BD       rock            # boulder
 0x0BE-0x0BF cliff
@@ -132,17 +134,17 @@
 0x110-0x112 path
 0x113-0x115 grass path
 0x116-0x117 cliff grass
-0x118-0x11A sand grass
+0x118-0x11A sand grass path  # sand pit: Littleroot's sandy paths
 0x11B       water sand
 0x11C       sand
 0x11D       water sand
 0x11E-0x11F cliff sand      # ledges
-0x120-0x122 sand
+0x120-0x122 sand path
 0x123       water sand
 0x124       sand
 0x125       water sand
 0x126-0x127 cliff sand      # ledges
-0x128-0x12A sand grass
+0x128-0x12A sand grass path
 0x12B-0x12D water sand
 0x12E-0x12F cliff tree
 0x130-0x131 object          # Gym sign

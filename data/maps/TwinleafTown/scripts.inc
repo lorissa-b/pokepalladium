@@ -77,7 +77,7 @@ TwinleafTown_EventScript_MoveMomToMaysDoor::
 
 TwinleafTown_EventScript_SetTwinPos::
 	goto_if_eq VAR_TWINLEAF_TOWN_STATE, 0, TwinleafTown_EventScript_SetTwinGuardingRoutePos
-	setobjectxyperm LOCALID_TWINLEAF_TWIN, 10, 1
+	setobjectxyperm LOCALID_TWINLEAF_TWIN, 11, 1
 	setobjectmovementtype LOCALID_TWINLEAF_TWIN, MOVEMENT_TYPE_FACE_UP
 	return
 
@@ -92,20 +92,20 @@ TwinleafTown_OnFrame:
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, TwinleafTown_EventScript_BeginDexUpgradeScene
 	.2byte 0
 
-@ Brendan's house door is at 3, 10. The rival runs out of it and slams into the player.
+@ Brendan's house door is at 4, 8. The rival runs out of it and slams into the player.
 TwinleafTown_EventScript_RivalBumpsIntoPlayer::
 	lockall
 	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
-	setobjectxyperm LOCALID_TWINLEAF_RIVAL, 3, 10
+	setobjectxyperm LOCALID_TWINLEAF_RIVAL, 4, 8
 	setobjectmovementtype LOCALID_TWINLEAF_RIVAL, MOVEMENT_TYPE_FACE_DOWN
-	opendoor 3, 10
+	opendoor 4, 8
 	waitdooranim
 	addobject LOCALID_TWINLEAF_RIVAL
 	playse SE_WALL_HIT
 	applymovement LOCALID_TWINLEAF_RIVAL, TwinleafTown_Movement_RivalRushOutOfHouse
 	applymovement LOCALID_PLAYER, TwinleafTown_Movement_PlayerKnockedBack
 	waitmovement 0
-	closedoor 3, 10
+	closedoor 4, 8
 	waitdooranim
 	playse SE_PIN
 	applywaitmovement LOCALID_TWINLEAF_RIVAL, Common_Movement_ExclamationMark
@@ -128,39 +128,27 @@ TwinleafTown_EventScript_SetMetRival::
 	setvar VAR_TWINLEAF_TOWN_STATE, 1
 	return
 
-@ Leaving town at the north exit (x 7-12, y 1) before meeting the rival.
+@ Leaving town at the north exit (x 9-12, y 0) before meeting the rival.
 @ The rival runs up from behind and heads to Route 201 with the player.
-TwinleafTown_EventScript_RivalCatchesUpTriggerWest::
-	lockall
-	setvar VAR_0x8009, 7
-	goto TwinleafTown_EventScript_RivalCatchesUp
-	end
-
 TwinleafTown_EventScript_RivalCatchesUpTrigger0::
-	lockall
-	setvar VAR_0x8009, 8
-	goto TwinleafTown_EventScript_RivalCatchesUp
-	end
-
-TwinleafTown_EventScript_RivalCatchesUpTrigger1::
 	lockall
 	setvar VAR_0x8009, 9
 	goto TwinleafTown_EventScript_RivalCatchesUp
 	end
 
-TwinleafTown_EventScript_RivalCatchesUpTrigger2::
+TwinleafTown_EventScript_RivalCatchesUpTrigger1::
 	lockall
 	setvar VAR_0x8009, 10
 	goto TwinleafTown_EventScript_RivalCatchesUp
 	end
 
-TwinleafTown_EventScript_RivalCatchesUpTrigger3::
+TwinleafTown_EventScript_RivalCatchesUpTrigger2::
 	lockall
 	setvar VAR_0x8009, 11
 	goto TwinleafTown_EventScript_RivalCatchesUp
 	end
 
-TwinleafTown_EventScript_RivalCatchesUpTriggerEast::
+TwinleafTown_EventScript_RivalCatchesUpTrigger3::
 	lockall
 	setvar VAR_0x8009, 12
 	goto TwinleafTown_EventScript_RivalCatchesUp
@@ -171,7 +159,7 @@ TwinleafTown_EventScript_RivalCatchesUp::
 	closemessage
 	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
 	@ Start just off screen, below the player
-	setobjectxyperm LOCALID_TWINLEAF_RIVAL, VAR_0x8009, 7
+	setobjectxyperm LOCALID_TWINLEAF_RIVAL, VAR_0x8009, 6
 	setobjectmovementtype LOCALID_TWINLEAF_RIVAL, MOVEMENT_TYPE_FACE_UP
 	addobject LOCALID_TWINLEAF_RIVAL
 	applywaitmovement LOCALID_TWINLEAF_RIVAL, TwinleafTown_Movement_RivalRunUpBehindPlayer

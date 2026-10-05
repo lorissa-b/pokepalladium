@@ -69,13 +69,13 @@
     {
       "id": "HEAL_LOCATION_TWINLEAF_TOWN_LUCAS_HOUSE",
       "map": "MAP_TWINLEAF_TOWN",
-      "x": 3,
-      "y": 11
+      "x": 4,
+      "y": 9
     },
     {
       "id": "HEAL_LOCATION_TWINLEAF_TOWN_DAWN_HOUSE",
       "map": "MAP_TWINLEAF_TOWN",
-      "x": 14,
+      "x": 15,
       "y": 19
     },
     {

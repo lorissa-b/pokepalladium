@@ -441,16 +441,11 @@
               {
                 "min_level": 2,
                 "max_level": 2,
-                "species": "SPECIES_BIDOOF"
+                "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 2,
                 "max_level": 2,
-                "species": "SPECIES_STARLY"
-              },
-              {
-                "min_level": 3,
-                "max_level": 3,
                 "species": "SPECIES_BIDOOF"
               },
               {
@@ -459,19 +454,9 @@
                 "species": "SPECIES_STARLY"
               },
               {
-                "min_level": 2,
-                "max_level": 2,
-                "species": "SPECIES_LEDYBA"
-              },
-              {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_HOPPIP"
-              },
-              {
-                "min_level": 3,
-                "max_level": 3,
-                "species": "SPECIES_LEDYBA"
+                "species": "SPECIES_BIDOOF"
               },
               {
                 "min_level": 2,
@@ -481,7 +466,7 @@
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_HOPPIP"
+                "species": "SPECIES_LEDYBA"
               },
               {
                 "min_level": 3,
@@ -489,14 +474,29 @@
                 "species": "SPECIES_KRICKETOT"
               },
               {
-                "min_level": 4,
-                "max_level": 4,
-                "species": "SPECIES_BIDOOF"
+                "min_level": 2,
+                "max_level": 2,
+                "species": "SPECIES_HOPPIP"
+              },
+              {
+                "min_level": 3,
+                "max_level": 3,
+                "species": "SPECIES_LEDYBA"
+              },
+              {
+                "min_level": 3,
+                "max_level": 3,
+                "species": "SPECIES_HOPPIP"
               },
               {
                 "min_level": 4,
                 "max_level": 4,
                 "species": "SPECIES_STARLY"
+              },
+              {
+                "min_level": 4,
+                "max_level": 4,
+                "species": "SPECIES_BIDOOF"
               }
             ]
           }
@@ -510,16 +510,11 @@
               {
                 "min_level": 2,
                 "max_level": 2,
-                "species": "SPECIES_BIDOOF"
+                "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 2,
                 "max_level": 2,
-                "species": "SPECIES_STARLY"
-              },
-              {
-                "min_level": 3,
-                "max_level": 3,
                 "species": "SPECIES_BIDOOF"
               },
               {
@@ -528,19 +523,9 @@
                 "species": "SPECIES_STARLY"
               },
               {
-                "min_level": 2,
-                "max_level": 2,
-                "species": "SPECIES_CATERPIE"
-              },
-              {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_SUNKERN"
-              },
-              {
-                "min_level": 3,
-                "max_level": 3,
-                "species": "SPECIES_CATERPIE"
+                "species": "SPECIES_BIDOOF"
               },
               {
                 "min_level": 2,
@@ -550,7 +535,7 @@
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_SUNKERN"
+                "species": "SPECIES_CATERPIE"
               },
               {
                 "min_level": 3,
@@ -558,14 +543,29 @@
                 "species": "SPECIES_KRICKETOT"
               },
               {
-                "min_level": 4,
-                "max_level": 4,
-                "species": "SPECIES_BIDOOF"
+                "min_level": 2,
+                "max_level": 2,
+                "species": "SPECIES_SUNKERN"
+              },
+              {
+                "min_level": 3,
+                "max_level": 3,
+                "species": "SPECIES_CATERPIE"
+              },
+              {
+                "min_level": 3,
+                "max_level": 3,
+                "species": "SPECIES_SUNKERN"
               },
               {
                 "min_level": 4,
                 "max_level": 4,
                 "species": "SPECIES_STARLY"
+              },
+              {
+                "min_level": 4,
+                "max_level": 4,
+                "species": "SPECIES_BIDOOF"
               }
             ]
           }
@@ -579,37 +579,22 @@
               {
                 "min_level": 2,
                 "max_level": 2,
-                "species": "SPECIES_RATTATA"
+                "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 2,
                 "max_level": 2,
-                "species": "SPECIES_HOOTHOOT"
+                "species": "SPECIES_BIDOOF"
               },
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_RATTATA"
+                "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_HOOTHOOT"
-              },
-              {
-                "min_level": 2,
-                "max_level": 2,
-                "species": "SPECIES_SPINARAK"
-              },
-              {
-                "min_level": 3,
-                "max_level": 3,
-                "species": "SPECIES_HOPPIP"
-              },
-              {
-                "min_level": 3,
-                "max_level": 3,
-                "species": "SPECIES_SPINARAK"
+                "species": "SPECIES_BIDOOF"
               },
               {
                 "min_level": 2,
@@ -619,7 +604,7 @@
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_HOPPIP"
+                "species": "SPECIES_SPINARAK"
               },
               {
                 "min_level": 3,
@@ -627,14 +612,29 @@
                 "species": "SPECIES_KRICKETOT"
               },
               {
-                "min_level": 4,
-                "max_level": 4,
-                "species": "SPECIES_RATTATA"
+                "min_level": 2,
+                "max_level": 2,
+                "species": "SPECIES_ODDISH"
+              },
+              {
+                "min_level": 3,
+                "max_level": 3,
+                "species": "SPECIES_SPINARAK"
+              },
+              {
+                "min_level": 3,
+                "max_level": 3,
+                "species": "SPECIES_ODDISH"
               },
               {
                 "min_level": 4,
                 "max_level": 4,
-                "species": "SPECIES_HOOTHOOT"
+                "species": "SPECIES_STARLY"
+              },
+              {
+                "min_level": 4,
+                "max_level": 4,
+                "species": "SPECIES_BIDOOF"
               }
             ]
           }
@@ -673,7 +673,7 @@
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_SKITTY"
+                "species": "SPECIES_WEEDLE"
               },
               {
                 "min_level": 3,
@@ -688,7 +688,7 @@
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_SKITTY"
+                "species": "SPECIES_WEEDLE"
               },
               {
                 "min_level": 3,
@@ -1083,12 +1083,12 @@
               {
                 "min_level": 2,
                 "max_level": 3,
-                "species": "SPECIES_PACHIRISU"
+                "species": "SPECIES_KRICKETOT"
               },
               {
                 "min_level": 2,
                 "max_level": 3,
-                "species": "SPECIES_LEDYBA"
+                "species": "SPECIES_PACHIRISU"
               },
               {
                 "min_level": 3,
@@ -1103,22 +1103,22 @@
               {
                 "min_level": 3,
                 "max_level": 4,
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 3,
+                "max_level": 4,
                 "species": "SPECIES_PACHIRISU"
               },
               {
                 "min_level": 3,
-                "max_level": 4,
-                "species": "SPECIES_LEDYBA"
-              },
-              {
-                "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_KRICKETOT"
+                "species": "SPECIES_LEDYBA"
               },
               {
                 "min_level": 4,
                 "max_level": 4,
-                "species": "SPECIES_KRICKETOT"
+                "species": "SPECIES_LEDYBA"
               },
               {
                 "min_level": 4,
@@ -1152,7 +1152,7 @@
               {
                 "min_level": 2,
                 "max_level": 3,
-                "species": "SPECIES_CATERPIE"
+                "species": "SPECIES_KRICKETOT"
               },
               {
                 "min_level": 2,
@@ -1172,7 +1172,7 @@
               {
                 "min_level": 3,
                 "max_level": 4,
-                "species": "SPECIES_CATERPIE"
+                "species": "SPECIES_KRICKETOT"
               },
               {
                 "min_level": 3,
@@ -1182,12 +1182,12 @@
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_KRICKETOT"
+                "species": "SPECIES_CATERPIE"
               },
               {
                 "min_level": 4,
                 "max_level": 4,
-                "species": "SPECIES_KRICKETOT"
+                "species": "SPECIES_CATERPIE"
               },
               {
                 "min_level": 4,
@@ -1211,17 +1211,17 @@
               {
                 "min_level": 2,
                 "max_level": 3,
-                "species": "SPECIES_RATTATA"
+                "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 2,
                 "max_level": 3,
-                "species": "SPECIES_HOOTHOOT"
+                "species": "SPECIES_BIDOOF"
               },
               {
                 "min_level": 2,
                 "max_level": 3,
-                "species": "SPECIES_SPINARAK"
+                "species": "SPECIES_KRICKETOT"
               },
               {
                 "min_level": 2,
@@ -1231,17 +1231,17 @@
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_RATTATA"
+                "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_HOOTHOOT"
+                "species": "SPECIES_BIDOOF"
               },
               {
                 "min_level": 3,
                 "max_level": 4,
-                "species": "SPECIES_SPINARAK"
+                "species": "SPECIES_KRICKETOT"
               },
               {
                 "min_level": 3,
@@ -1251,22 +1251,22 @@
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_KRICKETOT"
+                "species": "SPECIES_SPINARAK"
               },
               {
                 "min_level": 4,
                 "max_level": 4,
-                "species": "SPECIES_KRICKETOT"
+                "species": "SPECIES_SPINARAK"
               },
               {
                 "min_level": 4,
                 "max_level": 4,
-                "species": "SPECIES_RATTATA"
+                "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 4,
                 "max_level": 4,
-                "species": "SPECIES_HOOTHOOT"
+                "species": "SPECIES_BIDOOF"
               }
             ]
           }
@@ -1290,12 +1290,12 @@
               {
                 "min_level": 2,
                 "max_level": 3,
-                "species": "SPECIES_SHINX"
+                "species": "SPECIES_KRICKETOT"
               },
               {
                 "min_level": 2,
                 "max_level": 3,
-                "species": "SPECIES_KRICKETOT"
+                "species": "SPECIES_SHINX"
               },
               {
                 "min_level": 3,
@@ -1310,22 +1310,22 @@
               {
                 "min_level": 3,
                 "max_level": 4,
-                "species": "SPECIES_SHINX"
-              },
-              {
-                "min_level": 3,
-                "max_level": 4,
                 "species": "SPECIES_KRICKETOT"
               },
               {
                 "min_level": 3,
+                "max_level": 4,
+                "species": "SPECIES_SHINX"
+              },
+              {
+                "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_MEOWTH"
+                "species": "SPECIES_WEEDLE"
               },
               {
                 "min_level": 4,
                 "max_level": 4,
-                "species": "SPECIES_MEOWTH"
+                "species": "SPECIES_WEEDLE"
               },
               {
                 "min_level": 4,
@@ -1354,17 +1354,12 @@
               {
                 "min_level": 4,
                 "max_level": 4,
-                "species": "SPECIES_SHINX"
+                "species": "SPECIES_BIDOOF"
               },
               {
                 "min_level": 5,
                 "max_level": 5,
                 "species": "SPECIES_STARLY"
-              },
-              {
-                "min_level": 4,
-                "max_level": 4,
-                "species": "SPECIES_BIDOOF"
               },
               {
                 "min_level": 5,
@@ -1374,7 +1369,27 @@
               {
                 "min_level": 4,
                 "max_level": 4,
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 4,
+                "max_level": 4,
+                "species": "SPECIES_PACHIRISU"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 4,
+                "max_level": 4,
                 "species": "SPECIES_ABRA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_PACHIRISU"
               },
               {
                 "min_level": 5,
@@ -1382,27 +1397,12 @@
                 "species": "SPECIES_ABRA"
               },
               {
-                "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_SHINX"
-              },
-              {
                 "min_level": 6,
-                "max_level": 6,
-                "species": "SPECIES_STARLY"
-              },
-              {
-                "min_level": 6,
-                "max_level": 6,
-                "species": "SPECIES_BIDOOF"
-              },
-              {
-                "min_level": 7,
                 "max_level": 7,
                 "species": "SPECIES_STARLY"
               },
               {
-                "min_level": 7,
+                "min_level": 6,
                 "max_level": 7,
                 "species": "SPECIES_BIDOOF"
               }
@@ -1508,17 +1508,12 @@
               {
                 "min_level": 4,
                 "max_level": 4,
-                "species": "SPECIES_SHINX"
+                "species": "SPECIES_BIDOOF"
               },
               {
                 "min_level": 5,
                 "max_level": 5,
                 "species": "SPECIES_STARLY"
-              },
-              {
-                "min_level": 4,
-                "max_level": 4,
-                "species": "SPECIES_BIDOOF"
               },
               {
                 "min_level": 5,
@@ -1528,11 +1523,21 @@
               {
                 "min_level": 4,
                 "max_level": 4,
-                "species": "SPECIES_ABRA"
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 4,
+                "max_level": 4,
+                "species": "SPECIES_SHINX"
               },
               {
                 "min_level": 5,
                 "max_level": 5,
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 4,
+                "max_level": 4,
                 "species": "SPECIES_ABRA"
               },
               {
@@ -1541,22 +1546,17 @@
                 "species": "SPECIES_SHINX"
               },
               {
-                "min_level": 6,
-                "max_level": 6,
-                "species": "SPECIES_STARLY"
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_ABRA"
               },
               {
                 "min_level": 6,
-                "max_level": 6,
-                "species": "SPECIES_BIDOOF"
-              },
-              {
-                "min_level": 7,
                 "max_level": 7,
                 "species": "SPECIES_STARLY"
               },
               {
-                "min_level": 7,
+                "min_level": 6,
                 "max_level": 7,
                 "species": "SPECIES_BIDOOF"
               }
@@ -1662,7 +1662,27 @@
               {
                 "min_level": 4,
                 "max_level": 4,
-                "species": "SPECIES_SHINX"
+                "species": "SPECIES_BIDOOF"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_STARLY"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_BIDOOF"
+              },
+              {
+                "min_level": 4,
+                "max_level": 4,
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 4,
+                "max_level": 4,
+                "species": "SPECIES_PACHIRISU"
               },
               {
                 "min_level": 5,
@@ -1672,17 +1692,12 @@
               {
                 "min_level": 4,
                 "max_level": 4,
-                "species": "SPECIES_ZUBAT"
+                "species": "SPECIES_ABRA"
               },
               {
                 "min_level": 5,
                 "max_level": 5,
-                "species": "SPECIES_BIDOOF"
-              },
-              {
-                "min_level": 4,
-                "max_level": 4,
-                "species": "SPECIES_ABRA"
+                "species": "SPECIES_PACHIRISU"
               },
               {
                 "min_level": 5,
@@ -1690,27 +1705,12 @@
                 "species": "SPECIES_ABRA"
               },
               {
-                "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_SHINX"
-              },
-              {
                 "min_level": 6,
-                "max_level": 6,
-                "species": "SPECIES_STARLY"
-              },
-              {
-                "min_level": 6,
-                "max_level": 6,
-                "species": "SPECIES_BIDOOF"
-              },
-              {
-                "min_level": 7,
                 "max_level": 7,
                 "species": "SPECIES_STARLY"
               },
               {
-                "min_level": 7,
+                "min_level": 6,
                 "max_level": 7,
                 "species": "SPECIES_BIDOOF"
               }
@@ -1811,7 +1811,27 @@
               {
                 "min_level": 4,
                 "max_level": 4,
-                "species": "SPECIES_STARLY"
+                "species": "SPECIES_RATTATA"
+              },
+              {
+                "min_level": 4,
+                "max_level": 4,
+                "species": "SPECIES_HOOTHOOT"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_RATTATA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_HOOTHOOT"
+              },
+              {
+                "min_level": 4,
+                "max_level": 4,
+                "species": "SPECIES_KRICKETOT"
               },
               {
                 "min_level": 4,
@@ -1826,21 +1846,6 @@
               {
                 "min_level": 4,
                 "max_level": 4,
-                "species": "SPECIES_ZUBAT"
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_BIDOOF"
-              },
-              {
-                "min_level": 4,
-                "max_level": 4,
-                "species": "SPECIES_ABRA"
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
                 "species": "SPECIES_ABRA"
               },
               {
@@ -1849,24 +1854,19 @@
                 "species": "SPECIES_SHINX"
               },
               {
-                "min_level": 6,
-                "max_level": 6,
-                "species": "SPECIES_STARLY"
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_ABRA"
               },
               {
                 "min_level": 6,
-                "max_level": 6,
-                "species": "SPECIES_BIDOOF"
+                "max_level": 7,
+                "species": "SPECIES_RATTATA"
               },
               {
-                "min_level": 7,
+                "min_level": 6,
                 "max_level": 7,
-                "species": "SPECIES_STARLY"
-              },
-              {
-                "min_level": 7,
-                "max_level": 7,
-                "species": "SPECIES_BIDOOF"
+                "species": "SPECIES_HOOTHOOT"
               }
             ]
           },
@@ -4961,62 +4961,62 @@
               {
                 "min_level": 4,
                 "max_level": 5,
-                "species": "SPECIES_LEDYBA"
-              },
-              {
-                "min_level": 4,
-                "max_level": 5,
                 "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 4,
                 "max_level": 5,
-                "species": "SPECIES_BUDEW"
+                "species": "SPECIES_BIDOOF"
+              },
+              {
+                "min_level": 5,
+                "max_level": 6,
+                "species": "SPECIES_STARLY"
+              },
+              {
+                "min_level": 5,
+                "max_level": 6,
+                "species": "SPECIES_BIDOOF"
               },
               {
                 "min_level": 4,
                 "max_level": 5,
-                "species": "SPECIES_BIDOOF"
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 4,
+                "max_level": 5,
+                "species": "SPECIES_PACHIRISU"
               },
               {
                 "min_level": 5,
                 "max_level": 6,
-                "species": "SPECIES_BUDEW"
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 4,
+                "max_level": 5,
+                "species": "SPECIES_HOPPIP"
               },
               {
                 "min_level": 5,
                 "max_level": 6,
-                "species": "SPECIES_BIDOOF"
+                "species": "SPECIES_PACHIRISU"
               },
               {
                 "min_level": 5,
                 "max_level": 6,
-                "species": "SPECIES_SHINX"
-              },
-              {
-                "min_level": 5,
-                "max_level": 6,
-                "species": "SPECIES_SHINX"
+                "species": "SPECIES_HOPPIP"
               },
               {
                 "min_level": 6,
-                "max_level": 6,
-                "species": "SPECIES_SHINX"
+                "max_level": 7,
+                "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 6,
-                "max_level": 6,
-                "species": "SPECIES_SHINX"
-              },
-              {
-                "min_level": 7,
                 "max_level": 7,
-                "species": "SPECIES_SHINX"
-              },
-              {
-                "min_level": 7,
-                "max_level": 7,
-                "species": "SPECIES_SHINX"
+                "species": "SPECIES_BIDOOF"
               }
             ]
           },
@@ -5115,62 +5115,62 @@
               {
                 "min_level": 4,
                 "max_level": 5,
-                "species": "SPECIES_CATERPIE"
-              },
-              {
-                "min_level": 4,
-                "max_level": 5,
                 "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 4,
                 "max_level": 5,
-                "species": "SPECIES_CHERUBI"
+                "species": "SPECIES_BIDOOF"
+              },
+              {
+                "min_level": 5,
+                "max_level": 6,
+                "species": "SPECIES_STARLY"
+              },
+              {
+                "min_level": 5,
+                "max_level": 6,
+                "species": "SPECIES_BIDOOF"
               },
               {
                 "min_level": 4,
                 "max_level": 5,
-                "species": "SPECIES_BIDOOF"
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 4,
+                "max_level": 5,
+                "species": "SPECIES_SHINX"
               },
               {
                 "min_level": 5,
                 "max_level": 6,
-                "species": "SPECIES_CHERUBI"
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 4,
+                "max_level": 5,
+                "species": "SPECIES_SUNKERN"
               },
               {
                 "min_level": 5,
                 "max_level": 6,
-                "species": "SPECIES_BIDOOF"
+                "species": "SPECIES_SHINX"
               },
               {
                 "min_level": 5,
                 "max_level": 6,
-                "species": "SPECIES_MAREEP"
-              },
-              {
-                "min_level": 5,
-                "max_level": 6,
-                "species": "SPECIES_MAREEP"
+                "species": "SPECIES_SUNKERN"
               },
               {
                 "min_level": 6,
-                "max_level": 6,
-                "species": "SPECIES_MAREEP"
+                "max_level": 7,
+                "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 6,
-                "max_level": 6,
-                "species": "SPECIES_MAREEP"
-              },
-              {
-                "min_level": 7,
                 "max_level": 7,
-                "species": "SPECIES_MAREEP"
-              },
-              {
-                "min_level": 7,
-                "max_level": 7,
-                "species": "SPECIES_MAREEP"
+                "species": "SPECIES_BIDOOF"
               }
             ]
           },
@@ -5269,62 +5269,62 @@
               {
                 "min_level": 4,
                 "max_level": 5,
-                "species": "SPECIES_WURMPLE"
-              },
-              {
-                "min_level": 4,
-                "max_level": 5,
                 "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 4,
                 "max_level": 5,
-                "species": "SPECIES_BUDEW"
+                "species": "SPECIES_BIDOOF"
+              },
+              {
+                "min_level": 5,
+                "max_level": 6,
+                "species": "SPECIES_STARLY"
+              },
+              {
+                "min_level": 5,
+                "max_level": 6,
+                "species": "SPECIES_BIDOOF"
               },
               {
                 "min_level": 4,
                 "max_level": 5,
-                "species": "SPECIES_BIDOOF"
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 4,
+                "max_level": 5,
+                "species": "SPECIES_PACHIRISU"
               },
               {
                 "min_level": 5,
                 "max_level": 6,
-                "species": "SPECIES_BUDEW"
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 4,
+                "max_level": 5,
+                "species": "SPECIES_ODDISH"
               },
               {
                 "min_level": 5,
                 "max_level": 6,
-                "species": "SPECIES_BIDOOF"
+                "species": "SPECIES_PACHIRISU"
               },
               {
                 "min_level": 5,
                 "max_level": 6,
-                "species": "SPECIES_SHINX"
-              },
-              {
-                "min_level": 5,
-                "max_level": 6,
-                "species": "SPECIES_SHINX"
+                "species": "SPECIES_ODDISH"
               },
               {
                 "min_level": 6,
-                "max_level": 6,
-                "species": "SPECIES_SHINX"
+                "max_level": 7,
+                "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 6,
-                "max_level": 6,
-                "species": "SPECIES_SHINX"
-              },
-              {
-                "min_level": 7,
                 "max_level": 7,
-                "species": "SPECIES_SHINX"
-              },
-              {
-                "min_level": 7,
-                "max_level": 7,
-                "species": "SPECIES_SHINX"
+                "species": "SPECIES_BIDOOF"
               }
             ]
           },
@@ -5423,7 +5423,7 @@
               {
                 "min_level": 4,
                 "max_level": 5,
-                "species": "SPECIES_WEEDLE"
+                "species": "SPECIES_RATTATA"
               },
               {
                 "min_level": 4,
@@ -5431,14 +5431,39 @@
                 "species": "SPECIES_HOOTHOOT"
               },
               {
+                "min_level": 5,
+                "max_level": 6,
+                "species": "SPECIES_RATTATA"
+              },
+              {
+                "min_level": 5,
+                "max_level": 6,
+                "species": "SPECIES_HOOTHOOT"
+              },
+              {
+                "min_level": 4,
+                "max_level": 5,
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 4,
+                "max_level": 5,
+                "species": "SPECIES_SHINX"
+              },
+              {
+                "min_level": 5,
+                "max_level": 6,
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
                 "min_level": 4,
                 "max_level": 5,
                 "species": "SPECIES_ODDISH"
               },
               {
-                "min_level": 4,
-                "max_level": 5,
-                "species": "SPECIES_BIDOOF"
+                "min_level": 5,
+                "max_level": 6,
+                "species": "SPECIES_SHINX"
               },
               {
                 "min_level": 5,
@@ -5446,39 +5471,14 @@
                 "species": "SPECIES_ODDISH"
               },
               {
-                "min_level": 5,
-                "max_level": 6,
-                "species": "SPECIES_BIDOOF"
-              },
-              {
-                "min_level": 5,
-                "max_level": 6,
-                "species": "SPECIES_SHINX"
-              },
-              {
-                "min_level": 5,
-                "max_level": 6,
-                "species": "SPECIES_SHINX"
+                "min_level": 6,
+                "max_level": 7,
+                "species": "SPECIES_RATTATA"
               },
               {
                 "min_level": 6,
-                "max_level": 6,
-                "species": "SPECIES_SHINX"
-              },
-              {
-                "min_level": 6,
-                "max_level": 6,
-                "species": "SPECIES_SHINX"
-              },
-              {
-                "min_level": 7,
                 "max_level": 7,
-                "species": "SPECIES_SHINX"
-              },
-              {
-                "min_level": 7,
-                "max_level": 7,
-                "species": "SPECIES_SHINX"
+                "species": "SPECIES_HOOTHOOT"
               }
             ]
           },
@@ -20589,16 +20589,11 @@
               {
                 "min_level": 2,
                 "max_level": 2,
-                "species": "SPECIES_BIDOOF"
+                "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 2,
                 "max_level": 2,
-                "species": "SPECIES_STARLY"
-              },
-              {
-                "min_level": 3,
-                "max_level": 3,
                 "species": "SPECIES_BIDOOF"
               },
               {
@@ -20607,14 +20602,29 @@
                 "species": "SPECIES_STARLY"
               },
               {
+                "min_level": 3,
+                "max_level": 3,
+                "species": "SPECIES_BIDOOF"
+              },
+              {
                 "min_level": 2,
                 "max_level": 2,
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 3,
+                "max_level": 3,
                 "species": "SPECIES_AZURILL"
               },
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_SURSKIT"
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 2,
+                "max_level": 2,
+                "species": "SPECIES_HOPPIP"
               },
               {
                 "min_level": 3,
@@ -20622,29 +20632,19 @@
                 "species": "SPECIES_AZURILL"
               },
               {
-                "min_level": 2,
-                "max_level": 2,
-                "species": "SPECIES_BUDEW"
-              },
-              {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_SURSKIT"
-              },
-              {
-                "min_level": 3,
-                "max_level": 3,
-                "species": "SPECIES_BUDEW"
-              },
-              {
-                "min_level": 4,
-                "max_level": 4,
-                "species": "SPECIES_BIDOOF"
+                "species": "SPECIES_HOPPIP"
               },
               {
                 "min_level": 4,
                 "max_level": 4,
                 "species": "SPECIES_STARLY"
+              },
+              {
+                "min_level": 4,
+                "max_level": 4,
+                "species": "SPECIES_BIDOOF"
               }
             ]
           },
@@ -20743,16 +20743,11 @@
               {
                 "min_level": 2,
                 "max_level": 2,
-                "species": "SPECIES_BIDOOF"
+                "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 2,
                 "max_level": 2,
-                "species": "SPECIES_STARLY"
-              },
-              {
-                "min_level": 3,
-                "max_level": 3,
                 "species": "SPECIES_BIDOOF"
               },
               {
@@ -20761,14 +20756,29 @@
                 "species": "SPECIES_STARLY"
               },
               {
+                "min_level": 3,
+                "max_level": 3,
+                "species": "SPECIES_BIDOOF"
+              },
+              {
                 "min_level": 2,
                 "max_level": 2,
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 3,
+                "max_level": 3,
                 "species": "SPECIES_SURSKIT"
               },
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_BUDEW"
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 2,
+                "max_level": 2,
+                "species": "SPECIES_SUNKERN"
               },
               {
                 "min_level": 3,
@@ -20776,29 +20786,19 @@
                 "species": "SPECIES_SURSKIT"
               },
               {
-                "min_level": 2,
-                "max_level": 2,
-                "species": "SPECIES_LOTAD"
-              },
-              {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_BUDEW"
-              },
-              {
-                "min_level": 3,
-                "max_level": 3,
-                "species": "SPECIES_LOTAD"
-              },
-              {
-                "min_level": 4,
-                "max_level": 4,
-                "species": "SPECIES_BIDOOF"
+                "species": "SPECIES_SUNKERN"
               },
               {
                 "min_level": 4,
                 "max_level": 4,
                 "species": "SPECIES_STARLY"
+              },
+              {
+                "min_level": 4,
+                "max_level": 4,
+                "species": "SPECIES_BIDOOF"
               }
             ]
           },
@@ -20897,32 +20897,42 @@
               {
                 "min_level": 2,
                 "max_level": 2,
-                "species": "SPECIES_RATTATA"
+                "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 2,
                 "max_level": 2,
-                "species": "SPECIES_HOOTHOOT"
+                "species": "SPECIES_BIDOOF"
               },
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_RATTATA"
+                "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_HOOTHOOT"
+                "species": "SPECIES_BIDOOF"
               },
               {
                 "min_level": 2,
                 "max_level": 2,
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 3,
+                "max_level": 3,
                 "species": "SPECIES_WOOPER"
               },
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_LOTAD"
+                "species": "SPECIES_KRICKETOT"
+              },
+              {
+                "min_level": 2,
+                "max_level": 2,
+                "species": "SPECIES_ODDISH"
               },
               {
                 "min_level": 3,
@@ -20930,29 +20940,19 @@
                 "species": "SPECIES_WOOPER"
               },
               {
-                "min_level": 2,
-                "max_level": 2,
-                "species": "SPECIES_SURSKIT"
-              },
-              {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_LOTAD"
-              },
-              {
-                "min_level": 3,
-                "max_level": 3,
-                "species": "SPECIES_SURSKIT"
+                "species": "SPECIES_ODDISH"
               },
               {
                 "min_level": 4,
                 "max_level": 4,
-                "species": "SPECIES_RATTATA"
+                "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 4,
                 "max_level": 4,
-                "species": "SPECIES_HOOTHOOT"
+                "species": "SPECIES_BIDOOF"
               }
             ]
           },
@@ -21071,17 +21071,17 @@
               {
                 "min_level": 2,
                 "max_level": 2,
-                "species": "SPECIES_WOOPER"
-              },
-              {
-                "min_level": 3,
-                "max_level": 3,
-                "species": "SPECIES_POLIWAG"
+                "species": "SPECIES_KRICKETOT"
               },
               {
                 "min_level": 3,
                 "max_level": 3,
                 "species": "SPECIES_WOOPER"
+              },
+              {
+                "min_level": 3,
+                "max_level": 3,
+                "species": "SPECIES_KRICKETOT"
               },
               {
                 "min_level": 2,
@@ -21091,7 +21091,7 @@
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_POLIWAG"
+                "species": "SPECIES_WOOPER"
               },
               {
                 "min_level": 3,

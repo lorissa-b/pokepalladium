@@ -21,22 +21,23 @@ Route201_OnTransition:
 	call_if_eq VAR_ROUTE201_STATE, 4, Route201_EventScript_SetGroupByTwinleafPath
 	end
 
-@ Birch, his assistant and the rival stand just west of the Twinleaf path
+@ Birch, his assistant and the rival wait at the west end of the path to Twinleaf,
+@ where Platinum's Rowan stands
 Route201_EventScript_SetGroupByTwinleafPath::
-	setobjectxyperm LOCALID_ROUTE201_BIRCH, 39, 12
+	setobjectxyperm LOCALID_ROUTE201_BIRCH, 28, 12
 	setobjectmovementtype LOCALID_ROUTE201_BIRCH, MOVEMENT_TYPE_FACE_LEFT
-	setobjectxyperm LOCALID_ROUTE201_ASSISTANT, 40, 12
+	setobjectxyperm LOCALID_ROUTE201_ASSISTANT, 29, 12
 	setobjectmovementtype LOCALID_ROUTE201_ASSISTANT, MOVEMENT_TYPE_FACE_LEFT
-	setobjectxyperm LOCALID_ROUTE201_RIVAL, 38, 11
+	setobjectxyperm LOCALID_ROUTE201_RIVAL, 28, 11
 	setobjectmovementtype LOCALID_ROUTE201_RIVAL, MOVEMENT_TYPE_FACE_LEFT
 	return
 
 Route201_EventScript_SetRivalWaitingByLake::
-	setobjectxyperm LOCALID_ROUTE201_RIVAL, 10, 8
+	setobjectxyperm LOCALID_ROUTE201_RIVAL, 6, 4
 	setobjectmovementtype LOCALID_ROUTE201_RIVAL, MOVEMENT_TYPE_FACE_LEFT
 	return
 
-@ Stepping onto the route from Twinleaf (x 37-42, y 19). The rival waits on the path.
+@ Coming up the path from Twinleaf (x 33-36, y 19). The rival waits on the path at 35, 12.
 Route201_EventScript_RivalDare::
 	lockall
 	applywaitmovement LOCALID_PLAYER, Route201_Movement_PlayerWalkUpPath
@@ -50,7 +51,7 @@ Route201_EventScript_RivalDare::
 	applymovement LOCALID_PLAYER, Route201_Movement_PlayerWatchRivalRunWest
 	waitmovement LOCALID_ROUTE201_RIVAL
 	waitmovement LOCALID_PLAYER
-	setobjectxy LOCALID_ROUTE201_RIVAL, 10, 8
+	setobjectxy LOCALID_ROUTE201_RIVAL, 6, 4
 	call Route201_EventScript_SetRivalWaitingByLake
 	setvar VAR_ROUTE201_STATE, 1
 	releaseall
@@ -65,7 +66,7 @@ Route201_EventScript_Rival::
 	release
 	end
 
-@ Reaching the north gap (x 7-8, y 6). Birch and his assistant come out of it.
+@ Reaching the path into Lake Verity (x 3-4, y 3). Birch and his assistant come out of it.
 Route201_EventScript_MeetBirchTrigger0::
 	lockall
 	setvar VAR_0x8008, 0
@@ -83,7 +84,7 @@ Route201_EventScript_MeetBirch::
 	applywaitmovement LOCALID_ROUTE201_RIVAL, Common_Movement_ExclamationMark
 	msgbox Route201_Text_RivalSomeonesComing, MSGBOX_DEFAULT
 	closemessage
-	@ Step out of the gap: to 6, 7 or 9, 7
+	@ Step out of the way: to 2, 4 or 5, 4
 	call_if_eq VAR_0x8008, 0, Route201_EventScript_PlayerStepAsideLeft
 	call_if_eq VAR_0x8008, 1, Route201_EventScript_PlayerStepAsideRight
 	applywaitmovement LOCALID_ROUTE201_RIVAL, Common_Movement_FaceUp
@@ -110,7 +111,7 @@ Route201_EventScript_MeetBirch::
 	msgbox Route201_Text_BirchHeadBackHome, MSGBOX_DEFAULT
 	msgbox Route201_Text_AssistantTakeCare, MSGBOX_DEFAULT
 	closemessage
-	@ They head east toward Twinleaf: down to y 10, over to x 9, then along y 11
+	@ They head home: south past the lakefront's ledges, then east along y 11
 	applymovement LOCALID_ROUTE201_BIRCH, Route201_Movement_BirchLeave
 	applymovement LOCALID_ROUTE201_ASSISTANT, Route201_Movement_AssistantLeave
 	waitmovement LOCALID_ROUTE201_BIRCH
@@ -141,9 +142,10 @@ Route201_EventScript_RivalFacePlayerLeft::
 	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	return
 
+@ The rival waits at 6, 4, east of the player either way
 Route201_EventScript_RivalFacePlayerRight::
-	applywaitmovement LOCALID_ROUTE201_RIVAL, Common_Movement_WalkInPlaceFasterUp
-	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	applywaitmovement LOCALID_ROUTE201_RIVAL, Common_Movement_FaceLeft
+	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	return
 
 Route201_EventScript_RivalBagIsTheirs::
@@ -151,28 +153,11 @@ Route201_EventScript_RivalBagIsTheirs::
 	release
 	end
 
-@ Coming back from Lake Verity with the bag. The group waits at x 38-40, y 11-12.
-@ VAR_0x8008 picks the row they leave along so they don't walk through the player:
-@ 0 = from the west (x 35), 1 = from the east at 42, 11, 2 = from the east at 42, 12
-Route201_EventScript_ReturnBagFromWest::
-	lockall
-	setvar VAR_0x8008, 0
-	goto Route201_EventScript_ReturnBag
-	end
-
-Route201_EventScript_ReturnBagFromEastTop::
-	lockall
-	setvar VAR_0x8008, 1
-	goto Route201_EventScript_ReturnBag
-	end
-
-Route201_EventScript_ReturnBagFromEastBottom::
-	lockall
-	setvar VAR_0x8008, 2
-	goto Route201_EventScript_ReturnBag
-	end
-
+@ Coming back from Lake Verity with the bag. The group waits at 28-29, 11-12, and
+@ every way east from the lake crosses x 24 (y 8-9 above the ledges, 12-14 below),
+@ so the player is always west of them and they can leave east along y 12.
 Route201_EventScript_ReturnBag::
+	lockall
 	playse SE_PIN
 	applywaitmovement LOCALID_ROUTE201_ASSISTANT, Common_Movement_ExclamationMark
 	applymovement LOCALID_ROUTE201_ASSISTANT, Common_Movement_FacePlayer
@@ -201,8 +186,7 @@ Route201_EventScript_LovesPokemon::
 	msgbox Route201_Text_AssistantSeeYouThere, MSGBOX_DEFAULT
 	closemessage
 	@ Off the right side of the screen, then the rival runs after them
-	call_if_ne VAR_0x8008, 2, Route201_EventScript_GroupLeaveAlongRow12
-	call_if_eq VAR_0x8008, 2, Route201_EventScript_GroupLeaveAlongRow11
+	call Route201_EventScript_GroupLeaveAlongRow12
 	removeobject LOCALID_ROUTE201_BIRCH
 	removeobject LOCALID_ROUTE201_ASSISTANT
 	applywaitmovement LOCALID_ROUTE201_RIVAL, Common_Movement_FacePlayer
@@ -215,8 +199,7 @@ Route201_EventScript_LovesPokemon::
 	special HealPlayerParty
 	msgbox Route201_Text_RivalWaitForMe, MSGBOX_DEFAULT
 	closemessage
-	call_if_ne VAR_0x8008, 2, Route201_EventScript_RivalFollowAlongRow12
-	call_if_eq VAR_0x8008, 2, Route201_EventScript_RivalFollowAlongRow11
+	call Route201_EventScript_RivalFollowAlongRow12
 	removeobject LOCALID_ROUTE201_RIVAL
 	setvar VAR_ROUTE201_STATE, 5
 	releaseall
@@ -279,19 +262,8 @@ Route201_EventScript_GroupLeaveAlongRow12::
 	waitmovement LOCALID_ROUTE201_ASSISTANT
 	return
 
-Route201_EventScript_GroupLeaveAlongRow11::
-	applymovement LOCALID_ROUTE201_BIRCH, Route201_Movement_LeaveRightViaRow11
-	applymovement LOCALID_ROUTE201_ASSISTANT, Route201_Movement_LeaveRightViaRow11
-	waitmovement LOCALID_ROUTE201_BIRCH
-	waitmovement LOCALID_ROUTE201_ASSISTANT
-	return
-
 Route201_EventScript_RivalFollowAlongRow12::
 	applywaitmovement LOCALID_ROUTE201_RIVAL, Route201_Movement_RivalFollowViaRow12
-	return
-
-Route201_EventScript_RivalFollowAlongRow11::
-	applywaitmovement LOCALID_ROUTE201_RIVAL, Route201_Movement_RivalFollowViaRow11
 	return
 
 Route201_Movement_LeaveRight:
@@ -310,43 +282,8 @@ Route201_Movement_LeaveRight:
 	walk_right
 	step_end
 
-Route201_Movement_LeaveRightViaRow11:
-	walk_up
-	walk_right
-	walk_right
-	walk_right
-	walk_right
-	walk_right
-	walk_right
-	walk_right
-	walk_right
-	walk_right
-	walk_right
-	walk_right
-	walk_right
-	walk_right
-	step_end
-
 Route201_Movement_RivalFollowViaRow12:
 	walk_fast_down
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	step_end
-
-Route201_Movement_RivalFollowViaRow11:
-	walk_fast_right
 	walk_fast_right
 	walk_fast_right
 	walk_fast_right
@@ -409,7 +346,6 @@ Route201_Movement_WalkOutOfGap:
 	walk_down
 	walk_down
 	walk_down
-	walk_down
 	step_end
 
 Route201_Movement_BirchLeave:
@@ -418,9 +354,9 @@ Route201_Movement_BirchLeave:
 	walk_down
 	walk_down
 	walk_down
-	walk_right
-	walk_right
 	walk_down
+	walk_down
+	walk_right
 	walk_right
 	walk_right
 	walk_right
@@ -439,9 +375,9 @@ Route201_Movement_AssistantLeave:
 	walk_down
 	walk_down
 	walk_down
-	walk_right
-	walk_right
 	walk_down
+	walk_down
+	walk_right
 	walk_right
 	walk_right
 	walk_right
@@ -451,13 +387,11 @@ Route201_Movement_AssistantLeave:
 	walk_right
 	step_end
 
-@ From 10, 8 along row 7 and up the north gap into Lake Verity
+@ From 6, 4 round below the player and up the path into Lake Verity
 Route201_Movement_RivalRunToLake:
-	walk_fast_up
+	walk_fast_down
 	walk_fast_left
 	walk_fast_left
-	walk_fast_up
-	walk_fast_up
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up

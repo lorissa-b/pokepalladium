@@ -112,8 +112,8 @@
     {
       "id": "LAYOUT_TWINLEAF_TOWN",
       "name": "TwinleafTown_Layout",
-      "width": 20,
-      "height": 30,
+      "width": 22,
+      "height": 29,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/TwinleafTown/border.bin",
@@ -196,8 +196,8 @@
     {
       "id": "LAYOUT_ROUTE201",
       "name": "Route201_Layout",
-      "width": 88,
-      "height": 20,
+      "width": 83,
+      "height": 23,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/Route201/border.bin",
@@ -5338,6 +5338,30 @@
       "secondary_tileset": "gTileset_Rustboro",
       "border_filepath": "data/layouts/Route218/border.bin",
       "blockdata_filepath": "data/layouts/Route218/map.bin",
+      "border_height": 2,
+      "border_width": 2
+    },
+    {
+      "id": "LAYOUT_OREBURGH_GATE_1F",
+      "name": "OreburghGate_1F_Layout",
+      "width": 28,
+      "height": 25,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/OreburghGate_1F/border.bin",
+      "blockdata_filepath": "data/layouts/OreburghGate_1F/map.bin",
+      "border_height": 2,
+      "border_width": 2
+    },
+    {
+      "id": "LAYOUT_OREBURGH_GATE_B1F",
+      "name": "OreburghGate_B1F_Layout",
+      "width": 56,
+      "height": 26,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/OreburghGate_B1F/border.bin",
+      "blockdata_filepath": "data/layouts/OreburghGate_B1F/map.bin",
       "border_height": 2,
       "border_width": 2
     }
