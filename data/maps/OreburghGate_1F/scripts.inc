@@ -53,6 +53,16 @@ OreburghGate_1F_EventScript_HikerHaveBadge::
 	release
 	end
 
+OreburghGate_1F_EventScript_Diana::
+	trainerbattle_single TRAINER_CAROL, OreburghGate_1F_Text_DianaIntro, OreburghGate_1F_Text_DianaDefeated
+	msgbox OreburghGate_1F_Text_DianaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+OreburghGate_1F_EventScript_Curtis::
+	trainerbattle_single TRAINER_LARRY, OreburghGate_1F_Text_CurtisIntro, OreburghGate_1F_Text_CurtisDefeated
+	msgbox OreburghGate_1F_Text_CurtisPostBattle, MSGBOX_AUTOCLOSE
+	end
+
 OreburghGate_1F_Movement_HikerWalkDown1:
 	face_down
 	emote_exclamation_mark
@@ -97,3 +107,28 @@ OreburghGate_1F_Text_NowYouCanUseRockSmash:
 	.string "That's OREBURGH CITY's GYM BADGE!\p"
 	.string "All right! Now you can use the hidden\n"
 	.string "move ROCK SMASH on small boulders!$"
+
+OreburghGate_1F_Text_DianaIntro:
+	.string "To celebrate my getting through this\n"
+	.string "cave, I'm going to battle you!$"
+
+OreburghGate_1F_Text_DianaDefeated:
+	.string "Well, I guess losing is something\n"
+	.string "to commemorate, too…$"
+
+OreburghGate_1F_Text_DianaPostBattle:
+	.string "Getting through that cave feels\n"
+	.string "like an adventure.$"
+
+OreburghGate_1F_Text_CurtisIntro:
+	.string "We TRAINERS will accept challenges\n"
+	.string "anywhere! It's what we do.$"
+
+OreburghGate_1F_Text_CurtisDefeated:
+	.string "Hmm…\n"
+	.string "Insufficiently raised?$"
+
+OreburghGate_1F_Text_CurtisPostBattle:
+	.string "POKéMON can appear anywhere in a\n"
+	.string "cave. It's not like the tall grass\l"
+	.string "by roads.$"
