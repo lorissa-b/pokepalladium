@@ -209,7 +209,9 @@ roof, wall, window and corner parts join in many more ways. So besides the
 pieces as the originals draw them, each Platinum building also gets
 candidates made from parts (`parts.py`) to its exact width and depth (or one
 taller, as Emerald draws roofs taller than Platinum's footprints are deep),
-with doors exactly where Platinum's are. They compete on the same costs,
+with doors exactly where Platinum's are. A building entered from the side (a
+route gate) is made one column narrower, so its entrance warps stay on open
+ground beside it. They compete on the same costs,
 plus a little for being made; `--originals-only` turns them off.
 
 - **Joins.** Two blocks may sit side by side or one above the other when an

@@ -328,9 +328,14 @@ def plan(ref: platinum.Reference, layout: dict, grid: list[str], region: tuple[i
                 anchors = {(ax, bottom - piece.h + 1) for ax in range(bx0 - piece.w + 2, bx1)}
             candidates.append((piece, anchors, 0.0))
         if make_new:
-            for piece, extra in _made_for(b.kind, lib, layout, bx1 - bx0 + 1, bottom - top + 1,
-                                          tuple(sorted(x - bx0 for x, _ in doors)) if doors else ()):
-                candidates.append((piece, {(bx0, bottom - piece.h + 1)}, extra))
+            # A side entrance (a gate's) stays open ground: leave its edge column out.
+            side = {x - x0 for x, _ in b.side}
+            mx0 = bx0 + 1 if bx0 in side else bx0
+            mx1 = bx1 - 1 if bx1 in side else bx1
+            if mx1 > mx0:
+                for piece, extra in _made_for(b.kind, lib, layout, mx1 - mx0 + 1, bottom - top + 1,
+                                              tuple(sorted(x - mx0 for x, _ in doors)) if doors else ()):
+                    candidates.append((piece, {(mx0, bottom - piece.h + 1)}, extra))
         for piece, anchors, extra in candidates:
             for ax, ay in anchors:
                 cost = _kind_cost(b.kind, piece.kind) + REUSE * uses[piece.name] + extra
