@@ -24,6 +24,8 @@ guessed from screenshots. It needs Pillow
    gives a blockout with exits, roads, grass, water, ledges and buildings in
    the right places and the Platinum events/props listed as comments. Keep the Platinum
    proportions; crop with `--region` only when the map must be smaller.
+   For a cave, add `--solid-unreachable --finish --style cave --water any`,
+   and crop the void around it with `--region`.
 4. **Detail.** The draft already places a whole Emerald building on every
    Platinum building (town or route), door on Platinum's door. Its notes list
    each placement and anything unmatched (`no Emerald building fits`, `no

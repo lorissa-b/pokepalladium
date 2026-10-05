@@ -37,8 +37,8 @@ PERIOD_TABLES = {
     4: [0, 1, 2, 3],
 }
 
-# Unused maps left over in the decomp, which would otherwise be filed under Route 104.
-EXCLUDED_MAPS = {"MAP_ROUTE104_PROTOTYPE", "MAP_ROUTE104_PROTOTYPE_PRETTY_PETAL_FLOWER_SHOP"}
+# Unused maps left over in the decomp, which would otherwise be filed under Route 203.
+EXCLUDED_MAPS = {"MAP_ROUTE203_PROTOTYPE", "MAP_ROUTE203_PROTOTYPE_PRETTY_PETAL_FLOWER_SHOP"}
 
 # Encounters that don't come from the tables, added to the map's page.
 NOTES = {
@@ -471,6 +471,45 @@ def map_trainers(name: str) -> list[str]:
     return found
 
 
+def merge_name_variants(consts: list[str], trainers: dict[str, dict]) -> list[str]:
+    """Fold trainers that differ only by name into one entry. The rival is one
+    battle per starter, but a script picks May or Brendan by the player's
+    gender: both trainers have the same class, sprite and team, and constants
+    that match apart from the name. The merged entry is added to ``trainers``
+    under a key joining the constants, named "May / Brendan"."""
+    groups: dict[str, list[str]] = {}
+    order = []
+    for const in consts:
+        t = trainers.get(const)
+        if t is None:
+            order.append(const)
+            continue
+        # The constant without the name: TRAINER_MAY_ROUTE_202_TREECKO -> ROUTE_202_TREECKO.
+        # A constant that is only a name (TRAINER_GWEN) stays whole, so it never matches.
+        rest = re.sub(rf"^TRAINER_{re.escape(t['own_name'].upper())}_(?=.)", "", const)
+        key = repr((rest, t["class"], t["pic"], t["double"], t["party"]))
+        if key not in groups:
+            groups[key] = []
+            order.append(key)
+        groups[key].append(const)
+    out = []
+    for key in order:
+        members = groups.get(key)
+        if members is None:
+            out.append(key)
+            continue
+        names = list(dict.fromkeys(trainers[c]["own_name"] for c in members))
+        if len(names) == 1:
+            out += members
+            continue
+        merged = "|".join(members)
+        t = dict(trainers[members[0]], own_name=" / ".join(names))
+        t["name"] = " ".join(bit for bit in (t["class_name"], t["own_name"]) if bit)
+        trainers[merged] = t
+        out.append(merged)
+    return out
+
+
 def map_items(info: dict, item_balls: dict[str, str]) -> list[tuple[str, str]]:
     """(ITEM_X, how it's found) for each item ball, hidden item and gift on a map."""
     out = []
@@ -709,6 +748,22 @@ def generate(app=None) -> int:
         parent = parent_name(info["name"])
         if info["name"] not in tops and parent in tops:
             children[parent].append(info)
+    # Only the ones the map actually leads to, by warps (events or script commands, as the
+    # Trick House's rooms are) or diving, directly or through each other: a building left
+    # behind when its route was redrawn isn't part of it.
+    for name, kids in children.items():
+        by_id = {k["id"]: k for k in kids}
+        reached, todo = set(), [tops[name]]
+        while todo:
+            info = todo.pop()
+            links = [w.get("dest_map") for w in info.get("warp_events") or []]
+            links += [c.get("map") for c in info.get("connections") or [] if c.get("direction") in ("dive", "emerge")]
+            links += re.findall(r"^\s*(?:warp\w*|setdynamicwarp|setwarp)\s+(MAP_\w+)", map_scripts(info["name"]), re.M)
+            for dest in links:
+                if dest in by_id and dest not in reached:
+                    reached.add(dest)
+                    todo.append(by_id[dest])
+        children[name] = [k for k in kids if k["id"] in reached]
 
     for directory in [d for d, _t, _types in SECTIONS] + ["icons", "trainers"]:
         out = OUT / directory
@@ -744,7 +799,7 @@ def generate(app=None) -> int:
                 rows = build_rows(tables, period_tables, fields, info["map_type"], names)
                 if rows:
                     encounter_areas.append((area, info["id"], rows, len(set(period_tables)) > 1))
-            found_trainers = map_trainers(info["name"])
+            found_trainers = merge_name_variants(map_trainers(info["name"]), ctx["trainers"])
             found_items = map_items(info, item_balls)
             if info is top or found_trainers or found_items:
                 areas.append((area, info, found_trainers, found_items))

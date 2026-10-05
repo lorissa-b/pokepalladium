@@ -286,6 +286,8 @@ def cmd_platinum(a) -> None:
 
 def cmd_draft(a) -> None:
     ref = platinum.load(a.header)
+    if a.solid_unreachable:
+        print(f"{ref.solidify_unreachable()} tiles no warp reaches count as solid", file=sys.stderr)
     layout = resolve_layout(a.layout)
     region = tuple(a.region) if a.region else None
     if region and len(region) == 2:
@@ -398,6 +400,8 @@ def cmd_materials(a) -> None:
 def cmd_compare(a) -> None:
     _, layout = map_for(a.map)
     ref = platinum.load(a.header)
+    if a.solid_unreachable:
+        ref.solidify_unreachable()
     if a.origin == "auto":
         origin = cmp.best_origin(layout, ref)
         print(f"best origin: {origin[0]},{origin[1]}")
@@ -513,7 +517,7 @@ def main(argv=None) -> None:
     s.add_argument("--region", type=region_arg, help="X,Y,W,H of the Platinum map to use")
     s.add_argument("--finish", action="store_true",
                    help="choose every block by example from the original Emerald maps (see autotile.py)")
-    s.add_argument("--style", choices=["route", "town"], default="route", help="with --finish, what to build from")
+    s.add_argument("--style", choices=["route", "town", "cave"], default="route", help="with --finish, what to build from")
     s.add_argument("--trees", choices=["dense", "round", "jungle", "pine", "any"], default="dense",
                    help="with --finish, the one tree family to use")
     s.add_argument("--water", choices=["sea", "pond", "any"], default="sea", help="with --finish, the one water family to use")
@@ -523,6 +527,8 @@ def main(argv=None) -> None:
                    help="only buildings exactly as the original maps draw them, none made from parts (see parts.py)")
     s.add_argument("--keep-shape", action="store_true",
                    help="with --finish, keep Platinum's walkable shape exactly, even where that cuts a sprite in half")
+    s.add_argument("--solid-unreachable", action="store_true",
+                   help="count tiles no warp can reach as solid (the void around a cave)")
     s.add_argument("--seams", action="store_true", help="with --render, outline spots worth checking by eye")
     s.add_argument("--render", help="draw the draft to this PNG")
     s.add_argument("--events", action="store_true", help="with --render, mark Platinum's events and props")
@@ -557,6 +563,8 @@ def main(argv=None) -> None:
     s.add_argument("--events", action="store_true", help="with --render, also mark this map's events")
     s.add_argument("--scale", type=int, default=2)
     s.add_argument("--limit", type=int, default=20, help="mismatches to list")
+    s.add_argument("--solid-unreachable", action="store_true",
+                   help="count Platinum tiles no warp can reach as solid (the void around a cave)")
     s.add_argument("-q", "--quiet", action="store_true", help="only print the summary")
     s.set_defaults(func=cmd_compare)
 

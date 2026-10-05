@@ -68,6 +68,21 @@ STYLES = {
         "extra": {"~": {"cliff", "rock", "sand"}, "^": {"cliff"}, "v": {"cliff"}, "<": {"cliff"}, ">": {"cliff"}},
         "fallback": {"cliff", "rock", "sand"},
     },
+    "cave": {
+        # Emerald's caves fill solid rock with the cave set's raised floor and edge it with wall
+        # faces and ridges, so a wall cell may be floor, cliff or rock. Only water comes from the
+        # primary tileset: its cliffs and mountain tops are outdoor blocks.
+        "allow": {"floor", "cliff", "rock", "water", "ledge", "stairs", "cave", "dark"},
+        "need": {"#": None, ".": "floor", "~": "water", ",": "water", "^": "ledge", "v": "ledge",
+                 "<": "ledge", ">": "ledge"},
+        "extra": {"~": {"cliff", "rock"}, ",": {"floor"}, "^": {"cliff"}, "v": {"cliff"},
+                  "<": {"cliff"}, ">": {"cliff"}},
+        "fallback": {"rock", "floor", "dark"},
+        "primary": {"water"},
+        # Solid cells with nothing but solid within this many blocks take the block the
+        # originals most often put inside solid rock, so wall faces only line the edges.
+        "deep": 2,
+    },
 }
 
 
@@ -430,6 +445,12 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
     def get(x, y):
         return target[y * w + x] if 0 <= x < w and 0 <= y < h else OUTSIDE
 
+    def from_primary_ok(i: int) -> bool:
+        """A style with a "primary" set only takes primary-tileset blocks showing one of those materials."""
+        if "primary" not in spec or m.blocks[i] >= consts().metatiles_in_primary:
+            return True
+        return bool(m.materials[i] & spec["primary"])
+
     # Candidates: the cell's movement group. Preferred: also the style's materials and families.
     preferred: dict[str, set[int]] = {}
     candidates: dict[str, list[int]] = {}
@@ -441,7 +462,7 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
         for i in group:
             mats = m.materials[i]
             core = mats - family_tags
-            if not core <= ok or (need is not None and need not in core):
+            if not core <= ok or (need is not None and need not in core) or not from_primary_ok(i):
                 continue
             if any(fam and materials.family(mats, mat) not in (None, fam) for mat, fam in chosen.items()):
                 continue
@@ -450,9 +471,26 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
         # Off-style blocks stay possible (at a cost) so impossible shapes still get the nearest
         # fit, but only natural ones: never buildings, signs or paving on a route.
         fallback = spec["allow"] | spec.get("fallback", set())
-        rest = [i for i in group if i not in good and (m.materials[i] - family_tags) <= fallback]
+        rest = [i for i in group if i not in good and (m.materials[i] - family_tags) <= fallback
+                and from_primary_ok(i)]
         by_use = sorted(good, key=lambda i: -m.freq[i]) + sorted(rest, key=lambda i: -m.freq[i])
         candidates[ch] = by_use[:MAX_CANDIDATES] or group[:MAX_CANDIDATES]
+
+    # Deep inside solid ground (a style with "deep"), use the originals' usual filling.
+    deep = spec.get("deep")
+    if deep and preferred.get("#"):
+        inside = m.contexts.get(("n8", "#", "#" * 8), Counter())
+        block = max(preferred["#"], key=lambda b: (inside.get(b, 0), m.freq[b]))
+        packed = consts().pack(m.blocks[block], *(m.attrs[block] or (1, 0)))
+        fixed = dict(fixed or {})
+        for y in range(h):
+            for x in range(w):
+                if (x, y) in fixed or (flexible and (x, y) in flexible):
+                    continue
+                if all(get(x + dx, y + dy) in ("#", OUTSIDE)
+                       for dy in range(-deep, deep + 1) for dx in range(-deep, deep + 1)):
+                    fixed[(x, y)] = packed
+        tally["deep"] = sum(1 for v in fixed.values() if v == packed)
 
     def context_costs(i: int) -> dict[int, float]:
         x, y = i % w, i // w

@@ -144,7 +144,7 @@
 #define FLAG_RECEIVED_HM_SURF                0x7A
 #define FLAG_RECEIVED_HM_DIVE                0x7B
 #define FLAG_REGISTER_RIVAL_POKENAV          0x7C
-#define FLAG_DEFEATED_RIVAL_ROUTE_104        0x7D
+#define FLAG_DEFEATED_RIVAL_ROUTE_203        0x7D
 #define FLAG_DEFEATED_WALLY_VICTORY_ROAD     0x7E
 #define FLAG_MET_PRETTY_PETAL_SHOP_OWNER     0x7F
 #define FLAG_ENABLE_ROXANNE_FIRST_CALL       0x80 // Set after defeating Brawly. This will activate a call with Roxanne in order to register her.
@@ -269,7 +269,7 @@
 #define FLAG_USED_ROOM_6_KEY                 0xF3
 #define FLAG_MET_PROF_COZMO                  0xF4
 #define FLAG_RECEIVED_WAILMER_DOLL           0xF5
-#define FLAG_RECEIVED_CHESTO_BERRY_ROUTE_104 0xF6
+#define FLAG_RECEIVED_CHESTO_BERRY_ROUTE_203 0xF6
 #define FLAG_DEFEATED_SS_TIDAL_TRAINERS      0xF7
 #define FLAG_RECEIVED_SPELON_BERRY           0xF8
 #define FLAG_RECEIVED_PAMTRE_BERRY           0xF9
@@ -580,14 +580,14 @@
 #define FLAG_HIDDEN_ITEM_ABANDONED_SHIP_RM_6_KEY             (FLAG_HIDDEN_ITEMS_START + 0x22)
 #define FLAG_HIDDEN_ITEM_SS_TIDAL_LOWER_DECK_LEFTOVERS       (FLAG_HIDDEN_ITEMS_START + 0x23)
 #define FLAG_HIDDEN_ITEM_UNDERWATER_124_CALCIUM              (FLAG_HIDDEN_ITEMS_START + 0x24)
-#define FLAG_HIDDEN_ITEM_ROUTE_104_POTION                    (FLAG_HIDDEN_ITEMS_START + 0x25)
+#define FLAG_HIDDEN_ITEM_ROUTE_203_POTION                    (FLAG_HIDDEN_ITEMS_START + 0x25)
 #define FLAG_HIDDEN_ITEM_UNDERWATER_124_HEART_SCALE_2        (FLAG_HIDDEN_ITEMS_START + 0x26)
 #define FLAG_HIDDEN_ITEM_ROUTE_121_HP_UP                     (FLAG_HIDDEN_ITEMS_START + 0x27)
 #define FLAG_HIDDEN_ITEM_ROUTE_121_NUGGET                    (FLAG_HIDDEN_ITEMS_START + 0x28)
 #define FLAG_HIDDEN_ITEM_ROUTE_123_REVIVE                    (FLAG_HIDDEN_ITEMS_START + 0x29)
 #define FLAG_HIDDEN_ITEM_ROUTE_114_REVIVE                    (FLAG_HIDDEN_ITEMS_START + 0x2A)
 #define FLAG_HIDDEN_ITEM_LILYCOVE_CITY_PP_UP                 (FLAG_HIDDEN_ITEMS_START + 0x2B)
-#define FLAG_HIDDEN_ITEM_ROUTE_104_SUPER_POTION              (FLAG_HIDDEN_ITEMS_START + 0x2C)
+#define FLAG_HIDDEN_ITEM_ROUTE_203_SUPER_POTION              (FLAG_HIDDEN_ITEMS_START + 0x2C)
 #define FLAG_HIDDEN_ITEM_JUBILIFE_CITY_STARDUST              (FLAG_HIDDEN_ITEMS_START + 0x2D)
 #define FLAG_HIDDEN_ITEM_ROUTE_106_STARDUST                  (FLAG_HIDDEN_ITEMS_START + 0x2E)
 #define FLAG_HIDDEN_ITEM_ROUTE_106_HEART_SCALE               (FLAG_HIDDEN_ITEMS_START + 0x2F)
@@ -605,7 +605,7 @@
 #define FLAG_HIDDEN_ITEM_PETALBURG_WOODS_TINY_MUSHROOM_1     (FLAG_HIDDEN_ITEMS_START + 0x3B)
 #define FLAG_HIDDEN_ITEM_PETALBURG_WOODS_TINY_MUSHROOM_2     (FLAG_HIDDEN_ITEMS_START + 0x3C)
 #define FLAG_HIDDEN_ITEM_PETALBURG_WOODS_POKE_BALL           (FLAG_HIDDEN_ITEMS_START + 0x3D)
-#define FLAG_HIDDEN_ITEM_ROUTE_104_POKE_BALL                 (FLAG_HIDDEN_ITEMS_START + 0x3E)
+#define FLAG_HIDDEN_ITEM_ROUTE_203_POKE_BALL                 (FLAG_HIDDEN_ITEMS_START + 0x3E)
 #define FLAG_HIDDEN_ITEM_ROUTE_106_POKE_BALL                 (FLAG_HIDDEN_ITEMS_START + 0x3F)
 #define FLAG_HIDDEN_ITEM_ROUTE_109_ETHER                     (FLAG_HIDDEN_ITEMS_START + 0x40)
 #define FLAG_HIDDEN_ITEM_ROUTE_110_POKE_BALL                 (FLAG_HIDDEN_ITEMS_START + 0x41)
@@ -628,10 +628,10 @@
 #define FLAG_HIDDEN_ITEM_VICTORY_ROAD_B2F_ELIXIR             (FLAG_HIDDEN_ITEMS_START + 0x52)
 #define FLAG_HIDDEN_ITEM_VICTORY_ROAD_B2F_MAX_REPEL          (FLAG_HIDDEN_ITEMS_START + 0x53)
 #define FLAG_HIDDEN_ITEM_ROUTE_120_REVIVE                    (FLAG_HIDDEN_ITEMS_START + 0x54)
-#define FLAG_HIDDEN_ITEM_ROUTE_104_ANTIDOTE                  (FLAG_HIDDEN_ITEMS_START + 0x55)
+#define FLAG_HIDDEN_ITEM_ROUTE_203_ANTIDOTE                  (FLAG_HIDDEN_ITEMS_START + 0x55)
 #define FLAG_HIDDEN_ITEM_ROUTE_108_RARE_CANDY                (FLAG_HIDDEN_ITEMS_START + 0x56)
 #define FLAG_HIDDEN_ITEM_ROUTE_119_MAX_ETHER                 (FLAG_HIDDEN_ITEMS_START + 0x57)
-#define FLAG_HIDDEN_ITEM_ROUTE_104_HEART_SCALE               (FLAG_HIDDEN_ITEMS_START + 0x58)
+#define FLAG_HIDDEN_ITEM_ROUTE_203_HEART_SCALE               (FLAG_HIDDEN_ITEMS_START + 0x58)
 #define FLAG_HIDDEN_ITEM_ROUTE_105_HEART_SCALE               (FLAG_HIDDEN_ITEMS_START + 0x59)
 #define FLAG_HIDDEN_ITEM_ROUTE_109_HEART_SCALE_2             (FLAG_HIDDEN_ITEMS_START + 0x5A)
 #define FLAG_HIDDEN_ITEM_ROUTE_109_HEART_SCALE_3             (FLAG_HIDDEN_ITEMS_START + 0x5B)
@@ -765,7 +765,7 @@
 #define FLAG_HIDE_BATTLE_TOWER_MULTI_BATTLE_PARTNER_6               0x2CC
 #define FLAG_HIDE_SAFARI_ZONE_SOUTH_CONSTRUCTION_WORKERS            0x2CD
 #define FLAG_HIDE_MEW                                               0x2CE
-#define FLAG_HIDE_ROUTE_104_RIVAL                                   0x2CF
+#define FLAG_HIDE_ROUTE_203_RIVAL                                   0x2CF
 #define FLAG_UNUSED_0x2D0                                           0x2D0 // Unused Flag
 #define FLAG_HIDE_SANDGEM_TOWN_RESEARCH_LAB_BIRCH                  0x2D1
 #define FLAG_HIDE_TWINLEAF_TOWN_DAWN_HOUSE_RIVAL_BEDROOM          0x2D2
@@ -786,11 +786,11 @@
 #define FLAG_HIDE_TWINLEAF_TOWN_LUCAS_HOUSE_RIVAL_SIBLING      0x2DF
 #define FLAG_HIDE_TWINLEAF_TOWN_DAWN_HOUSE_RIVAL_SIBLING          0x2E0
 #define FLAG_HIDE_MOSSDEEP_CITY_SPACE_CENTER_MAGMA_NOTE             0x2E1
-#define FLAG_HIDE_ROUTE_104_MR_BRINEY                               0x2E2
+#define FLAG_HIDE_ROUTE_203_MR_BRINEY                               0x2E2
 #define FLAG_HIDE_BRINEYS_HOUSE_MR_BRINEY                           0x2E3
 #define FLAG_HIDE_MR_BRINEY_DEWFORD_TOWN                            0x2E4
 #define FLAG_HIDE_ROUTE_109_MR_BRINEY                               0x2E5
-#define FLAG_HIDE_ROUTE_104_MR_BRINEY_BOAT                          0x2E6
+#define FLAG_HIDE_ROUTE_203_MR_BRINEY_BOAT                          0x2E6
 #define FLAG_HIDE_MR_BRINEY_BOAT_DEWFORD_TOWN                       0x2E7
 #define FLAG_HIDE_ROUTE_109_MR_BRINEY_BOAT                          0x2E8
 #define FLAG_HIDE_TWINLEAF_TOWN_LUCAS_HOUSE_BRENDAN            0x2E9
@@ -954,7 +954,7 @@
 #define FLAG_HIDE_ROUTE_111_GABBY_AND_TY_3                          0x387
 #define FLAG_HIDE_ROUTE_118_GABBY_AND_TY_3                          0x388
 #define FLAG_HIDE_SLATEPORT_CITY_HARBOR_PATRONS                     0x389
-#define FLAG_HIDE_ROUTE_104_WHITE_HERB_FLORIST                      0x38A
+#define FLAG_HIDE_ROUTE_203_WHITE_HERB_FLORIST                      0x38A
 #define FLAG_HIDE_FALLARBOR_AZURILL                                 0x38B
 #define FLAG_HIDE_LILYCOVE_HARBOR_FERRY_ATTENDANT                   0x38C
 #define FLAG_HIDE_LILYCOVE_HARBOR_FERRY_SAILOR                      0x38D
@@ -1052,7 +1052,7 @@
 // Item Ball Flags
 #define FLAG_ITEM_ROUTE_219_POTION                                  0x3E8
 #define FLAG_ITEM_ROUTE_204_TM_BULLET_SEED                          0x3E9
-#define FLAG_ITEM_ROUTE_104_PP_UP                                   0x3EA
+#define FLAG_ITEM_ROUTE_203_PP_UP                                   0x3EA
 #define FLAG_ITEM_ROUTE_105_IRON                                    0x3EB
 #define FLAG_ITEM_ROUTE_106_PROTEIN                                 0x3EC
 #define FLAG_ITEM_ROUTE_109_PP_UP                                   0x3ED
@@ -1107,7 +1107,7 @@
 #define FLAG_ITEM_GRANITE_CAVE_B2F_RARE_CANDY                       0x41E
 #define FLAG_ITEM_PETALBURG_WOODS_X_ATTACK                          0x41F
 #define FLAG_ITEM_PETALBURG_WOODS_GREAT_BALL                        0x420
-#define FLAG_ITEM_ROUTE_104_POKE_BALL                               0x421
+#define FLAG_ITEM_ROUTE_203_POKE_BALL                               0x421
 #define FLAG_ITEM_PETALBURG_WOODS_ETHER                             0x422
 #define FLAG_ITEM_MAGMA_HIDEOUT_3F_3R_ECAPE_ROPE                    0x423
 #define FLAG_ITEM_TRICK_HOUSE_PUZZLE_1_ORANGE_MAIL                  0x424
@@ -1165,7 +1165,7 @@
 #define FLAG_ITEM_SHOAL_CAVE_ICE_ROOM_TM_HAIL                       0x458
 #define FLAG_ITEM_SHOAL_CAVE_ICE_ROOM_NEVER_MELT_ICE                0x459
 #define FLAG_ITEM_ROUTE_202_GUARD_SPEC                              0x45A
-#define FLAG_ITEM_ROUTE_104_X_ACCURACY                              0x45B
+#define FLAG_ITEM_ROUTE_203_X_DEFEND                                0x45B
 #define FLAG_ITEM_MAUVILLE_CITY_X_SPEED                             0x45C
 #define FLAG_ITEM_PETALBURG_WOODS_PARALYZE_HEAL                     0x45D
 #define FLAG_ITEM_ROUTE_115_GREAT_BALL                              0x45E
@@ -1185,7 +1185,7 @@
 #define FLAG_ITEM_AQUA_HIDEOUT_B1F_NUGGET                           0x46C
 #define FLAG_ITEM_MOSSDEEP_STEVENS_HOUSE_HM08                       0x46D // Unused Flag, leftover from R/S. HM08 is given to the player directly in Emerald
 #define FLAG_ITEM_ROUTE_119_NUGGET                                  0x46E
-#define FLAG_ITEM_ROUTE_104_POTION                                  0x46F
+#define FLAG_ITEM_ROUTE_203_REPEL                                   0x46F
 #define FLAG_ITEM_RAVAGED_PATH_POTION                               0x470
 #define FLAG_ITEM_RAVAGED_PATH_TM39                                 0x471
 #define FLAG_ITEM_RAVAGED_PATH_AMULET_COIN                          0x472

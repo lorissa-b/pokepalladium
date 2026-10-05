@@ -13,6 +13,9 @@ project = "Pokémon Palladium"
 # build, so the docs can never drift from the game data.
 extensions = ["myst_parser", "gen_pokedex", "gen_moves", "gen_maps"]
 source_suffix = {".md": "markdown"}
+# Give headings down to ### GitHub-style anchors, so [text](#heading) links work
+# in the built docs as they do on GitHub.
+myst_heading_anchors = 3
 exclude_patterns = ["_build", "_ext"]
 
 html_theme = "sphinx_rtd_theme"

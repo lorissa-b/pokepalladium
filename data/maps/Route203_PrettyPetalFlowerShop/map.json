@@ -1,9 +1,9 @@
 {
-  "id": "MAP_ROUTE104_PRETTY_PETAL_FLOWER_SHOP",
-  "name": "Route104_PrettyPetalFlowerShop",
-  "layout": "LAYOUT_ROUTE104_PRETTY_PETAL_FLOWER_SHOP",
+  "id": "MAP_ROUTE203_PRETTY_PETAL_FLOWER_SHOP",
+  "name": "Route203_PrettyPetalFlowerShop",
+  "layout": "LAYOUT_ROUTE203_PRETTY_PETAL_FLOWER_SHOP",
   "music": "MUS_PETALBURG",
-  "region_map_section": "MAPSEC_ROUTE_104",
+  "region_map_section": "MAPSEC_ROUTE_203",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_INDOOR",
@@ -25,7 +25,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "Route104_PrettyPetalFlowerShop_EventScript_ShopOwner",
+      "script": "Route203_PrettyPetalFlowerShop_EventScript_ShopOwner",
       "flag": "0"
     },
     {
@@ -38,7 +38,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "Route104_PrettyPetalFlowerShop_EventScript_WailmerPailGirl",
+      "script": "Route203_PrettyPetalFlowerShop_EventScript_WailmerPailGirl",
       "flag": "0"
     },
     {
@@ -51,7 +51,7 @@
       "movement_range_y": 2,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "Route104_PrettyPetalFlowerShop_EventScript_RandomBerryGirl",
+      "script": "Route203_PrettyPetalFlowerShop_EventScript_RandomBerryGirl",
       "flag": "0"
     }
   ],
@@ -60,14 +60,14 @@
       "x": 2,
       "y": 8,
       "elevation": 0,
-      "dest_map": "MAP_ROUTE104",
+      "dest_map": "MAP_ROUTE203",
       "dest_warp_id": "1"
     },
     {
       "x": 3,
       "y": 8,
       "elevation": 0,
-      "dest_map": "MAP_ROUTE104",
+      "dest_map": "MAP_ROUTE203",
       "dest_warp_id": "1"
     }
   ],
