@@ -1240,7 +1240,11 @@ static void TurnNPCIntoFollower(u8 localId, u16 followerFlags)
             flag = GetObjectEventTemplateByLocalIdAndMap(follower->localId, follower->mapNum, follower->mapGroup)->flagId;
             gSaveBlock2Ptr->follower.inProgress = TRUE;
             gSaveBlock2Ptr->follower.objId = eventObjId;
-            gSaveBlock2Ptr->follower.graphicsId = follower->graphicsId;
+            // Resolve a graphics var now, so the follower keeps its sprite on maps that set the var differently
+            if (follower->graphicsId >= OBJ_EVENT_GFX_VARS)
+                gSaveBlock2Ptr->follower.graphicsId = VarGetObjectEventGraphicsId(follower->graphicsId - OBJ_EVENT_GFX_VARS);
+            else
+                gSaveBlock2Ptr->follower.graphicsId = follower->graphicsId;
             gSaveBlock2Ptr->follower.map.id = gObjectEvents[eventObjId].localId;
             gSaveBlock2Ptr->follower.map.number = gSaveBlock1Ptr->location.mapNum;
             gSaveBlock2Ptr->follower.map.group = gSaveBlock1Ptr->location.mapGroup;
@@ -1397,6 +1401,21 @@ void DestroyFollower(void)
 }
 
 //@Details: Faces the player and the follower sprite towards each other.
+// Ends following but leaves the follower standing where it is, as an ordinary object
+// on the map, so a script can carry on moving it. Its coordinates go in VAR_0x8004/5.
+void StopFollowerInPlace(void)
+{
+    struct ObjectEvent *follower;
+
+    if (!gSaveBlock2Ptr->follower.inProgress)
+        return;
+
+    follower = &gObjectEvents[gSaveBlock2Ptr->follower.objId];
+    gSpecialVar_0x8004 = follower->currentCoords.x - MAP_OFFSET;
+    gSpecialVar_0x8005 = follower->currentCoords.y - MAP_OFFSET;
+    gSaveBlock2Ptr->follower.inProgress = FALSE;
+}
+
 void PlayerFaceFollowerSprite(void)
 {
     if (gSaveBlock2Ptr->follower.inProgress)

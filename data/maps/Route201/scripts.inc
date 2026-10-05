@@ -4,7 +4,7 @@ Route201_MapScripts::
 
 	@ State descriptions for VAR_ROUTE201_STATE
 	@ 0: Haven't been on Route 201 yet
-	@ 1: Rival dared you to go to Lake Verity and is waiting by the north gap
+	@ 1: Rival dared you to go to Lake Verity and is following you there (Follow Me test)
 	@ 2: Met Prof. Birch and his assistant; the rival went ahead into Lake Verity
 	@ 3: (Lake Verity) Rival pointed out the bag Birch left behind
 	@ 4: (Lake Verity) Chose a starter from the bag and beat the wild Starly;
@@ -46,15 +46,43 @@ Route201_EventScript_RivalDare::
 	applywaitmovement LOCALID_ROUTE201_RIVAL, Common_Movement_Delay48
 	msgbox Route201_Text_RivalDare, MSGBOX_DEFAULT
 	closemessage
-	@ The rival runs west off screen, then jumps ahead to wait by the north gap
-	applymovement LOCALID_ROUTE201_RIVAL, Route201_Movement_RivalRunTowardLake
-	applymovement LOCALID_PLAYER, Route201_Movement_PlayerWatchRivalRunWest
-	waitmovement LOCALID_ROUTE201_RIVAL
-	waitmovement LOCALID_PLAYER
-	setobjectxy LOCALID_ROUTE201_RIVAL, 6, 4
-	call Route201_EventScript_SetRivalWaitingByLake
+	@ The rival comes down to stand just north of the player (x 33-36, y 15),
+	@ then follows them to the lake
+	getplayerxy VAR_0x8004, VAR_0x8005
+	call_if_eq VAR_0x8004, 33, Route201_EventScript_RivalJoinAt33
+	call_if_eq VAR_0x8004, 34, Route201_EventScript_RivalJoinAt34
+	call_if_eq VAR_0x8004, 35, Route201_EventScript_RivalJoinAt35
+	call_if_eq VAR_0x8004, 36, Route201_EventScript_RivalJoinAt36
+	loadword 0, Route201_EventScript_FollowingRival
+	setfollower LOCALID_ROUTE201_RIVAL, FOLLOWER_FLAG_CUSTOM_FOLLOW_SCRIPT
+	@ The follower is respawned on every map it enters, so the map's own copy stays hidden
+	setflag FLAG_HIDE_ROUTE_201_RIVAL
 	setvar VAR_ROUTE201_STATE, 1
 	releaseall
+	end
+
+Route201_EventScript_RivalJoinAt33::
+	applywaitmovement LOCALID_ROUTE201_RIVAL, Route201_Movement_RivalJoinAt33
+	return
+
+Route201_EventScript_RivalJoinAt34::
+	applywaitmovement LOCALID_ROUTE201_RIVAL, Route201_Movement_RivalJoinAt34
+	return
+
+Route201_EventScript_RivalJoinAt35::
+	applywaitmovement LOCALID_ROUTE201_RIVAL, Route201_Movement_RivalJoinAt35
+	return
+
+Route201_EventScript_RivalJoinAt36::
+	applywaitmovement LOCALID_ROUTE201_RIVAL, Route201_Movement_RivalJoinAt36
+	return
+
+@ Talking to the rival while he's following
+Route201_EventScript_FollowingRival::
+	lock
+	facefollower
+	msgbox Route201_Text_RivalLakeIsWest, MSGBOX_DEFAULT
+	release
 	end
 
 Route201_EventScript_Rival::
@@ -80,10 +108,25 @@ Route201_EventScript_MeetBirchTrigger1::
 	end
 
 Route201_EventScript_MeetBirch::
+	@ The rival stops following, one step behind the player: at 3, 4 or 2, 3 for
+	@ the left trigger, or 4, 4 for the right one
+	checkfollower
+	copyvar VAR_0x8009, VAR_RESULT
+	special StopFollowerInPlace
 	playse SE_PIN
 	applywaitmovement LOCALID_ROUTE201_RIVAL, Common_Movement_ExclamationMark
 	msgbox Route201_Text_RivalSomeonesComing, MSGBOX_DEFAULT
 	closemessage
+	@ He steps out of the way to 6, 4, where the rest of the scene expects him.
+	@ Without a follower (a save from before the test) he's already there.
+	goto_if_eq VAR_0x8009, FALSE, Route201_EventScript_MeetBirchRivalInPlace
+	call_if_eq VAR_0x8005, 3, Route201_EventScript_RivalStepDownToRow4
+	call_if_eq VAR_0x8004, 2, Route201_EventScript_RivalWalkRightFrom2
+	call_if_eq VAR_0x8004, 3, Route201_EventScript_RivalWalkRightFrom3
+	call_if_eq VAR_0x8004, 4, Route201_EventScript_RivalWalkRightFrom4
+	call_if_eq VAR_0x8004, 5, Route201_EventScript_RivalWalkRightFrom5
+	applywaitmovement LOCALID_ROUTE201_RIVAL, Common_Movement_WalkInPlaceFasterLeft
+Route201_EventScript_MeetBirchRivalInPlace::
 	@ Step out of the way: to 2, 4 or 5, 4
 	call_if_eq VAR_0x8008, 0, Route201_EventScript_PlayerStepAsideLeft
 	call_if_eq VAR_0x8008, 1, Route201_EventScript_PlayerStepAsideRight
@@ -128,6 +171,26 @@ Route201_EventScript_MeetBirch::
 	setvar VAR_ROUTE201_STATE, 2
 	releaseall
 	end
+
+Route201_EventScript_RivalStepDownToRow4::
+	applywaitmovement LOCALID_ROUTE201_RIVAL, Route201_Movement_RivalWalkDown
+	return
+
+Route201_EventScript_RivalWalkRightFrom2::
+	applywaitmovement LOCALID_ROUTE201_RIVAL, Route201_Movement_RivalWalkRight4
+	return
+
+Route201_EventScript_RivalWalkRightFrom3::
+	applywaitmovement LOCALID_ROUTE201_RIVAL, Route201_Movement_RivalWalkRight3
+	return
+
+Route201_EventScript_RivalWalkRightFrom4::
+	applywaitmovement LOCALID_ROUTE201_RIVAL, Route201_Movement_RivalWalkRight2
+	return
+
+Route201_EventScript_RivalWalkRightFrom5::
+	applywaitmovement LOCALID_ROUTE201_RIVAL, Route201_Movement_RivalWalkRight1
+	return
 
 Route201_EventScript_PlayerStepAsideLeft::
 	applywaitmovement LOCALID_PLAYER, Route201_Movement_PlayerStepAsideLeft
@@ -307,22 +370,44 @@ Route201_Movement_PlayerWalkUpPath:
 	walk_up
 	step_end
 
-Route201_Movement_RivalRunTowardLake:
-	walk_fast_up
+@ From 35, 12 to just north of the player
+Route201_Movement_RivalJoinAt33:
+	walk_fast_down
 	walk_fast_left
 	walk_fast_left
-	walk_fast_left
-	walk_fast_left
-	walk_fast_left
-	walk_fast_left
-	walk_fast_left
-	walk_fast_left
-	walk_fast_left
+	walk_fast_down
 	step_end
 
-Route201_Movement_PlayerWatchRivalRunWest:
-	delay_16
-	walk_in_place_faster_left
+Route201_Movement_RivalJoinAt34:
+	walk_fast_down
+	walk_fast_left
+	walk_fast_down
+	step_end
+
+Route201_Movement_RivalJoinAt35:
+	walk_fast_down
+	walk_fast_down
+	step_end
+
+Route201_Movement_RivalJoinAt36:
+	walk_fast_down
+	walk_fast_right
+	walk_fast_down
+	step_end
+
+@ Along row 4, below the player, to 6, 4
+Route201_Movement_RivalWalkRight4:
+	walk_right
+Route201_Movement_RivalWalkRight3:
+	walk_right
+Route201_Movement_RivalWalkRight2:
+	walk_right
+Route201_Movement_RivalWalkRight1:
+	walk_right
+	step_end
+
+Route201_Movement_RivalWalkDown:
+	walk_down
 	step_end
 
 Route201_Movement_PlayerStepAsideLeft:
@@ -434,11 +519,15 @@ Route201_Text_RivalDare:
 	.string "Let's go find it!\n"
 	.string "…Unless you're too scared?\p"
 	.string "Ha! I knew you'd say yes!\n"
-	.string "I dare you to keep up with me!$"
+	.string "Lead the way, I'm right behind you!$"
 
 Route201_Text_RivalLakeIsUpThere:
 	.string "{RIVAL}: LAKE VERITY is just up\n"
 	.string "this path! Come on, {PLAYER}!$"
+
+Route201_Text_RivalLakeIsWest:
+	.string "{RIVAL}: LAKE VERITY's at the west\n"
+	.string "end of the route! Come on, {PLAYER}!$"
 
 Route201_Text_RivalSomeonesComing:
 	.string "{RIVAL}: Shh! {PLAYER}!\n"
