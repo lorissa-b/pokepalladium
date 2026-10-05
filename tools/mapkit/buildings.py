@@ -314,8 +314,15 @@ def plan(ref: platinum.Reference, layout: dict, grid: list[str], region: tuple[i
     # Buildings with doors first, the biggest first: they have the fewest good options.
     targets.sort(key=lambda t: (not t[2], -len(t[1])))
     owner = {t: n for n, (_, tiles, _) in enumerate(targets) for t in tiles}
+    import autotile
+
+    barriers = {(e["x"] - x0, e["y"] - y0) for e in ref.objects}
+    walls = {y * w + x for x, y in barriers if 0 <= x < w and 0 <= y < h}
+    padded = [row.ljust(w) for row in grid]
+    platinum_kinds = [autotile._kind(padded[y][x]) for y in range(h) for x in range(w)]
+    reference = autotile._access(platinum_kinds, w, h, walls)
     for n, (b, tiles, doors) in enumerate(targets):
-        best = None
+        options = []
         bx0 = min(x for x, _ in tiles)
         bx1 = max(x for x, _ in tiles)
         bottom = max(y for _, y in tiles)
@@ -339,8 +346,6 @@ def plan(ref: platinum.Reference, layout: dict, grid: list[str], region: tuple[i
         for piece, anchors, extra in candidates:
             for ax, ay in anchors:
                 cost = _kind_cost(b.kind, piece.kind) + REUSE * uses[piece.name] + extra
-                if cost >= (best[0] if best else float("inf")):
-                    continue
                 kept, bad = [], False
                 piece_doors = {(ax + dx, ay + dy) for dx, dy in piece.doors}
                 for pd in piece_doors:
@@ -375,21 +380,36 @@ def plan(ref: platinum.Reference, layout: dict, grid: list[str], region: tuple[i
                 if any(not (0 <= y + 1 < h) or (x, y + 1) in used or (x, y + 1) in covered for x, y in kept):
                     continue
                 cost += UNCOVERED * len({t for t in tiles if 0 <= t[0] < w and 0 <= t[1] < h} - covered)
-                if best is None or cost < best[0]:
-                    best = (cost, piece, ax, ay, kept)
+                options.append((cost, len(options), piece, ax, ay, kept))
         what = f"{b.prop.name} ({b.kind}) at {b.box[0] - x0},{b.box[1] - y0} {b.box[2]}x{b.box[3]}"
-        if best is None:
-            notes.append(f"no Emerald building fits {what}")
+        # The cheapest that leaves access as Platinum has it: a building mustn't wall off
+        # a path or open a way into a closed-off spot.
+        p = None
+        options.sort(key=lambda o: o[:2])
+        for cost, _, piece, ax, ay, kept in options[:ACCESS_TRIES]:
+            wall = piece.wall()
+            cells = {}
+            for dx, dy, block in piece.blocks():
+                x, y = ax + dx, ay + dy
+                if 0 <= x < w and 0 <= y < h:
+                    is_door = (dx, dy) in piece.doors
+                    if is_door and (x, y) in kept:
+                        cells[(x, y)] = block
+                    else:
+                        # Solid throughout: Emerald leaves some roof tops walkable, which is
+                        # only safe where nothing can reach them.
+                        mid, _, elev = consts().unpack(wall if is_door else block)
+                        cells[(x, y)] = consts().pack(mid, 1, elev)
+            trial = Placement(piece, ax, ay, cells, kept, b, tiles, cost)
+            stamped = apply(placed + [trial], padded, layout, barriers)
+            kinds = [autotile._kind(stamped[y][x]) for y in range(h) for x in range(w)]
+            if autotile._same_access(platinum_kinds, kinds, w, h, walls, reference):
+                p = trial
+                break
+        if p is None:
+            notes.append(f"no Emerald building fits {what}" if not options else
+                         f"no Emerald building fits {what} without changing where the player can go")
             continue
-        cost, piece, ax, ay, kept = best
-        wall = piece.wall()
-        cells = {}
-        for dx, dy, block in piece.blocks():
-            x, y = ax + dx, ay + dy
-            if 0 <= x < w and 0 <= y < h:
-                is_door = (dx, dy) in piece.doors
-                cells[(x, y)] = wall if is_door and (x, y) not in kept else block
-        p = Placement(piece, ax, ay, cells, kept, b, tiles, cost)
         if len(kept) < len(doors):
             p.notes.append(f"no door for Platinum's door(s) at {' '.join(f'({x},{y})' for x, y in doors if (x, y) not in kept)}")
         if b.side:
@@ -428,13 +448,21 @@ def _made_for(kind: str, lib, layout: dict, w: int, h: int, doors: tuple[int, ..
     return out
 
 
-def apply(placements: list[Placement], grid: list[str], layout: dict) -> list[str]:
+ACCESS_TRIES = 40   # cheapest options checked for access before giving up on a building
+
+
+def apply(placements: list[Placement], grid: list[str], layout: dict,
+          barriers: set[tuple[int, int]] | None = None) -> list[str]:
     """The class grid with the placed buildings' classes in, and open ground in front of their doors.
 
     Where a piece is smaller than Platinum's building, the footprint it leaves
     becomes open ground, as the space beside an Emerald building would be,
-    unless it backs onto other solid ground (a tree line behind the building).
+    unless it backs onto other solid ground (a tree line behind the building)
+    or opening it would change where the player can go (barriers: Platinum's
+    objects, as for autotile's access check).
     """
+    import autotile
+
     tiles = TilesetPair.for_layout(layout)
     rows = [list(r) for r in grid]
     h, w = len(rows), len(rows[0]) if rows else 0
@@ -444,13 +472,23 @@ def apply(placements: list[Placement], grid: list[str], layout: dict) -> list[st
     def solid(x, y):
         return 0 <= x < w and 0 <= y < h and GROUP_OF.get(rows[y][x]) in ("block", "none")
 
+    walls = {y * w + x for x, y in barriers or () if 0 <= x < w and 0 <= y < h}
+    base = [autotile._kind(rows[y][x]) for y in range(h) for x in range(w)]
+    reference = autotile._access(base, w, h, walls)
     for p in placements:
         left = {(x, y) for x, y in p.footprint - covered if 0 <= x < w and 0 <= y < h}
+        opened = []
         for x, y in sorted(left, key=lambda t: (-t[1], t[0])):
             backed = any(solid(nx, ny) and (nx, ny) not in footprints and (nx, ny) not in covered
                          for nx, ny in ((x + 1, y), (x - 1, y), (x, y - 1)))
-            if not backed:
+            if not backed and rows[y][x] != ".":
                 rows[y][x] = "."
+                opened.append((x, y, grid[y][x]))
+        if opened:
+            kinds = [autotile._kind(rows[y][x]) for y in range(h) for x in range(w)]
+            if not autotile._same_access(base, kinds, w, h, walls, reference):
+                for x, y, was in opened:
+                    rows[y][x] = was
     for p in placements:
         for (x, y), block in p.cells.items():
             rows[y][x] = emerald_symbol(tiles, block)

@@ -295,7 +295,7 @@ def cmd_draft(a) -> None:
         family = {"any": None}
         text, blocks, tally, seams = cmp.finished_draft(
             ref, layout, region, a.style, family.get(a.trees, a.trees), family.get(a.water, a.water), not a.no_buildings,
-            not a.originals_only)
+            not a.originals_only, a.keep_shape)
         print(f"{tally.get('off_style', 0)} off-style blocks, {len(seams)} seams", file=sys.stderr)
     else:
         text = cmp.draft(ref, layout, region, not a.no_buildings, not a.originals_only)
@@ -521,6 +521,8 @@ def main(argv=None) -> None:
                    help="don't place Emerald buildings where Platinum has buildings (see buildings.py)")
     s.add_argument("--originals-only", action="store_true",
                    help="only buildings exactly as the original maps draw them, none made from parts (see parts.py)")
+    s.add_argument("--keep-shape", action="store_true",
+                   help="with --finish, keep Platinum's walkable shape exactly, even where that cuts a sprite in half")
     s.add_argument("--seams", action="store_true", help="with --render, outline spots worth checking by eye")
     s.add_argument("--render", help="draw the draft to this PNG")
     s.add_argument("--events", action="store_true", help="with --render, mark Platinum's events and props")

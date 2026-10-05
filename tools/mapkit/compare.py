@@ -216,7 +216,7 @@ def _buildings(ref, layout, rows, region, enabled: bool, make_new: bool = True):
 
 def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, int] | None = None,
                    style: str = "route", trees: str | None = "dense", water: str | None = "sea",
-                   with_buildings: bool = True, make_new: bool = True):
+                   with_buildings: bool = True, make_new: bool = True, keep_shape: bool = False):
     """A blueprint with every block chosen, tiled by example (see autotile.py).
 
     Returns (blueprint text, blocks, tally, seams).
@@ -232,8 +232,11 @@ def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int
     import buildings
 
     placements, unplaced = _buildings(ref, layout, rows, (x0, y0, w, h), with_buildings, make_new)
-    tiled = buildings.apply(placements, rows, layout)
-    blocks, tally, seams = autotile.fill(tiled, layout, style, trees, water, buildings.fixed(placements))
+    tiled = buildings.apply(placements, rows, layout, {(e["x"] - x0, e["y"] - y0) for e in ref.objects})
+    fixed = buildings.fixed(placements)
+    flexible, barriers = (set(), set()) if keep_shape else _flexible(ref, tiled, (x0, y0, w, h), placements)
+    blocks, tally, seams = autotile.fill(tiled, layout, style, trees, water, fixed, flexible, barriers)
+    access = access_report(ref, blocks, layout, (x0, y0, w, h))
     tiles = TilesetPair.for_layout(layout)
     try:
         rev = platinum.revision()
@@ -244,6 +247,11 @@ def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int
         f"# Finished draft of {ref.header} from pret/pokeplatinum@{rev}, tiled by example from",
         f"# the original Emerald {layout['primary_tileset']} layouts (commit {original.ORIGINAL}).",
         f"# Style {style} ({families}); reference region {x0},{y0} {w}x{h}.",
+        f"# {tally.get('flipped', 0)} blocks were made walkable or solid against Platinum to finish a sprite"
+        + (" (--keep-shape turns this off)." if not keep_shape else "."),
+        ("# Access is the same as Platinum's: the same areas to walk, surf and jump between, touching the same others."
+         if not access else "# Access differs from Platinum's:"),
+        *[f"#   {line}" for line in access],
         f"# {tally.get('off_style', 0)} blocks fell back off-style and {len(seams)} sit beside a block never seen",
         "# next to them in the originals: check those spots (draft --render ... --seams marks them).",
         f"#   tools/mapkit/mapkit.py draft {ref.header} {layout['id']} --finish"
@@ -252,7 +260,8 @@ def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int
         + (f" --trees {trees or 'any'}" if trees != "dense" else "")
         + (f" --water {water or 'any'}" if water != "sea" else "")
         + ("" if with_buildings else " --no-buildings")
-        + ("" if make_new or not with_buildings else " --originals-only"),
+        + ("" if make_new or not with_buildings else " --originals-only")
+        + (" --keep-shape" if keep_shape else ""),
         "#",
         *(["# Buildings, whole from the original maps or made from their parts (name~WxH; buildings.py, parts.py):"]
           + [f"#   {p.describe()}" for p in placements] + [f"#   {n}" for n in unplaced]
@@ -269,6 +278,70 @@ def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int
     body = blocks_text(blocks, (0, 0), lambda mid: describe_metatile(tiles, mid).split(" ", 1)[1])
     text = "\n".join(head) + "\n" + body + "\n" + "\n".join(notes(ref, (x0, y0, w, h))) + "\n"
     return text, blocks, tally, seams
+
+
+def access_report(ref: platinum.Reference, blocks, layout: dict, region) -> list[str]:
+    """How where the player can go in these blocks differs from the Platinum region (empty: it doesn't).
+
+    Compares the areas of each kind of movement (walking, surfing, each ledge
+    direction...) and which touch which, with Platinum's objects as barriers;
+    see autotile.access_differences.
+    """
+    import autotile
+
+    x0, y0, w, h = region
+    tiles = TilesetPair.for_layout(layout)
+    before = [autotile._kind(ref.symbol(x0 + x, y0 + y) if 0 <= x0 + x < ref.width and 0 <= y0 + y < ref.height else " ")
+              for y in range(h) for x in range(w)]
+    after = [autotile._kind(emerald_symbol(tiles, blocks.get(x, y))) for y in range(h) for x in range(w)]
+    walls = {(e["y"] - y0) * w + (e["x"] - x0) for e in ref.objects if 0 <= e["x"] - x0 < w and 0 <= e["y"] - y0 < h}
+    return autotile.access_differences(before, after, w, h, walls)
+
+
+def _flexible(ref: platinum.Reference, grid: list[str], region, placements):
+    """Cells a finished draft may swap between walkable and solid, and Platinum's objects as barriers.
+
+    Only cells on the border between walkable and solid, solid cells touching a
+    building and a bridge's lanes beside water, and never the map's
+    edge (where the exits are), events and the tiles around warps and signs,
+    buildings or their doorsteps.
+    """
+    x0, y0, w, h = region
+    keep: set[tuple[int, int]] = set()
+    keep |= {(x, y) for x in range(w) for y in (0, h - 1)} | {(x, y) for y in range(h) for x in (0, w - 1)}
+    for events, ring in ((ref.warps, True), (ref.signs, True), (ref.objects, False)):
+        for e in events:
+            x, y = e["x"] - x0, e["y"] - y0
+            keep.add((x, y))
+            if ring:
+                keep |= {(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)}
+    for t in ref.triggers:
+        for dy in range(t.get("length", 1)):
+            for dx in range(t.get("width", 1)):
+                keep.add((t["x"] - x0 + dx, t["y"] - y0 + dy))
+    for p in placements:
+        keep |= set(p.cells) | {(x, y + 1) for x, y in p.doors} | set(p.footprint)
+    def at(x, y):
+        return grid[y][x] if 0 <= y < len(grid) and 0 <= x < len(grid[y]) else " "
+
+    # Only cells on the border between walkable and solid: finishing a sprite moves that
+    # border by a block, and a forest or a field should never be eaten into.
+    def n4(x, y):
+        return ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1))
+
+    flexible = {(x, y) for y in range(h) for x in range(w)
+                if (x, y) not in keep and at(x, y) in "#."
+                and any(at(nx, ny) in "#." and at(nx, ny) != at(x, y) for nx, ny in n4(x, y))}
+    # Around a building: Emerald leaves a margin between a building and trees, so the
+    # solid blocks touching one may open up (where that leaves access as it was).
+    for p in placements:
+        for x, y in p.cells:
+            flexible |= {(nx, ny) for nx, ny in n4(x, y) if (nx, ny) not in keep and at(nx, ny) == "#"}
+    # A bridge's outer lanes, beside water: Emerald's bridges are one block wide.
+    flexible |= {(x, y) for y in range(h) for x in range(w)
+                 if (x, y) not in keep and at(x, y) == "=" and any(at(nx, ny) == "~" for nx, ny in n4(x, y))}
+    barriers = {(e["x"] - x0, e["y"] - y0) for e in ref.objects}
+    return flexible, barriers
 
 
 def notes(ref: platinum.Reference, region: tuple[int, int, int, int]) -> list[str]:

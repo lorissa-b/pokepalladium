@@ -100,7 +100,7 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
 | `platinum list [QUERY]` | Search Platinum's map headers. |
 | `platinum show HEADER` | The Platinum map as text, with events and props. `--events`, `--region`, `--render [PNG]`, `--json FILE`. |
 | `platinum update` | Move the cached pokeplatinum checkout to its latest commit. |
-| `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map, with its buildings placed. `--region X,Y,W,H`, `--finish [--style --trees --water]`, `--no-buildings`, `--originals-only`, `--render PNG [--events --grid --seams]`. |
+| `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map, with its buildings placed. `--region X,Y,W,H`, `--finish [--style --trees --water --keep-shape]`, `--no-buildings`, `--originals-only`, `--render PNG [--events --grid --seams]`. |
 | `compare MAP HEADER` | Score a map against the Platinum original. `--origin X,Y\|auto`, `--render PNG`, `-q`. |
 
 ### Tile classes
@@ -267,6 +267,33 @@ replace whole 2x2 patches (taken from the original maps) around every
 remaining problem, since a tree or a shoreline can't move one tile at a time.
 Where Platinum's shape can't be built from Emerald's pieces, an area settles
 on the least-bad combination.
+
+### Finishing sprites, keeping access
+
+A 2x2 tree can't fill a tree line one block thick, so copying Platinum's
+shape exactly leaves sprites cut in half. Finished drafts may therefore move
+the border between walkable and solid ground by a block where that finishes
+a sprite (`FLIP_COST` each in `autotile.py`): cells on that border, solid
+cells touching a building (Emerald leaves a margin there) and a bridge's
+outer lanes (Emerald's bridges are one block wide). Never the map's edge,
+events and the tiles around warps and signs, buildings or doorsteps.
+`--keep-shape` turns this off.
+
+**Where the player can go never changes.** The map is split into areas of
+each kind of movement (walking, surfing, each ledge direction, rock
+climbing...), and every change must leave the same areas touching the same
+others: nothing joined, split, lost or new, no area gaining or losing a
+shore, and every Platinum object (cut trees, boulders, people) a barrier of
+its own, so nothing gains a way around one. A spot nothing can reach (a
+roof's top row) doesn't count. Changes are tested in touching groups, then
+one cell at a time, and any that alter access are undone. Building placement
+is held to the same rule: the cheapest building that leaves access alone is
+used, and footprint a smaller building leaves only opens up where access
+allows. Placed buildings are solid throughout except their doors.
+
+Every finished draft's header then checks the finished blocks against
+Platinum's own grid, independently of how they were made, and says either
+that access is the same or exactly what differs and where.
 
 The blueprint header counts the off-style tiles and the **seams** (tiles next
 to one they never sit beside in the originals); `--render out.png --seams`

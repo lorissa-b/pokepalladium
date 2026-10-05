@@ -130,6 +130,70 @@ class FinishedDrafts(unittest.TestCase):
         self.assertFalse(consts().unpack(blocks.get(3, 5))[1], "the doorstep stays walkable")
 
 
+class Access(unittest.TestCase):
+    """Finishing sprites may move a walkable/solid border, never change where the player can go."""
+
+    @staticmethod
+    def kinds(rows):
+        import autotile
+
+        return [autotile._kind(ch) for row in rows for ch in row]
+
+    def test_a_new_shore_is_a_change(self):
+        import autotile
+
+        before = ["....#~~", "....#~~", "....#~~"]
+        after = ["....#~~", ".....~~", "....#~~"]  # the tree between field and water opened
+        diff = autotile.access_differences(self.kinds(before), self.kinds(after), 7, 3, set())
+        self.assertTrue(any(line.startswith("now touch") for line in diff), diff)
+
+    def test_a_way_around_a_cut_tree_is_a_change(self):
+        import autotile
+
+        before = ["#####", "..@..", "#####"]
+        pocket = ["#.###", "..@..", "#####"]  # a dead end off the west side: nothing new to reach
+        self.assertTrue(autotile._same_access(self.kinds(before), self.kinds(pocket), 5, 3, {1 * 5 + 2}))
+        behind = ["#####", "..@..", "##.##"]  # a spot only reachable through the tree: new
+        self.assertFalse(autotile._same_access(self.kinds(before), self.kinds(behind), 5, 3, {1 * 5 + 2}))
+        bypass = ["#.#.#", "..@..", "#...#"]
+        bypass_before = ["#.#.#", "..@..", "#####"]
+        self.assertFalse(autotile._same_access(self.kinds(bypass_before), self.kinds(bypass), 5, 3, {1 * 5 + 2}))
+
+    def test_an_unreachable_pocket_is_not_a_change(self):
+        import autotile
+
+        before = ["#####", "#####", "....."]
+        after = ["#.###", "#####", "....."]  # a sealed walkable tile, like a roof's top row
+        self.assertEqual(autotile.access_differences(self.kinds(before), self.kinds(after), 5, 3, set()), [])
+
+    def test_finished_blocks_move_as_their_classes_say(self):
+        import autotile
+        from compare import GROUP_OF, emerald_symbol
+        from tileset import TilesetPair
+
+        layout = resolve_layout("LAYOUT_ROUTE218")
+        grid = ["##########", "#........#", "#.#......#", "#........#", "##########"]
+        blocks, _, _ = autotile.fill(grid, layout)
+        tiles = TilesetPair.for_layout(layout)
+        for y, row in enumerate(grid):
+            for x, ch in enumerate(row):
+                self.assertEqual(GROUP_OF[emerald_symbol(tiles, blocks.get(x, y))], GROUP_OF[ch], (x, y))
+
+    def test_flexible_cells_keep_access(self):
+        import autotile
+        from compare import emerald_symbol
+        from tileset import TilesetPair
+
+        layout = resolve_layout("LAYOUT_ROUTE218")
+        # A tree line one block thick between a field and the water, and a lone tree.
+        grid = ["##########", "#.....#~~#", "#.#...#~~#", "#.....#~~#", "##########"]
+        flexible = {(x, y) for y in range(1, 4) for x in range(1, 9) if grid[y][x] in "#."}
+        blocks, tally, _ = autotile.fill(grid, layout, flexible=flexible)
+        tiles = TilesetPair.for_layout(layout)
+        after = [autotile._kind(emerald_symbol(tiles, blocks.get(x, y))) for y in range(5) for x in range(10)]
+        self.assertEqual(autotile.access_differences(self.kinds(grid), after, 10, 5, set()), [])
+
+
 class Buildings(unittest.TestCase):
     def test_pieces_come_whole_from_the_originals(self):
         import buildings

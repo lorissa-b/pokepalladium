@@ -131,7 +131,7 @@ class Model:
                     self.blocks.append(b)
                     self.materials.append(materials.of(target, b))
                 i = self.index[b]
-                collision[i][c.unpack(blocks.get(x, y))[1]] += 1
+                collision[i][c.unpack(blocks.get(x, y))[1:]] += 1
                 return i
 
             for y in range(h):
@@ -155,10 +155,10 @@ class Model:
                         patches[(i, r, d, rd)] += 1
 
         # A metatile's class, with the collision it usually has.
-        self.classes = [
-            emerald_symbol(target, c.pack(b, collision[i].most_common(1)[0][0] if collision[i] else 0))
-            for i, b in enumerate(self.blocks)
-        ]
+        # Each block's usual collision and elevation in the originals: what its class is
+        # learned with, so also what a draft writes it with.
+        self.attrs = [collision[i].most_common(1)[0][0] if collision[i] else None for i in range(len(self.blocks))]
+        self.classes = [emerald_symbol(target, c.pack(b, a[0] if a else 0)) for b, a in zip(self.blocks, self.attrs)]
         self.allow = [dict(a) for a in allow]
         self.pairs = pairs
         self.patches = patches
@@ -178,8 +178,184 @@ class Model:
             self.index[metatile] = len(self.blocks)
             self.blocks.append(metatile)
             self.materials.append(materials.of(self._target, metatile))
+            self.attrs.append(None)
             self.classes.append(emerald_symbol(self._target, c.pack(metatile, 0, 0)))
         return self.index[metatile]
+
+
+def _kind(ch: str) -> str | None:
+    """What a class means for getting around: its movement group (ledges by direction), None if solid."""
+    group = GROUP_OF.get(ch, "walk")
+    if group in ("block", "none"):
+        return None
+    return "ledge" + ch if group == "ledge" else group
+
+
+def _access(kinds: list[str | None], w: int, h: int, barriers: set[int]):
+    """Connected areas of each kind, and which areas touch (4-neighbours).
+
+    Barrier cells (Platinum's objects: cut trees, boulders, people) are each an
+    area of their own, so a way around one counts as a new connection.
+    """
+    label = [-1] * (w * h)
+    n = 0
+    for s0 in range(w * h):
+        if kinds[s0] is None or label[s0] >= 0:
+            continue
+        label[s0] = n
+        if s0 not in barriers:
+            stack = [s0]
+            while stack:
+                i = stack.pop()
+                x, y = i % w, i // w
+                for dx, dy in N4:
+                    if 0 <= x + dx < w and 0 <= y + dy < h:
+                        j = i + dy * w + dx
+                        if label[j] < 0 and j not in barriers and kinds[j] == kinds[s0]:
+                            label[j] = n
+                            stack.append(j)
+        n += 1
+    touches = set()
+    for i in range(w * h):
+        if label[i] < 0:
+            continue
+        x, y = i % w, i // w
+        for j in ((i + 1) if x + 1 < w else -1, (i + w) if y + 1 < h else -1):
+            if j >= 0 and label[j] >= 0 and label[j] != label[i]:
+                touches.add((min(label[i], label[j]), max(label[i], label[j])))
+    return label, touches
+
+
+def _sealed(label: list[int], touches: set[tuple[int, int]]) -> set[int]:
+    """Areas that touch no other area: nothing can reach them (the walkable top row of a roof)."""
+    touching = {a for pair in touches for a in pair}
+    return {a for a in set(label) if a >= 0 and a not in touching}
+
+
+def _same_access(before: list[str | None], after: list[str | None], w: int, h: int, barriers: set[int],
+                 reference=None) -> bool:
+    """Whether two grids give the same areas with the same connections.
+
+    Nothing joined, split, lost or new, and no area gaining or losing a border
+    with water, a ledge or anything else. reference: _access(before) if known.
+    """
+    old, old_touch = reference or _access(before, w, h, barriers)
+    new, new_touch = _access(after, w, h, barriers)
+    sealed = _sealed(new, new_touch)
+    to_old: dict[int, set[int]] = defaultdict(set)
+    to_new: dict[int, set[int]] = defaultdict(set)
+    for i in range(w * h):
+        if new[i] >= 0 and old[i] >= 0 and before[i] == after[i]:
+            to_old[new[i]].add(old[i])
+            to_new[old[i]].add(new[i])
+    if any(new[i] >= 0 and new[i] not in sealed and len(to_old.get(new[i], ())) != 1 for i in range(w * h)):
+        return False  # two areas joined, or a new one made of swapped cells alone
+    old_sealed = _sealed(old, old_touch)
+    if any(len(ns) != 1 for ns in to_new.values()) or any(o not in to_new and o not in old_sealed for o in set(old) if o >= 0):
+        return False  # an area split, or one gone (one nothing could reach doesn't matter)
+    as_old = {a: next(iter(o)) for a, o in to_old.items()}
+    mapped = {(min(as_old[a], as_old[b]), max(as_old[a], as_old[b])) for a, b in new_touch}
+    return mapped == old_touch
+
+
+def access_differences(before: list[str | None], after: list[str | None], w: int, h: int,
+                       barriers: set[int]) -> list[str]:
+    """How access differs between two grids of movement kinds (see _kind), one line per difference.
+
+    Empty when they're the same: each area of each kind is still one area,
+    nothing is joined, split, lost or new, and every area touches the same
+    others. A new area touching nothing (the walkable top row of a roof) is
+    out of reach, so it doesn't count.
+    """
+    old, old_touch = _access(before, w, h, barriers)
+    new, new_touch = _access(after, w, h, barriers)
+    cells_old: dict[int, list[int]] = defaultdict(list)
+    cells_new: dict[int, list[int]] = defaultdict(list)
+    for i in range(w * h):
+        if old[i] >= 0:
+            cells_old[old[i]].append(i)
+        if new[i] >= 0:
+            cells_new[new[i]].append(i)
+    to_old: dict[int, set[int]] = defaultdict(set)
+    to_new: dict[int, set[int]] = defaultdict(set)
+    for i in range(w * h):
+        if new[i] >= 0 and old[i] >= 0 and before[i] == after[i]:
+            to_old[new[i]].add(old[i])
+            to_new[old[i]].add(new[i])
+
+    def where(cells) -> str:
+        i = min(cells)
+        return f"({i % w},{i // w})"
+
+    def name(kinds, cells) -> str:
+        return f"{kinds[cells[0]]} area at {where(cells)} ({len(cells)} tiles)"
+
+    out = []
+    sealed = _sealed(new, new_touch)
+    for a, cells in cells_new.items():
+        olds = to_old.get(a, set())
+        if not olds and a in sealed:
+            continue  # nothing can reach it
+        if not olds:
+            out.append(f"new {name(after, cells)}")
+        elif len(olds) > 1:
+            out.append(f"joined: {', '.join(name(before, cells_old[o]) for o in sorted(olds))}")
+    old_sealed = _sealed(old, old_touch)
+    for o, cells in cells_old.items():
+        news = to_new.get(o, set())
+        if not news and o in old_sealed:
+            continue  # nothing could reach it
+        if not news:
+            out.append(f"gone: {name(before, cells)}")
+        elif len(news) > 1:
+            out.append(f"split: {name(before, cells)} into {len(news)}")
+    if out:
+        return out
+    as_old = {a: next(iter(o)) for a, o in to_old.items()}
+    mapped = {(min(as_old[a], as_old[b]), max(as_old[a], as_old[b])) for a, b in new_touch}
+    for a, b in sorted(mapped - old_touch):
+        out.append(f"now touch: {name(before, cells_old[a])} and {name(before, cells_old[b])}")
+    for a, b in sorted(old_touch - mapped):
+        out.append(f"no longer touch: {name(before, cells_old[a])} and {name(before, cells_old[b])}")
+    return out
+
+
+def _accept_swaps(before: list[str | None], after: list[str | None], w: int, h: int, barriers: set[int],
+                  swapped: set[int]) -> set[int]:
+    """The swaps to undo: each group of touching swaps is kept only if access stays the same with it."""
+    reference = _access(before, w, h, barriers)
+    left, groups = set(swapped), []
+    while left:
+        start = left.pop()
+        group, stack = {start}, [start]
+        while stack:
+            i = stack.pop()
+            x, y = i % w, i // w
+            for dx, dy in DIRS:
+                j = i + dy * w + dx
+                if 0 <= x + dx < w and 0 <= y + dy < h and j in left:
+                    left.remove(j)
+                    group.add(j)
+                    stack.append(j)
+        groups.append(group)
+    base = list(before)
+    undo: set[int] = set()
+    for group in sorted(groups, key=lambda g: (len(g), min(g))):
+        trial = list(base)
+        for i in group:
+            trial[i] = after[i]
+        if _same_access(before, trial, w, h, barriers, reference):
+            base = trial
+            continue
+        # The group as a whole changes access: keep what can be kept of it, one cell at a time.
+        for i in sorted(group):
+            trial = list(base)
+            trial[i] = after[i]
+            if _same_access(before, trial, w, h, barriers, reference):
+                base = trial
+            else:
+                undo.add(i)
+    return undo
 
 
 @lru_cache(maxsize=None)
@@ -203,10 +379,14 @@ SWEEPS = 12              # improvement passes over the whole map (stops early wh
 MAX_CANDIDATES = 400     # blocks considered per cell, preferred ones first
 PATCH_CANDIDATES = 300   # 2x2 patches tried per problem spot, most common first
 PATCH_ROUNDS = 6         # rounds of patch moves over the problem spots
+FLIP_COST = 4.0          # a flexible cell made walkable or blocked against Platinum, to finish a sprite
+FLIPPABLE = "#.="        # classes a flexible cell may swap (# and . with each other, = to water)
+ACCESS_ROUNDS = 4        # rounds of undoing swaps that change access before undoing them all
 
 
 def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None = "dense",
-         water: str | None = "sea", fixed: dict[tuple[int, int], int] | None = None
+         water: str | None = "sea", fixed: dict[tuple[int, int], int] | None = None,
+         flexible: set[tuple[int, int]] | None = None, barriers: set[tuple[int, int]] | None = None,
          ) -> tuple[Blockdata, Counter, list[tuple[int, int]]]:
     """Blocks for a class grid (rows of class characters, ' ' = outside the map).
 
@@ -224,6 +404,15 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
     trees/water pick the family the style keeps to (None: any). fixed: blocks
     already decided (buildings, see buildings.py), by (x, y); they're kept as
     they are, collision and elevation included, and the rest fits around them.
+
+    flexible: cells that may be made walkable or blocked against their class
+    (for FLIP_COST each) when that finishes a sprite Platinum's shape cuts in
+    half, such as a tree line one block thick. Only blocked and walkable
+    cells swap, and access must come out exactly as it went in: the same
+    areas of each kind (walking, water, each ledge direction...) touching
+    the same others, with each of `barriers` (Platinum's objects: cut trees,
+    boulders, people) an area of its own so nothing gains a way around one.
+    Swaps near any change are undone, and all of them if that doesn't do it.
 
     Returns the blocks, a tally (context levels used, sweeps, seams,
     off-style cells) and the seams: cells beside a block they never sit
@@ -280,6 +469,36 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
     ctx = [context_costs(i) for i in range(w * h)]
     pref = [preferred[target[i]] for i in range(w * h)]
     cands = [candidates[target[i]] for i in range(w * h)]
+    want_group = [GROUP_OF.get(ch, "walk") for ch in target]
+
+    # Flexible cells may take the other class too, at a cost (its context as if it were that class).
+    other = {"#": ".", ".": "#", "=": "~"}  # a bridge lane may go back to the water it crosses
+    alt_ctx: dict[int, dict[int, float]] = {}
+
+    def make_flexible(i: int) -> None:
+        ch = target[i]
+        alt = other[ch]
+        if alt not in candidates:
+            _add_class(alt)
+        target[i] = alt
+        alt_ctx[i] = context_costs(i)
+        target[i] = ch
+        cands[i] = list(dict.fromkeys(candidates[ch] + candidates[alt]))
+        pref[i] = preferred[ch] | preferred[alt]
+
+    def _add_class(ch: str) -> None:
+        need = spec["need"].get(ch)
+        ok = spec["allow"] | spec["extra"].get(ch, set())
+        group = _bits(m.group_mask.get(GROUP_OF.get(ch, "walk"), 0))
+        good = {i for i in group if (m.materials[i] - family_tags) <= ok
+                and (need is None or need in m.materials[i] - family_tags)
+                and not any(fam and materials.family(m.materials[i], mat) not in (None, fam) for mat, fam in chosen.items())}
+        preferred[ch] = good
+        candidates[ch] = sorted(good, key=lambda i: -m.freq[i])[:MAX_CANDIDATES]
+
+    for x, y in flexible or ():
+        if 0 <= x < w and 0 <= y < h and target[y * w + x] in FLIPPABLE and target[y * w + x] in other:
+            make_flexible(y * w + x)
 
     neighbours = []
     for i in range(w * h):
@@ -300,7 +519,10 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
         return hit
 
     def cost(i: int, b: int, assign: list) -> float:
-        c = ctx[i].get(b, unseen_context)
+        if GROUP_OF.get(m.classes[b], "walk") != want_group[i]:
+            c = FLIP_COST + alt_ctx.get(i, {}).get(b, unseen_context)
+        else:
+            c = ctx[i].get(b, unseen_context)
         if b not in pref[i]:
             c += OFF_STYLE_COST
         for d, n in neighbours[i]:
@@ -389,6 +611,42 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
         if not improved:
             break
 
+    # Swaps must leave every area reachable exactly as in Platinum: undo those near any
+    # change in the areas or what they touch, settle those spots again, and if that
+    # doesn't do it, undo every swap.
+    before_kinds = [_kind(ch) for ch in target]
+    walls = {y * w + x for x, y in barriers or () if 0 <= x < w and 0 <= y < h}
+
+    def settle() -> None:
+        for _ in range(SWEEPS):
+            changed = 0
+            for i in free:
+                best = min(cands[i], key=lambda b: cost(i, b, assign))
+                if cost(i, best, assign) < cost(i, assign[i], assign) - 1e-9:
+                    assign[i] = best
+                    changed += 1
+            if not changed:
+                break
+
+    def unflex(cells) -> None:
+        for i in cells:
+            ch = target[i]
+            cands[i], pref[i] = candidates[ch], preferred[ch]
+            alt_ctx.pop(i, None)
+            assign[i] = min(cands[i], key=lambda b: cost(i, b, assign))
+
+    for attempt in range(ACCESS_ROUNDS + 1):
+        after_kinds = [_kind(m.classes[b]) if i in alt_ctx else before_kinds[i] for i, b in enumerate(assign)]
+        swapped = {i for i in alt_ctx if after_kinds[i] != before_kinds[i]}
+        if not swapped:
+            break
+        bad = _accept_swaps(before_kinds, after_kinds, w, h, walls, swapped)
+        if not bad:
+            break
+        unflex(set(alt_ctx) if attempt == ACCESS_ROUNDS else bad)
+        settle()
+    tally["flipped"] = sum(1 for i in free if GROUP_OF.get(m.classes[assign[i]], "walk") != want_group[i])
+
     seams = [(i % w, i // w) for i in range(w * h) if seam(i)]
     tally["seams"] = len(seams)
     tally["off_style"] = sum(1 for i in free if assign[i] not in pref[i])
@@ -398,7 +656,8 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
     out = Blockdata(w, h)
     for i, b in enumerate(assign):
         mid = m.blocks[b]
-        out.blocks[i] = cc.pack(mid, *default_attrs(mid, layout))
+        # Written as the originals have it, so it moves the way it was chosen to.
+        out.blocks[i] = cc.pack(mid, *(m.attrs[b] or default_attrs(mid, layout)))
     for (x, y), block in (fixed or {}).items():
         if 0 <= x < w and 0 <= y < h:
             out.blocks[y * w + x] = block

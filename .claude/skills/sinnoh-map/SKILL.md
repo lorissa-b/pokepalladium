@@ -53,6 +53,11 @@ guessed from screenshots. It needs Pillow
 
 ## Rules that keep biting
 
+- Where the player can go must stay as in Platinum: what's blocked by Surf,
+  Cut, Rock Climb or a ledge stays blocked. A finished draft's header says
+  "Access is the same as Platinum's" or lists what differs; fix anything it
+  lists before building, and keep it that way when editing by hand.
+
 - Connection offsets: a connection on map A with offset `o` puts the
   neighbour's x (or y) 0 at A's x (or y) = `o`. The way back uses `-o`.
   `check` verifies both sides and that the maps actually touch.
