@@ -76,7 +76,7 @@ Route105_EventScript_AndresRematch::
 	msgbox Route105_Text_AndresRematchPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-Route104_Text_DadPokenavCall:
+Route203_Text_DadPokenavCall:
 	.string "… … … … … …\n"
 	.string "… … … … … Beep!\p"
 	.string "DAD: Oh, {PLAYER}?\p"
@@ -92,6 +92,6 @@ Route104_Text_DadPokenavCall:
 	.string "… … … … … …\n"
 	.string "… … … … … Click!$"
 
-Route104_Text_RegisteredDadInPokenav:
+Route203_Text_RegisteredDadInPokenav:
 	.string "Registered DAD NORMAN\n"
 	.string "in the POKéTCH.$"

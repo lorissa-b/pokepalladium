@@ -223,185 +223,185 @@ Route202_Text_MarcosPostBattle:
 	.string "have gathered.\p"
 	.string "Heh, maybe I should turn pro.$"
 
-Route104_Text_GinaIntro:
+Route203_Text_GinaIntro:
 	.string "GINA: Okay, let's battle with our\n"
 	.string "POKéMON!$"
 
-Route104_Text_GinaDefeat:
+Route203_Text_GinaDefeat:
 	.string "GINA: Losing upsets me!$"
 
-Route104_Text_GinaPostBattle:
+Route203_Text_GinaPostBattle:
 	.string "GINA: You are strong!\n"
 	.string "We have to train lots more!$"
 
-Route104_Text_GinaNotEnoughMons:
+Route203_Text_GinaNotEnoughMons:
 	.string "GINA: Oh? Only one POKéMON?\n"
 	.string "Then, we don't battle with you.\p"
 	.string "If there's only one POKéMON, it will\n"
 	.string "be lonesome. That's not nice.$"
 
-Route104_Text_MiaIntro:
+Route203_Text_MiaIntro:
 	.string "MIA: We are twins, so we battle\n"
 	.string "POKéMON together.$"
 
-Route104_Text_MiaDefeat:
+Route203_Text_MiaDefeat:
 	.string "MIA: We battled together, but we\n"
 	.string "both lost…$"
 
-Route104_Text_MiaPostBattle:
+Route203_Text_MiaPostBattle:
 	.string "MIA: We will train our POKéMON more\n"
 	.string "and be strong like you.$"
 
-Route104_Text_MiaNotEnoughMons:
+Route203_Text_MiaNotEnoughMons:
 	.string "MIA: You want to battle with us?\p"
 	.string "It's a big no-no if you don't have two\n"
 	.string "POKéMON with you.\l"
 	.string "We're too strong for you!$"
 
-Route104_Text_IvanIntro:
+Route203_Text_IvanIntro:
 	.string "Why keep it a secret?\n"
 	.string "I'm the WATER POKéMON expert!\p"
 	.string "Huh?\n"
 	.string "You don't know me?$"
 
-Route104_Text_IvanDefeat:
+Route203_Text_IvanDefeat:
 	.string "I thought I wasn't too bad, if I may\n"
 	.string "say so, but I guess not… Bleah…$"
 
-Route104_Text_IvanPostBattle:
+Route203_Text_IvanPostBattle:
 	.string "I got too into fishing.\n"
 	.string "I forgot I had to raise my POKéMON…$"
 
-Route104_Text_BillyIntro:
+Route203_Text_BillyIntro:
 	.string "Leaving footprints in the sand is\n"
 	.string "so fun!$"
 
-Route104_Text_BillyDefeat:
+Route203_Text_BillyDefeat:
 	.string "Waah! I got sand in my runners!\n"
 	.string "They're all gritty!$"
 
-Route104_Text_BillyPostBattle:
+Route203_Text_BillyPostBattle:
 	.string "I want to leave my footprints in\n"
 	.string "the sand everywhere, but they\l"
 	.string "disappear quickly…$"
 
-Route104_Text_HaleyIntro:
+Route203_Text_HaleyIntro:
 	.string "Should I…\n"
 	.string "Or shouldn't I?\p"
 	.string "Okay, sure, I will battle!$"
 
-Route104_Text_HaleyDefeat:
+Route203_Text_HaleyDefeat:
 	.string "I shouldn't have battled…$"
 
-Route104_Text_HaleyPostBattle:
+Route203_Text_HaleyPostBattle:
 	.string "If you're faced with a decision and\n"
 	.string "you let someone else choose for you,\l"
 	.string "you will regret it, however things\l"
 	.string "turn out.$"
 
-Route104_Text_HaleyRegister1:
+Route203_Text_HaleyRegister1:
 	.string "You're strong, but should I register\n"
 	.string "you in my POKéTCH?\l"
 	.string "Maybe I shouldn't…\p"
 	.string "Okay, sure, I will register you!$"
 
-Route104_Text_HaleyRegister2:
+Route203_Text_HaleyRegister2:
 	.string "You're strong, but should I register\n"
 	.string "you in my POKéTCH?\l"
 	.string "Maybe I shouldn't…\p"
 	.string "Okay, sure, I will register you!$"
 
-Route104_Text_HaleyRematchIntro:
+Route203_Text_HaleyRematchIntro:
 	.string "Come on, battle with me!$"
 
-Route104_Text_HaleyRematchDefeat:
+Route203_Text_HaleyRematchDefeat:
 	.string "Ohh…\n"
 	.string "I thought I could win…$"
 
-Route104_Text_HaleyPostRematch:
+Route203_Text_HaleyPostRematch:
 	.string "I made the decision to battle, so\n"
 	.string "I can accept this loss with grace.\p"
 	.string "I am still upset about losing!$"
 
-Route104_Text_WinstonIntro:
+Route203_Text_WinstonIntro:
 	.string "Oh, sure, I'll accept your challenge.\n"
 	.string "I have a lot of money.$"
 
-Route104_Text_WinstonDefeat:
+Route203_Text_WinstonDefeat:
 	.string "Why couldn't I win?$"
 
-Route104_Text_WinstonPostBattle:
+Route203_Text_WinstonPostBattle:
 	.string "There are some things money can't buy.\n"
 	.string "That's POKéMON…$"
 
-Route104_Text_WinstonRegister1:
+Route203_Text_WinstonRegister1:
 	.string "Hm?\n"
 	.string "Ah, you've obtained a POKéTCH.\p"
 	.string "I will gladly register you.\n"
 	.string "After all, I have plenty of money.$"
 
-Route104_Text_WinstonRegister2:
+Route203_Text_WinstonRegister2:
 	.string "Hm?\n"
 	.string "Ah, you've obtained a POKéTCH.\p"
 	.string "I will gladly register you.\n"
 	.string "After all, I have plenty of money.$"
 
-Route104_Text_WinstonRematchIntro:
+Route203_Text_WinstonRematchIntro:
 	.string "After I lost to you, I learned a bunch\n"
 	.string "of things about POKéMON.$"
 
-Route104_Text_WinstonRematchDefeat:
+Route203_Text_WinstonRematchDefeat:
 	.string "I lost again?\n"
 	.string "Why couldn't I win?$"
 
-Route104_Text_WinstonPostRematch:
+Route203_Text_WinstonPostRematch:
 	.string "I'm fabulously wealthy, but I can't\n"
 	.string "seem to win at POKéMON…\p"
 	.string "It's so deep, the world of POKéMON…$"
 
-Route104_Text_CindyIntro:
+Route203_Text_CindyIntro:
 	.string "We must have been fated to meet.\n"
 	.string "May I ask you for a battle?$"
 
-Route104_Text_CindyDefeat:
+Route203_Text_CindyDefeat:
 	.string "Oh, my!$"
 
-Route104_Text_CindyPostBattle:
+Route203_Text_CindyPostBattle:
 	.string "“Hello” is the beginning of “good-bye.”\n"
 	.string "I hope we meet again.$"
 
-Route104_Text_CindyRegister1:
+Route203_Text_CindyRegister1:
 	.string "Hello, we meet again.\p"
 	.string "We seem to be drawn together. Let's\n"
 	.string "register each other in our POKéTCHS.$"
 
-Route104_Text_CindyRegister2:
+Route203_Text_CindyRegister2:
 	.string "We should commemorate how we seem\n"
 	.string "to be drawn to each other.\p"
 	.string "Let's register each other in our\n"
 	.string "POKéTCHS.$"
 
-Route104_Text_CindyRematchIntro:
+Route203_Text_CindyRematchIntro:
 	.string "Hello, we meet again.\n"
 	.string "May I ask you for a battle?$"
 
-Route104_Text_CindyRematchDefeat:
+Route203_Text_CindyRematchDefeat:
 	.string "Oh, my…\n"
 	.string "I did the best that I could…$"
 
-Route104_Text_CindyPostRematch:
+Route203_Text_CindyPostRematch:
 	.string "“Hello” is the beginning of “good-bye.”\n"
 	.string "I hope we meet again.$"
 
-Route104_Text_DarianIntro:
+Route203_Text_DarianIntro:
 	.string "I fished up a tough-looking POKéMON!\p"
 	.string "It has this magical quality to it!\n"
 	.string "It surely looks tough, yes it does!$"
 
-Route104_Text_DarianDefeat:
+Route203_Text_DarianDefeat:
 	.string "What the…$"
 
-Route104_Text_DarianPostBattle:
+Route203_Text_DarianPostBattle:
 	.string "Hey, MAGIKARP, you sure don't live up\n"
 	.string "to your name, do you?$"
 
