@@ -128,14 +128,8 @@ TwinleafTown_EventScript_SetMetRival::
 	setvar VAR_TWINLEAF_TOWN_STATE, 1
 	return
 
-@ Leaving town at the north exit (x 8-13, y 0) before meeting the rival.
+@ Leaving town at the north exit (x 9-12, y 0) before meeting the rival.
 @ The rival runs up from behind and heads to Route 201 with the player.
-TwinleafTown_EventScript_RivalCatchesUpTriggerWest::
-	lockall
-	setvar VAR_0x8009, 8
-	goto TwinleafTown_EventScript_RivalCatchesUp
-	end
-
 TwinleafTown_EventScript_RivalCatchesUpTrigger0::
 	lockall
 	setvar VAR_0x8009, 9
@@ -160,12 +154,6 @@ TwinleafTown_EventScript_RivalCatchesUpTrigger3::
 	goto TwinleafTown_EventScript_RivalCatchesUp
 	end
 
-TwinleafTown_EventScript_RivalCatchesUpTriggerEast::
-	lockall
-	setvar VAR_0x8009, 13
-	goto TwinleafTown_EventScript_RivalCatchesUp
-	end
-
 TwinleafTown_EventScript_RivalCatchesUp::
 	msgbox TwinleafTown_Text_RivalWaitUp, MSGBOX_DEFAULT
 	closemessage
@@ -178,8 +166,8 @@ TwinleafTown_EventScript_RivalCatchesUp::
 	msgbox TwinleafTown_Text_RivalYouReadMyMind, MSGBOX_DEFAULT
 	closemessage
 	@ Pass the player on the side toward the middle of the exit
-	call_if_lt VAR_0x8009, 12, TwinleafTown_EventScript_RivalRunAheadRight
-	call_if_ge VAR_0x8009, 12, TwinleafTown_EventScript_RivalRunAheadLeft
+	call_if_lt VAR_0x8009, 11, TwinleafTown_EventScript_RivalRunAheadRight
+	call_if_ge VAR_0x8009, 11, TwinleafTown_EventScript_RivalRunAheadLeft
 	removeobject LOCALID_TWINLEAF_RIVAL
 	call TwinleafTown_EventScript_SetMetRival
 	releaseall

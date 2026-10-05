@@ -15,7 +15,7 @@
   "connections": [
     {
       "map": "MAP_ROUTE201",
-      "offset": -29,
+      "offset": -24,
       "direction": "up"
     }
   ],
@@ -131,15 +131,6 @@
     },
     {
       "type": "trigger",
-      "x": 8,
-      "y": 0,
-      "elevation": 3,
-      "var": "VAR_TWINLEAF_INTRO_STATE",
-      "var_value": "9",
-      "script": "TwinleafTown_EventScript_RivalCatchesUpTriggerWest"
-    },
-    {
-      "type": "trigger",
       "x": 9,
       "y": 0,
       "elevation": 3,
@@ -173,15 +164,6 @@
       "var": "VAR_TWINLEAF_INTRO_STATE",
       "var_value": "9",
       "script": "TwinleafTown_EventScript_RivalCatchesUpTrigger3"
-    },
-    {
-      "type": "trigger",
-      "x": 13,
-      "y": 0,
-      "elevation": 3,
-      "var": "VAR_TWINLEAF_INTRO_STATE",
-      "var_value": "9",
-      "script": "TwinleafTown_EventScript_RivalCatchesUpTriggerEast"
     }
   ],
   "bg_events": [
