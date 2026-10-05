@@ -152,7 +152,15 @@
       "flag": "FLAG_DEFEATED_RIVAL_ROUTE_203"
     }
   ],
-  "warp_events": [],
+  "warp_events": [
+    {
+      "x": 58,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_OREBURGH_GATE_1F",
+      "dest_warp_id": "0"
+    }
+  ],
   "coord_events": [
     {
       "type": "trigger",

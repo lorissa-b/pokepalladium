@@ -458,6 +458,8 @@ gStdScripts_End::
 	.include "data/maps/AlteringCave/scripts.inc"
 	.include "data/maps/MeteorFalls_StevensCave/scripts.inc"
 	.include "data/maps/RavagedPath/scripts.inc"
+	.include "data/maps/OreburghGate_1F/scripts.inc"
+	.include "data/maps/OreburghGate_B1F/scripts.inc"
 	.include "data/scripts/shared_secret_base.inc"
 	.include "data/maps/BattleColosseum_2P/scripts.inc"
 	.include "data/maps/TradeCenter/scripts.inc"

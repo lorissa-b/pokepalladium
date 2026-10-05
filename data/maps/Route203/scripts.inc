@@ -3,8 +3,7 @@
 @ (General and Rustboro), so the shared edge draws the same from both sides.
 @ The entrance is widened to rows 15-20 to meet all six lanes of Jubilife's
 @ east road. Oreburgh Gate is the cave outcrop in the east trees, its mouth
-@ at (58,8) since Emerald has no west-facing cave mouth; it has no warp until
-@ the gate exists. Platinum's five trainers stand at its spots with its
+@ at (58,8) since Emerald has no west-facing cave mouth. Platinum's five trainers stand at its spots with its
 @ teams, and the rival waits by the entrance until he's beaten.
 Route203_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, Route203_OnTransition
