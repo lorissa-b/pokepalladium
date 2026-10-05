@@ -93,14 +93,14 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
 | `tileset MAP` or `tileset PRIMARY SECONDARY` | Metatile catalog PNG, or `--list` as text. `--only primary\|secondary`, `--behavior NAME`, `--materials`. |
 | `materials status` | How many metatiles of each tileset are labelled. |
 | `materials suggest TILESET...` | Draft labels and review sheets for tilesets. `--guesses-only`. |
-| `buildings LAYOUT` | Emerald buildings that draw with the layout's tilesets: name, size, kind, doors. `--kind`, `--render PNG`, `--piece NAME [--at X,Y]` prints one as a blueprint grid. |
+| `buildings LAYOUT` | Emerald buildings that draw with the layout's tilesets: name, size, kind, doors. `--kind`, `--render PNG`, `--piece NAME [--at X,Y]` prints one as a blueprint grid, `--piece NAME --size WxH [--doors 1,5]` makes a new one from its parts. |
 | `extract MAP` | A region as a blueprint that rebuilds it exactly. `--standalone` adds the header so it builds on its own. |
 | `build FILE` | Build a blueprint into its layout's `map.bin`, then check it. `--dry-run`, `--render PNG`. |
 | `check [MAP...]` | Check layouts and maps (all of them by default). `-w` adds warnings. Exits non-zero on errors. |
 | `platinum list [QUERY]` | Search Platinum's map headers. |
 | `platinum show HEADER` | The Platinum map as text, with events and props. `--events`, `--region`, `--render [PNG]`, `--json FILE`. |
 | `platinum update` | Move the cached pokeplatinum checkout to its latest commit. |
-| `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map, with its buildings placed. `--region X,Y,W,H`, `--finish [--style --trees --water]`, `--no-buildings`, `--render PNG [--events --grid --seams]`. |
+| `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map, with its buildings placed. `--region X,Y,W,H`, `--finish [--style --trees --water]`, `--no-buildings`, `--originals-only`, `--render PNG [--events --grid --seams]`. |
 | `compare MAP HEADER` | Score a map against the Platinum original. `--origin X,Y\|auto`, `--render PNG`, `-q`. |
 
 ### Tile classes
@@ -202,10 +202,40 @@ house or gate is placed like a town's houses.
   unless it backs onto other solid ground. Doorsteps are kept walkable.
   `--finish` then tiles everything else around the fixed buildings.
 
+### Buildings made from parts
+
+Emerald's maps only draw a few sizes of each building, but the tilesets'
+roof, wall, window and corner parts join in many more ways. So besides the
+pieces as the originals draw them, each Platinum building also gets
+candidates made from parts (`parts.py`) to its exact width and depth (or one
+taller, as Emerald draws roofs taller than Platinum's footprints are deep),
+with doors exactly where Platinum's are. They compete on the same costs,
+plus a little for being made; `--originals-only` turns them off.
+
+- **Joins.** Two blocks may sit side by side or one above the other when an
+  original map has them so, when the shared edge is drawn like the edge of a
+  pair that does, or when the art runs on across the join (the pixels either
+  side differ no more than neighbouring pixels inside each block). Window
+  beside window or shingle beside shingle passes; half an emblem beside half
+  an emblem doesn't.
+- **Making one.** Starting from a seed building, its rows are laid out to the
+  new height (in order, none running more than twice, so buildings grow by
+  storeys rather than roofs) and then columns to the new width, from the seed
+  and its relatives (buildings sharing three or more parts with it), each by
+  dynamic programming for the cheapest joins. Door columns go only where
+  doors are asked for. Blocks that no Pokemon Center, Mart or gym repeats
+  (signs, emblems) are never used twice. Then single blocks and pairs may be
+  swapped for other parts of the family where that fixes a join. A result
+  with any join still bad is refused, so Pokemon Centers and Marts mostly
+  keep their original sizes.
+- `buildings LAYOUT --piece NAME --size WxH --doors 1,5 --render out.png`
+  makes one by hand and prints it as a blueprint grid to paste.
+
 The draft's header (or, without `--finish`, a section after the main grid)
 lists each placement: the Platinum prop, the Emerald piece, where it went,
 its doors, and anything that didn't match, such as a Platinum door with no
-door on the piece. `--no-buildings` turns this off.
+door on the piece. A made building's name is its seed's with `~WxH` and its
+door columns (`PETALBURG_CITY@5,2~9x4d2-6`). `--no-buildings` turns this off.
 
 ## Finished drafts
 
@@ -319,6 +349,7 @@ file keeps a bounding box, which gives the footprint's size
 | `check.py` | The checks. |
 | `platinum.py` | The pokeplatinum reader. |
 | `compare.py` | Tile classes for Emerald, `compare`, `draft`. |
+| `parts.py` | New buildings from the parts of Emerald's: which blocks join, and making a building of any size with doors anywhere. |
 | `buildings.py` | Emerald building pieces from the original maps, fitting them to a layout's tilesets, and placing them on Platinum's buildings. |
 | `autotile.py` | `draft --finish`: learning from the original maps, and the cost-minimising fill. |
 | `original.py` | The original Emerald layouts from history, and which blocks are visible. |

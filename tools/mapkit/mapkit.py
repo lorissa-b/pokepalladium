@@ -294,10 +294,11 @@ def cmd_draft(a) -> None:
     if a.finish:
         family = {"any": None}
         text, blocks, tally, seams = cmp.finished_draft(
-            ref, layout, region, a.style, family.get(a.trees, a.trees), family.get(a.water, a.water), not a.no_buildings)
+            ref, layout, region, a.style, family.get(a.trees, a.trees), family.get(a.water, a.water), not a.no_buildings,
+            not a.originals_only)
         print(f"{tally.get('off_style', 0)} off-style blocks, {len(seams)} seams", file=sys.stderr)
     else:
-        text = cmp.draft(ref, layout, region, not a.no_buildings)
+        text = cmp.draft(ref, layout, region, not a.no_buildings, not a.originals_only)
         blocks = None
     if a.render:
         if blocks is None:
@@ -329,12 +330,28 @@ def cmd_buildings(a) -> None:
         if not hits:
             raise SystemExit(f"error: no piece {a.piece!r} for {layout['id']}; list them with `buildings {a.layout}`")
         p = hits[0]
+        if a.size:
+            import parts
+
+            try:
+                w, h = (int(v) for v in a.size.lower().split("x"))
+            except ValueError:
+                raise SystemExit("error: --size is WxH, e.g. 7x5")
+            doors = tuple(int(d) for d in a.doors.split(",")) if a.doors else ()
+            made = parts.make(p, layout, w, h, doors)
+            if made is None:
+                raise SystemExit(f"error: {p.name}'s parts don't make a {w}x{h} building"
+                                 + (f" with doors at {a.doors}" if doors else "") + " without a bad join")
+            p = made[0]
+            print(f"# made from parts, cost {made[1]:.2f}")
         x, y = region_arg(a.at)[:2] if a.at else (0, 0)
         tiles = TilesetPair.for_layout(layout)
         cells = {(x + dx, y + dy): b for dx, dy, b in p.blocks()}
         doors = " ".join(f"({x + dx},{y + dy})" for dx, dy in p.doors)
         print(f"# {p.name} {p.w}x{p.h} ({p.kind}), doors {doors}")
         sys.stdout.write(blueprint.cells_text(cells, lambda m: render.describe_metatile(tiles, m).split(" ", 1)[1]))
+        if a.render:
+            save(render.pieces_sheet([p], tiles, a.scale), a.render)
         return
     for p in lib:
         doors = " ".join(f"{dx},{dy}" for dx, dy in p.doors)
@@ -502,6 +519,8 @@ def main(argv=None) -> None:
     s.add_argument("--water", choices=["sea", "pond", "any"], default="sea", help="with --finish, the one water family to use")
     s.add_argument("--no-buildings", action="store_true",
                    help="don't place Emerald buildings where Platinum has buildings (see buildings.py)")
+    s.add_argument("--originals-only", action="store_true",
+                   help="only buildings exactly as the original maps draw them, none made from parts (see parts.py)")
     s.add_argument("--seams", action="store_true", help="with --render, outline spots worth checking by eye")
     s.add_argument("--render", help="draw the draft to this PNG")
     s.add_argument("--events", action="store_true", help="with --render, mark Platinum's events and props")
@@ -515,6 +534,8 @@ def main(argv=None) -> None:
     s.add_argument("--kind", choices=["pokecenter", "mart", "gym", "lab", "gate", "house", "other"])
     s.add_argument("--piece", help="print this piece (a name from the list) as a blueprint grid")
     s.add_argument("--at", help="with --piece, X,Y of its top-left (default 0,0)")
+    s.add_argument("--size", help="with --piece, make a WxH building from its parts instead (see parts.py)")
+    s.add_argument("--doors", help="with --size, door columns, e.g. 2 or 1,5 (default: no door)")
     s.add_argument("--render", help="draw every piece to this PNG")
     s.add_argument("--scale", type=int, default=2)
     s.set_defaults(func=cmd_buildings)

@@ -165,6 +165,48 @@ class Buildings(unittest.TestCase):
         self.assertEqual([b & consts().metatile_mask for b in g.blocks], [0x001, 0x1D4, 0x001, 0x001, 0x001, 0x00D])
 
 
+class Parts(unittest.TestCase):
+    def test_a_wider_house_with_its_door_moved(self):
+        import buildings
+        import parts
+        from tileset import TilesetPair
+
+        layout = resolve_layout("LAYOUT_SANDGEM_TOWN")
+        seed = next(p for p in buildings.library(layout) if p.name == "PETALBURG_CITY@19,21")
+        made = parts.make(seed, layout, 7, 4, (3,))
+        self.assertIsNotNone(made)
+        piece, _ = made
+        self.assertEqual((piece.w, piece.h, piece.doors), (7, 4, ((3, 3),)))
+        tiles = TilesetPair.for_layout(layout)
+        j = parts.joins(layout["primary_tileset"], layout["secondary_tileset"])
+        mid = consts().metatile_mask
+        for dx, dy, b in piece.blocks():
+            is_door = "DOOR" in behaviors().get(tiles.behavior(b & mid), "")
+            self.assertEqual(is_door, (dx, dy) == (3, 3), (dx, dy))
+            if dx + 1 < piece.w and piece.cells[dy][dx + 1] is not None:
+                self.assertLessEqual(j.h(b & mid, piece.cells[dy][dx + 1] & mid), parts.JOIN_MAX)
+            if dy + 1 < piece.h and piece.cells[dy + 1][dx] is not None:
+                self.assertLessEqual(j.v(b & mid, piece.cells[dy + 1][dx] & mid), parts.JOIN_MAX)
+
+    def test_signs_and_emblems_are_never_repeated(self):
+        import buildings
+        import parts
+
+        layout = resolve_layout("LAYOUT_SANDGEM_TOWN")
+        centre = next(p for p in buildings.library(layout) if p.name == "OLDALE_TOWN@5,13")
+        self.assertIsNone(parts.make(centre, layout, 6, 4, (2,)))
+
+    def test_sequences_keep_ends_and_cap_runs(self):
+        import parts
+
+        # Four inputs to six: the middle two each repeat once, ends stay ends.
+        cost, seq = parts._sequence(6, 4, lambda a, b: 0.0 if b == a + 1 else 1.0, max_run=2, forward=True)
+        self.assertEqual(seq, [0, 1, 1, 2, 2, 3])
+        self.assertEqual(cost, 2.0)
+        # Three inputs can't make six when one middle input may only run twice.
+        self.assertEqual(parts._sequence(6, 3, lambda a, b: 0.0, max_run=2, forward=True), (float("inf"), None))
+
+
 class Checks(unittest.TestCase):
     def test_whole_repo_runs(self):
         findings = check.run()
@@ -212,6 +254,12 @@ class Platinum(unittest.TestCase):
                 self.assertIn("DOOR", behaviors().get(tiles.behavior(p.cells[(x, y)] & consts().metatile_mask), ""))
                 doors.add((x, y))
         self.assertEqual(doors, {(w["x"], w["y"]) for w in ref.warps})
+        # The lab is made from parts to Platinum's footprint exactly.
+        lab = next(p for p in placed if p.target.kind == "lab")
+        self.assertEqual((lab.piece.w, lab.piece.h), lab.target.box[2:])
+        self.assertTrue(lab.piece.made)
+        originals, _ = buildings.plan(ref, layout, ref.grid(), (0, 0, ref.width, ref.height), make_new=False)
+        self.assertFalse(any(p.piece.made for p in originals))
 
 
 if __name__ == "__main__":

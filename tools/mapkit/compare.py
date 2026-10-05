@@ -155,11 +155,11 @@ DRAFT_LEGENDS = {
 
 
 def draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, int] | None = None,
-          with_buildings: bool = True) -> str:
+          with_buildings: bool = True, make_new: bool = True) -> str:
     x0, y0, w, h = region or (0, 0, ref.width, ref.height)
     grid = ref.grid()
     rows = [grid[y][x0 : x0 + w] if 0 <= y < ref.height else "" for y in range(y0, y0 + h)]
-    placements, unplaced = _buildings(ref, layout, rows, (x0, y0, w, h), with_buildings)
+    placements, unplaced = _buildings(ref, layout, rows, (x0, y0, w, h), with_buildings, make_new)
     used = sorted({ch for r in rows for ch in r} - {" "})
     legends = DRAFT_LEGENDS.get(layout["primary_tileset"], {})
     try:
@@ -204,19 +204,19 @@ def draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, in
     return "\n".join(out) + "\n"
 
 
-def _buildings(ref, layout, rows, region, enabled: bool):
+def _buildings(ref, layout, rows, region, enabled: bool, make_new: bool = True):
     """Placements for the region's buildings (none when disabled)."""
     if not enabled:
         return [], []
     import buildings
 
     w = region[2]
-    return buildings.plan(ref, layout, [r.ljust(w) for r in rows], region)
+    return buildings.plan(ref, layout, [r.ljust(w) for r in rows], region, make_new)
 
 
 def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, int] | None = None,
                    style: str = "route", trees: str | None = "dense", water: str | None = "sea",
-                   with_buildings: bool = True):
+                   with_buildings: bool = True, make_new: bool = True):
     """A blueprint with every block chosen, tiled by example (see autotile.py).
 
     Returns (blueprint text, blocks, tally, seams).
@@ -231,7 +231,7 @@ def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int
     rows = [grid[y][x0 : x0 + w].ljust(w) if 0 <= y < ref.height else " " * w for y in range(y0, y0 + h)]
     import buildings
 
-    placements, unplaced = _buildings(ref, layout, rows, (x0, y0, w, h), with_buildings)
+    placements, unplaced = _buildings(ref, layout, rows, (x0, y0, w, h), with_buildings, make_new)
     tiled = buildings.apply(placements, rows, layout)
     blocks, tally, seams = autotile.fill(tiled, layout, style, trees, water, buildings.fixed(placements))
     tiles = TilesetPair.for_layout(layout)
@@ -251,9 +251,10 @@ def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int
         + (f" --style {style}" if style != "route" else "")
         + (f" --trees {trees or 'any'}" if trees != "dense" else "")
         + (f" --water {water or 'any'}" if water != "sea" else "")
-        + ("" if with_buildings else " --no-buildings"),
+        + ("" if with_buildings else " --no-buildings")
+        + ("" if make_new or not with_buildings else " --originals-only"),
         "#",
-        *(["# Buildings, placed whole from the original maps (buildings.py):"]
+        *(["# Buildings, whole from the original maps or made from their parts (name~WxH; buildings.py, parts.py):"]
           + [f"#   {p.describe()}" for p in placements] + [f"#   {n}" for n in unplaced]
           if placements or unplaced else []),
         "#",

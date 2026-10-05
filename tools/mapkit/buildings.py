@@ -24,6 +24,12 @@ place buildings first, as whole pieces, and tile everything else around them.
   (a decorative block, or a gate entered from the side) gets a piece with
   its door bricked up, sat on the footprint's bottom row.
 
+Besides the pieces as the originals draw them, plan() asks parts.py to make
+new buildings from their parts, to each Platinum building's exact width
+and depth (or one taller) with its doors where Platinum has them, and
+lets those compete on the same costs (plus MADE). So a 5-wide Sinnoh house
+gets a 5-wide house, and Jubilife's offices offices of their own size.
+
 plan() returns the placements, with the blocks to fix in place; draft and
 draft --finish stamp them, and autotile.fill() tiles around them.
 """
@@ -62,10 +68,11 @@ class Piece:
     dests: tuple[str, ...]
     primary: str
     secondary: str
+    made: str = ""  # set for a building made from parts (parts.py): its name
 
     @property
     def name(self) -> str:
-        return f"{self.source.removeprefix('LAYOUT_')}@{self.x},{self.y}"
+        return self.made or f"{self.source.removeprefix('LAYOUT_')}@{self.x},{self.y}"
 
     def blocks(self):
         """(dx, dy, block) for each cell that's part of the building."""
@@ -208,7 +215,7 @@ def translate(piece: Piece, layout: dict) -> Piece | None:
     cells = tuple(tuple(None if b is None else (b & ~c.metatile_mask) | mapping[b & c.metatile_mask] for b in row)
                   for row in piece.cells)
     return Piece(piece.source, piece.x, piece.y, piece.w, piece.h, cells, piece.doors, piece.kind, piece.dests,
-                 piece.primary, layout["secondary_tileset"])
+                 piece.primary, layout["secondary_tileset"], piece.made)
 
 
 @lru_cache(maxsize=None)
@@ -278,8 +285,12 @@ def _kind_cost(want: str, have: str) -> float:
     return OTHER_KIND
 
 
-def plan(ref: platinum.Reference, layout: dict, grid: list[str], region: tuple[int, int, int, int]) -> tuple[list[Placement], list[str]]:
+def plan(ref: platinum.Reference, layout: dict, grid: list[str], region: tuple[int, int, int, int],
+         make_new: bool = True) -> tuple[list[Placement], list[str]]:
     """Pieces for every Platinum building in the region. grid: the region's tile classes.
+
+    With make_new, buildings made from parts (parts.py) to the exact size and
+    doors of each Platinum building compete with the original pieces.
 
     Returns the placements and notes on buildings that got none.
     """
@@ -309,13 +320,20 @@ def plan(ref: platinum.Reference, layout: dict, grid: list[str], region: tuple[i
         bx1 = max(x for x, _ in tiles)
         bottom = max(y for _, y in tiles)
         top = min(y for _, y in tiles)
+        candidates = []
         for piece in lib:
             if doors:
                 anchors = {(dx - pdx, dy - pdy) for pdx, pdy in piece.doors for dx, dy in doors[:1]}
             else:
                 anchors = {(ax, bottom - piece.h + 1) for ax in range(bx0 - piece.w + 2, bx1)}
+            candidates.append((piece, anchors, 0.0))
+        if make_new:
+            for piece, extra in _made_for(b.kind, lib, layout, bx1 - bx0 + 1, bottom - top + 1,
+                                          tuple(sorted(x - bx0 for x, _ in doors)) if doors else ()):
+                candidates.append((piece, {(bx0, bottom - piece.h + 1)}, extra))
+        for piece, anchors, extra in candidates:
             for ax, ay in anchors:
-                cost = _kind_cost(b.kind, piece.kind) + REUSE * uses[piece.name]
+                cost = _kind_cost(b.kind, piece.kind) + REUSE * uses[piece.name] + extra
                 if cost >= (best[0] if best else float("inf")):
                     continue
                 kept, bad = [], False
@@ -379,6 +397,30 @@ def plan(ref: platinum.Reference, layout: dict, grid: list[str], region: tuple[i
         placed.append(p)
     placed.sort(key=lambda p: (p.y, p.x))
     return placed, notes
+
+
+MADE = 1.0          # a building made from parts rather than taken whole
+MADE_SCALE = 0.5    # times the made building's own cost (its joins and swapped parts)
+SEEDS = 6           # pieces tried as seeds for each Platinum building
+
+
+def _made_for(kind: str, lib, layout: dict, w: int, h: int, doors: tuple[int, ...]):
+    """Buildings made from parts for a footprint: (piece, extra cost) for the best few seeds.
+
+    Each is w wide, h or h + 1 tall (Emerald draws a roof taller than
+    Platinum's footprint is deep), with doors at these columns.
+    """
+    import parts
+
+    seeds = [p for p in lib if _kind_cost(kind, p.kind) <= 2 and (not doors or p.doors)]
+    seeds.sort(key=lambda p: (_kind_cost(kind, p.kind), abs(p.w - w) + abs(p.h - h), p.name))
+    out = []
+    for seed in seeds[:SEEDS]:
+        for height in (h, h + 1):
+            made = parts.make(seed, layout, w, height, doors)
+            if made is not None and made[0].cells != seed.cells:
+                out.append((made[0], MADE + MADE_SCALE * made[1]))
+    return out
 
 
 def apply(placements: list[Placement], grid: list[str], layout: dict) -> list[str]:

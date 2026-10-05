@@ -27,9 +27,12 @@ guessed from screenshots. It needs Pillow
 4. **Detail.** The draft already places a whole Emerald building on every
    Platinum building (town or route), door on Platinum's door. Its notes list
    each placement and anything unmatched (`no Emerald building fits`, `no
-   door for Platinum's door`). Swap a building using
+   door for Platinum's door`). Buildings whose name has `~WxH` were made
+   from parts to Platinum's exact size; `--originals-only` keeps to the
+   originals' own buildings. Swap a building using
    `buildings <LAYOUT> --render build/mapkit/pieces.png` and
-   `buildings <LAYOUT> --piece <NAME> --at X,Y`, or `stamp`/`extract` from
+   `buildings <LAYOUT> --piece <NAME> --at X,Y` (add `--size WxH --doors
+   1,5` to make it another size), or `stamp`/`extract` from
    another map. Find metatiles with `tileset <Map>` (PNG) and
    `tileset <Map> --list --behavior <NAME>`. Keep each building's door on the
    tile where Platinum has its door warp.
