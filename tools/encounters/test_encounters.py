@@ -69,6 +69,12 @@ class Species(unittest.TestCase):
         self.assertEqual(enc.family("SPECIES_LUXRAY"), "SPECIES_SHINX")
         self.assertEqual(enc.family("SPECIES_SHINX"), "SPECIES_SHINX")
 
+    def test_generations_follow_the_national_dex(self):
+        self.assertEqual(enc.generation("SPECIES_BULBASAUR"), 1)
+        self.assertEqual(enc.generation("SPECIES_HOOTHOOT"), 2)
+        self.assertEqual(enc.generation("SPECIES_MUDKIP"), 3)
+        self.assertEqual(enc.generation("SPECIES_SHINX"), 4)
+
     def test_starters_are_read(self):
         self.assertEqual(len(enc.starters()), 3)
 
@@ -99,7 +105,7 @@ class Commands(unittest.TestCase):
         return code, out.getvalue()
 
     def test_every_command_runs(self):
-        for argv in (["summary"], ["show", "route201", "--types"], ["species", "starly"], ["check", "--max-species", "0"]):
+        for argv in (["summary"], ["overview"], ["show", "route201", "--types"], ["species", "starly"], ["check", "--max-species", "0"]):
             code, text = self.run_command(*argv)
             self.assertIn(code, (0, 1), argv)
             self.assertTrue(text.strip(), argv)

@@ -43,6 +43,21 @@ methods it appears on:
 
 These columns show how varied a route feels.
 
+**`overview`** compares the maps with each other, in four parts:
+
+- **Shared and unique species:** for each map, how many of its wild species
+  are also wild on another map here, how much of its grass encounter rate
+  goes to those shared species, and which species only it has.
+- **Overlap between maps:** a grid giving, for each pair of maps, the share of
+  all the species on either map that are on both.
+- **Type variety:** how many types each map has and its type mix, both
+  counting each species once and weighted by grass encounter rate.
+- **Generations:** the share of each map's species from each generation (by
+  National Dex number), both counting each species once and weighted by grass
+  encounter rate.
+
+Surfing and fishing count towards the species totals as well as grass.
+
 **`show MAP...`** prints a table for each encounter method on the given maps,
 with species down the side and times of day across (times that share a table
 are merged), then the trainers with their teams. `--types` adds each map's

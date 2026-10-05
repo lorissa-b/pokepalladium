@@ -2,6 +2,7 @@
 """Analyse which Pokémon each map offers: wild encounters and trainers.
 
     tools/encounters/encounters.py summary              # the Sinnoh maps at a glance
+    tools/encounters/encounters.py overview             # overlap, types and generations
     tools/encounters/encounters.py show route201 ravaged path
     tools/encounters/encounters.py species shinx pachirisu
     tools/encounters/encounters.py check --max-species 5
@@ -32,7 +33,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "mapkit"))
 
-from project import REPO, maps, read, resolve_map  # noqa: E402
+from project import REPO, maps, parse_enum, read, resolve_map  # noqa: E402
 
 ENCOUNTERS_JSON = "src/data/wild_encounters.json"
 TIMES = ["Morning", "Day", "Evening", "Night"]
@@ -136,6 +137,22 @@ def families() -> dict[str, str]:
         return s
 
     return {s: root(s) for s in set(parent) | set(parent.values())}
+
+
+# The last National Dex number of each generation.
+GENERATION_ENDS = [151, 251, 386, 493, 649, 721, 809, 905, 1025]
+
+
+def generation(const: str) -> int | None:
+    dex = parse_dex().get("NATIONAL_DEX_" + const.removeprefix("SPECIES_"))
+    if not dex:
+        return None
+    return next(i + 1 for i, end in enumerate(GENERATION_ENDS + [dex]) if dex <= end)
+
+
+@lru_cache(maxsize=None)
+def parse_dex() -> dict[str, int]:
+    return parse_enum("include/constants/pokedex.h", "NATIONAL_DEX_")
 
 
 def family(const: str) -> str:
@@ -562,6 +579,130 @@ def cmd_check(args) -> int:
     return 1 if warnings else 0
 
 
+def short_name(name: str) -> str:
+    """A column heading for a map: Route 201 -> 201, Lake Verity -> Verity."""
+    words = [w for w in name.split() if w not in ("Route", "Town", "City", "Lake", "Path", "Cave", "Forest")]
+    return " ".join(words) or name
+
+
+def species_type_mix(group: set[str]) -> dict[str, float]:
+    """Each type's share of these species, each species counting once, a dual type half to each."""
+    mix: dict[str, float] = defaultdict(float)
+    for s in group:
+        types = species(s).types or ("?",)
+        for t in types:
+            mix[t] += 100 / len(types) / len(group)
+    return dict(sorted(mix.items(), key=lambda kv: (-kv[1], kv[0])))
+
+
+def fmt_mix(mix: dict[str, float], limit: int = 0) -> str:
+    items = [(t, v) for t, v in mix.items() if v >= 0.5]
+    shown = items[:limit] if limit else items
+    text = ", ".join(f"{t} {v:.0f}%" for t, v in shown)
+    return text + (f", +{len(items) - len(shown)} more" if len(items) > len(shown) else "")
+
+
+def generation_shares(weights: dict[str, float]) -> dict[int, float]:
+    total = sum(weights.values()) or 1
+    out: dict[int, float] = defaultdict(float)
+    for s, w in weights.items():
+        out[generation(s) or 0] += w * 100 / total
+    return out
+
+
+def cmd_overview(args) -> None:
+    chosen = [m for m in select_maps(join_names(args.maps), args.all) if m["id"] in encounters()]
+    names = [display(m) for m in chosen]
+    wild = {display(m): {s for h in encounters()[m["id"]].headers for t in h.values() for s in t.composition()} for m in chosen}
+    # Grass encounter weight of each species, averaged over the map's grass tables.
+    grass: dict[str, dict[str, float]] = {}
+    for m in chosen:
+        tables = [h["land_mons"] for h in encounters()[m["id"]].headers if "land_mons" in h]
+        if tables:
+            w: dict[str, float] = defaultdict(float)
+            for t in tables:
+                for s, (pct, _, _) in t.composition().items():
+                    w[s] += pct / len(tables)
+            grass[display(m)] = w
+    everything = set().union(*wild.values()) if wild else set()
+    count = {s: sum(s in group for group in wild.values()) for s in everything}
+
+    print(f"## Overview of {len(chosen)} maps\n")
+    print(f"{len(everything)} species are wild across these maps; "
+          f"{sum(c > 1 for c in count.values())} of them appear on more than one. "
+          "Every method (grass, surfing and fishing) counts.\n")
+
+    print("### Shared and unique species\n")
+    rows = []
+    for n in names:
+        group = wild[n]
+        unique = sorted((s for s in group if count[s] == 1), key=lambda s: species(s).name)
+        shared = len(group) - len(unique)
+        enc_shared = (f"{sum(v for s, v in grass[n].items() if count[s] > 1):.0f}%" if n in grass else "–")
+        rows.append([n, str(len(group)), str(shared), str(len(unique)), f"{shared * 100 / len(group):.0f}%", enc_shared,
+                     ", ".join(species(s).name for s in unique) or "–"])
+    print(md_table(["Map", "Species", "Shared", "Unique", "% shared", "Grass encounters shared", "Unique species"], rows))
+    print()
+    print("- **Shared:** also wild on at least one other map here. **Unique:** wild on this map only.")
+    print("- **Grass encounters shared:** how much of the map's grass encounter rate goes to shared species.\n")
+
+    print("### Overlap between maps\n")
+    print("Each cell is the share of all the species on either map that are on both (shared ÷ combined).\n")
+    rows = []
+    for a in names:
+        cells = [f"**{short_name(a)}**"]
+        for b in names:
+            if a == b:
+                cells.append("–")
+            else:
+                both, either = len(wild[a] & wild[b]), len(wild[a] | wild[b])
+                cells.append(f"{both * 100 / either:.0f}%")
+        rows.append(cells)
+    print(md_table([""] + [short_name(n) for n in names], rows))
+    print()
+
+    print("### Type variety\n")
+    rows = []
+    for n in names:
+        mix = species_type_mix(wild[n])
+        rows.append([n, str(len(mix)), fmt_mix(mix, 5), fmt_mix(type_mix_from_weights(grass[n]), 4) if n in grass else "–"])
+    all_mix = species_type_mix(everything)
+    rows.append(["**All maps**", str(len(all_mix)), fmt_mix(all_mix, 5), "–"])
+    print(md_table(["Map", "Types", "By species", "By grass encounters"], rows))
+    print()
+    print("- **By species:** each wild species counts once, a dual type half to each type.")
+    print("- **By grass encounters:** weighted by how often each species is met in the grass.\n")
+
+    print("### Generations\n")
+    gens = sorted({generation(s) or 0 for s in everything})
+    heads = [f"Gen {g}" if g else "Unknown" for g in gens]
+
+    def gen_cells(shares: dict[int, float]) -> list[str]:
+        return [f"{shares[g]:.0f}%" if shares.get(g) else "–" for g in gens]
+
+    rows = []
+    for n in names:
+        rows.append([n, "Species"] + gen_cells(generation_shares({s: 1 for s in wild[n]})))
+        if n in grass:
+            rows.append(["", "Grass encounters"] + gen_cells(generation_shares(grass[n])))
+    rows.append(["**All maps**", "Species"] + gen_cells(generation_shares({s: 1 for s in everything})))
+    print(md_table(["Map", "Counted by"] + heads, rows))
+    print()
+    print("- **Species:** share of the map's distinct wild species from each generation.")
+    print("- **Grass encounters:** share of grass encounters, weighted by rate.")
+
+
+def type_mix_from_weights(weights: dict[str, float]) -> dict[str, float]:
+    total = sum(weights.values()) or 1
+    mix: dict[str, float] = defaultdict(float)
+    for s, w in weights.items():
+        types = species(s).types or ("?",)
+        for t in types:
+            mix[t] += w * 100 / total / len(types)
+    return dict(sorted(mix.items(), key=lambda kv: (-kv[1], kv[0])))
+
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -575,6 +716,8 @@ def main(argv: list[str] | None = None) -> int:
 
     p = add("summary", "How varied each map's encounters are, and which species turn up where")
     p.set_defaults(func=cmd_summary)
+    p = add("overview", "Shared and unique species, overlap between maps, type variety and generations")
+    p.set_defaults(func=cmd_overview)
     p = add("show", "Every encounter table and trainer on the given maps")
     p.add_argument("--types", action="store_true", help="also show each map's grass type mix")
     p.add_argument("--no-trainers", action="store_true", help="leave out trainers")
