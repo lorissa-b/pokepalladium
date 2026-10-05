@@ -347,10 +347,36 @@ class Reference:
     triggers: list[dict] = field(default_factory=list)
     props: list[Prop] = field(default_factory=list)
     neighbours: dict[str, list[str]] = field(default_factory=dict)
+    void: set[tuple[int, int]] = field(default_factory=set)  # passable tiles counted as solid
 
     def symbol(self, x: int, y: int) -> str:
         a = self.attrs[y][x]
-        return " " if a is None else symbol_for(a)
+        if a is None:
+            return " "
+        return "#" if (x, y) in self.void else symbol_for(a)
+
+    def solidify_unreachable(self) -> int:
+        """Count every passable tile that no warp leads to as solid; return how many.
+
+        Platinum's caves sit in chunks whose unused tiles are plain floor with no
+        collision, so outside the cave reads as open ground. Here walking,
+        surfing and jumping ledges either way all spread from each warp, so what's
+        left over is only the void around the cave (or scenery nothing reaches).
+        """
+        self.void = set()
+        seen: set[tuple[int, int]] = set()
+        todo = [(w["x"], w["y"]) for w in self.warps]
+        while todo:
+            x, y = todo.pop()
+            if (x, y) in seen or not (0 <= x < self.width and 0 <= y < self.height):
+                continue
+            if self.symbol(x, y) in "# ":
+                continue
+            seen.add((x, y))
+            todo += [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
+        self.void = {(x, y) for y in range(self.height) for x in range(self.width)
+                     if (x, y) not in seen and self.symbol(x, y) not in "# "}
+        return len(self.void)
 
     def grid(self, events: bool = False) -> list[str]:
         rows = [[self.symbol(x, y) for x in range(self.width)] for y in range(self.height)]

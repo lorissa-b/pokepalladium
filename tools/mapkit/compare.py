@@ -169,7 +169,8 @@ def draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, in
     out = [
         f"# Draft of {ref.header} from pret/pokeplatinum@{rev}",
         f"# Reference region {x0},{y0} {w}x{h} of its {ref.width}x{ref.height} tiles. Regenerate with:",
-        f"#   tools/mapkit/mapkit.py draft {ref.header} {layout['id']}" + (f" --region {x0},{y0},{w},{h}" if region else ""),
+        f"#   tools/mapkit/mapkit.py draft {ref.header} {layout['id']}" + (f" --region {x0},{y0},{w},{h}" if region else "")
+        + (" --solid-unreachable" if ref.void else ""),
         "#",
         "# Tile classes: " + ", ".join(f"{k!r} {v}" for k, v in platinum.LEGEND if any(c in used for c in k)),
         "",
@@ -257,6 +258,7 @@ def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int
         f"#   tools/mapkit/mapkit.py draft {ref.header} {layout['id']} --finish"
         + (f" --region {x0},{y0},{w},{h}" if region else "")
         + (f" --style {style}" if style != "route" else "")
+        + (" --solid-unreachable" if ref.void else "")
         + (f" --trees {trees or 'any'}" if trees != "dense" else "")
         + (f" --water {water or 'any'}" if water != "sea" else "")
         + ("" if with_buildings else " --no-buildings")

@@ -100,8 +100,8 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
 | `platinum list [QUERY]` | Search Platinum's map headers. |
 | `platinum show HEADER` | The Platinum map as text, with events and props. `--events`, `--region`, `--render [PNG]`, `--json FILE`. |
 | `platinum update` | Move the cached pokeplatinum checkout to its latest commit. |
-| `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map, with its buildings placed. `--region X,Y,W,H`, `--finish [--style --trees --water --keep-shape]`, `--no-buildings`, `--originals-only`, `--render PNG [--events --grid --seams]`. |
-| `compare MAP HEADER` | Score a map against the Platinum original. `--origin X,Y\|auto`, `--render PNG`, `-q`. |
+| `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map, with its buildings placed. `--region X,Y,W,H`, `--finish [--style --trees --water --keep-shape]`, `--solid-unreachable`, `--no-buildings`, `--originals-only`, `--render PNG [--events --grid --seams]`. |
+| `compare MAP HEADER` | Score a map against the Platinum original. `--origin X,Y\|auto`, `--solid-unreachable`, `--render PNG`, `-q`. |
 
 ### Tile classes
 
@@ -257,7 +257,12 @@ door columns (`PETALBURG_CITY@5,2~9x4d2-6`). `--no-buildings` turns this off.
   `--trees dense|round|jungle|pine|any` (default `dense`, the Sinnoh-like
   canopy) and `--water sea|pond|any` (default `sea`). `--style town` also
   allows paths, fences and objects (buildings are placed whole beforehand,
-  never pieced together from single blocks).
+  never pieced together from single blocks). `--style cave` builds walkable
+  tiles from cave floor and blocked ones from the cave set's raised floor,
+  wall faces and rocks, taking only water from the primary tileset (its
+  cliffs and mountain tops are outdoor blocks). Solid ground with nothing but
+  solid within two blocks gets the block the originals most often put inside
+  solid rock, so wall faces only line the edges. Use it with `--water any`.
 - **Surroundings:** among what fits, metatiles the originals use in the same
   class surroundings cost less.
 
@@ -267,6 +272,24 @@ replace whole 2x2 patches (taken from the original maps) around every
 remaining problem, since a tree or a shoreline can't move one tile at a time.
 Where Platinum's shape can't be built from Emerald's pieces, an area settles
 on the least-bad combination.
+
+### Caves
+
+Platinum's caves sit in chunks whose unused tiles are plain floor with no
+collision, so the void around a cave reads as open ground. `--solid-unreachable`
+(on `draft` and `compare`) counts every passable tile that no warp leads to as
+solid. Walking, surfing and jumping ledges either way all spread from each warp,
+so what's left is the void, plus any scenery nothing can reach. Crop the void
+around the cave with `--region`. Ravaged Path was drafted with:
+
+```sh
+tools/mapkit/mapkit.py draft MAP_HEADER_RAVAGED_PATH LAYOUT_RAVAGED_PATH --region 0,2,32,50 \
+    --solid-unreachable --finish --style cave --water any
+```
+
+Exits still need the cave mouth Emerald uses: the warp on a south-arrow floor
+tile (`0x807` in the cave set) at the end of the passage, with the mouth's
+light edge (`0x858 0x859 0x85A`) below it.
 
 ### Finishing sprites, keeping access
 

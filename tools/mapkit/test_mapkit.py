@@ -129,6 +129,27 @@ class FinishedDrafts(unittest.TestCase):
             self.assertEqual(blocks.get(x, y), b, (x, y))
         self.assertFalse(consts().unpack(blocks.get(3, 5))[1], "the doorstep stays walkable")
 
+    def test_cave_fill_uses_cave_blocks_and_fills_deep_rock(self):
+        import autotile
+        from compare import GROUP_OF, emerald_symbol
+        from tileset import TilesetPair
+
+        layout = resolve_layout("LAYOUT_RAVAGED_PATH")
+        grid = ["#" * 12] * 3 + ["###......###", "###..~~..###", "###......###"] + ["#" * 12] * 3
+        blocks, tally, _ = autotile.fill(grid, layout, "cave", water=None)
+        tiles = TilesetPair.for_layout(layout)
+        c = consts()
+        for y, row in enumerate(grid):
+            for x, ch in enumerate(row):
+                b = blocks.get(x, y)
+                self.assertEqual(GROUP_OF[emerald_symbol(tiles, b)], GROUP_OF[ch], (x, y, hex(b)))
+                if ch != "~":
+                    self.assertGreaterEqual(b & c.metatile_mask, c.metatiles_in_primary,
+                                            f"{hex(b)} at {(x, y)} is an outdoor block")
+        deep = {blocks.get(x, y) for x, y in ((0, 0), (11, 0), (0, 8), (11, 8))}
+        self.assertEqual(len(deep), 1, "deep rock is one filling block")
+        self.assertGreater(tally["deep"], 0)
+
 
 class Access(unittest.TestCase):
     """Finishing sprites may move a walkable/solid border, never change where the player can go."""
@@ -293,6 +314,14 @@ class Platinum(unittest.TestCase):
         warp = next(w for w in ref.warps if w["dest_header_id"] == "MAP_HEADER_JUBILIFE_CITY_POKECENTER_1F")
         door = next(p for p in ref.props if p.name == "pokecenter_door" and int(p.y) == warp["y"])
         self.assertEqual(int(door.x), warp["x"])
+
+    def test_unreachable_void_counts_as_solid(self):
+        ref = platinum.load("RAVAGED_PATH")
+        self.assertEqual(ref.symbol(0, 0), ".", "Platinum stores the void as floor")
+        self.assertGreater(ref.solidify_unreachable(), 0)
+        self.assertEqual(ref.symbol(0, 0), "#")
+        for w in ref.warps:
+            self.assertNotEqual(ref.symbol(w["x"], w["y"]), "#", w)
 
     def test_buildings_and_their_doors(self):
         ref = platinum.load("SANDGEM_TOWN")
