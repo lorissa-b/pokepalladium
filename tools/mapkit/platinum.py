@@ -504,13 +504,17 @@ def _strip(name: str) -> str:
 
 
 def load(query: str) -> Reference:
-    header = find_header(query)
-    info = headers()[header]
-    matrix_id = _strip(info["mapMatrixID"])
-    events_id = _strip(info.get("eventsArchiveID", "events_empty"))
+    """One Platinum map, or several side by side in one matrix joined with '+'
+    ("ROUTE_201+VERITY_LAKEFRONT"), as a single reference with all their events."""
+    parts = [find_header(q) for q in query.split("+")]
+    header = "+".join(parts)
+    infos = [headers()[h] for h in parts]
+    matrix_id = _strip(infos[0]["mapMatrixID"])
+    if any(_strip(i["mapMatrixID"]) != matrix_id for i in infos):
+        raise SystemExit(f"error: {header} aren't in one matrix, so they can't be joined")
+    events_paths = [f"res/field/events/{_strip(i.get('eventsArchiveID', 'events_empty'))}.json" for i in infos]
     matrix_path = f"res/field/matrices/{matrix_id}.json"
-    events_path = f"res/field/events/{events_id}.json"
-    root = ensure(matrix_path, events_path)
+    root = ensure(matrix_path, *events_paths)
     matrix = json.loads((root / matrix_path).read_text())
     grid_maps = matrix["maps"]
     grid_headers = matrix.get("headers") or []
@@ -519,7 +523,7 @@ def load(query: str) -> Reference:
     def owns(r, c):
         if grid_maps[r][c] == "MAP_NONE":
             return False
-        return grid_headers[r][c] == header if grid_headers else True
+        return grid_headers[r][c] in parts if grid_headers else True
 
     chunks = [(r, c) for r in range(rows) for c in range(cols) if owns(r, c)]
     if not chunks:
@@ -553,7 +557,11 @@ def load(query: str) -> Reference:
             name = names[model] if 0 <= model < len(names) else "?"
             props.append(Prop(model, name, round(tx, 2), round(ty, 2), round(py / FX32_ONE / TILE_UNITS, 2)))
 
-    events = json.loads((root / events_path).read_text())
+    events: dict[str, list] = {}
+    for path in events_paths:
+        for kind, items in json.loads((root / path).read_text()).items():
+            if isinstance(items, list):
+                events.setdefault(kind, []).extend(items)
 
     def local(e: dict) -> dict:
         out = dict(e)
@@ -579,7 +587,7 @@ def load(query: str) -> Reference:
                 rr, cc = r + dr, c + dc
                 if 0 <= rr < rows and 0 <= cc < cols and grid_maps[rr][cc] != "MAP_NONE":
                     other = grid_headers[rr][cc]
-                    if other != header and other.startswith("MAP_HEADER_") and other != "MAP_HEADER_EVERYWHERE":
+                    if other not in parts and other.startswith("MAP_HEADER_") and other != "MAP_HEADER_EVERYWHERE":
                         seen[d].add(other)
         ref.neighbours = {d: sorted(v) for d, v in seen.items() if v}
     return ref

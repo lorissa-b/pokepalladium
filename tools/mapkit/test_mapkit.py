@@ -427,6 +427,18 @@ class Platinum(unittest.TestCase):
         self.assertEqual([ref.symbol(x, 5) for x in range(14, 18)], ["p"] * 4)
         self.assertEqual(ground.path_look(ref.ground[5][15]), "sandy")
 
+    def test_maps_side_by_side_join_into_one_reference(self):
+        route = platinum.load("ROUTE_201")
+        joined = platinum.load("ROUTE_201+VERITY_LAKEFRONT")
+        self.assertEqual(joined.header, "MAP_HEADER_ROUTE_201+MAP_HEADER_VERITY_LAKEFRONT")
+        dx, dy = route.origin[0] - joined.origin[0], route.origin[1] - joined.origin[1]
+        self.assertEqual(joined.symbol(dx + 20, dy + 21), route.symbol(20, 21))
+        # Both maps' events, in the joined map's coordinates.
+        self.assertTrue(any(w["dest_header_id"].startswith("MAP_HEADER_LAKE_VERITY") for w in joined.warps))
+        barry = next(o for o in route.objects if o["graphics_id"] == "OBJ_EVENT_GFX_BARRY")
+        self.assertIn((barry["x"] + dx, barry["y"] + dy), {(o["x"], o["y"]) for o in joined.objects})
+        self.assertNotIn("left", joined.neighbours, "the lakefront is part of it, not a neighbour")
+
     def test_buildings_and_their_doors(self):
         ref = platinum.load("SANDGEM_TOWN")
         found = {b.kind: b for b in ref.buildings()}

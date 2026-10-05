@@ -98,7 +98,7 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
 | `build FILE` | Build a blueprint into its layout's `map.bin`, then check it. `--dry-run`, `--render PNG`. |
 | `check [MAP...]` | Check layouts and maps (all of them by default). `-w` adds warnings. Exits non-zero on errors. |
 | `platinum list [QUERY]` | Search Platinum's map headers. |
-| `platinum show HEADER` | The Platinum map as text, with events and props. `--events`, `--region`, `--ground` (what the ground is painted with, see [Paths](#paths-and-the-ground-model)), `--render [PNG]`, `--json FILE`. |
+| `platinum show HEADER[+HEADER...]` | The Platinum map as text, with events and props. `--events`, `--region`, `--ground` (what the ground is painted with, see [Paths](#paths-and-the-ground-model)), `--render [PNG]`, `--json FILE`. |
 | `platinum update` | Move the cached pokeplatinum checkout to its latest commit. |
 | `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map, with its buildings placed. `--region X,Y,W,H`, `--finish [--style --trees --water --path --keep-shape]`, `--solid-unreachable`, `--no-buildings`, `--originals-only`, `--render PNG [--events --grid --seams]`. |
 | `compare MAP HEADER` | Score a map against the Platinum original. `--origin X,Y\|auto`, `--solid-unreachable`, `--render PNG`, `-q`. |
@@ -413,6 +413,11 @@ lines up with the tiles: on maps with water, 86-100% of the water tiles are
 painted with a water material.
 
 ## The Platinum reference
+
+Maps that sit side by side in one matrix can be joined with `+` wherever a
+header is taken (`platinum show`, `draft`, `compare`): `ROUTE_201+VERITY_LAKEFRONT`
+loads both maps' chunks and events as one reference, for a replica that's one
+map where Platinum has two.
 
 Platinum's overworld is a matrix of 32x32-tile chunks. Each chunk's land data
 stores a `u16` per tile (bit 15 collision, low byte the tile behaviour) and
