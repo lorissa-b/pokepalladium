@@ -17,6 +17,8 @@ guessed from screenshots. It needs Pillow
    `tools/mapkit/mapkit.py platinum show <HEADER> --events` and
    `platinum show <HEADER> --render build/mapkit/ref.png` (open the PNG with
    Read). Use `platinum list <words>` to find the header name.
+   `platinum show <HEADER> --ground` shows where Platinum's ground is painted
+   as paths, flowers and so on; drafts draw its paths (`p`) as Emerald paths.
 2. **Target.** Read the Hoenn map being converted:
    `mapkit.py info <Map>` and `render <Map> --grid --events`. Note which
    neighbours it connects to and which tilesets they use.

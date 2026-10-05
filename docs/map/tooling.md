@@ -98,9 +98,9 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
 | `build FILE` | Build a blueprint into its layout's `map.bin`, then check it. `--dry-run`, `--render PNG`. |
 | `check [MAP...]` | Check layouts and maps (all of them by default). `-w` adds warnings. Exits non-zero on errors. |
 | `platinum list [QUERY]` | Search Platinum's map headers. |
-| `platinum show HEADER` | The Platinum map as text, with events and props. `--events`, `--region`, `--render [PNG]`, `--json FILE`. |
+| `platinum show HEADER` | The Platinum map as text, with events and props. `--events`, `--region`, `--ground` (what the ground is painted with, see [Paths](#paths-and-the-ground-model)), `--render [PNG]`, `--json FILE`. |
 | `platinum update` | Move the cached pokeplatinum checkout to its latest commit. |
-| `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map, with its buildings placed. `--region X,Y,W,H`, `--finish [--style --trees --water --keep-shape]`, `--solid-unreachable`, `--no-buildings`, `--originals-only`, `--render PNG [--events --grid --seams]`. |
+| `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map, with its buildings placed. `--region X,Y,W,H`, `--finish [--style --trees --water --path --keep-shape]`, `--solid-unreachable`, `--no-buildings`, `--originals-only`, `--render PNG [--events --grid --seams]`. |
 | `compare MAP HEADER` | Score a map against the Platinum original. `--origin X,Y\|auto`, `--solid-unreachable`, `--render PNG`, `-q`. |
 
 ### Tile classes
@@ -113,11 +113,15 @@ games' tiles to one character each:
 | `#` blocked | `.` walkable | `"` tall grass | `Y` very tall grass | `~` surfable water | `\|` waterfall |
 | `,` puddle / shallow water | `:` sand | `i` ice | `m` mud | `s` snow | `^ v < >` ledge, by jump direction |
 | `D` door | `E` warp / entrance | `S` stairs / escalator | `R` rock climb | `=` bridge | `B` berry patch |
-| `t` table / counter | `o` furniture | ` ` outside the map | | | |
+| `t` table / counter | `o` furniture | `p` path | ` ` outside the map | | |
 
 `compare` counts two tiles as matching when they're in the same movement group
 (walk, blocked, water, ledge, climb), so a Platinum sand path against an
 Emerald dirt path still matches.
+
+`p` is walkable ground drawn as a path. On the Platinum side it comes from the
+ground model (see [Paths](#paths-and-the-ground-model)); on the Emerald side
+it's a walkable metatile labelled `path`.
 
 ## Blueprints
 
@@ -255,7 +259,11 @@ door columns (`PETALBURG_CITY@5,2~9x4d2-6`). `--no-buildings` turns this off.
   has them, and falls back on cliff, rock or sand only where nothing else
   fits. One tree family and one water family are kept for the whole map:
   `--trees dense|round|jungle|pine|any` (default `dense`, the Sinnoh-like
-  canopy) and `--water sea|pond|any` (default `sea`). `--style town` also
+  canopy) and `--water sea|pond|any` (default `sea`). Path tiles (`p`) are
+  built from paths, keeping to one family as well: `--path sandy|stone|any`,
+  where `sandy` is Littleroot's sand pit and `stone` the gravel and paving.
+  The default, `auto`, takes the family most of the map's Platinum path
+  materials call for. `--style town` also
   allows paths, fences and objects (buildings are placed whole beforehand,
   never pieced together from single blocks). `--style cave` builds walkable
   tiles from cave floor and blocked ones from the cave set's raised floor,
@@ -371,6 +379,32 @@ fix what's wrong, and `materials status` shows coverage.
   on screen (15x10 blocks around the player) from a passable block near the
   edge.
 
+## Paths and the ground model
+
+A chunk's tile attributes only say where the player can go, so a Platinum
+path reads as plain walkable ground. What the ground looks like is in the
+chunk's 3D terrain model (an NSBMD after the props), whose polygons are
+painted with named materials: `nsand` for a sand path and `nsandp` for its
+edges, `hage` for worn ground, `nhana` for flowers, `ngrass` for grass,
+and in cities road pieces such as `c1_r1` (Jubilife) and `c4_road`.
+
+`ground.py` reads the model's materials and shapes and, at the centre of each
+tile, takes the highest polygon that is ground (not a tree, canopy or
+shadow). `ground.kind()` sorts the names into path, grass, flowers, water,
+sand, snow, rock and bridge; walkable tiles whose ground is a path become `p`
+in the reference, and drafts draw them as Emerald paths.
+
+```sh
+tools/mapkit/mapkit.py platinum show TWINLEAF_TOWN --ground
+```
+
+prints the ground kind of every tile and the materials the map uses, with
+their kinds and how many tiles each covers. Names `ground.KINDS` doesn't know
+are marked; add them to the table when a map turns them up (city ground such
+as `c1_g1` is left unknown for now, so it draws as plain ground). The model
+lines up with the tiles: on maps with water, 86-100% of the water tiles are
+painted with a water material.
+
 ## The Platinum reference
 
 Platinum's overworld is a matrix of 32x32-tile chunks. Each chunk's land data
@@ -400,6 +434,7 @@ file keeps a bounding box, which gives the footprint's size
 | `blueprint.py` | The blueprint format: parse, build, extract. |
 | `check.py` | The checks. |
 | `platinum.py` | The pokeplatinum reader. |
+| `ground.py` | Platinum's terrain models: the material painted on each tile's ground. |
 | `compare.py` | Tile classes for Emerald, `compare`, `draft`. |
 | `parts.py` | New buildings from the parts of Emerald's: which blocks join, and making a building of any size with doors anywhere. |
 | `buildings.py` | Emerald building pieces from the original maps, fitting them to a layout's tilesets, and placing them on Platinum's buildings. |

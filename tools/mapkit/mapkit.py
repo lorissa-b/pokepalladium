@@ -24,6 +24,7 @@ except ImportError:
 import blueprint  # noqa: E402
 import check as checks  # noqa: E402
 import compare as cmp  # noqa: E402
+import ground  # noqa: E402
 import platinum  # noqa: E402
 import render  # noqa: E402
 from project import REPO, Blockdata, behaviors, consts, maps_using_layout, resolve_layout, resolve_map  # noqa: E402
@@ -274,6 +275,9 @@ def cmd_platinum(a) -> None:
     print()
     grid = ref.grid(events=a.events)
     x0, y0, w, h = region if region and len(region) == 4 else (0, 0, ref.width, ref.height)
+    if a.ground:
+        show_ground(ref, (x0, y0, w, h))
+        return
     print_ruled([r[x0 : x0 + w] for r in grid[y0 : y0 + h]], x0, y0, 1)
     print()
     print("  " + "   ".join(f"{k!r} {v}" for k, v in platinum.LEGEND))
@@ -282,6 +286,39 @@ def cmd_platinum(a) -> None:
     print()
     for line in cmp.notes(ref, (0, 0, ref.width, ref.height)):
         print(line[2:] if line.startswith("# ") else line)
+
+
+GROUND_SYMBOLS = {"path": "p", "grass": ".", "flowers": "*", "water": "~", "sand": ":", "snow": "s", "rock": "r",
+                  "bridge": "=", "unknown": "?", None: " "}
+
+
+def show_ground(ref, region) -> None:
+    """Each tile's ground kind from the 3D model (blocked tiles as '#'), then every material it uses."""
+    x0, y0, w, h = region
+    rows = []
+    for y in range(y0, y0 + h):
+        row = ""
+        for x in range(x0, x0 + w):
+            a = ref.attrs[y][x]
+            if a is None:
+                row += " "
+            elif a & platinum.COLLISION_BIT:
+                row += "#"
+            else:
+                row += GROUND_SYMBOLS.get(ref.ground_kind(x, y), "?")
+        rows.append(row)
+    print_ruled(rows, x0, y0, 1)
+    print()
+    print("  " + "   ".join(f"{v!r} {k or 'no ground'}" for k, v in GROUND_SYMBOLS.items()) + "   '#' blocked")
+    print()
+    counts = ground.summary([row[x0 : x0 + w] for row in ref.ground[y0 : y0 + h]])
+    names: dict[str, int] = {}
+    for name, n in counts.items():
+        names[ground.base_name(name)] = names.get(ground.base_name(name), 0) + n
+    print("  material      kind       tiles")
+    for name, n in sorted(names.items(), key=lambda kv: -kv[1]):
+        k = ground.kind(name)
+        print(f"  {name:<13} {k:<10} {n:5}" + ("   <- add to ground.KINDS if it matters" if k == "unknown" else ""))
 
 
 def cmd_draft(a) -> None:
@@ -297,7 +334,7 @@ def cmd_draft(a) -> None:
         family = {"any": None}
         text, blocks, tally, seams = cmp.finished_draft(
             ref, layout, region, a.style, family.get(a.trees, a.trees), family.get(a.water, a.water), not a.no_buildings,
-            not a.originals_only, a.keep_shape)
+            not a.originals_only, a.keep_shape, family.get(a.path, a.path))
         print(f"{tally.get('off_style', 0)} off-style blocks, {len(seams)} seams", file=sys.stderr)
     else:
         text = cmp.draft(ref, layout, region, not a.no_buildings, not a.originals_only)
@@ -509,6 +546,8 @@ def main(argv=None) -> None:
     s.add_argument("--json", help="write the full reference (behaviours, collision, events, props) as JSON")
     s.add_argument("--render", nargs="?", const="", help="draw the reference to PNG")
     s.add_argument("--scale", type=int, default=8, help="pixels per tile for --render")
+    s.add_argument("--ground", action="store_true",
+                   help="show the ground each tile is painted with in the 3D model (paths, flowers...) and its materials")
     s.set_defaults(func=cmd_platinum)
 
     s = sub.add_parser("draft", help="draft a blueprint from a Platinum map")
@@ -521,6 +560,8 @@ def main(argv=None) -> None:
     s.add_argument("--trees", choices=["dense", "round", "jungle", "pine", "any"], default="dense",
                    help="with --finish, the one tree family to use")
     s.add_argument("--water", choices=["sea", "pond", "any"], default="sea", help="with --finish, the one water family to use")
+    s.add_argument("--path", choices=["auto", "sandy", "stone", "any"], default="auto",
+                   help="with --finish, the one path family to use (auto: what Platinum's path materials call for)")
     s.add_argument("--no-buildings", action="store_true",
                    help="don't place Emerald buildings where Platinum has buildings (see buildings.py)")
     s.add_argument("--originals-only", action="store_true",

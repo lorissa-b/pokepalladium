@@ -8,14 +8,16 @@ against the original and a reference can be turned into a starting layout.
 from __future__ import annotations
 
 import re
+from collections import Counter
 
+import materials
 import platinum
 from project import Blockdata, behaviors, consts
 from tileset import TilesetPair
 
 # Classes that are the same for movement purposes.
 GROUPS = {
-    "walk": set('."Y:,DESm=sBi'),
+    "walk": set('."Y:,DESm=sBip'),
     "block": set("#ot"),
     "water": set("~|"),
     "ledge": set("^v<>"),
@@ -55,7 +57,10 @@ def emerald_symbol(tiles: TilesetPair, block: int) -> str:
         if re.search(pattern, name):
             # Furniture, counters and ledges are blocked by collision in Emerald too.
             return sym
-    return "#" if col else "."
+    if col:
+        return "#"
+    # Walkable ground labelled as a path (materials/), so drafts learn where paths and their edges go.
+    return "p" if "path" in materials.of(tiles, mid) else "."
 
 
 def emerald_grid(layout: dict) -> list[str]:
@@ -138,6 +143,7 @@ DRAFT_LEGENDS = {
     "gTileset_General": {
         "#": "[0x1D4 0x1D5; 0x1DC 0x1DD]  # dense trees",
         ".": "General_Grass",
+        "p": "0x111  # dirt path",
         '"': "General_TallGrass",
         "Y": "General_LongGrass",
         "~": "General_CalmWater",
@@ -215,9 +221,21 @@ def _buildings(ref, layout, rows, region, enabled: bool, make_new: bool = True):
     return buildings.plan(ref, layout, [r.ljust(w) for r in rows], region, make_new)
 
 
+def path_look(ref: platinum.Reference, region: tuple[int, int, int, int]) -> str | None:
+    """The path family most of the region's painted paths call for (ground.path_look), None if it has none."""
+    import ground
+
+    x0, y0, w, h = region
+    looks = Counter(ground.path_look(ref.ground[y][x]) for y in range(max(0, y0), min(ref.height, y0 + h))
+                    for x in range(max(0, x0), min(ref.width, x0 + w)) if ref.ground and ref.symbol(x, y) == "p")
+    looks.pop(None, None)
+    return looks.most_common(1)[0][0] if looks else None
+
+
 def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, int] | None = None,
                    style: str = "route", trees: str | None = "dense", water: str | None = "sea",
-                   with_buildings: bool = True, make_new: bool = True, keep_shape: bool = False):
+                   with_buildings: bool = True, make_new: bool = True, keep_shape: bool = False,
+                   path: str | None = "auto"):
     """A blueprint with every block chosen, tiled by example (see autotile.py).
 
     Returns (blueprint text, blocks, tally, seams).
@@ -229,6 +247,8 @@ def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int
 
     x0, y0, w, h = region or (0, 0, ref.width, ref.height)
     grid = ref.grid()
+    if style == "cave":
+        grid = [row.replace("p", ".") for row in grid]  # caves draw any painted path as plain floor
     rows = [grid[y][x0 : x0 + w].ljust(w) if 0 <= y < ref.height else " " * w for y in range(y0, y0 + h)]
     import buildings
 
@@ -236,14 +256,17 @@ def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int
     tiled = buildings.apply(placements, rows, layout, {(e["x"] - x0, e["y"] - y0) for e in ref.objects})
     fixed = buildings.fixed(placements)
     flexible, barriers = (set(), set()) if keep_shape else _flexible(ref, tiled, (x0, y0, w, h), placements)
-    blocks, tally, seams = autotile.fill(tiled, layout, style, trees, water, fixed, flexible, barriers)
+    requested = path
+    if path == "auto":
+        path = path_look(ref, (x0, y0, w, h))
+    blocks, tally, seams = autotile.fill(tiled, layout, style, trees, water, path, fixed, flexible, barriers)
     access = access_report(ref, blocks, layout, (x0, y0, w, h))
     tiles = TilesetPair.for_layout(layout)
     try:
         rev = platinum.revision()
     except Exception:
         rev = "?"
-    families = ", ".join(f"{k} {v}" for k, v in (("trees", trees), ("water", water)) if v) or "any families"
+    families = ", ".join(f"{k} {v}" for k, v in (("trees", trees), ("water", water), ("paths", path)) if v) or "any families"
     head = [
         f"# Finished draft of {ref.header} from pret/pokeplatinum@{rev}, tiled by example from",
         f"# the original Emerald {layout['primary_tileset']} layouts (commit {original.ORIGINAL}).",
@@ -261,6 +284,7 @@ def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int
         + (" --solid-unreachable" if ref.void else "")
         + (f" --trees {trees or 'any'}" if trees != "dense" else "")
         + (f" --water {water or 'any'}" if water != "sea" else "")
+        + (f" --path {requested or 'any'}" if requested != "auto" else "")
         + ("" if with_buildings else " --no-buildings")
         + ("" if make_new or not with_buildings else " --originals-only")
         + (" --keep-shape" if keep_shape else ""),

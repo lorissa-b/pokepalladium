@@ -292,6 +292,56 @@ class Parts(unittest.TestCase):
         self.assertEqual(parts._sequence(6, 3, lambda a, b: 0.0, max_run=2, forward=True), (float("inf"), None))
 
 
+class Ground(unittest.TestCase):
+    def test_material_kinds_and_path_looks(self):
+        import ground
+
+        self.assertEqual(ground.base_name("nsandp_lm2"), "nsandp")
+        self.assertEqual(ground.base_name("lakep.1_pl"), "lakep")
+        self.assertEqual(ground.kind("nsand_lm2"), "path")
+        self.assertEqual(ground.kind("hage"), "path")
+        self.assertEqual(ground.kind("c1_r1_ud"), "path")
+        self.assertEqual(ground.kind("nhana_lm2"), "flowers")
+        self.assertEqual(ground.kind("conttree_b_lm2"), "tree")
+        self.assertEqual(ground.kind("c1_g1"), "unknown")
+        self.assertEqual(ground.path_look("nsand_lm2"), "sandy")
+        self.assertEqual(ground.path_look("c4_road_u"), "stone")
+        self.assertIsNone(ground.path_look("ngrass"))
+
+    def test_emerald_paths_are_their_own_class_with_a_look(self):
+        import materials
+        from compare import GROUP_OF, emerald_symbol
+        from tileset import TilesetPair
+
+        tiles = TilesetPair.for_layout(resolve_layout("LAYOUT_TWINLEAF_TOWN"))
+        c = consts()
+        self.assertEqual(emerald_symbol(tiles, c.pack(0x121, 0, 3)), "p", "Littleroot's sand pit")
+        self.assertEqual(emerald_symbol(tiles, c.pack(0x001, 0, 3)), ".")
+        self.assertEqual(emerald_symbol(tiles, c.pack(0x124, 0, 3)), ":", "beach sand stays sand")
+        self.assertEqual(GROUP_OF["p"], GROUP_OF["."])
+        self.assertEqual(materials.family(materials.of(tiles, 0x121), "path"), "sandy")
+        self.assertEqual(materials.family(materials.of(tiles, 0x000), "path"), "stone")
+
+    def test_path_cells_draw_as_paths_of_one_look(self):
+        import autotile
+        import materials
+        from compare import GROUP_OF, emerald_symbol
+        from tileset import TilesetPair
+
+        layout = resolve_layout("LAYOUT_TWINLEAF_TOWN")
+        grid = ["##########", "#........#", "#.pppppp.#", "#.pppppp.#", "#.pppppp.#", "#........#", "##########"]
+        blocks, _, _ = autotile.fill(grid, layout, "route", path="sandy")
+        tiles = TilesetPair.for_layout(layout)
+        for y, row in enumerate(grid):
+            for x, ch in enumerate(row):
+                b = blocks.get(x, y)
+                self.assertEqual(GROUP_OF[emerald_symbol(tiles, b)], GROUP_OF[ch], (x, y))
+                if ch == "p":
+                    mats = materials.of(tiles, b & consts().metatile_mask)
+                    self.assertIn("path", mats, (x, y, hex(b)))
+                    self.assertEqual(materials.family(mats, "path"), "sandy", (x, y, hex(b)))
+
+
 class Checks(unittest.TestCase):
     def test_whole_repo_runs(self):
         findings = check.run()
@@ -322,6 +372,18 @@ class Platinum(unittest.TestCase):
         self.assertEqual(ref.symbol(0, 0), "#")
         for w in ref.warps:
             self.assertNotEqual(ref.symbol(w["x"], w["y"]), "#", w)
+
+    def test_ground_model_lines_up_with_the_tiles(self):
+        import ground
+
+        ref = platinum.load("TWINLEAF_TOWN")
+        water = [(x, y) for y in range(ref.height) for x in range(ref.width) if ref.symbol(x, y) == "~"]
+        self.assertGreater(len(water), 20)
+        agree = sum(ref.ground_kind(x, y) == "water" for x, y in water)
+        self.assertGreater(agree, 0.9 * len(water), "the model's lake sits on the water tiles")
+        # The road south from Route 201 is painted as sand.
+        self.assertEqual([ref.symbol(x, 5) for x in range(14, 18)], ["p"] * 4)
+        self.assertEqual(ground.path_look(ref.ground[5][15]), "sandy")
 
     def test_buildings_and_their_doors(self):
         ref = platinum.load("SANDGEM_TOWN")

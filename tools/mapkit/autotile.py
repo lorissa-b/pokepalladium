@@ -52,20 +52,23 @@ MIN_EXAMPLES = 3
 # their cliff faces). Classes not listed only keep their movement.
 STYLES = {
     "route": {
-        "allow": {"grass", "tallgrass", "tree", "water", "ledge", "bridge"},
-        "need": {"#": "tree", ".": "grass", '"': "tallgrass", "Y": "tallgrass", "~": "water", "|": "water",
+        "allow": {"grass", "tallgrass", "tree", "water", "ledge", "bridge", "path"},
+        "need": {"#": "tree", ".": "grass", "p": "path", '"': "tallgrass", "Y": "tallgrass", "~": "water", "|": "water",
                  ",": "water", ":": "sand", "^": "ledge", "v": "ledge", "<": "ledge", ">": "ledge", "=": "bridge"},
         "extra": {"~": {"cliff", "rock", "sand"}, "|": {"cliff"}, ":": {"sand"}, "^": {"cliff"}, "v": {"cliff"},
-                  "<": {"cliff"}, ">": {"cliff"}, "=": {"water", "path"}},
+                  "<": {"cliff"}, ">": {"cliff"}, "=": {"water", "path"},
+                  # Path pieces show the sand or grass at their edges (Littleroot's sand pit).
+                  "p": {"sand", "grass"}},
         # What a cell may fall back on, at a cost, where its own materials can't fit.
         "fallback": {"cliff", "rock", "sand"},
     },
     "town": {
         # No "building": buildings are placed whole beforehand (buildings.py), never pieced together.
         "allow": {"grass", "tallgrass", "flowers", "tree", "water", "ledge", "bridge", "path", "fence", "object"},
-        "need": {"#": None, ".": None, '"': "tallgrass", "~": "water", "=": "bridge",
+        "need": {"#": None, ".": None, "p": "path", '"': "tallgrass", "~": "water", "=": "bridge",
                  "^": "ledge", "v": "ledge", "<": "ledge", ">": "ledge"},
-        "extra": {"~": {"cliff", "rock", "sand"}, "^": {"cliff"}, "v": {"cliff"}, "<": {"cliff"}, ">": {"cliff"}},
+        "extra": {"~": {"cliff", "rock", "sand"}, "^": {"cliff"}, "v": {"cliff"}, "<": {"cliff"}, ">": {"cliff"},
+                  "p": {"sand", "grass"}},
         "fallback": {"cliff", "rock", "sand"},
     },
     "cave": {
@@ -400,7 +403,7 @@ ACCESS_ROUNDS = 4        # rounds of undoing swaps that change access before und
 
 
 def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None = "dense",
-         water: str | None = "sea", fixed: dict[tuple[int, int], int] | None = None,
+         water: str | None = "sea", path: str | None = None, fixed: dict[tuple[int, int], int] | None = None,
          flexible: set[tuple[int, int]] | None = None, barriers: set[tuple[int, int]] | None = None,
          ) -> tuple[Blockdata, Counter, list[tuple[int, int]]]:
     """Blocks for a class grid (rows of class characters, ' ' = outside the map).
@@ -416,7 +419,7 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
     Where Platinum's shape can't be built exactly, an area settles on the
     least-bad combination.
 
-    trees/water pick the family the style keeps to (None: any). fixed: blocks
+    trees/water/path pick the family the style keeps to (None: any). fixed: blocks
     already decided (buildings, see buildings.py), by (x, y); they're kept as
     they are, collision and elevation included, and the rest fits around them.
 
@@ -437,7 +440,7 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
     h, w = len(grid), max(len(r) for r in grid)
     rows = [r.ljust(w) for r in grid]
     target = [rows[y][x] if rows[y][x] != " " else OUTSIDE for y in range(h) for x in range(w)]
-    chosen = {"tree": trees, "water": water}
+    chosen = {"tree": trees, "water": water, "path": path}
     spec = STYLES[style]
     family_tags = set().union(*materials.FAMILIES.values())
     tally: Counter = Counter()
@@ -510,7 +513,7 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
     want_group = [GROUP_OF.get(ch, "walk") for ch in target]
 
     # Flexible cells may take the other class too, at a cost (its context as if it were that class).
-    other = {"#": ".", ".": "#", "=": "~"}  # a bridge lane may go back to the water it crosses
+    other = {"#": ".", ".": "#", "p": "#", "=": "~"}  # a bridge lane may go back to the water it crosses
     alt_ctx: dict[int, dict[int, float]] = {}
 
     def make_flexible(i: int) -> None:
