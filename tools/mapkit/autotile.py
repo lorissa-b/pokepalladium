@@ -61,6 +61,9 @@ STYLES = {
                   "p": {"sand", "grass"}},
         # What a cell may fall back on, at a cost, where its own materials can't fit.
         "fallback": {"cliff", "rock", "sand"},
+        # Classes painted with one flat block after the fill: no original map
+        # uses these blocks, so there is nothing to learn their edges from.
+        "flat": {"s": "snow"},
     },
     "town": {
         # No "building": buildings are placed whole beforehand (buildings.py), never pieced together.
@@ -70,6 +73,7 @@ STYLES = {
         "extra": {"~": {"cliff", "rock", "sand"}, "^": {"cliff"}, "v": {"cliff"}, "<": {"cliff"}, ">": {"cliff"},
                   "p": {"sand", "grass"}},
         "fallback": {"cliff", "rock", "sand"},
+        "flat": {"s": "snow"},
     },
     "cave": {
         # Emerald's caves fill solid rock with the cave set's raised floor and edge it with wall
@@ -414,6 +418,16 @@ def path_centre(m: Model, family: str | None) -> int | None:
     return None
 
 
+def flat_block(m: Model, layout: dict, material: str) -> int | None:
+    """The model index of the first walkable block in the layout's tilesets labelled `material`."""
+    tiles = TilesetPair.for_layout(layout)
+    c = consts()
+    for metatile in tiles.ids():
+        if material in materials.of(tiles, metatile) and GROUP_OF.get(emerald_symbol(tiles, c.pack(metatile, 0, 3))) == "walk":
+            return m.index_of(metatile)
+    return None
+
+
 def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None = "dense",
          water: str | None = "sea", path: str | None = None, fixed: dict[tuple[int, int], int] | None = None,
          flexible: set[tuple[int, int]] | None = None, barriers: set[tuple[int, int]] | None = None,
@@ -741,9 +755,26 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
                 if fit(i, best) < fit(i, assign[i]):
                     assign[i] = best
 
-    seams = [(i % w, i // w) for i in range(w * h) if seam(i)]
+    # Flat classes (snow) take their one block wherever they're still walkable. They're
+    # chosen, not learned, so they don't count as off-style or as seams.
+    painted = set()
+    for ch, material in spec.get("flat", {}).items():
+        block = flat_block(m, layout, material)
+        if block is None:
+            continue
+        for i in range(w * h):
+            if target[i] == ch and i not in pinned and GROUP_OF.get(m.classes[assign[i]], "walk") == "walk":
+                assign[i] = block
+                painted.add(i)
+                tally[material] += 1
+
+    def painted_seam(i: int) -> bool:
+        return any(d in HARD and n not in painted and not m.pairs[d].get((assign[i], assign[n]))
+                   and not (i in pinned and n in pinned) for d, n in neighbours[i])
+
+    seams = [(i % w, i // w) for i in range(w * h) if i not in painted and painted_seam(i)]
     tally["seams"] = len(seams)
-    tally["off_style"] = sum(1 for i in free if assign[i] not in pref[i])
+    tally["off_style"] = sum(1 for i in free if assign[i] not in pref[i] and i not in painted)
 
     from blueprint import default_attrs
 

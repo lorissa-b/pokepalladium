@@ -21,7 +21,7 @@ DIR = Path(__file__).resolve().parent / "materials"
 
 MATERIALS = {
     "grass", "path", "sand", "tallgrass", "flowers", "tree", "cliff", "rock", "water",
-    "ledge", "bridge", "fence", "building", "object", "cave", "dark", "unknown",
+    "ledge", "bridge", "fence", "building", "object", "cave", "dark", "snow", "unknown",
     # Interiors and caves.
     "floor", "wall", "stairs", "ice", "lava",
 }

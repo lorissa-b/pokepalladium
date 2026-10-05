@@ -59,8 +59,11 @@ def emerald_symbol(tiles: TilesetPair, block: int) -> str:
             return sym
     if col:
         return "#"
-    # Walkable ground labelled as a path (materials/), so drafts learn where paths and their edges go.
-    return "p" if "path" in materials.of(tiles, mid) else "."
+    # Walkable ground labelled as a path or snow (materials/), so drafts know them apart from grass.
+    mats = materials.of(tiles, mid)
+    if "snow" in mats:
+        return "s"
+    return "p" if "path" in mats else "."
 
 
 def emerald_grid(layout: dict) -> list[str]:
@@ -144,6 +147,7 @@ DRAFT_LEGENDS = {
         "#": "[0x1D4 0x1D5; 0x1DC 0x1DD]  # dense trees",
         ".": "General_Grass",
         "p": "0x111  # dirt path",
+        "s": "General_Snow",
         '"': "General_TallGrass",
         "Y": "General_LongGrass",
         "~": "General_CalmWater",

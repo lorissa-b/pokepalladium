@@ -266,7 +266,10 @@ door columns (`PETALBURG_CITY@5,2~9x4d2-6`). `--no-buildings` turns this off.
   materials call for. A path only one tile thick has no room for edge
   pieces, so it's drawn with the path's middle block alone (the block the
   originals use with path all round), and where it meets a wider path that
-  path's blocks are re-picked to stay open towards it. `--style town` also
+  path's blocks are re-picked to stay open towards it. Snow (`s`) is painted
+  with `General_Snow` (0x0B5), the sand pit's texture in palette 5's whites;
+  no original map uses it, so it's laid down whole after the fill rather than
+  learned, and isn't counted as off-style or as a seam. `--style town` also
   allows paths, fences and objects (buildings are placed whole beforehand,
   never pieced together from single blocks). `--style cave` builds walkable
   tiles from cave floor and blocked ones from the cave set's raised floor,

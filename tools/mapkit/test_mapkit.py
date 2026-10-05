@@ -360,6 +360,29 @@ class Ground(unittest.TestCase):
         self.assertEqual(tally["thin_path"], 5)
 
 
+    def test_snow_is_the_white_sand_tile(self):
+        import autotile
+        import materials
+        from compare import emerald_symbol
+        from tileset import TilesetPair
+
+        layout = resolve_layout("LAYOUT_TWINLEAF_TOWN")
+        tiles = TilesetPair.for_layout(layout)
+        c = consts()
+        self.assertIn("snow", materials.of(tiles, 0x0B5))
+        self.assertEqual(emerald_symbol(tiles, c.pack(0x0B5, 0, 3)), "s")
+        # Its pixels are the sand pit's with the sand shades swapped for whites.
+        sand, snow = tiles.draw(0x121).convert("RGB"), tiles.draw(0x0B5).convert("RGB")
+        self.assertEqual(sand.size, snow.size)
+        self.assertTrue(all(min(p) >= 180 for p in snow.getdata()), "every pixel is white or a pale grey")
+        grid = ["########", "#......#", "#.ssss.#", "#.ssss.#", "#......#", "########"]
+        blocks, tally, _ = autotile.fill(grid, layout, "route")
+        for x in range(2, 6):
+            for y in (2, 3):
+                self.assertEqual(blocks.get(x, y) & c.metatile_mask, 0x0B5, (x, y))
+        self.assertEqual(tally["snow"], 8)
+
+
 class Checks(unittest.TestCase):
     def test_whole_repo_runs(self):
         findings = check.run()
