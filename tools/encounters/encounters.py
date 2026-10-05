@@ -11,7 +11,8 @@ With no maps given, the commands look at the converted Sinnoh maps: those in a
 Sinnoh region map section and named after it (so Route 105, which only shares
 Route 218's section, is left out). --all looks at every map with encounters.
 
-Rates are the percentages produced by the slot weights in wild_encounters.json.
+Output is Markdown: headings, tables and lists. Rates are the percentages
+produced by the slot weights in wild_encounters.json.
 Times of day follow GetTimeBasedWildMonHeaderId: four tables are morning, day,
 evening and night; two are morning+day and evening+night; any other number
 means the first table is used all day.
@@ -372,11 +373,14 @@ def times_label(times: list[str]) -> str:
     return "/".join(TIME_ABBR[t] for t in times)
 
 
-def fmt_comp(comp: dict[str, tuple[int, int, int]]) -> str:
-    def lv(a: int, b: int) -> str:
-        return f"{a}" if a == b else f"{a}-{b}"
+def levels(a: int, b: int) -> str:
+    return f"{a}" if a == b else f"{a}-{b}"
 
-    return ", ".join(f"{species(s).name} {p}% (Lv.{lv(a, b)})" for s, (p, a, b) in comp.items())
+
+def md_table(headings: list[str], rows: list[list[str]]) -> str:
+    lines = ["| " + " | ".join(headings) + " |", "|" + "|".join("---" for _ in headings) + "|"]
+    lines += ["| " + " | ".join(r) + " |" for r in rows]
+    return "\n".join(lines)
 
 
 def type_mix(tables: list[Table]) -> dict[str, float]:
@@ -390,36 +394,52 @@ def type_mix(tables: list[Table]) -> dict[str, float]:
     return dict(sorted(mix.items(), key=lambda kv: -kv[1]))
 
 
+def method_table(enc: MapEncounters, method: str) -> str:
+    """Species down the side, times of day across, levels at the end."""
+    groups = [(times, table) for times, table in enc.grouped(method)]
+    order: dict[str, list[int]] = {}
+    for _, table in groups:
+        for s, (_, a, b) in (table.composition() if table else {}).items():
+            lv = order.setdefault(s, [a, b])
+            lv[0], lv[1] = min(lv[0], a), max(lv[1], b)
+    rows = []
+    for s, (a, b) in order.items():
+        cells = [species(s).name]
+        for _, table in groups:
+            comp = table.composition() if table else {}
+            cells.append(f"{comp[s][0]}%" if s in comp else "–")
+        rows.append(cells + [levels(a, b)])
+    return md_table(["Species"] + [times_label(t) for t, _ in groups] + ["Lv."], rows)
+
+
 # ---------------------------------------------------------------- commands
+#
+# Output is Markdown (headings, tables and lists), so it reads as rendered
+# tables wherever it is shown.
 
 
 def cmd_show(args) -> None:
     for info in select_maps(join_names(args.maps), args.all):
         enc = encounters().get(info["id"])
-        print(f"== {display(info)} ({info['id']})")
+        print(f"## {display(info)}\n")
         if not enc:
-            print("  no wild encounters")
+            print("No wild encounters.\n")
         else:
             n = len(enc.headers)
-            note = {1: "one table, all day", 2: "day and night tables", 4: "a table per time of day"}.get(n, f"{n} tables, first used all day")
-            print(f"  {note}")
+            note = {1: "One table, all day", 2: "Day and night tables", 4: "A table per time of day"}.get(n, f"{n} tables, first used all day")
+            print(f"*{note} ({info['id']})*\n")
             for method in enc.methods():
-                print(f"  {METHOD_NAMES[method]}")
-                for times, table in enc.grouped(method):
-                    text = fmt_comp(table.composition()) if table else "none"
-                    print(f"    {times_label(times):<16} {text}")
+                print(f"**{METHOD_NAMES[method]}**\n")
+                print(method_table(enc, method) + "\n")
                 if args.types and method == "land_mons":
-                    tables = [h[method] for h in enc.headers if method in h]
-                    mix = type_mix(tables)
-                    print("    types: " + ", ".join(f"{t} {v:.0f}%" for t, v in mix.items() if v >= 0.5))
+                    mix = type_mix([h[method] for h in enc.headers if method in h])
+                    print("Types: " + ", ".join(f"{t} {v:.0f}%" for t, v in mix.items() if v >= 0.5) + "\n")
         if not args.no_trainers:
             found = map_trainers(info)
             if found:
-                print("  Trainers")
-                for t in found:
-                    party = ", ".join(f"{species(s).name} {lv}" for s, lv in t.party)
-                    print(f"    {t.label():<26} {party}")
-        print()
+                print("**Trainers**\n")
+                rows = [[t.label(), ", ".join(f"{species(s).name} Lv. {lv}" for s, lv in t.party)] for t in found]
+                print(md_table(["Trainer", "Team"], rows) + "\n")
 
 
 def cmd_summary(args) -> None:
@@ -438,15 +458,15 @@ def cmd_summary(args) -> None:
             round(sum(sum(p for p, _, _ in list(t.composition().values())[:3]) for t in grass) / len(grass))
             if grass else None
         )
-        levels = [lv for t in grass for s in t.slots for lv in (s.min_level, s.max_level)]
+        lvs = [lv for t in grass for s in t.slots for lv in (s.min_level, s.max_level)]
         rows.append([
-            display(info)[:28],
+            display(info),
             str(len(enc.headers)),
-            (f"{min(per_table)}" if min(per_table) == max(per_table) else f"{min(per_table)}-{max(per_table)}") if grass else "-",
-            str(len(grass_species)) if grass else "-",
+            levels(min(per_table), max(per_table)) if grass else "–",
+            str(len(grass_species)) if grass else "–",
             str(len(all_species)),
-            f"{top3}%" if top3 is not None else "-",
-            f"{min(levels)}-{max(levels)}" if levels else "-",
+            f"{top3}%" if top3 is not None else "–",
+            levels(min(lvs), max(lvs)) if lvs else "–",
             str(len({t.label() for t in map_trainers(info)})),
         ])
         for h in enc.headers:
@@ -454,27 +474,27 @@ def cmd_summary(args) -> None:
                 for s in t.composition():
                     where[s][display(info)].add(METHOD_NAMES[method])
 
-    headings = ["Map", "Tables", "Grass/table", "Grass total", "All species", "Top 3", "Grass Lv.", "Trainers"]
-    widths = [max(len(r[i]) for r in rows + [headings]) for i in range(len(headings))]
-    print("  ".join(h.ljust(w) for h, w in zip(headings, widths)))
-    print("  ".join("-" * w for w in widths))
-    for r in rows:
-        print("  ".join(c.ljust(w) for c, w in zip(r, widths)))
-    print("\nGrass/table: species in each grass table. Grass total: across all times of day.")
-    print("Top 3: the three most common species' share of a grass table, averaged over its tables.")
-    print("Trainers: distinct trainers, so a rival with a team per starter counts once.")
-
-    print("\nSpecies by number of maps")
+    print(md_table(["Map", "Tables", "Grass/table", "Grass total", "All species", "Top 3", "Grass Lv.", "Trainers"], rows))
+    print()
+    print("- **Grass/table:** species in each grass table. **Grass total:** across all times of day.")
+    print("- **Top 3:** the three most common species' share of a grass table, averaged over its tables.")
+    print("- **Trainers:** distinct trainers, so a rival with a team per starter counts once.")
+    print()
+    print("**Species by number of maps**\n")
+    method_order = {name: i for i, name in enumerate(METHOD_NAMES.values())}
+    srows = []
     for s, places in sorted(where.items(), key=lambda kv: (-len(kv[1]), species(kv[0]).name)):
-        text = ", ".join(f"{m} ({'/'.join(sorted(ms))})" for m, ms in places.items())
-        print(f"  {species(s).name:<12} {len(places):>2}  {text}")
+        text = ", ".join(
+            f"{m} ({', '.join(sorted(ms, key=method_order.get))})" for m, ms in places.items()
+        )
+        srows.append([species(s).name, str(len(places)), text])
+    print(md_table(["Species", "Maps", "Where"], srows))
 
 
 def cmd_species(args) -> None:
-    targets = resolve_species(args.species)
-    for target in targets:
-        print(f"== {species(target).name} ({'/'.join(species(target).types)})")
-        hits = 0
+    for target in resolve_species(args.species):
+        print(f"## {species(target).name} ({'/'.join(species(target).types)})\n")
+        rows = []
         for map_id, enc in encounters().items():
             info = maps().get(map_id)
             if not info or (not args.all and not is_sinnoh_map(info)):
@@ -483,20 +503,18 @@ def cmd_species(args) -> None:
                 for times, table in enc.grouped(method):
                     if table and target in table.composition():
                         p, a, b = table.composition()[target]
-                        lv = f"{a}" if a == b else f"{a}-{b}"
-                        print(f"  {display(info):<16} {METHOD_NAMES[method]:<10} {times_label(times):<16} {p}% Lv.{lv}")
-                        hits += 1
+                        rows.append([display(info), METHOD_NAMES[method], times_label(times), f"{p}%", levels(a, b)])
         for info in maps().values():
             if not args.all and not is_sinnoh_map(info):
                 continue
             for t in map_trainers(info):
                 for s, lv in t.party:
                     if s == target:
-                        print(f"  {display(info):<16} trainer    {t.label()} (Lv.{lv})")
-                        hits += 1
-        if not hits:
-            print("  not found" + ("" if args.all else " on the Sinnoh maps (try --all)"))
-        print()
+                        rows.append([display(info), f"Trainer: {t.label()}", "–", "–", str(lv)])
+        if rows:
+            print(md_table(["Map", "How", "Times", "Rate", "Lv."], rows) + "\n")
+        else:
+            print("Not found" + (".\n" if args.all else " on the Sinnoh maps (try --all).\n"))
 
 
 def cmd_check(args) -> int:
@@ -521,25 +539,26 @@ def cmd_check(args) -> int:
                     comp = table.composition()
                     where = f"{name} {METHOD_NAMES[method]} ({times_label(times)})"
                     if method == "land_mons" and args.max_species and len(comp) > args.max_species:
-                        warnings.append(f"{where}: {len(comp)} species, more than {args.max_species}")
+                        warnings.append(f"**{where}:** {len(comp)} species, more than {args.max_species}")
                     mids = sorted((a + b) / 2 for a, b in ((v[1], v[2]) for v in comp.values()))
                     median = mids[len(mids) // 2]
                     for s, (p, a, b) in comp.items():
                         if b * 2 < median or a > median * 2:
-                            lv = f"{a}" if a == b else f"{a}-{b}"
-                            warnings.append(f"{where}: {species(s).name} at Lv.{lv} is far from the table's usual Lv.{median:g}")
+                            warnings.append(f"**{where}:** {species(s).name} at Lv. {levels(a, b)} is far from the table's usual Lv. {median:g}")
             if len(enc.headers) == 4 and len({tuple(sorted((m, t.key()) for m, t in h.items())) for h in enc.headers}) == 1:
-                notes.append(f"{name}: its four tables are identical, so one would do")
+                notes.append(f"**{name}:** its four tables are identical, so one would do")
         for t in map_trainers(info):
             for s, lv in t.party:
                 if family(s) not in obtainable:
-                    warnings.append(f"{name}: {t.label()}'s {species(s).name} can't be caught on any of these maps")
-    for w in warnings:
-        print(w)
-    for n in notes:
-        print("note: " + n)
-    if not warnings:
-        print(f"No problems found on {len(chosen)} maps.")
+                    warnings.append(f"**{name}:** {t.label()}'s {species(s).name} can't be caught on any of these maps")
+    if warnings:
+        print(f"**Warnings ({len(warnings)})**\n")
+        print("\n".join(f"- {w}" for w in warnings) + "\n")
+    else:
+        print(f"No problems found on {len(chosen)} maps.\n")
+    if notes:
+        print("**Notes**\n")
+        print("\n".join(f"- {n}" for n in notes))
     return 1 if warnings else 0
 
 

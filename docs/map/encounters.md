@@ -6,7 +6,9 @@ can actually battle there. It is for checking a route's composition while
 designing it, so tables stay readable and trainers use Pokémon the player can
 find.
 
-It needs only Python 3 and runs from the repo root:
+It needs only Python 3 and runs from the repo root. Its output is Markdown
+(headings, tables and lists), so it reads as rendered tables in chat or a docs
+page:
 
 ```sh
 tools/encounters/encounters.py <command> --help
@@ -29,11 +31,10 @@ evening and night; any other number means the first table is used all day.
 **`summary`** gives one row per map, then every species with the maps and
 methods it appears on:
 
-```text
-Map            Tables  Grass/table  Grass total  All species  Top 3  Grass Lv.  Trainers
-Route 201      4       5            12           12           77%    2-4        2
-Ravaged Path   4       5            5            12           72%    5-7        0
-```
+| Map | Tables | Grass/table | Grass total | All species | Top 3 | Grass Lv. | Trainers |
+|---|---|---|---|---|---|---|---|
+| Route 201 | 4 | 5 | 12 | 12 | 77% | 2-4 | 2 |
+| Ravaged Path | 4 | 5 | 5 | 12 | 72% | 5-7 | 0 |
 
 - *Grass/table*: species in each grass table.
 - *Grass total*: grass species across all times of day.
@@ -42,8 +43,9 @@ Ravaged Path   4       5            5            12           72%    5-7        
 
 These columns show how varied a route feels.
 
-**`show MAP...`** prints every table on the given maps, grouping times of day
-that share one, and the trainers with their teams. `--types` adds each map's
+**`show MAP...`** prints a table for each encounter method on the given maps,
+with species down the side and times of day across (times that share a table
+are merged), then the trainers with their teams. `--types` adds each map's
 grass type mix, with a dual type counting half to each type.
 
 ```sh
