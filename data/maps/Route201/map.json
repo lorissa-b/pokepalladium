@@ -15,7 +15,7 @@
   "connections": [
     {
       "map": "MAP_TWINLEAF_TOWN",
-      "offset": 30,
+      "offset": 29,
       "direction": "down"
     },
     {
