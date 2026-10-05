@@ -37,8 +37,8 @@ PERIOD_TABLES = {
     4: [0, 1, 2, 3],
 }
 
-# Unused maps left over in the decomp, which would otherwise be filed under Route 104.
-EXCLUDED_MAPS = {"MAP_ROUTE104_PROTOTYPE", "MAP_ROUTE104_PROTOTYPE_PRETTY_PETAL_FLOWER_SHOP"}
+# Unused maps left over in the decomp, which would otherwise be filed under Route 203.
+EXCLUDED_MAPS = {"MAP_ROUTE203_PROTOTYPE", "MAP_ROUTE203_PROTOTYPE_PRETTY_PETAL_FLOWER_SHOP"}
 
 # Encounters that don't come from the tables, added to the map's page.
 NOTES = {
@@ -748,6 +748,22 @@ def generate(app=None) -> int:
         parent = parent_name(info["name"])
         if info["name"] not in tops and parent in tops:
             children[parent].append(info)
+    # Only the ones the map actually leads to, by warps (events or script commands, as the
+    # Trick House's rooms are) or diving, directly or through each other: a building left
+    # behind when its route was redrawn isn't part of it.
+    for name, kids in children.items():
+        by_id = {k["id"]: k for k in kids}
+        reached, todo = set(), [tops[name]]
+        while todo:
+            info = todo.pop()
+            links = [w.get("dest_map") for w in info.get("warp_events") or []]
+            links += [c.get("map") for c in info.get("connections") or [] if c.get("direction") in ("dive", "emerge")]
+            links += re.findall(r"^\s*(?:warp\w*|setdynamicwarp|setwarp)\s+(MAP_\w+)", map_scripts(info["name"]), re.M)
+            for dest in links:
+                if dest in by_id and dest not in reached:
+                    reached.add(dest)
+                    todo.append(by_id[dest])
+        children[name] = [k for k in kids if k["id"] in reached]
 
     for directory in [d for d, _t, _types in SECTIONS] + ["icons", "trainers"]:
         out = OUT / directory
