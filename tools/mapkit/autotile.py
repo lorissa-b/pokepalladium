@@ -402,6 +402,18 @@ FLIPPABLE = "#.="        # classes a flexible cell may swap (# and . with each o
 ACCESS_ROUNDS = 4        # rounds of undoing swaps that change access before undoing them all
 
 
+def path_centre(m: Model, family: str | None) -> int | None:
+    """The block the originals put in the middle of a path (path on all eight sides), of `family` if given."""
+    def ok(i: int) -> bool:
+        return m.classes[i] == "p" and (family is None or materials.family(m.materials[i], "path") in (None, family))
+
+    for key in (("n8", "p", "p" * 8), ("n4", "p", "p" * 4), ("c", "p")):
+        counts = [(n, i) for i, n in m.contexts.get(key, {}).items() if ok(i)]
+        if counts:
+            return max(counts)[1]
+    return None
+
+
 def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None = "dense",
          water: str | None = "sea", path: str | None = None, fixed: dict[tuple[int, int], int] | None = None,
          flexible: set[tuple[int, int]] | None = None, barriers: set[tuple[int, int]] | None = None,
@@ -687,6 +699,47 @@ def fill(grid: list[str], layout: dict, style: str = "route", trees: str | None 
         unflex(set(alt_ctx) if attempt == ACCESS_ROUNDS else bad)
         settle()
     tally["flipped"] = sum(1 for i in free if GROUP_OF.get(m.classes[assign[i]], "walk") != want_group[i])
+
+    # A path one tile thick has no room for edge pieces, so it's drawn with the
+    # path's middle block alone (the originals' block with path all round).
+    centre = path_centre(m, chosen["path"])
+    if centre is not None:
+        def is_path(x, y):
+            return 0 <= x < w and 0 <= y < h and target[y * w + x] == "p"
+
+        thin = set()
+        for i in range(w * h):
+            x, y = i % w, i // w
+            if target[i] != "p" or i in pinned or GROUP_OF.get(m.classes[assign[i]], "walk") != "walk":
+                continue
+            # No path on either side across it, one way or the other.
+            if not (is_path(x - 1, y) or is_path(x + 1, y)) or not (is_path(x, y - 1) or is_path(x, y + 1)):
+                assign[i] = centre
+                thin.add(i)
+        tally["thin_path"] = len(thin)
+        # Where a thin path meets a wider one, the wider one's edge piece would close it off:
+        # re-pick those cells from the path blocks that sit best beside their actual neighbours.
+        options = [b for b in range(len(m.blocks)) if m.classes[b] == "p"
+                   and (chosen["path"] is None or materials.family(m.materials[b], "path") in (None, chosen["path"]))]
+        side = [(d, DIRS[d]) for d in sorted(HARD)]
+
+        def fit(i: int, b: int) -> float:
+            x, y = i % w, i // w
+            total = 0.0
+            for d, (dx, dy) in side:
+                if 0 <= x + dx < w and 0 <= y + dy < h:
+                    n = m.pairs[d].get((b, assign[(y + dy) * w + x + dx]), 0)
+                    total += 10.0 if n == 0 else -math.log(1 + n)
+            return total
+
+        for i in range(w * h):
+            x, y = i % w, i // w
+            if target[i] != "p" or i in thin or i in pinned:
+                continue
+            if any(0 <= x + dx < w and 0 <= y + dy < h and (y + dy) * w + x + dx in thin for _, (dx, dy) in side):
+                best = min(options, key=lambda b: (fit(i, b), b != assign[i]))
+                if fit(i, best) < fit(i, assign[i]):
+                    assign[i] = best
 
     seams = [(i % w, i // w) for i in range(w * h) if seam(i)]
     tally["seams"] = len(seams)

@@ -263,7 +263,10 @@ door columns (`PETALBURG_CITY@5,2~9x4d2-6`). `--no-buildings` turns this off.
   built from paths, keeping to one family as well: `--path sandy|stone|any`,
   where `sandy` is Littleroot's sand pit and `stone` the gravel and paving.
   The default, `auto`, takes the family most of the map's Platinum path
-  materials call for. `--style town` also
+  materials call for. A path only one tile thick has no room for edge
+  pieces, so it's drawn with the path's middle block alone (the block the
+  originals use with path all round), and where it meets a wider path that
+  path's blocks are re-picked to stay open towards it. `--style town` also
   allows paths, fences and objects (buildings are placed whole beforehand,
   never pieced together from single blocks). `--style cave` builds walkable
   tiles from cave floor and blocked ones from the cave set's raised floor,

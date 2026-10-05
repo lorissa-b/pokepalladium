@@ -342,6 +342,24 @@ class Ground(unittest.TestCase):
                     self.assertEqual(materials.family(mats, "path"), "sandy", (x, y, hex(b)))
 
 
+    def test_one_tile_paths_use_the_middle_block(self):
+        import autotile
+
+        layout = resolve_layout("LAYOUT_TWINLEAF_TOWN")
+        m = autotile.model(layout["primary_tileset"], layout["secondary_tileset"])
+        centre = m.blocks[autotile.path_centre(m, "sandy")]
+        self.assertEqual(centre, 0x121, "Littleroot's sand pit centre")
+        # A wide path with a one-tile spur west (row 3) and a single worn tile below a door (5, 6).
+        grid = ["##########", "#........#", "#....ppp.#", "#ppppppp.#", "#....ppp.#", "#........#", "#....p...#",
+                "#........#", "##########"]
+        blocks, tally, _ = autotile.fill(grid, layout, "route", path="sandy")
+        mid = consts().metatile_mask
+        for x in (1, 2, 3, 4):
+            self.assertEqual(blocks.get(x, 3) & mid, centre, (x, 3))
+        self.assertEqual(blocks.get(5, 6) & mid, centre)
+        self.assertEqual(tally["thin_path"], 5)
+
+
 class Checks(unittest.TestCase):
     def test_whole_repo_runs(self):
         findings = check.run()
