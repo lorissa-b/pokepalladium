@@ -67,6 +67,7 @@ static bool8 TryStartCoordEventScript(struct MapPosition *);
 static bool8 TryStartWarpEventScript(struct MapPosition *, u16);
 static bool8 TryStartMiscWalkingScripts(u16);
 static bool8 TryStartStepCountScript(u16);
+static bool8 TryFollowerStopTallGrass(u8);
 static void UpdateFriendshipStepCounter(void);
 static bool8 UpdatePoisonStepCounter(void);
 
@@ -178,6 +179,8 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
         if (TryDoorWarp(&position, metatileBehavior, playerDirection) == TRUE)
             return TRUE;
     }
+    if (input->heldDirection2 && TryFollowerStopTallGrass(input->dpadDirection) == TRUE)
+        return TRUE;
     if (input->pressedAButton && TrySetupDiveDownScript() == TRUE)
         return TRUE;
     if (input->pressedStartButton)
@@ -502,6 +505,27 @@ static bool8 TryStartStepBasedScript(struct MapPosition *position, u16 metatileB
     if (UpdateRepelCounter() == TRUE)
         return TRUE;
     return FALSE;
+}
+
+// A follower stops the player walking into tall grass while they have no Pokémon.
+// This runs before the step, so the player stays where they are.
+static bool8 TryFollowerStopTallGrass(u8 direction)
+{
+    s16 x, y;
+    u8 behavior;
+
+    if (direction == DIR_NONE || !PlayerHasFollower() || !IsPlayerOnFoot() || CalculatePlayerPartyCount() != 0)
+        return FALSE;
+
+    PlayerGetDestCoords(&x, &y);
+    MoveCoords(direction, &x, &y);
+    behavior = MapGridGetMetatileBehaviorAt(x, y);
+    if (!MetatileBehavior_IsTallGrass(behavior) && !MetatileBehavior_IsLongGrass(behavior))
+        return FALSE;
+
+    ObjectEventTurn(&gObjectEvents[gPlayerAvatar.objectEventId], direction);
+    ScriptContext_SetupScript(EventScript_FollowerStopsTallGrass);
+    return TRUE;
 }
 
 static bool8 TryStartCoordEventScript(struct MapPosition *position)
