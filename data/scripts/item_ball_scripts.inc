@@ -6,10 +6,6 @@ Route202_EventScript_ItemPotion::
 	finditem ITEM_POTION
 	end
 
-Route202_EventScript_ItemPPUp::
-	finditem ITEM_PP_UP
-	end
-
 Route203_EventScript_ItemPPUp::
 	finditem ITEM_PP_UP
 	end

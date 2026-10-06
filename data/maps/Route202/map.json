@@ -89,7 +89,20 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Route202_EventScript_ItemPotion",
-      "flag": "FLAG_ITEM_ROUTE_202_GUARD_SPEC"
+      "flag": "FLAG_ITEM_ROUTE_202_POTION"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
+      "x": 12,
+      "y": 11,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_WANDER_LEFT_AND_RIGHT",
+      "movement_range_x": 1,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Route202_EventScript_Youngster",
+      "flag": "0"
     }
   ],
   "warp_events": [],
@@ -138,7 +151,7 @@
       "y": 3,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route202_EventScript_RouteSign"
+      "script": "Route202_EventScript_RouteSignJubilife"
     },
     {
       "type": "sign",
@@ -146,7 +159,7 @@
       "y": 21,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route202_EventScript_RouteSign"
+      "script": "Route202_EventScript_RouteSignSandgem"
     },
     {
       "type": "sign",
@@ -155,6 +168,14 @@
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Route202_EventScript_TrainerTips"
+    },
+    {
+      "type": "hidden_item",
+      "x": 5,
+      "y": 5,
+      "elevation": 3,
+      "item": "ITEM_STARDUST",
+      "flag": "FLAG_HIDDEN_ITEM_ROUTE_202_STARDUST"
     }
   ]
 }
