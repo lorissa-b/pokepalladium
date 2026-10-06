@@ -14,9 +14,6 @@ SandgemTown_PokemonResearchLab_MapScripts::
 
 	@ State descriptions for VAR_BIRCH_LAB_STATE
 	@ 1: Birch's assistant is leading the player in from Sandgem Town
-	@ 2: Chose starter
-	@ 3: Received starter in lab
-	@ 4: Defeated rival on Route 103
 	@ 5: Received pokedex
 
 SandgemTown_PokemonResearchLab_OnTransition:
@@ -51,7 +48,6 @@ SandgemTown_PokemonResearchLab_EventScript_SetAfterJohtoStarterLayout::
 
 SandgemTown_PokemonResearchLab_OnWarp:
 	map_script_2 VAR_BIRCH_LAB_STATE, 1, SandgemTown_PokemonResearchLab_EventScript_SetObjectPosForMeetBirch
-	map_script_2 VAR_BIRCH_LAB_STATE, 2, SandgemTown_PokemonResearchLab_EventScript_SetPlayerPosForReceiveStarter
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, SandgemTown_PokemonResearchLab_EventScript_SetObjectPosForDexUpgrade
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, SandgemTown_PokemonResearchLab_EventScript_SetObjectPosForDexUpgrade
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 3, SandgemTown_PokemonResearchLab_EventScript_AddRivalObject
@@ -59,10 +55,6 @@ SandgemTown_PokemonResearchLab_OnWarp:
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 4, SandgemTown_PokemonResearchLab_EventScript_SetObjectPosForJohtoStarters
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 5, SandgemTown_PokemonResearchLab_EventScript_SetObjectPosForJohtoStarters
 	.2byte 0
-
-SandgemTown_PokemonResearchLab_EventScript_SetPlayerPosForReceiveStarter::
-	turnobject LOCALID_PLAYER, DIR_NORTH
-	end
 
 @ The player comes in at 6, 11 with the assistant just ahead of them
 SandgemTown_PokemonResearchLab_EventScript_SetObjectPosForMeetBirch::
@@ -107,8 +99,6 @@ SandgemTown_PokemonResearchLab_EventScript_SetObjectPosForJohtoStarters::
 
 SandgemTown_PokemonResearchLab_OnFrame:
 	map_script_2 VAR_BIRCH_LAB_STATE, 1, SandgemTown_PokemonResearchLab_EventScript_MeetBirch
-	map_script_2 VAR_BIRCH_LAB_STATE, 2, SandgemTown_PokemonResearchLab_EventScript_GiveStarterEvent
-	map_script_2 VAR_BIRCH_LAB_STATE, 4, SandgemTown_PokemonResearchLab_EventScript_GivePokedexEvent
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, SandgemTown_PokemonResearchLab_EventScript_UpgradeToNationalDex
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 4, SandgemTown_PokemonResearchLab_EventScript_ChooseJohtoStarter
 	.2byte 0
@@ -133,7 +123,6 @@ SandgemTown_PokemonResearchLab_EventScript_MeetBirch::
 	@ The assistant waits on Route 202 for the catching tutorial, then comes back
 	setvar VAR_BIRCH_LAB_STATE, 5
 	setflag FLAG_ADVENTURE_STARTED
-	setvar VAR_SANDGEM_TOWN_STATE, 1
 	setvar VAR_TWINLEAF_RIVAL_STATE, 4
 	@ Back home, the rival's mom brings a TOWN MAP and Mom has RUNNING SHOES
 	setvar VAR_TWINLEAF_TOWN_STATE, 3
@@ -171,61 +160,6 @@ SandgemTown_PokemonResearchLab_Movement_PlayerFollowToBirch:
 SandgemTown_PokemonResearchLab_EventScript_Assistant::
 	msgbox SandgemTown_PokemonResearchLab_Text_AssistantPokedexFills, MSGBOX_NPC
 	end
-
-@ The starter is technically given prior to this on Route 101 by special ChooseStarter
-@ This is just where the game tells you its yours and lets you nickname it
-SandgemTown_PokemonResearchLab_EventScript_GiveStarterEvent::
-	lockall
-	bufferleadmonspeciesname STR_VAR_1
-	message SandgemTown_PokemonResearchLab_Text_LikeYouToHavePokemon
-	waitmessage
-	playfanfare MUS_OBTAIN_ITEM
-	waitfanfare
-	msgbox SandgemTown_PokemonResearchLab_Text_WhyNotGiveNicknameToMon, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, SandgemTown_PokemonResearchLab_EventScript_NicknameStarter
-	goto_if_eq VAR_RESULT, NO, SandgemTown_PokemonResearchLab_EventScript_GoSeeRival
-	end
-
-SandgemTown_PokemonResearchLab_EventScript_NicknameStarter::
-	setvar VAR_0x8004, 0
-	call Common_EventScript_NameReceivedPartyMon
-	goto SandgemTown_PokemonResearchLab_EventScript_GoSeeRival
-	end
-
-SandgemTown_PokemonResearchLab_EventScript_GoSeeRival::
-	msgbox SandgemTown_PokemonResearchLab_Text_MightBeGoodIdeaToGoSeeRival, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, SandgemTown_PokemonResearchLab_EventScript_AgreeToSeeRival
-	goto_if_eq VAR_RESULT, NO, SandgemTown_PokemonResearchLab_EventScript_DeclineSeeingRival
-	end
-
-SandgemTown_PokemonResearchLab_EventScript_AgreeToSeeRival::
-	msgbox SandgemTown_PokemonResearchLab_Text_GetRivalToTeachYou, MSGBOX_DEFAULT
-	clearflag FLAG_HIDE_ROUTE_201_BOY
-	setvar VAR_BIRCH_LAB_STATE, 3
-	releaseall
-	end
-
-SandgemTown_PokemonResearchLab_EventScript_DeclineSeeingRival::
-	msgbox SandgemTown_PokemonResearchLab_Text_DontBeThatWay, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, SandgemTown_PokemonResearchLab_EventScript_AgreeToSeeRival
-	goto_if_eq VAR_RESULT, NO, SandgemTown_PokemonResearchLab_EventScript_DeclineSeeingRival
-	end
-
-SandgemTown_PokemonResearchLab_EventScript_GivePokedexEvent::
-	lockall
-	applywaitmovement LOCALID_PLAYER, SandgemTown_PokemonResearchLab_Movement_PlayerEnterLabForPokedex
-	goto SandgemTown_PokemonResearchLab_EventScript_GivePokedex
-	end
-
-SandgemTown_PokemonResearchLab_Movement_PlayerEnterLabForPokedex:
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	step_end
 
 SandgemTown_PokemonResearchLab_EventScript_UpgradeToNationalDex::
 	lockall
@@ -333,23 +267,7 @@ SandgemTown_PokemonResearchLab_Movement_PlayerEnterLabForJohtoStarter:
 	step_end
 
 SandgemTown_PokemonResearchLab_EventScript_Aide::
-	lock
-	faceplayer
-	goto_if_ge VAR_BIRCH_LAB_STATE, 3, SandgemTown_PokemonResearchLab_EventScript_AideReceivedStarter
-	goto_if_set FLAG_BIRCH_AIDE_MET, SandgemTown_PokemonResearchLab_EventScript_AideAlreadyMet
-	msgbox SandgemTown_PokemonResearchLab_Text_BirchAwayOnFieldwork, MSGBOX_DEFAULT
-	setflag FLAG_BIRCH_AIDE_MET
-	release
-	end
-
-SandgemTown_PokemonResearchLab_EventScript_AideAlreadyMet::
-	msgbox SandgemTown_PokemonResearchLab_Text_BirchIsntOneForDeskWork, MSGBOX_DEFAULT
-	release
-	end
-
-SandgemTown_PokemonResearchLab_EventScript_AideReceivedStarter::
-	msgbox SandgemTown_PokemonResearchLab_Text_BirchEnjoysRivalsHelpToo, MSGBOX_DEFAULT
-	release
+	msgbox SandgemTown_PokemonResearchLab_Text_ProfStudiesHabitats, MSGBOX_NPC
 	end
 
 SandgemTown_PokemonResearchLab_EventScript_Cyndaquil::
@@ -547,10 +465,7 @@ SandgemTown_PokemonResearchLab_EventScript_TryRatePokedexOrRegister::
 	goto_if_unset FLAG_HIDE_SANDGEM_TOWN_RESEARCH_LAB_UNKNOWN_0x380, ProfBirch_EventScript_RatePokedexOrRegister
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 3, ProfBirch_EventScript_RatePokedexOrRegister
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, ProfBirch_EventScript_RatePokedexOrRegister
-	goto_if_eq VAR_BIRCH_LAB_STATE, 5, SandgemTown_PokemonResearchLab_EventScript_PokemonAwait
-	msgbox SandgemTown_PokemonResearchLab_Text_BirchRivalGoneHome, MSGBOX_DEFAULT
-	release
-	end
+	goto SandgemTown_PokemonResearchLab_EventScript_PokemonAwait
 
 EventScript_RegisterProfBirch::
 	msgbox MatchCall_Text_BirchRegisterCall, MSGBOX_DEFAULT
@@ -566,40 +481,6 @@ EventScript_RegisterProfBirch::
 	release
 	end
 
-SandgemTown_PokemonResearchLab_EventScript_GivePokedex::
-	msgbox SandgemTown_PokemonResearchLab_Text_HeardYouBeatRivalTakePokedex, MSGBOX_DEFAULT
-	call SandgemTown_PokemonResearchLab_EventScript_ReceivePokedex
-	msgbox SandgemTown_PokemonResearchLab_Text_ExplainPokedex, MSGBOX_DEFAULT
-	closemessage
-	applywaitmovement LOCALID_BIRCHS_LAB_RIVAL, SandgemTown_PokemonResearchLab_Movement_RivalApproachPlayer
-	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
-	checkplayergender
-	call_if_eq VAR_RESULT, MALE, SandgemTown_PokemonResearchLab_EventScript_MayGivePokeBalls
-	call_if_eq VAR_RESULT, FEMALE, SandgemTown_PokemonResearchLab_EventScript_BrendanGivePokeBalls
-	setvar VAR_BIRCH_LAB_STATE, 5
-	setflag FLAG_ADVENTURE_STARTED
-	setvar VAR_SANDGEM_TOWN_STATE, 1
-	setvar VAR_TWINLEAF_RIVAL_STATE, 4
-	setvar VAR_TWINLEAF_TOWN_STATE, 3
-	releaseall
-	end
-
-SandgemTown_PokemonResearchLab_EventScript_MayGivePokeBalls::
-	msgbox SandgemTown_PokemonResearchLab_Text_MayGotPokedexTooTakeThese, MSGBOX_DEFAULT
-	giveitem ITEM_POKE_BALL, 5
-	call_if_eq VAR_RESULT, FALSE, SandgemTown_PokemonResearchLab_EventScript_MayNoRoomForPokeBalls
-	msgbox SandgemTown_PokemonResearchLab_Text_CatchCutePokemonWithPokeBalls, MSGBOX_DEFAULT
-	setvar VAR_RESULT, 0
-	return
-
-SandgemTown_PokemonResearchLab_EventScript_BrendanGivePokeBalls::
-	msgbox SandgemTown_PokemonResearchLab_Text_BrendanGotPokedexTooTakeThese, MSGBOX_DEFAULT
-	giveitem ITEM_POKE_BALL, 5
-	call_if_eq VAR_RESULT, FALSE, SandgemTown_PokemonResearchLab_EventScript_BrendanNoRoomForPokeBalls
-	msgbox SandgemTown_PokemonResearchLab_Text_CatchCoolPokemonWithPokeBalls, MSGBOX_DEFAULT
-	setvar VAR_RESULT, 1
-	return
-
 SandgemTown_PokemonResearchLab_EventScript_ReceivePokedex::
 	playfanfare MUS_OBTAIN_ITEM
 	message SandgemTown_PokemonResearchLab_Text_ReceivedPokedex
@@ -614,19 +495,6 @@ SandgemTown_PokemonResearchLab_EventScript_PokemonAwait::
 	release
 	end
 
-SandgemTown_PokemonResearchLab_EventScript_MayNoRoomForPokeBalls::
-	msgbox SandgemTown_PokemonResearchLab_Text_OhYourBagsFull, MSGBOX_DEFAULT
-	return
-
-SandgemTown_PokemonResearchLab_EventScript_BrendanNoRoomForPokeBalls::
-	msgbox SandgemTown_PokemonResearchLab_Text_HeyYourBagsFull, MSGBOX_DEFAULT
-	return
-
-SandgemTown_PokemonResearchLab_Movement_RivalApproachPlayer:
-	walk_down
-	walk_in_place_faster_left
-	step_end
-
 SandgemTown_PokemonResearchLab_EventScript_Machine::
 	msgbox SandgemTown_PokemonResearchLab_Text_SeriousLookingMachine, MSGBOX_SIGN
 	end
@@ -636,20 +504,8 @@ SandgemTown_PokemonResearchLab_EventScript_Rival::
 	faceplayer
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 5, SandgemTown_PokemonResearchLab_EventScript_RivalFuturePlans
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, SandgemTown_PokemonResearchLab_EventScript_RivalHaveYouGoneToBattleFrontier
-	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, SandgemTown_PokemonResearchLab_EventScript_RivalTakeBreakFromFieldwork
-	checkplayergender
-	call_if_eq VAR_RESULT, MALE, SandgemTown_PokemonResearchLab_EventScript_MayWhereShouldIGoNext
-	call_if_eq VAR_RESULT, FEMALE, SandgemTown_PokemonResearchLab_EventScript_BrendanWhereShouldIGoNext
-	release
-	end
-
-SandgemTown_PokemonResearchLab_EventScript_MayWhereShouldIGoNext::
-	msgbox SandgemTown_PokemonResearchLab_Text_MayWhereShouldIGoNext, MSGBOX_DEFAULT
-	return
-
-SandgemTown_PokemonResearchLab_EventScript_BrendanWhereShouldIGoNext::
-	msgbox SandgemTown_PokemonResearchLab_Text_BrendanWhereShouldIGoNext, MSGBOX_DEFAULT
-	return
+	@ The rival is only here after the National Dex upgrade
+	goto SandgemTown_PokemonResearchLab_EventScript_RivalTakeBreakFromFieldwork
 
 SandgemTown_PokemonResearchLab_EventScript_RivalFuturePlans::
 	checkplayergender
@@ -716,150 +572,14 @@ SandgemTown_PokemonResearchLab_EventScript_ScottAboardSSTidalCall::
 	releaseall
 	end
 
-SandgemTown_PokemonResearchLab_Text_BirchAwayOnFieldwork:
-	.string "Hunh? PROF. BIRCH?\p"
-	.string "The PROF's away on fieldwork.\n"
-	.string "Ergo, he isn't here.\p"
-	.string "Oh, let me explain what fieldwork is.\p"
-	.string "It is to study things in the natural\n"
-	.string "environment, like fields and mountains,\l"
-	.string "instead of a laboratory.\p"
-	.string "The PROF isn't one for doing desk work.\n"
-	.string "He's the type of person who would\l"
-	.string "rather go outside and experience\l"
-	.string "things than read about them here.$"
-
-SandgemTown_PokemonResearchLab_Text_BirchIsntOneForDeskWork:
-	.string "The PROF isn't one for doing desk work.\n"
-	.string "He's the type of person who would\l"
-	.string "rather go outside and experience\l"
-	.string "things than read about them here.$"
-
-SandgemTown_PokemonResearchLab_Text_BirchEnjoysRivalsHelpToo:
-	.string "PROF. BIRCH is studying the habitats\n"
-	.string "and distribution of POKéMON.\p"
-	.string "The PROF enjoys {RIVAL}'s help, too.\n"
-	.string "There's a lot of love there.$"
-
-SandgemTown_PokemonResearchLab_Text_LikeYouToHavePokemon:
-	.string "PROF. BIRCH: So, {PLAYER}{KUN}.\p"
-	.string "I've heard so much about you from\n"
-	.string "your father.\p"
-	.string "I've heard that you don't have your\n"
-	.string "own POKéMON yet.\p"
-	.string "But the way you battled earlier,\n"
-	.string "you pulled it off with aplomb!\p"
-	.string "I guess you have your father's blood\n"
-	.string "in your veins after all!\p"
-	.string "Oh, yes. As thanks for rescuing me,\n"
-	.string "I'd like you to have the POKéMON you\l"
-	.string "used earlier.\p"
-	.string "{PLAYER} received the {STR_VAR_1}!$"
-
-SandgemTown_PokemonResearchLab_Text_WhyNotGiveNicknameToMon:
-	.string "PROF. BIRCH: While you're at it, why not\n"
-	.string "give a nickname to that {STR_VAR_1}?$"
-
-SandgemTown_PokemonResearchLab_Text_MightBeGoodIdeaToGoSeeRival:
-	.string "PROF. BIRCH: If you work at POKéMON\n"
-	.string "and gain experience, I think you'll make\l"
-	.string "an extremely good TRAINER.\p"
-	.string "My kid, {RIVAL}, is also studying\n"
-	.string "POKéMON while helping me out.\p"
-	.string "{PLAYER}{KUN}, don't you think it might be\n"
-	.string "a good idea to go see {RIVAL}?$"
-
-SandgemTown_PokemonResearchLab_Text_GetRivalToTeachYou:
-	.string "PROF. BIRCH: Great!\n"
-	.string "{RIVAL} should be happy, too.\p"
-	.string "Get {RIVAL} to teach you what it\n"
-	.string "means to be a TRAINER.$"
-
-SandgemTown_PokemonResearchLab_Text_DontBeThatWay:
-	.string "PROF. BIRCH: Oh, don't be that way.\n"
-	.string "You should go meet my kid.$"
-
-SandgemTown_PokemonResearchLab_Text_BirchRivalGoneHome:
-	.string "PROF. BIRCH: {RIVAL}?\n"
-	.string "Gone home, I think.\p"
-	.string "Or maybe that kid's scrabbling around\n"
-	.string "in tall grass again somewhere…\p"
-	.string "If you or your POKéMON get tired,\n"
-	.string "you should get some rest at home.$"
-
-SandgemTown_PokemonResearchLab_Text_HeardYouBeatRivalTakePokedex:
-	.string "PROF. BIRCH: Oh, hi, {PLAYER}{KUN}!\p"
-	.string "I heard you beat {RIVAL} on\n"
-	.string "your first try. That's excellent!\p"
-	.string "{RIVAL}'s been helping with my research\n"
-	.string "for a long time.\p"
-	.string "{RIVAL} has an extensive history as\n"
-	.string "a TRAINER already.\p"
-	.string "Here, {PLAYER}{KUN}, I ordered this for my\n"
-	.string "research, but I think you should have\l"
-	.string "this POKéDEX.$"
-
 SandgemTown_PokemonResearchLab_Text_ReceivedPokedex:
 	.string "{PLAYER} received the POKéDEX!$"
-
-SandgemTown_PokemonResearchLab_Text_ExplainPokedex:
-	.string "PROF. BIRCH: The POKéDEX is a high-tech\n"
-	.string "tool that automatically makes a record\l"
-	.string "of any POKéMON you meet or catch.\p"
-	.string "My kid, {RIVAL}, goes everywhere\n"
-	.string "with it.\p"
-	.string "Whenever my kid catches a rare POKéMON\n"
-	.string "and records its data in the POKéDEX,\l"
-	.string "why, {RIVAL} looks for me while I'm out\l"
-	.string "doing fieldwork, and shows me.$"
 
 SandgemTown_PokemonResearchLab_Text_CountlessPokemonAwait:
 	.string "PROF. BIRCH: Countless POKéMON\n"
 	.string "await you!\p"
 	.string "Argh, I'm getting the itch to get out\n"
 	.string "and do fieldwork again!$"
-
-SandgemTown_PokemonResearchLab_Text_MayGotPokedexTooTakeThese:
-	.string "MAY: Oh, wow, {PLAYER}{KUN}!\n"
-	.string "You got a POKéDEX, too!\p"
-	.string "That's great! Just like me!\n"
-	.string "I've got something for you, too!$"
-
-SandgemTown_PokemonResearchLab_Text_CatchCutePokemonWithPokeBalls:
-	.string "MAY: It's fun if you can get a lot of\n"
-	.string "POKéMON!\p"
-	.string "I'm going to look all over the place\n"
-	.string "because I want different POKéMON.\p"
-	.string "If I find any cute POKéMON, I'll catch\n"
-	.string "them with POKé BALLS!$"
-
-SandgemTown_PokemonResearchLab_Text_OhYourBagsFull:
-	.string "Oh? Your BAG's full.$"
-
-SandgemTown_PokemonResearchLab_Text_MayWhereShouldIGoNext:
-	.string "MAY: I wonder where I should go look\n"
-	.string "for POKéMON next?$"
-
-SandgemTown_PokemonResearchLab_Text_BrendanGotPokedexTooTakeThese:
-	.string "BRENDAN: Huh…\n"
-	.string "So you got a POKéDEX, too.\p"
-	.string "Well then, here.\n"
-	.string "I'll give you these.$"
-
-SandgemTown_PokemonResearchLab_Text_CatchCoolPokemonWithPokeBalls:
-	.string "BRENDAN: You know it's more fun to\n"
-	.string "have a whole bunch of POKéMON.\p"
-	.string "I'm going to explore all over the place\n"
-	.string "to find different POKéMON.\p"
-	.string "If I find any cool POKéMON, you bet\n"
-	.string "I'll try to get them with POKé BALLS.$"
-
-SandgemTown_PokemonResearchLab_Text_HeyYourBagsFull:
-	.string "Hey, your BAG's full.$"
-
-SandgemTown_PokemonResearchLab_Text_BrendanWhereShouldIGoNext:
-	.string "BRENDAN: Where should I look for\n"
-	.string "POKéMON next…$"
 
 SandgemTown_PokemonResearchLab_Text_SeriousLookingMachine:
 	.string "It's a serious-looking machine.\n"
@@ -874,6 +594,12 @@ SandgemTown_PokemonResearchLab_Text_CrammedWithBooksOnPokemon:
 
 SandgemTown_PokemonResearchLab_Text_BookTooHardToRead:
 	.string "It's a book that's too hard to read.$"
+
+SandgemTown_PokemonResearchLab_Text_ProfStudiesHabitats:
+	.string "The PROF is studying the habitats\n"
+	.string "and distribution of POKéMON.\p"
+	.string "He's always saying there's no\n"
+	.string "substitute for fieldwork!$"
 
 SandgemTown_PokemonResearchLab_Text_OtherRegionsUpgradeToNational:
 	.string "PROF. BIRCH: Now…\p"
@@ -981,19 +707,11 @@ SandgemTown_PokemonResearchLab_Text_TakeYourTimeAllInvaluable:
 	.string "They're all invaluable POKéMON.$"
 
 @ Unused
-SandgemTown_PokemonResearchLab_Text_PickedFinePokemon:
-	.string "PROF. BIRCH: I see!\n"
-	.string "You picked a fine POKéMON!$"
-
 SandgemTown_PokemonResearchLab_Text_ReceivedJohtoStarter:
 	.string "{PLAYER} received the {STR_VAR_1}\n"
 	.string "from PROF. BIRCH!$"
 
 @ Unused
-SandgemTown_PokemonResearchLab_Text_NicknameJohtoStarter:
-	.string "Want to give a nickname to\n"
-	.string "the {STR_VAR_1} you received?$"
-
 SandgemTown_PokemonResearchLab_Text_GrassyPatchWaiting:
 	.string "PROF. BIRCH: Listen, {PLAYER}{KUN}.\n"
 	.string "You've completed the HOENN POKéDEX,\l"
@@ -1008,10 +726,6 @@ SandgemTown_PokemonResearchLab_Text_BetterLeaveOthersAlone:
 	.string "Better leave the others alone.$"
 
 @ Unused
-SandgemTown_PokemonResearchLab_Text_DontHaveAnyRoomForPokemon:
-	.string "Oh, you don't have any room for\n"
-	.string "this POKéMON.$"
-
 SandgemTown_PokemonResearchLab_Text_MayWhatNextImStayingHere:
 	.string "MAY: {PLAYER}{KUN}, after this…\n"
 	.string "What are you going to do?\p"

@@ -44,7 +44,6 @@ LakeVerity_EventScript_BirchsBag::
 	waitstate
 	special HealPlayerParty
 	setflag FLAG_SYS_POKEMON_GET
-	setflag FLAG_RESCUED_BIRCH
 	applywaitmovement LOCALID_LAKE_VERITY_RIVAL, Common_Movement_FacePlayer
 	msgbox LakeVerity_Text_RivalWeShouldReturnIt, MSGBOX_DEFAULT
 	closemessage

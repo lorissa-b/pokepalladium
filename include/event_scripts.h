@@ -379,7 +379,6 @@ extern const u8 EventScript_UseCut[];
 extern const u8 EventScript_UseRockSmash[];
 
 //player pc
-extern const u8 TwinleafTown_LucasHouse_2F_EventScript_TurnOffPlayerPC[];
 extern const u8 TwinleafTown_DawnHouse_2F_EventScript_TurnOffPlayerPC[];
 
 // Mauville Old Man (Giddy)

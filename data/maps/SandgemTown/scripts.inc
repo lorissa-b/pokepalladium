@@ -7,13 +7,7 @@ SandgemTown_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 	call Common_EventScript_SetupAssistantGfxId
 	setflag FLAG_VISITED_SANDGEM_TOWN
-	call_if_set FLAG_ADVENTURE_STARTED, SandgemTown_EventScript_SetSandgemState
 	end
-
-@ This script seems pointless because nothing uses VAR_SANDGEM_TOWN_STATE
-SandgemTown_EventScript_SetSandgemState::
-	setvar VAR_SANDGEM_TOWN_STATE, 1
-	return
 
 SandgemTown_EventScript_TownSign::
 	msgbox SandgemTown_Text_TownSign, MSGBOX_SIGN
@@ -66,43 +60,6 @@ SandgemTown_EventScript_NotBlockingPath::
 	msgbox SandgemTown_Text_FinishedSketchingFootprints, MSGBOX_DEFAULT
 	release
 	end
-
-@ After the Route 103 battle the rival waits on the lab mat (11, 7) and heads in
-SandgemTown_EventScript_Rival::
-	lockall
-	applywaitmovement LOCALID_SANDGEM_RIVAL, Common_Movement_FacePlayer
-	checkplayergender
-	call_if_eq VAR_RESULT, MALE, SandgemTown_EventScript_ShowMayMessage
-	call_if_eq VAR_RESULT, FEMALE, SandgemTown_EventScript_ShowBrendanMessage
-	closemessage
-	applywaitmovement LOCALID_SANDGEM_RIVAL, SandgemTown_Movement_RivalToLabDoor
-	opendoor 11, 6
-	waitdooranim
-	applywaitmovement LOCALID_SANDGEM_RIVAL, SandgemTown_Movement_RivalEnterLab
-	removeobject LOCALID_SANDGEM_RIVAL
-	closedoor 11, 6
-	waitdooranim
-	setvar VAR_SANDGEM_RIVAL_STATE, 2
-	setflag FLAG_HIDE_SANDGEM_TOWN_RIVAL
-	releaseall
-	end
-
-SandgemTown_EventScript_ShowMayMessage::
-	msgbox SandgemTown_Text_MayLetsGoBack, MSGBOX_DEFAULT
-	return
-
-SandgemTown_EventScript_ShowBrendanMessage::
-	msgbox SandgemTown_Text_BrendanLetsGoBack, MSGBOX_DEFAULT
-	return
-
-SandgemTown_Movement_RivalToLabDoor:
-	face_up
-	step_end
-
-SandgemTown_Movement_RivalEnterLab:
-	walk_up
-	set_invisible
-	step_end
 
 @ Stepping onto the lab mat (11, 7) after returning Birch's bag on Route 201.
 @ The rival bursts out of the lab door (11, 6), knocks the player back and runs
@@ -240,16 +197,6 @@ SandgemTown_Text_FinishedSketchingFootprints:
 	.string "a rare POKéMON.\p"
 	.string "But it turns out they were only my\n"
 	.string "own footprints…$"
-
-SandgemTown_Text_MayLetsGoBack:
-	.string "MAY: {PLAYER}{KUN}!\n"
-	.string "Over here!\l"
-	.string "Let's go to PROF. BIRCH's LAB!$"
-
-SandgemTown_Text_BrendanLetsGoBack:
-	.string "BRENDAN: I'm heading into\n"
-	.string "PROF. BIRCH's LAB now.\l"
-	.string "{PLAYER}, you should come in, too.$"
 
 SandgemTown_Text_TownSign:
 	.string "SANDGEM TOWN\n"
