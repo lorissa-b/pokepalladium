@@ -35,17 +35,17 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
    become trees, tall grass, water and ledges become their Emerald
    equivalents, and every Platinum building gets a whole Emerald building
    with its door on Platinum's door (see [Buildings](#buildings)).
-   Platinum's events, buildings and props are listed at the bottom as
-   comments, in the draft's coordinates. `--region X,Y,W,H` takes part of the Platinum map, for a
-   replica smaller than the original. `--lean` writes those notes, and the list of
-   placed buildings, to `jubilife.notes` next to the blueprint instead, and
-   leaves the metatile descriptions, and collision and elevation where they
-   are the defaults, off the legend lines, and gives all the buildings one
-   shared legend, so the blueprint is smaller to read.
+   Platinum's events, buildings and props, in the draft's coordinates, and
+   the list of placed buildings go to `jubilife.notes` next to the
+   blueprint (or `build/mapkit/<header>.notes` without `-o`). Legend lines
+   leave out collision and elevation where they're the defaults, and the
+   buildings share one legend, so the blueprint stays small to read.
+   `--full` keeps the old form instead: notes as comments in the blueprint
+   and every legend line described. `--region X,Y,W,H` takes part of the
+   Platinum map, for a replica smaller than the original.
 
    ```sh
    tools/mapkit/mapkit.py draft JUBILIFE_CITY LAYOUT_JUBILIFE_CITY -o jubilife.bp
-   tools/mapkit/mapkit.py draft JUBILIFE_CITY LAYOUT_JUBILIFE_CITY --lean -o jubilife.bp
    ```
 
    Add `--finish` to choose every block instead (see [Finished drafts](#finished-drafts)), and
@@ -100,7 +100,7 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
 
 | Command | What it does |
 | --- | --- |
-| `info MAP` | Layout, size, tilesets, connections, and every event with the behaviour of the tile under each warp. `--brief` lists only the warps and counts the other events. |
+| `info MAP` | Layout, size, tilesets, connections, the warps with the behaviour of the tile under each, and how many other events there are. `--all` lists every event. |
 | `dump MAP` | The layout as text. `--layer metatile\|collision\|elevation\|behavior\|block`, or `--classes` for the same tile classes the Platinum commands use. `--region X,Y,W,H`. |
 | `render MAP` | PNG of the map. `--grid` (coordinates every 4 tiles), `--events`, `--collision`, `--elevation`, `--region`, `--scale`. |
 | `tileset MAP` or `tileset PRIMARY SECONDARY` | Metatile catalog PNG, or `--list` as text. `--only primary\|secondary`, `--behavior NAME`, `--material NAME`, `--materials`. |
@@ -113,7 +113,7 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
 | `platinum list [QUERY]` | Search Platinum's map headers. |
 | `platinum show HEADER[+HEADER...]` | The Platinum map as text, with events and props (only those inside `--region`, when given). `--events`, `--region`, `--ground` (what the ground is painted with, see [Paths](#paths-and-the-ground-model)), `--render [PNG]`, `--json FILE`. |
 | `platinum update` | Move the cached pokeplatinum checkout to its latest commit. |
-| `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map, with its buildings placed. `--region X,Y,W,H`, `--finish [--style --trees --water --path --keep-shape]`, `--solid-unreachable`, `--no-buildings`, `--originals-only`, `--lean` (notes to a `.notes` file), `--render PNG [--events --grid --seams]`. |
+| `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map, with its buildings placed. `--region X,Y,W,H`, `--finish [--style --trees --water --path --keep-shape]`, `--solid-unreachable`, `--no-buildings`, `--originals-only`, `--full` (notes as comments in the blueprint, not a `.notes` file), `--render PNG [--events --grid --seams]`. |
 | `compare MAP HEADER` | Score a map against the Platinum original. `--origin X,Y\|auto`, `--solid-unreachable`, `--render PNG [--region X,Y,W,H]`, `--limit N`, `--tiles`, `--grid` (the map as text), `-q` (score and missing warps only). |
 
 ### Tile classes

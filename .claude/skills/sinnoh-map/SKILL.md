@@ -28,10 +28,10 @@ Read a reference file below only when you reach the step that needs it:
    `platinum show <HEADER> --render build/mapkit/ref.png`, then Read the PNG.
    Print it as text (`--events`, or `--ground` for painted paths) only with
    `--region X,Y,W,H` around the part you're working on.
-2. **Target.** `mapkit.py info <Map> --brief` and
+2. **Target.** `mapkit.py info <Map>` and
    `render <Map> --grid --events -o build/mapkit/target.png` for the Hoenn
    map being converted. Note its neighbours and their tilesets.
-3. **Draft.** `mapkit.py draft <HEADER> <LAYOUT> --lean -o build/mapkit/<map>.bp`
+3. **Draft.** `mapkit.py draft <HEADER> <LAYOUT> -o build/mapkit/<map>.bp`
    gives a blockout with exits, roads, grass, water, ledges and a whole
    Emerald building on every Platinum building. Platinum's events, props and
    the building list go to `build/mapkit/<map>.notes`; `grep` it rather than

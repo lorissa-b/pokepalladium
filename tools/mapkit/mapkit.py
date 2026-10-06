@@ -82,7 +82,7 @@ def cmd_info(a) -> None:
     for conn in info.get("connections") or []:
         print(f"connects  {conn['direction']:<5} {conn['map']} offset {conn['offset']}")
     blocks = Blockdata.for_layout(layout)
-    if a.brief:
+    if not a.all:
         counts = [f"{len(info.get(k) or [])} {name}" for k, name in
                   (("object_events", "objects"), ("bg_events", "bg events"), ("coord_events", "coord events"))]
         print(f"events    {len(info.get('warp_events') or [])} warps, " + ", ".join(counts))
@@ -90,7 +90,7 @@ def cmd_info(a) -> None:
         mid = blocks.get(w["x"], w["y"]) & c.metatile_mask if blocks.inside(w["x"], w["y"]) else None
         beh = behaviors().get(tiles.behavior(mid), "?") if mid is not None else "outside map"
         print(f"warp {i:<3}  ({w['x']},{w['y']}) -> {w['dest_map']} warp {w['dest_warp_id']}  [{beh}]")
-    if a.brief:
+    if not a.all:
         return
     for i, o in enumerate(info.get("object_events") or []):
         print(f"object {i:<2} ({o['x']},{o['y']}) e{o.get('elevation')} {o.get('graphics_id')} {o.get('script')}")
@@ -357,9 +357,7 @@ def cmd_draft(a) -> None:
     region = tuple(a.region) if a.region else None
     if region and len(region) == 2:
         region = (region[0], region[1], ref.width - region[0], ref.height - region[1])
-    if a.lean and not a.output:
-        raise SystemExit("error: --lean needs -o (the notes go next to the blueprint)")
-    notes = [] if a.lean else None
+    notes = None if a.full else []
     seams = []
     if a.finish:
         family = {"any": None}
@@ -386,12 +384,14 @@ def cmd_draft(a) -> None:
         Path(a.output).parent.mkdir(parents=True, exist_ok=True)
         Path(a.output).write_text(text)
         print(a.output)
-        if notes is not None:
-            notes_path = Path(a.output).with_suffix(".notes")
-            notes_path.write_text("\n".join(line[2:] if line.startswith("# ") else line for line in notes) + "\n")
-            print(notes_path)
     else:
         sys.stdout.write(text)
+    if notes is not None:
+        # Next to the blueprint, or under build/mapkit/ when it went to stdout.
+        notes_path = Path(a.output).with_suffix(".notes") if a.output else out_path(None, f"{ref.header[len('MAP_HEADER_'):].lower()}.notes")
+        notes_path.parent.mkdir(parents=True, exist_ok=True)
+        notes_path.write_text("\n".join(line[2:] if line.startswith("# ") else line for line in notes) + "\n")
+        print(notes_path, file=sys.stdout if a.output else sys.stderr)
 
 
 def cmd_buildings(a) -> None:
@@ -535,7 +535,8 @@ def main(argv=None) -> None:
 
     s = sub.add_parser("info", help="summarise a map: layout, tilesets, connections, events")
     s.add_argument("map", help="MAP_* id, map directory name, LAYOUT_* id or layout name")
-    s.add_argument("--brief", action="store_true", help="list warps, and only count the other events")
+    s.add_argument("--all", action="store_true", help="list every event, not just the warps")
+    s.add_argument("--brief", action="store_true", help=argparse.SUPPRESS)  # the default now; kept for old commands
     s.set_defaults(func=cmd_info)
 
     s = sub.add_parser("dump", help="print a layout as text")
@@ -627,9 +628,11 @@ def main(argv=None) -> None:
     s.add_argument("--grid", action="store_true", help="with --render, add a coordinate grid")
     s.add_argument("--scale", type=int, default=2)
     s.add_argument("-o", "--output")
-    s.add_argument("--lean", action="store_true",
-                   help="leave Platinum's events, props and tile classes out of the blueprint, writing them to "
-                        "<output>.notes instead, and drop the metatile descriptions from legend lines")
+    s.add_argument("--full", action="store_true",
+                   help="keep Platinum's events, props, the building list and (with --finish) the tile classes in the "
+                        "blueprint as comments, and describe every legend line; by default they go to <output>.notes "
+                        "and legend lines are as short as they can be")
+    s.add_argument("--lean", action="store_true", help=argparse.SUPPRESS)  # the default now; kept for old commands
     s.set_defaults(func=cmd_draft)
 
     s = sub.add_parser("buildings", help="Emerald buildings that can be drawn on a layout (see buildings.py)")

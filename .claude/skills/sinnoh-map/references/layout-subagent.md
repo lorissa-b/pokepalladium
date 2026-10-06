@@ -15,7 +15,7 @@ and its Rules; read its reference files only when a step needs them.
 What this map should be: <what the user asked for: whole map or a region,
 style or cave, buildings to keep or change, anything deliberately
 different from Platinum>.
-Neighbours: <maps it connects to, from `info --brief`>.
+Neighbours: <maps it connects to, from `info`>.
 
 Build the map.bin and stop before moving events. Don't commit.
 

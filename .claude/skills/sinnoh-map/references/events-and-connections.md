@@ -6,6 +6,8 @@
   from the draft's `.notes` file, shifted by the origin `compare` found.
   `grep warp`, `grep object` and so on rather than reading the whole file.
 - Interior maps' exit warps must point back at the right warp ids.
+- `info <Map> --all` lists the map's current events. The Hoenn ones can be
+  deleted or reused freely.
 
 ## Connections
 
