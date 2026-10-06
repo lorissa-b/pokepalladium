@@ -4302,7 +4302,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Dillon[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_Calvin2[] = {
     {
     .iv = 0,
-    .lvl = 27,
+    .lvl = 24,
     .species = SPECIES_STARAVIA,
     }
 };
@@ -4310,48 +4310,23 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Calvin2[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_Calvin3[] = {
     {
     .iv = 0,
-    .lvl = 28,
-    .species = SPECIES_LUXIO,
-    },
-    {
-    .iv = 0,
-    .lvl = 30,
-    .species = SPECIES_STARAVIA,
+    .lvl = 35,
+    .species = SPECIES_STARAPTOR,
     }
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_Calvin4[] = {
     {
     .iv = 0,
-    .lvl = 31,
-    .species = SPECIES_LUXRAY,
-    },
-    {
-    .iv = 0,
-    .lvl = 29,
-    .species = SPECIES_BIBAREL,
-    },
-    {
-    .iv = 0,
-    .lvl = 33,
-    .species = SPECIES_STARAVIA,
+    .lvl = 45,
+    .species = SPECIES_STARAPTOR,
     }
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_Calvin5[] = {
     {
     .iv = 0,
-    .lvl = 34,
-    .species = SPECIES_LUXRAY,
-    },
-    {
-    .iv = 0,
-    .lvl = 32,
-    .species = SPECIES_BIBAREL,
-    },
-    {
-    .iv = 0,
-    .lvl = 36,
+    .lvl = 45,
     .species = SPECIES_STARAPTOR,
     }
 };
