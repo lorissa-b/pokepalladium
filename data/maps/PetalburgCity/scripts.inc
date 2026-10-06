@@ -739,3 +739,19 @@ PetalburgCity_Text_ImLookingForTalentedTrainers:
 	.string "I'm roaming the land in search of\n"
 	.string "talented TRAINERS.\p"
 	.string "I'm sorry to have taken your time.$"
+
+Route219_Text_WatchMeCatchPokemon:
+	.string "WALLY: {PLAYER}…\n"
+	.string "POKéMON hide in tall grass like this,\l"
+	.string "don't they?\p"
+	.string "Please watch me and see if I can\n"
+	.string "catch one properly.\p"
+	.string "…Whoa!$"
+
+Route219_Text_WallyIDidIt:
+	.string "WALLY: I did it… It's my…\n"
+	.string "My POKéMON!$"
+
+Route219_Text_LetsGoBack:
+	.string "{PLAYER}, thank you!\n"
+	.string "Let's go back to the GYM!$"

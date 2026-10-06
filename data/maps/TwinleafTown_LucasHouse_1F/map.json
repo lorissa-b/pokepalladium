@@ -15,21 +15,6 @@
   "connections": null,
   "object_events": [
     {
-      "local_id": "LOCALID_PLAYERS_HOUSE_1F_MOM",
-      "graphics_id": "OBJ_EVENT_GFX_MOM",
-      "x": 2,
-      "y": 6,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "PlayersHouse_1F_EventScript_Mom",
-      "flag": "FLAG_HIDE_TWINLEAF_TOWN_LUCAS_HOUSE_MOM"
-    },
-    {
-      "local_id": "LOCALID_RIVALS_HOUSE_1F_MOM",
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_4",
       "x": 2,
       "y": 7,
@@ -43,20 +28,6 @@
       "flag": "FLAG_HIDE_TWINLEAF_TOWN_LUCAS_HOUSE_RIVAL_MOM"
     },
     {
-      "local_id": "LOCALID_PLAYERS_HOUSE_1F_DAD",
-      "graphics_id": "OBJ_EVENT_GFX_NORMAN",
-      "x": 5,
-      "y": 6,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
-      "flag": "FLAG_HIDE_PLAYERS_HOUSE_DAD"
-    },
-    {
       "graphics_id": "OBJ_EVENT_GFX_NINJA_BOY",
       "x": 1,
       "y": 5,
@@ -68,20 +39,6 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "RivalsHouse_1F_EventScript_RivalSibling",
       "flag": "FLAG_HIDE_TWINLEAF_TOWN_LUCAS_HOUSE_RIVAL_SIBLING"
-    },
-    {
-      "local_id": "LOCALID_RIVALS_HOUSE_1F_RIVAL",
-      "graphics_id": "OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL",
-      "x": 8,
-      "y": 8,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_UP",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
-      "flag": "FLAG_HIDE_TWINLEAF_TOWN_LUCAS_HOUSE_BRENDAN"
     }
   ],
   "warp_events": [
@@ -107,43 +64,6 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [
-    {
-      "type": "trigger",
-      "x": 8,
-      "y": 8,
-      "elevation": 0,
-      "var": "VAR_TWINLEAF_INTRO_STATE",
-      "var_value": "4",
-      "script": "TwinleafTown_LucasHouse_1F_EventScript_GoSeeRoom"
-    },
-    {
-      "type": "trigger",
-      "x": 7,
-      "y": 3,
-      "elevation": 0,
-      "var": "VAR_TWINLEAF_RIVAL_STATE",
-      "var_value": "2",
-      "script": "TwinleafTown_LucasHouse_1F_EventScript_MeetRival0"
-    },
-    {
-      "type": "trigger",
-      "x": 8,
-      "y": 4,
-      "elevation": 0,
-      "var": "VAR_TWINLEAF_RIVAL_STATE",
-      "var_value": "2",
-      "script": "TwinleafTown_LucasHouse_1F_EventScript_MeetRival1"
-    },
-    {
-      "type": "trigger",
-      "x": 9,
-      "y": 3,
-      "elevation": 0,
-      "var": "VAR_TWINLEAF_RIVAL_STATE",
-      "var_value": "2",
-      "script": "TwinleafTown_LucasHouse_1F_EventScript_MeetRival2"
-    }
-  ],
+  "coord_events": [],
   "bg_events": []
 }

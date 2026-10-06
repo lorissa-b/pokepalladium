@@ -1,3 +1,4 @@
+@ The player's house, for both genders. The rival lives in the Lucas house (see TwinleafTown_LucasHouse_1F).
 TwinleafTown_DawnHouse_1F_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, TwinleafTown_DawnHouse_1F_OnLoad
 	map_script MAP_SCRIPT_ON_TRANSITION, TwinleafTown_DawnHouse_1F_OnTransition
@@ -5,19 +6,8 @@ TwinleafTown_DawnHouse_1F_MapScripts::
 	.byte 0
 
 TwinleafTown_DawnHouse_1F_OnLoad:
-	call_if_lt VAR_TWINLEAF_INTRO_STATE, 6, TwinleafTown_DawnHouse_1F_EventScript_SetMovingBoxes
-	call_if_set FLAG_RECEIVED_RUNNING_SHOES, TwinleafTown_DawnHouse_1F_EventScript_CheckShowShoesManual
+	call_if_set FLAG_RECEIVED_RUNNING_SHOES, TwinleafTown_DawnHouse_1F_EventScript_ShowRunningShoesManual
 	end
-
-TwinleafTown_DawnHouse_1F_EventScript_SetMovingBoxes::
-	setmetatile 5, 4, METATILE_BrendansMaysHouse_MovingBox_Open, TRUE
-	setmetatile 5, 2, METATILE_BrendansMaysHouse_MovingBox_Closed, TRUE
-	return
-
-TwinleafTown_DawnHouse_1F_EventScript_CheckShowShoesManual::
-	checkplayergender
-	goto_if_eq VAR_RESULT, FEMALE, TwinleafTown_DawnHouse_1F_EventScript_ShowRunningShoesManual
-	return
 
 TwinleafTown_DawnHouse_1F_EventScript_ShowRunningShoesManual::
 	setmetatile 6, 7, METATILE_BrendansMaysHouse_BookOnTable, TRUE
@@ -26,24 +16,12 @@ TwinleafTown_DawnHouse_1F_EventScript_ShowRunningShoesManual::
 TwinleafTown_DawnHouse_1F_OnTransition:
 	call_if_eq VAR_TWINLEAF_TOWN_STATE, 3, TwinleafTown_DawnHouse_1F_EventScript_RivalMomVisiting
 	call_if_eq VAR_TWINLEAF_INTRO_STATE, 8, TwinleafTown_DawnHouse_1F_EventScript_MoveMomNearStairs
-	call_if_eq VAR_TWINLEAF_INTRO_STATE, 3, TwinleafTown_DawnHouse_1F_EventScript_MoveMomToDoor
-	call_if_eq VAR_TWINLEAF_INTRO_STATE, 5, TwinleafTown_DawnHouse_1F_EventScript_MoveMomToStairs
-	call_if_eq VAR_TWINLEAF_INTRO_STATE, 6, TwinleafTown_DawnHouse_1F_EventScript_MoveMomToTV
 	end
 
 @ After getting the POKéDEX, the rival's mom is sitting at the table with Mom
 TwinleafTown_DawnHouse_1F_EventScript_RivalMomVisiting::
 	clearflag FLAG_HIDE_TWINLEAF_TOWN_DAWN_HOUSE_RIVAL_MOM
-	return
-
-TwinleafTown_DawnHouse_1F_EventScript_MoveMomToStairs::
-	setobjectxyperm LOCALID_PLAYERS_HOUSE_1F_MOM, 2, 4
-	setobjectmovementtype LOCALID_PLAYERS_HOUSE_1F_MOM, MOVEMENT_TYPE_FACE_UP
-	return
-
-TwinleafTown_DawnHouse_1F_EventScript_MoveMomToTV::
-	setobjectxyperm LOCALID_PLAYERS_HOUSE_1F_MOM, 6, 5
-	setobjectmovementtype LOCALID_PLAYERS_HOUSE_1F_MOM, MOVEMENT_TYPE_FACE_UP
+	setflag FLAG_HIDE_TWINLEAF_TOWN_LUCAS_HOUSE_RIVAL_MOM
 	return
 
 TwinleafTown_DawnHouse_1F_EventScript_MoveMomNearStairs::
@@ -51,19 +29,9 @@ TwinleafTown_DawnHouse_1F_EventScript_MoveMomNearStairs::
 	setobjectmovementtype LOCALID_PLAYERS_HOUSE_1F_MOM, MOVEMENT_TYPE_FACE_UP
 	return
 
-TwinleafTown_DawnHouse_1F_EventScript_MoveMomToDoor::
-	setobjectxyperm LOCALID_PLAYERS_HOUSE_1F_MOM, 1, 8
-	setobjectmovementtype LOCALID_PLAYERS_HOUSE_1F_MOM, MOVEMENT_TYPE_FACE_UP
-	return
-
-@ Many of the below scripts have no gender check because they assume youre in the correct house
 TwinleafTown_DawnHouse_1F_OnFrame:
 	map_script_2 VAR_TWINLEAF_TOWN_STATE, 3, TwinleafTown_DawnHouse_1F_EventScript_HomeWithPokedex
 	map_script_2 VAR_TWINLEAF_INTRO_STATE, 8, TwinleafTown_DawnHouse_1F_EventScript_RivalWasLookingForYou
-	map_script_2 VAR_TWINLEAF_INTRO_STATE, 3, TwinleafTown_DawnHouse_1F_EventScript_EnterHouseMovingIn
-	map_script_2 VAR_TWINLEAF_INTRO_STATE, 5, TwinleafTown_DawnHouse_1F_EventScript_GoUpstairsToSetClock
-	map_script_2 VAR_TWINLEAF_INTRO_STATE, 6, TwinleafTown_DawnHouse_1F_EventScript_PetalburgGymReport
-	map_script_2 VAR_TWINLEAF_HOUSES_STATE_BRENDAN, 1, TwinleafTown_DawnHouse_1F_EventScript_YoureNewNeighbor
 	map_script_2 VAR_TWINLEAF_HOUSES_STATE_MAY, 3, PlayersHouse_1F_EventScript_GetSSTicketAndSeeLatiTV
 	.2byte 0
 
@@ -92,6 +60,7 @@ TwinleafTown_DawnHouse_1F_EventScript_HomeWithPokedex::
 	closemessage
 	@ She stays at the table for this visit and goes home afterwards
 	setflag FLAG_HIDE_TWINLEAF_TOWN_DAWN_HOUSE_RIVAL_MOM
+	clearflag FLAG_HIDE_TWINLEAF_TOWN_LUCAS_HOUSE_RIVAL_MOM
 	setvar VAR_TWINLEAF_TOWN_STATE, 4
 	releaseall
 	end
@@ -131,367 +100,6 @@ TwinleafTown_DawnHouse_1F_Movement_MomReturnFromStairs:
 	walk_in_place_faster_up
 	step_end
 
-TwinleafTown_DawnHouse_1F_EventScript_GoUpstairsToSetClock::
-	lockall
-	msgbox PlayersHouse_1F_Text_GoSetTheClock, MSGBOX_DEFAULT
-	closemessage
-	applymovement LOCALID_PLAYER, TwinleafTown_DawnHouse_1F_Movement_PushTowardStairs
-	applymovement LOCALID_PLAYERS_HOUSE_1F_MOM, TwinleafTown_DawnHouse_1F_Movement_PushTowardStairs
-	waitmovement 0
-	warp MAP_TWINLEAF_TOWN_DAWN_HOUSE_2F, 1, 1
-	waitstate
-	releaseall
-	end
-
-TwinleafTown_DawnHouse_1F_Movement_PushTowardStairs:
-	walk_up
-	step_end
-
-TwinleafTown_DawnHouse_1F_EventScript_EnterHouseMovingIn::
-	lockall
-	setvar VAR_0x8004, LOCALID_PLAYERS_HOUSE_1F_MOM
-	setvar VAR_0x8005, FEMALE
-	goto PlayersHouse_1F_EventScript_EnterHouseMovingIn
-	end
-
-TwinleafTown_DawnHouse_1F_EventScript_PetalburgGymReport::
-	lockall
-	setvar VAR_0x8004, FEMALE
-	setvar VAR_0x8005, LOCALID_PLAYERS_HOUSE_1F_MOM
-	goto PlayersHouse_1F_EventScript_PetalburgGymReportFemale
-	end
-
-TwinleafTown_DawnHouse_1F_EventScript_YoureNewNeighbor::
-	lockall
-	playse SE_PIN
-	applywaitmovement LOCALID_RIVALS_HOUSE_1F_MOM, Common_Movement_ExclamationMark
-	applywaitmovement LOCALID_RIVALS_HOUSE_1F_MOM, Common_Movement_Delay48
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
-	applymovement LOCALID_RIVALS_HOUSE_1F_MOM, TwinleafTown_DawnHouse_1F_Movement_RivalMomApproach
-	waitmovement 0
-	special GetRivalSonDaughterString
-	msgbox RivalsHouse_1F_Text_OhYoureTheNewNeighbor, MSGBOX_DEFAULT
-	setflag FLAG_MET_RIVAL_MOM
-	setvar VAR_TWINLEAF_HOUSES_STATE_BRENDAN, 2
-	releaseall
-	end
-
-TwinleafTown_DawnHouse_1F_Movement_RivalMomApproach:
-	walk_down
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	step_end
-
-RivalsHouse_1F_EventScript_RivalMom::
-	lock
-	faceplayer
-	goto_if_ge VAR_TWINLEAF_TOWN_STATE, 4, RivalsHouse_1F_EventScript_PleaseDeliverTownMap
-	goto_if_set FLAG_SYS_POKEMON_GET, RivalsHouse_1F_EventScript_RivalIsOnRoute202
-	goto_if_eq VAR_TWINLEAF_INTRO_STATE, 10, RivalsHouse_1F_EventScript_RivalRanOffToRoute201
-	goto_if_eq VAR_TWINLEAF_RIVAL_STATE, 3, RivalsHouse_1F_EventScript_RivalTooBusy
-	special GetRivalSonDaughterString
-	msgbox RivalsHouse_1F_Text_LikeChildLikeFather, MSGBOX_DEFAULT
-	release
-	end
-
-RivalsHouse_1F_EventScript_PleaseDeliverTownMap::
-	msgbox RivalsHouse_1F_Text_PleaseDeliverTownMap, MSGBOX_DEFAULT
-	release
-	end
-
-RivalsHouse_1F_EventScript_RivalTooBusy::
-	msgbox RivalsHouse_1F_Text_TooBusyToNoticeVisit, MSGBOX_DEFAULT
-	release
-	end
-
-RivalsHouse_1F_EventScript_RivalRanOffToRoute201::
-	msgbox RivalsHouse_1F_Text_RivalRanOffToRoute201, MSGBOX_DEFAULT
-	release
-	end
-
-RivalsHouse_1F_EventScript_RivalIsOnRoute202::
-	msgbox RivalsHouse_1F_Text_WentOutToRoute202, MSGBOX_DEFAULT
-	release
-	end
-
-RivalsHouse_1F_EventScript_GoHomeEverySoOften::
-	msgbox RivalsHouse_1F_Text_ShouldGoHomeEverySoOften, MSGBOX_DEFAULT
-	release
-	end
-
-RivalsHouse_1F_EventScript_RivalSibling::
-	lock
-	faceplayer
-	special GetPlayerBigGuyGirlString
-	msgbox RivalsHouse_1F_Text_DoYouHavePokemon, MSGBOX_DEFAULT
-	release
-	end
-
-TwinleafTown_DawnHouse_1F_EventScript_GoSeeRoom::
-	lockall
-	setvar VAR_0x8004, LOCALID_PLAYERS_HOUSE_1F_MOM
-	setvar VAR_0x8005, FEMALE
-	applywaitmovement VAR_0x8004, Common_Movement_WalkInPlaceFasterRight
-	goto PlayersHouse_1F_EventScript_MomGoSeeRoom
-	end
-
-TwinleafTown_DawnHouse_1F_EventScript_MeetRival0::
-	lockall
-	setvar VAR_0x8008, 0
-	goto TwinleafTown_DawnHouse_1F_EventScript_MeetRival
-	end
-
-TwinleafTown_DawnHouse_1F_EventScript_MeetRival1::
-	lockall
-	setvar VAR_0x8008, 1
-	goto TwinleafTown_DawnHouse_1F_EventScript_MeetRival
-	end
-
-TwinleafTown_DawnHouse_1F_EventScript_MeetRival2::
-	lockall
-	setvar VAR_0x8008, 2
-	goto TwinleafTown_DawnHouse_1F_EventScript_MeetRival
-	end
-
-TwinleafTown_DawnHouse_1F_EventScript_MeetRival::
-	playse SE_EXIT
-	delay 10
-	addobject LOCALID_RIVALS_HOUSE_1F_RIVAL
-	delay 30
-	playse SE_PIN
-	applywaitmovement LOCALID_RIVALS_HOUSE_1F_RIVAL, Common_Movement_ExclamationMark
-	applywaitmovement LOCALID_RIVALS_HOUSE_1F_RIVAL, Common_Movement_Delay48
-	call_if_ne VAR_0x8008, 1, TwinleafTown_DawnHouse_1F_EventScript_PlayerFaceMay
-	playbgm MUS_ENCOUNTER_MAY, TRUE
-	call_if_eq VAR_0x8008, 0, TwinleafTown_DawnHouse_1F_EventScript_MayApproachPlayer0
-	call_if_eq VAR_0x8008, 1, TwinleafTown_DawnHouse_1F_EventScript_MayApproachPlayer1
-	call_if_eq VAR_0x8008, 2, TwinleafTown_DawnHouse_1F_EventScript_MayApproachPlayer2
-	msgbox RivalsHouse_1F_Text_MayWhoAreYou, MSGBOX_DEFAULT
-	closemessage
-	call_if_eq VAR_0x8008, 0, TwinleafTown_DawnHouse_1F_EventScript_MayGoUpstairs0
-	call_if_eq VAR_0x8008, 1, TwinleafTown_DawnHouse_1F_EventScript_MayGoUpstairs1
-	call_if_eq VAR_0x8008, 2, TwinleafTown_DawnHouse_1F_EventScript_MayGoUpstairs2
-	playse SE_EXIT
-	removeobject LOCALID_RIVALS_HOUSE_1F_RIVAL
-	setflag FLAG_HIDE_TWINLEAF_TOWN_DAWN_HOUSE_MAY
-	setflag FLAG_HIDE_TWINLEAF_TOWN_DAWN_HOUSE_2F_POKE_BALL
-	clearflag FLAG_HIDE_TWINLEAF_TOWN_DAWN_HOUSE_RIVAL_BEDROOM
-	delay 30
-	setvar VAR_TWINLEAF_RIVAL_STATE, 3
-	setvar VAR_TWINLEAF_TOWN_STATE, 1
-	savebgm MUS_DUMMY
-	fadedefaultbgm
-	releaseall
-	end
-
-TwinleafTown_DawnHouse_1F_EventScript_PlayerFaceMay::
-	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
-	return
-
-TwinleafTown_DawnHouse_1F_EventScript_MayApproachPlayer0::
-	applywaitmovement LOCALID_RIVALS_HOUSE_1F_RIVAL, TwinleafTown_DawnHouse_1F_Movement_MayApproachPlayer0
-	return
-
-TwinleafTown_DawnHouse_1F_EventScript_MayApproachPlayer1::
-	applywaitmovement LOCALID_RIVALS_HOUSE_1F_RIVAL, TwinleafTown_DawnHouse_1F_Movement_MayApproachPlayer1
-	return
-
-TwinleafTown_DawnHouse_1F_EventScript_MayApproachPlayer2::
-	applywaitmovement LOCALID_RIVALS_HOUSE_1F_RIVAL, TwinleafTown_DawnHouse_1F_Movement_MayApproachPlayer2
-	return
-
-TwinleafTown_DawnHouse_1F_Movement_MayApproachPlayer0:
-	walk_in_place_faster_left
-	walk_left
-	walk_in_place_faster_up
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	step_end
-
-TwinleafTown_DawnHouse_1F_Movement_MayApproachPlayer1:
-	walk_up
-	walk_up
-	walk_up
-	step_end
-
-TwinleafTown_DawnHouse_1F_Movement_MayApproachPlayer2:
-	walk_in_place_faster_right
-	walk_right
-	walk_in_place_faster_up
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	step_end
-
-TwinleafTown_DawnHouse_1F_EventScript_MayGoUpstairs0::
-	applymovement LOCALID_PLAYER, TwinleafTown_DawnHouse_1F_Movement_PlayerWatchMayExit0
-	applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, TwinleafTown_DawnHouse_1F_Movement_MayGoUpstairs0
-	waitmovement 0
-	return
-
-TwinleafTown_DawnHouse_1F_EventScript_MayGoUpstairs1::
-	applymovement LOCALID_PLAYER, TwinleafTown_DawnHouse_1F_Movement_PlayerWatchMayExit1
-	applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, TwinleafTown_DawnHouse_1F_Movement_MayGoUpstairs1
-	waitmovement 0
-	return
-
-TwinleafTown_DawnHouse_1F_EventScript_MayGoUpstairs2::
-	applymovement LOCALID_PLAYER, TwinleafTown_DawnHouse_1F_Movement_PlayerWatchMayExit2
-	applymovement LOCALID_RIVALS_HOUSE_1F_RIVAL, TwinleafTown_DawnHouse_1F_Movement_MayGoUpstairs2
-	waitmovement 0
-	return
-
-TwinleafTown_DawnHouse_1F_Movement_PlayerWatchMayExit0:
-	delay_16
-	delay_8
-	walk_in_place_faster_right
-	step_end
-
-TwinleafTown_DawnHouse_1F_Movement_PlayerWatchMayExit1:
-	delay_16
-	delay_8
-	walk_in_place_faster_right
-	delay_16
-	delay_16
-	walk_in_place_faster_up
-	step_end
-
-TwinleafTown_DawnHouse_1F_Movement_PlayerWatchMayExit2:
-	delay_16
-	delay_8
-	walk_in_place_faster_left
-	step_end
-
-TwinleafTown_DawnHouse_1F_Movement_MayGoUpstairs0:
-	walk_in_place_faster_right
-	walk_right
-	walk_in_place_faster_up
-	walk_up
-	walk_up
-	step_end
-
-TwinleafTown_DawnHouse_1F_Movement_MayGoUpstairs1:
-	walk_in_place_faster_right
-	walk_right
-	walk_in_place_faster_up
-	walk_up
-	walk_up
-	walk_in_place_faster_left
-	walk_left
-	walk_in_place_faster_up
-	walk_up
-	step_end
-
-TwinleafTown_DawnHouse_1F_Movement_MayGoUpstairs2:
-	walk_in_place_faster_left
-	walk_left
-	walk_in_place_faster_up
-	walk_up
-	walk_up
-	step_end
-
-RivalsHouse_1F_Text_OhYoureTheNewNeighbor:
-	.string "Oh, hello. And you are?\p"
-	.string "… … … … … … … … …\n"
-	.string "… … … … … … … … …\p"
-	.string "Oh, you're {PLAYER}{KUN}, our new next-door\n"
-	.string "neighbor! Hi!\p"
-	.string "We have a {STR_VAR_1} about the same\n"
-	.string "age as you.\p"
-	.string "Our {STR_VAR_1} was excited about making\n"
-	.string "a new friend.\p"
-	.string "Our {STR_VAR_1} is upstairs, I think.$"
-
-RivalsHouse_1F_Text_LikeChildLikeFather:
-	.string "Like child, like father.\p"
-	.string "My husband is as wild about POKéMON\n"
-	.string "as our child.\p"
-	.string "If he's not at his LAB, he's likely\n"
-	.string "scrabbling about in grassy places.$"
-
-RivalsHouse_1F_Text_RivalRanOffToRoute201:
-	.string "Oh, {PLAYER}{KUN}!\n"
-	.string "You just missed {RIVAL}.\p"
-	.string "{RIVAL} went charging out the door\n"
-	.string "shouting about ROUTE 201.\p"
-	.string "Honestly, that child never stops\n"
-	.string "to walk anywhere!$"
-
-RivalsHouse_1F_Text_TooBusyToNoticeVisit:
-	.string "That {RIVAL}!\p"
-	.string "I guess our child is too busy with\n"
-	.string "POKéMON to notice that you came\l"
-	.string "to visit, {PLAYER}{KUN}.$"
-
-RivalsHouse_1F_Text_WentOutToRoute202:
-	.string "Oh, {RIVAL} went out to ROUTE 103\n"
-	.string "just a little while ago.\p"
-	.string "Like father, like child.\n"
-	.string "{RIVAL} can't stay quietly at home.$"
-
-RivalsHouse_1F_Text_ShouldGoHomeEverySoOften:
-	.string "I think it's wonderful for people to\n"
-	.string "travel with POKéMON.\p"
-	.string "But you should go home every so often\n"
-	.string "to let your mother know you're okay.\p"
-	.string "She might not say it, but I'm sure she\n"
-	.string "worries about you, {PLAYER}{KUN}.$"
-
-RivalsHouse_1F_Text_MayWhoAreYou:
-	.string "Huh?\n"
-	.string "Who… Who are you?\p"
-	.string "… … … … … … … …\n"
-	.string "… … … … … … … …\p"
-	.string "Oh, you're {PLAYER}{KUN}.\n"
-	.string "So your move was today.\p"
-	.string "Um… I'm MAY.\n"
-	.string "Glad to meet you!\p"
-	.string "I…\n"
-	.string "I have this dream of becoming friends\l"
-	.string "with POKéMON all over the world.\p"
-	.string "I… I heard about you, {PLAYER}{KUN}, from\n"
-	.string "my dad, PROF. BIRCH.\p"
-	.string "I was hoping that you would be nice,\n"
-	.string "{PLAYER}{KUN}, and that we could be friends.\p"
-	.string "Oh, this is silly, isn't it?\n"
-	.string "I… I've just met you, {PLAYER}{KUN}.\p"
-	.string "Eheheh…\p"
-	.string "Oh, no! I forgot!\p"
-	.string "I was supposed to go help Dad catch\n"
-	.string "some wild POKéMON!\p"
-	.string "{PLAYER}{KUN}, I'll catch you later!$"
-
-RivalsHouse_1F_Text_BrendanWhoAreYou:
-	.string "Hey!\n"
-	.string "You…\p"
-	.string "Who are you?\p"
-	.string "Oh, you're {PLAYER}, aren't you?\n"
-	.string "Moved in next door, right?\p"
-	.string "I didn't know that you're a girl.\p"
-	.string "Dad, PROF. BIRCH, said that our new\n"
-	.string "next-door neighbor is a GYM LEADER's\l"
-	.string "kid, so I assumed you'd be a guy.\p"
-	.string "My name's BRENDAN.\n"
-	.string "So, hi, neighbor!\p"
-	.string "Huh? Hey, {PLAYER}, don't you have\n"
-	.string "a POKéMON?\p"
-	.string "Do you want me to go catch you one?\p"
-	.string "Aw, darn, I forgot…\p"
-	.string "I'm supposed to go help my dad catch\n"
-	.string "some wild POKéMON.\p"
-	.string "Some other time, okay?$"
-
-RivalsHouse_1F_Text_DoYouHavePokemon:
-	.string "Hi, neighbor!\p"
-	.string "Do you already have your\n"
-	.string "own POKéMON?$"
-
 RivalsHouse_1F_Text_RivalRanAheadBringTownMap:
 	.string "Oh, {PLAYER}{KUN}! Welcome home!\p"
 	.string "{RIVAL} was just here, but ran on\n"
@@ -505,10 +113,6 @@ RivalsHouse_1F_Text_KeepTheExtraTownMap:
 	.string "There was an extra one here, too.\n"
 	.string "That one's yours, so keep it!$"
 
-RivalsHouse_1F_Text_PleaseDeliverTownMap:
-	.string "Please give that TOWN MAP to {RIVAL}\n"
-	.string "when you catch up. Thank you!$"
-
 PlayersHouse_1F_Text_MomWearTheseRunningShoes:
 	.string "MOM: {PLAYER}! You got a POKéDEX\n"
 	.string "from PROF. BIRCH? How wonderful!\p"
@@ -516,3 +120,116 @@ PlayersHouse_1F_Text_MomWearTheseRunningShoes:
 	.string "you'll need these, honey.\p"
 	.string "Here, wear these RUNNING SHOES.\n"
 	.string "They'll put a zip in your step!$"
+
+PlayersHouse_1F_Text_RivalWasLookingForYou:
+	.string "MOM: Oh, {PLAYER}! You're finally up!\p"
+	.string "{RIVAL} came by looking for you\n"
+	.string "a little while ago.\p"
+	.string "{RIVAL} seemed awfully excited\n"
+	.string "about something!\p"
+	.string "Why don't you go over to {RIVAL}'s\n"
+	.string "house and see what's going on?$"
+
+PlayersHouse_1F_Text_GoToRivalsHouse:
+	.string "MOM: {RIVAL} was looking for you,\n"
+	.string "{PLAYER}.\p"
+	.string "{RIVAL}'s house is just up the road.\n"
+	.string "Don't keep your friend waiting!$"
+
+PlayersHouse_1F_Text_DidYouFindRival:
+	.string "MOM: Did you find {RIVAL}?\p"
+	.string "…Off to ROUTE 201, you say?\n"
+	.string "Well, be careful out there!$"
+
+PlayersHouse_1F_Text_YouShouldRestABit:
+	.string "MOM: How are you doing, {PLAYER}?\n"
+	.string "You look a little tired.\p"
+	.string "I think you should rest a bit.$"
+
+PlayersHouse_1F_Text_TakeCareHoney:
+	.string "MOM: Take care, honey!$"
+
+PlayersHouse_1F_Text_GotFiveBadgesHeresSomethingFromMom:
+	.string "MOM: Oh my! You've collected five\n"
+	.string "GYM BADGES already?\p"
+	.string "Then here's something from your MOM!$"
+
+PlayersHouse_1F_Text_DontPushYourselfTooHard:
+	.string "Don't push yourself too hard, dear.\n"
+	.string "You can always come home.\p"
+	.string "Go for it, honey!$"
+
+PlayersHouse_1F_Text_IsThatAPokenav:
+	.string "MOM: What is that, honey? A POKéTCH?\n"
+	.string "My, that looks handy!\p"
+	.string "Well, honey, how about registering\n"
+	.string "your mom?\p"
+	.string "… … …$"
+
+PlayersHouse_1F_Text_RegisteredMom:
+	.string "Registered MOM\n"
+	.string "in the POKéTCH.$"
+
+PlayersHouse_1F_Text_TheresAMovieOnTV:
+	.string "There is a movie on TV.\p"
+	.string "Two men are dancing on a big piano\n"
+	.string "keyboard.\p"
+	.string "Better get going!$"
+
+PlayersHouse_1F_Text_RunningShoesManual:
+	.string "It's the instruction booklet for the\n"
+	.string "RUNNING SHOES.\p"
+	.string "“Press the B Button to run while\n"
+	.string "wearing your RUNNING SHOES.\p"
+	.string "“Lace up your RUNNING SHOES and hit\n"
+	.string "the road running!”$"
+
+PlayersHouse_1F_Text_TicketFromBrineyCameForYou:
+	.string "DAD: Hm?\p"
+	.string "Hey, it's {PLAYER}!\p"
+	.string "It's been a while since I saw you,\n"
+	.string "but you look…stronger, somehow.\p"
+	.string "That's the impression I get.\n"
+	.string "But your old man hasn't given up yet!\p"
+	.string "Oh, yes, I have something for you.\n"
+	.string "This came to you from someone named\l"
+	.string "MR. BRINEY.$"
+
+PlayersHouse_1F_Text_PortsInSlateportLilycove:
+	.string "DAD: Hm, a TICKET for a ferry?\p"
+	.string "If I recall, there are ferry ports in\n"
+	.string "SLATEPORT and LILYCOVE.$"
+
+PlayersHouse_1F_Text_BetterGetBackToGym:
+	.string "I'd better get back to PETALBURG GYM.\p"
+	.string "MOM, thanks for looking after the house\n"
+	.string "while I'm away.$"
+
+PlayersHouse_1F_Text_DadShouldStayLonger:
+	.string "MOM: That DAD of yours…\p"
+	.string "He comes home for the first time in a\n"
+	.string "while, but all he talks about is POKéMON.\p"
+	.string "He should relax and stay a little longer.$"
+
+PlayersHouse_1F_Text_IsThatABreakingStory:
+	.string "MOM: Is that a breaking news story?$"
+
+PlayersHouse_1F_Text_LatiEmergencyNewsFlash:
+	.string "We bring you this emergency\n"
+	.string "news flash!\p"
+	.string "In various HOENN locales, there have\n"
+	.string "been reports of a BZZT…colored\l"
+	.string "POKéMON in flight.\p"
+	.string "The identity of this POKéMON is\n"
+	.string "currently unknown.\p"
+	.string "We now return you to the regular\n"
+	.string "movie program.$"
+
+PlayersHouse_1F_Text_WhatColorDidTheySay:
+	.string "MOM: {PLAYER}, did you catch that?\p"
+	.string "What color did the announcer say\n"
+	.string "that POKéMON was?$"
+
+PlayersHouse_1F_Text_StillUnknownPokemon:
+	.string "MOM: Well, isn't that something!\n"
+	.string "There are still unknown POKéMON.$"

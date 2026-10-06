@@ -656,11 +656,11 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_123_RARE_CANDY                (FLAG_HIDDEN_ITEMS_START + 0x6E)
 #define FLAG_HIDDEN_ITEM_ROUTE_105_BIG_PEARL                 (FLAG_HIDDEN_ITEMS_START + 0x6F)
 
-#define FLAG_HIDDEN_ITEM_ROUTE_219_SUPER_POTION              (FLAG_HIDDEN_ITEMS_START + 0x70)
+#define FLAG_HIDDEN_ITEM_ROUTE_219_ZINC                      (FLAG_HIDDEN_ITEMS_START + 0x70)
 #define FLAG_UNUSED_0x265  0x265 // Unused Flag
-#define FLAG_UNUSED_0x266  0x266 // Unused Flag
-#define FLAG_UNUSED_0x267  0x267 // Unused Flag
-#define FLAG_UNUSED_0x268  0x268 // Unused Flag
+#define FLAG_TALKED_TO_ROUTE_202_ASSISTANT  0x266 // Assistant told the player to go home before the catching tutorial
+#define FLAG_HIDE_JUBILIFE_CITY_LOOKER  0x267
+#define FLAG_HIDE_JUBILIFE_CITY_ASSISTANT  0x268
 #define FLAG_UNUSED_0x269  0x269 // Unused Flag
 #define FLAG_UNUSED_0x26A  0x26A // Unused Flag
 #define FLAG_UNUSED_0x26B  0x26B // Unused Flag
@@ -1050,7 +1050,7 @@
 #define FLAG_UNUSED_0x3E7                                            0x3E7 // Unused Flag
 
 // Item Ball Flags
-#define FLAG_ITEM_ROUTE_219_POTION                                  0x3E8
+#define FLAG_ITEM_ROUTE_219_ANTIDOTE                                0x3E8
 #define FLAG_ITEM_ROUTE_204_TM_BULLET_SEED                          0x3E9
 #define FLAG_ITEM_ROUTE_203_PP_UP                                   0x3EA
 #define FLAG_ITEM_ROUTE_105_IRON                                    0x3EB
@@ -1164,7 +1164,7 @@
 #define FLAG_ITEM_FIERY_PATH_FIRE_STONE                             0x457
 #define FLAG_ITEM_SHOAL_CAVE_ICE_ROOM_TM_HAIL                       0x458
 #define FLAG_ITEM_SHOAL_CAVE_ICE_ROOM_NEVER_MELT_ICE                0x459
-#define FLAG_ITEM_ROUTE_202_GUARD_SPEC                              0x45A
+#define FLAG_ITEM_ROUTE_202_POTION                                  0x45A
 #define FLAG_ITEM_ROUTE_203_X_DEFEND                                0x45B
 #define FLAG_ITEM_MAUVILLE_CITY_X_SPEED                             0x45C
 #define FLAG_ITEM_PETALBURG_WOODS_PARALYZE_HEAL                     0x45D

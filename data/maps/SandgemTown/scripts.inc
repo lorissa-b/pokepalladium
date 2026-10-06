@@ -1,4 +1,4 @@
-@ Sandgem Town, drawn over Emerald's Oldale Town. Prof. Birch's lab is here now.
+@ Sandgem Town, laid out as in Platinum. Prof. Birch's lab is here now.
 SandgemTown_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, SandgemTown_OnTransition
 	.byte 0
@@ -7,13 +7,7 @@ SandgemTown_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 	call Common_EventScript_SetupAssistantGfxId
 	setflag FLAG_VISITED_SANDGEM_TOWN
-	call_if_set FLAG_ADVENTURE_STARTED, SandgemTown_EventScript_SetSandgemState
 	end
-
-@ This script seems pointless because nothing uses VAR_SANDGEM_TOWN_STATE
-SandgemTown_EventScript_SetSandgemState::
-	setvar VAR_SANDGEM_TOWN_STATE, 1
-	return
 
 SandgemTown_EventScript_TownSign::
 	msgbox SandgemTown_Text_TownSign, MSGBOX_SIGN
@@ -67,59 +61,22 @@ SandgemTown_EventScript_NotBlockingPath::
 	release
 	end
 
-@ After the Route 103 battle the rival waits on the lab mat (11, 7) and heads in
-SandgemTown_EventScript_Rival::
-	lockall
-	applywaitmovement LOCALID_SANDGEM_RIVAL, Common_Movement_FacePlayer
-	checkplayergender
-	call_if_eq VAR_RESULT, MALE, SandgemTown_EventScript_ShowMayMessage
-	call_if_eq VAR_RESULT, FEMALE, SandgemTown_EventScript_ShowBrendanMessage
-	closemessage
-	applywaitmovement LOCALID_SANDGEM_RIVAL, SandgemTown_Movement_RivalToLabDoor
-	opendoor 11, 6
-	waitdooranim
-	applywaitmovement LOCALID_SANDGEM_RIVAL, SandgemTown_Movement_RivalEnterLab
-	removeobject LOCALID_SANDGEM_RIVAL
-	closedoor 11, 6
-	waitdooranim
-	setvar VAR_SANDGEM_RIVAL_STATE, 2
-	setflag FLAG_HIDE_SANDGEM_TOWN_RIVAL
-	releaseall
-	end
-
-SandgemTown_EventScript_ShowMayMessage::
-	msgbox SandgemTown_Text_MayLetsGoBack, MSGBOX_DEFAULT
-	return
-
-SandgemTown_EventScript_ShowBrendanMessage::
-	msgbox SandgemTown_Text_BrendanLetsGoBack, MSGBOX_DEFAULT
-	return
-
-SandgemTown_Movement_RivalToLabDoor:
-	face_up
-	step_end
-
-SandgemTown_Movement_RivalEnterLab:
-	walk_up
-	set_invisible
-	step_end
-
-@ Stepping onto the lab mat (11, 7) after returning Birch's bag on Route 201.
-@ The rival bursts out of the lab door (11, 6), knocks the player back and runs
+@ Stepping onto the lab mat (8, 11) after returning Birch's bag on Route 201.
+@ The rival bursts out of the lab door (8, 10), knocks the player back and runs
 @ west, then Birch's assistant comes out and leads the player inside.
 SandgemTown_EventScript_ArriveAtLab::
 	lockall
 	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
-	setobjectxyperm LOCALID_SANDGEM_RIVAL, 11, 6
+	setobjectxyperm LOCALID_SANDGEM_RIVAL, 8, 10
 	setobjectmovementtype LOCALID_SANDGEM_RIVAL, MOVEMENT_TYPE_FACE_DOWN
-	opendoor 11, 6
+	opendoor 8, 10
 	waitdooranim
 	addobject LOCALID_SANDGEM_RIVAL
 	playse SE_WALL_HIT
 	applymovement LOCALID_SANDGEM_RIVAL, SandgemTown_Movement_RivalRushOutOfLab
 	applymovement LOCALID_PLAYER, SandgemTown_Movement_PlayerKnockedBack
 	waitmovement 0
-	closedoor 11, 6
+	closedoor 8, 10
 	waitdooranim
 	playse SE_PIN
 	applywaitmovement LOCALID_SANDGEM_RIVAL, Common_Movement_ExclamationMark
@@ -132,21 +89,21 @@ SandgemTown_EventScript_ArriveAtLab::
 	waitmovement LOCALID_PLAYER
 	removeobject LOCALID_SANDGEM_RIVAL
 	delay 20
-	opendoor 11, 6
+	opendoor 8, 10
 	waitdooranim
 	addobject LOCALID_SANDGEM_ASSISTANT
 	applywaitmovement LOCALID_SANDGEM_ASSISTANT, SandgemTown_Movement_AssistantStepOut
-	closedoor 11, 6
+	closedoor 8, 10
 	waitdooranim
 	msgbox SandgemTown_Text_AssistantBeenWaiting, MSGBOX_DEFAULT
 	closemessage
-	opendoor 11, 6
+	opendoor 8, 10
 	waitdooranim
 	applymovement LOCALID_SANDGEM_ASSISTANT, SandgemTown_Movement_AssistantEnterLab
 	applymovement LOCALID_PLAYER, SandgemTown_Movement_PlayerFollowIntoLab
 	waitmovement 0
 	hideplayer
-	closedoor 11, 6
+	closedoor 8, 10
 	waitdooranim
 	removeobject LOCALID_SANDGEM_ASSISTANT
 	setvar VAR_ROUTE201_STATE, 6
@@ -161,19 +118,16 @@ SandgemTown_Movement_RivalRushOutOfLab:
 	walk_faster_down
 	step_end
 
-@ From the mat back onto the main street (11, 9)
+@ From the mat back onto the main street (8, 13)
 SandgemTown_Movement_PlayerKnockedBack:
 	lock_facing_direction
 	jump_down
 	unlock_facing_direction
 	step_end
 
-@ Down to the main street and west toward Route 201
+@ Down to the main street and west out to Route 201 (x 8 to -1)
 SandgemTown_Movement_RivalRunWest:
 	walk_fast_down
-	walk_fast_left
-	walk_fast_left
-	walk_fast_left
 	walk_fast_left
 	walk_fast_left
 	walk_fast_left
@@ -240,16 +194,6 @@ SandgemTown_Text_FinishedSketchingFootprints:
 	.string "a rare POKéMON.\p"
 	.string "But it turns out they were only my\n"
 	.string "own footprints…$"
-
-SandgemTown_Text_MayLetsGoBack:
-	.string "MAY: {PLAYER}{KUN}!\n"
-	.string "Over here!\l"
-	.string "Let's go to PROF. BIRCH's LAB!$"
-
-SandgemTown_Text_BrendanLetsGoBack:
-	.string "BRENDAN: I'm heading into\n"
-	.string "PROF. BIRCH's LAB now.\l"
-	.string "{PLAYER}, you should come in, too.$"
 
 SandgemTown_Text_TownSign:
 	.string "SANDGEM TOWN\n"

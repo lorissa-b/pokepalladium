@@ -1,12 +1,11 @@
+@ The rival's house. The player's bedroom is always TwinleafTown_DawnHouse_2F.
 TwinleafTown_LucasHouse_2F_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, TwinleafTown_LucasHouse_2F_OnTransition
 	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, TwinleafTown_LucasHouse_2F_OnWarp
 	.byte 0
 
 TwinleafTown_LucasHouse_2F_OnTransition:
-	call_if_lt VAR_TWINLEAF_RIVAL_STATE, 2, TwinleafTown_LucasHouse_2F_EventScript_CheckSetReadyToMeetBrendan
 	call_if_ge VAR_TWINLEAF_RIVAL_STATE, 3, TwinleafTown_LucasHouse_2F_EventScript_CheckShouldUpdateBrendanPos
-	call_if_eq VAR_TWINLEAF_INTRO_STATE, 4, PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet
 	call SecretBase_EventScript_SetDecorationFlags
 	setvar VAR_SECRET_BASE_INITIALIZED, 0
 	end
@@ -17,8 +16,7 @@ TwinleafTown_LucasHouse_2F_EventScript_CheckShouldUpdateBrendanPos::
 	goto TwinleafTown_LucasHouse_2F_EventScript_TryUpdateBrendanPos
 
 TwinleafTown_LucasHouse_2F_EventScript_TryUpdateBrendanPos::
-	@ Odd that the MaysHouse equivalent was used below instead
-	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, TwinleafTown_DawnHouse_2F_EventScript_Ret
+	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, TwinleafTown_LucasHouse_2F_EventScript_Ret
 	setobjectxyperm LOCALID_RIVALS_HOUSE_2F_RIVAL, 0, 2
 	setobjectmovementtype LOCALID_RIVALS_HOUSE_2F_RIVAL, MOVEMENT_TYPE_FACE_UP
 	return
@@ -26,259 +24,99 @@ TwinleafTown_LucasHouse_2F_EventScript_TryUpdateBrendanPos::
 TwinleafTown_LucasHouse_2F_EventScript_Ret::
 	return
 
-TwinleafTown_LucasHouse_2F_EventScript_CheckSetReadyToMeetBrendan::
-	checkplayergender
-	goto_if_eq VAR_RESULT, FEMALE, TwinleafTown_LucasHouse_2F_EventScript_SetReadyToMeetBrendan
-	return
-
-TwinleafTown_LucasHouse_2F_EventScript_SetReadyToMeetBrendan::
-	setvar VAR_TWINLEAF_RIVAL_STATE, 2
-	return
-
 TwinleafTown_LucasHouse_2F_OnWarp:
 	map_script_2 VAR_SECRET_BASE_INITIALIZED, 0, TwinleafTown_LucasHouse_2F_EventScript_CheckInitDecor
 	.2byte 0
 
-@ Brendan's house is always the rival's house, so the player's decorations never go here
+@ This is always the rival's house, so the player's decorations never go here
 TwinleafTown_LucasHouse_2F_EventScript_CheckInitDecor::
 	end
 
-TwinleafTown_LucasHouse_2F_EventScript_RivalsPokeBall::
-	lockall
-	goto_if_eq VAR_TWINLEAF_RIVAL_STATE, 2, TwinleafTown_LucasHouse_2F_EventScript_MeetBrendan
-	msgbox RivalsHouse_2F_Text_ItsRivalsPokeBall, MSGBOX_DEFAULT
-	releaseall
-	end
-
-TwinleafTown_LucasHouse_2F_EventScript_MeetBrendan::
-	delay 10
-	addobject LOCALID_RIVALS_HOUSE_2F_RIVAL
-	applywaitmovement LOCALID_RIVALS_HOUSE_2F_RIVAL, TwinleafTown_LucasHouse_2F_Movement_BrendanEnters
-	playse SE_PIN
-	applywaitmovement LOCALID_RIVALS_HOUSE_2F_RIVAL, Common_Movement_ExclamationMark
-	applywaitmovement LOCALID_RIVALS_HOUSE_2F_RIVAL, Common_Movement_Delay48
-	delay 10
-	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
-	call_if_eq VAR_FACING, DIR_NORTH, TwinleafTown_LucasHouse_2F_EventScript_MeetBrendanNorth
-	call_if_eq VAR_FACING, DIR_SOUTH, TwinleafTown_LucasHouse_2F_EventScript_MeetBrendanSouth
-	call_if_eq VAR_FACING, DIR_WEST, TwinleafTown_LucasHouse_2F_EventScript_MeetBrendanWest
-	call_if_eq VAR_FACING, DIR_EAST, TwinleafTown_LucasHouse_2F_EventScript_MeetBrendanEast
-	setvar VAR_TWINLEAF_RIVAL_STATE, 3
-	setflag FLAG_HIDE_TWINLEAF_TOWN_LUCAS_HOUSE_2F_POKE_BALL
-	clearflag FLAG_HIDE_TWINLEAF_TOWN_LUCAS_HOUSE_RIVAL_BEDROOM
-	setvar VAR_TWINLEAF_TOWN_STATE, 1
-	savebgm MUS_DUMMY
-	fadedefaultbgm
-	releaseall
-	end
-
-TwinleafTown_LucasHouse_2F_EventScript_MeetBrendanNorth::
-	applywaitmovement LOCALID_RIVALS_HOUSE_2F_RIVAL, TwinleafTown_LucasHouse_2F_Movement_BrendanApproachPlayerNorth
-	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
-	msgbox RivalsHouse_2F_Text_BrendanWhoAreYou, MSGBOX_DEFAULT
-	closemessage
-	applymovement LOCALID_PLAYER, TwinleafTown_LucasHouse_2F_Movement_PlayerWatchBrendanNorth
-	applymovement LOCALID_RIVALS_HOUSE_2F_RIVAL, TwinleafTown_LucasHouse_2F_Movement_BrendanWalkToPCNorth
-	waitmovement 0
-	return
-
-TwinleafTown_LucasHouse_2F_EventScript_MeetBrendanSouth::
-	applywaitmovement LOCALID_RIVALS_HOUSE_2F_RIVAL, TwinleafTown_LucasHouse_2F_Movement_BrendanApproachPlayerSouth
-	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
-	msgbox RivalsHouse_2F_Text_BrendanWhoAreYou, MSGBOX_DEFAULT
-	closemessage
-	applymovement LOCALID_PLAYER, TwinleafTown_LucasHouse_2F_Movement_PlayerWatchBrendanSouth
-	applymovement LOCALID_RIVALS_HOUSE_2F_RIVAL, TwinleafTown_LucasHouse_2F_Movement_BrendanWalkToPCSouth
-	waitmovement 0
-	return
-
-TwinleafTown_LucasHouse_2F_EventScript_MeetBrendanWest::
-	applywaitmovement LOCALID_RIVALS_HOUSE_2F_RIVAL, TwinleafTown_LucasHouse_2F_Movement_BrendanApproachPlayerWest
-	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
-	msgbox RivalsHouse_2F_Text_BrendanWhoAreYou, MSGBOX_DEFAULT
-	closemessage
-	applymovement LOCALID_PLAYER, TwinleafTown_LucasHouse_2F_Movement_PlayerWatchBrendanWest
-	applymovement LOCALID_RIVALS_HOUSE_2F_RIVAL, TwinleafTown_LucasHouse_2F_Movement_BrendanWalkToPCWest
-	waitmovement 0
-	return
-
-TwinleafTown_LucasHouse_2F_EventScript_MeetBrendanEast::
-	applywaitmovement LOCALID_RIVALS_HOUSE_2F_RIVAL, TwinleafTown_LucasHouse_2F_Movement_BrendanApproachPlayerEast
-	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
-	msgbox RivalsHouse_2F_Text_BrendanWhoAreYou, MSGBOX_DEFAULT
-	closemessage
-	applywaitmovement LOCALID_RIVALS_HOUSE_2F_RIVAL, TwinleafTown_LucasHouse_2F_Movement_BrendanWalkToPCEast
-	return
-
-TwinleafTown_LucasHouse_2F_Movement_BrendanEnters:
-	walk_down
-	walk_down
-	walk_in_place_faster_left
-	step_end
-
-TwinleafTown_LucasHouse_2F_Movement_BrendanApproachPlayerNorth:
-	walk_left
-	walk_left
-	walk_down
-	walk_down
-	walk_left
-	step_end
-
-TwinleafTown_LucasHouse_2F_Movement_BrendanWalkToPCNorth:
-	walk_up
-	walk_up
-	walk_up
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_in_place_faster_up
-	step_end
-
-TwinleafTown_LucasHouse_2F_Movement_PlayerWatchBrendanNorth:
-	delay_16
-	walk_in_place_faster_up
-	delay_16
-	delay_16
-	delay_16
-	delay_16
-	walk_in_place_faster_left
-	step_end
-
-TwinleafTown_LucasHouse_2F_Movement_BrendanApproachPlayerSouth:
-	walk_left
-	walk_left
-	walk_left
-	step_end
-
-TwinleafTown_LucasHouse_2F_Movement_BrendanWalkToPCSouth:
-	walk_up
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_in_place_faster_up
-	step_end
-
-TwinleafTown_LucasHouse_2F_Movement_PlayerWatchBrendanSouth:
-	delay_16
-	walk_in_place_faster_up
-	delay_16
-	delay_16
-	walk_in_place_faster_left
-	step_end
-
-TwinleafTown_LucasHouse_2F_Movement_BrendanApproachPlayerWest:
-	walk_left
-	walk_left
-	walk_down
-	walk_in_place_faster_left
-	step_end
-
-TwinleafTown_LucasHouse_2F_Movement_BrendanWalkToPCWest:
-	walk_up
-	walk_up
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_in_place_faster_up
-	step_end
-
-TwinleafTown_LucasHouse_2F_Movement_PlayerWatchBrendanWest:
-	delay_8
-	delay_16
-	walk_in_place_faster_up
-	delay_16
-	delay_16
-	walk_in_place_faster_left
-	step_end
-
-TwinleafTown_LucasHouse_2F_Movement_BrendanApproachPlayerEast:
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_in_place_faster_down
-	step_end
-
-TwinleafTown_LucasHouse_2F_Movement_BrendanWalkToPCEast:
-	walk_up
-	walk_left
-	walk_left
-	walk_in_place_faster_up
-	step_end
-
-@ Unused, the player is already facing this direction so its unneeded
-TwinleafTown_LucasHouse_2F_Movement_PlayerWatchBrendanEast:
-	delay_16
-	delay_16
-	walk_in_place_faster_left
-	step_end
-
 TwinleafTown_LucasHouse_2F_EventScript_PC::
+	msgbox gText_PokemonTrainerSchoolEmail, MSGBOX_SIGN
+	end
+
+RivalsHouse_2F_EventScript_Rival::
 	lockall
-	goto TwinleafTown_LucasHouse_2F_EventScript_CheckRivalsPC
+	goto_if_set FLAG_MET_RIVAL_LILYCOVE, RivalsHouse_2F_EventScript_RivalPostLilycove
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, RivalsHouse_2F_EventScript_May
+	goto_if_eq VAR_RESULT, FEMALE, RivalsHouse_2F_EventScript_Brendan
 	end
 
-TwinleafTown_LucasHouse_2F_EventScript_CheckPlayersPC::
-	setvar VAR_0x8004, PC_LOCATION_BRENDANS_HOUSE
-	special DoPCTurnOnEffect
-	playse SE_PC_ON
-	msgbox gText_PlayerHouseBootPC, MSGBOX_DEFAULT
-	special BedroomPC
+RivalsHouse_2F_EventScript_May::
+	msgbox RivalsHouse_2F_Text_MayGettingReady, MSGBOX_DEFAULT
 	releaseall
 	end
 
-TwinleafTown_LucasHouse_2F_EventScript_TurnOffPlayerPC::
-	setvar VAR_0x8004, PC_LOCATION_BRENDANS_HOUSE
-	playse SE_PC_OFF
-	special DoPCTurnOffEffect
+RivalsHouse_2F_EventScript_Brendan::
+	msgbox RivalsHouse_2F_Text_BrendanGettingReady, MSGBOX_DEFAULT
 	releaseall
 	end
 
-TwinleafTown_LucasHouse_2F_EventScript_CheckRivalsPC::
-	msgbox gText_PokemonTrainerSchoolEmail, MSGBOX_DEFAULT
+RivalsHouse_2F_EventScript_RivalPostLilycove::
+	applywaitmovement VAR_LAST_TALKED, Common_Movement_FacePlayer
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, RivalsHouse_2F_EventScript_MayPostLilycove
+	call_if_eq VAR_RESULT, FEMALE, RivalsHouse_2F_EventScript_BrendanPostLilycove
+	setflag FLAG_MET_RIVAL_IN_HOUSE_AFTER_LILYCOVE
 	releaseall
 	end
 
-PlayersHouse_2F_EventScript_Notebook::
-	msgbox PlayersHouse_2F_Text_Notebook, MSGBOX_SIGN
-	end
+RivalsHouse_2F_EventScript_MayPostLilycove::
+	goto_if_set FLAG_MET_RIVAL_IN_HOUSE_AFTER_LILYCOVE, RivalsHouse_2F_EventScript_MayWhereShouldIGoNext
+	msgbox RivalsHouse_2F_Text_MayJustCheckingMyPokedex, MSGBOX_DEFAULT
+	return
 
-PlayersHouse_2F_EventScript_GameCube::
-	msgbox PlayersHouse_2F_Text_ItsAGameCube, MSGBOX_SIGN
-	end
+RivalsHouse_2F_EventScript_BrendanPostLilycove::
+	goto_if_set FLAG_MET_RIVAL_IN_HOUSE_AFTER_LILYCOVE, RivalsHouse_2F_EventScript_BrendanWhereShouldIGoNext
+	msgbox RivalsHouse_2F_Text_BrendanJustCheckingMyPokedex, MSGBOX_DEFAULT
+	return
 
-PlayersHouse_2F_Text_ClockIsStopped:
-	.string "The clock is stopped…\p"
-	.string "Better set it and start it!$"
+RivalsHouse_2F_EventScript_MayWhereShouldIGoNext::
+	msgbox RivalsHouse_2F_Text_MayWhereShouldIGoNext, MSGBOX_DEFAULT
+	return
 
-PlayersHouse_2F_Text_HowDoYouLikeYourRoom:
-	.string "MOM: {PLAYER}, how do you like your\n"
-	.string "new room?\p"
-	.string "Good! Everything's put away neatly!\p"
-	.string "They finished moving everything in\n"
-	.string "downstairs, too.\p"
-	.string "POKéMON movers are so convenient!\p"
-	.string "Oh, you should make sure that\n"
-	.string "everything's all there on your desk.$"
+RivalsHouse_2F_EventScript_BrendanWhereShouldIGoNext::
+	msgbox RivalsHouse_2F_Text_BrendanWhereShouldIGoNext, MSGBOX_DEFAULT
+	return
 
-PlayersHouse_2F_Text_Notebook:
-	.string "{PLAYER} flipped open the notebook.\p"
-	.string "ADVENTURE RULE NO. 1\n"
-	.string "Open the MENU with START.\p"
-	.string "ADVENTURE RULE NO. 2\n"
-	.string "Record your progress with SAVE.\p"
-	.string "The remaining pages are blank…$"
+RivalsHouse_2F_Text_MayGettingReady:
+	.string "POKéMON fully restored!\n"
+	.string "Items ready, and…$"
 
-Common_Text_LookCloserAtMap:
-	.string "{PLAYER} took a closer look at the\n"
-	.string "HOENN region map.$"
+RivalsHouse_2F_Text_BrendanGettingReady:
+	.string "POKéMON fully restored…\n"
+	.string "Items all packed, and…$"
 
-PlayersHouse_2F_Text_ItsAGameCube:
-	.string "It's a Nintendo GameCube.\p"
-	.string "A Game Boy Advance is connected to\n"
-	.string "serve as the Controller.$"
+RivalsHouse_2F_Text_MayJustCheckingMyPokedex:
+	.string "MAY: {PLAYER}{KUN}!\p"
+	.string "I was just checking my POKéDEX.\p"
+	.string "There's still a lot of POKéMON that\n"
+	.string "I've seen but haven't caught.\p"
+	.string "And there are many others that\n"
+	.string "I think will evolve.\p"
+	.string "I wonder where I should go catch\n"
+	.string "some POKéMON next?$"
+
+RivalsHouse_2F_Text_MayWhereShouldIGoNext:
+	.string "MAY: I wonder where I should go catch\n"
+	.string "some POKéMON next?\p"
+	.string "Wouldn't it be funny if we ran into each\n"
+	.string "other, {PLAYER}{KUN}?$"
+
+RivalsHouse_2F_Text_BrendanJustCheckingMyPokedex:
+	.string "BRENDAN: Hey, it's {PLAYER}.\p"
+	.string "I was just checking out my POKéDEX.\p"
+	.string "There are still many POKéMON that\n"
+	.string "I need to catch, I know, but this\l"
+	.string "is looking pretty good.\p"
+	.string "Checking this POKéDEX out gives me\n"
+	.string "the urge to hit the road again.$"
+
+RivalsHouse_2F_Text_BrendanWhereShouldIGoNext:
+	.string "BRENDAN: I'm having a hard time deciding\n"
+	.string "where I should catch POKéMON next.\p"
+	.string "Hey, {PLAYER}, if I see you while I'm out\n"
+	.string "catching POKéMON, I can pitch you a\l"
+	.string "battle if you'd like.$"
