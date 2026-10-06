@@ -207,19 +207,24 @@ def draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, in
     out.append("end")
     out.append("")
     if placements or unplaced:
-        from blueprint import cells_text
+        from blueprint import cells_text, shared_legend
         from render import describe_metatile
 
         tiles = TilesetPair.for_layout(layout)
         out.append("# ---- Buildings: Emerald pieces where Platinum has buildings (see buildings.py) ----")
         out += [f"# {n}" for n in unplaced]
+        key_of = None
         if notes_to is not None:
             notes_to += ["# ---- Buildings placed (blueprint grid at each one's x, y) ----"] + [f"# {p.describe()}" for p in placements]
+            if placements:
+                key_of, legend = shared_legend([p.cells for p in placements])
+                out.append(legend.rstrip())
         for p in placements:
             if notes_to is None:
                 out.append(f"# {p.describe()}")
-            describe = None if notes_to is not None else lambda mid: describe_metatile(tiles, mid).split(" ", 1)[1]
-            out.append(cells_text(p.cells, describe).rstrip())
+                out.append(cells_text(p.cells, lambda mid: describe_metatile(tiles, mid).split(" ", 1)[1]).rstrip())
+            else:
+                out.append(cells_text(p.cells, key_of=key_of).rstrip())
         out.append("")
     if notes_to is not None:
         notes_to += notes(ref, (x0, y0, w, h))

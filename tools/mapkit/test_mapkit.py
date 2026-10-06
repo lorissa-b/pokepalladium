@@ -249,6 +249,18 @@ class Buildings(unittest.TestCase):
         ).build()
         self.assertEqual([b & consts().metatile_mask for b in g.blocks], [0x001, 0x1D4, 0x001, 0x001, 0x001, 0x00D])
 
+    def test_cells_texts_can_share_one_legend(self):
+        c = consts()
+        a = {(0, 0): c.pack(0x1D4, 1, 0), (1, 0): c.pack(0x00D, 0, 3)}
+        b = {(1, 1): c.pack(0x1D4, 1, 0), (2, 1): c.pack(0x012, 1, 0)}
+        key_of, legend = blueprint.shared_legend([a, b])
+        self.assertEqual(legend.count("legend "), 3)
+        g = blueprint.Blueprint(
+            "layout LAYOUT_JUBILIFE_CITY\nsize 3 2\nbase none\nfill 0x001/c0/e3\n" + legend
+            + blueprint.cells_text(a, key_of=key_of) + blueprint.cells_text(b, key_of=key_of)
+        ).build()
+        self.assertEqual([b & c.metatile_mask for b in g.blocks], [0x1D4, 0x00D, 0x001, 0x001, 0x1D4, 0x012])
+
 
 class Parts(unittest.TestCase):
     def test_a_wider_house_with_its_door_moved(self):

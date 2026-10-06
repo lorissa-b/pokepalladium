@@ -359,31 +359,54 @@ def blocks_text(blocks: Blockdata, at: tuple[int, int] = (0, 0), describe=None) 
     return "\n".join(out) + "\n"
 
 
-def cells_text(cells: dict[tuple[int, int], int], describe=None, prefix: str = "B") -> str:
+def cells_text(cells: dict[tuple[int, int], int], describe=None, prefix: str = "B",
+               key_of: dict[int, str] | None = None) -> str:
     """Legend and grid lines that set just these cells, keeping every other block.
 
     Keys are two characters starting with `prefix`, so they never clash with
-    a draft's one-character legend.
+    a draft's one-character legend. With `key_of` (from shared_legend), the
+    grid uses those keys and no legend lines are written.
     """
     if not cells:
         return ""
     xs = [x for x, _ in cells]
     ys = [y for _, y in cells]
-    order = [b for b, _ in Counter(cells.values()).most_common()]
-    if len(order) > len(KEY_CHARS):
-        raise ValueError("too many distinct blocks for one cells grid")
-    key_of = {b: prefix + k for b, k in zip(order, KEY_CHARS)}
+    out = []
+    if key_of is None:
+        order = [b for b, _ in Counter(cells.values()).most_common()]
+        if len(order) > len(KEY_CHARS):
+            raise ValueError("too many distinct blocks for one cells grid")
+        key_of = {b: prefix + k for b, k in zip(order, KEY_CHARS)}
+        out = legend_lines(order, key_of, describe)
+    out.append(f"grid {min(xs)} {min(ys)} w2")
+    for y in range(min(ys), max(ys) + 1):
+        out.append("".join(key_of[cells[(x, y)]] if (x, y) in cells else "  " for x in range(min(xs), max(xs) + 1)).rstrip())
+    out.append("end")
+    return "\n".join(out) + "\n"
+
+
+def legend_lines(order: list[int], key_of: dict[int, str], describe=None) -> list[str]:
     c = consts()
     out = []
     for b in order:
         mid, col, elev = c.unpack(b)
         note = f"  # {describe(mid)}" if describe else ""
         out.append(f"legend {key_of[b]} = {mid:#05x}/c{col}/e{elev}{note}")
-    out.append(f"grid {min(xs)} {min(ys)} w2")
-    for y in range(min(ys), max(ys) + 1):
-        out.append("".join(key_of[cells[(x, y)]] if (x, y) in cells else "  " for x in range(min(xs), max(xs) + 1)).rstrip())
-    out.append("end")
-    return "\n".join(out) + "\n"
+    return out
+
+
+def shared_legend(cell_sets: list[dict[tuple[int, int], int]], describe=None,
+                  prefixes: str = "BCFGHJ") -> tuple[dict[int, str], str]:
+    """One legend for several cells grids, so each block is defined once.
+
+    Returns the keys to pass to cells_text and the legend lines defining them.
+    """
+    order = [b for b, _ in Counter(b for cells in cell_sets for b in cells.values()).most_common()]
+    keys = [p + k for p in prefixes for k in KEY_CHARS]
+    if len(order) > len(keys):
+        raise ValueError("too many distinct blocks for one shared legend")
+    key_of = dict(zip(order, keys))
+    return key_of, "\n".join(legend_lines(order, key_of, describe)) + "\n"
 
 
 def load(path: Path, layout_override: str | None = None) -> Blueprint:

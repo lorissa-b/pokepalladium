@@ -39,8 +39,8 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
    comments, in the draft's coordinates. `--region X,Y,W,H` takes part of the Platinum map, for a
    replica smaller than the original. `--lean` writes those notes, and the list of
    placed buildings, to `jubilife.notes` next to the blueprint instead, and
-   leaves the metatile descriptions off the legend lines, so the blueprint is
-   smaller to read.
+   leaves the metatile descriptions off the legend lines, and gives all the
+   buildings one shared legend, so the blueprint is smaller to read.
 
    ```sh
    tools/mapkit/mapkit.py draft JUBILIFE_CITY LAYOUT_JUBILIFE_CITY -o jubilife.bp
