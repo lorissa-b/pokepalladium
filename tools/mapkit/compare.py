@@ -165,7 +165,12 @@ DRAFT_LEGENDS = {
 
 
 def draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, int] | None = None,
-          with_buildings: bool = True, make_new: bool = True) -> str:
+          with_buildings: bool = True, make_new: bool = True, notes_to: list[str] | None = None) -> str:
+    """A blockout blueprint of the Platinum map, with its events and props as comments.
+
+    With `notes_to`, the blueprint is lean: the Platinum notes go into that list
+    instead, and legend lines carry no metatile descriptions.
+    """
     x0, y0, w, h = region or (0, 0, ref.width, ref.height)
     grid = ref.grid()
     rows = [grid[y][x0 : x0 + w] if 0 <= y < ref.height else "" for y in range(y0, y0 + h)]
@@ -209,9 +214,13 @@ def draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, in
         out += [f"# {n}" for n in unplaced]
         for p in placements:
             out.append(f"# {p.describe()}")
-            out.append(cells_text(p.cells, lambda mid: describe_metatile(tiles, mid).split(" ", 1)[1]).rstrip())
+            describe = None if notes_to is not None else lambda mid: describe_metatile(tiles, mid).split(" ", 1)[1]
+            out.append(cells_text(p.cells, describe).rstrip())
         out.append("")
-    out += notes(ref, (x0, y0, w, h))
+    if notes_to is not None:
+        notes_to += notes(ref, (x0, y0, w, h))
+    else:
+        out += notes(ref, (x0, y0, w, h))
     return "\n".join(out) + "\n"
 
 
@@ -239,10 +248,13 @@ def path_look(ref: platinum.Reference, region: tuple[int, int, int, int]) -> str
 def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, int] | None = None,
                    style: str = "route", trees: str | None = "dense", water: str | None = "sea",
                    with_buildings: bool = True, make_new: bool = True, keep_shape: bool = False,
-                   path: str | None = "auto"):
+                   path: str | None = "auto", notes_to: list[str] | None = None):
     """A blueprint with every block chosen, tiled by example (see autotile.py).
 
-    Returns (blueprint text, blocks, tally, seams).
+    Returns (blueprint text, blocks, tally, seams). With `notes_to`, the
+    blueprint is lean: the tile classes it was drawn from and the Platinum
+    notes go into that list instead, and legend lines carry no metatile
+    descriptions.
     """
     import autotile
     import original
@@ -297,16 +309,25 @@ def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int
           + [f"#   {p.describe()}" for p in placements] + [f"#   {n}" for n in unplaced]
           if placements or unplaced else []),
         "#",
-        "# Tile classes it was drawn from (with the buildings in):",
-        *[f"#   {r.rstrip()}" for r in tiled],
+    ]
+    classes = ["# Tile classes it was drawn from (with the buildings in):", *[f"#   {r.rstrip()}" for r in tiled]]
+    if notes_to is not None:
+        notes_to += classes + notes(ref, (x0, y0, w, h))
+        head.append("# Tile classes and Platinum's events are in the notes file next to this one.")
+    else:
+        head += classes
+    head += [
         "",
         f"layout {layout['id']}",
         f"size {w} {h}",
         "base none",
         "",
     ]
-    body = blocks_text(blocks, (0, 0), lambda mid: describe_metatile(tiles, mid).split(" ", 1)[1])
-    text = "\n".join(head) + "\n" + body + "\n" + "\n".join(notes(ref, (x0, y0, w, h))) + "\n"
+    describe = None if notes_to is not None else lambda mid: describe_metatile(tiles, mid).split(" ", 1)[1]
+    body = blocks_text(blocks, (0, 0), describe)
+    text = "\n".join(head) + "\n" + body + "\n"
+    if notes_to is None:
+        text += "\n".join(notes(ref, (x0, y0, w, h))) + "\n"
     return text, blocks, tally, seams
 
 
@@ -374,14 +395,20 @@ def _flexible(ref: platinum.Reference, grid: list[str], region, placements):
     return flexible, barriers
 
 
-def notes(ref: platinum.Reference, region: tuple[int, int, int, int]) -> list[str]:
-    """Platinum's events and props in the draft's coordinates, as comments."""
-    x0, y0, w, h = region
+def notes(ref: platinum.Reference, region: tuple[int, int, int, int], relative: bool = True) -> list[str]:
+    """Platinum's events and props inside the region, as comments.
+
+    Coordinates are relative to the region's top-left (the draft's), or
+    Platinum's own with `relative=False`.
+    """
+    rx, ry, w, h = region
 
     def inside(x, y):
-        return 0 <= x - x0 < w and 0 <= y - y0 < h
+        return 0 <= x - rx < w and 0 <= y - ry < h
 
-    out = ["# ---- Platinum events (x, y in this layout) ----"]
+    x0, y0 = (rx, ry) if relative else (0, 0)
+
+    out = ["# ---- Platinum events (x, y" + (" in this layout" if relative else "") + ") ----"]
     for i, e in enumerate(ref.warps):
         if inside(e["x"], e["y"]):
             out.append(f"# warp {i}: ({e['x'] - x0},{e['y'] - y0}) -> {e.get('dest_header_id')} warp {e.get('dest_warp_id')}")

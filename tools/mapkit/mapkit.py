@@ -174,6 +174,10 @@ def cmd_tileset(a) -> None:
     if a.behavior:
         want = a.behavior.upper()
         ids = [i for i in ids if want in behaviors().get(tiles.behavior(i), "")]
+    if a.material:
+        import materials
+
+        ids = [i for i in ids if a.material in materials.of(tiles, i)]
     if a.list:
         defaults = blueprint.usage_defaults()
         for i in ids:
@@ -206,6 +210,23 @@ def cmd_extract(a) -> None:
         sys.stdout.write(text)
 
 
+def changes(layout: dict, blocks: Blockdata) -> str:
+    """How these blocks differ from the layout's current map.bin, in one line."""
+    try:
+        old = Blockdata.for_layout(layout)
+    except (OSError, ValueError):
+        return "no current map.bin to compare with"
+    if (old.width, old.height) != (blocks.width, blocks.height):
+        return f"size changes from {old.width}x{old.height} to {blocks.width}x{blocks.height}"
+    cells = [(x, y) for y in range(blocks.height) for x in range(blocks.width) if old.get(x, y) != blocks.get(x, y)]
+    if not cells:
+        return "no blocks change"
+    xs = [x for x, _ in cells]
+    ys = [y for _, y in cells]
+    x0, y0 = min(xs), min(ys)
+    return f"{len(cells)} block(s) change, within {x0},{y0},{max(xs) - x0 + 1},{max(ys) - y0 + 1}"
+
+
 def cmd_build(a) -> None:
     bp = blueprint.load(Path(a.blueprint), a.layout)
     try:
@@ -215,6 +236,7 @@ def cmd_build(a) -> None:
     for w in bp.warnings:
         print(f"warning: {w}")
     layout = bp.layout
+    print(changes(layout, blocks))
     if a.dry_run:
         print(f"{layout['id']}: {blocks.width}x{blocks.height} (dry run, nothing written)")
     else:
@@ -284,7 +306,7 @@ def cmd_platinum(a) -> None:
     if a.events:
         print("  'W' warp   '@' object   '?' sign/hidden item   'T' trigger")
     print()
-    for line in cmp.notes(ref, (0, 0, ref.width, ref.height)):
+    for line in cmp.notes(ref, (x0, y0, w, h), relative=False):
         print(line[2:] if line.startswith("# ") else line)
 
 
@@ -329,15 +351,18 @@ def cmd_draft(a) -> None:
     region = tuple(a.region) if a.region else None
     if region and len(region) == 2:
         region = (region[0], region[1], ref.width - region[0], ref.height - region[1])
+    if a.lean and not a.output:
+        raise SystemExit("error: --lean needs -o (the notes go next to the blueprint)")
+    notes = [] if a.lean else None
     seams = []
     if a.finish:
         family = {"any": None}
         text, blocks, tally, seams = cmp.finished_draft(
             ref, layout, region, a.style, family.get(a.trees, a.trees), family.get(a.water, a.water), not a.no_buildings,
-            not a.originals_only, a.keep_shape, family.get(a.path, a.path))
+            not a.originals_only, a.keep_shape, family.get(a.path, a.path), notes)
         print(f"{tally.get('off_style', 0)} off-style blocks, {len(seams)} seams", file=sys.stderr)
     else:
-        text = cmp.draft(ref, layout, region, not a.no_buildings, not a.originals_only)
+        text = cmp.draft(ref, layout, region, not a.no_buildings, not a.originals_only, notes)
         blocks = None
     if a.render:
         if blocks is None:
@@ -355,6 +380,10 @@ def cmd_draft(a) -> None:
         Path(a.output).parent.mkdir(parents=True, exist_ok=True)
         Path(a.output).write_text(text)
         print(a.output)
+        if notes is not None:
+            notes_path = Path(a.output).with_suffix(".notes")
+            notes_path.write_text("\n".join(line[2:] if line.startswith("# ") else line for line in notes) + "\n")
+            print(notes_path)
     else:
         sys.stdout.write(text)
 
@@ -465,9 +494,10 @@ def cmd_compare(a) -> None:
         render.overlay_grid(refimg, layout["width"], layout["height"], ts, origin)
         title = f"{layout['id']} (red: movement differs)"
         save(render.side_by_side(img, refimg, titles=[title, f"{ref.header} from {ox},{oy}"]), a.render)
-    if not a.quiet:
+    if a.grid and not a.quiet:
         print_ruled(result["grid"], 0, 0, 1)
         print("\n  'X' = movement differs from Platinum; blank = outside the reference\n")
+    if not a.quiet:
         for x, y, e, r in result["mismatches"][: a.limit]:
             print(f"  ({x},{y}) is {e!r} here, {r!r} in Platinum")
         if len(result["mismatches"]) > a.limit:
@@ -514,6 +544,7 @@ def main(argv=None) -> None:
     s.add_argument("--only", choices=["primary", "secondary"])
     s.add_argument("--materials", action="store_true", help="write each metatile's materials under it")
     s.add_argument("--behavior", help="only metatiles whose MB_* name contains this")
+    s.add_argument("--material", help="only metatiles labelled with this material, e.g. grass or path")
     s.add_argument("--columns", type=int, default=16)
     s.add_argument("--scale", type=int, default=2)
     s.set_defaults(func=cmd_tileset)
@@ -576,6 +607,9 @@ def main(argv=None) -> None:
     s.add_argument("--grid", action="store_true", help="with --render, add a coordinate grid")
     s.add_argument("--scale", type=int, default=2)
     s.add_argument("-o", "--output")
+    s.add_argument("--lean", action="store_true",
+                   help="leave Platinum's events, props and tile classes out of the blueprint, writing them to "
+                        "<output>.notes instead, and drop the metatile descriptions from legend lines")
     s.set_defaults(func=cmd_draft)
 
     s = sub.add_parser("buildings", help="Emerald buildings that can be drawn on a layout (see buildings.py)")
@@ -606,7 +640,8 @@ def main(argv=None) -> None:
     s.add_argument("--limit", type=int, default=20, help="mismatches to list")
     s.add_argument("--solid-unreachable", action="store_true",
                    help="count Platinum tiles no warp can reach as solid (the void around a cave)")
-    s.add_argument("-q", "--quiet", action="store_true", help="only print the summary")
+    s.add_argument("--grid", action="store_true", help="also print the map as text with mismatches marked 'X'")
+    s.add_argument("-q", "--quiet", action="store_true", help="only print the summary and missing warps")
     s.set_defaults(func=cmd_compare)
 
     a = p.parse_args(argv)

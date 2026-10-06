@@ -25,13 +25,15 @@ guessed from screenshots. It needs Pillow
 2. **Target.** Read the Hoenn map being converted:
    `mapkit.py info <Map>` and `render <Map> --grid --events` (the PNG, not
    `dump`). Note which neighbours it connects to and which tilesets they use.
-3. **Draft.** `mapkit.py draft <HEADER> <LAYOUT> -o build/mapkit/<map>.bp`
+3. **Draft.** `mapkit.py draft <HEADER> <LAYOUT> --lean -o build/mapkit/<map>.bp`
    gives a blockout with exits, roads, grass, water, ledges and buildings in
    the right places and the Platinum events/props listed as comments. Keep the Platinum
    proportions; crop with `--region` only when the map must be smaller.
-   The draft file is large (around 40 KB for a 64x64 map), mostly comments.
-   Don't Read it whole. Read its header (`head -40`), `grep` the notes you
-   need, and view the grid a block of rows at a time with `sed -n`.
+   `--lean` puts Platinum's events, buildings and props in
+   `build/mapkit/<map>.notes` instead of the blueprint; `grep` that file for
+   what you need. Even lean, a big draft is long: Read its header first and
+   the grid a block of rows at a time (`offset` and `limit`), not the whole
+   file.
    For a cave, add `--solid-unreachable --finish --style cave --water any`,
    and crop the void around it with `--region`.
 4. **Detail.** The draft already places a whole Emerald building on every
@@ -44,15 +46,18 @@ guessed from screenshots. It needs Pillow
    `buildings <LAYOUT> --piece <NAME> --at X,Y` (add `--size WxH --doors
    1,5` to make it another size), or `stamp`/`extract` from
    another map. Find metatiles with `tileset <Map>` (PNG) and
-   `tileset <Map> --list --behavior <NAME>` (always filter `--list`:
-   unfiltered, it prints every metatile, about 15k tokens). Keep each
+   `tileset <Map> --list --behavior <NAME>` or `--material <NAME>` (always
+   filter `--list`: unfiltered, it prints every metatile, about 15k tokens). Keep each
    building's door on the tile where Platinum has its door warp.
 5. **Preview, then build.** Run `build <file> --dry-run --render build/mapkit/preview.png`
    and look at the PNG. Then run `build <file>`, which writes map.bin and
-   resizes layouts.json when the size changes.
+   resizes layouts.json when the size changes. Both say how many blocks
+   change and where; if that's not what you meant to change, look before
+   writing.
 6. **Score.** Run `compare <Map> <HEADER> --origin auto -q --render build/mapkit/cmp.png`
-   and look at the PNG. Drop `-q` only when you need the mismatch list, and
-   pass a fixed `--origin X,Y` after the first run.
+   and look at the PNG. Drop `-q` only when you need the mismatch list (and
+   never add `--grid`, the whole map as text), and pass a fixed
+   `--origin X,Y` after the first run.
    Fix red areas that aren't deliberate, and add any Platinum warps it lists
    as missing.
 7. **Events.** Move warps, NPCs, signs and triggers in map.json to the
