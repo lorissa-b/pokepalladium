@@ -242,6 +242,10 @@ gScriptCmdTable::
 	script_cmd_table_entry SCR_OP_WARPWHITEFADE                 ScrCmd_warpwhitefade                  @ 0xe0
 	script_cmd_table_entry SCR_OP_BUFFERCONTESTNAME             ScrCmd_buffercontestname              @ 0xe1
 	script_cmd_table_entry SCR_OP_BUFFERITEMNAMEPLURAL          ScrCmd_bufferitemnameplural           @ 0xe2
+	script_cmd_table_entry SCR_OP_SETFOLLOWER                   ScrCmd_setfollower                    @ 0xe3
+	script_cmd_table_entry SCR_OP_DESTROYFOLLOWER               ScrCmd_destroyfollower                @ 0xe4
+	script_cmd_table_entry SCR_OP_FACEFOLLOWER                  ScrCmd_facefollower                   @ 0xe5
+	script_cmd_table_entry SCR_OP_CHECKFOLLOWER                 ScrCmd_checkfollower                  @ 0xe6
 
 	.if ALLOCATE_SCRIPT_CMD_TABLE
 gScriptCmdTableEnd::

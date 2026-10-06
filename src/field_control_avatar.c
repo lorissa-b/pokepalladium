@@ -28,6 +28,7 @@
 #include "trainer_see.h"
 #include "trainer_hill.h"
 #include "wild_encounter.h"
+#include "follow_me.h"
 #include "constants/event_bg.h"
 #include "constants/event_objects.h"
 #include "constants/field_poison.h"
@@ -66,6 +67,7 @@ static bool8 TryStartCoordEventScript(struct MapPosition *);
 static bool8 TryStartWarpEventScript(struct MapPosition *, u16);
 static bool8 TryStartMiscWalkingScripts(u16);
 static bool8 TryStartStepCountScript(u16);
+static bool8 TryFollowerStopTallGrass(u8);
 static void UpdateFriendshipStepCounter(void);
 static bool8 UpdatePoisonStepCounter(void);
 
@@ -177,6 +179,8 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
         if (TryDoorWarp(&position, metatileBehavior, playerDirection) == TRUE)
             return TRUE;
     }
+    if (input->heldDirection2 && TryFollowerStopTallGrass(input->dpadDirection) == TRUE)
+        return TRUE;
     if (input->pressedAButton && TrySetupDiveDownScript() == TRUE)
         return TRUE;
     if (input->pressedStartButton)
@@ -306,6 +310,8 @@ static const u8 *GetInteractedObjectEventScript(struct MapPosition *position, u8
 
     if (InTrainerHill() == TRUE)
         script = GetTrainerHillTrainerScript();
+    else if (objectEventId == GetFollowerObjectId())//(gObjectEvents[objectEventId].localId == OBJ_EVENT_ID_FOLLOWER)
+        script = GetFollowerScriptPointer();
     else
         script = GetObjectEventScriptPointerByObjectEventId(objectEventId);
 
@@ -447,10 +453,10 @@ static const u8 *GetInteractedMetatileScript(struct MapPosition *position, u8 me
 
 static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metatileBehavior, u8 direction)
 {
-    if (FlagGet(FLAG_BADGE05_GET) == TRUE && PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE)
+    if (FlagGet(FLAG_BADGE05_GET) == TRUE && PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE && CheckFollowerFlag(FOLLOWER_FLAG_CAN_SURF))
         return EventScript_UseSurf;
 
-    if (MetatileBehavior_IsWaterfall(metatileBehavior) == TRUE)
+    if (MetatileBehavior_IsWaterfall(metatileBehavior) == TRUE && CheckFollowerFlag(FOLLOWER_FLAG_CAN_WATERFALL))
     {
         if (FlagGet(FLAG_BADGE08_GET) == TRUE && IsPlayerSurfingNorth() == TRUE)
             return EventScript_UseWaterfall;
@@ -462,6 +468,9 @@ static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metati
 
 static bool32 TrySetupDiveDownScript(void)
 {
+    if (!CheckFollowerFlag(FOLLOWER_FLAG_CAN_DIVE))
+        return FALSE;
+    
     if (FlagGet(FLAG_BADGE07_GET) && TrySetDiveWarp() == 2)
     {
         ScriptContext_SetupScript(EventScript_UseDive);
@@ -472,6 +481,9 @@ static bool32 TrySetupDiveDownScript(void)
 
 static bool32 TrySetupDiveEmergeScript(void)
 {
+    if (!CheckFollowerFlag(FOLLOWER_FLAG_CAN_DIVE))
+        return FALSE;
+    
     if (FlagGet(FLAG_BADGE07_GET) && gMapHeader.mapType == MAP_TYPE_UNDERWATER && TrySetDiveWarp() == 1)
     {
         ScriptContext_SetupScript(EventScript_UseDiveUnderwater);
@@ -493,6 +505,27 @@ static bool8 TryStartStepBasedScript(struct MapPosition *position, u16 metatileB
     if (UpdateRepelCounter() == TRUE)
         return TRUE;
     return FALSE;
+}
+
+// A follower stops the player walking into tall grass while they have no Pokémon.
+// This runs before the step, so the player stays where they are.
+static bool8 TryFollowerStopTallGrass(u8 direction)
+{
+    s16 x, y;
+    u8 behavior;
+
+    if (direction == DIR_NONE || !PlayerHasFollower() || !IsPlayerOnFoot() || CalculatePlayerPartyCount() != 0)
+        return FALSE;
+
+    PlayerGetDestCoords(&x, &y);
+    MoveCoords(direction, &x, &y);
+    behavior = MapGridGetMetatileBehaviorAt(x, y);
+    if (!MetatileBehavior_IsTallGrass(behavior) && !MetatileBehavior_IsLongGrass(behavior))
+        return FALSE;
+
+    ObjectEventTurn(&gObjectEvents[gPlayerAvatar.objectEventId], direction);
+    ScriptContext_SetupScript(EventScript_FollowerStopsTallGrass);
+    return TRUE;
 }
 
 static bool8 TryStartCoordEventScript(struct MapPosition *position)
