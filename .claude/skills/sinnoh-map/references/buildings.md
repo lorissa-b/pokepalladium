@@ -10,7 +10,9 @@ unmatched (`no Emerald building fits`, `no door for Platinum's door`).
 - To see what fits: `buildings <LAYOUT> --render build/mapkit/pieces.png`
   (or `--kind house|mart|pokecenter|gym|lab|gate|other` for a text list).
 - To swap one: `buildings <LAYOUT> --piece <NAME> --at X,Y` prints it as a
-  blueprint grid to paste over the old one. Add `--size WxH --doors 1,5` to
+  blueprint legend and grid; append it to the end of the blueprint and it
+  draws over the old one. If the new one is smaller, first add a `rect` that
+  clears the old footprint. Add `--size WxH --doors 1,5` to
   make it another size from its parts.
 - To copy from another map: `extract <Map> --region X,Y,W,H`, or a `stamp`
   line in the blueprint.

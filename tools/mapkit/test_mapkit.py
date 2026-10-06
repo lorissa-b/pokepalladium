@@ -249,6 +249,17 @@ class Buildings(unittest.TestCase):
         ).build()
         self.assertEqual([b & consts().metatile_mask for b in g.blocks], [0x001, 0x1D4, 0x001, 0x001, 0x001, 0x00D])
 
+    def test_legend_lines_leave_out_default_attributes(self):
+        c = consts()
+        layout = resolve_layout("LAYOUT_JUBILIFE_CITY")
+        col, elev = blueprint.default_attrs(0x1D4, layout)
+        plain, other = c.pack(0x1D4, col, elev), c.pack(0x1D4, 1 - col, elev)
+        lines = blueprint.legend_lines([plain, other], {plain: "a", other: "b"}, layout=layout)
+        self.assertEqual(lines[0], "legend a = 0x1d4")
+        self.assertEqual(lines[1], f"legend b = 0x1d4/c{1 - col}/e{elev}")
+        g = blueprint.Blueprint("layout LAYOUT_JUBILIFE_CITY\nsize 2 1\nbase none\n" + "\n".join(lines) + "\ngrid 0 0\nab\nend\n").build()
+        self.assertEqual(g.blocks, [plain, other])
+
     def test_cells_texts_can_share_one_legend(self):
         c = consts()
         a = {(0, 0): c.pack(0x1D4, 1, 0), (1, 0): c.pack(0x00D, 0, 3)}
@@ -394,6 +405,16 @@ class Ground(unittest.TestCase):
             for y in (2, 3):
                 self.assertEqual(blocks.get(x, y) & c.metatile_mask, 0x0B5, (x, y))
         self.assertEqual(tally["snow"], 8)
+
+
+class Compare(unittest.TestCase):
+    def test_mismatches_group_into_touching_areas(self):
+        import compare
+
+        tiles = [(0, 0, ".", "#"), (1, 1, ".", "#"), (2, 1, "#", "."), (9, 9, "#", ".")]
+        areas = compare.mismatch_areas(tiles)
+        self.assertEqual([(a["count"], a["box"]) for a in areas], [(3, (0, 0, 3, 2)), (1, (9, 9, 1, 1))])
+        self.assertEqual(areas[0]["most"], (".", "#"))
 
 
 class Checks(unittest.TestCase):

@@ -72,6 +72,35 @@ def emerald_grid(layout: dict) -> list[str]:
     return ["".join(emerald_symbol(tiles, blocks.get(x, y)) for x in range(blocks.width)) for y in range(blocks.height)]
 
 
+def mismatch_areas(mismatches: list[tuple[int, int, str, str]]) -> list[dict]:
+    """Mismatched tiles grouped into touching areas (diagonals count), largest first.
+
+    Each area has its tile `count`, bounding `box` (x, y, w, h) and the most
+    common (here, Platinum) class pair as `most`.
+    """
+    left = {(x, y): (e, r) for x, y, e, r in mismatches}
+    areas = []
+    while left:
+        start = next(iter(left))
+        stack, cells = [start], {start: left.pop(start)}
+        while stack:
+            x, y = stack.pop()
+            for dx in (-1, 0, 1):
+                for dy in (-1, 0, 1):
+                    n = (x + dx, y + dy)
+                    if n in left:
+                        cells[n] = left.pop(n)
+                        stack.append(n)
+        xs = [x for x, _ in cells]
+        ys = [y for _, y in cells]
+        areas.append({
+            "count": len(cells),
+            "box": (min(xs), min(ys), max(xs) - min(xs) + 1, max(ys) - min(ys) + 1),
+            "most": Counter(cells.values()).most_common(1)[0][0],
+        })
+    return sorted(areas, key=lambda a: (-a["count"], a["box"][1], a["box"][0]))
+
+
 def compare(layout: dict, ref: platinum.Reference, origin: tuple[int, int] = (0, 0)) -> dict:
     """Tile-by-tile comparison. origin = reference tile shown at the layout's (0, 0)."""
     egrid = emerald_grid(layout)
@@ -217,7 +246,7 @@ def draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, in
         if notes_to is not None:
             notes_to += ["# ---- Buildings placed (blueprint grid at each one's x, y) ----"] + [f"# {p.describe()}" for p in placements]
             if placements:
-                key_of, legend = shared_legend([p.cells for p in placements])
+                key_of, legend = shared_legend([p.cells for p in placements], layout=layout)
                 out.append(legend.rstrip())
         for p in placements:
             if notes_to is None:
@@ -333,7 +362,7 @@ def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int
         "",
     ]
     describe = None if notes_to is not None else lambda mid: describe_metatile(tiles, mid).split(" ", 1)[1]
-    body = blocks_text(blocks, (0, 0), describe)
+    body = blocks_text(blocks, (0, 0), describe, layout if notes_to is not None else None)
     text = "\n".join(head) + "\n" + body + "\n"
     if notes_to is None:
         text += "\n".join(notes(ref, (x0, y0, w, h))) + "\n"

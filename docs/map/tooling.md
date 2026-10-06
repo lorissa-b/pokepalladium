@@ -39,8 +39,9 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
    comments, in the draft's coordinates. `--region X,Y,W,H` takes part of the Platinum map, for a
    replica smaller than the original. `--lean` writes those notes, and the list of
    placed buildings, to `jubilife.notes` next to the blueprint instead, and
-   leaves the metatile descriptions off the legend lines, and gives all the
-   buildings one shared legend, so the blueprint is smaller to read.
+   leaves the metatile descriptions, and collision and elevation where they
+   are the defaults, off the legend lines, and gives all the buildings one
+   shared legend, so the blueprint is smaller to read.
 
    ```sh
    tools/mapkit/mapkit.py draft JUBILIFE_CITY LAYOUT_JUBILIFE_CITY -o jubilife.bp
@@ -77,12 +78,16 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
    ```
 
 5. **Score it.** `compare` lines the replica up with the original
-   (`--origin auto` finds the best offset), lists the tiles where movement
-   differs (the first 20; `--limit`) and Platinum warps with no warp nearby,
-   and prints the score. `--grid` also prints the whole map as text with the
-   differences marked, and `-q` leaves out the list of tiles. `--render` tints the
+   (`--origin auto` finds the best offset), lists the areas where movement
+   differs (touching tiles grouped, largest first, the first 10; `--limit`,
+   or `--tiles` to list tiles one by one) and Platinum warps with no warp
+   nearby, and prints the score. `--grid` also prints the whole map as text
+   with the differences marked, and `-q` leaves out the list of areas.
+   `--render` tints the
    differences red on the Emerald map, outlines Platinum's events and props,
-   and puts the Platinum map, cropped to the same area, alongside.
+   and puts the Platinum map, cropped to the same area, alongside;
+   `--region X,Y,W,H` draws only that part of both, to look at one area up
+   close.
 
    ```sh
    tools/mapkit/mapkit.py compare JubilifeCity JUBILIFE_CITY --origin auto --render build/mapkit/jubilife_vs.png
@@ -95,7 +100,7 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
 
 | Command | What it does |
 | --- | --- |
-| `info MAP` | Layout, size, tilesets, connections, and every event with the behaviour of the tile under each warp. |
+| `info MAP` | Layout, size, tilesets, connections, and every event with the behaviour of the tile under each warp. `--brief` lists only the warps and counts the other events. |
 | `dump MAP` | The layout as text. `--layer metatile\|collision\|elevation\|behavior\|block`, or `--classes` for the same tile classes the Platinum commands use. `--region X,Y,W,H`. |
 | `render MAP` | PNG of the map. `--grid` (coordinates every 4 tiles), `--events`, `--collision`, `--elevation`, `--region`, `--scale`. |
 | `tileset MAP` or `tileset PRIMARY SECONDARY` | Metatile catalog PNG, or `--list` as text. `--only primary\|secondary`, `--behavior NAME`, `--material NAME`, `--materials`. |
@@ -109,7 +114,7 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
 | `platinum show HEADER[+HEADER...]` | The Platinum map as text, with events and props (only those inside `--region`, when given). `--events`, `--region`, `--ground` (what the ground is painted with, see [Paths](#paths-and-the-ground-model)), `--render [PNG]`, `--json FILE`. |
 | `platinum update` | Move the cached pokeplatinum checkout to its latest commit. |
 | `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map, with its buildings placed. `--region X,Y,W,H`, `--finish [--style --trees --water --path --keep-shape]`, `--solid-unreachable`, `--no-buildings`, `--originals-only`, `--lean` (notes to a `.notes` file), `--render PNG [--events --grid --seams]`. |
-| `compare MAP HEADER` | Score a map against the Platinum original. `--origin X,Y\|auto`, `--solid-unreachable`, `--render PNG`, `--limit N`, `--grid` (the map as text), `-q` (score and missing warps only). |
+| `compare MAP HEADER` | Score a map against the Platinum original. `--origin X,Y\|auto`, `--solid-unreachable`, `--render PNG [--region X,Y,W,H]`, `--limit N`, `--tiles`, `--grid` (the map as text), `-q` (score and missing warps only). |
 
 ### Tile classes
 

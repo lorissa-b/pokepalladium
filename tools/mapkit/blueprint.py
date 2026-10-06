@@ -340,18 +340,17 @@ def extract(layout: dict, region: tuple[int, int, int, int], standalone: bool = 
     return "\n".join(head) + ("\n" if head else "") + blocks_text(blocks, (x0, y0), describe)
 
 
-def blocks_text(blocks: Blockdata, at: tuple[int, int] = (0, 0), describe=None) -> str:
-    """Legend and grid lines that draw these blocks with their top-left at `at`."""
+def blocks_text(blocks: Blockdata, at: tuple[int, int] = (0, 0), describe=None, layout: dict | None = None) -> str:
+    """Legend and grid lines that draw these blocks with their top-left at `at`.
+
+    With `layout`, legend lines leave out collision and elevation where they
+    are the defaults a bare metatile id gets on that layout.
+    """
     order = [b for b, _ in Counter(blocks.blocks).most_common()]
     width = 1 if len(order) <= len(KEY_CHARS) else 2
     keys = list(KEY_CHARS) if width == 1 else [a + b for a in KEY_CHARS for b in KEY_CHARS]
     key_of = dict(zip(order, keys))
-    c = consts()
-    out = []
-    for b in order:
-        mid, col, elev = c.unpack(b)
-        note = f"  # {describe(mid)}" if describe else ""
-        out.append(f"legend {key_of[b]} = {mid:#05x}/c{col}/e{elev}{note}")
+    out = legend_lines(order, key_of, describe, layout)
     out.append(f"grid {at[0]} {at[1]}" + (" w2" if width == 2 else ""))
     for y in range(blocks.height):
         out.append("".join(key_of[blocks.get(x, y)] for x in range(blocks.width)))
@@ -385,28 +384,31 @@ def cells_text(cells: dict[tuple[int, int], int], describe=None, prefix: str = "
     return "\n".join(out) + "\n"
 
 
-def legend_lines(order: list[int], key_of: dict[int, str], describe=None) -> list[str]:
+def legend_lines(order: list[int], key_of: dict[int, str], describe=None, layout: dict | None = None) -> list[str]:
+    """One legend line per block; with `layout`, default collision and elevation are left out."""
     c = consts()
     out = []
     for b in order:
         mid, col, elev = c.unpack(b)
         note = f"  # {describe(mid)}" if describe else ""
-        out.append(f"legend {key_of[b]} = {mid:#05x}/c{col}/e{elev}{note}")
+        attrs = "" if layout is not None and default_attrs(mid, layout) == (col, elev) else f"/c{col}/e{elev}"
+        out.append(f"legend {key_of[b]} = {mid:#05x}{attrs}{note}")
     return out
 
 
 def shared_legend(cell_sets: list[dict[tuple[int, int], int]], describe=None,
-                  prefixes: str = "BCFGHJ") -> tuple[dict[int, str], str]:
+                  prefixes: str = "BCFGHJ", layout: dict | None = None) -> tuple[dict[int, str], str]:
     """One legend for several cells grids, so each block is defined once.
 
-    Returns the keys to pass to cells_text and the legend lines defining them.
+    Returns the keys to pass to cells_text and the legend lines defining them
+    (with `layout`, leaving out default collision and elevation).
     """
     order = [b for b, _ in Counter(b for cells in cell_sets for b in cells.values()).most_common()]
     keys = [p + k for p in prefixes for k in KEY_CHARS]
     if len(order) > len(keys):
         raise ValueError("too many distinct blocks for one shared legend")
     key_of = dict(zip(order, keys))
-    return key_of, "\n".join(legend_lines(order, key_of, describe)) + "\n"
+    return key_of, "\n".join(legend_lines(order, key_of, describe, layout)) + "\n"
 
 
 def load(path: Path, layout_override: str | None = None) -> Blueprint:

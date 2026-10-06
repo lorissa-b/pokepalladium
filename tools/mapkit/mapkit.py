@@ -82,10 +82,16 @@ def cmd_info(a) -> None:
     for conn in info.get("connections") or []:
         print(f"connects  {conn['direction']:<5} {conn['map']} offset {conn['offset']}")
     blocks = Blockdata.for_layout(layout)
+    if a.brief:
+        counts = [f"{len(info.get(k) or [])} {name}" for k, name in
+                  (("object_events", "objects"), ("bg_events", "bg events"), ("coord_events", "coord events"))]
+        print(f"events    {len(info.get('warp_events') or [])} warps, " + ", ".join(counts))
     for i, w in enumerate(info.get("warp_events") or []):
         mid = blocks.get(w["x"], w["y"]) & c.metatile_mask if blocks.inside(w["x"], w["y"]) else None
         beh = behaviors().get(tiles.behavior(mid), "?") if mid is not None else "outside map"
         print(f"warp {i:<3}  ({w['x']},{w['y']}) -> {w['dest_map']} warp {w['dest_warp_id']}  [{beh}]")
+    if a.brief:
+        return
     for i, o in enumerate(info.get("object_events") or []):
         print(f"object {i:<2} ({o['x']},{o['y']}) e{o.get('elevation')} {o.get('graphics_id')} {o.get('script')}")
     for i, b in enumerate(info.get("bg_events") or []):
@@ -492,16 +498,29 @@ def cmd_compare(a) -> None:
         refimg = render.draw_classes(crop, ts)
         render.overlay_reference(refimg, ref, ts, origin)
         render.overlay_grid(refimg, layout["width"], layout["height"], ts, origin)
+        if a.region:
+            rx, ry, rw, rh = full_region(layout, a.region)
+            box = (rx * ts, ry * ts, (rx + rw) * ts, (ry + rh) * ts)
+            img, refimg = img.crop(box), refimg.crop(box)
         title = f"{layout['id']} (red: movement differs)"
         save(render.side_by_side(img, refimg, titles=[title, f"{ref.header} from {ox},{oy}"]), a.render)
     if a.grid and not a.quiet:
         print_ruled(result["grid"], 0, 0, 1)
         print("\n  'X' = movement differs from Platinum; blank = outside the reference\n")
-    if not a.quiet:
+    if a.limit is None:
+        a.limit = 20 if a.tiles else 10
+    if not a.quiet and a.tiles:
         for x, y, e, r in result["mismatches"][: a.limit]:
             print(f"  ({x},{y}) is {e!r} here, {r!r} in Platinum")
         if len(result["mismatches"]) > a.limit:
             print(f"  ... {len(result['mismatches']) - a.limit} more")
+    elif not a.quiet:
+        areas = cmp.mismatch_areas(result["mismatches"])
+        for area in areas[: a.limit]:
+            e, r = area["most"]
+            print(f"  {area['count']} tile(s) differ in {','.join(map(str, area['box']))}: mostly {e!r} here, {r!r} in Platinum")
+        if len(areas) > a.limit:
+            print(f"  ... {len(areas) - a.limit} more areas, {sum(x['count'] for x in areas[a.limit:])} tiles")
     for x, y, dest in result["missing_warps"]:
         print(f"  no warp near ({x},{y}); Platinum has one to {dest}")
     t = result["total"] or 1
@@ -516,6 +535,7 @@ def main(argv=None) -> None:
 
     s = sub.add_parser("info", help="summarise a map: layout, tilesets, connections, events")
     s.add_argument("map", help="MAP_* id, map directory name, LAYOUT_* id or layout name")
+    s.add_argument("--brief", action="store_true", help="list warps, and only count the other events")
     s.set_defaults(func=cmd_info)
 
     s = sub.add_parser("dump", help="print a layout as text")
@@ -637,7 +657,9 @@ def main(argv=None) -> None:
     s.add_argument("--render", help="draw the map with mismatches tinted red and Platinum events outlined")
     s.add_argument("--events", action="store_true", help="with --render, also mark this map's events")
     s.add_argument("--scale", type=int, default=2)
-    s.add_argument("--limit", type=int, default=20, help="mismatches to list")
+    s.add_argument("--limit", type=int, help="mismatched areas to list (default 10), or tiles with --tiles (default 20)")
+    s.add_argument("--tiles", action="store_true", help="list mismatched tiles one by one instead of as areas")
+    s.add_argument("--region", type=region_arg, help="with --render, draw only this part of the map (X,Y,W,H)")
     s.add_argument("--solid-unreachable", action="store_true",
                    help="count Platinum tiles no warp can reach as solid (the void around a cave)")
     s.add_argument("--grid", action="store_true", help="also print the map as text with mismatches marked 'X'")
