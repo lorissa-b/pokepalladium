@@ -5,27 +5,33 @@ description: Build or redraw a Sinnoh map (town, city, route, interior) as a rep
 
 # Building a Sinnoh map
 
-Use `tools/mapkit/mapkit.py` (see `docs/map/tooling.md` for every option)
-rather than one-off scripts. It reads Platinum's real map data, so tile
+Use `tools/mapkit/mapkit.py` rather than one-off scripts. For options, run
+`mapkit.py <command> --help`, or read only the section of
+`docs/map/tooling.md` you need (`grep -n '^#' docs/map/tooling.md` lists
+them); don't read the whole file. It reads Platinum's real map data, so tile
 positions, exits, warps and NPC spots can be copied exactly instead of
 guessed from screenshots. It needs Pillow
 (`pip install -r tools/mapkit/requirements.txt`).
 
 ## Workflow
 
-1. **Reference.** Read the original map:
-   `tools/mapkit/mapkit.py platinum show <HEADER> --events` and
-   `platinum show <HEADER> --render build/mapkit/ref.png` (open the PNG with
-   Read). Use `platinum list <words>` to find the header name.
+1. **Reference.** Look at the original map first as a picture:
+   `tools/mapkit/mapkit.py platinum show <HEADER> --render build/mapkit/ref.png`
+   (open the PNG with Read). Print the text grid with `--events` only for
+   the part you're working on (`--region X,Y,W,H`). Use
+   `platinum list <words>` to find the header name.
    `platinum show <HEADER> --ground` shows where Platinum's ground is painted
    as paths, flowers and so on; drafts draw its paths (`p`) as Emerald paths.
 2. **Target.** Read the Hoenn map being converted:
-   `mapkit.py info <Map>` and `render <Map> --grid --events`. Note which
-   neighbours it connects to and which tilesets they use.
+   `mapkit.py info <Map>` and `render <Map> --grid --events` (the PNG, not
+   `dump`). Note which neighbours it connects to and which tilesets they use.
 3. **Draft.** `mapkit.py draft <HEADER> <LAYOUT> -o build/mapkit/<map>.bp`
    gives a blockout with exits, roads, grass, water, ledges and buildings in
    the right places and the Platinum events/props listed as comments. Keep the Platinum
    proportions; crop with `--region` only when the map must be smaller.
+   The draft file is large (around 40 KB for a 64x64 map), mostly comments.
+   Don't Read it whole. Read its header (`head -40`), `grep` the notes you
+   need, and view the grid a block of rows at a time with `sed -n`.
    For a cave, add `--solid-unreachable --finish --style cave --water any`,
    and crop the void around it with `--region`.
 4. **Detail.** The draft already places a whole Emerald building on every
@@ -38,12 +44,15 @@ guessed from screenshots. It needs Pillow
    `buildings <LAYOUT> --piece <NAME> --at X,Y` (add `--size WxH --doors
    1,5` to make it another size), or `stamp`/`extract` from
    another map. Find metatiles with `tileset <Map>` (PNG) and
-   `tileset <Map> --list --behavior <NAME>`. Keep each building's door on the
-   tile where Platinum has its door warp.
+   `tileset <Map> --list --behavior <NAME>` (always filter `--list`:
+   unfiltered, it prints every metatile, about 15k tokens). Keep each
+   building's door on the tile where Platinum has its door warp.
 5. **Preview, then build.** Run `build <file> --dry-run --render build/mapkit/preview.png`
    and look at the PNG. Then run `build <file>`, which writes map.bin and
    resizes layouts.json when the size changes.
-6. **Score.** Run `compare <Map> <HEADER> --origin auto --render build/mapkit/cmp.png`.
+6. **Score.** Run `compare <Map> <HEADER> --origin auto -q --render build/mapkit/cmp.png`
+   and look at the PNG. Drop `-q` only when you need the mismatch list, and
+   pass a fixed `--origin X,Y` after the first run.
    Fix red areas that aren't deliberate, and add any Platinum warps it lists
    as missing.
 7. **Events.** Move warps, NPCs, signs and triggers in map.json to the
@@ -54,6 +63,24 @@ guessed from screenshots. It needs Pillow
    the strip of a neighbour that's on screen is drawn with the current map's
    tilesets, so near shared edges use primary-tileset metatiles (ids below
    0x800) unless both maps share a secondary tileset.
+
+## Keeping output small
+
+mapkit's text grids cost a lot of tokens: two punctuation characters per
+tile, and every copy stays in the conversation for the rest of the session.
+
+- Prefer PNGs to text grids for looking at a whole map. Use text grids
+  (`dump`, `extract`, `platinum show`) with `--region` around the area being
+  edited.
+- To change a blueprint, Read only the rows being changed (`offset` and
+  `limit`), Edit them, then rebuild. Check the edit with a render rather
+  than by re-reading the file.
+- Don't re-run `info`, `platinum show` or `buildings --render` for something
+  already read in this session unless it changed.
+- Pipe long listings through `head` or `grep` rather than printing them
+  whole.
+- For a large map, finish the layout (steps 1-6) and commit before moving
+  events, so the events work can start in a fresh session.
 
 ## Rules that keep biting
 
