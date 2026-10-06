@@ -1,5 +1,4 @@
-@ Route 219 (Sandgem Beach), south of Sandgem Town. Drawn over Emerald's
-@ Route 102.
+@ Route 219 (Sandgem Beach), south of Sandgem Town, laid out as in Platinum.
 Route219_MapScripts::
 	.byte 0
 
