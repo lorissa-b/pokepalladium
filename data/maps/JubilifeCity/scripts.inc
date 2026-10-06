@@ -1,11 +1,20 @@
-@ Jubilife City, north of Route 202. Drawn over Emerald's Rustboro City.
+@ Jubilife City, north of Route 202, laid out as in Platinum.
 JubilifeCity_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, JubilifeCity_OnTransition
 	.byte 0
 
 JubilifeCity_OnTransition:
 	setflag FLAG_VISITED_JUBILIFE_CITY
+	call Common_EventScript_SetupAssistantGfxId
+	call_if_eq VAR_JUBILIFE_LOOKER_STATE, 0, JubilifeCity_EventScript_SetLookerFirstArrivalPos
 	end
+
+@ Before the player first arrives, Looker is snooping around north of the
+@ Pokémon Center; afterwards he keeps watch by the Route 203 exit at 58, 20
+JubilifeCity_EventScript_SetLookerFirstArrivalPos::
+	setobjectxyperm LOCALID_JUBILIFE_LOOKER, 49, 38
+	setobjectmovementtype LOCALID_JUBILIFE_LOOKER, MOVEMENT_TYPE_FACE_DOWN
+	return
 
 JubilifeCity_EventScript_FatMan::
 	lock
@@ -122,6 +131,10 @@ JubilifeCity_EventScript_PoketchMan::
 	waitmessage
 	setflag FLAG_SYS_POKENAV_GET
 	setflag FLAG_RECEIVED_POKENAV
+	@ With the POKéTCH, Looker stops keeping watch by the Route 203 exit
+	setvar VAR_JUBILIFE_LOOKER_STATE, 2
+	removeobject LOCALID_JUBILIFE_LOOKER
+	setflag FLAG_HIDE_JUBILIFE_CITY_LOOKER
 	msgbox JubilifeCity_Text_ExplainPoketch, MSGBOX_DEFAULT
 	release
 	end
@@ -307,7 +320,7 @@ JubilifeCity_Text_FindTheClowns:
 	.string "Three clowns are hiding in JUBILIFE.\p"
 	.string "One is by the POKéMON CENTER, one\n"
 	.string "is by JUBILIFE TV, and one is by\l"
-	.string "the fountains to the southwest.\p"
+	.string "the POKéTCH COMPANY.\p"
 	.string "Answer each clown's quiz to get\n"
 	.string "a TICKET from them.\p"
 	.string "Bring me all three TICKETS, and the\n"
@@ -376,3 +389,745 @@ JubilifeCity_Text_ClownComeBack:
 JubilifeCity_Text_ClownAlreadyGaveTicket:
 	.string "You already got my TICKET!\n"
 	.string "Have you found the other clowns?$"
+
+@ ---- First arrival (Platinum's scene, without Looker's Vs. Recorder) ----
+@ Stepping north out of the Route 202 corridor (x 45-48, y 60). Birch's assistant
+@ comes down the road, asks about the player's POKéMON and leads them north to
+@ the Trainers' School. On the way they run into Looker, who introduces himself
+@ and heads off to keep watch by the Route 203 exit.
+JubilifeCity_EventScript_FirstArrival45::
+	lockall
+	setvar VAR_0x8008, 45
+	setobjectxyperm LOCALID_JUBILIFE_ASSISTANT, 45, 52
+	goto JubilifeCity_EventScript_FirstArrival
+	end
+
+JubilifeCity_EventScript_FirstArrival46::
+	lockall
+	setvar VAR_0x8008, 46
+	setobjectxyperm LOCALID_JUBILIFE_ASSISTANT, 46, 52
+	goto JubilifeCity_EventScript_FirstArrival
+	end
+
+JubilifeCity_EventScript_FirstArrival47::
+	lockall
+	setvar VAR_0x8008, 47
+	setobjectxyperm LOCALID_JUBILIFE_ASSISTANT, 47, 52
+	goto JubilifeCity_EventScript_FirstArrival
+	end
+
+JubilifeCity_EventScript_FirstArrival48::
+	lockall
+	setvar VAR_0x8008, 48
+	setobjectxyperm LOCALID_JUBILIFE_ASSISTANT, 48, 52
+	goto JubilifeCity_EventScript_FirstArrival
+	end
+
+JubilifeCity_EventScript_FirstArrival::
+	clearflag FLAG_HIDE_JUBILIFE_CITY_ASSISTANT
+	addobject LOCALID_JUBILIFE_ASSISTANT
+	applywaitmovement LOCALID_JUBILIFE_ASSISTANT, JubilifeCity_Movement_AssistantNoticePlayer
+	applywaitmovement LOCALID_JUBILIFE_ASSISTANT, JubilifeCity_Movement_AssistantWalkToPlayer
+	msgbox JubilifeCity_Text_AssistantAreYouCatchingPokemon, MSGBOX_DEFAULT
+	getpartysize
+	buffernumberstring STR_VAR_1, VAR_RESULT
+	call_if_ge VAR_RESULT, 4, JubilifeCity_EventScript_AssistantAtLeastFourPokemon
+	call_if_lt VAR_RESULT, 4, JubilifeCity_EventScript_AssistantLessThanFourPokemon
+	msgbox JubilifeCity_Text_AssistantFollowMe, MSGBOX_DEFAULT
+	closemessage
+	call_if_eq VAR_0x8008, 45, JubilifeCity_EventScript_WalkNorth45
+	call_if_eq VAR_0x8008, 46, JubilifeCity_EventScript_WalkNorth46
+	call_if_eq VAR_0x8008, 47, JubilifeCity_EventScript_WalkNorth47
+	call_if_eq VAR_0x8008, 48, JubilifeCity_EventScript_WalkNorth48
+	msgbox JubilifeCity_Text_AssistantWhatIsHeDoing, MSGBOX_DEFAULT
+	closemessage
+	applywaitmovement LOCALID_JUBILIFE_LOOKER, JubilifeCity_Movement_LookerWalkAround
+	applymovement LOCALID_JUBILIFE_LOOKER, JubilifeCity_Movement_LookerWalkEast
+	applymovement LOCALID_JUBILIFE_ASSISTANT, JubilifeCity_Movement_AssistantWalkToLooker
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerWalkToLooker
+	waitmovement 0
+	msgbox JubilifeCity_Text_AssistantUm, MSGBOX_DEFAULT
+	applywaitmovement LOCALID_JUBILIFE_LOOKER, JubilifeCity_Movement_LookerNoticePlayer
+	playbgm MUS_ENCOUNTER_SUSPICIOUS, FALSE
+	msgbox JubilifeCity_Text_LookerWhaaat, MSGBOX_DEFAULT
+	msgbox JubilifeCity_Text_LookerHowDidYouUnmaskMe, MSGBOX_DEFAULT
+	closemessage
+	applywaitmovement LOCALID_JUBILIFE_ASSISTANT, Common_Movement_WalkInPlaceFasterUp
+	msgbox JubilifeCity_Text_AssistantJustMakingConversation, MSGBOX_DEFAULT
+	msgbox JubilifeCity_Text_LookerIKnowBetter, MSGBOX_DEFAULT
+	msgbox JubilifeCity_Text_LookerIsSayingFamiliar, MSGBOX_YESNO
+	call_if_eq VAR_RESULT, YES, JubilifeCity_EventScript_LookerTakingFromOthersIsWrong
+	call_if_eq VAR_RESULT, NO, JubilifeCity_EventScript_LookerYouClaimToNotKnowIt
+	@ In Platinum he hands over the Vs. Recorder here; that comes later
+	msgbox JubilifeCity_Text_LookerOnTheLookout, MSGBOX_DEFAULT
+	closemessage
+	applywaitmovement LOCALID_JUBILIFE_LOOKER, JubilifeCity_Movement_LookerLookAround
+	msgbox JubilifeCity_Text_LookerInformMeOfAnyHappenings, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_JUBILIFE_ASSISTANT, JubilifeCity_Movement_WatchLookerLeave
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_WatchLookerLeave
+	applymovement LOCALID_JUBILIFE_LOOKER, JubilifeCity_Movement_LookerLeave
+	waitmovement 0
+	@ Off screen now: he takes up his post by the Route 203 exit
+	removeobject LOCALID_JUBILIFE_LOOKER
+	setobjectxyperm LOCALID_JUBILIFE_LOOKER, 58, 20
+	setobjectmovementtype LOCALID_JUBILIFE_LOOKER, MOVEMENT_TYPE_FACE_DOWN
+	addobject LOCALID_JUBILIFE_LOOKER
+	fadedefaultbgm
+	msgbox JubilifeCity_Text_AssistantPoliceMustBeHard, MSGBOX_DEFAULT
+	closemessage
+	delay 30
+	applymovement LOCALID_JUBILIFE_ASSISTANT, JubilifeCity_Movement_AssistantWalkToSchool
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerWatchAssistantWalkToSchool
+	waitmovement 0
+	msgbox JubilifeCity_Text_AssistantHereIsTheTrainersSchool, MSGBOX_DEFAULT
+	closemessage
+	applywaitmovement LOCALID_JUBILIFE_ASSISTANT, JubilifeCity_Movement_AssistantWalkBackFromSchool
+	msgbox JubilifeCity_Text_AssistantByeNow, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_JUBILIFE_ASSISTANT, JubilifeCity_Movement_AssistantLeave
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerWatchAssistantLeave
+	waitmovement 0
+	removeobject LOCALID_JUBILIFE_ASSISTANT
+	setflag FLAG_HIDE_JUBILIFE_CITY_ASSISTANT
+	setvar VAR_JUBILIFE_LOOKER_STATE, 1
+	releaseall
+	end
+
+JubilifeCity_EventScript_AssistantAtLeastFourPokemon::
+	msgbox JubilifeCity_Text_AssistantAlreadyGotXPokemon, MSGBOX_DEFAULT
+	return
+
+JubilifeCity_EventScript_AssistantLessThanFourPokemon::
+	msgbox JubilifeCity_Text_AssistantSaferIfYouCatchMore, MSGBOX_DEFAULT
+	return
+
+JubilifeCity_EventScript_LookerTakingFromOthersIsWrong::
+	msgbox JubilifeCity_Text_LookerTakingFromOthersIsWrong, MSGBOX_DEFAULT
+	return
+
+JubilifeCity_EventScript_LookerYouClaimToNotKnowIt::
+	msgbox JubilifeCity_Text_LookerYouClaimToNotKnowIt, MSGBOX_DEFAULT
+	return
+
+@ The assistant ends at 46, 41 and the player at 46, 42, below Looker at 49, 38
+JubilifeCity_EventScript_WalkNorth45::
+	applymovement LOCALID_JUBILIFE_ASSISTANT, JubilifeCity_Movement_AssistantWalkNorth45
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerWalkNorth45
+	waitmovement 0
+	return
+
+JubilifeCity_EventScript_WalkNorth46::
+	applymovement LOCALID_JUBILIFE_ASSISTANT, JubilifeCity_Movement_AssistantWalkNorth46
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerWalkNorth46
+	waitmovement 0
+	return
+
+JubilifeCity_EventScript_WalkNorth47::
+	applymovement LOCALID_JUBILIFE_ASSISTANT, JubilifeCity_Movement_AssistantWalkNorth47
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerWalkNorth47
+	waitmovement 0
+	return
+
+JubilifeCity_EventScript_WalkNorth48::
+	applymovement LOCALID_JUBILIFE_ASSISTANT, JubilifeCity_Movement_AssistantWalkNorth48
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerWalkNorth48
+	waitmovement 0
+	return
+
+JubilifeCity_Movement_AssistantWalkNorth45:
+	walk_right
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+JubilifeCity_Movement_PlayerWalkNorth45:
+	walk_up
+	walk_right
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+JubilifeCity_Movement_AssistantWalkNorth46:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+JubilifeCity_Movement_PlayerWalkNorth46:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+JubilifeCity_Movement_AssistantWalkNorth47:
+	walk_left
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+JubilifeCity_Movement_PlayerWalkNorth47:
+	walk_up
+	walk_left
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+JubilifeCity_Movement_AssistantWalkNorth48:
+	walk_left
+	walk_left
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+JubilifeCity_Movement_PlayerWalkNorth48:
+	walk_up
+	walk_left
+	walk_left
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+JubilifeCity_Movement_AssistantNoticePlayer:
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	emote_exclamation_mark
+	delay_16
+	step_end
+
+JubilifeCity_Movement_AssistantWalkToPlayer:
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+@ Looker looks around, slinks five steps west, then comes back east to 46, 38
+JubilifeCity_Movement_LookerWalkAround:
+	walk_in_place_faster_left
+	delay_8
+	delay_8
+	walk_in_place_faster_down
+	delay_8
+	walk_slow_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_in_place_faster_right
+	delay_8
+	walk_in_place_faster_up
+	delay_8
+	step_end
+
+JubilifeCity_Movement_LookerWalkEast:
+	walk_slow_right
+	walk_fast_right
+	walk_fast_right
+	step_end
+
+JubilifeCity_Movement_AssistantWalkToLooker:
+	walk_up
+	walk_up
+	step_end
+
+@ To 47, 39, beside the assistant and facing Looker
+JubilifeCity_Movement_PlayerWalkToLooker:
+	walk_up
+	walk_up
+	walk_right
+	walk_up
+	step_end
+
+JubilifeCity_Movement_LookerNoticePlayer:
+	walk_in_place_faster_down
+	emote_exclamation_mark
+	step_end
+
+JubilifeCity_Movement_LookerLookAround:
+	walk_in_place_faster_left
+	delay_8
+	walk_in_place_faster_right
+	delay_8
+	delay_8
+	walk_in_place_faster_down
+	step_end
+
+JubilifeCity_Movement_WatchLookerLeave:
+	walk_in_place_faster_right
+	delay_8
+	delay_8
+	delay_8
+	delay_8
+	walk_in_place_faster_up
+	step_end
+
+@ East to 49, 38, then north out of sight to 49, 30
+JubilifeCity_Movement_LookerLeave:
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_in_place_faster_left
+	delay_8
+	walk_slow_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	step_end
+
+@ To 44, 40, at the Trainers' School door's east side
+JubilifeCity_Movement_AssistantWalkToSchool:
+	walk_down
+	walk_left
+	walk_left
+	step_end
+
+JubilifeCity_Movement_PlayerWatchAssistantWalkToSchool:
+	delay_4
+	walk_in_place_faster_left
+	step_end
+
+JubilifeCity_Movement_AssistantWalkBackFromSchool:
+	walk_up
+	walk_right
+	walk_right
+	walk_in_place_faster_right
+	step_end
+
+JubilifeCity_Movement_AssistantLeave:
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+JubilifeCity_Movement_PlayerWatchAssistantLeave:
+	delay_8
+	walk_in_place_faster_down
+	step_end
+
+@ ---- Looker by the Route 203 exit, until the player has a POKéTCH ----
+@ Crossing x 60 (rows 21-24): Looker comes down from 58, 20, steps in beside
+@ the player, asks about the POKéTCH and walks them one step back west.
+JubilifeCity_EventScript_LookerBlock21::
+	lockall
+	setvar VAR_0x8008, 21
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerFaceLooker
+	applymovement LOCALID_JUBILIFE_LOOKER, JubilifeCity_Movement_LookerWalkToPlayer21
+	waitmovement 0
+	goto JubilifeCity_EventScript_LookerBlockPlayer
+	end
+
+JubilifeCity_EventScript_LookerBlock22::
+	lockall
+	setvar VAR_0x8008, 22
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerFaceLooker
+	applymovement LOCALID_JUBILIFE_LOOKER, JubilifeCity_Movement_LookerWalkToPlayer22
+	waitmovement 0
+	goto JubilifeCity_EventScript_LookerBlockPlayer
+	end
+
+JubilifeCity_EventScript_LookerBlock23::
+	lockall
+	setvar VAR_0x8008, 23
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerFaceLooker
+	applymovement LOCALID_JUBILIFE_LOOKER, JubilifeCity_Movement_LookerWalkToPlayer23
+	waitmovement 0
+	goto JubilifeCity_EventScript_LookerBlockPlayer
+	end
+
+JubilifeCity_EventScript_LookerBlock24::
+	lockall
+	setvar VAR_0x8008, 24
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerFaceLooker
+	applymovement LOCALID_JUBILIFE_LOOKER, JubilifeCity_Movement_LookerWalkToPlayer24
+	waitmovement 0
+	goto JubilifeCity_EventScript_LookerBlockPlayer
+	end
+
+JubilifeCity_EventScript_LookerBlockPlayer::
+	msgbox JubilifeCity_Text_LookerTellMeNoPoketch, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_JUBILIFE_LOOKER, JubilifeCity_Movement_LookerStepBackWest
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerStepWest
+	waitmovement 0
+	call_if_eq VAR_0x8008, 21, JubilifeCity_EventScript_LookerWalkBack21
+	call_if_eq VAR_0x8008, 22, JubilifeCity_EventScript_LookerWalkBack22
+	call_if_eq VAR_0x8008, 23, JubilifeCity_EventScript_LookerWalkBack23
+	call_if_eq VAR_0x8008, 24, JubilifeCity_EventScript_LookerWalkBack24
+	releaseall
+	end
+
+JubilifeCity_EventScript_LookerWalkBack21::
+	applywaitmovement LOCALID_JUBILIFE_LOOKER, JubilifeCity_Movement_LookerWalkBack21
+	return
+
+JubilifeCity_EventScript_LookerWalkBack22::
+	applywaitmovement LOCALID_JUBILIFE_LOOKER, JubilifeCity_Movement_LookerWalkBack22
+	return
+
+JubilifeCity_EventScript_LookerWalkBack23::
+	applywaitmovement LOCALID_JUBILIFE_LOOKER, JubilifeCity_Movement_LookerWalkBack23
+	return
+
+JubilifeCity_EventScript_LookerWalkBack24::
+	applywaitmovement LOCALID_JUBILIFE_LOOKER, JubilifeCity_Movement_LookerWalkBack24
+	return
+
+JubilifeCity_Movement_LookerWalkToPlayer21:
+	face_down
+	emote_exclamation_mark
+	delay_16
+	walk_down
+	walk_right
+	step_end
+
+JubilifeCity_Movement_LookerWalkBack21:
+	walk_up
+	walk_in_place_faster_down
+	step_end
+
+JubilifeCity_Movement_LookerWalkToPlayer22:
+	face_down
+	emote_exclamation_mark
+	delay_16
+	walk_down
+	walk_down
+	walk_right
+	step_end
+
+JubilifeCity_Movement_LookerWalkBack22:
+	walk_up
+	walk_up
+	walk_in_place_faster_down
+	step_end
+
+JubilifeCity_Movement_LookerWalkToPlayer23:
+	face_down
+	emote_exclamation_mark
+	delay_16
+	walk_down
+	walk_down
+	walk_down
+	walk_right
+	step_end
+
+JubilifeCity_Movement_LookerWalkBack23:
+	walk_up
+	walk_up
+	walk_up
+	walk_in_place_faster_down
+	step_end
+
+JubilifeCity_Movement_LookerWalkToPlayer24:
+	face_down
+	emote_exclamation_mark
+	delay_16
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_right
+	step_end
+
+JubilifeCity_Movement_LookerWalkBack24:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_in_place_faster_down
+	step_end
+
+JubilifeCity_Movement_PlayerFaceLooker:
+	delay_8
+	delay_8
+	delay_8
+	delay_8
+	delay_8
+	walk_in_place_faster_left
+	step_end
+
+JubilifeCity_Movement_LookerStepBackWest:
+	lock_facing_direction
+	walk_left
+	unlock_facing_direction
+	step_end
+
+JubilifeCity_Movement_PlayerStepWest:
+	walk_left
+	step_end
+
+JubilifeCity_EventScript_Looker::
+	lock
+	faceplayer
+	msgbox JubilifeCity_Text_LookerItIsYouNoPoketch, MSGBOX_DEFAULT
+	closemessage
+	applywaitmovement LOCALID_JUBILIFE_LOOKER, Common_Movement_FaceDown
+	release
+	end
+
+JubilifeCity_Text_AssistantAreYouCatchingPokemon:
+	.string "ASSISTANT: Hi, {PLAYER}!\n"
+	.string "Are you catching POKéMON?$"
+
+JubilifeCity_Text_AssistantAlreadyGotXPokemon:
+	.string "Wow! You've already got {STR_VAR_1}\n"
+	.string "POKéMON with you!\p"
+	.string "At that pace, your POKéDEX should\n"
+	.string "be full in no time at all!$"
+
+JubilifeCity_Text_AssistantSaferIfYouCatchMore:
+	.string "…Um…\p"
+	.string "I think you'd feel a lot safer if you\n"
+	.string "were to catch some more.\p"
+	.string "You know, like when you need to\n"
+	.string "travel to faraway places.$"
+
+JubilifeCity_Text_AssistantFollowMe:
+	.string "Oh, I know! Don't you think it's\n"
+	.string "better to know more about POKéMON?\p"
+	.string "Sure it is!\n"
+	.string "I know just the place.\p"
+	.string "Come on!\n"
+	.string "Don't be shy. Follow me!$"
+
+JubilifeCity_Text_AssistantWhatIsHeDoing:
+	.string "ASSISTANT: That man…\n"
+	.string "What is he doing?$"
+
+JubilifeCity_Text_AssistantUm:
+	.string "ASSISTANT: Um…$"
+
+JubilifeCity_Text_LookerWhaaat:
+	.string "WHAAAT?!$"
+
+JubilifeCity_Text_LookerHowDidYouUnmaskMe:
+	.string "MYSTERIOUS MAN: …How did you know?\p"
+	.string "How did you unmask me as a member\n"
+	.string "of the INTERNATIONAL POLICE?!$"
+
+JubilifeCity_Text_AssistantJustMakingConversation:
+	.string "ASSISTANT: Huh? What?\n"
+	.string "I beg your pardon?\p"
+	.string "I was just making conversation…$"
+
+JubilifeCity_Text_LookerIKnowBetter:
+	.string "SHADY MAN: …Heh. You claim you were\n"
+	.string "only making conversation, do you?\p"
+	.string "But I know better than to believe\n"
+	.string "that. No, no, no.\p"
+	.string "You saw right away that I was\n"
+	.string "someone extraordinary.\p"
+	.string "That is why you spoke to me, is it\n"
+	.string "not? Your power of observation is\l"
+	.string "fearsome!\p"
+	.string "Quite admirable, you are!$"
+
+JubilifeCity_Text_LookerIsSayingFamiliar:
+	.string "Now that my cover has been blown,\n"
+	.string "let me introduce myself.\p"
+	.string "I am a globe-trotting elite of the\n"
+	.string "INTERNATIONAL POLICE.\p"
+	.string "My name… Ah, no, I shall inform you\n"
+	.string "only of my code name.\p"
+	.string "My code name, it is LOOKER.\n"
+	.string "It is what they all call me.\p"
+	.string "Incidentally, is the saying, “Don't\n"
+	.string "be a thief!” familiar to you?$"
+
+JubilifeCity_Text_LookerTakingFromOthersIsWrong:
+	.string "LOOKER: Yes, that is correct.\n"
+	.string "Taking what belongs to others\l"
+	.string "is wrong.$"
+
+JubilifeCity_Text_LookerYouClaimToNotKnowIt:
+	.string "LOOKER: No? You claim to not know\n"
+	.string "it? How could that be?\p"
+	.string "Perhaps your mama has said it, but\n"
+	.string "you have forgotten it, like usual?\p"
+	.string "Now listen, my friends. It is wrong\n"
+	.string "to take what belongs to others.$"
+
+JubilifeCity_Text_LookerOnTheLookout:
+	.string "Unfortunately, there are apparently\n"
+	.string "those who do not heed those words.\p"
+	.string "In SINNOH, in fact, there are\n"
+	.string "criminals stealing the POKéMON\l"
+	.string "of others.\p"
+	.string "I have, therefore, been on the\n"
+	.string "lookout for characters arousing\l"
+	.string "my suspicion.$"
+
+JubilifeCity_Text_LookerInformMeOfAnyHappenings:
+	.string "LOOKER: Also, I have a request.\p"
+	.string "If you were to see me again, I ask\n"
+	.string "that you not talk to me, for I am\l"
+	.string "on duty.\p"
+	.string "…Actually, yes, yes, you may speak\n"
+	.string "to me. You must.\p"
+	.string "Not because I am lonely, no, no!\n"
+	.string "You must inform me of bad guys!\p"
+	.string "You must inform me of any\n"
+	.string "happenings!$"
+
+JubilifeCity_Text_AssistantPoliceMustBeHard:
+	.string "ASSISTANT: …Working for the\n"
+	.string "INTERNATIONAL POLICE must be hard.$"
+
+JubilifeCity_Text_AssistantHereIsTheTrainersSchool:
+	.string "{PLAYER}, here it is.\n"
+	.string "It's the TRAINERS' SCHOOL.\p"
+	.string "The name says it all!$"
+
+JubilifeCity_Text_AssistantByeNow:
+	.string "You can learn all kinds of things\n"
+	.string "about POKéMON in there.\p"
+	.string "OK, bye now!$"
+
+JubilifeCity_Text_LookerTellMeNoPoketch:
+	.string "LOOKER: Tell me, have you not\n"
+	.string "obtained a POKéTCH?\p"
+	.string "I believe a POKéTCH is now free in\n"
+	.string "exchange for some TICKETS?$"
+
+JubilifeCity_Text_LookerItIsYouNoPoketch:
+	.string "Ah, it is you! Have no fear.\n"
+	.string "There are no shady characters about.\p"
+	.string "Incidentally, have you not obtained\n"
+	.string "a POKéTCH?\p"
+	.string "I believe a POKéTCH is now free in\n"
+	.string "exchange for some TICKETS?$"

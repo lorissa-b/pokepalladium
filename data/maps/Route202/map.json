@@ -20,7 +20,7 @@
     },
     {
       "map": "MAP_JUBILIFE_CITY",
-      "offset": 31,
+      "offset": -32,
       "direction": "up"
     }
   ],
