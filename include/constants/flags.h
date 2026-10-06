@@ -657,7 +657,7 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_105_BIG_PEARL                 (FLAG_HIDDEN_ITEMS_START + 0x6F)
 
 #define FLAG_HIDDEN_ITEM_ROUTE_219_ZINC                      (FLAG_HIDDEN_ITEMS_START + 0x70)
-#define FLAG_HIDDEN_ITEM_ROUTE_202_STARDUST                  (FLAG_HIDDEN_ITEMS_START + 0x71)
+#define FLAG_HIDDEN_ITEM_JUBILIFE_CITY_STARDUST              (FLAG_HIDDEN_ITEMS_START + 0x71) // Platinum hides it just north of Route 202; not placed yet
 #define FLAG_TALKED_TO_ROUTE_202_ASSISTANT  0x266 // Assistant told the player to go home before the catching tutorial
 #define FLAG_UNUSED_0x267  0x267 // Unused Flag
 #define FLAG_UNUSED_0x268  0x268 // Unused Flag

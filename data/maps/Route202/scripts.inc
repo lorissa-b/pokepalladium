@@ -1,5 +1,4 @@
-@ Route 202, between Sandgem Town and Jubilife City. Drawn over Emerald's
-@ Route 103.
+@ Route 202, between Sandgem Town and Jubilife City, laid out as in Platinum.
 Route202_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, Route202_OnTransition
 	.byte 0
@@ -11,17 +10,23 @@ Route202_OnTransition:
 	call_if_eq VAR_ROUTE201_STATE, 6, Route202_EventScript_ShowAssistant
 	end
 
-@ After the POKéDEX, Prof. Birch's assistant waits in the first patch of grass
+@ After the POKéDEX, Prof. Birch's assistant waits in the tall grass by the Sandgem end
 Route202_EventScript_ShowAssistant::
 	clearflag FLAG_HIDE_ROUTE_202_ASSISTANT
 	return
 
-@ Stepping onto the route from Sandgem (x 26-29, y 23). The assistant walks
-@ over from the grass at 21, 21. As in Platinum, the player has to have gone
-@ home to see Mom after getting the POKéDEX (VAR_TWINLEAF_TOWN_STATE 4, the
-@ Town Map and Running Shoes scene); otherwise the assistant sends them back.
-@ Once they have, the assistant catches a Shinx to show how it's done, hands
-@ over five POKé BALLS and heads back toward Sandgem and the lab.
+@ Walking west across x 20 (rows 25-29) from the Sandgem end of the route. As in
+@ Platinum, the assistant waits in the tall grass at 14, 27, walks over to stand
+@ west of the player, and checks that they went home to see Mom after getting
+@ the POKéDEX (VAR_TWINLEAF_TOWN_STATE 4, the Town Map and Running Shoes scene).
+@ If not, the assistant nudges them back east and returns. Otherwise both step
+@ into the grass, the assistant catches a Shinx to show how it's done, hands over
+@ five POKé BALLS and walks off west.
+Route202_EventScript_CatchTutorial25::
+	lockall
+	setvar VAR_0x8008, 25
+	goto Route202_EventScript_CatchTutorial
+	end
 
 Route202_EventScript_CatchTutorial26::
 	lockall
@@ -48,11 +53,13 @@ Route202_EventScript_CatchTutorial29::
 	end
 
 Route202_EventScript_CatchTutorial::
+	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Common_Movement_WalkInPlaceFasterRight
 	playse SE_PIN
 	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Common_Movement_ExclamationMark
-	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Common_Movement_Delay48
+	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	msgbox Route202_Text_AssistantOverHere, MSGBOX_DEFAULT
 	closemessage
+	call_if_eq VAR_0x8008, 25, Route202_EventScript_AssistantApproach25
 	call_if_eq VAR_0x8008, 26, Route202_EventScript_AssistantApproach26
 	call_if_eq VAR_0x8008, 27, Route202_EventScript_AssistantApproach27
 	call_if_eq VAR_0x8008, 28, Route202_EventScript_AssistantApproach28
@@ -60,19 +67,20 @@ Route202_EventScript_CatchTutorial::
 	goto_if_lt VAR_TWINLEAF_TOWN_STATE, 4, Route202_EventScript_TellYourFamily
 	msgbox Route202_Text_AssistantWatchMeCatch, MSGBOX_DEFAULT
 	closemessage
+	applymovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_WalkIntoTallGrass
+	applymovement LOCALID_PLAYER, Route202_Movement_WalkIntoTallGrass
+	waitmovement 0
 	special SavePlayerParty
 	special LoadAssistantTutorialMon
 	special StartAssistantCatchTutorialBattle
 	special LoadPlayerParty
+	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Common_Movement_WalkInPlaceFasterRight
 	msgbox Route202_Text_AssistantThatsHowYouDoIt, MSGBOX_DEFAULT
 	giveitem ITEM_POKE_BALL, 5
 	call_if_eq VAR_RESULT, FALSE, Route202_EventScript_BagFullForPokeBalls
 	msgbox Route202_Text_AssistantHeadingBack, MSGBOX_DEFAULT
 	closemessage
-	call_if_eq VAR_0x8008, 26, Route202_EventScript_AssistantLeave26
-	call_if_eq VAR_0x8008, 27, Route202_EventScript_AssistantLeave27
-	call_if_eq VAR_0x8008, 28, Route202_EventScript_AssistantLeave28
-	call_if_eq VAR_0x8008, 29, Route202_EventScript_AssistantLeave29
+	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantLeave
 	removeobject LOCALID_ROUTE202_ASSISTANT
 	@ She's back at the lab from now on
 	clearflag FLAG_HIDE_BIRCHS_LAB_ASSISTANT
@@ -91,13 +99,14 @@ Route202_EventScript_GoTellYourFamily::
 	goto Route202_EventScript_SendPlayerBack
 	end
 
-@ The assistant steps down onto the trigger, nudging the player back to y 24,
-@ then returns to the grass at 21, 21
+@ The assistant steps onto the trigger, nudging the player back east to x 21,
+@ then returns to the grass at 14, 27
 Route202_EventScript_SendPlayerBack::
 	closemessage
 	applymovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantNudgePlayer
 	applymovement LOCALID_PLAYER, Route202_Movement_PlayerPushedBack
 	waitmovement 0
+	call_if_eq VAR_0x8008, 25, Route202_EventScript_AssistantReturn25
 	call_if_eq VAR_0x8008, 26, Route202_EventScript_AssistantReturn26
 	call_if_eq VAR_0x8008, 27, Route202_EventScript_AssistantReturn27
 	call_if_eq VAR_0x8008, 28, Route202_EventScript_AssistantReturn28
@@ -106,211 +115,185 @@ Route202_EventScript_SendPlayerBack::
 	releaseall
 	end
 
-Route202_EventScript_AssistantReturn26::
-	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantReturn26
-	return
-
-Route202_EventScript_AssistantReturn27::
-	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantReturn27
-	return
-
-Route202_EventScript_AssistantReturn28::
-	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantReturn28
-	return
-
-Route202_EventScript_AssistantReturn29::
-	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantReturn29
-	return
-
-Route202_Movement_AssistantNudgePlayer:
-	walk_down
-	step_end
-
-Route202_Movement_PlayerPushedBack:
-	lock_facing_direction
-	walk_down
-	unlock_facing_direction
-	step_end
-
-Route202_Movement_AssistantReturn26:
-	walk_up
-	walk_up
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	face_right
-	step_end
-
-Route202_Movement_AssistantReturn27:
-	walk_up
-	walk_up
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	face_right
-	step_end
-
-Route202_Movement_AssistantReturn28:
-	walk_up
-	walk_up
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	face_right
-	step_end
-
-Route202_Movement_AssistantReturn29:
-	walk_up
-	walk_up
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	face_right
-	step_end
-
 Route202_EventScript_BagFullForPokeBalls::
 	msgbox gText_TooBadBagIsFull, MSGBOX_DEFAULT
+	return
+
+Route202_EventScript_AssistantApproach25::
+	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantApproach25
+	return
+
+Route202_EventScript_AssistantReturn25::
+	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantReturn25
 	return
 
 Route202_EventScript_AssistantApproach26::
 	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantApproach26
 	return
 
-Route202_EventScript_AssistantLeave26::
-	applymovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantLeave26
-	applymovement LOCALID_PLAYER, Route202_Movement_PlayerWatchAssistantLeave
-	waitmovement LOCALID_ROUTE202_ASSISTANT
-	waitmovement LOCALID_PLAYER
+Route202_EventScript_AssistantReturn26::
+	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantReturn26
 	return
 
 Route202_EventScript_AssistantApproach27::
 	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantApproach27
 	return
 
-Route202_EventScript_AssistantLeave27::
-	applymovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantLeave27
-	applymovement LOCALID_PLAYER, Route202_Movement_PlayerWatchAssistantLeave
-	waitmovement LOCALID_ROUTE202_ASSISTANT
-	waitmovement LOCALID_PLAYER
+Route202_EventScript_AssistantReturn27::
+	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantReturn27
 	return
 
 Route202_EventScript_AssistantApproach28::
 	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantApproach28
 	return
 
-Route202_EventScript_AssistantLeave28::
-	applymovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantLeave28
-	applymovement LOCALID_PLAYER, Route202_Movement_PlayerWatchAssistantLeave
-	waitmovement LOCALID_ROUTE202_ASSISTANT
-	waitmovement LOCALID_PLAYER
+Route202_EventScript_AssistantReturn28::
+	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantReturn28
 	return
 
 Route202_EventScript_AssistantApproach29::
 	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantApproach29
 	return
 
-Route202_EventScript_AssistantLeave29::
-	applymovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantLeave29
-	applymovement LOCALID_PLAYER, Route202_Movement_PlayerWatchAssistantLeave
-	waitmovement LOCALID_ROUTE202_ASSISTANT
-	waitmovement LOCALID_PLAYER
+Route202_EventScript_AssistantReturn29::
+	applywaitmovement LOCALID_ROUTE202_ASSISTANT, Route202_Movement_AssistantReturn29
 	return
 
+@ From 14, 27 to 19, 25, just west of the player
+Route202_Movement_AssistantApproach25:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_up
+	walk_up
+	walk_right
+	step_end
+
+Route202_Movement_AssistantReturn25:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	walk_down
+	face_right
+	step_end
+
+@ From 14, 27 to 19, 26, just west of the player
 Route202_Movement_AssistantApproach26:
 	walk_right
 	walk_right
 	walk_right
 	walk_right
+	walk_up
 	walk_right
-	walk_down
-	walk_in_place_faster_down
 	step_end
 
+Route202_Movement_AssistantReturn26:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	face_right
+	step_end
+
+@ From 14, 27 to 19, 27, just west of the player
 Route202_Movement_AssistantApproach27:
 	walk_right
 	walk_right
 	walk_right
 	walk_right
 	walk_right
-	walk_right
-	walk_down
-	walk_in_place_faster_down
 	step_end
 
+Route202_Movement_AssistantReturn27:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	face_right
+	step_end
+
+@ From 14, 27 to 19, 28, just west of the player
 Route202_Movement_AssistantApproach28:
 	walk_right
 	walk_right
 	walk_right
 	walk_right
-	walk_right
-	walk_right
-	walk_right
 	walk_down
-	walk_in_place_faster_down
+	walk_right
 	step_end
 
+Route202_Movement_AssistantReturn28:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_up
+	face_right
+	step_end
+
+@ From 14, 27 to 19, 29, just west of the player
 Route202_Movement_AssistantApproach29:
 	walk_right
 	walk_right
 	walk_right
 	walk_right
-	walk_right
-	walk_right
-	walk_right
-	walk_right
 	walk_down
-	walk_in_place_faster_down
+	walk_down
+	walk_right
 	step_end
 
-Route202_Movement_AssistantLeave26:
-	walk_right
-	walk_down
-	walk_down
-	walk_down
-	walk_down
-	step_end
-
-Route202_Movement_AssistantLeave27:
-	walk_right
-	walk_down
-	walk_down
-	walk_down
-	walk_down
-	step_end
-
-Route202_Movement_AssistantLeave28:
+Route202_Movement_AssistantReturn29:
 	walk_left
-	walk_down
-	walk_down
-	walk_down
-	walk_down
-	step_end
-
-Route202_Movement_AssistantLeave29:
 	walk_left
-	walk_down
-	walk_down
-	walk_down
-	walk_down
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_up
+	walk_up
+	face_right
 	step_end
 
-Route202_Movement_PlayerWatchAssistantLeave:
-	delay_16
-	walk_in_place_faster_down
+Route202_Movement_AssistantNudgePlayer:
+	walk_right
+	step_end
+
+Route202_Movement_PlayerPushedBack:
+	lock_facing_direction
+	walk_right
+	unlock_facing_direction
+	step_end
+
+Route202_Movement_WalkIntoTallGrass:
+	walk_left
+	walk_left
+	step_end
+
+Route202_Movement_AssistantLeave:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
 	step_end
 
 Route202_EventScript_Natalie::

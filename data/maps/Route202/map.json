@@ -20,15 +20,15 @@
     },
     {
       "map": "MAP_JUBILIFE_CITY",
-      "offset": -30,
+      "offset": 31,
       "direction": "up"
     }
   ],
   "object_events": [
     {
       "graphics_id": "OBJ_EVENT_GFX_VAR_1",
-      "x": 21,
-      "y": 21,
+      "x": 14,
+      "y": 27,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
@@ -42,39 +42,39 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
       "x": 6,
-      "y": 12,
+      "y": 13,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NORMAL",
-      "trainer_sight_or_berry_tree_id": "3",
+      "trainer_sight_or_berry_tree_id": "5",
       "script": "Route202_EventScript_Tristan",
       "flag": "0"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_LASS",
-      "x": 22,
-      "y": 15,
+      "x": 21,
+      "y": 18,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NORMAL",
-      "trainer_sight_or_berry_tree_id": "3",
+      "trainer_sight_or_berry_tree_id": "4",
       "script": "Route202_EventScript_Natalie",
       "flag": "0"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
-      "x": 26,
+      "x": 25,
       "y": 4,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NORMAL",
-      "trainer_sight_or_berry_tree_id": "3",
+      "trainer_sight_or_berry_tree_id": "5",
       "script": "Route202_EventScript_Logan",
       "flag": "0"
     },
@@ -83,9 +83,9 @@
       "x": 2,
       "y": 6,
       "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Route202_EventScript_ItemPotion",
@@ -93,8 +93,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
-      "x": 12,
-      "y": 11,
+      "x": 9,
+      "y": 8,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_LEFT_AND_RIGHT",
       "movement_range_x": 1,
@@ -109,8 +109,17 @@
   "coord_events": [
     {
       "type": "trigger",
-      "x": 26,
-      "y": 23,
+      "x": 20,
+      "y": 25,
+      "elevation": 3,
+      "var": "VAR_ROUTE201_STATE",
+      "var_value": "6",
+      "script": "Route202_EventScript_CatchTutorial25"
+    },
+    {
+      "type": "trigger",
+      "x": 20,
+      "y": 26,
       "elevation": 3,
       "var": "VAR_ROUTE201_STATE",
       "var_value": "6",
@@ -118,8 +127,8 @@
     },
     {
       "type": "trigger",
-      "x": 27,
-      "y": 23,
+      "x": 20,
+      "y": 27,
       "elevation": 3,
       "var": "VAR_ROUTE201_STATE",
       "var_value": "6",
@@ -127,8 +136,8 @@
     },
     {
       "type": "trigger",
-      "x": 28,
-      "y": 23,
+      "x": 20,
+      "y": 28,
       "elevation": 3,
       "var": "VAR_ROUTE201_STATE",
       "var_value": "6",
@@ -136,8 +145,8 @@
     },
     {
       "type": "trigger",
-      "x": 29,
-      "y": 23,
+      "x": 20,
+      "y": 29,
       "elevation": 3,
       "var": "VAR_ROUTE201_STATE",
       "var_value": "6",
@@ -148,34 +157,26 @@
     {
       "type": "sign",
       "x": 16,
-      "y": 3,
+      "y": 4,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Route202_EventScript_RouteSignJubilife"
     },
     {
       "type": "sign",
-      "x": 30,
-      "y": 21,
+      "x": 23,
+      "y": 25,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Route202_EventScript_RouteSignSandgem"
     },
     {
       "type": "sign",
-      "x": 16,
-      "y": 13,
+      "x": 14,
+      "y": 16,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Route202_EventScript_TrainerTips"
-    },
-    {
-      "type": "hidden_item",
-      "x": 5,
-      "y": 5,
-      "elevation": 3,
-      "item": "ITEM_STARDUST",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE_202_STARDUST"
     }
   ]
 }
