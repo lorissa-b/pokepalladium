@@ -168,8 +168,9 @@ def draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, in
           with_buildings: bool = True, make_new: bool = True, notes_to: list[str] | None = None) -> str:
     """A blockout blueprint of the Platinum map, with its events and props as comments.
 
-    With `notes_to`, the blueprint is lean: the Platinum notes go into that list
-    instead, and legend lines carry no metatile descriptions.
+    With `notes_to`, the blueprint is lean: the building placements and the
+    Platinum notes go into that list instead, and legend lines carry no
+    metatile descriptions.
     """
     x0, y0, w, h = region or (0, 0, ref.width, ref.height)
     grid = ref.grid()
@@ -212,8 +213,11 @@ def draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, in
         tiles = TilesetPair.for_layout(layout)
         out.append("# ---- Buildings: Emerald pieces where Platinum has buildings (see buildings.py) ----")
         out += [f"# {n}" for n in unplaced]
+        if notes_to is not None:
+            notes_to += ["# ---- Buildings placed (blueprint grid at each one's x, y) ----"] + [f"# {p.describe()}" for p in placements]
         for p in placements:
-            out.append(f"# {p.describe()}")
+            if notes_to is None:
+                out.append(f"# {p.describe()}")
             describe = None if notes_to is not None else lambda mid: describe_metatile(tiles, mid).split(" ", 1)[1]
             out.append(cells_text(p.cells, describe).rstrip())
         out.append("")
@@ -252,9 +256,9 @@ def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int
     """A blueprint with every block chosen, tiled by example (see autotile.py).
 
     Returns (blueprint text, blocks, tally, seams). With `notes_to`, the
-    blueprint is lean: the tile classes it was drawn from and the Platinum
-    notes go into that list instead, and legend lines carry no metatile
-    descriptions.
+    blueprint is lean: the building placements, the tile classes it was drawn
+    from and the Platinum notes go into that list instead, and legend lines
+    carry no metatile descriptions.
     """
     import autotile
     import original
@@ -305,17 +309,17 @@ def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int
         + ("" if make_new or not with_buildings else " --originals-only")
         + (" --keep-shape" if keep_shape else ""),
         "#",
-        *(["# Buildings, whole from the original maps or made from their parts (name~WxH; buildings.py, parts.py):"]
-          + [f"#   {p.describe()}" for p in placements] + [f"#   {n}" for n in unplaced]
-          if placements or unplaced else []),
-        "#",
     ]
+    placed = (["# Buildings, whole from the original maps or made from their parts (name~WxH; buildings.py, parts.py):"]
+              + [f"#   {p.describe()}" for p in placements] if placements else [])
     classes = ["# Tile classes it was drawn from (with the buildings in):", *[f"#   {r.rstrip()}" for r in tiled]]
     if notes_to is not None:
-        notes_to += classes + notes(ref, (x0, y0, w, h))
-        head.append("# Tile classes and Platinum's events are in the notes file next to this one.")
+        notes_to += placed + classes + notes(ref, (x0, y0, w, h))
+        head += [f"#   {n}" for n in unplaced]
+        head.append(f"# {len(placements)} building(s) placed; the list, the tile classes and Platinum's events are in"
+                    " the notes file next to this one.")
     else:
-        head += classes
+        head += placed + [f"#   {n}" for n in unplaced] + (["#"] if placements or unplaced else []) + classes
     head += [
         "",
         f"layout {layout['id']}",

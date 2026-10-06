@@ -37,9 +37,10 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
    with its door on Platinum's door (see [Buildings](#buildings)).
    Platinum's events, buildings and props are listed at the bottom as
    comments, in the draft's coordinates. `--region X,Y,W,H` takes part of the Platinum map, for a
-   replica smaller than the original. `--lean` writes those notes to
-   `jubilife.notes` next to the blueprint instead, and leaves the metatile
-   descriptions off the legend lines, so the blueprint is smaller to read.
+   replica smaller than the original. `--lean` writes those notes, and the list of
+   placed buildings, to `jubilife.notes` next to the blueprint instead, and
+   leaves the metatile descriptions off the legend lines, so the blueprint is
+   smaller to read.
 
    ```sh
    tools/mapkit/mapkit.py draft JUBILIFE_CITY LAYOUT_JUBILIFE_CITY -o jubilife.bp
