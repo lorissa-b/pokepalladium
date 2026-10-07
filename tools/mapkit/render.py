@@ -246,17 +246,25 @@ def pieces_sheet(pieces, tiles: TilesetPair, scale: int = 2, columns: int = 6) -
     return img
 
 
-def side_by_side(*images: Image.Image, gap: int = 8, titles: list[str] | None = None) -> Image.Image:
-    """Images next to each other, top-aligned, with optional titles above."""
+def side_by_side(*images: Image.Image, gap: int = 8, titles: list[str] | None = None,
+                 vertical: bool = False) -> Image.Image:
+    """Images next to each other, top-aligned (or stacked, left-aligned), with optional titles above."""
     head = 18 if titles else 0
-    w = sum(i.width for i in images) + gap * (len(images) - 1)
-    h = max(i.height for i in images) + head
+    if vertical:
+        w = max(i.width for i in images)
+        h = sum(i.height + head for i in images) + gap * (len(images) - 1)
+    else:
+        w = sum(i.width for i in images) + gap * (len(images) - 1)
+        h = max(i.height for i in images) + head
     out = Image.new("RGB", (w, h), (24, 24, 24))
     d = drawer(out)
-    x = 0
+    x = y = 0
     for n, im in enumerate(images):
-        out.paste(im, (x, head))
+        out.paste(im, (x, y + head))
         if titles:
-            text(d, (x + 2, 2), titles[n], size=12)
-        x += im.width + gap
+            text(d, (x + 2, y + 2), titles[n], size=12)
+        if vertical:
+            y += head + im.height + gap
+        else:
+            x += im.width + gap
     return out

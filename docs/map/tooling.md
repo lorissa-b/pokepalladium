@@ -47,8 +47,9 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
    `--render out.png --events` to preview it with Platinum's events marked.
 
 3. **Find the pieces.** `tileset` draws every metatile the layout can use,
-   labelled with its id; `--list` prints ids with their behaviour, label and
-   usual collision/elevation. `extract` copies a region of any existing map as
+   labelled with its id; `--list --behavior NAME` prints the matching ids with
+   their behaviour, label and usual collision/elevation (`--all` for every
+   metatile). `extract` copies a region of any existing map as
    a blueprint, ready to paste in, and `render --grid` shows where things are.
 
    ```sh
@@ -74,7 +75,9 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
    (`--origin auto` finds the best offset), marks every tile where movement
    differs, and lists Platinum warps with no warp nearby. `--render` tints the
    differences red on the Emerald map, outlines Platinum's events and props,
-   and puts the Platinum map, cropped to the same area, alongside.
+   and puts the Platinum map, cropped to the same area, below it (beside it
+   for a map taller than it is wide). `-q` prints only the score and missing
+   warps.
 
    ```sh
    tools/mapkit/mapkit.py compare JubilifeCity JUBILIFE_CITY --origin auto --render build/mapkit/jubilife_vs.png
@@ -90,7 +93,7 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
 | `info MAP` | Layout, size, tilesets, connections, and every event with the behaviour of the tile under each warp. |
 | `dump MAP` | The layout as text. `--layer metatile\|collision\|elevation\|behavior\|block`, or `--classes` for the same tile classes the Platinum commands use. `--region X,Y,W,H`. |
 | `render MAP` | PNG of the map. `--grid` (coordinates every 4 tiles), `--events`, `--collision`, `--elevation`, `--region`, `--scale`. |
-| `tileset MAP` or `tileset PRIMARY SECONDARY` | Metatile catalog PNG, or `--list` as text. `--only primary\|secondary`, `--behavior NAME`, `--materials`. |
+| `tileset MAP` or `tileset PRIMARY SECONDARY` | Metatile catalog PNG, or `--list` as text (needs `--behavior NAME` or `--all`). `--only primary\|secondary`, `--behavior NAME`, `--materials`. |
 | `materials status` | How many metatiles of each tileset are labelled. |
 | `materials suggest TILESET...` | Draft labels and review sheets for tilesets. `--guesses-only`. |
 | `buildings LAYOUT` | Emerald buildings that draw with the layout's tilesets: name, size, kind, doors. `--kind`, `--render PNG`, `--piece NAME [--at X,Y]` prints one as a blueprint grid, `--piece NAME --size WxH [--doors 1,5]` makes a new one from its parts. |
@@ -153,7 +156,7 @@ a short blueprint can patch an existing map.
 `METATILE_` prefix). Add `/cN` and `/eN` to set collision and elevation:
 `0x00E/c1/e3`. Without them, a metatile gets the collision and elevation it
 most often has in the existing layouts, so trees come out impassable, doors
-get their collision bit and water sits at elevation 1. `tileset --list` shows
+get their collision bit and water sits at elevation 1. `tileset --list --behavior NAME` shows
 what that will be for each metatile.
 
 **Patterns.** `[A B; C D]` repeats a block of metatiles, picked by the map

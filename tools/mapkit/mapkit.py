@@ -175,6 +175,8 @@ def cmd_tileset(a) -> None:
         want = a.behavior.upper()
         ids = [i for i in ids if want in behaviors().get(tiles.behavior(i), "")]
     if a.list:
+        if not (a.behavior or a.all):
+            raise SystemExit(f"error: --list would print all {len(ids)} metatiles; narrow it with --behavior NAME, or pass --all")
         defaults = blueprint.usage_defaults()
         for i in ids:
             ts = tiles.primary if i < c.metatiles_in_primary else tiles.secondary
@@ -464,7 +466,9 @@ def cmd_compare(a) -> None:
         render.overlay_reference(refimg, ref, ts, origin)
         render.overlay_grid(refimg, layout["width"], layout["height"], ts, origin)
         title = f"{layout['id']} (red: movement differs)"
-        save(render.side_by_side(img, refimg, titles=[title, f"{ref.header} from {ox},{oy}"]), a.render)
+        # Wide maps stack the panels so the PNG stays near square and isn't shrunk when viewed.
+        save(render.side_by_side(img, refimg, titles=[title, f"{ref.header} from {ox},{oy}"],
+                                 vertical=img.width > img.height), a.render)
     if not a.quiet:
         print_ruled(result["grid"], 0, 0, 1)
         print("\n  'X' = movement differs from Platinum; blank = outside the reference\n")
@@ -510,7 +514,8 @@ def main(argv=None) -> None:
     s.add_argument("target", help="a map/layout, or a primary tileset symbol (with SECONDARY)")
     s.add_argument("secondary", nargs="?", help="secondary tileset symbol, e.g. gTileset_Rustboro")
     s.add_argument("-o", "--output")
-    s.add_argument("--list", action="store_true", help="print ids, behaviours, labels and usual collision/elevation")
+    s.add_argument("--list", action="store_true", help="print ids, behaviours, labels and usual collision/elevation (needs --behavior or --all)")
+    s.add_argument("--all", action="store_true", help="with --list, print every metatile instead of filtering by --behavior")
     s.add_argument("--only", choices=["primary", "secondary"])
     s.add_argument("--materials", action="store_true", help="write each metatile's materials under it")
     s.add_argument("--behavior", help="only metatiles whose MB_* name contains this")
