@@ -59,6 +59,11 @@ tilesets. Run `tools/mapkit/mapkit.py check <map>` after changing a map.
 
 ## Conventions
 
+- Hoenn data only needs keeping where removing it would stop the game
+  compiling. It doesn't need to stay reachable or working in-game, since it's
+  all being replaced, so Hoenn maps, scripts, events, trainers, text and flags
+  can be overwritten or deleted freely.
+
 - Name maps by their `MAP_*` constant when precision matters, and by their
   in-game name otherwise.
 - Give encounter rates as the percentages produced by the slot weights in
