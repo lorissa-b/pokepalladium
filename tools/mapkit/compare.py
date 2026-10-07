@@ -72,6 +72,35 @@ def emerald_grid(layout: dict) -> list[str]:
     return ["".join(emerald_symbol(tiles, blocks.get(x, y)) for x in range(blocks.width)) for y in range(blocks.height)]
 
 
+def mismatch_areas(mismatches: list[tuple[int, int, str, str]]) -> list[dict]:
+    """Mismatched tiles grouped into touching areas (diagonals count), largest first.
+
+    Each area has its tile `count`, bounding `box` (x, y, w, h) and the most
+    common (here, Platinum) class pair as `most`.
+    """
+    left = {(x, y): (e, r) for x, y, e, r in mismatches}
+    areas = []
+    while left:
+        start = next(iter(left))
+        stack, cells = [start], {start: left.pop(start)}
+        while stack:
+            x, y = stack.pop()
+            for dx in (-1, 0, 1):
+                for dy in (-1, 0, 1):
+                    n = (x + dx, y + dy)
+                    if n in left:
+                        cells[n] = left.pop(n)
+                        stack.append(n)
+        xs = [x for x, _ in cells]
+        ys = [y for _, y in cells]
+        areas.append({
+            "count": len(cells),
+            "box": (min(xs), min(ys), max(xs) - min(xs) + 1, max(ys) - min(ys) + 1),
+            "most": Counter(cells.values()).most_common(1)[0][0],
+        })
+    return sorted(areas, key=lambda a: (-a["count"], a["box"][1], a["box"][0]))
+
+
 def compare(layout: dict, ref: platinum.Reference, origin: tuple[int, int] = (0, 0)) -> dict:
     """Tile-by-tile comparison. origin = reference tile shown at the layout's (0, 0)."""
     egrid = emerald_grid(layout)
@@ -165,7 +194,13 @@ DRAFT_LEGENDS = {
 
 
 def draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, int] | None = None,
-          with_buildings: bool = True, make_new: bool = True) -> str:
+          with_buildings: bool = True, make_new: bool = True, notes_to: list[str] | None = None) -> str:
+    """A blockout blueprint of the Platinum map, with its events and props as comments.
+
+    With `notes_to`, the blueprint is lean: the building placements and the
+    Platinum notes go into that list instead, and legend lines carry no
+    metatile descriptions.
+    """
     x0, y0, w, h = region or (0, 0, ref.width, ref.height)
     grid = ref.grid()
     rows = [grid[y][x0 : x0 + w] if 0 <= y < ref.height else "" for y in range(y0, y0 + h)]
@@ -201,17 +236,29 @@ def draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, in
     out.append("end")
     out.append("")
     if placements or unplaced:
-        from blueprint import cells_text
+        from blueprint import cells_text, shared_legend
         from render import describe_metatile
 
         tiles = TilesetPair.for_layout(layout)
         out.append("# ---- Buildings: Emerald pieces where Platinum has buildings (see buildings.py) ----")
         out += [f"# {n}" for n in unplaced]
+        key_of = None
+        if notes_to is not None:
+            notes_to += ["# ---- Buildings placed (blueprint grid at each one's x, y) ----"] + [f"# {p.describe()}" for p in placements]
+            if placements:
+                key_of, legend = shared_legend([p.cells for p in placements], layout=layout)
+                out.append(legend.rstrip())
         for p in placements:
-            out.append(f"# {p.describe()}")
-            out.append(cells_text(p.cells, lambda mid: describe_metatile(tiles, mid).split(" ", 1)[1]).rstrip())
+            if notes_to is None:
+                out.append(f"# {p.describe()}")
+                out.append(cells_text(p.cells, lambda mid: describe_metatile(tiles, mid).split(" ", 1)[1]).rstrip())
+            else:
+                out.append(cells_text(p.cells, key_of=key_of).rstrip())
         out.append("")
-    out += notes(ref, (x0, y0, w, h))
+    if notes_to is not None:
+        notes_to += notes(ref, (x0, y0, w, h))
+    else:
+        out += notes(ref, (x0, y0, w, h))
     return "\n".join(out) + "\n"
 
 
@@ -239,10 +286,13 @@ def path_look(ref: platinum.Reference, region: tuple[int, int, int, int]) -> str
 def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int, int, int] | None = None,
                    style: str = "route", trees: str | None = "dense", water: str | None = "sea",
                    with_buildings: bool = True, make_new: bool = True, keep_shape: bool = False,
-                   path: str | None = "auto"):
+                   path: str | None = "auto", notes_to: list[str] | None = None):
     """A blueprint with every block chosen, tiled by example (see autotile.py).
 
-    Returns (blueprint text, blocks, tally, seams).
+    Returns (blueprint text, blocks, tally, seams). With `notes_to`, the
+    blueprint is lean: the building placements, the tile classes it was drawn
+    from and the Platinum notes go into that list instead, and legend lines
+    carry no metatile descriptions.
     """
     import autotile
     import original
@@ -293,20 +343,29 @@ def finished_draft(ref: platinum.Reference, layout: dict, region: tuple[int, int
         + ("" if make_new or not with_buildings else " --originals-only")
         + (" --keep-shape" if keep_shape else ""),
         "#",
-        *(["# Buildings, whole from the original maps or made from their parts (name~WxH; buildings.py, parts.py):"]
-          + [f"#   {p.describe()}" for p in placements] + [f"#   {n}" for n in unplaced]
-          if placements or unplaced else []),
-        "#",
-        "# Tile classes it was drawn from (with the buildings in):",
-        *[f"#   {r.rstrip()}" for r in tiled],
+    ]
+    placed = (["# Buildings, whole from the original maps or made from their parts (name~WxH; buildings.py, parts.py):"]
+              + [f"#   {p.describe()}" for p in placements] if placements else [])
+    classes = ["# Tile classes it was drawn from (with the buildings in):", *[f"#   {r.rstrip()}" for r in tiled]]
+    if notes_to is not None:
+        notes_to += placed + classes + notes(ref, (x0, y0, w, h))
+        head += [f"#   {n}" for n in unplaced]
+        head.append(f"# {len(placements)} building(s) placed; the list, the tile classes and Platinum's events are in"
+                    " the notes file next to this one.")
+    else:
+        head += placed + [f"#   {n}" for n in unplaced] + (["#"] if placements or unplaced else []) + classes
+    head += [
         "",
         f"layout {layout['id']}",
         f"size {w} {h}",
         "base none",
         "",
     ]
-    body = blocks_text(blocks, (0, 0), lambda mid: describe_metatile(tiles, mid).split(" ", 1)[1])
-    text = "\n".join(head) + "\n" + body + "\n" + "\n".join(notes(ref, (x0, y0, w, h))) + "\n"
+    describe = None if notes_to is not None else lambda mid: describe_metatile(tiles, mid).split(" ", 1)[1]
+    body = blocks_text(blocks, (0, 0), describe, layout if notes_to is not None else None)
+    text = "\n".join(head) + "\n" + body + "\n"
+    if notes_to is None:
+        text += "\n".join(notes(ref, (x0, y0, w, h))) + "\n"
     return text, blocks, tally, seams
 
 
@@ -374,14 +433,20 @@ def _flexible(ref: platinum.Reference, grid: list[str], region, placements):
     return flexible, barriers
 
 
-def notes(ref: platinum.Reference, region: tuple[int, int, int, int]) -> list[str]:
-    """Platinum's events and props in the draft's coordinates, as comments."""
-    x0, y0, w, h = region
+def notes(ref: platinum.Reference, region: tuple[int, int, int, int], relative: bool = True) -> list[str]:
+    """Platinum's events and props inside the region, as comments.
+
+    Coordinates are relative to the region's top-left (the draft's), or
+    Platinum's own with `relative=False`.
+    """
+    rx, ry, w, h = region
 
     def inside(x, y):
-        return 0 <= x - x0 < w and 0 <= y - y0 < h
+        return 0 <= x - rx < w and 0 <= y - ry < h
 
-    out = ["# ---- Platinum events (x, y in this layout) ----"]
+    x0, y0 = (rx, ry) if relative else (0, 0)
+
+    out = ["# ---- Platinum events (x, y" + (" in this layout" if relative else "") + ") ----"]
     for i, e in enumerate(ref.warps):
         if inside(e["x"], e["y"]):
             out.append(f"# warp {i}: ({e['x'] - x0},{e['y'] - y0}) -> {e.get('dest_header_id')} warp {e.get('dest_warp_id')}")

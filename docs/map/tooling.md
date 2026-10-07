@@ -35,9 +35,14 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
    become trees, tall grass, water and ledges become their Emerald
    equivalents, and every Platinum building gets a whole Emerald building
    with its door on Platinum's door (see [Buildings](#buildings)).
-   Platinum's events, buildings and props are listed at the bottom as
-   comments, in the draft's coordinates. `--region X,Y,W,H` takes part of the Platinum map, for a
-   replica smaller than the original.
+   Platinum's events, buildings and props, in the draft's coordinates, and
+   the list of placed buildings go to `jubilife.notes` next to the
+   blueprint (or `build/mapkit/<header>.notes` without `-o`). Legend lines
+   leave out collision and elevation where they're the defaults, and the
+   buildings share one legend, so the blueprint stays small to read.
+   `--full` keeps the old form instead: notes as comments in the blueprint
+   and every legend line described. `--region X,Y,W,H` takes part of the
+   Platinum map, for a replica smaller than the original.
 
    ```sh
    tools/mapkit/mapkit.py draft JUBILIFE_CITY LAYOUT_JUBILIFE_CITY -o jubilife.bp
@@ -55,13 +60,15 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
    ```sh
    tools/mapkit/mapkit.py tileset JubilifeCity
    tools/mapkit/mapkit.py tileset JubilifeCity --list --behavior DOOR
+   tools/mapkit/mapkit.py tileset JubilifeCity --list --material grass
    tools/mapkit/mapkit.py render PetalburgCity --grid --events
    tools/mapkit/mapkit.py extract PetalburgCity --region 14,3,6,5
    ```
 
 4. **Edit and build.** Swap any building you'd rather have another way
    (`buildings LAYOUT` lists what fits, `--piece NAME --at X,Y` prints one to
-   paste), or `stamp` and `extract` pieces of other maps, then build. `build` writes
+   paste), or `stamp` and `extract` pieces of other maps, then build. `build` says
+   how many blocks change from the current `map.bin` and where, writes
    the layout's `map.bin`, resizes it in `layouts.json` if the blueprint says
    so, and runs `check` on the result. `--dry-run --render out.png` previews
    without writing.
@@ -72,12 +79,16 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
    ```
 
 5. **Score it.** `compare` lines the replica up with the original
-   (`--origin auto` finds the best offset), marks every tile where movement
-   differs, and lists Platinum warps with no warp nearby. `--render` tints the
+   (`--origin auto` finds the best offset), lists the areas where movement
+   differs (touching tiles grouped, largest first, the first 10; `--limit`,
+   or `--tiles` to list tiles one by one) and Platinum warps with no warp
+   nearby, and prints the score. `--grid` also prints the whole map as text
+   with the differences marked, and `-q` leaves out the list of areas.
+   `--render` tints the
    differences red on the Emerald map, outlines Platinum's events and props,
    and puts the Platinum map, cropped to the same area, below it (beside it
-   for a map taller than it is wide). `-q` prints only the score and missing
-   warps.
+   for a map taller than it is wide); `--region X,Y,W,H` draws only that part
+   of both, to look at one area up close.
 
    ```sh
    tools/mapkit/mapkit.py compare JubilifeCity JUBILIFE_CITY --origin auto --render build/mapkit/jubilife_vs.png
@@ -90,21 +101,21 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
 
 | Command | What it does |
 | --- | --- |
-| `info MAP` | Layout, size, tilesets, connections, and every event with the behaviour of the tile under each warp. |
+| `info MAP` | Layout, size, tilesets, connections, the warps with the behaviour of the tile under each, and how many other events there are. `--all` lists every event. |
 | `dump MAP` | The layout as text. `--layer metatile\|collision\|elevation\|behavior\|block`, or `--classes` for the same tile classes the Platinum commands use. `--region X,Y,W,H`. |
 | `render MAP` | PNG of the map. `--grid` (coordinates every 4 tiles), `--events`, `--collision`, `--elevation`, `--region`, `--scale`. |
-| `tileset MAP` or `tileset PRIMARY SECONDARY` | Metatile catalog PNG, or `--list` as text (needs `--behavior NAME` or `--all`). `--only primary\|secondary`, `--behavior NAME`, `--materials`. |
+| `tileset MAP` or `tileset PRIMARY SECONDARY` | Metatile catalog PNG, or `--list` as text (needs `--behavior NAME`, `--material NAME` or `--all`). `--only primary\|secondary`, `--behavior NAME`, `--material NAME`, `--materials`. |
 | `materials status` | How many metatiles of each tileset are labelled. |
 | `materials suggest TILESET...` | Draft labels and review sheets for tilesets. `--guesses-only`. |
 | `buildings LAYOUT` | Emerald buildings that draw with the layout's tilesets: name, size, kind, doors. `--kind`, `--render PNG`, `--piece NAME [--at X,Y]` prints one as a blueprint grid, `--piece NAME --size WxH [--doors 1,5]` makes a new one from its parts. |
 | `extract MAP` | A region as a blueprint that rebuilds it exactly. `--standalone` adds the header so it builds on its own. |
-| `build FILE` | Build a blueprint into its layout's `map.bin`, then check it. `--dry-run`, `--render PNG`. |
+| `build FILE` | Build a blueprint into its layout's `map.bin`, then check it. Says how many blocks change and where. `--dry-run`, `--render PNG`. |
 | `check [MAP...]` | Check layouts and maps (all of them by default). `-w` adds warnings. Exits non-zero on errors. |
 | `platinum list [QUERY]` | Search Platinum's map headers. |
-| `platinum show HEADER[+HEADER...]` | The Platinum map as text, with events and props. `--events`, `--region`, `--ground` (what the ground is painted with, see [Paths](#paths-and-the-ground-model)), `--render [PNG]`, `--json FILE`. |
+| `platinum show HEADER[+HEADER...]` | The Platinum map as text, with events and props (only those inside `--region`, when given). `--events`, `--region`, `--ground` (what the ground is painted with, see [Paths](#paths-and-the-ground-model)), `--render [PNG]`, `--json FILE`. |
 | `platinum update` | Move the cached pokeplatinum checkout to its latest commit. |
-| `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map, with its buildings placed. `--region X,Y,W,H`, `--finish [--style --trees --water --path --keep-shape]`, `--solid-unreachable`, `--no-buildings`, `--originals-only`, `--render PNG [--events --grid --seams]`. |
-| `compare MAP HEADER` | Score a map against the Platinum original. `--origin X,Y\|auto`, `--solid-unreachable`, `--render PNG`, `-q`. |
+| `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map, with its buildings placed. `--region X,Y,W,H`, `--finish [--style --trees --water --path --keep-shape]`, `--solid-unreachable`, `--no-buildings`, `--originals-only`, `--full` (notes as comments in the blueprint, not a `.notes` file), `--render PNG [--events --grid --seams]`. |
+| `compare MAP HEADER` | Score a map against the Platinum original. `--origin X,Y\|auto`, `--solid-unreachable`, `--render PNG [--region X,Y,W,H]`, `--limit N`, `--tiles`, `--grid` (the map as text), `-q` (score and missing warps only). |
 
 ### Tile classes
 
