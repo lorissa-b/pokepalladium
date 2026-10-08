@@ -1,5 +1,6 @@
-@ Oreburgh Mine B1F, after Platinum's, on Emerald's cave tileset.
-@ The way in from Oreburgh City is at the top and a ladder leads down to B2F.
+@ Oreburgh Mine B1F, after Platinum's (x - 2), on Emerald's cave tileset.
+@ The cave tileset has no north exits, so the way up to Oreburgh City is a
+@ ladder at the top, and another ladder leads down to B2F.
 @ Platinum's philosophy student (the Flame Plate, after the Arceus event)
 @ isn't added.
 OreburghMine_B1F_MapScripts::
