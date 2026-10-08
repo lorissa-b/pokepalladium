@@ -1,12 +1,35 @@
 @ Oreburgh City, east of Oreburgh Gate, laid out as in Platinum. Platinum's
-@ arrival scene (the Youngster leading the player to the Gym, and Barry) and
-@ its Machops and vents aren't here yet.
+@ arrival scene (the Youngster leading the player to the Gym) and its Machops
+@ and vents aren't here yet.
+@ The Gym is closed until Roark has been met in Oreburgh Mine: the rival
+@ stands in its doorway, hidden by FLAG_HIDE_OREBURGH_CITY_RIVAL, which Roark
+@ sets when he leaves the mine.
 OreburghCity_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, OreburghCity_OnTransition
 	.byte 0
 
 OreburghCity_OnTransition:
 	setflag FLAG_VISITED_OREBURGH_CITY
+	call Common_EventScript_SetupRivalGfxId
+	call_if_set FLAG_BADGE01_GET, OreburghCity_EventScript_HideRival
+	end
+
+OreburghCity_EventScript_HideRival::
+	setflag FLAG_HIDE_OREBURGH_CITY_RIVAL
+	return
+
+OreburghCity_EventScript_Rival::
+	lock
+	faceplayer
+	goto_if_set FLAG_TALKED_TO_OREBURGH_CITY_RIVAL, OreburghCity_EventScript_RivalGymLeaderWentToMine
+	msgbox OreburghCity_Text_RivalGymLeadersGoneOffToTheMine, MSGBOX_DEFAULT
+	setflag FLAG_TALKED_TO_OREBURGH_CITY_RIVAL
+	release
+	end
+
+OreburghCity_EventScript_RivalGymLeaderWentToMine::
+	msgbox OreburghCity_Text_RivalGymLeaderWentDownToTheMine, MSGBOX_DEFAULT
+	release
 	end
 
 OreburghCity_EventScript_Hiker::
@@ -159,3 +182,25 @@ OreburghCity_Text_MiningMuseumSign:
 OreburghCity_Text_MineSign:
 	.string "OREBURGH MINE\n"
 	.string "Beware of Busy POKéMON!$"
+
+OreburghCity_Text_RivalGymLeadersGoneOffToTheMine:
+	.string "{RIVAL}: Hunh?\p"
+	.string "Oh, it's you, {PLAYER}!\n"
+	.string "You finally got here?\l"
+	.string "You're slow like always.\p"
+	.string "But anyway, the GYM LEADER's tough!\n"
+	.string "Like, seriously serious!\p"
+	.string "If the GYM LEADER's this tough,\n"
+	.string "I wonder how he compares to my dad…\p"
+	.string "Huh?\n"
+	.string "I just drifted there.\p"
+	.string "Anyway, the GYM LEADER's gone off\n"
+	.string "to the coal mine.\p"
+	.string "If you want to take on the GYM LEADER,\n"
+	.string "you'd better go off to the mine!$"
+
+OreburghCity_Text_RivalGymLeaderWentDownToTheMine:
+	.string "{RIVAL}: I told you, the GYM\n"
+	.string "LEADER went down to OREBURGH MINE.\p"
+	.string "If you want to take the GYM challenge,\n"
+	.string "you have to go down to the mine.$"

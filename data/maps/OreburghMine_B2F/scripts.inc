@@ -15,7 +15,7 @@ OreburghMine_B2F_EventScript_HideRoark::
 	return
 
 @ Roark smashes the rock east of him to show Rock Smash, then walks off
-@ east towards the Gym.
+@ east towards the Gym, which opens it: the rival leaves its doorway.
 OreburghMine_B2F_EventScript_Roark::
 	lockall
 	faceplayer
@@ -34,6 +34,7 @@ OreburghMine_B2F_EventScript_Roark::
 	waitmovement 0
 	removeobject LOCALID_OREBURGH_MINE_B2F_ROARK
 	setflag FLAG_HIDE_OREBURGH_MINE_B2F_ROARK
+	setflag FLAG_HIDE_OREBURGH_CITY_RIVAL
 	releaseall
 	end
 
