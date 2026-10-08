@@ -298,12 +298,12 @@ Route134_EventScript_ItemStarPiece::
 	finditem ITEM_STAR_PIECE
 	end
 
-PetalburgCity_EventScript_ItemMaxRevive::
-	finditem ITEM_MAX_REVIVE
+OreburghCity_EventScript_ItemDireHit::
+	finditem ITEM_DIRE_HIT
 	end
 
-PetalburgCity_EventScript_ItemEther::
-	finditem ITEM_ETHER
+OreburghCity_EventScript_ItemYellowShard::
+	finditem ITEM_YELLOW_SHARD
 	end
 
 MauvilleCity_EventScript_ItemXSpeed::

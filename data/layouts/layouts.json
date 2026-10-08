@@ -2,14 +2,14 @@
   "layouts_table_label": "gMapLayouts",
   "layouts": [
     {
-      "id": "LAYOUT_PETALBURG_CITY",
-      "name": "PetalburgCity_Layout",
-      "width": 30,
-      "height": 30,
+      "id": "LAYOUT_OREBURGH_CITY",
+      "name": "OreburghCity_Layout",
+      "width": 64,
+      "height": 64,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Petalburg",
-      "border_filepath": "data/layouts/PetalburgCity/border.bin",
-      "blockdata_filepath": "data/layouts/PetalburgCity/map.bin",
+      "secondary_tileset": "gTileset_Lavaridge",
+      "border_filepath": "data/layouts/OreburghCity/border.bin",
+      "blockdata_filepath": "data/layouts/OreburghCity/map.bin",
       "border_height": 2,
       "border_width": 2
     },
@@ -938,14 +938,14 @@
       "border_width": 2
     },
     {
-      "id": "LAYOUT_PETALBURG_CITY_GYM",
-      "name": "PetalburgCity_Gym_Layout",
+      "id": "LAYOUT_OREBURGH_CITY_GYM",
+      "name": "OreburghCity_Gym_Layout",
       "width": 9,
       "height": 112,
       "primary_tileset": "gTileset_Building",
       "secondary_tileset": "gTileset_PetalburgGym",
-      "border_filepath": "data/layouts/PetalburgCity_Gym/border.bin",
-      "blockdata_filepath": "data/layouts/PetalburgCity_Gym/map.bin",
+      "border_filepath": "data/layouts/OreburghCity_Gym/border.bin",
+      "blockdata_filepath": "data/layouts/OreburghCity_Gym/map.bin",
       "border_height": 2,
       "border_width": 2
     },

@@ -217,7 +217,7 @@ static const match_call_text_data_t sNormanTextScripts[] = {
 static const struct MatchCallStructTrainer sNormanMatchCallHeader =
 {
     .type = MC_TYPE_LEADER,
-    .mapSec = MAPSEC_PETALBURG_CITY,
+    .mapSec = MAPSEC_OREBURGH_CITY,
     .flag = FLAG_ENABLE_NORMAN_MATCH_CALL,
     .rematchTableIdx = REMATCH_NORMAN,
     .desc = gText_NormanMatchCallDesc,
