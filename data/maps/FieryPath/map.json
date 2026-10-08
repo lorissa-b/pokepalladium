@@ -124,15 +124,15 @@
       "x": 26,
       "y": 36,
       "elevation": 3,
-      "dest_map": "MAP_ROUTE112",
-      "dest_warp_id": "4"
+      "dest_map": "MAP_ROUTE207",
+      "dest_warp_id": "0"
     },
     {
       "x": 26,
       "y": 4,
       "elevation": 3,
-      "dest_map": "MAP_ROUTE112",
-      "dest_warp_id": "5"
+      "dest_map": "MAP_ROUTE207",
+      "dest_warp_id": "1"
     }
   ],
   "coord_events": [],

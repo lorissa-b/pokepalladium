@@ -1326,30 +1326,30 @@ Route111_Text_BiancaPostBattle:
 	.string "This road here…\n"
 	.string "You have quite a ways to travel.$"
 
-Route112_Text_BriceIntro:
+Route207_Text_BriceIntro:
 	.string "Hahahaha!\n"
 	.string "How about we have a battle?\l"
 	.string "You and me!\l"
 	.string "Hahahaha!$"
 
-Route112_Text_BriceDefeat:
+Route207_Text_BriceDefeat:
 	.string "I lost!\n"
 	.string "Hahahaha!$"
 
-Route112_Text_BricePostBattle:
+Route207_Text_BricePostBattle:
 	.string "Hahahahaha! Something flew up my nose!\n"
 	.string "Hahahaha-hatchoo!$"
 
-Route112_Text_TrentIntro:
+Route207_Text_TrentIntro:
 	.string "My legs are solid from pounding up\n"
 	.string "and down the mountains.\p"
 	.string "They're not going to buckle easily,\n"
 	.string "friend!$"
 
-Route112_Text_TrentDefeat:
+Route207_Text_TrentDefeat:
 	.string "Ouch! My legs cramped up!$"
 
-Route112_Text_TrentPostBattle:
+Route207_Text_TrentPostBattle:
 	.string "Try hiking, and I mean really\n"
 	.string "pounding, on these mountain trails\l"
 	.string "with a heavy pack weighing dozens of\l"
@@ -1357,71 +1357,71 @@ Route112_Text_TrentPostBattle:
 	.string "That, my friend, will get your body\n"
 	.string "into serious shape.$"
 
-Route112_Text_TrentRegister:
+Route207_Text_TrentRegister:
 	.string "Ow, my legs have cramped up.\n"
 	.string "Can you grab me some bandages from\l"
 	.string "my backpack?\p"
 	.string "No, that's my POKéTCH!\n"
 	.string "Oh, fine, I'll register you.$"
 
-Route112_Text_TrentRematchIntro:
+Route207_Text_TrentRematchIntro:
 	.string "I've been keeping fit by hiking.\n"
 	.string "Power, I have in spades!$"
 
-Route112_Text_TrentRematchDefeat:
+Route207_Text_TrentRematchDefeat:
 	.string "I got trumped in power?$"
 
-Route112_Text_TrentRematchPostBattle:
+Route207_Text_TrentRematchPostBattle:
 	.string "I hear there are some seriously tough\n"
 	.string "TRAINERS on top of MT. CHIMNEY.\p"
 	.string "I intend to get up there and give them\n"
 	.string "a challenge!$"
 
-Route112_Text_LarryIntro:
+Route207_Text_LarryIntro:
 	.string "I'm strong.\n"
 	.string "I won't cry if I lose.$"
 
-Route112_Text_LarryDefeat:
+Route207_Text_LarryDefeat:
 	.string "Waaaah!$"
 
-Route112_Text_LarryPostBattle:
+Route207_Text_LarryPostBattle:
 	.string "I'm not crying because I miss my mommy!\n"
 	.string "Snivel…$"
 
-Route112_Text_CarolIntro:
+Route207_Text_CarolIntro:
 	.string "When you're out on a picnic, why,\n"
 	.string "you simply have to sing!\l"
 	.string "Come on, sing with me!$"
 
-Route112_Text_CarolDefeat:
+Route207_Text_CarolDefeat:
 	.string "Oh, you're so strong!$"
 
-Route112_Text_CarolPostBattle:
+Route207_Text_CarolPostBattle:
 	.string "It doesn't matter if you're good or bad\n"
 	.string "at singing or POKéMON.\p"
 	.string "If you have the most fun, you win!$"
 
-Route112_Text_BryantIntro:
+Route207_Text_BryantIntro:
 	.string "I caught hot POKéMON in FIERY PATH!\n"
 	.string "Take a look!$"
 
-Route112_Text_BryantDefeat:
+Route207_Text_BryantDefeat:
 	.string "What a bumpy ride that was!$"
 
-Route112_Text_BryantPostBattle:
+Route207_Text_BryantPostBattle:
 	.string "I like the way you battle.\n"
 	.string "It has a certain flair to it.$"
 
-Route112_Text_ShaylaIntro:
+Route207_Text_ShaylaIntro:
 	.string "Oh, aren't you an adorable TRAINER!\n"
 	.string "Please, I need a romantic battle!\l"
 	.string "I'm somewhat decent!$"
 
-Route112_Text_ShaylaDefeat:
+Route207_Text_ShaylaDefeat:
 	.string "Oh, how strong you are!\n"
 	.string "You've given me quite a shock!$"
 
-Route112_Text_ShaylaPostBattle:
+Route207_Text_ShaylaPostBattle:
 	.string "Are you busy right now?\n"
 	.string "I was thinking that maybe we can have\l"
 	.string "a rematch right now…\l"

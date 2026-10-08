@@ -70,8 +70,24 @@ Route111_EventScript_ItemElixir::
 	finditem ITEM_ELIXIR
 	end
 
-Route112_EventScript_ItemNugget::
-	finditem ITEM_NUGGET
+Route207_EventScript_ItemPokeBall::
+	finditem ITEM_POKE_BALL
+	end
+
+Route207_EventScript_ItemRevive::
+	finditem ITEM_REVIVE
+	end
+
+Route207_EventScript_ItemIron::
+	finditem ITEM_IRON
+	end
+
+Route207_EventScript_ItemSuperPotion::
+	finditem ITEM_SUPER_POTION
+	end
+
+Route207_EventScript_ItemTimerBall::
+	finditem ITEM_TIMER_BALL
 	end
 
 Route113_EventScript_ItemMaxEther::

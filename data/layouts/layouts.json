@@ -326,14 +326,14 @@
       "border_width": 2
     },
     {
-      "id": "LAYOUT_ROUTE112",
-      "name": "Route112_Layout",
-      "width": 40,
-      "height": 60,
+      "id": "LAYOUT_ROUTE207",
+      "name": "Route207_Layout",
+      "width": 64,
+      "height": 32,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Lavaridge",
-      "border_filepath": "data/layouts/Route112/border.bin",
-      "blockdata_filepath": "data/layouts/Route112/map.bin",
+      "border_filepath": "data/layouts/Route207/border.bin",
+      "blockdata_filepath": "data/layouts/Route207/map.bin",
       "border_height": 2,
       "border_width": 2
     },

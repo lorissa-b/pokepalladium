@@ -1,0 +1,95 @@
+Route207_CableCarStation_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, Route207_CableCarStation_OnTransition
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, Route207_CableCarStation_OnFrame
+	.byte 0
+
+Route207_CableCarStation_OnTransition:
+	setescapewarp MAP_ROUTE207, 28, 28
+	call_if_eq VAR_CABLE_CAR_STATION_STATE, 2, Route207_CableCarStation_EventScript_MoveAttendantAside
+	end
+
+Route207_CableCarStation_EventScript_MoveAttendantAside::
+	setobjectxyperm LOCALID_ROUTE207_CABLE_CAR_ATTENDANT, 7, 4
+	setobjectmovementtype LOCALID_ROUTE207_CABLE_CAR_ATTENDANT, MOVEMENT_TYPE_FACE_LEFT
+	return
+
+Route207_CableCarStation_OnFrame:
+	map_script_2 VAR_CABLE_CAR_STATION_STATE, 2, Route207_CableCarStation_EventScript_ExitCableCar
+	.2byte 0
+
+Route207_CableCarStation_EventScript_ExitCableCar::
+	lockall
+	applymovement LOCALID_PLAYER, Route207_CableCarStation_Movement_ExitCableCar
+	applymovement LOCALID_ROUTE207_CABLE_CAR_ATTENDANT, Route207_CableCarStation_Movement_FollowPlayerOutFromCableCar
+	waitmovement 0
+	setvar VAR_CABLE_CAR_STATION_STATE, 0
+	setobjectxyperm LOCALID_ROUTE207_CABLE_CAR_ATTENDANT, 6, 7
+	setobjectmovementtype LOCALID_ROUTE207_CABLE_CAR_ATTENDANT, MOVEMENT_TYPE_FACE_DOWN
+	releaseall
+	end
+
+Route207_CableCarStation_EventScript_Attendant::
+	lock
+	faceplayer
+	msgbox Route207_CableCarStation_Text_CableCarReadyGetOn, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, Route207_CableCarStation_EventScript_RideCableCar
+	goto_if_eq VAR_RESULT, NO, Route207_CableCarStation_EventScript_DeclineRide
+	end
+
+Route207_CableCarStation_EventScript_RideCableCar::
+	msgbox Route207_CableCarStation_Text_StepThisWay, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_ROUTE207_CABLE_CAR_ATTENDANT, Route207_CableCarStation_Movement_LeadPlayerToCableCar
+	applymovement LOCALID_PLAYER, Route207_CableCarStation_Movement_BoardCableCar
+	waitmovement 0
+	setvar VAR_0x8004, FALSE  @ Going up
+	setvar VAR_CABLE_CAR_STATION_STATE, 1
+	incrementgamestat GAME_STAT_RODE_CABLE_CAR
+	special CableCarWarp
+	special CableCar
+	release
+	end
+
+Route207_CableCarStation_EventScript_DeclineRide::
+	msgbox Route207_CableCarStation_Text_RideAnotherTime, MSGBOX_DEFAULT
+	release
+	end
+
+Route207_CableCarStation_Movement_LeadPlayerToCableCar:
+	walk_up
+	walk_up
+	walk_right
+	walk_in_place_faster_left
+	step_end
+
+Route207_CableCarStation_Movement_FollowPlayerOutFromCableCar:
+	delay_16
+	walk_left
+	walk_down
+	walk_down
+	step_end
+
+Route207_CableCarStation_Movement_BoardCableCar:
+	walk_up
+	walk_up
+	walk_up
+	delay_16
+	step_end
+
+Route207_CableCarStation_Movement_ExitCableCar:
+	walk_down
+	walk_down
+	walk_down
+	delay_16
+	step_end
+
+Route207_CableCarStation_Text_CableCarReadyGetOn:
+	.string "The CABLE CAR is ready to go up.\n"
+	.string "Would you like to be on it?$"
+
+Route207_CableCarStation_Text_StepThisWay:
+	.string "Please step this way.$"
+
+Route207_CableCarStation_Text_RideAnotherTime:
+	.string "Please ride with us another time.$"
+
