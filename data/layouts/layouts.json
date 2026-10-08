@@ -5364,6 +5364,30 @@
       "blockdata_filepath": "data/layouts/OreburghGate_B1F/map.bin",
       "border_height": 2,
       "border_width": 2
+    },
+    {
+      "id": "LAYOUT_OREBURGH_MINE_B1F",
+      "name": "OreburghMine_B1F_Layout",
+      "width": 21,
+      "height": 25,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/OreburghMine_B1F/border.bin",
+      "blockdata_filepath": "data/layouts/OreburghMine_B1F/map.bin",
+      "border_height": 2,
+      "border_width": 2
+    },
+    {
+      "id": "LAYOUT_OREBURGH_MINE_B2F",
+      "name": "OreburghMine_B2F_Layout",
+      "width": 32,
+      "height": 32,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/OreburghMine_B2F/border.bin",
+      "blockdata_filepath": "data/layouts/OreburghMine_B2F/map.bin",
+      "border_height": 2,
+      "border_width": 2
     }
   ]
 }

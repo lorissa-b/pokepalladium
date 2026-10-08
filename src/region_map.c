@@ -150,6 +150,7 @@ static const mapsec_u16_t sRegionMap_SpecialPlaceLocations[][2] =
     {MAPSEC_MAGMA_HIDEOUT,              MAPSEC_ROUTE_112},
     {MAPSEC_UNDERWATER_SEALED_CHAMBER,  MAPSEC_ROUTE_134},
     {MAPSEC_OREBURGH_GATE,              MAPSEC_ROUTE_203},
+    {MAPSEC_OREBURGH_MINE,              MAPSEC_OREBURGH_CITY},
     {MAPSEC_JAGGED_PASS,                MAPSEC_ROUTE_112},
     {MAPSEC_MT_PYRE,                    MAPSEC_ROUTE_122},
     {MAPSEC_SKY_PILLAR,                 MAPSEC_ROUTE_131},

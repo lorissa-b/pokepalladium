@@ -436,7 +436,9 @@
     "MeteorFalls_StevensCave",
     "RavagedPath",
     "OreburghGate_1F",
-    "OreburghGate_B1F"
+    "OreburghGate_B1F",
+    "OreburghMine_B1F",
+    "OreburghMine_B2F"
   ],
   "gMapGroup_IndoorDynamic": [
     "SecretBase_RedCave1",

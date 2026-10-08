@@ -461,6 +461,8 @@ gStdScripts_End::
 	.include "data/maps/RavagedPath/scripts.inc"
 	.include "data/maps/OreburghGate_1F/scripts.inc"
 	.include "data/maps/OreburghGate_B1F/scripts.inc"
+	.include "data/maps/OreburghMine_B1F/scripts.inc"
+	.include "data/maps/OreburghMine_B2F/scripts.inc"
 	.include "data/scripts/shared_secret_base.inc"
 	.include "data/maps/BattleColosseum_2P/scripts.inc"
 	.include "data/maps/TradeCenter/scripts.inc"

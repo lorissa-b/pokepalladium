@@ -354,6 +354,18 @@ OreburghGate_B1F_EventScript_ItemBigPearl::
 	finditem ITEM_BIG_PEARL
 	end
 
+OreburghMine_B1F_EventScript_ItemPokeBall::
+	finditem ITEM_POKE_BALL
+	end
+
+OreburghMine_B2F_EventScript_ItemEscapeRope::
+	finditem ITEM_ESCAPE_ROPE
+	end
+
+OreburghMine_B2F_EventScript_ItemPotion::
+	finditem ITEM_POTION
+	end
+
 LilycoveCity_EventScript_ItemMaxRepel::
 	finditem ITEM_MAX_REPEL
 	end
