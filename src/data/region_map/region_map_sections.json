@@ -41,8 +41,8 @@
       "height": 1
     },
     {
-      "id": "MAPSEC_VERDANTURF_TOWN",
-      "name": "VERDANTURF TOWN",
+      "id": "MAPSEC_FLOAROMA_TOWN",
+      "name": "FLOAROMA TOWN",
       "x": 4,
       "y": 6,
       "width": 1,
@@ -257,8 +257,8 @@
       "height": 1
     },
     {
-      "id": "MAPSEC_ROUTE_117",
-      "name": "ROUTE 117",
+      "id": "MAPSEC_FLOAROMA_MEADOW",
+      "name": "FLOAROMA MEADOW",
       "x": 5,
       "y": 6,
       "width": 3,

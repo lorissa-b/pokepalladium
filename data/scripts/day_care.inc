@@ -1,72 +1,72 @@
-Route117_EventScript_DaycareMan::
+FloaromaMeadow_EventScript_DaycareMan::
 	lock
 	faceplayer
 	special GetDaycareMonNicknames
 	specialvar VAR_RESULT, GetDaycareState
-	goto_if_eq VAR_RESULT, DAYCARE_EGG_WAITING, Route117_EventScript_DaycareEggWaiting
-	goto_if_eq VAR_RESULT, DAYCARE_ONE_MON, Route117_EventScript_CheckOnOneMon
-	goto_if_eq VAR_RESULT, DAYCARE_TWO_MONS, Route117_EventScript_CheckOnTwoMons
-	msgbox Route117_Text_SeeWifeIfYoudLikeMeToRaiseMon, MSGBOX_DEFAULT
+	goto_if_eq VAR_RESULT, DAYCARE_EGG_WAITING, FloaromaMeadow_EventScript_DaycareEggWaiting
+	goto_if_eq VAR_RESULT, DAYCARE_ONE_MON, FloaromaMeadow_EventScript_CheckOnOneMon
+	goto_if_eq VAR_RESULT, DAYCARE_TWO_MONS, FloaromaMeadow_EventScript_CheckOnTwoMons
+	msgbox FloaromaMeadow_Text_SeeWifeIfYoudLikeMeToRaiseMon, MSGBOX_DEFAULT
 	release
 	end
 
-Route117_EventScript_DaycareEggWaiting::
-	msgbox Route117_Text_DoYouWantEgg, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, Route117_EventScript_DaycareAcceptEgg
-	msgbox Route117_Text_IWillKeepDoYouWantIt, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, Route117_EventScript_DaycareAcceptEgg
-	msgbox Route117_Text_IllKeepIt, MSGBOX_DEFAULT
+FloaromaMeadow_EventScript_DaycareEggWaiting::
+	msgbox FloaromaMeadow_Text_DoYouWantEgg, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, FloaromaMeadow_EventScript_DaycareAcceptEgg
+	msgbox FloaromaMeadow_Text_IWillKeepDoYouWantIt, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, FloaromaMeadow_EventScript_DaycareAcceptEgg
+	msgbox FloaromaMeadow_Text_IllKeepIt, MSGBOX_DEFAULT
 	clearflag FLAG_PENDING_DAYCARE_EGG
 	special RejectEggFromDayCare
 	release
 	end
 
-Route117_EventScript_DaycareAcceptEgg::
+FloaromaMeadow_EventScript_DaycareAcceptEgg::
 	specialvar VAR_RESULT, CalculatePlayerPartyCount
-	goto_if_ne VAR_RESULT, PARTY_SIZE, Route117_EventScript_DaycareReceiveEgg
-	msgbox Route117_Text_YouHaveNoRoomForIt, MSGBOX_DEFAULT
+	goto_if_ne VAR_RESULT, PARTY_SIZE, FloaromaMeadow_EventScript_DaycareReceiveEgg
+	msgbox FloaromaMeadow_Text_YouHaveNoRoomForIt, MSGBOX_DEFAULT
 	release
 	end
 
-Route117_EventScript_DaycareReceiveEgg::
-	message Route117_Text_ReceivedEgg
+FloaromaMeadow_EventScript_DaycareReceiveEgg::
+	message FloaromaMeadow_Text_ReceivedEgg
 	playfanfare MUS_LEVEL_UP
 	waitfanfare
 	waitbuttonpress
-	msgbox Route117_Text_TakeGoodCareOfIt, MSGBOX_DEFAULT
+	msgbox FloaromaMeadow_Text_TakeGoodCareOfIt, MSGBOX_DEFAULT
 	special GiveEggFromDaycare
 	clearflag FLAG_PENDING_DAYCARE_EGG
 	release
 	end
 
-Route117_EventScript_CheckMonReceivedMail::
+FloaromaMeadow_EventScript_CheckMonReceivedMail::
 	specialvar VAR_RESULT, CheckDaycareMonReceivedMail
-	call_if_eq VAR_RESULT, 1, Route117_EventScript_MonReceivedMail
+	call_if_eq VAR_RESULT, 1, FloaromaMeadow_EventScript_MonReceivedMail
 	return
 
-Route117_EventScript_MonReceivedMail::
-	msgbox Route117_Text_FriendlyWithOtherTrainersMon, MSGBOX_DEFAULT
+FloaromaMeadow_EventScript_MonReceivedMail::
+	msgbox FloaromaMeadow_Text_FriendlyWithOtherTrainersMon, MSGBOX_DEFAULT
 	return
 
-Route117_EventScript_CheckOnOneMon::
+FloaromaMeadow_EventScript_CheckOnOneMon::
 	special GetDaycareMonNicknames
-	msgbox Route117_Text_YourMonIsDoingFine, MSGBOX_DEFAULT
+	msgbox FloaromaMeadow_Text_YourMonIsDoingFine, MSGBOX_DEFAULT
 	setvar VAR_0x8004, 0
-	call Route117_EventScript_CheckMonReceivedMail
+	call FloaromaMeadow_EventScript_CheckMonReceivedMail
 	release
 	end
 
-Route117_EventScript_CheckOnTwoMons::
+FloaromaMeadow_EventScript_CheckOnTwoMons::
 	special GetDaycareMonNicknames
-	msgbox Route117_Text_YourMonsAreDoingFine, MSGBOX_DEFAULT
+	msgbox FloaromaMeadow_Text_YourMonsAreDoingFine, MSGBOX_DEFAULT
 	special SetDaycareCompatibilityString
 	special ShowFieldMessageStringVar4
 	waitmessage
 	waitbuttonpress
 	setvar VAR_0x8004, 0
-	call Route117_EventScript_CheckMonReceivedMail
+	call FloaromaMeadow_EventScript_CheckMonReceivedMail
 	setvar VAR_0x8004, 1
-	call Route117_EventScript_CheckMonReceivedMail
+	call FloaromaMeadow_EventScript_CheckMonReceivedMail
 	release
 	end
 
@@ -265,14 +265,14 @@ EventScript_EggHatch::
 	releaseall
 	end
 
-Route117_Text_SeeWifeIfYoudLikeMeToRaiseMon:
+FloaromaMeadow_Text_SeeWifeIfYoudLikeMeToRaiseMon:
 	.string "I'm the DAY-CARE MAN.\p"
 	.string "I help take care of the precious\n"
 	.string "POKéMON of TRAINERS.\p"
 	.string "If you'd like me to raise your POKéMON,\n"
 	.string "have a word with my wife.$"
 
-Route117_Text_DoYouWantEgg:
+FloaromaMeadow_Text_DoYouWantEgg:
 	.string "Ah, it's you!\p"
 	.string "We were raising your POKéMON,\n"
 	.string "and my goodness, were we surprised!\p"
@@ -281,26 +281,26 @@ Route117_Text_DoYouWantEgg:
 	.string "but your POKéMON had it.\p"
 	.string "You do want it, yes?$"
 
-Route117_Text_YourMonIsDoingFine:
+FloaromaMeadow_Text_YourMonIsDoingFine:
 	.string "Ah, it's you! Good to see you.\n"
 	.string "Your {STR_VAR_1}'s doing fine.$"
 
-Route117_Text_IllKeepIt:
+FloaromaMeadow_Text_IllKeepIt:
 	.string "Well then, I'll keep it.\n"
 	.string "Thanks!$"
 
-Route117_Text_YouHaveNoRoomForIt:
+FloaromaMeadow_Text_YouHaveNoRoomForIt:
 	.string "You have no room for it…\n"
 	.string "Come back when you've made room.$"
 
-Route117_Text_ReceivedEgg:
+FloaromaMeadow_Text_ReceivedEgg:
 	.string "{PLAYER} received the EGG from\n"
 	.string "the DAY-CARE MAN.$"
 
-Route117_Text_TakeGoodCareOfIt:
+FloaromaMeadow_Text_TakeGoodCareOfIt:
 	.string "Take good care of it.$"
 
-Route117_Text_FriendlyWithOtherTrainersMon:
+FloaromaMeadow_Text_FriendlyWithOtherTrainersMon:
 	.string "By the way, about your {STR_VAR_1},\n"
 	.string "it seemed to be friendly with\l"
 	.string "{STR_VAR_2}'s {STR_VAR_3}.\p"
@@ -308,15 +308,15 @@ Route117_Text_FriendlyWithOtherTrainersMon:
 	.string "a piece of MAIL.$"
 
 @ Unused
-Route117_Text_SeeWifeIfYouWantToPickUpMon:
+FloaromaMeadow_Text_SeeWifeIfYouWantToPickUpMon:
 	.string "If you want to pick up your POKéMON,\n"
 	.string "have a word with my wife.$"
 
-Route117_Text_YourMonsAreDoingFine:
+FloaromaMeadow_Text_YourMonsAreDoingFine:
 	.string "Ah, it's you! Your {STR_VAR_1} and\n"
 	.string "{STR_VAR_2} are doing fine.$"
 
-Route117_Text_IWillKeepDoYouWantIt:
+FloaromaMeadow_Text_IWillKeepDoYouWantIt:
 	.string "I really will keep it.\n"
 	.string "You do want this, yes?$"
 

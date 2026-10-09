@@ -50,7 +50,7 @@
     "DewfordTown",
     "LavaridgeTown",
     "FallarborTown",
-    "VerdanturfTown",
+    "FloaromaTown",
     "PacifidlogTown",
     "Route201",
     "Route219",
@@ -68,7 +68,7 @@
     "Route114",
     "Route115",
     "Route204",
-    "Route117",
+    "FloaromaMeadow",
     "Route118",
     "Route119",
     "Route120",
@@ -137,15 +137,15 @@
     "FallarborTown_MoveRelearnersHouse"
   ],
   "gMapGroup_IndoorVerdanturf": [
-    "VerdanturfTown_BattleTentLobby",
-    "VerdanturfTown_BattleTentCorridor",
-    "VerdanturfTown_BattleTentBattleRoom",
-    "VerdanturfTown_Mart",
-    "VerdanturfTown_PokemonCenter_1F",
-    "VerdanturfTown_PokemonCenter_2F",
-    "VerdanturfTown_WandasHouse",
-    "VerdanturfTown_FriendshipRatersHouse",
-    "VerdanturfTown_House"
+    "FloaromaTown_BattleTentLobby",
+    "FloaromaTown_BattleTentCorridor",
+    "FloaromaTown_BattleTentBattleRoom",
+    "FloaromaTown_Mart",
+    "FloaromaTown_PokemonCenter_1F",
+    "FloaromaTown_PokemonCenter_2F",
+    "FloaromaTown_WandasHouse",
+    "FloaromaTown_FriendshipRatersHouse",
+    "FloaromaTown_House"
   ],
   "gMapGroup_IndoorPacifidlog": [
     "PacifidlogTown_PokemonCenter_1F",

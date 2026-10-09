@@ -158,11 +158,11 @@ Route204_EventScript_ItemSeaIncense::
 	finditem ITEM_SEA_INCENSE
 	end
 
-Route117_EventScript_ItemGreatBall::
+FloaromaMeadow_EventScript_ItemGreatBall::
 	finditem ITEM_GREAT_BALL
 	end
 
-Route117_EventScript_ItemRevive::
+FloaromaMeadow_EventScript_ItemRevive::
 	finditem ITEM_REVIVE
 	end
 

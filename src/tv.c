@@ -211,7 +211,7 @@ static const struct {
         .species = SPECIES_SEEDOT,
         .moves = {MOVE_HARDEN, MOVE_GROWTH, MOVE_NATURE_POWER, MOVE_LEECH_SEED},
         .level = 13,
-        .location = MAP_NUM(MAP_ROUTE117),
+        .location = MAP_NUM(MAP_FLOAROMA_MEADOW),
     },
     {
         .species = SPECIES_SEEDOT,
