@@ -3372,27 +3372,21 @@ static const struct TrainerMonItemCustomMoves sParty_Drake[] = {
     }
 };
 
-static const struct TrainerMonItemCustomMoves sParty_Roxanne1[] = {
+static const struct TrainerMonNoItemDefaultMoves sParty_Roxanne1[] = {
     {
     .iv = 50,
     .lvl = 12,
-    .species = SPECIES_GEODUDE,
-    .heldItem = ITEM_NONE,
-    .moves = {MOVE_STEALTH_ROCK, MOVE_ROCK_THROW, MOVE_NONE, MOVE_NONE}
+    .species = SPECIES_OMANYTE,
     },
     {
     .iv = 50,
     .lvl = 12,
-    .species = SPECIES_ONIX,
-    .heldItem = ITEM_NONE,
-    .moves = {MOVE_STEALTH_ROCK, MOVE_ROCK_THROW, MOVE_SCREECH, MOVE_NONE}
+    .species = SPECIES_LILEEP,
     },
     {
     .iv = 50,
     .lvl = 14,
-    .species = SPECIES_CRANIDOS,
-    .heldItem = ITEM_NONE,
-    .moves = {MOVE_HEADBUTT, MOVE_PURSUIT, MOVE_LEER, MOVE_NONE}
+    .species = SPECIES_SHIELDON,
     }
 };
 
