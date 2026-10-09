@@ -792,6 +792,13 @@ static const struct MenuAction MultichoiceList_JubilifeQuizType[] =
     {gText_QuizRock},
 };
 
+static const struct MenuAction MultichoiceList_FloaromaHoney[] =
+{
+    {gText_HoneyTimes1},
+    {gText_HoneyTimes10},
+    {gText_NoThanks},
+};
+
 static const struct MenuAction MultichoiceList_Exit[] =
 {
     {gText_Exit},
@@ -922,6 +929,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_JUBILIFE_QUIZ_CITY]         = MULTICHOICE(MultichoiceList_JubilifeQuizCity),
     [MULTI_JUBILIFE_QUIZ_CENTER_ROOF]  = MULTICHOICE(MultichoiceList_JubilifeQuizCenterRoof),
     [MULTI_JUBILIFE_QUIZ_TYPE]         = MULTICHOICE(MultichoiceList_JubilifeQuizType),
+    [MULTI_FLOAROMA_HONEY]             = MULTICHOICE(MultichoiceList_FloaromaHoney),
 };
 
 const u8 *const gStdStrings[] =

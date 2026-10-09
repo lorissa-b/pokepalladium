@@ -24,7 +24,7 @@ NewMauville_Entrance_EventScript_Door::
 	lockall
 	applywaitmovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
 	msgbox NewMauville_Entrance_Text_DoorIsLocked, MSGBOX_DEFAULT
-	checkitem ITEM_BASEMENT_KEY
+	checkitem ITEM_WORKS_KEY
 	goto_if_eq VAR_RESULT, FALSE, NewMauville_Entrance_EventScript_DontOpenDoor
 	msgbox NewMauville_Entrance_Text_UseBasementKey, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, NewMauville_Entrance_EventScript_DontOpenDoor

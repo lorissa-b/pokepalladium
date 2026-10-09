@@ -158,12 +158,20 @@ Route204_EventScript_ItemSeaIncense::
 	finditem ITEM_SEA_INCENSE
 	end
 
-FloaromaMeadow_EventScript_ItemGreatBall::
-	finditem ITEM_GREAT_BALL
+FloaromaMeadow_EventScript_ItemMiracleSeed::
+	finditem ITEM_MIRACLE_SEED
 	end
 
-FloaromaMeadow_EventScript_ItemRevive::
-	finditem ITEM_REVIVE
+FloaromaMeadow_EventScript_ItemLeafStone::
+	finditem ITEM_LEAF_STONE
+	end
+
+FloaromaMeadow_EventScript_ItemUltraBall::
+	finditem ITEM_ULTRA_BALL
+	end
+
+FloaromaMeadow_EventScript_ItemRareCandy::
+	finditem ITEM_RARE_CANDY
 	end
 
 Route118_EventScript_ItemHyperPotion::

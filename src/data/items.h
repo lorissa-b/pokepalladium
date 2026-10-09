@@ -4165,12 +4165,12 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_BASEMENT_KEY] =
+    [ITEM_WORKS_KEY] =
     {
-        .name = _("BASEMENT KEY"),
-        .itemId = ITEM_BASEMENT_KEY,
+        .name = _("WORKS KEY"),
+        .itemId = ITEM_WORKS_KEY,
         .price = 0,
-        .description = sBasementKeyDesc,
+        .description = sWorksKeyDesc,
         .importance = 1,
         .pocket = POCKET_KEY_ITEMS,
         .type = ITEM_USE_BAG_MENU,

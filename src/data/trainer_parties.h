@@ -2085,18 +2085,8 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Jack[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_Dudley[] = {
     {
     .iv = 0,
-    .lvl = 33,
-    .species = SPECIES_TENTACOOL,
-    },
-    {
-    .iv = 0,
-    .lvl = 33,
-    .species = SPECIES_WINGULL,
-    },
-    {
-    .iv = 0,
-    .lvl = 33,
-    .species = SPECIES_TENTACRUEL,
+    .lvl = 13,
+    .species = SPECIES_STUNKY,
     }
 };
 
@@ -9802,8 +9792,13 @@ static const struct TrainerMonNoItemDefaultMoves sParty_MaxieMossdeep[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_Pete[] = {
     {
     .iv = 0,
-    .lvl = 15,
-    .species = SPECIES_TENTACOOL,
+    .lvl = 11,
+    .species = SPECIES_ZUBAT,
+    },
+    {
+    .iv = 0,
+    .lvl = 11,
+    .species = SPECIES_ZUBAT,
     }
 };
 

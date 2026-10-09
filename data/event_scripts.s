@@ -205,7 +205,7 @@ gStdScripts_End::
 	.include "data/maps/FloaromaTown_PokemonCenter_2F/scripts.inc"
 	.include "data/maps/FloaromaTown_WandasHouse/scripts.inc"
 	.include "data/maps/FloaromaTown_FriendshipRatersHouse/scripts.inc"
-	.include "data/maps/FloaromaTown_House/scripts.inc"
+	.include "data/maps/FloaromaMeadow_House/scripts.inc"
 	.include "data/maps/PacifidlogTown_PokemonCenter_1F/scripts.inc"
 	.include "data/maps/PacifidlogTown_PokemonCenter_2F/scripts.inc"
 	.include "data/maps/PacifidlogTown_House1/scripts.inc"
