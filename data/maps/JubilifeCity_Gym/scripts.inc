@@ -11,10 +11,10 @@ JubilifeCity_Gym_EventScript_Roxanne::
 	end
 
 JubilifeCity_Gym_EventScript_RoxanneDefeated::
-	message JubilifeCity_Gym_Text_ReceivedStoneBadge
+	message JubilifeCity_Gym_Text_ReceivedCoalBadge
 	waitmessage
 	call Common_EventScript_PlayGymBadgeFanfare
-	msgbox JubilifeCity_Gym_Text_StoneBadgeInfoTakeThis, MSGBOX_DEFAULT
+	msgbox JubilifeCity_Gym_Text_CoalBadgeInfoTakeThis, MSGBOX_DEFAULT
 	setflag FLAG_BADGE01_GET
 	setvar VAR_JUBILIFE_CITY_STATE, 1
 	addvar VAR_PETALBURG_GYM_STATE, 1
@@ -128,7 +128,7 @@ JubilifeCity_Gym_Text_GymGuidePostVictory:
 	.string "My cheering must've worked!\p"
 	.string "Great!\n"
 	.string "Check your TRAINER CARD.\p"
-	.string "The STONE BADGE you got should be\n"
+	.string "The COAL BADGE you got should be\n"
 	.string "properly recorded on it.\p"
 	.string "In other words…\p"
 	.string "You've climbed the first step on\n"
@@ -192,14 +192,14 @@ JubilifeCity_Gym_Text_RoxanneDefeat:
 	.string "that TRAINERS are to be given this\l"
 	.string "if they defeat a GYM LEADER.\p"
 	.string "Please accept the official POKéMON\n"
-	.string "LEAGUE STONE BADGE.$"
+	.string "LEAGUE COAL BADGE.$"
 
-JubilifeCity_Gym_Text_ReceivedStoneBadge:
-	.string "{PLAYER} received the STONE BADGE\n"
+JubilifeCity_Gym_Text_ReceivedCoalBadge:
+	.string "{PLAYER} received the COAL BADGE\n"
 	.string "from ROXANNE.$"
 
-JubilifeCity_Gym_Text_StoneBadgeInfoTakeThis:
-	.string "The STONE BADGE heightens the ATTACK\n"
+JubilifeCity_Gym_Text_CoalBadgeInfoTakeThis:
+	.string "The COAL BADGE heightens the ATTACK\n"
 	.string "power of your POKéMON.\p"
 	.string "It also enables them to use the HM move\n"
 	.string "CUT outside of battle.\p"
