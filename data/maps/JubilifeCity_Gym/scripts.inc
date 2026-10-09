@@ -5,7 +5,7 @@ JubilifeCity_Gym_EventScript_Roxanne::
 	trainerbattle_single TRAINER_ROXANNE_1, JubilifeCity_Gym_Text_RoxanneIntro, JubilifeCity_Gym_Text_RoxanneDefeat, JubilifeCity_Gym_EventScript_RoxanneDefeated, NO_MUSIC
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, JubilifeCity_Gym_EventScript_RoxanneRematch
-	goto_if_unset FLAG_RECEIVED_TM_ROCK_TOMB, JubilifeCity_Gym_EventScript_GiveRockTomb
+	goto_if_unset FLAG_RECEIVED_TM_STEALTH_ROCK, JubilifeCity_Gym_EventScript_GiveRockTomb
 	msgbox JubilifeCity_Gym_Text_RoxannePostBattle, MSGBOX_DEFAULT
 	release
 	end
@@ -27,7 +27,7 @@ JubilifeCity_Gym_EventScript_RoxanneDefeated::
 JubilifeCity_Gym_EventScript_GiveRockTomb::
 	giveitem ITEM_TM_ROCK_TOMB
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	setflag FLAG_RECEIVED_TM_ROCK_TOMB
+	setflag FLAG_RECEIVED_TM_STEALTH_ROCK
 	msgbox JubilifeCity_Gym_Text_ExplainRockTomb, MSGBOX_DEFAULT
 	release
 	end

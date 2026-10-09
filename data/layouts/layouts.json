@@ -940,10 +940,10 @@
     {
       "id": "LAYOUT_OREBURGH_CITY_GYM",
       "name": "OreburghCity_Gym_Layout",
-      "width": 9,
-      "height": 112,
+      "width": 10,
+      "height": 24,
       "primary_tileset": "gTileset_Building",
-      "secondary_tileset": "gTileset_PetalburgGym",
+      "secondary_tileset": "gTileset_RustboroGym",
       "border_filepath": "data/layouts/OreburghCity_Gym/border.bin",
       "blockdata_filepath": "data/layouts/OreburghCity_Gym/map.bin",
       "border_height": 2,

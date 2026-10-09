@@ -3374,25 +3374,25 @@ static const struct TrainerMonItemCustomMoves sParty_Drake[] = {
 
 static const struct TrainerMonItemCustomMoves sParty_Roxanne1[] = {
     {
-    .iv = 100,
+    .iv = 50,
     .lvl = 12,
     .species = SPECIES_GEODUDE,
     .heldItem = ITEM_NONE,
-    .moves = {MOVE_TACKLE, MOVE_DEFENSE_CURL, MOVE_ROCK_THROW, MOVE_ROCK_TOMB}
+    .moves = {MOVE_STEALTH_ROCK, MOVE_ROCK_THROW, MOVE_NONE, MOVE_NONE}
     },
     {
-    .iv = 100,
+    .iv = 50,
     .lvl = 12,
-    .species = SPECIES_GEODUDE,
+    .species = SPECIES_ONIX,
     .heldItem = ITEM_NONE,
-    .moves = {MOVE_TACKLE, MOVE_DEFENSE_CURL, MOVE_ROCK_THROW, MOVE_ROCK_TOMB}
+    .moves = {MOVE_STEALTH_ROCK, MOVE_ROCK_THROW, MOVE_SCREECH, MOVE_NONE}
     },
     {
-    .iv = 200,
-    .lvl = 15,
-    .species = SPECIES_NOSEPASS,
-    .heldItem = ITEM_ORAN_BERRY,
-    .moves = {MOVE_BLOCK, MOVE_HARDEN, MOVE_TACKLE, MOVE_ROCK_TOMB}
+    .iv = 50,
+    .lvl = 14,
+    .species = SPECIES_CRANIDOS,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_HEADBUTT, MOVE_PURSUIT, MOVE_LEER, MOVE_NONE}
     }
 };
 
@@ -4205,23 +4205,25 @@ static const struct TrainerMonNoItemCustomMoves sParty_Billy[] = {
 
 static const struct TrainerMonNoItemCustomMoves sParty_Josh[] = {
     {
-    .iv = 100,
-    .lvl = 10,
+    .iv = 10,
+    .lvl = 11,
     .species = SPECIES_GEODUDE,
-    .moves = {MOVE_TACKLE, MOVE_NONE, MOVE_NONE, MOVE_NONE}
+    .moves = {MOVE_TACKLE, MOVE_DEFENSE_CURL, MOVE_NONE, MOVE_NONE}
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_Tommy[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_Tommy[] = {
     {
-    .iv = 110,
-    .lvl = 8,
+    .iv = 10,
+    .lvl = 9,
     .species = SPECIES_GEODUDE,
+    .moves = {MOVE_TACKLE, MOVE_DEFENSE_CURL, MOVE_NONE, MOVE_NONE}
     },
     {
-    .iv = 120,
-    .lvl = 8,
-    .species = SPECIES_GEODUDE,
+    .iv = 10,
+    .lvl = 9,
+    .species = SPECIES_ONIX,
+    .moves = {MOVE_ROCK_THROW, MOVE_TACKLE, MOVE_HARDEN, MOVE_NONE}
     }
 };
 
