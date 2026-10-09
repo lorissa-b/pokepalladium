@@ -57,7 +57,7 @@
 #define FLAG_RECEIVED_TICKET_JUBILIFE_TV_CLOWN       0x2B
 #define FLAG_RECEIVED_TICKET_JUBILIFE_FOUNTAIN_CLOWN 0x2C
 #define FLAG_RECEIVED_TRAINERS_SCHOOL_PRIZE          0x2D
-#define FLAG_UNUSED_0x02E    0x2E // Unused Flag
+#define FLAG_HIDE_JUBILIFE_CITY_TEAM_GALACTIC 0x2E // Prof. Birch and the Team Galactic Grunts at the north exit
 #define FLAG_UNUSED_0x02F    0x2F // Unused Flag
 #define FLAG_UNUSED_0x030    0x30 // Unused Flag
 #define FLAG_UNUSED_0x031    0x31 // Unused Flag

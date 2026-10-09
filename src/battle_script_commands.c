@@ -4,6 +4,7 @@
 #include "battle_anim.h"
 #include "battle_ai_script_commands.h"
 #include "battle_scripts.h"
+#include "battle_tower.h"
 #include "item.h"
 #include "util.h"
 #include "pokemon.h"
@@ -3603,6 +3604,14 @@ static void Cmd_getexp(void)
                 gBattleScripting.getexpState = 5;
                 gBattleMoveDamage = 0; // used for exp
             }
+            else if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && gPartnerTrainerId == TRAINER_ASSISTANT_PARTNER
+                  && gBattleStruct->expGetterMonId >= MULTI_PARTY_SIZE)
+            {
+                // The assistant's Pokémon is only lent for the battle, so it doesn't level up or evolve
+                *(&gBattleStruct->sentInPokes) >>= 1;
+                gBattleScripting.getexpState = 5;
+                gBattleMoveDamage = 0; // used for exp
+            }
             else
             {
                 // music change in wild battle after fainting a poke
@@ -3789,9 +3798,9 @@ static void Cmd_checkteamslost(void)
         return;
 
     // Get total HP for the player's party to determine if the player has lost
-    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && gPartnerTrainerId == TRAINER_STEVEN_PARTNER)
+    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && IsScriptedPartner(gPartnerTrainerId))
     {
-        // In multi battle with Steven, skip his Pokémon
+        // In multi battle with Steven or the assistant, skip their Pokémon
         for (i = 0; i < MULTI_PARTY_SIZE; i++)
         {
             if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))

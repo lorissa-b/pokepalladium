@@ -6819,9 +6819,9 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_GRUNT_UNUSED] =
     {
-        .trainerClass = TRAINER_CLASS_TEAM_MAGMA,
-        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_AQUA,
-        .trainerPic = TRAINER_PIC_AQUA_GRUNT_F,
+        .trainerClass = TRAINER_CLASS_TEAM_GALACTIC,
+        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_AQUA,
+        .trainerPic = TRAINER_PIC_AQUA_GRUNT_M,
         .trainerName = _("GRUNT"),
         .items = {},
         .doubleBattle = FALSE,
@@ -6975,10 +6975,10 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_TERRY] =
     {
-        .trainerClass = TRAINER_CLASS_PSYCHIC,
-        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_INTENSE,
-        .trainerPic = TRAINER_PIC_PSYCHIC_F,
-        .trainerName = _("TERRY"),
+        .trainerClass = TRAINER_CLASS_TEAM_GALACTIC,
+        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_AQUA,
+        .trainerPic = TRAINER_PIC_AQUA_GRUNT_M,
+        .trainerName = _("GRUNT"),
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,

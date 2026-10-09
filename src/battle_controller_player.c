@@ -6,6 +6,7 @@
 #include "battle_dome.h"
 #include "battle_interface.h"
 #include "battle_message.h"
+#include "battle_tower.h"
 #include "battle_setup.h"
 #include "battle_tv.h"
 #include "bg.h"
@@ -2265,7 +2266,7 @@ static void DoSwitchOutAnimation(void)
 #define sSpeedX data[0]
 
 // In emerald it's possible to have a tag battle in the battle frontier facilities with AI
-// which use the front sprite for both the player and the partner as opposed to any other battles (including the one with Steven)
+// which use the front sprite for both the player and the partner as opposed to any other battles (including the ones with Steven and the assistant)
 // that use an animated back pic.
 static void PlayerHandleDrawTrainerPic(void)
 {
@@ -2301,7 +2302,7 @@ static void PlayerHandleDrawTrainerPic(void)
         else // First mon, on the left.
             xPos = 32;
 
-        if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && gPartnerTrainerId != TRAINER_STEVEN_PARTNER)
+        if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && !IsScriptedPartner(gPartnerTrainerId))
         {
             xPos = 90;
             yPos = (8 - gTrainerFrontPicCoords[trainerPicId].size) * 4 + 80;
@@ -2318,8 +2319,8 @@ static void PlayerHandleDrawTrainerPic(void)
         yPos = (8 - gTrainerBackPicCoords[trainerPicId].size) * 4 + 80;
     }
 
-    // Use front pic table for any tag battles unless your partner is Steven.
-    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && gPartnerTrainerId != TRAINER_STEVEN_PARTNER)
+    // Use front pic table for any tag battles unless your partner is Steven or the assistant.
+    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && !IsScriptedPartner(gPartnerTrainerId))
     {
         trainerPicId = PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender);
         DecompressTrainerFrontPic(trainerPicId, gActiveBattler);

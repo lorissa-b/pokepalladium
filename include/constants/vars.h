@@ -156,7 +156,7 @@
 #define VAR_CONTEST_TYPE                                 0x4088
 #define VAR_SECRET_BASE_INITIALIZED                      0x4089
 #define VAR_CONTEST_PRIZE_PICKUP                         0x408A
-#define VAR_UNUSED_0x408B                                0x408B // Unused Var
+#define VAR_JUBILIFE_GALACTIC_STATE                      0x408B // 0: before the Coal Badge, 1: Grunts at the north exit, 2: Grunts beaten
 #define VAR_TWINLEAF_HOUSES_STATE_BRENDAN              0x408C
 #define VAR_TWINLEAF_RIVAL_STATE                       0x408D
 #define VAR_BOARD_BRINEY_BOAT_STATE                      0x408E

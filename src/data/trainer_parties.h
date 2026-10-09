@@ -7555,13 +7555,8 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntSeafloorCavern5[] =
 static const struct TrainerMonNoItemDefaultMoves sParty_GruntUnused[] = {
     {
     .iv = 0,
-    .lvl = 31,
-    .species = SPECIES_WAILMER,
-    },
-    {
-    .iv = 0,
-    .lvl = 31,
-    .species = SPECIES_ZUBAT,
+    .lvl = 11,
+    .species = SPECIES_STUNKY,
     }
 };
 
@@ -7688,8 +7683,8 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Clarence[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_Terry[] = {
     {
     .iv = 0,
-    .lvl = 37,
-    .species = SPECIES_GIRAFARIG,
+    .lvl = 11,
+    .species = SPECIES_GLAMEOW,
     }
 };
 

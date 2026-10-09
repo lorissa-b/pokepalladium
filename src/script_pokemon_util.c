@@ -206,6 +206,26 @@ static void CB2_ReturnFromChooseBattleFrontierParty(void)
     SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
 }
 
+// For a multi battle beside a partner, picks the first Pokémon in the party
+// that can still battle, as many as the player's half of the party holds.
+// Platinum lets the player battle with the whole party; Emerald's multi
+// battles only have room for half of it.
+void ChooseFirstHalfPartyForBattle(void)
+{
+    int i, count = 0;
+
+    for (i = 0; i < MAX_FRONTIER_PARTY_SIZE; i++)
+        gSelectedOrderFromParty[i] = 0;
+
+    for (i = 0; i < PARTY_SIZE && count < MULTI_PARTY_SIZE; i++)
+    {
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE
+         && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG)
+         && GetMonData(&gPlayerParty[i], MON_DATA_HP) != 0)
+            gSelectedOrderFromParty[count++] = i + 1;
+    }
+}
+
 void ReducePlayerPartyToSelectedMons(void)
 {
     struct Pokemon party[MAX_FRONTIER_PARTY_SIZE];
