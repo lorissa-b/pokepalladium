@@ -115,11 +115,12 @@ enum {
     ACTIONS_TAKEITEM_TOSS,
 };
 
-// In CursorCb_FieldMove, field moves <= FIELD_MOVE_WATERFALL need the badge listed in sFieldMoveBadgeFlags.
+// In CursorCb_FieldMove, field moves <= FIELD_MOVE_WATERFALL need the badge listed in sFieldMoveBadgeFlags
+// (none where it's 0).
 // Badge flag names are commented here for people searching for references to remove the badge requirement.
 enum {
     FIELD_MOVE_CUT,         // FLAG_BADGE02_GET
-    FIELD_MOVE_FLASH,       // FLAG_BADGE02_GET
+    FIELD_MOVE_FLASH,       // no badge
     FIELD_MOVE_ROCK_SMASH,  // FLAG_BADGE01_GET
     FIELD_MOVE_STRENGTH,    // FLAG_BADGE04_GET
     FIELD_MOVE_SURF,        // FLAG_BADGE05_GET
@@ -135,11 +136,11 @@ enum {
     FIELD_MOVES_COUNT
 };
 
-// Rock Smash works after the first badge and Cut after the second, as in Platinum.
+// Rock Smash works after the first badge and Cut after the second, and Flash needs none, as in Platinum.
 static const u16 sFieldMoveBadgeFlags[FIELD_MOVE_WATERFALL + 1] =
 {
     [FIELD_MOVE_CUT]        = FLAG_BADGE02_GET,
-    [FIELD_MOVE_FLASH]      = FLAG_BADGE02_GET,
+    [FIELD_MOVE_FLASH]      = 0,
     [FIELD_MOVE_ROCK_SMASH] = FLAG_BADGE01_GET,
     [FIELD_MOVE_STRENGTH]   = FLAG_BADGE04_GET,
     [FIELD_MOVE_SURF]       = FLAG_BADGE05_GET,
@@ -3736,7 +3737,8 @@ static void CursorCb_FieldMove(u8 taskId)
     else
     {
         // All field moves before WATERFALL are HMs.
-        if (fieldMove <= FIELD_MOVE_WATERFALL && FlagGet(sFieldMoveBadgeFlags[fieldMove]) != TRUE)
+        if (fieldMove <= FIELD_MOVE_WATERFALL && sFieldMoveBadgeFlags[fieldMove] != 0
+            && FlagGet(sFieldMoveBadgeFlags[fieldMove]) != TRUE)
         {
             DisplayPartyMenuMessage(gText_CantUseUntilNewBadge, TRUE);
             gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
