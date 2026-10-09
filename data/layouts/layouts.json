@@ -362,14 +362,14 @@
       "border_width": 2
     },
     {
-      "id": "LAYOUT_ROUTE115",
-      "name": "Route115_Layout",
-      "width": 40,
-      "height": 80,
+      "id": "LAYOUT_ROUTE205_SOUTH",
+      "name": "Route205South_Layout",
+      "width": 32,
+      "height": 96,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Fallarbor",
-      "border_filepath": "data/layouts/Route115/border.bin",
-      "blockdata_filepath": "data/layouts/Route115/map.bin",
+      "secondary_tileset": "gTileset_Rustboro",
+      "border_filepath": "data/layouts/Route205South/border.bin",
+      "blockdata_filepath": "data/layouts/Route205South/map.bin",
       "border_height": 2,
       "border_width": 2
     },

@@ -114,27 +114,27 @@ Route114_EventScript_ItemEnergyPowder::
 	finditem ITEM_ENERGY_POWDER
 	end
 
-Route115_EventScript_ItemSuperPotion::
+Route205South_EventScript_ItemSuperPotion::
 	finditem ITEM_SUPER_POTION
 	end
 
-Route115_EventScript_ItemTMFocusPunch::
+Route205South_EventScript_ItemTMFocusPunch::
 	finditem ITEM_TM_FOCUS_PUNCH
 	end
 
-Route115_EventScript_ItemIron::
+Route205South_EventScript_ItemIron::
 	finditem ITEM_IRON
 	end
 
-Route115_EventScript_ItemGreatBall::
+Route205South_EventScript_ItemGreatBall::
 	finditem ITEM_GREAT_BALL
 	end
 
-Route115_EventScript_ItemHealPowder::
+Route205South_EventScript_ItemHealPowder::
 	finditem ITEM_HEAL_POWDER
 	end
 
-Route115_EventScript_ItemPPUp::
+Route205South_EventScript_ItemPPUp::
 	finditem ITEM_PP_UP
 	end
 

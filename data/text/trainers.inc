@@ -1812,178 +1812,178 @@ Route114_Text_AngelinaPostBattle:
 	.string "Some POKéMON change so much when\n"
 	.string "they evolve, it's startling!$"
 
-Route115_Text_TimothyIntro:
+Route205South_Text_TimothyIntro:
 	.string "Hm…\n"
 	.string "You seem rather capable…\l"
 	.string "Let me keep you company!$"
 
-Route115_Text_TimothyDefeat:
+Route205South_Text_TimothyDefeat:
 	.string "You're much stronger than\n"
 	.string "I'd imagined!$"
 
-Route115_Text_TimothyPostBattle:
+Route205South_Text_TimothyPostBattle:
 	.string "There is no such thing as a born genius.\n"
 	.string "It all depends on effort!\l"
 	.string "That is what I believe…$"
 
-Route115_Text_TimothyRegister:
+Route205South_Text_TimothyRegister:
 	.string "Hmm… A loss this thorough has been\n"
 	.string "a distant memory.\p"
 	.string "If you would allow it, I wish for\n"
 	.string "another opportunity to do battle.$"
 
-Route115_Text_TimothyRematchIntro:
+Route205South_Text_TimothyRematchIntro:
 	.string "Hm… As always, your agility speaks\n"
 	.string "for itself.\l"
 	.string "Come, keep me company!$"
 
-Route115_Text_TimothyRematchDefeat:
+Route205South_Text_TimothyRematchDefeat:
 	.string "As strong as ever!$"
 
-Route115_Text_TimothyPostRematch:
+Route205South_Text_TimothyPostRematch:
 	.string "All it takes is effort!\p"
 	.string "I lost because I haven't put in enough\n"
 	.string "effort!$"
 
-Route115_Text_KoichiIntro:
+Route205South_Text_KoichiIntro:
 	.string "You!\p"
 	.string "My MACHOP!\p"
 	.string "Demand a battle!$"
 
-Route115_Text_KoichiDefeat:
+Route205South_Text_KoichiDefeat:
 	.string "Ouch, ouch, ouch!$"
 
-Route115_Text_KoichiPostBattle:
+Route205South_Text_KoichiPostBattle:
 	.string "My MACHOP crew!\p"
 	.string "So long as they seek power, I will\n"
 	.string "grow strong with them!$"
 
-Route115_Text_NobIntro:
+Route205South_Text_NobIntro:
 	.string "My strongest skill is busting bricks\n"
 	.string "with my forehead!$"
 
-Route115_Text_NobDefeat:
+Route205South_Text_NobDefeat:
 	.string "Ugwaaaah!\n"
 	.string "My head is busted!$"
 
-Route115_Text_NobPostBattle:
+Route205South_Text_NobPostBattle:
 	.string "I've been teaching my POKéMON karate.\p"
 	.string "It looks like they'll get a lot better\n"
 	.string "than me. I'm excited about that.$"
 
-Route115_Text_NobRegister:
+Route205South_Text_NobRegister:
 	.string "You impress me! Give me a rematch\n"
 	.string "after I redo my training!$"
 
-Route115_Text_NobRematchIntro:
+Route205South_Text_NobRematchIntro:
 	.string "After you beat me, we trained hard to\n"
 	.string "improve our skills.\l"
 	.string "Come on, give us a rematch!$"
 
-Route115_Text_NobRematchDefeat:
+Route205South_Text_NobRematchDefeat:
 	.string "Ugwaaah!\n"
 	.string "We lost again!$"
 
-Route115_Text_NobPostRematch:
+Route205South_Text_NobPostRematch:
 	.string "My POKéMON will grow stronger!\n"
 	.string "I'll redouble my training!$"
 
-Route115_Text_CyndyIntro:
+Route205South_Text_CyndyIntro:
 	.string "This beach is my secret training spot!\n"
 	.string "Don't come butting in!$"
 
-Route115_Text_CyndyDefeat:
+Route205South_Text_CyndyDefeat:
 	.string "I haven't trained enough!$"
 
-Route115_Text_CyndyPostBattle:
+Route205South_Text_CyndyPostBattle:
 	.string "The sand acts as a cushion to reduce\n"
 	.string "impact and prevent injury.\l"
 	.string "This is the perfect place to train.$"
 
-Route115_Text_CyndyRegister:
+Route205South_Text_CyndyRegister:
 	.string "Okay, fine, you're free to come here.\n"
 	.string "In return, I'd like to battle you again.$"
 
-Route115_Text_CyndyRematchIntro:
+Route205South_Text_CyndyRematchIntro:
 	.string "Okay, let's get this battle on!$"
 
-Route115_Text_CyndyRematchDefeat:
+Route205South_Text_CyndyRematchDefeat:
 	.string "I can battle but my POKéMON…$"
 
-Route115_Text_CyndyPostRematch:
+Route205South_Text_CyndyPostRematch:
 	.string "Even when I lose, I still get some\n"
 	.string "enjoyment out of it.\l"
 	.string "It must be that I love POKéMON.$"
 
-Route115_Text_HectorIntro:
+Route205South_Text_HectorIntro:
 	.string "I have a rare POKéMON!\n"
 	.string "Would you like me to show you?$"
 
-Route115_Text_HectorDefeat:
+Route205South_Text_HectorDefeat:
 	.string "You…\n"
 	.string "You want my POKéMON, don't you?$"
 
-Route115_Text_HectorPostBattle:
+Route205South_Text_HectorPostBattle:
 	.string "I have this rare POKéMON.\n"
 	.string "It's enough to keep me satisfied.$"
 
-Route115_Text_KyraIntro:
+Route205South_Text_KyraIntro:
 	.string "I'll battle while I'm running!\n"
 	.string "Try to keep up with me!$"
 
-Route115_Text_KyraDefeat:
+Route205South_Text_KyraDefeat:
 	.string "Gasp, gasp…$"
 
-Route115_Text_KyraPostBattle:
+Route205South_Text_KyraPostBattle:
 	.string "I made the mistake of trying to battle\n"
 	.string "while running!\p"
 	.string "I should take a run to calm down…$"
 
-Route115_Text_JaidenIntro:
+Route205South_Text_JaidenIntro:
 	.string "Take that!\n"
 	.string "Ultra POKéMON ninja attack!$"
 
-Route115_Text_JaidenDefeat:
+Route205South_Text_JaidenDefeat:
 	.string "Waaah!\n"
 	.string "Our strategy failed!$"
 
-Route115_Text_JaidenPostBattle:
+Route205South_Text_JaidenPostBattle:
 	.string "But my POKéMON were ultra,\n"
 	.string "weren't they?$"
 
-Route115_Text_HeleneIntro:
+Route205South_Text_HeleneIntro:
 	.string "My POKéMON have black belt-level\n"
 	.string "strength!$"
 
-Route115_Text_HeleneDefeat:
+Route205South_Text_HeleneDefeat:
 	.string "This is too humiliating!$"
 
-Route115_Text_HelenePostBattle:
+Route205South_Text_HelenePostBattle:
 	.string "I rarely meet anyone who's better\n"
 	.string "than me…\p"
 	.string "I get it now!\n"
 	.string "You're a GYM LEADER, aren't you?$"
 
-Route115_Text_AlixIntro:
+Route205South_Text_AlixIntro:
 	.string "Our eyes met!\n"
 	.string "There's no getting away now!$"
 
-Route115_Text_AlixDefeat:
+Route205South_Text_AlixDefeat:
 	.string "Gah!\n"
 	.string "Not bad!$"
 
-Route115_Text_AlixPostBattle:
+Route205South_Text_AlixPostBattle:
 	.string "Oh, well.\n"
 	.string "I think I will TELEPORT home.$"
 
-Route115_Text_MarleneIntro:
+Route205South_Text_MarleneIntro:
 	.string "You've disturbed my meditation…\n"
 	.string "You'll be punished for it.$"
 
-Route115_Text_MarleneDefeat:
+Route205South_Text_MarleneDefeat:
 	.string "You've broken my concentration!$"
 
-Route115_Text_MarlenePostBattle:
+Route205South_Text_MarlenePostBattle:
 	.string "I was meditating with my POKéMON.\n"
 	.string "But this place isn't very peaceful…$"
 

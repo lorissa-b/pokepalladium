@@ -640,7 +640,7 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_128_HEART_SCALE_3             (FLAG_HIDDEN_ITEMS_START + 0x5E)
 #define FLAG_HIDDEN_ITEM_OREBURGH_CITY_PEARL                 (FLAG_HIDDEN_ITEMS_START + 0x5F)
 #define FLAG_UNUSED_0x254                                    (FLAG_HIDDEN_ITEMS_START + 0x60) // Unused Flag
-#define FLAG_HIDDEN_ITEM_ROUTE_115_HEART_SCALE               (FLAG_HIDDEN_ITEMS_START + 0x61)
+#define FLAG_HIDDEN_ITEM_ROUTE_205_SOUTH_HEART_SCALE               (FLAG_HIDDEN_ITEMS_START + 0x61)
 #define FLAG_HIDDEN_ITEM_ROUTE_113_NUGGET                    (FLAG_HIDDEN_ITEMS_START + 0x62)
 #define FLAG_HIDDEN_ITEM_ROUTE_123_PP_UP                     (FLAG_HIDDEN_ITEMS_START + 0x63)
 #define FLAG_HIDDEN_ITEM_ROUTE_121_MAX_REVIVE                (FLAG_HIDDEN_ITEMS_START + 0x64)
@@ -1066,9 +1066,9 @@
 #define FLAG_ITEM_ROUTE_113_SUPER_REPEL                             0x3F5
 #define FLAG_ITEM_ROUTE_114_RARE_CANDY                              0x3F6
 #define FLAG_ITEM_ROUTE_114_PROTEIN                                 0x3F7
-#define FLAG_ITEM_ROUTE_115_SUPER_POTION                            0x3F8
-#define FLAG_ITEM_ROUTE_115_TM_FOCUS_PUNCH                          0x3F9
-#define FLAG_ITEM_ROUTE_115_IRON                                    0x3FA
+#define FLAG_ITEM_ROUTE_205_SOUTH_SUPER_POTION                            0x3F8
+#define FLAG_ITEM_ROUTE_205_SOUTH_TM_FOCUS_PUNCH                          0x3F9
+#define FLAG_ITEM_ROUTE_205_SOUTH_IRON                                    0x3FA
 #define FLAG_ITEM_ROUTE_204_AWAKENING                               0x3FB
 #define FLAG_ITEM_ROUTE_204_PARALYZE_HEAL                           0x3FC
 #define FLAG_ITEM_ROUTE_204_HP_UP                                   0x3FD
@@ -1168,7 +1168,7 @@
 #define FLAG_ITEM_ROUTE_203_X_DEFEND                                0x45B
 #define FLAG_ITEM_MAUVILLE_CITY_X_SPEED                             0x45C
 #define FLAG_ITEM_PETALBURG_WOODS_PARALYZE_HEAL                     0x45D
-#define FLAG_ITEM_ROUTE_115_GREAT_BALL                              0x45E
+#define FLAG_ITEM_ROUTE_205_SOUTH_GREAT_BALL                              0x45E
 #define FLAG_ITEM_SAFARI_ZONE_NORTH_CALCIUM                         0x45F
 #define FLAG_ITEM_MT_PYRE_3F_SUPER_REPEL                            0x460
 #define FLAG_ITEM_ROUTE_118_HYPER_POTION                            0x461
@@ -1194,7 +1194,7 @@
 #define FLAG_ITEM_ROUTE_110_ELIXIR                                  0x475
 #define FLAG_ITEM_ROUTE_111_ELIXIR                                  0x476
 #define FLAG_ITEM_ROUTE_113_HYPER_POTION                            0x477
-#define FLAG_ITEM_ROUTE_115_HEAL_POWDER                             0x478
+#define FLAG_ITEM_ROUTE_205_SOUTH_HEAL_POWDER                             0x478
 #define FLAG_ITEM_RAVAGED_PATH_TM03                                 0x479
 #define FLAG_ITEM_ROUTE_204_SEA_INCENSE                             0x47A
 #define FLAG_ITEM_ROUTE_119_ELIXIR_2                                0x47B
@@ -1211,7 +1211,7 @@
 #define FLAG_ITEM_ROUTE_134_CARBOS                                  0x486
 #define FLAG_ITEM_ROUTE_134_STAR_PIECE                              0x487
 #define FLAG_ITEM_ROUTE_114_ENERGY_POWDER                           0x488
-#define FLAG_ITEM_ROUTE_115_PP_UP                                   0x489
+#define FLAG_ITEM_ROUTE_205_SOUTH_PP_UP                                   0x489
 #define FLAG_ITEM_ARTISAN_CAVE_B1F_HP_UP                            0x48A
 #define FLAG_ITEM_ARTISAN_CAVE_1F_CARBOS                            0x48B
 #define FLAG_ITEM_MAGMA_HIDEOUT_2F_2R_MAX_ELIXIR                    0x48C
