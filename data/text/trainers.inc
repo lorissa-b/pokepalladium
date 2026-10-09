@@ -1812,180 +1812,106 @@ Route114_Text_AngelinaPostBattle:
 	.string "Some POKéMON change so much when\n"
 	.string "they evolve, it's startling!$"
 
-Route205South_Text_TimothyIntro:
-	.string "Hm…\n"
-	.string "You seem rather capable…\l"
-	.string "Let me keep you company!$"
+Route205South_Text_DanielIntro:
+	.string "There's no mountain here, but I'm\n"
+	.string "dressed to hike! Gahaha! Here goes!$"
 
-Route205South_Text_TimothyDefeat:
-	.string "You're much stronger than\n"
-	.string "I'd imagined!$"
+Route205South_Text_DanielDefeat:
+	.string "Oh, yeah!\n"
+	.string "A refreshing battle that was!$"
 
-Route205South_Text_TimothyPostBattle:
-	.string "There is no such thing as a born genius.\n"
-	.string "It all depends on effort!\l"
-	.string "That is what I believe…$"
+Route205South_Text_DanielPostBattle:
+	.string "You can find the same kinds of\n"
+	.string "POKéMON in all sorts of places.\p"
+	.string "There's no law saying a HIKER can't\n"
+	.string "go searching off in the mountains!$"
 
-Route205South_Text_TimothyRegister:
-	.string "Hmm… A loss this thorough has been\n"
-	.string "a distant memory.\p"
-	.string "If you would allow it, I wish for\n"
-	.string "another opportunity to do battle.$"
+Route205South_Text_ElizabethIntro:
+	.string "I love POKéMON that smell sweet.\n"
+	.string "Like this one--get a whiff of this!$"
 
-Route205South_Text_TimothyRematchIntro:
-	.string "Hm… As always, your agility speaks\n"
-	.string "for itself.\l"
-	.string "Come, keep me company!$"
+Route205South_Text_ElizabethDefeat:
+	.string "Did you understand what I meant?\n"
+	.string "Didn't my POKéMON smell nice?$"
 
-Route205South_Text_TimothyRematchDefeat:
-	.string "As strong as ever!$"
+Route205South_Text_ElizabethPostBattle:
+	.string "If you plant lots of BERRIES, you\n"
+	.string "can be surrounded by sweet scents.$"
 
-Route205South_Text_TimothyPostRematch:
-	.string "All it takes is effort!\p"
-	.string "I lost because I haven't put in enough\n"
-	.string "effort!$"
+Route205South_Text_JacobIntro:
+	.string "Hey, how about you and me battle\n"
+	.string "before I go into ETERNA FOREST?$"
 
-Route205South_Text_KoichiIntro:
-	.string "You!\p"
-	.string "My MACHOP!\p"
-	.string "Demand a battle!$"
+Route205South_Text_JacobDefeat:
+	.string "That really dampened my spirits.$"
 
-Route205South_Text_KoichiDefeat:
-	.string "Ouch, ouch, ouch!$"
+Route205South_Text_JacobPostBattle:
+	.string "I heard that really tough POKéMON\n"
+	.string "appear in ETERNA FOREST.\p"
+	.string "I need to be more prepared\n"
+	.string "than this!$"
 
-Route205South_Text_KoichiPostBattle:
-	.string "My MACHOP crew!\p"
-	.string "So long as they seek power, I will\n"
-	.string "grow strong with them!$"
+Route205South_Text_SienaIntro:
+	.string "What kinds of POKéMON live around\n"
+	.string "here, I wonder?$"
 
-Route205South_Text_NobIntro:
-	.string "My strongest skill is busting bricks\n"
-	.string "with my forehead!$"
+Route205South_Text_SienaDefeat:
+	.string "I'm shocked!\n"
+	.string "How did I lose?$"
 
-Route205South_Text_NobDefeat:
-	.string "Ugwaaaah!\n"
-	.string "My head is busted!$"
+Route205South_Text_SienaPostBattle:
+	.string "I know all sorts of things about\n"
+	.string "POKéMON!\p"
+	.string "Let's see… There are males and\n"
+	.string "females, and some aren't either!$"
 
-Route205South_Text_NobPostBattle:
-	.string "I've been teaching my POKéMON karate.\p"
-	.string "It looks like they'll get a lot better\n"
-	.string "than me. I'm excited about that.$"
+Route205South_Text_NicholasIntro:
+	.string "I've lost my way…\n"
+	.string "Here of all places…$"
 
-Route205South_Text_NobRegister:
-	.string "You impress me! Give me a rematch\n"
-	.string "after I redo my training!$"
+Route205South_Text_NicholasDefeat:
+	.string "Having lost his way, the TRAINER\n"
+	.string "lost the battle too…$"
 
-Route205South_Text_NobRematchIntro:
-	.string "After you beat me, we trained hard to\n"
-	.string "improve our skills.\l"
-	.string "Come on, give us a rematch!$"
+Route205South_Text_NicholasPostBattle:
+	.string "From being lost in the mountains so\n"
+	.string "long, I became a HIKER…$"
 
-Route205South_Text_NobRematchDefeat:
-	.string "Ugwaaah!\n"
-	.string "We lost again!$"
+Route205South_Text_KelseyIntro:
+	.string "Hiyah!\n"
+	.string "There's no holding anything back!$"
 
-Route205South_Text_NobPostRematch:
-	.string "My POKéMON will grow stronger!\n"
-	.string "I'll redouble my training!$"
+Route205South_Text_KelseyDefeat:
+	.string "I… I concede! I think you're\n"
+	.string "on a different level…$"
 
-Route205South_Text_CyndyIntro:
-	.string "This beach is my secret training spot!\n"
-	.string "Don't come butting in!$"
+Route205South_Text_KelseyPostBattle:
+	.string "Hiyah! You put me in my place!\n"
+	.string "I appreciate it!$"
 
-Route205South_Text_CyndyDefeat:
-	.string "I haven't trained enough!$"
+Route205South_Text_KarinaIntro:
+	.string "Oh, I don't know.\n"
+	.string "Should I play a little?$"
 
-Route205South_Text_CyndyPostBattle:
-	.string "The sand acts as a cushion to reduce\n"
-	.string "impact and prevent injury.\l"
-	.string "This is the perfect place to train.$"
+Route205South_Text_KarinaDefeat:
+	.string "Oh, boo!\n"
+	.string "How insulting!$"
 
-Route205South_Text_CyndyRegister:
-	.string "Okay, fine, you're free to come here.\n"
-	.string "In return, I'd like to battle you again.$"
+Route205South_Text_KarinaPostBattle:
+	.string "Listen very closely…\n"
+	.string "Can you hear the cries of POKéMON?$"
 
-Route205South_Text_CyndyRematchIntro:
-	.string "Okay, let's get this battle on!$"
+Route205South_Text_ZackaryIntro:
+	.string "It's a long way between FLOAROMA\n"
+	.string "and ETERNA CITY. So, let's battle!$"
 
-Route205South_Text_CyndyRematchDefeat:
-	.string "I can battle but my POKéMON…$"
+Route205South_Text_ZackaryDefeat:
+	.string "Wawawaah! I'm out of POKéMON\n"
+	.string "that can go!$"
 
-Route205South_Text_CyndyPostRematch:
-	.string "Even when I lose, I still get some\n"
-	.string "enjoyment out of it.\l"
-	.string "It must be that I love POKéMON.$"
-
-Route205South_Text_HectorIntro:
-	.string "I have a rare POKéMON!\n"
-	.string "Would you like me to show you?$"
-
-Route205South_Text_HectorDefeat:
-	.string "You…\n"
-	.string "You want my POKéMON, don't you?$"
-
-Route205South_Text_HectorPostBattle:
-	.string "I have this rare POKéMON.\n"
-	.string "It's enough to keep me satisfied.$"
-
-Route205South_Text_KyraIntro:
-	.string "I'll battle while I'm running!\n"
-	.string "Try to keep up with me!$"
-
-Route205South_Text_KyraDefeat:
-	.string "Gasp, gasp…$"
-
-Route205South_Text_KyraPostBattle:
-	.string "I made the mistake of trying to battle\n"
-	.string "while running!\p"
-	.string "I should take a run to calm down…$"
-
-Route205South_Text_JaidenIntro:
-	.string "Take that!\n"
-	.string "Ultra POKéMON ninja attack!$"
-
-Route205South_Text_JaidenDefeat:
-	.string "Waaah!\n"
-	.string "Our strategy failed!$"
-
-Route205South_Text_JaidenPostBattle:
-	.string "But my POKéMON were ultra,\n"
-	.string "weren't they?$"
-
-Route205South_Text_HeleneIntro:
-	.string "My POKéMON have black belt-level\n"
-	.string "strength!$"
-
-Route205South_Text_HeleneDefeat:
-	.string "This is too humiliating!$"
-
-Route205South_Text_HelenePostBattle:
-	.string "I rarely meet anyone who's better\n"
-	.string "than me…\p"
-	.string "I get it now!\n"
-	.string "You're a GYM LEADER, aren't you?$"
-
-Route205South_Text_AlixIntro:
-	.string "Our eyes met!\n"
-	.string "There's no getting away now!$"
-
-Route205South_Text_AlixDefeat:
-	.string "Gah!\n"
-	.string "Not bad!$"
-
-Route205South_Text_AlixPostBattle:
-	.string "Oh, well.\n"
-	.string "I think I will TELEPORT home.$"
-
-Route205South_Text_MarleneIntro:
-	.string "You've disturbed my meditation…\n"
-	.string "You'll be punished for it.$"
-
-Route205South_Text_MarleneDefeat:
-	.string "You've broken my concentration!$"
-
-Route205South_Text_MarlenePostBattle:
-	.string "I was meditating with my POKéMON.\n"
-	.string "But this place isn't very peaceful…$"
+Route205South_Text_ZackaryPostBattle:
+	.string "Camping with POKéMON! Do you have\n"
+	.string "any idea how fun that is?$"
 
 Route204_Text_SarahIntro:
 	.string "I came to see the flowers, but a\n"

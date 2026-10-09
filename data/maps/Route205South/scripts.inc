@@ -145,6 +145,46 @@ Route205South_EventScript_Youngster::
 	msgbox Route205South_Text_SlatherHoneyOnATree, MSGBOX_NPC
 	end
 
+Route205South_EventScript_Daniel::
+	trainerbattle_single TRAINER_DEVAN, Route205South_Text_DanielIntro, Route205South_Text_DanielDefeat
+	msgbox Route205South_Text_DanielPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route205South_EventScript_Elizabeth::
+	trainerbattle_single TRAINER_KYRA, Route205South_Text_ElizabethIntro, Route205South_Text_ElizabethDefeat
+	msgbox Route205South_Text_ElizabethPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route205South_EventScript_Jacob::
+	trainerbattle_single TRAINER_KOICHI, Route205South_Text_JacobIntro, Route205South_Text_JacobDefeat
+	msgbox Route205South_Text_JacobPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route205South_EventScript_Siena::
+	trainerbattle_single TRAINER_HECTOR, Route205South_Text_SienaIntro, Route205South_Text_SienaDefeat
+	msgbox Route205South_Text_SienaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route205South_EventScript_Nicholas::
+	trainerbattle_single TRAINER_JAIDEN, Route205South_Text_NicholasIntro, Route205South_Text_NicholasDefeat
+	msgbox Route205South_Text_NicholasPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route205South_EventScript_Kelsey::
+	trainerbattle_single TRAINER_HELENE, Route205South_Text_KelseyIntro, Route205South_Text_KelseyDefeat
+	msgbox Route205South_Text_KelseyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route205South_EventScript_Karina::
+	trainerbattle_single TRAINER_ALIX, Route205South_Text_KarinaIntro, Route205South_Text_KarinaDefeat
+	msgbox Route205South_Text_KarinaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route205South_EventScript_Zackary::
+	trainerbattle_single TRAINER_MARLENE, Route205South_Text_ZackaryIntro, Route205South_Text_ZackaryDefeat
+	msgbox Route205South_Text_ZackaryPostBattle, MSGBOX_AUTOCLOSE
+	end
+
 Route205South_EventScript_SignFloaromaTown::
 	msgbox Route205South_Text_SignFloaromaTown, MSGBOX_SIGN
 	end
