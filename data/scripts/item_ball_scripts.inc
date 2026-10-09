@@ -70,8 +70,24 @@ Route111_EventScript_ItemElixir::
 	finditem ITEM_ELIXIR
 	end
 
-Route112_EventScript_ItemNugget::
-	finditem ITEM_NUGGET
+Route207_EventScript_ItemPokeBall::
+	finditem ITEM_POKE_BALL
+	end
+
+Route207_EventScript_ItemRevive::
+	finditem ITEM_REVIVE
+	end
+
+Route207_EventScript_ItemIron::
+	finditem ITEM_IRON
+	end
+
+Route207_EventScript_ItemSuperPotion::
+	finditem ITEM_SUPER_POTION
+	end
+
+Route207_EventScript_ItemTimerBall::
+	finditem ITEM_TIMER_BALL
 	end
 
 Route113_EventScript_ItemMaxEther::
@@ -298,12 +314,12 @@ Route134_EventScript_ItemStarPiece::
 	finditem ITEM_STAR_PIECE
 	end
 
-PetalburgCity_EventScript_ItemMaxRevive::
-	finditem ITEM_MAX_REVIVE
+OreburghCity_EventScript_ItemDireHit::
+	finditem ITEM_DIRE_HIT
 	end
 
-PetalburgCity_EventScript_ItemEther::
-	finditem ITEM_ETHER
+OreburghCity_EventScript_ItemYellowShard::
+	finditem ITEM_YELLOW_SHARD
 	end
 
 MauvilleCity_EventScript_ItemXSpeed::
@@ -352,6 +368,18 @@ OreburghGate_B1F_EventScript_ItemTM70::
 
 OreburghGate_B1F_EventScript_ItemBigPearl::
 	finditem ITEM_BIG_PEARL
+	end
+
+OreburghMine_B1F_EventScript_ItemPokeBall::
+	finditem ITEM_POKE_BALL
+	end
+
+OreburghMine_B2F_EventScript_ItemEscapeRope::
+	finditem ITEM_ESCAPE_ROPE
+	end
+
+OreburghMine_B2F_EventScript_ItemPotion::
+	finditem ITEM_POTION
 	end
 
 LilycoveCity_EventScript_ItemMaxRepel::

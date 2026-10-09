@@ -1,7 +1,7 @@
 @ Oreburgh Gate 1F, after Platinum's (x - 2, y - 3), on Emerald's cave tileset
 @ like Ravaged Path. The exits to Route 203 (west) and Oreburgh City (east) are
 @ south-facing cave mouths at the ends of Platinum's corridor, since the cave
-@ tileset has no side exits; the east one has no warp until Oreburgh City exists.
+@ tileset has no side exits.
 @ The stairs down are a ladder to B1F.
 OreburghGate_1F_MapScripts::
 	.byte 0

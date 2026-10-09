@@ -19,7 +19,7 @@
     "gMapGroup_IndoorEverGrande",
     "gMapGroup_IndoorRoute203",
     "gMapGroup_IndoorRoute111",
-    "gMapGroup_IndoorRoute112",
+    "gMapGroup_IndoorRoute207",
     "gMapGroup_IndoorRoute114",
     "gMapGroup_IndoorRoute204",
     "gMapGroup_IndoorRoute117",
@@ -36,7 +36,7 @@
     "gMapGroup_IndoorRoute124"
   ],
   "gMapGroup_TownsAndRoutes": [
-    "PetalburgCity",
+    "OreburghCity",
     "SlateportCity",
     "MauvilleCity",
     "JubilifeCity",
@@ -63,7 +63,7 @@
     "Route109",
     "Route110",
     "Route111",
-    "Route112",
+    "Route207",
     "Route113",
     "Route114",
     "Route115",
@@ -157,13 +157,13 @@
     "PacifidlogTown_House5"
   ],
   "gMapGroup_IndoorPetalburg": [
-    "PetalburgCity_WallysHouse",
-    "PetalburgCity_Gym",
-    "PetalburgCity_House1",
-    "PetalburgCity_House2",
-    "PetalburgCity_PokemonCenter_1F",
-    "PetalburgCity_PokemonCenter_2F",
-    "PetalburgCity_Mart"
+    "OreburghCity_House3",
+    "OreburghCity_Gym",
+    "OreburghCity_House1",
+    "OreburghCity_House2",
+    "OreburghCity_PokemonCenter_1F",
+    "OreburghCity_PokemonCenter_2F",
+    "OreburghCity_Mart"
   ],
   "gMapGroup_IndoorSlateport": [
     "SlateportCity_SternsShipyard_1F",
@@ -307,8 +307,8 @@
     "Route111_WinstrateFamilysHouse",
     "Route111_OldLadysRestStop"
   ],
-  "gMapGroup_IndoorRoute112": [
-    "Route112_CableCarStation",
+  "gMapGroup_IndoorRoute207": [
+    "Route207_CableCarStation",
     "MtChimney_CableCarStation"
   ],
   "gMapGroup_IndoorRoute114": [
@@ -436,7 +436,9 @@
     "MeteorFalls_StevensCave",
     "RavagedPath",
     "OreburghGate_1F",
-    "OreburghGate_B1F"
+    "OreburghGate_B1F",
+    "OreburghMine_B1F",
+    "OreburghMine_B2F"
   ],
   "gMapGroup_IndoorDynamic": [
     "SecretBase_RedCave1",

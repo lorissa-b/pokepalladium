@@ -13,10 +13,10 @@
       "y": 2
     },
     {
-      "id": "HEAL_LOCATION_PETALBURG_CITY",
-      "map": "MAP_PETALBURG_CITY",
-      "x": 20,
-      "y": 17
+      "id": "HEAL_LOCATION_OREBURGH_CITY",
+      "map": "MAP_OREBURGH_CITY",
+      "x": 47,
+      "y": 21
     },
     {
       "id": "HEAL_LOCATION_SLATEPORT_CITY",

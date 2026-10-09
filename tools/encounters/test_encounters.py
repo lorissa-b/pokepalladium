@@ -80,16 +80,16 @@ class Species(unittest.TestCase):
 
 
 class Trainers(unittest.TestCase):
-    def test_only_reachable_battles_count(self):
-        # Route 202's scripts still hold Route 103's battles, but only its
-        # placed trainers can start one.
+    def test_placed_trainers_are_found(self):
+        # Route 202's scripts hold a battle for each placed trainer and no
+        # others, so following its events finds every one.
         info = enc.maps()["MAP_ROUTE202"]
         found = {t.const for t in enc.map_trainers(info)}
         placed = [e for e in info["object_events"] if e.get("trainer_type") == "TRAINER_TYPE_NORMAL"]
         in_scripts = set(re.findall(r"trainerbattle\w*\s+(?:\w+\s*,\s*)?(TRAINER_\w+)",
                                     (enc.REPO / "data/maps/Route202/scripts.inc").read_text()))
         self.assertEqual(len(found), len(placed))
-        self.assertLess(found, in_scripts)
+        self.assertEqual(found, in_scripts)
 
     def test_parties_are_read(self):
         party = enc.trainers()["TRAINER_CALVIN_1"].party

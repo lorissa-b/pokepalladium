@@ -198,14 +198,14 @@ static const struct Landmark *const Landmarks_Route111_4[]  =
     NULL,
 };
 
-static const struct Landmark *const Landmarks_Route112_0[]  =
+static const struct Landmark *const Landmarks_Route207_0[]  =
 {
     &Landmark_FieryPath,
     &Landmark_JaggedPass,
     NULL,
 };
 
-static const struct Landmark *const Landmarks_Route112_1[]  =
+static const struct Landmark *const Landmarks_Route207_1[]  =
 {
     &Landmark_CableCar,
     &Landmark_FieryPath,
@@ -352,8 +352,8 @@ static const struct LandmarkList sLandmarkLists[] =
     {MAPSEC_ROUTE_111, 2, Landmarks_Route111_2},
     {MAPSEC_ROUTE_111, 3, Landmarks_Route111_3},
     {MAPSEC_ROUTE_111, 4, Landmarks_Route111_4},
-    {MAPSEC_ROUTE_112, 0, Landmarks_Route112_0},
-    {MAPSEC_ROUTE_112, 1, Landmarks_Route112_1},
+    {MAPSEC_ROUTE_207, 0, Landmarks_Route207_0},
+    {MAPSEC_ROUTE_207, 1, Landmarks_Route207_1},
     {MAPSEC_ROUTE_113, 1, Landmarks_Route113_1},
     {MAPSEC_ROUTE_114, 1, Landmarks_Route114_1},
     {MAPSEC_ROUTE_114, 2, Landmarks_Route114_2},

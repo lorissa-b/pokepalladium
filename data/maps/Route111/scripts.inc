@@ -625,7 +625,7 @@ Route111_Text_WinstrateHouseSign:
 
 Route111_Text_RouteSign112:
 	.string "ROUTE 111\n"
-	.string "{LEFT_ARROW} ROUTE 112$"
+	.string "{LEFT_ARROW} ROUTE 207$"
 
 Route111_Text_RouteSign113:
 	.string "ROUTE 111\n"
