@@ -87,8 +87,8 @@ a warning, so it can gate a script.
 
 Trainers are found by following the map's scripts from its object, coord and
 background events and its map scripts. Battles left over in `scripts.inc` that
-nothing reaches are left out, such as the Route 103 battles still in Route
-202's scripts.
+nothing reaches, such as a Hoenn battle left behind when a map is converted,
+are left out.
 
 ## Tests
 
