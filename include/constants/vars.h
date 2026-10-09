@@ -127,7 +127,7 @@
 #define VAR_ROUTE207_STATE                               0x406B // Unused Var
 #define VAR_ROUTE113_STATE                               0x406C // Unused Var
 #define VAR_ROUTE114_STATE                               0x406D // Unused Var
-#define VAR_ROUTE205_SOUTH_STATE                               0x406E // Unused Var
+#define VAR_VALLEY_WINDWORKS_STATE                             0x406E
 #define VAR_ROUTE204_STATE                               0x406F
 #define VAR_FLOAROMA_MEADOW_STATE                               0x4070 // 0: Grunts after the HONEY, 1: Grunts beaten
 #define VAR_ROUTE118_STATE                               0x4071

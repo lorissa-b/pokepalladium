@@ -1,145 +1,215 @@
+@ Route 205 South, between Floaroma Town and Eterna Forest. Drawn over
+@ Emerald's Route 115 from Platinum's map. The little girl on the bottom path
+@ notices the player on the way east from Floaroma; talking to her clears the
+@ Grunts out of Floaroma Meadow and sets VAR_VALLEY_WINDWORKS_STATE to 1. The
+@ two Grunts on the bridge then push the player back until
+@ FLAG_HIDE_ROUTE_205_SOUTH_GRUNTS is set, which in Platinum happens once
+@ Valley Windworks is freed. Eterna Forest isn't here yet, so its cave mouths
+@ (14-15, 5) lead back to themselves.
 Route205South_MapScripts::
-	map_script MAP_SCRIPT_ON_LOAD, Route205South_OnLoad
-	map_script MAP_SCRIPT_ON_TRANSITION, Route205South_OnTransition
-	map_script MAP_SCRIPT_ON_FRAME_TABLE, Route205South_OnFrame
 	.byte 0
 
-Route205South_OnLoad:
-	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_205_SOUTH_WEST, AbnormalWeather_EventScript_PlaceTilesRoute205SouthWest
-	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_205_SOUTH_EAST, AbnormalWeather_EventScript_PlaceTilesRoute205SouthEast
+Route205South_EventScript_LittleGirl::
+	lock
+	faceplayer
+	goto_if_ge VAR_VALLEY_WINDWORKS_STATE, 1, Route205South_EventScript_IWantToSeeMyPapa
+	goto Route205South_EventScript_HelpIWantToSeeMyPapa
 	end
 
-Route205South_OnTransition:
-	call_if_eq VAR_SHOULD_END_ABNORMAL_WEATHER, 1, AbnormalWeather_EventScript_HideMapNamePopup
-	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_205_SOUTH_WEST, AbnormalWeather_StartGroudonWeather
-	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_205_SOUTH_EAST, AbnormalWeather_StartGroudonWeather
-	end
-
-Route205South_OnFrame:
-	map_script_2 VAR_SHOULD_END_ABNORMAL_WEATHER, 1, AbnormalWeather_EventScript_EndEventAndCleanup_1
-	.2byte 0
-
-Route205South_EventScript_Woman::
-	msgbox Route205South_Text_NeverKnowWhenCavePokemonWillAppear, MSGBOX_NPC
-	end
-
-Route205South_EventScript_RouteSignJubilife::
-	msgbox Route205South_Text_RouteSignJubilife, MSGBOX_SIGN
-	end
-
-Route205South_EventScript_MeteorFallsSign::
-	msgbox Route205South_Text_MeteorFallsSign, MSGBOX_SIGN
-	end
-
-Route205South_EventScript_Timothy::
-	trainerbattle_single TRAINER_TIMOTHY_1, Route205South_Text_TimothyIntro, Route205South_Text_TimothyDefeat, Route205South_EventScript_RegisterTimothy
-	specialvar VAR_RESULT, ShouldTryRematchBattle
-	goto_if_eq VAR_RESULT, TRUE, Route205South_EventScript_RematchTimothy
-	msgbox Route205South_Text_TimothyPostBattle, MSGBOX_DEFAULT
+Route205South_EventScript_IWantToSeeMyPapa::
+	msgbox Route205South_Text_IWantToSeeMyPapa, MSGBOX_DEFAULT
 	release
 	end
 
-Route205South_EventScript_RegisterTimothy::
-	special PlayerFaceTrainerAfterBattle
+Route205South_EventScript_LittleGirlNoticeNorth2::
+	lockall
+	applymovement LOCALID_ROUTE205_SOUTH_LITTLE_GIRL, Route205South_Movement_LittleGirlNoticeNorthAndWalk
 	waitmovement 0
-	msgbox Route205South_Text_TimothyRegister, MSGBOX_DEFAULT
-	register_matchcall TRAINER_TIMOTHY_1
-	release
-	end
-
-Route205South_EventScript_RematchTimothy::
-	trainerbattle_rematch TRAINER_TIMOTHY_1, Route205South_Text_TimothyRematchIntro, Route205South_Text_TimothyRematchDefeat
-	msgbox Route205South_Text_TimothyPostRematch, MSGBOX_AUTOCLOSE
-	end
-
-Route205South_EventScript_Koichi::
-	trainerbattle_single TRAINER_KOICHI, Route205South_Text_KoichiIntro, Route205South_Text_KoichiDefeat
-	msgbox Route205South_Text_KoichiPostBattle, MSGBOX_AUTOCLOSE
-	end
-
-Route205South_EventScript_Nob::
-	trainerbattle_single TRAINER_NOB_1, Route205South_Text_NobIntro, Route205South_Text_NobDefeat, Route205South_EventScript_RegisterNob
-	specialvar VAR_RESULT, ShouldTryRematchBattle
-	goto_if_eq VAR_RESULT, TRUE, Route205South_EventScript_RematchNob
-	msgbox Route205South_Text_NobPostBattle, MSGBOX_DEFAULT
-	release
-	end
-
-Route205South_EventScript_RegisterNob::
-	special PlayerFaceTrainerAfterBattle
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
-	msgbox Route205South_Text_NobRegister, MSGBOX_DEFAULT
-	register_matchcall TRAINER_NOB_1
-	release
+	goto Route205South_EventScript_HelpIWantToSeeMyPapa
 	end
 
-Route205South_EventScript_RematchNob::
-	trainerbattle_rematch TRAINER_NOB_1, Route205South_Text_NobRematchIntro, Route205South_Text_NobRematchDefeat
-	msgbox Route205South_Text_NobPostRematch, MSGBOX_AUTOCLOSE
-	end
-
-Route205South_EventScript_Cyndy::
-	trainerbattle_single TRAINER_CYNDY_1, Route205South_Text_CyndyIntro, Route205South_Text_CyndyDefeat, Route205South_EventScript_RegisterCyndy
-	specialvar VAR_RESULT, ShouldTryRematchBattle
-	goto_if_eq VAR_RESULT, TRUE, Route205South_EventScript_RematchCyndy
-	msgbox Route205South_Text_CyndyPostBattle, MSGBOX_DEFAULT
-	release
-	end
-
-Route205South_EventScript_RegisterCyndy::
-	special PlayerFaceTrainerAfterBattle
+Route205South_EventScript_LittleGirlNoticeNorth1::
+	lockall
+	applymovement LOCALID_ROUTE205_SOUTH_LITTLE_GIRL, Route205South_Movement_LittleGirlNoticeNorth
 	waitmovement 0
-	msgbox Route205South_Text_CyndyRegister, MSGBOX_DEFAULT
-	register_matchcall TRAINER_CYNDY_1
-	release
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	goto Route205South_EventScript_HelpIWantToSeeMyPapa
 	end
 
-Route205South_EventScript_RematchCyndy::
-	trainerbattle_rematch TRAINER_CYNDY_1, Route205South_Text_CyndyRematchIntro, Route205South_Text_CyndyRematchDefeat
-	msgbox Route205South_Text_CyndyPostRematch, MSGBOX_AUTOCLOSE
+Route205South_EventScript_LittleGirlNoticeSouth1::
+	lockall
+	applymovement LOCALID_ROUTE205_SOUTH_LITTLE_GIRL, Route205South_Movement_LittleGirlNoticeSouth
+	waitmovement 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	goto Route205South_EventScript_HelpIWantToSeeMyPapa
 	end
 
-Route205South_EventScript_Hector::
-	trainerbattle_single TRAINER_HECTOR, Route205South_Text_HectorIntro, Route205South_Text_HectorDefeat
-	msgbox Route205South_Text_HectorPostBattle, MSGBOX_AUTOCLOSE
+Route205South_EventScript_LittleGirlNoticeSouth2::
+	lockall
+	applymovement LOCALID_ROUTE205_SOUTH_LITTLE_GIRL, Route205South_Movement_LittleGirlNoticeSouthAndWalk
+	waitmovement 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	goto Route205South_EventScript_HelpIWantToSeeMyPapa
 	end
 
-Route205South_EventScript_Kyra::
-	trainerbattle_single TRAINER_KYRA, Route205South_Text_KyraIntro, Route205South_Text_KyraDefeat
-	msgbox Route205South_Text_KyraPostBattle, MSGBOX_AUTOCLOSE
+Route205South_EventScript_HelpIWantToSeeMyPapa::
+	setflag FLAG_HIDE_FLOAROMA_TOWN_GRUNTS
+	setvar VAR_VALLEY_WINDWORKS_STATE, 1
+	msgbox Route205South_Text_HelpIWantToSeeMyPapa, MSGBOX_DEFAULT
+	releaseall
 	end
 
-Route205South_EventScript_Jaiden::
-	trainerbattle_single TRAINER_JAIDEN, Route205South_Text_JaidenIntro, Route205South_Text_JaidenDefeat
-	msgbox Route205South_Text_JaidenPostBattle, MSGBOX_AUTOCLOSE
+Route205South_Movement_LittleGirlNoticeNorthAndWalk:
+	walk_in_place_faster_up
+	emote_exclamation_mark
+	delay_8
+	walk_up
+	step_end
+
+Route205South_Movement_LittleGirlNoticeNorth:
+	walk_in_place_faster_up
+	emote_exclamation_mark
+	delay_8
+	step_end
+
+Route205South_Movement_LittleGirlNoticeSouth:
+	walk_in_place_faster_down
+	emote_exclamation_mark
+	delay_8
+	step_end
+
+Route205South_Movement_LittleGirlNoticeSouthAndWalk:
+	walk_in_place_faster_down
+	emote_exclamation_mark
+	delay_8
+	walk_down
+	step_end
+
+Route205South_EventScript_Grunts::
+	lockall
+	faceplayer
+	applymovement LOCALID_ROUTE205_SOUTH_GRUNT_WEST, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	msgbox Route205South_Text_TeamGalacticConductingResearch, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_ROUTE205_SOUTH_GRUNT_EAST, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	msgbox Route205South_Text_ResearchInvolvesCatchingPokemon, MSGBOX_DEFAULT
+	releaseall
 	end
 
-Route205South_EventScript_Alix::
-	trainerbattle_single TRAINER_ALIX, Route205South_Text_AlixIntro, Route205South_Text_AlixDefeat
-	msgbox Route205South_Text_AlixPostBattle, MSGBOX_AUTOCLOSE
+@ Stepping between the Grunts on the bridge
+Route205South_EventScript_GruntsPushBack::
+	lockall
+	applymovement LOCALID_ROUTE205_SOUTH_GRUNT_WEST, Common_Movement_WalkInPlaceFasterRight
+	waitmovement 0
+	msgbox Route205South_Text_TeamGalacticConductingResearch, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_ROUTE205_SOUTH_GRUNT_EAST, Common_Movement_WalkInPlaceFasterLeft
+	waitmovement 0
+	msgbox Route205South_Text_ResearchInvolvesCatchingPokemon, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_ROUTE205_SOUTH_GRUNT_WEST, Route205South_Movement_GruntPushBackPlayer
+	applymovement LOCALID_PLAYER, Route205South_Movement_PlayerPushedBack
+	waitmovement LOCALID_ROUTE205_SOUTH_GRUNT_WEST
+	waitmovement LOCALID_PLAYER
+	applymovement LOCALID_ROUTE205_SOUTH_GRUNT_EAST, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	releaseall
 	end
 
-Route205South_EventScript_Helene::
-	trainerbattle_single TRAINER_HELENE, Route205South_Text_HeleneIntro, Route205South_Text_HeleneDefeat
-	msgbox Route205South_Text_HelenePostBattle, MSGBOX_AUTOCLOSE
+Route205South_Movement_GruntPushBackPlayer:
+	delay_8
+	walk_fast_right
+	walk_in_place_faster_down
+	delay_16
+	walk_left
+	walk_in_place_faster_down
+	step_end
+
+Route205South_Movement_PlayerPushedBack:
+	walk_down
+	walk_in_place_faster_up
+	step_end
+
+Route205South_EventScript_BugCatcher::
+	msgbox Route205South_Text_ManyPoisonTypePokemon, MSGBOX_NPC
 	end
 
-Route205South_EventScript_Marlene::
-	trainerbattle_single TRAINER_MARLENE, Route205South_Text_MarleneIntro, Route205South_Text_MarleneDefeat
-	msgbox Route205South_Text_MarlenePostBattle, MSGBOX_AUTOCLOSE
+Route205South_EventScript_Youngster::
+	msgbox Route205South_Text_SlatherHoneyOnATree, MSGBOX_NPC
 	end
 
-Route205South_Text_NeverKnowWhenCavePokemonWillAppear:
-	.string "Exploring a cave isn't like walking\n"
-	.string "on a road.\p"
-	.string "You never know when wild POKéMON will\n"
-	.string "appear. It's full of suspense.$"
+Route205South_EventScript_SignFloaromaTown::
+	msgbox Route205South_Text_SignFloaromaTown, MSGBOX_SIGN
+	end
 
-Route205South_Text_RouteSignJubilife:
+Route205South_EventScript_SignEternaForest::
+	msgbox Route205South_Text_SignEternaForest, MSGBOX_SIGN
+	end
+
+Route205South_EventScript_TrainerTips::
+	msgbox Route205South_Text_TrainerTips, MSGBOX_SIGN
+	end
+
+Route205South_Text_HelpIWantToSeeMyPapa:
+	.string "Help, help, TRAINER!\n"
+	.string "Please, I want to see my papa.\p"
+	.string "My papa and I lived at the VALLEY\n"
+	.string "WINDWORKS.\p"
+	.string "But then a whole bunch of people\n"
+	.string "dressed like spacemen came…\p"
+	.string "They kicked me out, and they're making\n"
+	.string "my papa do something.\p"
+	.string "Please, TRAINER!\n"
+	.string "I miss my papa!$"
+
+Route205South_Text_IWantToSeeMyPapa:
+	.string "Please, TRAINER! I want to see my papa.\n"
+	.string "He's at the VALLEY WINDWORKS…$"
+
+Route205South_Text_TeamGalacticConductingResearch:
+	.string "We, TEAM GALACTIC, are conducting\n"
+	.string "research in the ETERNA FOREST!\p"
+	.string "This is as far as you will go!$"
+
+Route205South_Text_ResearchInvolvesCatchingPokemon:
+	.string "Our research involves catching POKéMON\n"
+	.string "in the flowery meadows of FLOAROMA.\p"
+	.string "We are also covertly stealing the\n"
+	.string "energy of the VALLEY WINDWORKS.\p"
+	.string "But that is of no concern to you!$"
+
+Route205South_Text_ManyPoisonTypePokemon:
+	.string "Many POISON-type POKéMON make the\n"
+	.string "ETERNA FOREST their home.\p"
+	.string "But I didn't buy any ANTIDOTES.\n"
+	.string "What should I do?\p"
+	.string "Do I press on, or do I go back?$"
+
+Route205South_Text_SlatherHoneyOnATree:
+	.string "If you slather sweet HONEY on\n"
+	.string "a sweet-smelling tree…\p"
+	.string "POKéMON may be attracted by that\n"
+	.string "sweet scent.$"
+
+Route205South_Text_SignFloaromaTown:
 	.string "ROUTE 205\n"
-	.string "{DOWN_ARROW} RUSTBORO CITY$"
+	.string "{LEFT_ARROW} FLOAROMA TOWN$"
 
-Route205South_Text_MeteorFallsSign:
-	.string "METEOR FALLS\n"
-	.string "FALLARBOR TOWN THROUGH HERE$"
+Route205South_Text_SignEternaForest:
+	.string "ROUTE 205\n"
+	.string "{UP_ARROW} ETERNA FOREST$"
 
+Route205South_Text_TrainerTips:
+	.string "TRAINER TIPS\p"
+	.string "The items placed in your BAG are\n"
+	.string "automatically sorted to the\l"
+	.string "appropriate POCKETS.\p"
+	.string "It's very convenient!\n"
+	.string "It's a TRAINER's best friend!$"

@@ -118,16 +118,16 @@ Route205South_EventScript_ItemSuperPotion::
 	finditem ITEM_SUPER_POTION
 	end
 
-Route205South_EventScript_ItemTMFocusPunch::
-	finditem ITEM_TM_FOCUS_PUNCH
+Route205South_EventScript_ItemHealBall::
+	finditem ITEM_HEAL_BALL
 	end
 
-Route205South_EventScript_ItemIron::
-	finditem ITEM_IRON
+Route205South_EventScript_ItemXSpecial::
+	finditem ITEM_X_SPECIAL
 	end
 
-Route205South_EventScript_ItemGreatBall::
-	finditem ITEM_GREAT_BALL
+Route205South_EventScript_ItemRepel::
+	finditem ITEM_REPEL
 	end
 
 Route205South_EventScript_ItemHealPowder::

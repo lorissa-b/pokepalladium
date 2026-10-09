@@ -3,7 +3,7 @@
 @ side, not from the town; the west entrance (2-3, 33) is the way into
 @ Floaroma Meadow from here. Two Team Galactic Grunts stand in the west
 @ entrance until FLAG_HIDE_FLOAROMA_TOWN_GRUNTS is set; in Platinum the
-@ little girl on Route 205 sets it, and Route 205 isn't here yet.
+@ little girl on Route 205 South sets it.
 FloaromaTown_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, FloaromaTown_OnTransition
 	.byte 0

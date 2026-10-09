@@ -681,8 +681,8 @@
 #define FLAG_ITEM_FLOAROMA_MEADOW_RARE_CANDY  0x27A
 #define FLAG_HIDE_FLOAROMA_TOWN_GRUNTS  0x27B // Set by Route 205's little girl, as in Platinum
 #define FLAG_HIDE_FLOAROMA_MEADOW_GRUNTS  0x27C
-#define FLAG_UNUSED_0x27D  0x27D // Unused Flag
-#define FLAG_UNUSED_0x27E  0x27E // Unused Flag
+#define FLAG_HIDE_ROUTE_205_SOUTH_GRUNTS  0x27D // Set once Valley Windworks is freed, as in Platinum
+#define FLAG_HIDE_ROUTE_205_SOUTH_LITTLE_GIRL  0x27E
 #define FLAG_UNUSED_0x27F  0x27F // Unused Flag
 #define FLAG_UNUSED_0x280  0x280 // Unused Flag
 #define FLAG_UNUSED_0x281  0x281 // Unused Flag
@@ -1067,8 +1067,8 @@
 #define FLAG_ITEM_ROUTE_114_RARE_CANDY                              0x3F6
 #define FLAG_ITEM_ROUTE_114_PROTEIN                                 0x3F7
 #define FLAG_ITEM_ROUTE_205_SOUTH_SUPER_POTION                            0x3F8
-#define FLAG_ITEM_ROUTE_205_SOUTH_TM_FOCUS_PUNCH                          0x3F9
-#define FLAG_ITEM_ROUTE_205_SOUTH_IRON                                    0x3FA
+#define FLAG_ITEM_ROUTE_205_SOUTH_HEAL_BALL                               0x3F9
+#define FLAG_ITEM_ROUTE_205_SOUTH_X_SPECIAL                               0x3FA
 #define FLAG_ITEM_ROUTE_204_AWAKENING                               0x3FB
 #define FLAG_ITEM_ROUTE_204_PARALYZE_HEAL                           0x3FC
 #define FLAG_ITEM_ROUTE_204_HP_UP                                   0x3FD
@@ -1168,7 +1168,7 @@
 #define FLAG_ITEM_ROUTE_203_X_DEFEND                                0x45B
 #define FLAG_ITEM_MAUVILLE_CITY_X_SPEED                             0x45C
 #define FLAG_ITEM_PETALBURG_WOODS_PARALYZE_HEAL                     0x45D
-#define FLAG_ITEM_ROUTE_205_SOUTH_GREAT_BALL                              0x45E
+#define FLAG_ITEM_ROUTE_205_SOUTH_REPEL                                   0x45E
 #define FLAG_ITEM_SAFARI_ZONE_NORTH_CALCIUM                         0x45F
 #define FLAG_ITEM_MT_PYRE_3F_SUPER_REPEL                            0x460
 #define FLAG_ITEM_ROUTE_118_HYPER_POTION                            0x461
