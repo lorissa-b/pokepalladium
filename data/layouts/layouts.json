@@ -170,14 +170,14 @@
       "border_width": 2
     },
     {
-      "id": "LAYOUT_VERDANTURF_TOWN",
-      "name": "VerdanturfTown_Layout",
-      "width": 20,
-      "height": 20,
+      "id": "LAYOUT_FLOAROMA_TOWN",
+      "name": "FloaromaTown_Layout",
+      "width": 32,
+      "height": 64,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Mauville",
-      "border_filepath": "data/layouts/VerdanturfTown/border.bin",
-      "blockdata_filepath": "data/layouts/VerdanturfTown/map.bin",
+      "secondary_tileset": "gTileset_Rustboro",
+      "border_filepath": "data/layouts/FloaromaTown/border.bin",
+      "blockdata_filepath": "data/layouts/FloaromaTown/map.bin",
       "border_height": 2,
       "border_width": 2
     },
@@ -362,14 +362,14 @@
       "border_width": 2
     },
     {
-      "id": "LAYOUT_ROUTE115",
-      "name": "Route115_Layout",
-      "width": 40,
-      "height": 80,
+      "id": "LAYOUT_ROUTE205_SOUTH",
+      "name": "Route205South_Layout",
+      "width": 32,
+      "height": 96,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Fallarbor",
-      "border_filepath": "data/layouts/Route115/border.bin",
-      "blockdata_filepath": "data/layouts/Route115/map.bin",
+      "secondary_tileset": "gTileset_Rustboro",
+      "border_filepath": "data/layouts/Route205South/border.bin",
+      "blockdata_filepath": "data/layouts/Route205South/map.bin",
       "border_height": 2,
       "border_width": 2
     },
@@ -386,14 +386,14 @@
       "border_width": 2
     },
     {
-      "id": "LAYOUT_ROUTE117",
-      "name": "Route117_Layout",
-      "width": 60,
-      "height": 20,
+      "id": "LAYOUT_FLOAROMA_MEADOW",
+      "name": "FloaromaMeadow_Layout",
+      "width": 64,
+      "height": 64,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Mauville",
-      "border_filepath": "data/layouts/Route117/border.bin",
-      "blockdata_filepath": "data/layouts/Route117/map.bin",
+      "secondary_tileset": "gTileset_Rustboro",
+      "border_filepath": "data/layouts/FloaromaMeadow/border.bin",
+      "blockdata_filepath": "data/layouts/FloaromaMeadow/map.bin",
       "border_height": 2,
       "border_width": 2
     },
@@ -902,14 +902,14 @@
       "border_width": 2
     },
     {
-      "id": "LAYOUT_VERDANTURF_TOWN_WANDAS_HOUSE",
-      "name": "VerdanturfTown_WandasHouse_Layout",
+      "id": "LAYOUT_FLOAROMA_TOWN_WANDAS_HOUSE",
+      "name": "FloaromaTown_WandasHouse_Layout",
       "width": 17,
       "height": 8,
       "primary_tileset": "gTileset_Building",
       "secondary_tileset": "gTileset_GenericBuilding",
-      "border_filepath": "data/layouts/VerdanturfTown_WandasHouse/border.bin",
-      "blockdata_filepath": "data/layouts/VerdanturfTown_WandasHouse/map.bin",
+      "border_filepath": "data/layouts/FloaromaTown_WandasHouse/border.bin",
+      "blockdata_filepath": "data/layouts/FloaromaTown_WandasHouse/map.bin",
       "border_height": 2,
       "border_width": 2
     },
@@ -4598,14 +4598,14 @@
       "border_width": 2
     },
     {
-      "id": "LAYOUT_VERDANTURF_TOWN_BATTLE_TENT_BATTLE_ROOM",
-      "name": "VerdanturfTown_BattleTentBattleRoom_Layout",
+      "id": "LAYOUT_FLOAROMA_TOWN_BATTLE_TENT_BATTLE_ROOM",
+      "name": "FloaromaTown_BattleTentBattleRoom_Layout",
       "width": 13,
       "height": 9,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_BattleTent",
-      "border_filepath": "data/layouts/VerdanturfTown_BattleTentBattleRoom/border.bin",
-      "blockdata_filepath": "data/layouts/VerdanturfTown_BattleTentBattleRoom/map.bin",
+      "border_filepath": "data/layouts/FloaromaTown_BattleTentBattleRoom/border.bin",
+      "blockdata_filepath": "data/layouts/FloaromaTown_BattleTentBattleRoom/map.bin",
       "border_height": 2,
       "border_width": 2
     },

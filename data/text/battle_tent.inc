@@ -117,17 +117,17 @@ FallarborTown_BattleTentLobby_Text_LookingForwardToArrival:
 	.string "Before I show you to the BATTLE TENT,\n"
 	.string "I must save the game. Please wait.$"
 
-VerdanturfTown_BattleTentLobby_Text_WelcomeToBattleTent:
+FloaromaTown_BattleTentLobby_Text_WelcomeToBattleTent:
 	.string "I welcome you to the BATTLE TENT\n"
 	.string "VERDANTURF SITE!\p"
 	.string "Here, the TRAINER's trust toward\n"
 	.string "POKéMON is tested.$"
 
-VerdanturfTown_BattleTentLobby_Text_TakeChallenge:
+FloaromaTown_BattleTentLobby_Text_TakeChallenge:
 	.string "Do you wish to take the VERDANTURF\n"
 	.string "BATTLE TENT challenge?$"
 
-VerdanturfTown_BattleTentLobby_Text_ExplainVerdanturfTent:
+FloaromaTown_BattleTentLobby_Text_ExplainVerdanturfTent:
 	.string "In the VERDANTURF BATTLE TENT,\n"
 	.string "there is one crucial rule that must\l"
 	.string "be obeyed.\p"
@@ -147,17 +147,17 @@ VerdanturfTown_BattleTentLobby_Text_ExplainVerdanturfTent:
 	.string "If you don't save before interrupting,\n"
 	.string "you will be disqualified.$"
 
-VerdanturfTown_BattleTentLobby_Text_ReturnFortified:
+FloaromaTown_BattleTentLobby_Text_ReturnFortified:
 	.string "When you have fortified your heart\n"
 	.string "and POKéMON, you must return.$"
 
 @ Unused
-VerdanturfTown_BattleTentLobby_Text_WhichLevelMode:
+FloaromaTown_BattleTentLobby_Text_WhichLevelMode:
 	.string "There are two levels of difficulty,\n"
 	.string "Level 50 and Open Level.\l"
 	.string "Which is your choice of a challenge?$"
 
-VerdanturfTown_BattleTentLobby_Text_NotEnoughValidMonsLv50:
+FloaromaTown_BattleTentLobby_Text_NotEnoughValidMonsLv50:
 	.string "Sigh…\p"
 	.string "You do not have the three POKéMON\n"
 	.string "required for the challenge.\p"
@@ -169,7 +169,7 @@ VerdanturfTown_BattleTentLobby_Text_NotEnoughValidMonsLv50:
 	.string "Come back when you have made\n"
 	.string "your preparations.$"
 
-VerdanturfTown_BattleTentLobby_Text_NotEnoughValidMonsLvOpen:
+FloaromaTown_BattleTentLobby_Text_NotEnoughValidMonsLvOpen:
 	.string "Sigh…\p"
 	.string "You do not have the three POKéMON\n"
 	.string "required for the challenge.\p"
@@ -181,34 +181,34 @@ VerdanturfTown_BattleTentLobby_Text_NotEnoughValidMonsLvOpen:
 	.string "Come back when you have made\n"
 	.string "your preparations.$"
 
-VerdanturfTown_BattleTentLobby_Text_SelectThreeMons:
+FloaromaTown_BattleTentLobby_Text_SelectThreeMons:
 	.string "Good. Now, you must select your\n"
 	.string "three POKéMON.$"
 
-VerdanturfTown_BattleTentLobby_Text_SaveBeforeChallenge:
+FloaromaTown_BattleTentLobby_Text_SaveBeforeChallenge:
 	.string "I must save before I show you to\n"
 	.string "the BATTLE TENT. Is that okay?$"
 
-VerdanturfTown_BattleTentLobby_Text_NowFollowMe:
+FloaromaTown_BattleTentLobby_Text_NowFollowMe:
 	.string "Good.\n"
 	.string "Now, follow me.$"
 
-VerdanturfTown_BattleTentLobby_Text_ResultsWillBeRecorded:
+FloaromaTown_BattleTentLobby_Text_ResultsWillBeRecorded:
 	.string "I feel privileged for having seen\n"
 	.string "your POKéMON's exploits.\p"
 	.string "The results will be recorded.\n"
 	.string "I must ask you to briefly wait.$"
 
-VerdanturfTown_BattleTentLobby_Text_AchievedThreeWinStreak:
+FloaromaTown_BattleTentLobby_Text_AchievedThreeWinStreak:
 	.string "To achieve a 3-win streak…\p"
 	.string "The bonds that bind your heart with\n"
 	.string "your POKéMON seem firm and true.$"
 
-VerdanturfTown_BattleTentLobby_Text_FeatWillBeRecorded:
+FloaromaTown_BattleTentLobby_Text_FeatWillBeRecorded:
 	.string "Your feat will be recorded.\n"
 	.string "I must ask you to briefly wait.$"
 
-VerdanturfTown_BattleTentLobby_Text_PresentYouWithPrize:
+FloaromaTown_BattleTentLobby_Text_PresentYouWithPrize:
 	.string "For the feat of your 3-win streak,\n"
 	.string "we present you with this prize.$"
 
@@ -357,16 +357,16 @@ SlateportCity_BattleTentLobby_Text_ExplainMonRules:
 	.string "Level 30.$"
 
 @ Unused
-VerdanturfTown_BattleTentLobby_Text_RulesAreListed2:
+FloaromaTown_BattleTentLobby_Text_RulesAreListed2:
 	.string "The VERDANTURF BATTLE TENT\n"
 	.string "rules are listed.$"
 
 @ Unused
-VerdanturfTown_BattleTentLobby_Text_ReadWhichHeading:
+FloaromaTown_BattleTentLobby_Text_ReadWhichHeading:
 	.string "Which heading do you want to read?$"
 
 @ Unused
-VerdanturfTown_BattleTentLobby_Text_ExplainBasicRules:
+FloaromaTown_BattleTentLobby_Text_ExplainBasicRules:
 	.string "Here at the VERDANTURF BATTLE TENT,\n"
 	.string "POKéMON are required to think and\l"
 	.string "battle by themselves.\p"
@@ -375,7 +375,7 @@ VerdanturfTown_BattleTentLobby_Text_ExplainBasicRules:
 	.string "depending on their nature.$"
 
 @ Unused
-VerdanturfTown_BattleTentLobby_Text_ExplainNatureRules:
+FloaromaTown_BattleTentLobby_Text_ExplainNatureRules:
 	.string "Depending on its nature, a POKéMON\n"
 	.string "may prefer to attack no matter what.\p"
 	.string "Another POKéMON may prefer to protect\n"
@@ -389,7 +389,7 @@ VerdanturfTown_BattleTentLobby_Text_ExplainNatureRules:
 	.string "it has trouble using.$"
 
 @ Unused
-VerdanturfTown_BattleTentLobby_Text_ExplainMoveRules:
+FloaromaTown_BattleTentLobby_Text_ExplainMoveRules:
 	.string "There are offensive moves that inflict\n"
 	.string "direct damage on the foe.\p"
 	.string "There are defensive moves that are\n"
@@ -403,7 +403,7 @@ VerdanturfTown_BattleTentLobby_Text_ExplainMoveRules:
 	.string "these three categories.$"
 
 @ Unused
-VerdanturfTown_BattleTentLobby_Text_ExplainUnderpoweredRules:
+FloaromaTown_BattleTentLobby_Text_ExplainUnderpoweredRules:
 	.string "When not under command by its TRAINER,\n"
 	.string "a POKéMON may be unable to effectively\l"
 	.string "use certain moves.\p"
@@ -414,7 +414,7 @@ VerdanturfTown_BattleTentLobby_Text_ExplainUnderpoweredRules:
 	.string "be unable to live up to its potential.$"
 
 @ Unused
-VerdanturfTown_BattleTentLobby_Text_ExplainWhenInDangerRules:
+FloaromaTown_BattleTentLobby_Text_ExplainWhenInDangerRules:
 	.string "Depending on its nature, a POKéMON may\n"
 	.string "start using moves that don't match its\l"
 	.string "nature when it is in trouble.\p"
@@ -428,6 +428,6 @@ BattleTentLobby_Text_ExplainLevelRules:
 	.string "However, no TRAINER you face will\n"
 	.string "have any POKéMON below Level 30.$"
 
-VerdanturfTown_BattleTentLobby_Text_RulesAreListed:
+FloaromaTown_BattleTentLobby_Text_RulesAreListed:
 	.string "The VERDANTURF BATTLE TENT\n"
 	.string "rules are listed.$"

@@ -57,7 +57,7 @@
 #define FLAG_RECEIVED_TICKET_JUBILIFE_TV_CLOWN       0x2B
 #define FLAG_RECEIVED_TICKET_JUBILIFE_FOUNTAIN_CLOWN 0x2C
 #define FLAG_RECEIVED_TRAINERS_SCHOOL_PRIZE          0x2D
-#define FLAG_UNUSED_0x02E    0x2E // Unused Flag
+#define FLAG_HIDE_JUBILIFE_CITY_TEAM_GALACTIC 0x2E // Prof. Birch and the Team Galactic Grunts at the north exit
 #define FLAG_UNUSED_0x02F    0x2F // Unused Flag
 #define FLAG_UNUSED_0x030    0x30 // Unused Flag
 #define FLAG_UNUSED_0x031    0x31 // Unused Flag
@@ -615,7 +615,7 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_120_RARE_CANDY_2              (FLAG_HIDDEN_ITEMS_START + 0x45)
 #define FLAG_HIDDEN_ITEM_ROUTE_120_ZINC                      (FLAG_HIDDEN_ITEMS_START + 0x46)
 #define FLAG_HIDDEN_ITEM_ROUTE_120_RARE_CANDY_1              (FLAG_HIDDEN_ITEMS_START + 0x47)
-#define FLAG_HIDDEN_ITEM_ROUTE_117_REPEL                     (FLAG_HIDDEN_ITEMS_START + 0x48)
+#define FLAG_HIDDEN_ITEM_FLOAROMA_MEADOW_HONEY_1                    (FLAG_HIDDEN_ITEMS_START + 0x48)
 #define FLAG_HIDDEN_ITEM_ROUTE_121_FULL_HEAL                 (FLAG_HIDDEN_ITEMS_START + 0x49)
 #define FLAG_HIDDEN_ITEM_ROUTE_123_HYPER_POTION              (FLAG_HIDDEN_ITEMS_START + 0x4A)
 #define FLAG_HIDDEN_ITEM_LILYCOVE_CITY_POKE_BALL             (FLAG_HIDDEN_ITEMS_START + 0x4B)
@@ -640,7 +640,7 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_128_HEART_SCALE_3             (FLAG_HIDDEN_ITEMS_START + 0x5E)
 #define FLAG_HIDDEN_ITEM_OREBURGH_CITY_PEARL                 (FLAG_HIDDEN_ITEMS_START + 0x5F)
 #define FLAG_UNUSED_0x254                                    (FLAG_HIDDEN_ITEMS_START + 0x60) // Unused Flag
-#define FLAG_HIDDEN_ITEM_ROUTE_115_HEART_SCALE               (FLAG_HIDDEN_ITEMS_START + 0x61)
+#define FLAG_HIDDEN_ITEM_ROUTE_205_SOUTH_HEART_SCALE               (FLAG_HIDDEN_ITEMS_START + 0x61)
 #define FLAG_HIDDEN_ITEM_ROUTE_113_NUGGET                    (FLAG_HIDDEN_ITEMS_START + 0x62)
 #define FLAG_HIDDEN_ITEM_ROUTE_123_PP_UP                     (FLAG_HIDDEN_ITEMS_START + 0x63)
 #define FLAG_HIDDEN_ITEM_ROUTE_121_MAX_REVIVE                (FLAG_HIDDEN_ITEMS_START + 0x64)
@@ -667,22 +667,22 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_207_POKE_BALL             (FLAG_HIDDEN_ITEMS_START + 0x78)
 #define FLAG_HIDDEN_ITEM_ROUTE_207_GREAT_BALL            (FLAG_HIDDEN_ITEMS_START + 0x79)
 #define FLAG_HIDDEN_ITEM_ROUTE_207_NUGGET                (FLAG_HIDDEN_ITEMS_START + 0x7A)
-#define FLAG_UNUSED_0x26F  0x26F // Unused Flag
-#define FLAG_UNUSED_0x270  0x270 // Unused Flag
-#define FLAG_UNUSED_0x271  0x271 // Unused Flag
-#define FLAG_UNUSED_0x272  0x272 // Unused Flag
-#define FLAG_UNUSED_0x273  0x273 // Unused Flag
-#define FLAG_UNUSED_0x274  0x274 // Unused Flag
-#define FLAG_UNUSED_0x275  0x275 // Unused Flag
-#define FLAG_UNUSED_0x276  0x276 // Unused Flag
-#define FLAG_UNUSED_0x277  0x277 // Unused Flag
-#define FLAG_UNUSED_0x278  0x278 // Unused Flag
-#define FLAG_UNUSED_0x279  0x279 // Unused Flag
-#define FLAG_UNUSED_0x27A  0x27A // Unused Flag
-#define FLAG_UNUSED_0x27B  0x27B // Unused Flag
-#define FLAG_UNUSED_0x27C  0x27C // Unused Flag
-#define FLAG_UNUSED_0x27D  0x27D // Unused Flag
-#define FLAG_UNUSED_0x27E  0x27E // Unused Flag
+#define FLAG_HIDDEN_ITEM_FLOAROMA_MEADOW_HONEY_2  0x26F // Hidden items take any flag from FLAG_HIDDEN_ITEMS_START up
+#define FLAG_HIDDEN_ITEM_FLOAROMA_MEADOW_HONEY_3  0x270
+#define FLAG_HIDDEN_ITEM_FLOAROMA_MEADOW_HONEY_4  0x271
+#define FLAG_HIDDEN_ITEM_FLOAROMA_MEADOW_HONEY_5  0x272
+#define FLAG_HIDDEN_ITEM_FLOAROMA_MEADOW_HONEY_6  0x273
+#define FLAG_HIDDEN_ITEM_FLOAROMA_MEADOW_HYPER_POTION  0x274
+#define FLAG_HIDDEN_ITEM_FLOAROMA_MEADOW_REVIVE  0x275
+#define FLAG_HIDDEN_ITEM_FLOAROMA_MEADOW_FULL_HEAL  0x276
+#define FLAG_HIDDEN_ITEM_FLOAROMA_MEADOW_PP_UP  0x277
+#define FLAG_HIDDEN_ITEM_FLOAROMA_MEADOW_MAX_REVIVE  0x278
+#define FLAG_ITEM_FLOAROMA_MEADOW_ULTRA_BALL  0x279
+#define FLAG_ITEM_FLOAROMA_MEADOW_RARE_CANDY  0x27A
+#define FLAG_HIDE_FLOAROMA_TOWN_GRUNTS  0x27B // Set by Route 205's little girl, as in Platinum
+#define FLAG_HIDE_FLOAROMA_MEADOW_GRUNTS  0x27C
+#define FLAG_HIDE_ROUTE_205_SOUTH_GRUNTS  0x27D // Set once Valley Windworks is freed, as in Platinum
+#define FLAG_HIDE_ROUTE_205_SOUTH_LITTLE_GIRL  0x27E
 #define FLAG_UNUSED_0x27F  0x27F // Unused Flag
 #define FLAG_UNUSED_0x280  0x280 // Unused Flag
 #define FLAG_UNUSED_0x281  0x281 // Unused Flag
@@ -814,7 +814,7 @@
 #define FLAG_HIDE_DEOXYS                                            0x2FB
 #define FLAG_HIDE_BIRTH_ISLAND_DEOXYS_TRIANGLE                      0x2FC
 #define FLAG_HIDE_MAUVILLE_CITY_SCOTT                               0x2FD
-#define FLAG_HIDE_VERDANTURF_TOWN_SCOTT                             0x2FE
+#define FLAG_HIDE_FLOAROMA_TOWN_SCOTT                             0x2FE
 #define FLAG_HIDE_FALLARBOR_TOWN_BATTLE_TENT_SCOTT                  0x2FF
 #define FLAG_HIDE_ROUTE_111_VICTOR_WINSTRATE                        0x300
 #define FLAG_HIDE_ROUTE_111_VICTORIA_WINSTRATE                      0x301
@@ -854,10 +854,10 @@
 #define FLAG_HIDE_SLATEPORT_CITY_CONTEST_REPORTER                   0x323
 #define FLAG_HIDE_MAUVILLE_CITY_WALLY                               0x324
 #define FLAG_HIDE_MAUVILLE_CITY_WALLYS_UNCLE                        0x325
-#define FLAG_HIDE_VERDANTURF_TOWN_WANDAS_HOUSE_WALLY                0x326
+#define FLAG_HIDE_FLOAROMA_TOWN_WANDAS_HOUSE_WALLY                0x326
 #define FLAG_HIDE_RUSTURF_TUNNEL_WANDAS_BOYFRIEND                   0x327
-#define FLAG_HIDE_VERDANTURF_TOWN_WANDAS_HOUSE_WANDAS_BOYFRIEND     0x328
-#define FLAG_HIDE_VERDANTURF_TOWN_WANDAS_HOUSE_WALLYS_UNCLE         0x329
+#define FLAG_HIDE_FLOAROMA_TOWN_WANDAS_HOUSE_WANDAS_BOYFRIEND     0x328
+#define FLAG_HIDE_FLOAROMA_TOWN_WANDAS_HOUSE_WALLYS_UNCLE         0x329
 #define FLAG_HIDE_SS_TIDAL_CORRIDOR_SCOTT                           0x32A
 #define FLAG_HIDE_SANDGEM_TOWN_RESEARCH_LAB_POKEBALL_CYNDAQUIL     0x32B
 #define FLAG_HIDE_SANDGEM_TOWN_RESEARCH_LAB_POKEBALL_TOTODILE      0x32C
@@ -1032,7 +1032,7 @@
 #define FLAG_HIDE_ROUTE_120_KECLEON_BRIDGE_SHADOW                   0x3D5
 #define FLAG_HIDE_ROUTE_120_KECLEON_1                               0x3D6
 #define FLAG_HIDE_RUSTURF_TUNNEL_WANDA                              0x3D7
-#define FLAG_HIDE_VERDANTURF_TOWN_WANDAS_HOUSE_WANDA                0x3D8
+#define FLAG_HIDE_FLOAROMA_TOWN_WANDAS_HOUSE_WANDA                0x3D8
 #define FLAG_HIDE_ROUTE_120_KECLEON_2                               0x3D9
 #define FLAG_HIDE_ROUTE_120_KECLEON_3                               0x3DA
 #define FLAG_HIDE_ROUTE_120_KECLEON_4                               0x3DB
@@ -1066,14 +1066,14 @@
 #define FLAG_ITEM_ROUTE_113_SUPER_REPEL                             0x3F5
 #define FLAG_ITEM_ROUTE_114_RARE_CANDY                              0x3F6
 #define FLAG_ITEM_ROUTE_114_PROTEIN                                 0x3F7
-#define FLAG_ITEM_ROUTE_115_SUPER_POTION                            0x3F8
-#define FLAG_ITEM_ROUTE_115_TM_FOCUS_PUNCH                          0x3F9
-#define FLAG_ITEM_ROUTE_115_IRON                                    0x3FA
+#define FLAG_ITEM_ROUTE_205_SOUTH_SUPER_POTION                            0x3F8
+#define FLAG_ITEM_ROUTE_205_SOUTH_HEAL_BALL                               0x3F9
+#define FLAG_ITEM_ROUTE_205_SOUTH_X_SPECIAL                               0x3FA
 #define FLAG_ITEM_ROUTE_204_AWAKENING                               0x3FB
 #define FLAG_ITEM_ROUTE_204_PARALYZE_HEAL                           0x3FC
 #define FLAG_ITEM_ROUTE_204_HP_UP                                   0x3FD
-#define FLAG_ITEM_ROUTE_117_GREAT_BALL                              0x3FE
-#define FLAG_ITEM_ROUTE_117_REVIVE                                  0x3FF
+#define FLAG_ITEM_FLOAROMA_MEADOW_MIRACLE_SEED                            0x3FE
+#define FLAG_ITEM_FLOAROMA_MEADOW_LEAF_STONE                              0x3FF
 #define FLAG_ITEM_ROUTE_119_SUPER_REPEL                             0x400
 #define FLAG_ITEM_ROUTE_119_ZINC                                    0x401
 #define FLAG_ITEM_ROUTE_119_ELIXIR_1                                0x402
@@ -1168,7 +1168,7 @@
 #define FLAG_ITEM_ROUTE_203_X_DEFEND                                0x45B
 #define FLAG_ITEM_MAUVILLE_CITY_X_SPEED                             0x45C
 #define FLAG_ITEM_PETALBURG_WOODS_PARALYZE_HEAL                     0x45D
-#define FLAG_ITEM_ROUTE_115_GREAT_BALL                              0x45E
+#define FLAG_ITEM_ROUTE_205_SOUTH_REPEL                                   0x45E
 #define FLAG_ITEM_SAFARI_ZONE_NORTH_CALCIUM                         0x45F
 #define FLAG_ITEM_MT_PYRE_3F_SUPER_REPEL                            0x460
 #define FLAG_ITEM_ROUTE_118_HYPER_POTION                            0x461
@@ -1194,7 +1194,7 @@
 #define FLAG_ITEM_ROUTE_110_ELIXIR                                  0x475
 #define FLAG_ITEM_ROUTE_111_ELIXIR                                  0x476
 #define FLAG_ITEM_ROUTE_113_HYPER_POTION                            0x477
-#define FLAG_ITEM_ROUTE_115_HEAL_POWDER                             0x478
+#define FLAG_ITEM_ROUTE_205_SOUTH_HEAL_POWDER                             0x478
 #define FLAG_ITEM_RAVAGED_PATH_TM03                                 0x479
 #define FLAG_ITEM_ROUTE_204_SEA_INCENSE                             0x47A
 #define FLAG_ITEM_ROUTE_119_ELIXIR_2                                0x47B
@@ -1211,7 +1211,7 @@
 #define FLAG_ITEM_ROUTE_134_CARBOS                                  0x486
 #define FLAG_ITEM_ROUTE_134_STAR_PIECE                              0x487
 #define FLAG_ITEM_ROUTE_114_ENERGY_POWDER                           0x488
-#define FLAG_ITEM_ROUTE_115_PP_UP                                   0x489
+#define FLAG_ITEM_ROUTE_205_SOUTH_PP_UP                                   0x489
 #define FLAG_ITEM_ARTISAN_CAVE_B1F_HP_UP                            0x48A
 #define FLAG_ITEM_ARTISAN_CAVE_1F_CARBOS                            0x48B
 #define FLAG_ITEM_MAGMA_HIDEOUT_2F_2R_MAX_ELIXIR                    0x48C
@@ -1372,7 +1372,7 @@
 #define FLAG_VISITED_DEWFORD_TOWN                   (SYSTEM_FLAGS + 0x11)
 #define FLAG_VISITED_LAVARIDGE_TOWN                 (SYSTEM_FLAGS + 0x12)
 #define FLAG_VISITED_FALLARBOR_TOWN                 (SYSTEM_FLAGS + 0x13)
-#define FLAG_VISITED_VERDANTURF_TOWN                (SYSTEM_FLAGS + 0x14)
+#define FLAG_VISITED_FLOAROMA_TOWN                (SYSTEM_FLAGS + 0x14)
 #define FLAG_VISITED_PACIFIDLOG_TOWN                (SYSTEM_FLAGS + 0x15)
 #define FLAG_VISITED_OREBURGH_CITY                 (SYSTEM_FLAGS + 0x16)
 #define FLAG_VISITED_SLATEPORT_CITY                 (SYSTEM_FLAGS + 0x17)

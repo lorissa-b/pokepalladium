@@ -33,6 +33,7 @@ void StartGroudonKyogreBattle(void);
 void StartRegiBattle(void);
 u8 BattleSetup_GetEnvironmentId(void);
 u8 GetSpecialBattleTransition(s32 id);
+u8 GetTrainerBattleTransition(void);
 void ChooseStarter(void);
 void ResetTrainerOpponentIds(void);
 void SetMapVarsToTrainer(void);

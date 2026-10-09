@@ -125,6 +125,7 @@
 #define MULTI_JUBILIFE_QUIZ_CITY           114
 #define MULTI_JUBILIFE_QUIZ_CENTER_ROOF    115
 #define MULTI_JUBILIFE_QUIZ_TYPE           116
+#define MULTI_FLOAROMA_HONEY               117
 
 // Lilycove SS Tidal Multichoice Selections
 #define SSTIDAL_SELECTION_SLATEPORT        0

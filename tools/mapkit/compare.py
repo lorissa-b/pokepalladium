@@ -42,7 +42,7 @@ _EMERALD_RULES = [
     (r"LADDER|ESCALATOR|STAIRS", "S"),
     (r"WARP|HOLE", "E"),
     (r"BRIDGE|PACIFIDLOG", "="),
-    (r"COUNTER", "t"),
+    (r"(^|_)COUNTER", "t"),  # not ENCOUNTER
     (r"PC$|TELEVISION|REGION_MAP|BOOKSHELF|SHOP_SHELF|TRASH_CAN|VASE|PICTURE_BOOK", "o"),
     (r"BERRY_TREE_SOIL", "B"),
     (r"MUDDY_SLOPE", "m"),

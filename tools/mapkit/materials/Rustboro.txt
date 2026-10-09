@@ -114,3 +114,4 @@
 0x916       +jungle
 0x808-0x80F +pond           # light sea, drawn like the ponds
 0x95B-0x95D +sea
+0x961       flowers grass   # General's 0x004 with MB_FLOWERS_ENCOUNTER: wild encounters (Floaroma Meadow)

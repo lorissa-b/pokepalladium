@@ -122,7 +122,7 @@ gStdScripts_End::
 	.include "data/maps/DewfordTown/scripts.inc"
 	.include "data/maps/LavaridgeTown/scripts.inc"
 	.include "data/maps/FallarborTown/scripts.inc"
-	.include "data/maps/VerdanturfTown/scripts.inc"
+	.include "data/maps/FloaromaTown/scripts.inc"
 	.include "data/maps/PacifidlogTown/scripts.inc"
 	.include "data/maps/Route201/scripts.inc"
 	.include "data/maps/Route219/scripts.inc"
@@ -138,10 +138,10 @@ gStdScripts_End::
 	.include "data/maps/Route207/scripts.inc"
 	.include "data/maps/Route113/scripts.inc"
 	.include "data/maps/Route114/scripts.inc"
-	.include "data/maps/Route115/scripts.inc"
+	.include "data/maps/Route205South/scripts.inc"
 	.include "data/maps/Route204/scripts.inc"
 	.include "data/maps/Route218/scripts.inc"
-	.include "data/maps/Route117/scripts.inc"
+	.include "data/maps/FloaromaMeadow/scripts.inc"
 	.include "data/maps/Route118/scripts.inc"
 	.include "data/maps/Route119/scripts.inc"
 	.include "data/maps/Route120/scripts.inc"
@@ -197,15 +197,15 @@ gStdScripts_End::
 	.include "data/maps/FallarborTown_PokemonCenter_2F/scripts.inc"
 	.include "data/maps/FallarborTown_CozmosHouse/scripts.inc"
 	.include "data/maps/FallarborTown_MoveRelearnersHouse/scripts.inc"
-	.include "data/maps/VerdanturfTown_BattleTentLobby/scripts.inc"
-	.include "data/maps/VerdanturfTown_BattleTentCorridor/scripts.inc"
-	.include "data/maps/VerdanturfTown_BattleTentBattleRoom/scripts.inc"
-	.include "data/maps/VerdanturfTown_Mart/scripts.inc"
-	.include "data/maps/VerdanturfTown_PokemonCenter_1F/scripts.inc"
-	.include "data/maps/VerdanturfTown_PokemonCenter_2F/scripts.inc"
-	.include "data/maps/VerdanturfTown_WandasHouse/scripts.inc"
-	.include "data/maps/VerdanturfTown_FriendshipRatersHouse/scripts.inc"
-	.include "data/maps/VerdanturfTown_House/scripts.inc"
+	.include "data/maps/FloaromaTown_BattleTentLobby/scripts.inc"
+	.include "data/maps/FloaromaTown_BattleTentCorridor/scripts.inc"
+	.include "data/maps/FloaromaTown_BattleTentBattleRoom/scripts.inc"
+	.include "data/maps/FloaromaTown_Mart/scripts.inc"
+	.include "data/maps/FloaromaTown_PokemonCenter_1F/scripts.inc"
+	.include "data/maps/FloaromaTown_PokemonCenter_2F/scripts.inc"
+	.include "data/maps/FloaromaTown_WandasHouse/scripts.inc"
+	.include "data/maps/FloaromaTown_FriendshipRatersHouse/scripts.inc"
+	.include "data/maps/FloaromaMeadow_House/scripts.inc"
 	.include "data/maps/PacifidlogTown_PokemonCenter_1F/scripts.inc"
 	.include "data/maps/PacifidlogTown_PokemonCenter_2F/scripts.inc"
 	.include "data/maps/PacifidlogTown_House1/scripts.inc"
@@ -583,7 +583,7 @@ gStdScripts_End::
 	.include "data/maps/Route123_BerryMastersHouse/scripts.inc"
 	.include "data/maps/Route119_WeatherInstitute_1F/scripts.inc"
 	.include "data/maps/Route119_WeatherInstitute_2F/scripts.inc"
-	.include "data/maps/Route119_House/scripts.inc"
+	.include "data/maps/Route205South_House/scripts.inc"
 	.include "data/maps/Route124_DivingTreasureHuntersHouse/scripts.inc"
 
 	.include "data/scripts/std_msgbox.inc"
@@ -788,8 +788,8 @@ EventScript_HideMrBriney::
 RusturfTunnel_EventScript_SetRusturfTunnelOpen::
 	removeobject LOCALID_RUSTURF_TUNNEL_WANDAS_BF
 	removeobject LOCALID_RUSTURF_TUNNEL_WANDA
-	clearflag FLAG_HIDE_VERDANTURF_TOWN_WANDAS_HOUSE_WANDAS_BOYFRIEND
-	clearflag FLAG_HIDE_VERDANTURF_TOWN_WANDAS_HOUSE_WANDA
+	clearflag FLAG_HIDE_FLOAROMA_TOWN_WANDAS_HOUSE_WANDAS_BOYFRIEND
+	clearflag FLAG_HIDE_FLOAROMA_TOWN_WANDAS_HOUSE_WANDA
 	setvar VAR_RUSTURF_TUNNEL_STATE, 6
 	setflag FLAG_RUSTURF_TUNNEL_OPENED
 	return

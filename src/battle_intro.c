@@ -3,6 +3,7 @@
 #include "battle_anim.h"
 #include "battle_main.h"
 #include "battle_setup.h"
+#include "battle_tower.h"
 #include "bg.h"
 #include "gpu_regs.h"
 #include "main.h"
@@ -38,7 +39,7 @@ void HandleIntroSlide(u8 environment)
 {
     u8 taskId;
 
-    if ((gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) && gPartnerTrainerId != TRAINER_STEVEN_PARTNER)
+    if ((gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) && !IsScriptedPartner(gPartnerTrainerId))
     {
         taskId = CreateTask(BattleIntroSlidePartner, 0);
     }

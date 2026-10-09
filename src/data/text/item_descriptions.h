@@ -1107,10 +1107,10 @@ static const u8 sSootSackDesc[] = _(
     "gather and hold\n"
     "volcanic ash.");
 
-static const u8 sBasementKeyDesc[] = _(
-    "The key for NEW\n"
-    "MAUVILLE beneath\n"
-    "MAUVILLE CITY.");
+static const u8 sWorksKeyDesc[] = _(
+    "A key for opening\n"
+    "the doors of the\n"
+    "VALLEY WINDWORKS.");
 
 static const u8 sAcroBikeDesc[] = _(
     "A folding bicycle\n"

@@ -7,6 +7,9 @@ JubilifeCity_OnTransition:
 	setflag FLAG_VISITED_JUBILIFE_CITY
 	call Common_EventScript_SetupAssistantGfxId
 	call_if_eq VAR_JUBILIFE_LOOKER_STATE, 0, JubilifeCity_EventScript_SetLookerFirstArrivalPos
+	call_if_set FLAG_BADGE01_GET, JubilifeCity_EventScript_TryStartTeamGalactic
+	call_if_eq VAR_JUBILIFE_GALACTIC_STATE, 1, JubilifeCity_EventScript_ShowTeamGalactic
+	call_if_ne VAR_JUBILIFE_GALACTIC_STATE, 1, JubilifeCity_EventScript_HideTeamGalactic
 	end
 
 @ Before the player first arrives, Looker is snooping around north of the
@@ -1131,3 +1134,487 @@ JubilifeCity_Text_LookerItIsYouNoPoketch:
 	.string "a POKéTCH?\p"
 	.string "I believe a POKéTCH is now free in\n"
 	.string "exchange for some TICKETS?$"
+
+@ ---- Team Galactic at the Route 204 exit, after the Coal Badge ----
+@ Once the player has Oreburgh's Badge, two Team Galactic Grunts corner
+@ Prof. Birch and his assistant at the north exit. Stepping onto row 7
+@ (x 44-49) walks the player up to Birch, and the player and the assistant
+@ take on the Grunts in a multi battle, as in Platinum. Platinum's road is
+@ only 3 tiles wide here, so its trigger covers less of the row.
+JubilifeCity_EventScript_TryStartTeamGalactic::
+	call_if_eq VAR_JUBILIFE_GALACTIC_STATE, 0, JubilifeCity_EventScript_StartTeamGalactic
+	return
+
+JubilifeCity_EventScript_StartTeamGalactic::
+	setvar VAR_JUBILIFE_GALACTIC_STATE, 1
+	return
+
+JubilifeCity_EventScript_ShowTeamGalactic::
+	clearflag FLAG_HIDE_JUBILIFE_CITY_TEAM_GALACTIC
+	clearflag FLAG_HIDE_JUBILIFE_CITY_ASSISTANT
+	setobjectxyperm LOCALID_JUBILIFE_ASSISTANT, 48, 3
+	setobjectmovementtype LOCALID_JUBILIFE_ASSISTANT, MOVEMENT_TYPE_FACE_LEFT
+	return
+
+JubilifeCity_EventScript_HideTeamGalactic::
+	setflag FLAG_HIDE_JUBILIFE_CITY_TEAM_GALACTIC
+	return
+
+JubilifeCity_EventScript_TeamGalactic44::
+	lockall
+	setvar VAR_0x8008, 44
+	goto JubilifeCity_EventScript_TeamGalactic
+	end
+
+JubilifeCity_EventScript_TeamGalactic45::
+	lockall
+	setvar VAR_0x8008, 45
+	goto JubilifeCity_EventScript_TeamGalactic
+	end
+
+JubilifeCity_EventScript_TeamGalactic46::
+	lockall
+	setvar VAR_0x8008, 46
+	goto JubilifeCity_EventScript_TeamGalactic
+	end
+
+JubilifeCity_EventScript_TeamGalactic47::
+	lockall
+	setvar VAR_0x8008, 47
+	goto JubilifeCity_EventScript_TeamGalactic
+	end
+
+JubilifeCity_EventScript_TeamGalactic48::
+	lockall
+	setvar VAR_0x8008, 48
+	goto JubilifeCity_EventScript_TeamGalactic
+	end
+
+JubilifeCity_EventScript_TeamGalactic49::
+	lockall
+	setvar VAR_0x8008, 49
+	goto JubilifeCity_EventScript_TeamGalactic
+	end
+
+JubilifeCity_EventScript_TeamGalactic::
+	applywaitmovement LOCALID_JUBILIFE_GRUNT_2, Common_Movement_WalkInPlaceFasterRight
+	msgbox JubilifeCity_Text_HandOverResearchFindings, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_JUBILIFE_BIRCH, JubilifeCity_Movement_BirchNoticePlayer
+	call_if_eq VAR_0x8008, 44, JubilifeCity_EventScript_PlayerWalkToBirch44
+	call_if_eq VAR_0x8008, 45, JubilifeCity_EventScript_PlayerWalkToBirch45
+	call_if_eq VAR_0x8008, 46, JubilifeCity_EventScript_PlayerWalkToBirch46
+	call_if_eq VAR_0x8008, 47, JubilifeCity_EventScript_PlayerWalkToBirch47
+	call_if_eq VAR_0x8008, 48, JubilifeCity_EventScript_PlayerWalkToBirch48
+	call_if_eq VAR_0x8008, 49, JubilifeCity_EventScript_PlayerWalkToBirch49
+	waitmovement 0
+	msgbox JubilifeCity_Text_ThatsOreburghsGymBadge, MSGBOX_DEFAULT
+	applywaitmovement LOCALID_JUBILIFE_GRUNT_2, Common_Movement_WalkInPlaceFasterRight
+	msgbox JubilifeCity_Text_MustYouBeSoDifficult, MSGBOX_DEFAULT
+	applywaitmovement LOCALID_JUBILIFE_BIRCH, Common_Movement_WalkInPlaceFasterLeft
+	msgbox JubilifeCity_Text_WhyMustYouBeSuchANuisance, MSGBOX_DEFAULT
+	applywaitmovement LOCALID_JUBILIFE_BIRCH, Common_Movement_WalkInPlaceFasterDown
+	msgbox JubilifeCity_Text_YouCallYourselvesAdults, MSGBOX_DEFAULT
+	applymovement LOCALID_JUBILIFE_GRUNT_1, JubilifeCity_Movement_GruntStomp
+	applymovement LOCALID_JUBILIFE_GRUNT_2, JubilifeCity_Movement_GruntStomp
+	waitmovement 0
+	msgbox JubilifeCity_Text_RegretInsultingTeamGalactic, MSGBOX_DEFAULT
+	msgbox JubilifeCity_Text_GiveThugsALessonInCivility, MSGBOX_DEFAULT
+	applywaitmovement LOCALID_JUBILIFE_ASSISTANT, Common_Movement_WalkInPlaceFasterDown
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, JubilifeCity_EventScript_DawnLetsBattleTogether
+	call_if_eq VAR_RESULT, FEMALE, JubilifeCity_EventScript_LucasJoinMe
+	closemessage
+	applywaitmovement LOCALID_JUBILIFE_BIRCH, Common_Movement_WalkInPlaceFasterLeft
+	applymovement LOCALID_JUBILIFE_ASSISTANT, JubilifeCity_Movement_AssistantWalkToGrunt
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerWalkToGrunt
+	waitmovement 0
+	@ Emerald's multi battles give the player half the party, so the
+	@ first three Pokémon that can battle go in beside the assistant's
+	special SavePlayerParty
+	special ChooseFirstHalfPartyForBattle
+	special ReducePlayerPartyToSelectedMons
+	frontier_set FRONTIER_DATA_SELECTED_MON_ORDER
+	setvar VAR_0x8004, SPECIAL_BATTLE_JUBILIFE_GALACTIC
+	setvar VAR_0x8005, 0
+	special DoSpecialTrainerBattle
+	frontier_saveparty
+	special LoadPlayerParty
+	goto_if_ne VAR_RESULT, B_OUTCOME_WON, JubilifeCity_EventScript_TeamGalacticWhiteOut
+	applywaitmovement LOCALID_JUBILIFE_GRUNT_2, Common_Movement_WalkInPlaceFasterRight
+	msgbox JubilifeCity_Text_WeWillRetreatForNow, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_JUBILIFE_GRUNT_1, JubilifeCity_Movement_Grunt1Leave
+	applymovement LOCALID_JUBILIFE_GRUNT_2, JubilifeCity_Movement_Grunt2Leave
+	waitmovement 0
+	removeobject LOCALID_JUBILIFE_GRUNT_1
+	removeobject LOCALID_JUBILIFE_GRUNT_2
+	applymovement LOCALID_JUBILIFE_BIRCH, Common_Movement_WalkInPlaceFasterDown
+	applymovement LOCALID_JUBILIFE_ASSISTANT, JubilifeCity_Movement_AssistantWalkToPlayer2
+	waitmovement 0
+	msgbox JubilifeCity_Text_CalledThemselvesTeamGalactic, MSGBOX_DEFAULT
+	applywaitmovement LOCALID_JUBILIFE_ASSISTANT, Common_Movement_WalkInPlaceFasterDown
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, JubilifeCity_EventScript_DawnProfessorStudiesEvolution
+	call_if_eq VAR_RESULT, FEMALE, JubilifeCity_EventScript_LucasProfessorStudiesEvolution
+	msgbox JubilifeCity_Text_CollectAllGymBadges, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_JUBILIFE_ASSISTANT, JubilifeCity_Movement_AssistantLeaveSouth
+	applymovement LOCALID_JUBILIFE_BIRCH, JubilifeCity_Movement_BirchLeave
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerWatchBirchLeave
+	waitmovement 0
+	removeobject LOCALID_JUBILIFE_ASSISTANT
+	removeobject LOCALID_JUBILIFE_BIRCH
+	setflag FLAG_HIDE_JUBILIFE_CITY_ASSISTANT
+	setflag FLAG_HIDE_JUBILIFE_CITY_TEAM_GALACTIC
+	setvar VAR_JUBILIFE_GALACTIC_STATE, 2
+	releaseall
+	end
+
+@ Losing leaves the Grunts where they are, to be battled again
+JubilifeCity_EventScript_TeamGalacticWhiteOut::
+	fadescreen FADE_TO_BLACK
+	special SetCB2WhiteOut
+	waitstate
+	releaseall
+	end
+
+JubilifeCity_EventScript_DawnLetsBattleTogether::
+	msgbox JubilifeCity_Text_DawnLetsBattleTogether, MSGBOX_DEFAULT
+	return
+
+JubilifeCity_EventScript_LucasJoinMe::
+	msgbox JubilifeCity_Text_LucasJoinMe, MSGBOX_DEFAULT
+	return
+
+JubilifeCity_EventScript_DawnProfessorStudiesEvolution::
+	msgbox JubilifeCity_Text_DawnProfessorStudiesEvolution, MSGBOX_DEFAULT
+	return
+
+JubilifeCity_EventScript_LucasProfessorStudiesEvolution::
+	msgbox JubilifeCity_Text_LucasProfessorStudiesEvolution, MSGBOX_DEFAULT
+	return
+
+@ The Grunts' battle setups, read by DoSpecialTrainerBattle
+JubilifeCity_EventScript_Grunt1Trainer::
+	trainerbattle TRAINER_BATTLE_SET_TRAINER_A, TRAINER_GRUNT_UNUSED, LOCALID_NONE, JubilifeCity_Text_Grunt1Defeat, JubilifeCity_Text_Grunt1Defeat
+	end
+
+JubilifeCity_EventScript_Grunt2Trainer::
+	trainerbattle TRAINER_BATTLE_SET_TRAINER_B, TRAINER_TERRY, LOCALID_NONE, JubilifeCity_Text_Grunt2Defeat, JubilifeCity_Text_Grunt2Defeat
+	end
+
+JubilifeCity_EventScript_PlayerWalkToBirch44::
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerWalkToBirch44
+	return
+
+JubilifeCity_EventScript_PlayerWalkToBirch45::
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerWalkToBirch45
+	return
+
+JubilifeCity_EventScript_PlayerWalkToBirch46::
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerWalkToBirch46
+	return
+
+JubilifeCity_EventScript_PlayerWalkToBirch47::
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerWalkToBirch47
+	return
+
+JubilifeCity_EventScript_PlayerWalkToBirch48::
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerWalkToBirch48
+	return
+
+JubilifeCity_EventScript_PlayerWalkToBirch49::
+	applymovement LOCALID_PLAYER, JubilifeCity_Movement_PlayerWalkToBirch49
+	return
+
+@ Up to 47, 5, below Birch and facing him
+
+JubilifeCity_Movement_PlayerWalkToBirch44:
+	delay_8
+	delay_8
+	walk_up
+	walk_right
+	walk_right
+	walk_right
+	walk_up
+	step_end
+
+JubilifeCity_Movement_PlayerWalkToBirch45:
+	delay_8
+	delay_8
+	walk_up
+	walk_right
+	walk_right
+	walk_up
+	step_end
+
+JubilifeCity_Movement_PlayerWalkToBirch46:
+	delay_8
+	delay_8
+	walk_up
+	walk_right
+	walk_up
+	step_end
+
+JubilifeCity_Movement_PlayerWalkToBirch47:
+	delay_8
+	delay_8
+	walk_up
+	walk_up
+	step_end
+
+JubilifeCity_Movement_PlayerWalkToBirch48:
+	delay_8
+	delay_8
+	walk_up
+	walk_left
+	walk_up
+	step_end
+
+JubilifeCity_Movement_PlayerWalkToBirch49:
+	delay_8
+	delay_8
+	walk_up
+	walk_left
+	walk_left
+	walk_up
+	step_end
+
+JubilifeCity_Movement_BirchNoticePlayer:
+	walk_in_place_faster_down
+	emote_exclamation_mark
+	step_end
+
+JubilifeCity_Movement_GruntStomp:
+	walk_in_place_fast_right
+	walk_in_place_fast_right
+	step_end
+
+@ To 47, 3, facing Grunt 1
+JubilifeCity_Movement_AssistantWalkToGrunt:
+	walk_left
+	step_end
+
+@ To 46, 5, facing Grunt 2
+JubilifeCity_Movement_PlayerWalkToGrunt:
+	walk_left
+	walk_in_place_faster_up
+	step_end
+
+JubilifeCity_Movement_Grunt1Leave:
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	step_end
+
+JubilifeCity_Movement_Grunt2Leave:
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	step_end
+
+@ To 46, 4, in front of the player
+JubilifeCity_Movement_AssistantWalkToPlayer2:
+	walk_left
+	walk_down
+	step_end
+
+JubilifeCity_Movement_AssistantLeaveSouth:
+	walk_right
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+JubilifeCity_Movement_BirchLeave:
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+JubilifeCity_Movement_PlayerWatchBirchLeave:
+	delay_8
+	walk_in_place_faster_right
+	delay_8
+	walk_in_place_faster_down
+	step_end
+
+JubilifeCity_Text_HandOverResearchFindings:
+	.string "MYSTERY MAN: Now, now, now, now,\n"
+	.string "now!\p"
+	.string "PROF. BIRCH, you must comply.\n"
+	.string "Hand over all your research\l"
+	.string "findings. For free, naturally.\p"
+	.string "Failure to comply will result in\n"
+	.string "a painful time for your assistant.$"
+
+JubilifeCity_Text_ThatsOreburghsGymBadge:
+	.string "PROF. BIRCH: Ah, {PLAYER}.\n"
+	.string "Well? How is the POKéDEX\l"
+	.string "progressing?\p"
+	.string "Hm! That's OREBURGH's\n"
+	.string "GYM BADGE, I see.\p"
+	.string "But hadn't I given you your first\n"
+	.string "POKéMON only recently…?\p"
+	.string "Perhaps being a TRAINER is like\n"
+	.string "second nature to you.$"
+
+JubilifeCity_Text_MustYouBeSoDifficult:
+	.string "MYSTERY MAN: Oh, professor of\n"
+	.string "POKéMON, must you be so difficult?\p"
+	.string "We are speaking to you on\n"
+	.string "business. Because this is work\l"
+	.string "for us.\p"
+	.string "What we're saying is--we demand\n"
+	.string "you comply with our demands.$"
+
+JubilifeCity_Text_WhyMustYouBeSuchANuisance:
+	.string "PROF. BIRCH: Quiet, you lot!\n"
+	.string "Why must you be such a nuisance?\p"
+	.string "Let me list some lessons you still\n"
+	.string "need to learn.\p"
+	.string "No. 1: Don't loiter about for no\n"
+	.string "good reason.\p"
+	.string "No. 2: Don't interrupt others while\n"
+	.string "they are attempting to converse.\p"
+	.string "No. 3: If you don't get your way,\n"
+	.string "don't raise your voice to be\l"
+	.string "intimidating.\p"
+	.string "No. 4: Don't think you've grown\n"
+	.string "strong just because you're in\l"
+	.string "a group.\p"
+	.string "No. 5: What is with those\n"
+	.string "outlandish outfits you have on?$"
+
+JubilifeCity_Text_YouCallYourselvesAdults:
+	.string "My goodness…\n"
+	.string "You call yourselves adults?\p"
+	.string "You kids, don't grow up to be like\n"
+	.string "these sorry specimens.$"
+
+JubilifeCity_Text_RegretInsultingTeamGalactic:
+	.string "MYSTERY MAN: Eeeeeh!\n"
+	.string "You had to make this personal!\p"
+	.string "You have forced our hand into\n"
+	.string "making a show of force!\p"
+	.string "We will make you regret insulting\n"
+	.string "TEAM GALACTIC!$"
+
+JubilifeCity_Text_GiveThugsALessonInCivility:
+	.string "PROF. BIRCH: You kids, give these\n"
+	.string "thugs a lesson in civility, please.$"
+
+JubilifeCity_Text_DawnLetsBattleTogether:
+	.string "ASSISTANT: {PLAYER}!\n"
+	.string "Let's battle together!$"
+
+JubilifeCity_Text_LucasJoinMe:
+	.string "ASSISTANT: {PLAYER}!\n"
+	.string "Join me and battle these guys!$"
+
+JubilifeCity_Text_Grunt1Defeat:
+	.string "How is this madness possible?\p"
+	.string "The two of us, losing\n"
+	.string "to children?$"
+
+JubilifeCity_Text_Grunt2Defeat:
+	.string "This won't do…\n"
+	.string "Time to retreat.\p"
+	.string "This mission is a failure.$"
+
+JubilifeCity_Text_WeWillRetreatForNow:
+	.string "GRUNT: You leave us no option.\n"
+	.string "We will retreat for now.\p"
+	.string "We shall do so because TEAM\n"
+	.string "GALACTIC is benevolent to all.$"
+
+JubilifeCity_Text_CalledThemselvesTeamGalactic:
+	.string "PROF. BIRCH: That lot…\n"
+	.string "They called themselves\l"
+	.string "TEAM GALACTIC.\p"
+	.string "When POKéMON evolve, they seem to\n"
+	.string "release some type of energy…\p"
+	.string "However, I believe that it's a\n"
+	.string "mystic power far beyond our\l"
+	.string "control.\p"
+	.string "But TEAM GALACTIC seems to be\n"
+	.string "studying that power's potential.\p"
+	.string "They want to know if it can be\n"
+	.string "used as energy for something…$"
+
+JubilifeCity_Text_DawnProfessorStudiesEvolution:
+	.string "ASSISTANT: {PLAYER}, did you know?\p"
+	.string "The professor studies the\n"
+	.string "evolution of POKéMON, too.\p"
+	.string "According to his research, 90% of\n"
+	.string "all POKéMON are somehow tied to\l"
+	.string "evolution!\p"
+	.string "Well, maybe that's the reason\n"
+	.string "those people tried to take the\l"
+	.string "professor's research data by\l"
+	.string "force.\p"
+	.string "That's really unforgivable!$"
+
+JubilifeCity_Text_LucasProfessorStudiesEvolution:
+	.string "ASSISTANT: {PLAYER}, did you know\n"
+	.string "about this?\p"
+	.string "The professor studies the\n"
+	.string "evolution of POKéMON, too.\p"
+	.string "According to his research, 90% of\n"
+	.string "all POKéMON are somehow tied to\l"
+	.string "evolution!\p"
+	.string "Maybe that's the reason those\n"
+	.string "goons tried to take the\l"
+	.string "professor's research data.\p"
+	.string "They're not allowed to do that!$"
+
+JubilifeCity_Text_CollectAllGymBadges:
+	.string "PROF. BIRCH: It's all over, so you\n"
+	.string "can relax now.\p"
+	.string "Still, thanks to you two, nothing\n"
+	.string "came of that situation.\l"
+	.string "I appreciate that.\p"
+	.string "Incidentally, {PLAYER}.\n"
+	.string "Kudos to you for your battling\l"
+	.string "skill.\p"
+	.string "It got me thinking. Why don't you\n"
+	.string "collect all the GYM BADGES\l"
+	.string "of SINNOH?\p"
+	.string "Doing so, you will be sure to\n"
+	.string "encounter lots of POKéMON.\p"
+	.string "That, of course, means your\n"
+	.string "POKéDEX pages will continuously\l"
+	.string "fill up.\p"
+	.string "In other words, it will be of\n"
+	.string "great help to my research.\p"
+	.string "That said, I've given you your\n"
+	.string "first POKéMON and POKéDEX as\l"
+	.string "yours to keep.\p"
+	.string "You're free to do with them as you\n"
+	.string "wish. Take care now.$"

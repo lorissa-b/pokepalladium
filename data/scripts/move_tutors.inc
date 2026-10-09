@@ -50,7 +50,7 @@ MoveTutor_EventScript_RolloutTaught::
 	release
 	end
 
-VerdanturfTown_PokemonCenter_1F_EventScript_FuryCutterTutor::
+FloaromaTown_PokemonCenter_1F_EventScript_FuryCutterTutor::
 	lock
 	faceplayer
 	goto_if_set FLAG_MOVE_TUTOR_TAUGHT_FURY_CUTTER, MoveTutor_EventScript_FuryCutterTaught

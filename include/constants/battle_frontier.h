@@ -44,6 +44,7 @@
 #define SPECIAL_BATTLE_STEVEN 8
 #define SPECIAL_BATTLE_PIKE_DOUBLE 9
 #define SPECIAL_BATTLE_PYRAMID 10
+#define SPECIAL_BATTLE_JUBILIFE_GALACTIC 11 // With the assistant against the Team Galactic Grunts in Jubilife City
 
 #define MAX_BATTLE_FRONTIER_POINTS 9999
 #define MAX_STREAK 9999

@@ -7,7 +7,7 @@ enum {
     MB_TALL_GRASS,
     MB_LONG_GRASS,
     MB_UNUSED_04,
-    MB_UNUSED_05,
+    MB_FLOWERS_ENCOUNTER, // Flowers with wild encounters, as in Floaroma Meadow
     MB_DEEP_SAND,
     MB_SHORT_GRASS,
     MB_CAVE,

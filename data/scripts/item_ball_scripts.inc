@@ -114,27 +114,27 @@ Route114_EventScript_ItemEnergyPowder::
 	finditem ITEM_ENERGY_POWDER
 	end
 
-Route115_EventScript_ItemSuperPotion::
+Route205South_EventScript_ItemSuperPotion::
 	finditem ITEM_SUPER_POTION
 	end
 
-Route115_EventScript_ItemTMFocusPunch::
-	finditem ITEM_TM_FOCUS_PUNCH
+Route205South_EventScript_ItemHealBall::
+	finditem ITEM_HEAL_BALL
 	end
 
-Route115_EventScript_ItemIron::
-	finditem ITEM_IRON
+Route205South_EventScript_ItemXSpecial::
+	finditem ITEM_X_SPECIAL
 	end
 
-Route115_EventScript_ItemGreatBall::
-	finditem ITEM_GREAT_BALL
+Route205South_EventScript_ItemRepel::
+	finditem ITEM_REPEL
 	end
 
-Route115_EventScript_ItemHealPowder::
+Route205South_EventScript_ItemHealPowder::
 	finditem ITEM_HEAL_POWDER
 	end
 
-Route115_EventScript_ItemPPUp::
+Route205South_EventScript_ItemPPUp::
 	finditem ITEM_PP_UP
 	end
 
@@ -158,12 +158,20 @@ Route204_EventScript_ItemSeaIncense::
 	finditem ITEM_SEA_INCENSE
 	end
 
-Route117_EventScript_ItemGreatBall::
-	finditem ITEM_GREAT_BALL
+FloaromaMeadow_EventScript_ItemMiracleSeed::
+	finditem ITEM_MIRACLE_SEED
 	end
 
-Route117_EventScript_ItemRevive::
-	finditem ITEM_REVIVE
+FloaromaMeadow_EventScript_ItemLeafStone::
+	finditem ITEM_LEAF_STONE
+	end
+
+FloaromaMeadow_EventScript_ItemUltraBall::
+	finditem ITEM_ULTRA_BALL
+	end
+
+FloaromaMeadow_EventScript_ItemRareCandy::
+	finditem ITEM_RARE_CANDY
 	end
 
 Route118_EventScript_ItemHyperPotion::

@@ -8,12 +8,12 @@ AbnormalWeather_EventScript_PlaceTilesRoute114South::
 	setmetatile 6, 46, METATILE_Fallarbor_BrownCaveEntrance_Bottom, FALSE
 	return
 
-AbnormalWeather_EventScript_PlaceTilesRoute115West::
+AbnormalWeather_EventScript_PlaceTilesRoute205SouthWest::
 	setmetatile 21, 5, METATILE_Fallarbor_BrownCaveEntrance_Top, TRUE
 	setmetatile 21, 6, METATILE_Fallarbor_BrownCaveEntrance_Bottom, FALSE
 	return
 
-AbnormalWeather_EventScript_PlaceTilesRoute115East::
+AbnormalWeather_EventScript_PlaceTilesRoute205SouthEast::
 	setmetatile 36, 9, METATILE_Fallarbor_BrownCaveEntrance_Top, TRUE
 	setmetatile 36, 10, METATILE_Fallarbor_BrownCaveEntrance_Bottom, FALSE
 	return
@@ -204,8 +204,8 @@ AbnormalWeather_EventScript_CleanupMapTiles::
 	switch VAR_ABNORMAL_WEATHER_LOCATION
 	case ABNORMAL_WEATHER_ROUTE_114_NORTH, AbnormalWeather_EventScript_CleanupRoute114North
 	case ABNORMAL_WEATHER_ROUTE_114_SOUTH, AbnormalWeather_EventScript_CleanupRoute114South
-	case ABNORMAL_WEATHER_ROUTE_115_WEST, AbnormalWeather_EventScript_CleanupRoute115West
-	case ABNORMAL_WEATHER_ROUTE_115_EAST, AbnormalWeather_EventScript_CleanupRoute115East
+	case ABNORMAL_WEATHER_ROUTE_205_SOUTH_WEST, AbnormalWeather_EventScript_CleanupRoute205SouthWest
+	case ABNORMAL_WEATHER_ROUTE_205_SOUTH_EAST, AbnormalWeather_EventScript_CleanupRoute205SouthEast
 	case ABNORMAL_WEATHER_ROUTE_204_NORTH, AbnormalWeather_EventScript_CleanupRoute204North
 	case ABNORMAL_WEATHER_ROUTE_204_SOUTH, AbnormalWeather_EventScript_CleanupRoute204South
 	case ABNORMAL_WEATHER_ROUTE_118_EAST, AbnormalWeather_EventScript_CleanupRoute118East
@@ -230,12 +230,12 @@ AbnormalWeather_EventScript_CleanupRoute114South::
 	setmetatile 6, 46, METATILE_Fallarbor_BrownRockWall, TRUE
 	return
 
-AbnormalWeather_EventScript_CleanupRoute115West::
+AbnormalWeather_EventScript_CleanupRoute205SouthWest::
 	setmetatile 21, 5, METATILE_Fallarbor_BrownRockWall, TRUE
 	setmetatile 21, 6, METATILE_Fallarbor_BrownRockWall, TRUE
 	return
 
-AbnormalWeather_EventScript_CleanupRoute115East::
+AbnormalWeather_EventScript_CleanupRoute205SouthEast::
 	setmetatile 36, 9, METATILE_Fallarbor_BrownRockWall, TRUE
 	setmetatile 36, 10, METATILE_Fallarbor_BrownRockWall, TRUE
 	return

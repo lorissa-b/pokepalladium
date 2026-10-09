@@ -1292,15 +1292,15 @@ static void DoSwitchOutAnimation(void)
 
 // some explanation here
 // in emerald it's possible to have a tag battle in the battle frontier facilities with AI
-// which use the front sprite for both the player and the partner as opposed to any other battles (including the one with Steven) that use the back pic as well as animate it
+// which use the front sprite for both the player and the partner as opposed to any other battles (including the ones with Steven and the assistant) that use the back pic as well as animate it
 static void PlayerPartnerHandleDrawTrainerPic(void)
 {
     s16 xPos, yPos;
     u32 trainerPicId;
 
-    if (gPartnerTrainerId == TRAINER_STEVEN_PARTNER)
+    if (IsScriptedPartner(gPartnerTrainerId))
     {
-        trainerPicId = TRAINER_BACK_PIC_STEVEN;
+        trainerPicId = GetScriptedPartnerBackPicId(gPartnerTrainerId);
         xPos = 90;
         yPos = (8 - gTrainerBackPicCoords[trainerPicId].size) * 4 + 80;
     }
@@ -1311,8 +1311,8 @@ static void PlayerPartnerHandleDrawTrainerPic(void)
         yPos = (8 - gTrainerFrontPicCoords[trainerPicId].size) * 4 + 80;
     }
 
-    // Use back pic only if the partner is Steven
-    if (gPartnerTrainerId == TRAINER_STEVEN_PARTNER)
+    // Use back pic only if the partner is Steven or the assistant
+    if (IsScriptedPartner(gPartnerTrainerId))
     {
         DecompressTrainerBackPic(trainerPicId, gActiveBattler);
         SetMultiuseSpriteTemplateToTrainerBack(trainerPicId, GetBattlerPosition(gActiveBattler));
@@ -1791,9 +1791,9 @@ static void PlayerPartnerHandleIntroTrainerBallThrow(void)
     StartSpriteAnim(&gSprites[gBattlerSpriteIds[gActiveBattler]], 1);
 
     paletteNum = AllocSpritePalette(0xD6F9);
-    if (gPartnerTrainerId == TRAINER_STEVEN_PARTNER)
+    if (IsScriptedPartner(gPartnerTrainerId))
     {
-        u8 spriteId = TRAINER_BACK_PIC_STEVEN;
+        u8 spriteId = GetScriptedPartnerBackPicId(gPartnerTrainerId);
         LoadCompressedPalette(gTrainerBackPicPaletteTable[spriteId].data, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
     }
     else

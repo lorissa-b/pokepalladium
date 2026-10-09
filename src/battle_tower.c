@@ -39,6 +39,8 @@
 
 extern const u8 MossdeepCity_SpaceCenter_2F_EventScript_MaxieTrainer[];
 extern const u8 MossdeepCity_SpaceCenter_2F_EventScript_TabithaTrainer[];
+extern const u8 JubilifeCity_EventScript_Grunt1Trainer[];
+extern const u8 JubilifeCity_EventScript_Grunt2Trainer[];
 
 // EWRAM vars.
 EWRAM_DATA const struct BattleFrontierTrainer *gFacilityTrainers = NULL;
@@ -797,6 +799,25 @@ struct
     }
 };
 
+// The professor's assistant in Jubilife City has the starter that the player's
+// is strong against, as in Platinum. Indexed by the player's VAR_STARTER_MON.
+static const struct
+{
+    u16 species;
+    u16 moves[MAX_MON_MOVES];
+} sAssistantJubilifeMons[] =
+{
+    {SPECIES_PIPLUP,   {MOVE_BUBBLE, MOVE_POUND}},    // Player has Turtwig
+    {SPECIES_TURTWIG,  {MOVE_ABSORB, MOVE_TACKLE}},   // Player has Chimchar
+    {SPECIES_CHIMCHAR, {MOVE_EMBER, MOVE_SCRATCH}},   // Player has Piplup
+};
+
+#define ASSISTANT_JUBILIFE_LEVEL 13
+#define ASSISTANT_JUBILIFE_IV    3 // Platinum's IV scale of 30
+
+static const u8 sText_Dawn[] = _("DAWN");
+static const u8 sText_Lucas[] = _("LUCAS");
+
 #include "data/battle_frontier/battle_tent.h"
 
 static void (*const sBattleTowerFuncs[])(void) =
@@ -1468,6 +1489,10 @@ u8 GetFrontierOpponentClass(u16 trainerId)
     {
         trainerClass = gTrainers[TRAINER_STEVEN].trainerClass;
     }
+    else if (trainerId == TRAINER_ASSISTANT_PARTNER)
+    {
+        trainerClass = TRAINER_CLASS_PKMN_TRAINER_1;
+    }
     else if (trainerId < FRONTIER_TRAINERS_COUNT)
     {
         trainerClass = gFacilityClassToTrainerClass[gFacilityTrainers[trainerId].facilityClass];
@@ -1554,6 +1579,11 @@ void GetFrontierTrainerName(u8 *dst, u16 trainerId)
     {
         for (i = 0; i < PLAYER_NAME_LENGTH; i++)
             dst[i] = gTrainers[TRAINER_STEVEN].trainerName[i];
+    }
+    else if (trainerId == TRAINER_ASSISTANT_PARTNER)
+    {
+        StringCopy(dst, GetAssistantName());
+        return;
     }
     else if (trainerId < FRONTIER_TRAINERS_COUNT)
     {
@@ -2169,7 +2199,40 @@ void DoSpecialTrainerBattle(void)
         PlayMapChosenOrBattleBGM(0);
         BattleTransition_StartOnField(B_TRANSITION_MAGMA);
         break;
+    case SPECIAL_BATTLE_JUBILIFE_GALACTIC:
+        gBattleTypeFlags = BATTLE_TYPE_TRAINER | BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TWO_OPPONENTS | BATTLE_TYPE_MULTI | BATTLE_TYPE_INGAME_PARTNER;
+        FillPartnerParty(TRAINER_ASSISTANT_PARTNER);
+        gApproachingTrainerId = 0;
+        BattleSetup_ConfigureTrainerBattle(JubilifeCity_EventScript_Grunt1Trainer + 1);
+        gApproachingTrainerId = 1;
+        BattleSetup_ConfigureTrainerBattle(JubilifeCity_EventScript_Grunt2Trainer + 1);
+        gPartnerTrainerId = TRAINER_ASSISTANT_PARTNER;
+        CreateTask(Task_StartBattleAfterTransition, 1);
+        PlayMapChosenOrBattleBGM(0);
+        BattleTransition_StartOnField(GetTrainerBattleTransition());
+        break;
     }
+}
+
+// Partners whose team is fixed by a script rather than drawn from the
+// Battle Frontier. They're drawn from behind, like the player, not from
+// the front as in the Frontier's multi battles.
+bool32 IsScriptedPartner(u16 trainerId)
+{
+    return trainerId == TRAINER_STEVEN_PARTNER || trainerId == TRAINER_ASSISTANT_PARTNER;
+}
+
+u8 GetScriptedPartnerBackPicId(u16 trainerId)
+{
+    if (trainerId == TRAINER_ASSISTANT_PARTNER)
+        return gSaveBlock2Ptr->playerGender == MALE ? TRAINER_BACK_PIC_MAY : TRAINER_BACK_PIC_BRENDAN;
+    return TRAINER_BACK_PIC_STEVEN;
+}
+
+// The assistant is the player character of the other gender
+const u8 *GetAssistantName(void)
+{
+    return gSaveBlock2Ptr->playerGender == MALE ? sText_Dawn : sText_Lucas;
 }
 
 static void SaveCurrentWinStreak(void)
@@ -3018,6 +3081,7 @@ void TryHideBattleTowerReporter(void)
 }
 
 #define STEVEN_OTID 61226
+#define ASSISTANT_OTID 41509
 
 static void FillPartnerParty(u16 trainerId)
 {
@@ -3057,6 +3121,32 @@ static void FillPartnerParty(u16 trainerId)
             SetMonData(&gPlayerParty[MULTI_PARTY_SIZE + i], MON_DATA_OT_GENDER, &j);
             CalculateMonStats(&gPlayerParty[MULTI_PARTY_SIZE + i]);
         }
+    }
+    else if (trainerId == TRAINER_ASSISTANT_PARTNER)
+    {
+        const u8 *name = GetAssistantName();
+        u8 gender = gSaveBlock2Ptr->playerGender == MALE ? FEMALE : MALE;
+        u16 starter = VarGet(VAR_STARTER_MON);
+
+        if (starter >= ARRAY_COUNT(sAssistantJubilifeMons))
+            starter = 0;
+        for (i = MULTI_PARTY_SIZE; i < PARTY_SIZE; i++)
+            ZeroMonData(&gPlayerParty[i]);
+        do
+        {
+            j = Random32();
+        } while (IsShinyOtIdPersonality(ASSISTANT_OTID, j));
+        CreateMon(&gPlayerParty[MULTI_PARTY_SIZE],
+                  sAssistantJubilifeMons[starter].species,
+                  ASSISTANT_JUBILIFE_LEVEL,
+                  ASSISTANT_JUBILIFE_IV,
+                  TRUE, j,
+                  OT_ID_PRESET, ASSISTANT_OTID);
+        for (j = 0; j < MAX_MON_MOVES; j++)
+            SetMonMoveSlot(&gPlayerParty[MULTI_PARTY_SIZE], sAssistantJubilifeMons[starter].moves[j], j);
+        SetMonData(&gPlayerParty[MULTI_PARTY_SIZE], MON_DATA_OT_NAME, name);
+        SetMonData(&gPlayerParty[MULTI_PARTY_SIZE], MON_DATA_OT_GENDER, &gender);
+        CalculateMonStats(&gPlayerParty[MULTI_PARTY_SIZE]);
     }
     else if (trainerId == TRAINER_EREADER)
     {
