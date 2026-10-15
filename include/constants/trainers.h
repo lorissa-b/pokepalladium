@@ -16,6 +16,7 @@
 #define TRAINER_UNION_ROOM                  3072
 #define TRAINER_STEVEN_PARTNER              3075
 #define TRAINER_ASSISTANT_PARTNER           3076 // The professor's assistant, Dawn or Lucas
+#define TRAINER_CHERYL_PARTNER              3077 // Cheryl, while she follows the player through Eterna Forest
 
 #define TRAINER_PIC_HIKER                  0
 #define TRAINER_PIC_AQUA_GRUNT_M           1

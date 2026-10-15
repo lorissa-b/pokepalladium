@@ -17,6 +17,11 @@
       "map": "MAP_FLOAROMA_TOWN",
       "offset": 32,
       "direction": "left"
+    },
+    {
+      "map": "MAP_VALLEY_WINDWORKS",
+      "offset": 64,
+      "direction": "right"
     }
   ],
   "object_events": [
@@ -302,14 +307,14 @@
       "x": 14,
       "y": 5,
       "elevation": 0,
-      "dest_map": "MAP_ROUTE205_SOUTH",
+      "dest_map": "MAP_ETERNA_FOREST",
       "dest_warp_id": "0"
     },
     {
       "x": 15,
       "y": 5,
       "elevation": 0,
-      "dest_map": "MAP_ROUTE205_SOUTH",
+      "dest_map": "MAP_ETERNA_FOREST",
       "dest_warp_id": "1"
     },
     {

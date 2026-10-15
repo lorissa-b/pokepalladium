@@ -58,7 +58,7 @@
 #define FLAG_RECEIVED_TICKET_JUBILIFE_FOUNTAIN_CLOWN 0x2C
 #define FLAG_RECEIVED_TRAINERS_SCHOOL_PRIZE          0x2D
 #define FLAG_HIDE_JUBILIFE_CITY_TEAM_GALACTIC 0x2E // Prof. Birch and the Team Galactic Grunts at the north exit
-#define FLAG_UNUSED_0x02F    0x2F // Unused Flag
+#define FLAG_HIDE_ETERNA_FOREST_CHERYL 0x2F // Cheryl at the forest's south entrance, hidden while she follows and after she leaves
 #define FLAG_UNUSED_0x030    0x30 // Unused Flag
 #define FLAG_UNUSED_0x031    0x31 // Unused Flag
 #define FLAG_UNUSED_0x032    0x32 // Unused Flag
@@ -547,7 +547,7 @@
 #define FLAG_HIDDEN_ITEM_TRICK_HOUSE_NUGGET                  (FLAG_HIDDEN_ITEMS_START + 0x01)
 #define FLAG_HIDDEN_ITEM_ROUTE_111_STARDUST                  (FLAG_HIDDEN_ITEMS_START + 0x02)
 #define FLAG_HIDDEN_ITEM_ROUTE_113_ETHER                     (FLAG_HIDDEN_ITEMS_START + 0x03)
-#define FLAG_HIDDEN_ITEM_ROUTE_114_CARBOS                    (FLAG_HIDDEN_ITEMS_START + 0x04)
+#define FLAG_HIDDEN_ITEM_VALLEY_WINDWORKS_MAX_ELIXIR (FLAG_HIDDEN_ITEMS_START + 0x04)
 #define FLAG_HIDDEN_ITEM_ROUTE_119_CALCIUM                   (FLAG_HIDDEN_ITEMS_START + 0x05)
 #define FLAG_HIDDEN_ITEM_ROUTE_119_ULTRA_BALL                (FLAG_HIDDEN_ITEMS_START + 0x06)
 #define FLAG_HIDDEN_ITEM_ROUTE_123_SUPER_REPEL               (FLAG_HIDDEN_ITEMS_START + 0x07)
@@ -601,10 +601,10 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_110_FULL_HEAL                 (FLAG_HIDDEN_ITEMS_START + 0x37)
 #define FLAG_HIDDEN_ITEM_ROUTE_111_PROTEIN                   (FLAG_HIDDEN_ITEMS_START + 0x38)
 #define FLAG_HIDDEN_ITEM_ROUTE_111_RARE_CANDY                (FLAG_HIDDEN_ITEMS_START + 0x39)
-#define FLAG_HIDDEN_ITEM_PETALBURG_WOODS_POTION              (FLAG_HIDDEN_ITEMS_START + 0x3A)
-#define FLAG_HIDDEN_ITEM_PETALBURG_WOODS_TINY_MUSHROOM_1     (FLAG_HIDDEN_ITEMS_START + 0x3B)
-#define FLAG_HIDDEN_ITEM_PETALBURG_WOODS_TINY_MUSHROOM_2     (FLAG_HIDDEN_ITEMS_START + 0x3C)
-#define FLAG_HIDDEN_ITEM_PETALBURG_WOODS_POKE_BALL           (FLAG_HIDDEN_ITEMS_START + 0x3D)
+#define FLAG_HIDDEN_ITEM_ETERNA_FOREST_INSECT_PLATE       (FLAG_HIDDEN_ITEMS_START + 0x3A)
+#define FLAG_HIDDEN_ITEM_ETERNA_FOREST_TINY_MUSHROOM_1     (FLAG_HIDDEN_ITEMS_START + 0x3B)
+#define FLAG_HIDDEN_ITEM_ETERNA_FOREST_TINY_MUSHROOM_2     (FLAG_HIDDEN_ITEMS_START + 0x3C)
+#define FLAG_HIDDEN_ITEM_ETERNA_FOREST_POKE_BALL           (FLAG_HIDDEN_ITEMS_START + 0x3D)
 #define FLAG_HIDDEN_ITEM_ROUTE_203_POKE_BALL                 (FLAG_HIDDEN_ITEMS_START + 0x3E)
 #define FLAG_HIDDEN_ITEM_ROUTE_106_POKE_BALL                 (FLAG_HIDDEN_ITEMS_START + 0x3F)
 #define FLAG_HIDDEN_ITEM_ROUTE_109_ETHER                     (FLAG_HIDDEN_ITEMS_START + 0x40)
@@ -683,12 +683,12 @@
 #define FLAG_HIDE_FLOAROMA_MEADOW_GRUNTS  0x27C
 #define FLAG_HIDE_ROUTE_205_SOUTH_GRUNTS  0x27D // Set once Valley Windworks is freed, as in Platinum
 #define FLAG_HIDE_ROUTE_205_SOUTH_LITTLE_GIRL  0x27E
-#define FLAG_UNUSED_0x27F  0x27F // Unused Flag
-#define FLAG_UNUSED_0x280  0x280 // Unused Flag
-#define FLAG_UNUSED_0x281  0x281 // Unused Flag
-#define FLAG_UNUSED_0x282  0x282 // Unused Flag
-#define FLAG_UNUSED_0x283  0x283 // Unused Flag
-#define FLAG_UNUSED_0x284  0x284 // Unused Flag
+#define FLAG_HIDE_VALLEY_WINDWORKS_GRUNT  0x27F
+#define FLAG_UNLOCKED_VALLEY_WINDWORKS_DOOR  0x280
+#define FLAG_HIDE_VALLEY_WINDWORKS_LOOKER  0x281
+#define FLAG_HIDE_VALLEY_WINDWORKS_BUILDING_GRUNT  0x282 // The Grunt by the door, who runs to Mars on first entry
+#define FLAG_HIDE_VALLEY_WINDWORKS_BUILDING_TEAM_GALACTIC  0x283 // Mars, Charon and the Grunts, gone once Mars is beaten
+#define FLAG_HIDE_VALLEY_WINDWORKS_BUILDING_LITTLE_GIRL  0x284 // Set at the start; cleared when she runs in to her papa
 #define FLAG_UNUSED_0x285  0x285 // Unused Flag
 #define FLAG_UNUSED_0x286  0x286 // Unused Flag
 #define FLAG_UNUSED_0x287  0x287 // Unused Flag
@@ -770,8 +770,8 @@
 #define FLAG_HIDE_SANDGEM_TOWN_RESEARCH_LAB_BIRCH                  0x2D1
 #define FLAG_HIDE_TWINLEAF_TOWN_DAWN_HOUSE_RIVAL_BEDROOM          0x2D2
 #define FLAG_UNUSED_0x2D3                                           0x2D3 // Unused Flag
-#define FLAG_HIDE_PETALBURG_WOODS_DEVON_EMPLOYEE                    0x2D4
-#define FLAG_HIDE_PETALBURG_WOODS_AQUA_GRUNT                        0x2D5
+#define FLAG_ITEM_ETERNA_FOREST_GREEN_SHARD                       0x2D4
+#define FLAG_ITEM_ETERNA_FOREST_POTION                            0x2D5
 #define FLAG_HIDE_OREBURGH_CITY_WALLY                              0x2D6
 #define FLAG_HIDE_MOSSDEEP_CITY_STEVENS_HOUSE_INVISIBLE_NINJA_BOY   0x2D7
 #define FLAG_HIDE_OREBURGH_CITY_WALLYS_MOM                         0x2D8
@@ -1064,8 +1064,8 @@
 #define FLAG_ITEM_ROUTE_207_POKE_BALL                               0x3F3
 #define FLAG_ITEM_ROUTE_113_MAX_ETHER                               0x3F4
 #define FLAG_ITEM_ROUTE_113_SUPER_REPEL                             0x3F5
-#define FLAG_ITEM_ROUTE_114_RARE_CANDY                              0x3F6
-#define FLAG_ITEM_ROUTE_114_PROTEIN                                 0x3F7
+#define FLAG_ITEM_VALLEY_WINDWORKS_TM24                              0x3F6
+#define FLAG_ITEM_VALLEY_WINDWORKS_POTION                                 0x3F7
 #define FLAG_ITEM_ROUTE_205_SOUTH_SUPER_POTION                            0x3F8
 #define FLAG_ITEM_ROUTE_205_SOUTH_HEAL_BALL                               0x3F9
 #define FLAG_ITEM_ROUTE_205_SOUTH_X_SPECIAL                               0x3FA
@@ -1105,10 +1105,10 @@
 #define FLAG_ITEM_MT_PYRE_5F_LAX_INCENSE                            0x41C
 #define FLAG_ITEM_GRANITE_CAVE_B2F_REPEL                            0x41D
 #define FLAG_ITEM_GRANITE_CAVE_B2F_RARE_CANDY                       0x41E
-#define FLAG_ITEM_PETALBURG_WOODS_X_ATTACK                          0x41F
-#define FLAG_ITEM_PETALBURG_WOODS_GREAT_BALL                        0x420
+#define FLAG_ITEM_ETERNA_FOREST_ANTIDOTE                          0x41F
+#define FLAG_ITEM_ETERNA_FOREST_NET_BALL                          0x420
 #define FLAG_ITEM_ROUTE_203_POKE_BALL                               0x421
-#define FLAG_ITEM_PETALBURG_WOODS_ETHER                             0x422
+#define FLAG_ITEM_ETERNA_FOREST_ETHER                             0x422
 #define FLAG_ITEM_MAGMA_HIDEOUT_3F_3R_ECAPE_ROPE                    0x423
 #define FLAG_ITEM_TRICK_HOUSE_PUZZLE_1_ORANGE_MAIL                  0x424
 #define FLAG_ITEM_TRICK_HOUSE_PUZZLE_2_HARBOR_MAIL                  0x425
@@ -1167,7 +1167,7 @@
 #define FLAG_ITEM_ROUTE_202_POTION                                  0x45A
 #define FLAG_ITEM_ROUTE_203_X_DEFEND                                0x45B
 #define FLAG_ITEM_MAUVILLE_CITY_X_SPEED                             0x45C
-#define FLAG_ITEM_PETALBURG_WOODS_PARALYZE_HEAL                     0x45D
+#define FLAG_ITEM_ETERNA_FOREST_PARALYZE_HEAL                     0x45D
 #define FLAG_ITEM_ROUTE_205_SOUTH_REPEL                                   0x45E
 #define FLAG_ITEM_SAFARI_ZONE_NORTH_CALCIUM                         0x45F
 #define FLAG_ITEM_MT_PYRE_3F_SUPER_REPEL                            0x460
@@ -1210,7 +1210,7 @@
 #define FLAG_ITEM_ROUTE_133_MAX_REVIVE                              0x485
 #define FLAG_ITEM_ROUTE_134_CARBOS                                  0x486
 #define FLAG_ITEM_ROUTE_134_STAR_PIECE                              0x487
-#define FLAG_ITEM_ROUTE_114_ENERGY_POWDER                           0x488
+#define FLAG_ITEM_VALLEY_WINDWORKS_ELECTIRIZER                           0x488
 #define FLAG_ITEM_ROUTE_205_SOUTH_PP_UP                                   0x489
 #define FLAG_ITEM_ARTISAN_CAVE_B1F_HP_UP                            0x48A
 #define FLAG_ITEM_ARTISAN_CAVE_1F_CARBOS                            0x48B
@@ -1244,7 +1244,7 @@
 #define FLAG_UNUSED_0x4A6                                           0x4A6 // Unused Flag
 #define FLAG_UNUSED_0x4A7                                           0x4A7 // Unused Flag
 #define FLAG_UNUSED_0x4A8                                           0x4A8 // Unused Flag
-#define FLAG_UNUSED_0x4A9                                           0x4A9 // Unused Flag
+#define FLAG_HIDE_ETERNA_FOREST_GARDENIA                            0x4A9
 #define FLAG_UNUSED_0x4AA                                           0x4AA // Unused Flag
 #define FLAG_UNUSED_0x4AB                                           0x4AB // Unused Flag
 #define FLAG_UNUSED_0x4AC                                           0x4AC // Unused Flag

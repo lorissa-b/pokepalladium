@@ -4,8 +4,8 @@
 @ Grunts out of Floaroma Meadow and sets VAR_VALLEY_WINDWORKS_STATE to 1. The
 @ two Grunts on the bridge then push the player back until
 @ FLAG_HIDE_ROUTE_205_SOUTH_GRUNTS is set, which in Platinum happens once
-@ Valley Windworks is freed. Eterna Forest isn't here yet, so its cave mouths
-@ (14-15, 5) lead back to themselves.
+@ Valley Windworks is freed. The cave mouths (14-15, 5) lead into Eterna
+@ Forest's south exit.
 Route205South_MapScripts::
 	.byte 0
 

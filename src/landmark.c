@@ -16,7 +16,7 @@ struct LandmarkList
 };
 
 static const u8 LandmarkName_FlowerShop[] = _("FLOWER SHOP");
-static const u8 LandmarkName_PetalburgWoods[] = _("PETALBURG WOODS");
+static const u8 LandmarkName_EternaForest[] = _("ETERNA FOREST");
 static const u8 LandmarkName_MrBrineysCottage[] = _("MR. BRINEY'S COTTAGE");
 static const u8 LandmarkName_AbandonedShip[] = _("ABANDONED SHIP");
 static const u8 LandmarkName_SeashoreHouse[] = _("SEASHORE HOUSE");
@@ -59,7 +59,7 @@ static const u8 LandmarkName_DesertUnderpass[] = _("DESERT UNDERPASS");
 static const u8 LandmarkName_TrainerHill[] = _("TRAINER HILL");
 
 static const struct Landmark Landmark_FlowerShop = {LandmarkName_FlowerShop, FLAG_LANDMARK_FLOWER_SHOP};
-static const struct Landmark Landmark_PetalburgWoods = {LandmarkName_PetalburgWoods, -1};
+static const struct Landmark Landmark_EternaForest = {LandmarkName_EternaForest, -1};
 static const struct Landmark Landmark_MrBrineysCottage = {LandmarkName_MrBrineysCottage, FLAG_LANDMARK_MR_BRINEY_HOUSE};
 static const struct Landmark Landmark_AbandonedShip = {LandmarkName_AbandonedShip, FLAG_LANDMARK_ABANDONED_SHIP};
 static const struct Landmark Landmark_SeashoreHouse = {LandmarkName_SeashoreHouse, FLAG_LANDMARK_SEASHORE_HOUSE};
@@ -114,7 +114,7 @@ static const struct Landmark *const Landmarks_Route203_0[]  =
 
 static const struct Landmark *const Landmarks_Route203_1[]  =
 {
-    &Landmark_PetalburgWoods,
+    &Landmark_EternaForest,
     &Landmark_MrBrineysCottage,
     NULL,
 };
@@ -355,9 +355,9 @@ static const struct LandmarkList sLandmarkLists[] =
     {MAPSEC_ROUTE_207, 0, Landmarks_Route207_0},
     {MAPSEC_ROUTE_207, 1, Landmarks_Route207_1},
     {MAPSEC_ROUTE_113, 1, Landmarks_Route113_1},
-    {MAPSEC_ROUTE_114, 1, Landmarks_Route114_1},
-    {MAPSEC_ROUTE_114, 2, Landmarks_Route114_2},
-    {MAPSEC_ROUTE_114, 3, Landmarks_MeteorFalls},
+    {MAPSEC_VALLEY_WINDWORKS, 1, Landmarks_Route114_1},
+    {MAPSEC_VALLEY_WINDWORKS, 2, Landmarks_Route114_2},
+    {MAPSEC_VALLEY_WINDWORKS, 3, Landmarks_MeteorFalls},
     {MAPSEC_ROUTE_205, 0, Landmarks_MeteorFalls},
     {MAPSEC_ROUTE_205, 1, Landmarks_MeteorFalls},
     {MAPSEC_ROUTE_204, 1, Landmarks_Route204_1},

@@ -123,11 +123,11 @@
 #define VAR_ROUTE108_STATE                               0x4067 // Unused Var
 #define VAR_ROUTE109_STATE                               0x4068 // Unused Var
 #define VAR_ROUTE110_STATE                               0x4069
-#define VAR_ROUTE111_STATE                               0x406A // Unused Var
+#define VAR_VALLEY_WINDWORKS_TEAM_GALACTIC_STATE         0x406A // 0: Grunt at the door, 1: he has run to Mars, 2: Mars beaten
 #define VAR_ROUTE207_STATE                               0x406B // Unused Var
 #define VAR_ROUTE113_STATE                               0x406C // Unused Var
-#define VAR_ROUTE114_STATE                               0x406D // Unused Var
-#define VAR_VALLEY_WINDWORKS_STATE                             0x406E
+#define VAR_VALLEY_WINDWORKS_LOOKER_STATE 0x406D // 1: Looker comes to check the Windworks (set in the building after Mars), 2: he has left for Eterna City
+#define VAR_VALLEY_WINDWORKS_STATE                             0x406E // 1: the little girl on Route 205 South asked for help, 2: Mars beaten
 #define VAR_ROUTE204_STATE                               0x406F
 #define VAR_FLOAROMA_MEADOW_STATE                               0x4070 // 0: Grunts after the HONEY, 1: Grunts beaten
 #define VAR_ROUTE118_STATE                               0x4071
@@ -160,7 +160,7 @@
 #define VAR_TWINLEAF_HOUSES_STATE_BRENDAN              0x408C
 #define VAR_TWINLEAF_RIVAL_STATE                       0x408D
 #define VAR_BOARD_BRINEY_BOAT_STATE                      0x408E
-#define VAR_UNUSED_0x408F                                0x408F // Unused Var
+#define VAR_FOLLOWER_PARTNER                             0x408F // Trainer id of the follower who battles beside the player (TRAINER_CHERYL_PARTNER), or 0
 #define VAR_BRINEY_HOUSE_STATE                           0x4090
 #define VAR_UNUSED_0x4091                                0x4091 // Unused Var
 #define VAR_TWINLEAF_INTRO_STATE                       0x4092
@@ -169,7 +169,7 @@
 #define VAR_LILYCOVE_FAN_CLUB_STATE                      0x4095
 #define VAR_BRINEY_LOCATION                              0x4096
 #define VAR_INIT_SECRET_BASE                             0x4097
-#define VAR_PETALBURG_WOODS_STATE                        0x4098
+#define VAR_ETERNA_FOREST_CHERYL_STATE                 0x4098 // 0: not met, 1: following, 2: through the forest, 3: met and waiting
 #define VAR_LILYCOVE_CONTEST_LOBBY_STATE                 0x4099
 #define VAR_RUSTURF_TUNNEL_STATE                         0x409A
 #define VAR_UNUSED_0x409B                                0x409B // Unused Var

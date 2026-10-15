@@ -205,7 +205,7 @@ static const struct {
         .species = SPECIES_NUZLEAF,
         .moves = {MOVE_HARDEN, MOVE_GROWTH, MOVE_NATURE_POWER, MOVE_LEECH_SEED},
         .level = 15,
-        .location = MAP_NUM(MAP_ROUTE114),
+        .location = MAP_NUM(MAP_VALLEY_WINDWORKS),
     },
     {
         .species = SPECIES_SEEDOT,

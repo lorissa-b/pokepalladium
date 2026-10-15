@@ -65,7 +65,7 @@
     "Route111",
     "Route207",
     "Route113",
-    "Route114",
+    "ValleyWindworks",
     "Route205South",
     "Route204",
     "FloaromaMeadow",
@@ -314,7 +314,7 @@
   "gMapGroup_IndoorRoute114": [
     "Route114_FossilManiacsHouse",
     "Route114_FossilManiacsTunnel",
-    "Route114_LanettesHouse"
+    "ValleyWindworks_Building"
   ],
   "gMapGroup_IndoorRoute204": [
     "Route204_TunnelersRestHouse"
@@ -337,7 +337,7 @@
     "GraniteCave_B1F",
     "GraniteCave_B2F",
     "GraniteCave_StevensRoom",
-    "PetalburgWoods",
+    "EternaForest",
     "MtChimney",
     "JaggedPass",
     "FieryPath",

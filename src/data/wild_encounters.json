@@ -5045,8 +5045,8 @@
           }
         },
         {
-          "map": "MAP_ROUTE114",
-          "base_label": "gRoute114_Morning",
+          "map": "MAP_VALLEY_WINDWORKS",
+          "base_label": "gValleyWindworks_Morning",
           "land_mons": {
             "encounter_rate": 20,
             "mons": [
@@ -5229,8 +5229,8 @@
           }
         },
         {
-          "map": "MAP_ROUTE114",
-          "base_label": "gRoute114_Day",
+          "map": "MAP_VALLEY_WINDWORKS",
+          "base_label": "gValleyWindworks_Day",
           "land_mons": {
             "encounter_rate": 20,
             "mons": [
@@ -5413,8 +5413,8 @@
           }
         },
         {
-          "map": "MAP_ROUTE114",
-          "base_label": "gRoute114_Evening",
+          "map": "MAP_VALLEY_WINDWORKS",
+          "base_label": "gValleyWindworks_Evening",
           "land_mons": {
             "encounter_rate": 20,
             "mons": [
@@ -5597,8 +5597,8 @@
           }
         },
         {
-          "map": "MAP_ROUTE114",
-          "base_label": "gRoute114_Night",
+          "map": "MAP_VALLEY_WINDWORKS",
+          "base_label": "gValleyWindworks_Night",
           "land_mons": {
             "encounter_rate": 20,
             "mons": [
@@ -7645,8 +7645,8 @@
           }
         },
         {
-          "map": "MAP_PETALBURG_WOODS",
-          "base_label": "gPetalburgWoods_Morning",
+          "map": "MAP_ETERNA_FOREST",
+          "base_label": "gEternaForest_Morning",
           "land_mons": {
             "encounter_rate": 20,
             "mons": [
@@ -7714,8 +7714,8 @@
           }
         },
         {
-          "map": "MAP_PETALBURG_WOODS",
-          "base_label": "gPetalburgWoods_Day",
+          "map": "MAP_ETERNA_FOREST",
+          "base_label": "gEternaForest_Day",
           "land_mons": {
             "encounter_rate": 20,
             "mons": [
@@ -7783,8 +7783,8 @@
           }
         },
         {
-          "map": "MAP_PETALBURG_WOODS",
-          "base_label": "gPetalburgWoods_Evening",
+          "map": "MAP_ETERNA_FOREST",
+          "base_label": "gEternaForest_Evening",
           "land_mons": {
             "encounter_rate": 20,
             "mons": [
@@ -7852,8 +7852,8 @@
           }
         },
         {
-          "map": "MAP_PETALBURG_WOODS",
-          "base_label": "gPetalburgWoods_Night",
+          "map": "MAP_ETERNA_FOREST",
+          "base_label": "gEternaForest_Night",
           "land_mons": {
             "encounter_rate": 20,
             "mons": [

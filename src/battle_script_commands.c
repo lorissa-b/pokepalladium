@@ -3604,10 +3604,11 @@ static void Cmd_getexp(void)
                 gBattleScripting.getexpState = 5;
                 gBattleMoveDamage = 0; // used for exp
             }
-            else if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && gPartnerTrainerId == TRAINER_ASSISTANT_PARTNER
+            else if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER
+                  && (gPartnerTrainerId == TRAINER_ASSISTANT_PARTNER || gPartnerTrainerId == TRAINER_CHERYL_PARTNER)
                   && gBattleStruct->expGetterMonId >= MULTI_PARTY_SIZE)
             {
-                // The assistant's Pokémon is only lent for the battle, so it doesn't level up or evolve
+                // The assistant's and Cheryl's Pokémon are only lent for the battle, so they don't level up or evolve
                 *(&gBattleStruct->sentInPokes) >>= 1;
                 gBattleScripting.getexpState = 5;
                 gBattleMoveDamage = 0; // used for exp
