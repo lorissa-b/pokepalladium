@@ -433,3 +433,80 @@ EternaForest_Text_TrainerTips:
 	.string "items on the ground that cannot be\l"
 	.string "seen in the murky darkness.\p"
 	.string "Take the time to search carefully!$"
+
+EternaForest_EventScript_Gardenia::
+	lockall
+	faceplayer
+	msgbox EternaForest_Text_GardeniaIntriguedByRumors, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_ETERNA_FOREST_GARDENIA, Common_Movement_FaceUp
+	waitmovement 0
+	msgbox EternaForest_Text_GardeniaGhostPokemon, MSGBOX_DEFAULT
+	applymovement LOCALID_ETERNA_FOREST_GARDENIA, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox EternaForest_Text_GardeniaGoodLuck, MSGBOX_DEFAULT
+	closemessage
+	goto_if_eq VAR_FACING, DIR_NORTH, EternaForest_EventScript_GardeniaLeaveNorth
+	applymovement LOCALID_ETERNA_FOREST_GARDENIA, EternaForest_Movement_GardeniaLeave
+	waitmovement 0
+	goto EternaForest_EventScript_RemoveGardenia
+	end
+
+EternaForest_EventScript_GardeniaLeaveNorth::
+	applymovement LOCALID_ETERNA_FOREST_GARDENIA, EternaForest_Movement_GardeniaLeaveNorth
+	waitmovement 0
+EternaForest_EventScript_RemoveGardenia::
+	removeobject LOCALID_ETERNA_FOREST_GARDENIA
+	setflag FLAG_HIDE_ETERNA_FOREST_GARDENIA
+	releaseall
+	end
+
+EternaForest_Movement_GardeniaLeave:
+	walk_down
+	walk_down
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+EternaForest_Movement_GardeniaLeaveNorth:
+	walk_left
+	walk_down
+	walk_down
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+EternaForest_Text_GardeniaIntriguedByRumors:
+	.string "GARDENIA: Hiya! Were you intrigued\n"
+	.string "by the rumors going around, too?$"
+
+EternaForest_Text_GardeniaGhostPokemon:
+	.string "You know, people've been talking about\n"
+	.string "the ghost POKéMON of the OLD CHATEAU.\p"
+	.string "I've been hearing rumors about\n"
+	.string "sinister shadows, too.$"
+
+EternaForest_Text_GardeniaGoodLuck:
+	.string "I should check it out myself, but\n"
+	.string "going in there is…\p"
+	.string "…Well, you know, being that I'm\n"
+	.string "a GYM LEADER, I'm always busy.\p"
+	.string "So, since I'm so busy, I can't go in.\n"
+	.string "It's not because I'm s-scared!\p"
+	.string "S-so, good luck with your\n"
+	.string "investigation!$"
