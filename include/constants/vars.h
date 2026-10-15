@@ -126,7 +126,7 @@
 #define VAR_ROUTE111_STATE                               0x406A // Unused Var
 #define VAR_ROUTE207_STATE                               0x406B // Unused Var
 #define VAR_ROUTE113_STATE                               0x406C // Unused Var
-#define VAR_ROUTE114_STATE                               0x406D // Unused Var
+#define VAR_VALLEY_WINDWORKS_LOOKER_STATE 0x406D // 1: Looker comes to check the Windworks (set from the building), 2: he has left for Eterna City
 #define VAR_VALLEY_WINDWORKS_STATE                             0x406E
 #define VAR_ROUTE204_STATE                               0x406F
 #define VAR_FLOAROMA_MEADOW_STATE                               0x4070 // 0: Grunts after the HONEY, 1: Grunts beaten

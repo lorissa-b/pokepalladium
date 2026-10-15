@@ -350,14 +350,14 @@
       "border_width": 2
     },
     {
-      "id": "LAYOUT_ROUTE114",
-      "name": "Route114_Layout",
-      "width": 40,
-      "height": 80,
+      "id": "LAYOUT_VALLEY_WINDWORKS",
+      "name": "ValleyWindworks_Layout",
+      "width": 32,
+      "height": 32,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Fallarbor",
-      "border_filepath": "data/layouts/Route114/border.bin",
-      "blockdata_filepath": "data/layouts/Route114/map.bin",
+      "secondary_tileset": "gTileset_Rustboro",
+      "border_filepath": "data/layouts/ValleyWindworks/border.bin",
+      "blockdata_filepath": "data/layouts/ValleyWindworks/map.bin",
       "border_height": 2,
       "border_width": 2
     },

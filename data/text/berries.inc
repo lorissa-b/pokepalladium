@@ -34,20 +34,6 @@ Route111_Text_WhatColorBerriesToLookForToday:
 	.string "I wonder what color BERRIES I'll look\n"
 	.string "for today?$"
 
-Route114_Text_LoveUsingBerryCrushShareBerry:
-	.string "I love using the BERRY CRUSH machine,\n"
-	.string "so I'm collecting BERRIES.\p"
-	.string "I'll share one with you, if you'd like.$"
-
-Route114_Text_TryBerryCrushWithFriends:
-	.string "You should try the BERRY CRUSH\n"
-	.string "machine with your friends.$"
-
-Route114_Text_FunToThinkAboutBerries:
-	.string "Which BERRY should be planted?\n"
-	.string "Should you use or hoard BERRIES?\p"
-	.string "It's fun to think about.$"
-
 Route120_Text_BerriesExpressionOfLoveIsntIt:
 	.string "BERRIES grow by soaking up sunlight.\p"
 	.string "We help the BERRIES grow by watering\n"

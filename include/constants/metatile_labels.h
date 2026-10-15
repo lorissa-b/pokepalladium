@@ -428,6 +428,7 @@
 // gTileset_Rustboro
 #define METATILE_Rustboro_Door_Gray  0x81F
 #define METATILE_Rustboro_Door_Tan   0x82F
+#define METATILE_Rustboro_Door_Tan_Locked 0x962
 
 // gTileset_SecretBase
 #define METATILE_SecretBase_AttractMat_BottomLeft       0x913

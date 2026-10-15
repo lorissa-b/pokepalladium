@@ -17,6 +17,11 @@
       "map": "MAP_FLOAROMA_TOWN",
       "offset": 32,
       "direction": "left"
+    },
+    {
+      "map": "MAP_VALLEY_WINDWORKS",
+      "offset": 64,
+      "direction": "right"
     }
   ],
   "object_events": [

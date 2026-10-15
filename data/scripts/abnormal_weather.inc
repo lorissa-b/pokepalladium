@@ -1,9 +1,9 @@
-AbnormalWeather_EventScript_PlaceTilesRoute114North::
+AbnormalWeather_EventScript_PlaceTilesValleyWindworksNorth::
 	setmetatile 7, 3, METATILE_Fallarbor_RedCaveEntrance_Top, TRUE
 	setmetatile 7, 4, METATILE_Fallarbor_RedCaveEntrance_Bottom, FALSE
 	return
 
-AbnormalWeather_EventScript_PlaceTilesRoute114South::
+AbnormalWeather_EventScript_PlaceTilesValleyWindworksSouth::
 	setmetatile 6, 45, METATILE_Fallarbor_BrownCaveEntrance_Top, TRUE
 	setmetatile 6, 46, METATILE_Fallarbor_BrownCaveEntrance_Bottom, FALSE
 	return
@@ -202,8 +202,8 @@ AbnormalWeather_EventScript_ShowSunEndedMessage::
 
 AbnormalWeather_EventScript_CleanupMapTiles::
 	switch VAR_ABNORMAL_WEATHER_LOCATION
-	case ABNORMAL_WEATHER_ROUTE_114_NORTH, AbnormalWeather_EventScript_CleanupRoute114North
-	case ABNORMAL_WEATHER_ROUTE_114_SOUTH, AbnormalWeather_EventScript_CleanupRoute114South
+	case ABNORMAL_WEATHER_VALLEY_WINDWORKS_NORTH, AbnormalWeather_EventScript_CleanupValleyWindworksNorth
+	case ABNORMAL_WEATHER_VALLEY_WINDWORKS_SOUTH, AbnormalWeather_EventScript_CleanupValleyWindworksSouth
 	case ABNORMAL_WEATHER_ROUTE_205_SOUTH_WEST, AbnormalWeather_EventScript_CleanupRoute205SouthWest
 	case ABNORMAL_WEATHER_ROUTE_205_SOUTH_EAST, AbnormalWeather_EventScript_CleanupRoute205SouthEast
 	case ABNORMAL_WEATHER_ROUTE_204_NORTH, AbnormalWeather_EventScript_CleanupRoute204North
@@ -220,12 +220,12 @@ AbnormalWeather_EventScript_CleanupMapTiles::
 	case ABNORMAL_WEATHER_ROUTE_129_EAST, AbnormalWeather_EventScript_CleanupRoute129East
 	return
 
-AbnormalWeather_EventScript_CleanupRoute114North::
+AbnormalWeather_EventScript_CleanupValleyWindworksNorth::
 	setmetatile 7, 3, METATILE_Fallarbor_RedRockWall, TRUE
 	setmetatile 7, 4, METATILE_Fallarbor_RedRockWall, TRUE
 	return
 
-AbnormalWeather_EventScript_CleanupRoute114South::
+AbnormalWeather_EventScript_CleanupValleyWindworksSouth::
 	setmetatile 6, 45, METATILE_Fallarbor_BrownRockWall, TRUE
 	setmetatile 6, 46, METATILE_Fallarbor_BrownRockWall, TRUE
 	return

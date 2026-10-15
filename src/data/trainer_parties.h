@@ -8263,14 +8263,9 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Trent1[] = {
 
 static const struct TrainerMonNoItemDefaultMoves sParty_Lenny[] = {
     {
-    .iv = 0,
-    .lvl = 18,
-    .species = SPECIES_GEODUDE,
-    },
-    {
-    .iv = 0,
-    .lvl = 18,
-    .species = SPECIES_MACHOP,
+    .iv = 30,
+    .lvl = 13,
+    .species = SPECIES_GLAMEOW,
     }
 };
 

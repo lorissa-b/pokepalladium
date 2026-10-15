@@ -547,7 +547,7 @@
 #define FLAG_HIDDEN_ITEM_TRICK_HOUSE_NUGGET                  (FLAG_HIDDEN_ITEMS_START + 0x01)
 #define FLAG_HIDDEN_ITEM_ROUTE_111_STARDUST                  (FLAG_HIDDEN_ITEMS_START + 0x02)
 #define FLAG_HIDDEN_ITEM_ROUTE_113_ETHER                     (FLAG_HIDDEN_ITEMS_START + 0x03)
-#define FLAG_HIDDEN_ITEM_ROUTE_114_CARBOS                    (FLAG_HIDDEN_ITEMS_START + 0x04)
+#define FLAG_HIDDEN_ITEM_VALLEY_WINDWORKS_MAX_ELIXIR (FLAG_HIDDEN_ITEMS_START + 0x04)
 #define FLAG_HIDDEN_ITEM_ROUTE_119_CALCIUM                   (FLAG_HIDDEN_ITEMS_START + 0x05)
 #define FLAG_HIDDEN_ITEM_ROUTE_119_ULTRA_BALL                (FLAG_HIDDEN_ITEMS_START + 0x06)
 #define FLAG_HIDDEN_ITEM_ROUTE_123_SUPER_REPEL               (FLAG_HIDDEN_ITEMS_START + 0x07)
@@ -683,9 +683,9 @@
 #define FLAG_HIDE_FLOAROMA_MEADOW_GRUNTS  0x27C
 #define FLAG_HIDE_ROUTE_205_SOUTH_GRUNTS  0x27D // Set once Valley Windworks is freed, as in Platinum
 #define FLAG_HIDE_ROUTE_205_SOUTH_LITTLE_GIRL  0x27E
-#define FLAG_UNUSED_0x27F  0x27F // Unused Flag
-#define FLAG_UNUSED_0x280  0x280 // Unused Flag
-#define FLAG_UNUSED_0x281  0x281 // Unused Flag
+#define FLAG_HIDE_VALLEY_WINDWORKS_GRUNT  0x27F
+#define FLAG_UNLOCKED_VALLEY_WINDWORKS_DOOR  0x280
+#define FLAG_HIDE_VALLEY_WINDWORKS_LOOKER  0x281
 #define FLAG_UNUSED_0x282  0x282 // Unused Flag
 #define FLAG_UNUSED_0x283  0x283 // Unused Flag
 #define FLAG_UNUSED_0x284  0x284 // Unused Flag
@@ -1064,8 +1064,8 @@
 #define FLAG_ITEM_ROUTE_207_POKE_BALL                               0x3F3
 #define FLAG_ITEM_ROUTE_113_MAX_ETHER                               0x3F4
 #define FLAG_ITEM_ROUTE_113_SUPER_REPEL                             0x3F5
-#define FLAG_ITEM_ROUTE_114_RARE_CANDY                              0x3F6
-#define FLAG_ITEM_ROUTE_114_PROTEIN                                 0x3F7
+#define FLAG_ITEM_VALLEY_WINDWORKS_TM24                              0x3F6
+#define FLAG_ITEM_VALLEY_WINDWORKS_POTION                                 0x3F7
 #define FLAG_ITEM_ROUTE_205_SOUTH_SUPER_POTION                            0x3F8
 #define FLAG_ITEM_ROUTE_205_SOUTH_HEAL_BALL                               0x3F9
 #define FLAG_ITEM_ROUTE_205_SOUTH_X_SPECIAL                               0x3FA
@@ -1210,7 +1210,7 @@
 #define FLAG_ITEM_ROUTE_133_MAX_REVIVE                              0x485
 #define FLAG_ITEM_ROUTE_134_CARBOS                                  0x486
 #define FLAG_ITEM_ROUTE_134_STAR_PIECE                              0x487
-#define FLAG_ITEM_ROUTE_114_ENERGY_POWDER                           0x488
+#define FLAG_ITEM_VALLEY_WINDWORKS_ELECTIRIZER                           0x488
 #define FLAG_ITEM_ROUTE_205_SOUTH_PP_UP                                   0x489
 #define FLAG_ITEM_ARTISAN_CAVE_B1F_HP_UP                            0x48A
 #define FLAG_ITEM_ARTISAN_CAVE_1F_CARBOS                            0x48B

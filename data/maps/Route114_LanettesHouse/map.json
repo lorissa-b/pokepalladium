@@ -3,7 +3,7 @@
   "name": "Route114_LanettesHouse",
   "layout": "LAYOUT_ROUTE114_LANETTES_HOUSE",
   "music": "MUS_FALLARBOR",
-  "region_map_section": "MAPSEC_ROUTE_114",
+  "region_map_section": "MAPSEC_VALLEY_WINDWORKS",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_INDOOR",
@@ -33,15 +33,15 @@
       "x": 5,
       "y": 7,
       "elevation": 0,
-      "dest_map": "MAP_ROUTE114",
-      "dest_warp_id": "2"
+      "dest_map": "MAP_VALLEY_WINDWORKS",
+      "dest_warp_id": "0"
     },
     {
       "x": 6,
       "y": 7,
       "elevation": 0,
-      "dest_map": "MAP_ROUTE114",
-      "dest_warp_id": "2"
+      "dest_map": "MAP_VALLEY_WINDWORKS",
+      "dest_warp_id": "0"
     }
   ],
   "coord_events": [],

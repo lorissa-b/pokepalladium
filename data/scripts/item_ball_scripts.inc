@@ -102,16 +102,16 @@ Route113_EventScript_ItemHyperPotion::
 	finditem ITEM_HYPER_POTION
 	end
 
-Route114_EventScript_ItemRareCandy::
-	finditem ITEM_RARE_CANDY
+ValleyWindworks_EventScript_ItemTM24::
+	finditem ITEM_TM24
 	end
 
-Route114_EventScript_ItemProtein::
-	finditem ITEM_PROTEIN
+ValleyWindworks_EventScript_ItemPotion::
+	finditem ITEM_POTION
 	end
 
-Route114_EventScript_ItemEnergyPowder::
-	finditem ITEM_ENERGY_POWDER
+ValleyWindworks_EventScript_ItemElectirizer::
+	finditem ITEM_ELECTIRIZER
 	end
 
 Route205South_EventScript_ItemSuperPotion::
