@@ -818,6 +818,12 @@ static const struct
 static const u8 sText_Dawn[] = _("DAWN");
 static const u8 sText_Lucas[] = _("LUCAS");
 
+// Cheryl's Chansey in Eterna Forest, from Platinum
+#define CHERYL_LEVEL 20
+#define CHERYL_IV    3 // Platinum's IV scale of 30
+static const u16 sCherylMoves[MAX_MON_MOVES] = {MOVE_EGG_BOMB, MOVE_SOFT_BOILED, MOVE_REFRESH, MOVE_NONE};
+static const u8 sText_Cheryl[] = _("CHERYL");
+
 #include "data/battle_frontier/battle_tent.h"
 
 static void (*const sBattleTowerFuncs[])(void) =
@@ -1489,7 +1495,7 @@ u8 GetFrontierOpponentClass(u16 trainerId)
     {
         trainerClass = gTrainers[TRAINER_STEVEN].trainerClass;
     }
-    else if (trainerId == TRAINER_ASSISTANT_PARTNER)
+    else if (trainerId == TRAINER_ASSISTANT_PARTNER || trainerId == TRAINER_CHERYL_PARTNER)
     {
         trainerClass = TRAINER_CLASS_PKMN_TRAINER_1;
     }
@@ -1583,6 +1589,11 @@ void GetFrontierTrainerName(u8 *dst, u16 trainerId)
     else if (trainerId == TRAINER_ASSISTANT_PARTNER)
     {
         StringCopy(dst, GetAssistantName());
+        return;
+    }
+    else if (trainerId == TRAINER_CHERYL_PARTNER)
+    {
+        StringCopy(dst, sText_Cheryl);
         return;
     }
     else if (trainerId < FRONTIER_TRAINERS_COUNT)
@@ -2219,13 +2230,15 @@ void DoSpecialTrainerBattle(void)
 // the front as in the Frontier's multi battles.
 bool32 IsScriptedPartner(u16 trainerId)
 {
-    return trainerId == TRAINER_STEVEN_PARTNER || trainerId == TRAINER_ASSISTANT_PARTNER;
+    return trainerId == TRAINER_STEVEN_PARTNER || trainerId == TRAINER_ASSISTANT_PARTNER || trainerId == TRAINER_CHERYL_PARTNER;
 }
 
 u8 GetScriptedPartnerBackPicId(u16 trainerId)
 {
     if (trainerId == TRAINER_ASSISTANT_PARTNER)
         return gSaveBlock2Ptr->playerGender == MALE ? TRAINER_BACK_PIC_MAY : TRAINER_BACK_PIC_BRENDAN;
+    if (trainerId == TRAINER_CHERYL_PARTNER)
+        return TRAINER_BACK_PIC_RUBY_SAPPHIRE_MAY; // Until there's a back pic of Cheryl
     return TRAINER_BACK_PIC_STEVEN;
 }
 
@@ -3082,6 +3095,7 @@ void TryHideBattleTowerReporter(void)
 
 #define STEVEN_OTID 61226
 #define ASSISTANT_OTID 41509
+#define CHERYL_OTID 20834
 
 static void FillPartnerParty(u16 trainerId)
 {
@@ -3145,6 +3159,23 @@ static void FillPartnerParty(u16 trainerId)
         for (j = 0; j < MAX_MON_MOVES; j++)
             SetMonMoveSlot(&gPlayerParty[MULTI_PARTY_SIZE], sAssistantJubilifeMons[starter].moves[j], j);
         SetMonData(&gPlayerParty[MULTI_PARTY_SIZE], MON_DATA_OT_NAME, name);
+        SetMonData(&gPlayerParty[MULTI_PARTY_SIZE], MON_DATA_OT_GENDER, &gender);
+        CalculateMonStats(&gPlayerParty[MULTI_PARTY_SIZE]);
+    }
+    else if (trainerId == TRAINER_CHERYL_PARTNER)
+    {
+        u8 gender = FEMALE;
+
+        for (i = MULTI_PARTY_SIZE; i < PARTY_SIZE; i++)
+            ZeroMonData(&gPlayerParty[i]);
+        do
+        {
+            j = Random32();
+        } while (IsShinyOtIdPersonality(CHERYL_OTID, j));
+        CreateMon(&gPlayerParty[MULTI_PARTY_SIZE], SPECIES_CHANSEY, CHERYL_LEVEL, CHERYL_IV, TRUE, j, OT_ID_PRESET, CHERYL_OTID);
+        for (j = 0; j < MAX_MON_MOVES; j++)
+            SetMonMoveSlot(&gPlayerParty[MULTI_PARTY_SIZE], sCherylMoves[j], j);
+        SetMonData(&gPlayerParty[MULTI_PARTY_SIZE], MON_DATA_OT_NAME, sText_Cheryl);
         SetMonData(&gPlayerParty[MULTI_PARTY_SIZE], MON_DATA_OT_GENDER, &gender);
         CalculateMonStats(&gPlayerParty[MULTI_PARTY_SIZE]);
     }
@@ -3698,4 +3729,11 @@ void TrySetLinkBattleTowerEnemyPartyLevel(void)
             }
         }
     }
+}
+
+// Fills the partner's half of the party for a multi battle that the
+// battle setup starts itself, rather than through DoSpecialTrainerBattle
+void FillScriptedPartnerParty(u16 trainerId)
+{
+    FillPartnerParty(trainerId);
 }

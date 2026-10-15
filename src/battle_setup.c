@@ -37,6 +37,9 @@
 #include "mirage_tower.h"
 #include "field_screen_effect.h"
 #include "data.h"
+#include "follow_me.h"
+#include "load_save.h"
+#include "party_menu.h"
 #include "constants/battle_frontier.h"
 #include "constants/battle_setup.h"
 #include "constants/event_objects.h"
@@ -109,6 +112,8 @@ EWRAM_DATA static u8 *sTrainerABattleScriptRetAddr = NULL;
 EWRAM_DATA static u8 *sTrainerBBattleScriptRetAddr = NULL;
 EWRAM_DATA static bool8 sShouldCheckTrainerBScript = FALSE;
 EWRAM_DATA static u8 sNoOfPossibleTrainerRetScripts = 0;
+EWRAM_DATA static bool8 sIsFollowerPartnerBattle = FALSE;
+EWRAM_DATA static u8 sFollowerPartnerPartyOrder[MAX_FRONTIER_PARTY_SIZE] = {0};
 
 // The first transition is used if the enemy Pokémon are lower level than our Pokémon.
 // Otherwise, the second transition is used.
@@ -633,6 +638,8 @@ static void CB2_EndWildBattle(void)
     }
     else
     {
+        if (GetFollowerPartnerTrainerId() != TRAINER_NONE)
+            HealPlayerParty();
         SetMainCallback2(CB2_ReturnToField);
         gFieldCallback = FieldCB_ReturnToFieldNoScriptCheckMusic;
     }
@@ -1294,12 +1301,58 @@ void ClearTrainerFlag(u16 trainerId)
     FlagClear(TRAINER_FLAGS_START + trainerId);
 }
 
+// While an NPC follows the player as their battle partner (Cheryl in Eterna
+// Forest, as in Platinum), the player battles two trainers beside them in a
+// multi battle, and they heal the player's Pokémon after every battle.
+u16 GetFollowerPartnerTrainerId(void)
+{
+    if (!PlayerHasFollower())
+        return TRAINER_NONE;
+    return VarGet(VAR_FOLLOWER_PARTNER);
+}
+
+// Emerald's multi battles give the player half the party, like the one in
+// Jubilife City: the first Pokémon that can battle go in beside the partner's.
+static void StartFollowerPartnerBattle(void)
+{
+    int i;
+
+    gBattleTypeFlags |= BATTLE_TYPE_MULTI | BATTLE_TYPE_INGAME_PARTNER;
+    gPartnerTrainerId = GetFollowerPartnerTrainerId();
+    SavePlayerParty();
+    ChooseFirstHalfPartyForBattle();
+    for (i = 0; i < MAX_FRONTIER_PARTY_SIZE; i++)
+        sFollowerPartnerPartyOrder[i] = gSelectedOrderFromParty[i];
+    ReducePlayerPartyToSelectedMons();
+    FillScriptedPartnerParty(gPartnerTrainerId);
+    sIsFollowerPartnerBattle = TRUE;
+}
+
+// Puts the Pokémon that battled back in their places in the whole party
+static void EndFollowerPartnerBattle(void)
+{
+    int i;
+
+    for (i = 0; i < MULTI_PARTY_SIZE; i++)
+    {
+        if (sFollowerPartnerPartyOrder[i] != 0)
+            gSaveBlock1Ptr->playerParty[sFollowerPartnerPartyOrder[i] - 1] = gPlayerParty[i];
+    }
+    LoadPlayerParty();
+    sIsFollowerPartnerBattle = FALSE;
+}
+
 void BattleSetup_StartTrainerBattle(void)
 {
     if (gNoOfApproachingTrainers == 2)
         gBattleTypeFlags = (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TWO_OPPONENTS | BATTLE_TYPE_TRAINER);
     else
         gBattleTypeFlags = (BATTLE_TYPE_TRAINER);
+
+    sIsFollowerPartnerBattle = FALSE;
+    if (gNoOfApproachingTrainers == 2 && GetFollowerPartnerTrainerId() != TRAINER_NONE
+     && CurrentBattlePyramidLocation() == PYRAMID_LOCATION_NONE && !InTrainerHillChallenge())
+        StartFollowerPartnerBattle();
 
     if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE)
     {
@@ -1351,6 +1404,11 @@ void BattleSetup_StartTrainerBattle(void)
 
 static void CB2_EndTrainerBattle(void)
 {
+    if (sIsFollowerPartnerBattle)
+        EndFollowerPartnerBattle();
+    if (GetFollowerPartnerTrainerId() != TRAINER_NONE && !IsPlayerDefeated(gBattleOutcome))
+        HealPlayerParty();
+
     if (gTrainerBattleOpponent_A == TRAINER_SECRET_BASE)
     {
         SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);

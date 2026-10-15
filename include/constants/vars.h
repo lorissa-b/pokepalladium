@@ -160,7 +160,7 @@
 #define VAR_TWINLEAF_HOUSES_STATE_BRENDAN              0x408C
 #define VAR_TWINLEAF_RIVAL_STATE                       0x408D
 #define VAR_BOARD_BRINEY_BOAT_STATE                      0x408E
-#define VAR_UNUSED_0x408F                                0x408F // Unused Var
+#define VAR_FOLLOWER_PARTNER                             0x408F // Trainer id of the follower who battles beside the player (TRAINER_CHERYL_PARTNER), or 0
 #define VAR_BRINEY_HOUSE_STATE                           0x4090
 #define VAR_UNUSED_0x4091                                0x4091 // Unused Var
 #define VAR_TWINLEAF_INTRO_STATE                       0x4092
@@ -169,7 +169,7 @@
 #define VAR_LILYCOVE_FAN_CLUB_STATE                      0x4095
 #define VAR_BRINEY_LOCATION                              0x4096
 #define VAR_INIT_SECRET_BASE                             0x4097
-#define VAR_ETERNA_FOREST_STATE                        0x4098
+#define VAR_ETERNA_FOREST_CHERYL_STATE                 0x4098 // 0: not met, 1: following, 2: through the forest, 3: met and waiting
 #define VAR_LILYCOVE_CONTEST_LOBBY_STATE                 0x4099
 #define VAR_RUSTURF_TUNNEL_STATE                         0x409A
 #define VAR_UNUSED_0x409B                                0x409B // Unused Var

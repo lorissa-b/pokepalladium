@@ -65,6 +65,7 @@ u16 GetRandomFrontierMonFromSet(u16 trainerId);
 void FrontierSpeechToString(const u16 *words);
 void DoSpecialTrainerBattle(void);
 bool32 IsScriptedPartner(u16 trainerId);
+void FillScriptedPartnerParty(u16 trainerId);
 u8 GetScriptedPartnerBackPicId(u16 trainerId);
 const u8 *GetAssistantName(void);
 void CalcEmeraldBattleTowerChecksum(struct EmeraldBattleTowerRecord *record);

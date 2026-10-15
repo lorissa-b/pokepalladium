@@ -4269,3 +4269,98 @@ Route134_Text_HudsonPostBattle:
 	.string "Our boat drifted out to sea.\p"
 	.string "My buddy's a timid fellow, so I'm\n"
 	.string "worried about him.$"
+
+EternaForest_Text_JackIntro:
+	.string "What's cool, you might ask? No?\n"
+	.string "I'll tell you anyway: bug POKéMON!$"
+
+EternaForest_Text_JackDefeat:
+	.string "Don't ignore bug POKéMON!\n"
+	.string "That really bugs me!$"
+
+EternaForest_Text_JackPostBattle:
+	.string "It would seem that coolness alone\n"
+	.string "doesn't add up to any wins...$"
+
+EternaForest_Text_BrianaIntro:
+	.string "We're just out on a power walk!$"
+
+EternaForest_Text_BrianaDefeat:
+	.string "Oh, you!$"
+
+EternaForest_Text_BrianaPostBattle:
+	.string "You can't avoid bug POKéMON ever in\n"
+	.string "the forest.\p"
+	.string "I didn't have any ANTIDOTES with me,\n"
+	.string "either. It was the worst!$"
+
+EternaForest_Text_LindseyIntro:
+	.string "I see it...\n"
+	.string "I see it...\p"
+	.string "I see you going down in defeat...$"
+
+EternaForest_Text_LindseyDefeat:
+	.string "It is I that has gone down in defeat.$"
+
+EternaForest_Text_LindseyPostBattle:
+	.string "The OLD CHATEAU...\n"
+	.string "There should be none alive in it...\p"
+	.string "And yet there is a pervasive sense of\n"
+	.string "a presence...$"
+
+EternaForest_Text_ElijahIntro:
+	.string "When a TRAINER and a POKéMON bond\n"
+	.string "as one, a wondrous power is born...$"
+
+EternaForest_Text_ElijahDefeat:
+	.string "Urmmm...\n"
+	.string "Urrrrmmmmm...$"
+
+EternaForest_Text_ElijahPostBattle:
+	.string "There still remain many mysteries yet\n"
+	.string "to be solved in this strange world...$"
+
+EternaForest_Text_KodyIntro:
+	.string "A strange presence has been felt...\n"
+	.string "It is emanating from...you!$"
+
+EternaForest_Text_KodyDefeat:
+	.string "Oh, no!\n"
+	.string "My MEDITITE!$"
+
+EternaForest_Text_KodyPostBattle:
+	.string "The OLD CHATEAU... I sense...\n"
+	.string "a particularly strong presence there.$"
+
+EternaForest_Text_RachaelIntro:
+	.string "This forest is strange, you know...\n"
+	.string "It seems to fill me with energy...$"
+
+EternaForest_Text_RachaelDefeat:
+	.string "Your victory...\n"
+	.string "There is nothing strange about it.$"
+
+EternaForest_Text_RachaelPostBattle:
+	.string "Forests are mystifying... They seem\n"
+	.string "to gather such unexplainable energy.$"
+
+EternaForest_Text_DonaldIntro:
+	.string "My senses tingle...\n"
+	.string "I've spotted a rare POKéMON!$"
+
+EternaForest_Text_DonaldDefeat:
+	.string "Awawawawah...$"
+
+EternaForest_Text_DonaldPostBattle:
+	.string "I thought it was a rare POKéMON, but\n"
+	.string "it turned out to be just a TRAINER!$"
+
+EternaForest_Text_PhillipIntro:
+	.string "Here comes the swarm!$"
+
+EternaForest_Text_PhillipDefeat:
+	.string "Whoooh...$"
+
+EternaForest_Text_PhillipPostBattle:
+	.string "There's a POKéMON ability named\n"
+	.string "SWARM.$"
