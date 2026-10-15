@@ -513,12 +513,12 @@
       "height": 1
     },
     {
-      "id": "MAPSEC_METEOR_FALLS2",
-      "name": "METEOR FALLS",
-      "x": 1,
-      "y": 2,
+      "id": "MAPSEC_ETERNA_FOREST",
+      "name": "ETERNA FOREST",
+      "x": 0,
+      "y": 0,
       "width": 1,
-      "height": 1
+      "height": 2
     },
     {
       "id": "MAPSEC_MT_PYRE",

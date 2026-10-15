@@ -1598,14 +1598,14 @@
       "border_width": 2
     },
     {
-      "id": "LAYOUT_PETALBURG_WOODS",
-      "name": "PetalburgWoods_Layout",
-      "width": 48,
-      "height": 44,
+      "id": "LAYOUT_ETERNA_FOREST",
+      "name": "EternaForest_Layout",
+      "width": 84,
+      "height": 88,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Rustboro",
-      "border_filepath": "data/layouts/PetalburgWoods/border.bin",
-      "blockdata_filepath": "data/layouts/PetalburgWoods/map.bin",
+      "border_filepath": "data/layouts/EternaForest/border.bin",
+      "blockdata_filepath": "data/layouts/EternaForest/map.bin",
       "border_height": 2,
       "border_width": 2
     },

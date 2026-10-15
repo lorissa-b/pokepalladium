@@ -307,14 +307,14 @@
       "x": 14,
       "y": 5,
       "elevation": 0,
-      "dest_map": "MAP_ROUTE205_SOUTH",
+      "dest_map": "MAP_ETERNA_FOREST",
       "dest_warp_id": "0"
     },
     {
       "x": 15,
       "y": 5,
       "elevation": 0,
-      "dest_map": "MAP_ROUTE205_SOUTH",
+      "dest_map": "MAP_ETERNA_FOREST",
       "dest_warp_id": "1"
     },
     {

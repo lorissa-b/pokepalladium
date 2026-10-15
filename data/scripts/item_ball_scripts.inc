@@ -398,19 +398,27 @@ MossdeepCity_EventScript_ItemNetBall::
 	finditem ITEM_NET_BALL
 	end
 
-PetalburgWoods_EventScript_ItemXAttack::
-	finditem ITEM_X_ATTACK
+EternaForest_EventScript_ItemAntidote::
+	finditem ITEM_ANTIDOTE
 	end
 
-PetalburgWoods_EventScript_ItemGreatBall::
-	finditem ITEM_GREAT_BALL
+EternaForest_EventScript_ItemNetBall::
+	finditem ITEM_NET_BALL
 	end
 
-PetalburgWoods_EventScript_ItemEther::
+EternaForest_EventScript_ItemGreenShard::
+	finditem ITEM_GREEN_SHARD
+	end
+
+EternaForest_EventScript_ItemEther::
 	finditem ITEM_ETHER
 	end
 
-PetalburgWoods_EventScript_ItemParalyzeHeal::
+EternaForest_EventScript_ItemPotion::
+	finditem ITEM_POTION
+	end
+
+EternaForest_EventScript_ItemParalyzeHeal::
 	finditem ITEM_PARALYZE_HEAL
 	end
 
