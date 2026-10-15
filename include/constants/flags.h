@@ -686,9 +686,9 @@
 #define FLAG_HIDE_VALLEY_WINDWORKS_GRUNT  0x27F
 #define FLAG_UNLOCKED_VALLEY_WINDWORKS_DOOR  0x280
 #define FLAG_HIDE_VALLEY_WINDWORKS_LOOKER  0x281
-#define FLAG_UNUSED_0x282  0x282 // Unused Flag
-#define FLAG_UNUSED_0x283  0x283 // Unused Flag
-#define FLAG_UNUSED_0x284  0x284 // Unused Flag
+#define FLAG_HIDE_VALLEY_WINDWORKS_BUILDING_GRUNT  0x282 // The Grunt by the door, who runs to Mars on first entry
+#define FLAG_HIDE_VALLEY_WINDWORKS_BUILDING_TEAM_GALACTIC  0x283 // Mars, Charon and the Grunts, gone once Mars is beaten
+#define FLAG_HIDE_VALLEY_WINDWORKS_BUILDING_LITTLE_GIRL  0x284 // Set at the start; cleared when she runs in to her papa
 #define FLAG_UNUSED_0x285  0x285 // Unused Flag
 #define FLAG_UNUSED_0x286  0x286 // Unused Flag
 #define FLAG_UNUSED_0x287  0x287 // Unused Flag

@@ -123,11 +123,11 @@
 #define VAR_ROUTE108_STATE                               0x4067 // Unused Var
 #define VAR_ROUTE109_STATE                               0x4068 // Unused Var
 #define VAR_ROUTE110_STATE                               0x4069
-#define VAR_ROUTE111_STATE                               0x406A // Unused Var
+#define VAR_VALLEY_WINDWORKS_TEAM_GALACTIC_STATE         0x406A // 0: Grunt at the door, 1: he has run to Mars, 2: Mars beaten
 #define VAR_ROUTE207_STATE                               0x406B // Unused Var
 #define VAR_ROUTE113_STATE                               0x406C // Unused Var
-#define VAR_VALLEY_WINDWORKS_LOOKER_STATE 0x406D // 1: Looker comes to check the Windworks (set from the building), 2: he has left for Eterna City
-#define VAR_VALLEY_WINDWORKS_STATE                             0x406E
+#define VAR_VALLEY_WINDWORKS_LOOKER_STATE 0x406D // 1: Looker comes to check the Windworks (set in the building after Mars), 2: he has left for Eterna City
+#define VAR_VALLEY_WINDWORKS_STATE                             0x406E // 1: the little girl on Route 205 South asked for help, 2: Mars beaten
 #define VAR_ROUTE204_STATE                               0x406F
 #define VAR_FLOAROMA_MEADOW_STATE                               0x4070 // 0: Grunts after the HONEY, 1: Grunts beaten
 #define VAR_ROUTE118_STATE                               0x4071

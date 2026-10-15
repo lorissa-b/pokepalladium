@@ -346,7 +346,7 @@ gStdScripts_End::
 	.include "data/maps/MtChimney_CableCarStation/scripts.inc"
 	.include "data/maps/Route114_FossilManiacsHouse/scripts.inc"
 	.include "data/maps/Route114_FossilManiacsTunnel/scripts.inc"
-	.include "data/maps/Route114_LanettesHouse/scripts.inc"
+	.include "data/maps/ValleyWindworks_Building/scripts.inc"
 	.include "data/maps/Route204_TunnelersRestHouse/scripts.inc"
 	.include "data/maps/Route117_PokemonDayCare/scripts.inc"
 	.include "data/maps/Route121_SafariZoneEntrance/scripts.inc"

@@ -2,10 +2,9 @@
 @ from Platinum's map. A Team Galactic Grunt guards the door; beaten, he locks
 @ himself in. The door stays locked (the doorless METATILE_Rustboro_Door_Tan_Locked
 @ in map.bin) until the player uses the WORKS KEY from Floaroma Meadow, which
-@ sets FLAG_UNLOCKED_VALLEY_WINDWORKS_DOOR. The building is Route 114's Lanette's
-@ House for now. Once VAR_VALLEY_WINDWORKS_LOOKER_STATE is 1 (Platinum sets it
-@ in the building after Mars is beaten), Looker meets the player at the door on
-@ the way out, looks inside and leaves for Eterna City.
+@ sets FLAG_UNLOCKED_VALLEY_WINDWORKS_DOOR. Once VAR_VALLEY_WINDWORKS_LOOKER_STATE
+@ is 1 (set in ValleyWindworks_Building after Mars is beaten), Looker meets the
+@ player at the door on the way out, looks inside and leaves for Eterna City.
 ValleyWindworks_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, ValleyWindworks_OnTransition
 	map_script MAP_SCRIPT_ON_LOAD, ValleyWindworks_OnLoad
