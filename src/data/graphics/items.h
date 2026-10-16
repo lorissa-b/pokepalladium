@@ -998,3 +998,13 @@ const u32 gItemIconPalette_Electirizer[] = INCGFX_U32("graphics/items/icon_palet
 const u32 gItemIconPalette_Magmarizer[] = INCGFX_U32("graphics/items/icon_palettes/magmarizer.pal", ".gbapal.lz");
 const u32 gItemIconPalette_DubiousDisc[] = INCGFX_U32("graphics/items/icon_palettes/dubious_disc.pal", ".gbapal.lz");
 const u32 gItemIconPalette_ReaperCloth[] = INCGFX_U32("graphics/items/icon_palettes/reaper_cloth.pal", ".gbapal.lz");
+
+// Underground mining
+const u32 gItemIcon_ExplorerKit[] = INCGFX_U32("graphics/items/icons/explorer_kit.png", ".4bpp.lz");
+const u32 gItemIconPalette_ExplorerKit[] = INCGFX_U32("graphics/items/icon_palettes/explorer_kit.pal", ".gbapal.lz");
+const u32 gItemIcon_SkullFossil[] = INCGFX_U32("graphics/items/icons/skull_fossil.png", ".4bpp.lz");
+const u32 gItemIconPalette_SkullFossil[] = INCGFX_U32("graphics/items/icon_palettes/skull_fossil.pal", ".gbapal.lz");
+const u32 gItemIcon_ArmorFossil[] = INCGFX_U32("graphics/items/icons/armor_fossil.png", ".4bpp.lz");
+const u32 gItemIconPalette_ArmorFossil[] = INCGFX_U32("graphics/items/icon_palettes/armor_fossil.pal", ".gbapal.lz");
+const u32 gItemIcon_RareBone[] = INCGFX_U32("graphics/items/icons/rare_bone.png", ".4bpp.lz");
+const u32 gItemIconPalette_RareBone[] = INCGFX_U32("graphics/items/icon_palettes/rare_bone.pal", ".gbapal.lz");

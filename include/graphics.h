@@ -4300,6 +4300,14 @@ extern const u32 gItemIconPalette_Electirizer[];
 extern const u32 gItemIconPalette_Magmarizer[];
 extern const u32 gItemIconPalette_DubiousDisc[];
 extern const u32 gItemIconPalette_ReaperCloth[];
+extern const u32 gItemIcon_ExplorerKit[];
+extern const u32 gItemIconPalette_ExplorerKit[];
+extern const u32 gItemIcon_SkullFossil[];
+extern const u32 gItemIconPalette_SkullFossil[];
+extern const u32 gItemIcon_ArmorFossil[];
+extern const u32 gItemIconPalette_ArmorFossil[];
+extern const u32 gItemIcon_RareBone[];
+extern const u32 gItemIconPalette_RareBone[];
 
 //menu graphics
 extern const u16 gMenuInfoElements1_Pal[16];

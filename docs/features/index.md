@@ -20,6 +20,7 @@ gen4-items
 nature-stat-colours
 bag-capacity
 roamers
+underground-mining
 ```
 
 ## What belongs here

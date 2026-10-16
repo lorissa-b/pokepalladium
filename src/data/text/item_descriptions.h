@@ -445,6 +445,11 @@ static const u8 sBigMushroomDesc[] = _(
     "that would sell at a\n"
     "high price.");
 
+static const u8 sRareBoneDesc[] = _(
+    "A rare bone that\n"
+    "can be sold to a\n"
+    "shop for a high price.");
+
 static const u8 sPearlDesc[] = _(
     "A pretty pearl\n"
     "that would sell at a\n"
@@ -1092,6 +1097,11 @@ static const u8 sContestPassDesc[] = _(
     "for entering\n"
     "POKéMON CONTESTS.");
 
+static const u8 sExplorerKitDesc[] = _(
+    "A bag of tools for\n"
+    "digging. Pulls up a\n"
+    "rock wall to mine.");
+
 static const u8 sWailmerPailDesc[] = _(
     "A tool used for\n"
     "watering BERRIES\n"
@@ -1487,6 +1497,16 @@ static const u8 sHM08Desc[] = _(
     "A charging attack\n"
     "that may confuse.\n"
     "Climbs rocky walls.");
+
+static const u8 sSkullFossilDesc[] = _(
+    "A fossil of an\n"
+    "ancient POKéMON. It\n"
+    "is part of a head.");
+
+static const u8 sArmorFossilDesc[] = _(
+    "A fossil of an\n"
+    "ancient POKéMON. It\n"
+    "is part of a collar.");
 
 static const u8 sTM51Desc[] = _(
     "Lands and rests to\n"

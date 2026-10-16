@@ -6785,6 +6785,9 @@ static u8 GetFlingPower(u16 item)
     case ITEM_ROOT_FOSSIL:
     case ITEM_CLAW_FOSSIL:
     case ITEM_OLD_AMBER:
+    case ITEM_SKULL_FOSSIL:
+    case ITEM_ARMOR_FOSSIL:
+    case ITEM_RARE_BONE:
         return 100;
     case ITEM_DEEP_SEA_TOOTH:
     case ITEM_THICK_CLUB:

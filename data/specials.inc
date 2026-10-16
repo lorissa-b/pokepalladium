@@ -542,3 +542,4 @@ gSpecials::
 	def_special TrySetBattleTowerLinkType
 	def_special StopFollowerInPlace
 	def_special ChooseFirstHalfPartyForBattle
+	def_special StartMiningGame, waitstate=1

@@ -983,6 +983,27 @@ void ItemUseOutOfBattle_Honey(u8 taskId)
     SetUpItemUseOnFieldCallback(taskId);
 }
 
+static void ItemUseOnFieldCB_ExplorerKit(u8 taskId)
+{
+    LockPlayerFieldControls();
+    ScriptContext_SetupScript(EventScript_UseExplorerKit);
+    DestroyTask(taskId);
+}
+
+// The Explorer Kit pulls up a rock wall to mine, outdoors and on land.
+void ItemUseOutOfBattle_ExplorerKit(u8 taskId)
+{
+    if (IsMapTypeOutdoors(gMapHeader.mapType) && !TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
+    {
+        sItemUseOnFieldCB = ItemUseOnFieldCB_ExplorerKit;
+        SetUpItemUseOnFieldCallback(taskId);
+    }
+    else
+    {
+        DisplayDadsAdviceCannotUseItemMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem);
+    }
+}
+
 void ItemUseOutOfBattle_EvolutionStone(u8 taskId)
 {
     gItemUseCB = ItemUseCB_EvolutionStone;
