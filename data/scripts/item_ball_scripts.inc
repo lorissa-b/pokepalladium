@@ -90,16 +90,8 @@ Route207_EventScript_ItemTimerBall::
 	finditem ITEM_TIMER_BALL
 	end
 
-Route113_EventScript_ItemMaxEther::
-	finditem ITEM_MAX_ETHER
-	end
-
-Route113_EventScript_ItemSuperRepel::
-	finditem ITEM_SUPER_REPEL
-	end
-
-Route113_EventScript_ItemHyperPotion::
-	finditem ITEM_HYPER_POTION
+Route205North_EventScript_ItemGuardSpec::
+	finditem ITEM_GUARD_SPEC
 	end
 
 ValleyWindworks_EventScript_ItemTM24::

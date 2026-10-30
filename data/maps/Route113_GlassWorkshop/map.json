@@ -46,14 +46,14 @@
       "x": 3,
       "y": 8,
       "elevation": 0,
-      "dest_map": "MAP_ROUTE113",
+      "dest_map": "MAP_ROUTE205_NORTH",
       "dest_warp_id": "0"
     },
     {
       "x": 4,
       "y": 8,
       "elevation": 0,
-      "dest_map": "MAP_ROUTE113",
+      "dest_map": "MAP_ROUTE205_NORTH",
       "dest_warp_id": "0"
     }
   ],

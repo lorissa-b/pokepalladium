@@ -136,7 +136,7 @@ gStdScripts_End::
 	.include "data/maps/Route110/scripts.inc"
 	.include "data/maps/Route111/scripts.inc"
 	.include "data/maps/Route207/scripts.inc"
-	.include "data/maps/Route113/scripts.inc"
+	.include "data/maps/Route205North/scripts.inc"
 	.include "data/maps/ValleyWindworks/scripts.inc"
 	.include "data/maps/Route205South/scripts.inc"
 	.include "data/maps/Route204/scripts.inc"

@@ -4272,16 +4272,41 @@ static const struct TrainerMonNoItemCustomMoves sParty_Katelynn[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_Jaylen[] = {
     {
     .iv = 0,
-    .lvl = 19,
-    .species = SPECIES_TRAPINCH,
+    .lvl = 8,
+    .species = SPECIES_MAGIKARP,
+    },
+    {
+    .iv = 0,
+    .lvl = 10,
+    .species = SPECIES_MAGIKARP,
+    },
+    {
+    .iv = 0,
+    .lvl = 12,
+    .species = SPECIES_MAGIKARP,
+    },
+    {
+    .iv = 0,
+    .lvl = 12,
+    .species = SPECIES_MAGIKARP,
+    },
+    {
+    .iv = 0,
+    .lvl = 14,
+    .species = SPECIES_MAGIKARP,
+    },
+    {
+    .iv = 0,
+    .lvl = 16,
+    .species = SPECIES_MAGIKARP,
     }
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_Dillon[] = {
     {
     .iv = 0,
-    .lvl = 19,
-    .species = SPECIES_ARON,
+    .lvl = 17,
+    .species = SPECIES_GOLDEEN,
     }
 };
 
@@ -5402,13 +5427,18 @@ static const struct TrainerMonNoItemCustomMoves sParty_Lao1[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_Lung[] = {
     {
     .iv = 0,
-    .lvl = 18,
-    .species = SPECIES_KOFFING,
+    .lvl = 14,
+    .species = SPECIES_MAGIKARP,
     },
     {
     .iv = 0,
-    .lvl = 18,
-    .species = SPECIES_NINJASK,
+    .lvl = 16,
+    .species = SPECIES_GOLDEEN,
+    },
+    {
+    .iv = 0,
+    .lvl = 14,
+    .species = SPECIES_MAGIKARP,
     }
 };
 
