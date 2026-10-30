@@ -1,9 +1,9 @@
 {
-  "id": "MAP_MAUVILLE_CITY_BIKE_SHOP",
-  "name": "MauvilleCity_BikeShop",
-  "layout": "LAYOUT_MAUVILLE_CITY_BIKE_SHOP",
+  "id": "MAP_ETERNA_CITY_BIKE_SHOP",
+  "name": "EternaCity_BikeShop",
+  "layout": "LAYOUT_ETERNA_CITY_BIKE_SHOP",
   "music": "MUS_RUSTBORO",
-  "region_map_section": "MAPSEC_MAUVILLE_CITY",
+  "region_map_section": "MAPSEC_ETERNA_CITY",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_INDOOR",
@@ -24,7 +24,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "MauvilleCity_BikeShop_EventScript_Rydel",
+      "script": "EternaCity_BikeShop_EventScript_Rydel",
       "flag": "0"
     },
     {
@@ -37,7 +37,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "MauvilleCity_BikeShop_EventScript_Assistant",
+      "script": "EternaCity_BikeShop_EventScript_Assistant",
       "flag": "0"
     }
   ],
@@ -46,14 +46,14 @@
       "x": 3,
       "y": 8,
       "elevation": 0,
-      "dest_map": "MAP_MAUVILLE_CITY",
+      "dest_map": "MAP_ETERNA_CITY",
       "dest_warp_id": "2"
     },
     {
       "x": 4,
       "y": 8,
       "elevation": 0,
-      "dest_map": "MAP_MAUVILLE_CITY",
+      "dest_map": "MAP_ETERNA_CITY",
       "dest_warp_id": "2"
     }
   ],
@@ -65,7 +65,7 @@
       "y": 1,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "MauvilleCity_BikeShop_EventScript_MachBikeHandbook"
+      "script": "EternaCity_BikeShop_EventScript_MachBikeHandbook"
     },
     {
       "type": "sign",
@@ -73,7 +73,7 @@
       "y": 1,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "MauvilleCity_BikeShop_EventScript_AcroBikeHandbook"
+      "script": "EternaCity_BikeShop_EventScript_AcroBikeHandbook"
     }
   ]
 }

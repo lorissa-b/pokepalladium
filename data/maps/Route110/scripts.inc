@@ -107,8 +107,8 @@ Route110_EventScript_SeasideParkingSign::
 	msgbox Route110_Text_SeasideParkingSign, MSGBOX_SIGN
 	end
 
-Route110_EventScript_MauvilleCitySign::
-	msgbox Route110_Text_MauvilleCitySign, MSGBOX_SIGN
+Route110_EventScript_EternaCitySign::
+	msgbox Route110_Text_EternaCitySign, MSGBOX_SIGN
 	end
 
 Route110_EventScript_TrainerTipsPrlzSleep::
@@ -901,7 +901,7 @@ Route110_Text_Route202Sign:
 Route110_Text_SeasideParkingSign:
 	.string "SEASIDE PARKING$"
 
-Route110_Text_MauvilleCitySign:
+Route110_Text_EternaCitySign:
 	.string "ROUTE 110\n"
 	.string "{UP_ARROW} MAUVILLE CITY$"
 

@@ -38,7 +38,7 @@
   "gMapGroup_TownsAndRoutes": [
     "OreburghCity",
     "SlateportCity",
-    "MauvilleCity",
+    "EternaCity",
     "JubilifeCity",
     "FortreeCity",
     "LilycoveCity",
@@ -182,14 +182,14 @@
     "SlateportCity_Mart"
   ],
   "gMapGroup_IndoorMauville": [
-    "MauvilleCity_Gym",
-    "MauvilleCity_BikeShop",
-    "MauvilleCity_House1",
-    "MauvilleCity_GameCorner",
-    "MauvilleCity_House2",
-    "MauvilleCity_PokemonCenter_1F",
-    "MauvilleCity_PokemonCenter_2F",
-    "MauvilleCity_Mart"
+    "EternaCity_Gym",
+    "EternaCity_BikeShop",
+    "EternaCity_House1",
+    "EternaCity_GameCorner",
+    "EternaCity_House2",
+    "EternaCity_PokemonCenter_1F",
+    "EternaCity_PokemonCenter_2F",
+    "EternaCity_Mart"
   ],
   "gMapGroup_IndoorJubilife": [
     "JubilifeCity_PoketchCompany_1F",

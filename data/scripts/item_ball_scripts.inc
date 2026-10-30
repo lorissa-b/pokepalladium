@@ -322,8 +322,12 @@ OreburghCity_EventScript_ItemYellowShard::
 	finditem ITEM_YELLOW_SHARD
 	end
 
-MauvilleCity_EventScript_ItemXSpeed::
-	finditem ITEM_X_SPEED
+EternaCity_EventScript_ItemTM46::
+	finditem ITEM_TM46
+	end
+
+EternaCity_EventScript_ItemSuperPotion::
+	finditem ITEM_SUPER_POTION
 	end
 
 JubilifeCity_EventScript_ItemPotion::

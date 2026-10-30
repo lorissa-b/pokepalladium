@@ -1,7 +1,7 @@
 @ Route 205 North, between Eterna Forest's east exit and Eterna City. Drawn
 @ over Emerald's Route 113 from Platinum's map. The arrow warps on the west
-@ edge (3, 12-13) lead into Eterna Forest's east exit. Eterna City doesn't
-@ exist yet, so the east edge has no connection.
+@ edge (3, 12-13) lead into Eterna Forest's east exit, and the east edge
+@ joins Eterna City.
 @
 @ Platinum's three Fishermen trainers stand on the bridges with sight 0, as
 @ in Platinum: they only battle when spoken to.

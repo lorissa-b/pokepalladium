@@ -1,9 +1,9 @@
 {
-  "id": "MAP_MAUVILLE_CITY_MART",
-  "name": "MauvilleCity_Mart",
+  "id": "MAP_ETERNA_CITY_MART",
+  "name": "EternaCity_Mart",
   "layout": "LAYOUT_MART",
   "music": "MUS_POKE_MART",
-  "region_map_section": "MAPSEC_MAUVILLE_CITY",
+  "region_map_section": "MAPSEC_ETERNA_CITY",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_INDOOR",
@@ -25,7 +25,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "MauvilleCity_Mart_EventScript_Clerk",
+      "script": "EternaCity_Mart_EventScript_Clerk",
       "flag": "0"
     },
     {
@@ -38,7 +38,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "MauvilleCity_Mart_EventScript_ExpertM",
+      "script": "EternaCity_Mart_EventScript_ExpertM",
       "flag": "0"
     },
     {
@@ -51,7 +51,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "MauvilleCity_Mart_EventScript_Man",
+      "script": "EternaCity_Mart_EventScript_Man",
       "flag": "0"
     }
   ],
@@ -60,14 +60,14 @@
       "x": 3,
       "y": 7,
       "elevation": 0,
-      "dest_map": "MAP_MAUVILLE_CITY",
+      "dest_map": "MAP_ETERNA_CITY",
       "dest_warp_id": "3"
     },
     {
       "x": 4,
       "y": 7,
       "elevation": 0,
-      "dest_map": "MAP_MAUVILLE_CITY",
+      "dest_map": "MAP_ETERNA_CITY",
       "dest_warp_id": "3"
     }
   ],

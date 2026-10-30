@@ -1,9 +1,9 @@
 {
-  "id": "MAP_MAUVILLE_CITY_GYM",
-  "name": "MauvilleCity_Gym",
-  "layout": "LAYOUT_MAUVILLE_CITY_GYM",
+  "id": "MAP_ETERNA_CITY_GYM",
+  "name": "EternaCity_Gym",
+  "layout": "LAYOUT_ETERNA_CITY_GYM",
   "music": "MUS_GYM",
-  "region_map_section": "MAPSEC_MAUVILLE_CITY",
+  "region_map_section": "MAPSEC_ETERNA_CITY",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_INDOOR",
@@ -24,7 +24,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "MauvilleCity_Gym_EventScript_Wattson",
+      "script": "EternaCity_Gym_EventScript_Wattson",
       "flag": "FLAG_HIDE_MAUVILLE_GYM_WATTSON"
     },
     {
@@ -37,7 +37,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "1",
-      "script": "MauvilleCity_Gym_EventScript_Shawn",
+      "script": "EternaCity_Gym_EventScript_Shawn",
       "flag": "0"
     },
     {
@@ -50,7 +50,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "2",
-      "script": "MauvilleCity_Gym_EventScript_Vivian",
+      "script": "EternaCity_Gym_EventScript_Vivian",
       "flag": "0"
     },
     {
@@ -63,7 +63,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "2",
-      "script": "MauvilleCity_Gym_EventScript_Ben",
+      "script": "EternaCity_Gym_EventScript_Ben",
       "flag": "0"
     },
     {
@@ -76,7 +76,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "2",
-      "script": "MauvilleCity_Gym_EventScript_Kirk",
+      "script": "EternaCity_Gym_EventScript_Kirk",
       "flag": "0"
     },
     {
@@ -89,7 +89,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "MauvilleCity_Gym_EventScript_GymGuide",
+      "script": "EternaCity_Gym_EventScript_GymGuide",
       "flag": "0"
     },
     {
@@ -102,7 +102,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "1",
-      "script": "MauvilleCity_Gym_EventScript_Angelo",
+      "script": "EternaCity_Gym_EventScript_Angelo",
       "flag": "0"
     }
   ],
@@ -111,14 +111,14 @@
       "x": 4,
       "y": 20,
       "elevation": 0,
-      "dest_map": "MAP_MAUVILLE_CITY",
+      "dest_map": "MAP_ETERNA_CITY",
       "dest_warp_id": "0"
     },
     {
       "x": 5,
       "y": 20,
       "elevation": 0,
-      "dest_map": "MAP_MAUVILLE_CITY",
+      "dest_map": "MAP_ETERNA_CITY",
       "dest_warp_id": "0"
     }
   ],
@@ -130,7 +130,7 @@
       "elevation": 3,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "MauvilleCity_Gym_EventScript_Switch2"
+      "script": "EternaCity_Gym_EventScript_Switch2"
     },
     {
       "type": "trigger",
@@ -139,7 +139,7 @@
       "elevation": 3,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "MauvilleCity_Gym_EventScript_Switch3"
+      "script": "EternaCity_Gym_EventScript_Switch3"
     },
     {
       "type": "trigger",
@@ -148,7 +148,7 @@
       "elevation": 3,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "MauvilleCity_Gym_EventScript_Switch1"
+      "script": "EternaCity_Gym_EventScript_Switch1"
     },
     {
       "type": "trigger",
@@ -157,7 +157,7 @@
       "elevation": 3,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "MauvilleCity_Gym_EventScript_Switch4"
+      "script": "EternaCity_Gym_EventScript_Switch4"
     }
   ],
   "bg_events": [
@@ -167,7 +167,7 @@
       "y": 18,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
-      "script": "MauvilleCity_Gym_EventScript_LeftGymStatue"
+      "script": "EternaCity_Gym_EventScript_LeftGymStatue"
     },
     {
       "type": "sign",
@@ -175,7 +175,7 @@
       "y": 18,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
-      "script": "MauvilleCity_Gym_EventScript_RightGymStatue"
+      "script": "EternaCity_Gym_EventScript_RightGymStatue"
     }
   ]
 }
