@@ -106,7 +106,7 @@
 #define VAR_TEAM_GALACTIC_ETERNA_BUILDING_1F_STATE 0x4056 // 0: Looker reveals himself on entering 1F, 1: done
 #define VAR_OREBURGH_CITY_STATE                         0x4057
 #define VAR_SLATEPORT_CITY_STATE                         0x4058
-#define VAR_ETERNA_CITY_STATE                          0x4059 // 3: Jupiter beaten, Team Galactic gone; 4: Cynthia's Egg turned down (or no room); 5: Egg received
+#define VAR_ETERNA_CITY_STATE                          0x4059 // 1: met Cyrus at the statue; 2: Cynthia gave HM01; 3: Jupiter beaten, Team Galactic gone; 4: Cynthia's Egg turned down (or no room); 5: Egg received
 #define VAR_JUBILIFE_CITY_STATE                          0x405A
 #define VAR_FORTREE_CITY_STATE                           0x405B // Unused Var
 #define VAR_LILYCOVE_CITY_STATE                          0x405C // Unused Var
