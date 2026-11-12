@@ -361,6 +361,20 @@
       "elevation": 0,
       "dest_map": "MAP_ETERNA_CITY",
       "dest_warp_id": "9"
+    },
+    {
+      "x": 16,
+      "y": 57,
+      "elevation": 0,
+      "dest_map": "MAP_ROUTE206_CYCLING_ROAD_NORTH_GATE",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 17,
+      "y": 57,
+      "elevation": 0,
+      "dest_map": "MAP_ROUTE206_CYCLING_ROAD_NORTH_GATE",
+      "dest_warp_id": "0"
     }
   ],
   "coord_events": [

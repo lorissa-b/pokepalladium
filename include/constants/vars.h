@@ -122,7 +122,7 @@
 #define VAR_ROUTE107_STATE                               0x4066 // Unused Var
 #define VAR_ROUTE108_STATE                               0x4067 // Unused Var
 #define VAR_ROUTE109_STATE                               0x4068 // Unused Var
-#define VAR_ROUTE110_STATE                               0x4069
+#define VAR_ROUTE206_STATE                               0x4069
 #define VAR_VALLEY_WINDWORKS_TEAM_GALACTIC_STATE         0x406A // 0: Grunt at the door, 1: he has run to Mars, 2: Mars beaten
 #define VAR_ROUTE207_STATE                               0x406B // Unused Var
 #define VAR_ROUTE113_STATE                               0x406C // Unused Var

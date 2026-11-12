@@ -302,14 +302,14 @@
       "border_width": 2
     },
     {
-      "id": "LAYOUT_ROUTE110",
-      "name": "Route110_Layout",
-      "width": 40,
-      "height": 100,
+      "id": "LAYOUT_ROUTE206",
+      "name": "Route206_Layout",
+      "width": 32,
+      "height": 128,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Mauville",
-      "border_filepath": "data/layouts/Route110/border.bin",
-      "blockdata_filepath": "data/layouts/Route110/map.bin",
+      "border_filepath": "data/layouts/Route206/border.bin",
+      "blockdata_filepath": "data/layouts/Route206/map.bin",
       "border_height": 2,
       "border_width": 2
     },
@@ -3038,14 +3038,26 @@
       "border_width": 2
     },
     {
-      "id": "LAYOUT_ROUTE110_SEASIDE_CYCLING_ROAD_ENTRANCE",
-      "name": "Route110_SeasideCyclingRoadEntrance_Layout",
-      "width": 15,
-      "height": 6,
+      "id": "LAYOUT_ROUTE206_CYCLING_ROAD_NORTH_GATE",
+      "name": "Route206_CyclingRoadNorthGate_Layout",
+      "width": 11,
+      "height": 13,
       "primary_tileset": "gTileset_Building",
       "secondary_tileset": "gTileset_Shop",
-      "border_filepath": "data/layouts/Route110_SeasideCyclingRoadEntrance/border.bin",
-      "blockdata_filepath": "data/layouts/Route110_SeasideCyclingRoadEntrance/map.bin",
+      "border_filepath": "data/layouts/Route206_CyclingRoadNorthGate/border.bin",
+      "blockdata_filepath": "data/layouts/Route206_CyclingRoadNorthGate/map.bin",
+      "border_height": 2,
+      "border_width": 2
+    },
+    {
+      "id": "LAYOUT_ROUTE206_CYCLING_ROAD_SOUTH_GATE",
+      "name": "Route206_CyclingRoadSouthGate_Layout",
+      "width": 13,
+      "height": 13,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_Shop",
+      "border_filepath": "data/layouts/Route206_CyclingRoadSouthGate/border.bin",
+      "blockdata_filepath": "data/layouts/Route206_CyclingRoadSouthGate/map.bin",
       "border_height": 2,
       "border_width": 2
     },

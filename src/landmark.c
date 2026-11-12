@@ -22,8 +22,6 @@ static const u8 LandmarkName_AbandonedShip[] = _("ABANDONED SHIP");
 static const u8 LandmarkName_SeashoreHouse[] = _("SEASHORE HOUSE");
 static const u8 LandmarkName_SlateportBeach[] = _("SLATEPORT BEACH");
 static const u8 LandmarkName_CyclingRoad[] = _("CYCLING ROAD");
-static const u8 LandmarkName_NewMauville[] = _("NEW MAUVILLE");
-static const u8 LandmarkName_TrickHouse[] = _("TRICK HOUSE");
 static const u8 LandmarkName_OldLadysRestShop[] = _("OLD LADY'S REST STOP");
 static const u8 LandmarkName_Desert[] = _("DESERT");
 static const u8 LandmarkName_WinstrateFamily[] = _("THE WINSTRATE FAMILY");
@@ -65,8 +63,6 @@ static const struct Landmark Landmark_AbandonedShip = {LandmarkName_AbandonedShi
 static const struct Landmark Landmark_SeashoreHouse = {LandmarkName_SeashoreHouse, FLAG_LANDMARK_SEASHORE_HOUSE};
 static const struct Landmark Landmark_SlateportBeach = {LandmarkName_SlateportBeach, -1};
 static const struct Landmark Landmark_CyclingRoad = {LandmarkName_CyclingRoad, -1};
-static const struct Landmark Landmark_NewMauville = {LandmarkName_NewMauville, FLAG_LANDMARK_NEW_MAUVILLE};
-static const struct Landmark Landmark_TrickHouse = {LandmarkName_TrickHouse, FLAG_LANDMARK_TRICK_HOUSE};
 static const struct Landmark Landmark_OldLadysRestShop = {LandmarkName_OldLadysRestShop, FLAG_LANDMARK_OLD_LADY_REST_SHOP};
 static const struct Landmark Landmark_Desert = {LandmarkName_Desert, -1};
 static const struct Landmark Landmark_WinstrateFamily = {LandmarkName_WinstrateFamily, FLAG_LANDMARK_WINSTRATE_FAMILY};
@@ -144,23 +140,9 @@ static const struct Landmark *const Landmarks_Route109_0[]  =
     NULL,
 };
 
-static const struct Landmark *const Landmarks_Route110_0[]  =
+static const struct Landmark *const Landmarks_Route206[]  =
 {
     &Landmark_CyclingRoad,
-    &Landmark_NewMauville,
-    NULL,
-};
-
-static const struct Landmark *const Landmarks_Route110_1[]  =
-{
-    &Landmark_CyclingRoad,
-    NULL,
-};
-
-static const struct Landmark *const Landmarks_Route110_2[]  =
-{
-    &Landmark_CyclingRoad,
-    &Landmark_TrickHouse,
     NULL,
 };
 
@@ -344,9 +326,9 @@ static const struct LandmarkList sLandmarkLists[] =
     {MAPSEC_ROUTE_106, 1, Landmarks_Route106_1},
     {MAPSEC_ROUTE_108, 0, Landmarks_Route108_0},
     {MAPSEC_ROUTE_109, 0, Landmarks_Route109_0},
-    {MAPSEC_ROUTE_110, 0, Landmarks_Route110_0},
-    {MAPSEC_ROUTE_110, 1, Landmarks_Route110_1},
-    {MAPSEC_ROUTE_110, 2, Landmarks_Route110_2},
+    {MAPSEC_ROUTE_206, 0, Landmarks_Route206},
+    {MAPSEC_ROUTE_206, 1, Landmarks_Route206},
+    {MAPSEC_ROUTE_206, 2, Landmarks_Route206},
     {MAPSEC_ROUTE_111, 0, Landmarks_Route111_0},
     {MAPSEC_ROUTE_111, 1, Landmarks_Route111_1},
     {MAPSEC_ROUTE_111, 2, Landmarks_Route111_2},

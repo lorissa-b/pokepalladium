@@ -42,16 +42,20 @@ Route109_EventScript_ItemPotion::
 	finditem ITEM_POTION
 	end
 
-Route110_EventScript_ItemRareCandy::
-	finditem ITEM_RARE_CANDY
+Route206_EventScript_ItemPoisonBarb::
+	finditem ITEM_POISON_BARB
 	end
 
-Route110_EventScript_ItemDireHit::
-	finditem ITEM_DIRE_HIT
+Route206_EventScript_ItemSuperRepel::
+	finditem ITEM_SUPER_REPEL
 	end
 
-Route110_EventScript_ItemElixir::
-	finditem ITEM_ELIXIR
+Route206_EventScript_ItemBurnHeal::
+	finditem ITEM_BURN_HEAL
+	end
+
+Route206_EventScript_ItemPPUp::
+	finditem ITEM_PP_UP
 	end
 
 Route111_EventScript_ItemTMSandstorm::

@@ -61,7 +61,7 @@
     "Route107",
     "Route108",
     "Route109",
-    "Route110",
+    "Route206",
     "Route111",
     "Route207",
     "Route205North",
@@ -612,8 +612,8 @@
     "Route110_TrickHousePuzzle6",
     "Route110_TrickHousePuzzle7",
     "Route110_TrickHousePuzzle8",
-    "Route110_SeasideCyclingRoadSouthEntrance",
-    "Route110_SeasideCyclingRoadNorthEntrance"
+    "Route206_CyclingRoadSouthGate",
+    "Route206_CyclingRoadNorthGate"
   ],
   "gMapGroup_IndoorRoute113": [
     "Route113_GlassWorkshop"
