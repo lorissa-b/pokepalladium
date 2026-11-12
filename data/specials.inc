@@ -542,3 +542,9 @@ gSpecials::
 	def_special TrySetBattleTowerLinkType
 	def_special StopFollowerInPlace
 	def_special ChooseFirstHalfPartyForBattle
+	def_special EternaGym_DrawClock
+	def_special EternaGym_CameraToClock
+	def_special EternaGym_TurnClock
+	def_special EternaGym_CameraToFountain
+	def_special EternaGym_CameraToPlayer
+	def_special StartMiningGame, waitstate=1

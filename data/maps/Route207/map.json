@@ -17,6 +17,11 @@
       "map": "MAP_OREBURGH_CITY",
       "offset": -32,
       "direction": "down"
+    },
+    {
+      "map": "MAP_ROUTE206",
+      "offset": 0,
+      "direction": "up"
     }
   ],
   "object_events": [

@@ -232,6 +232,7 @@ SECTIONS {
         src/birch_pc.o(.text);
         src/hof_pc.o(.text);
         src/field_specials.o(.text);
+        src/eterna_gym.o(.text);
         src/battle_records.o(.text);
         src/pokedex_area_screen.o(.text);
         src/evolution_scene.o(.text);
@@ -604,6 +605,7 @@ SECTIONS {
         src/fldeff_flash.o(.rodata);
         src/time_events.o(.rodata);
         src/field_specials.o(.rodata);
+        src/eterna_gym.o(.rodata);
         src/battle_records.o(.rodata);
         src/pokedex_area_screen.o(.rodata);
         src/evolution_scene.o(.rodata);

@@ -7,16 +7,38 @@
 @ when the player clears the Galactic Eterna Building. The townspeople who
 @ talk about Team Galactic change their lines on the same flag.
 @
-@ Not here yet: Barry and Cyrus at the statue, Cynthia giving HM01 and the
-@ Egg, Gardenia outside the Gym and the exits blocked until the Bicycle.
+@ Once Jupiter is beaten in the Galactic Eterna Building
+@ (VAR_ETERNA_CITY_STATE 3), Cynthia walks up to the player crossing x=20 by
+@ the Cycle Shop (rows 29-33) and offers a Togepi Egg. Turned down, or with
+@ no room in the party, she waits at the spot (state 4), and won't let the
+@ player past x=21 until they take it (state 5).
+@
+@ Earlier, as in Platinum: crossing x=15 on the way in has the rival run
+@ into the player and take them to the statue to meet Cyrus (state 0 -> 1),
+@ and heading back west across x=16 has Cynthia give HM01 (1 -> 2).
+@
+@ Once the player has the Cycle Shop's BICYCLE, the Bug Catcher at (9,19)
+@ and the Pokefan at (14,53) stop them leaving west and south until they
+@ also have the Underground Man's EXPLORER KIT
+@ (VAR_ETERNA_CITY_BLOCK_EXITS_STATE, cleared on entering the city).
 EternaCity_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, EternaCity_OnTransition
 	.byte 0
 
 EternaCity_OnTransition:
 	setflag FLAG_VISITED_ETERNA_CITY
-	clearflag FLAG_MAUVILLE_GYM_BARRIERS_STATE
-	setvar VAR_MAUVILLE_GYM_STATE, 0
+	checkitem ITEM_BICYCLE
+	goto_if_eq VAR_RESULT, TRUE, EternaCity_EventScript_CheckShouldBlockExits
+	end
+
+@ With both the BICYCLE and the EXPLORER KIT, the exits open again.
+EternaCity_EventScript_CheckShouldBlockExits::
+	checkitem ITEM_EXPLORER_KIT
+	goto_if_eq VAR_RESULT, TRUE, EternaCity_EventScript_DontBlockExits
+	end
+
+EternaCity_EventScript_DontBlockExits::
+	setvar VAR_ETERNA_CITY_BLOCK_EXITS_STATE, 0
 	end
 
 EternaCity_EventScript_GruntStatue::
@@ -73,11 +95,150 @@ EternaCity_EventScript_NinjaBoy::
 	msgbox EternaCity_Text_AwesomePokemonFromLongAgo, MSGBOX_NPC
 	end
 
-@ In Platinum she sends players without an Explorer Kit to the
-@ Underground Man. The Underground isn't in, so she always says this.
 EternaCity_EventScript_PokefanFSouth::
+	goto_if_set FLAG_RECEIVED_EXPLORER_KIT, EternaCity_EventScript_DiggingIsABlast
 	msgbox EternaCity_Text_YouDontHaveExplorerKit, MSGBOX_NPC
 	end
+
+EternaCity_EventScript_DiggingIsABlast::
+	msgbox EternaCity_Text_DiggingIsABlast, MSGBOX_NPC
+	end
+
+@ Crossing (15-19,53) with the BICYCLE but no EXPLORER KIT: she comes over
+@ from (14,53) to send the player to the Underground Man, and they step
+@ back north.
+EternaCity_EventScript_BlockExitSouth::
+	lockall
+	getplayerxy VAR_0x8004, VAR_0x8005
+	switch VAR_0x8004
+	case 16, EternaCity_EventScript_PokefanFBlockExitSouthX16
+	case 17, EternaCity_EventScript_PokefanFBlockExitSouthX17
+	case 18, EternaCity_EventScript_PokefanFBlockExitSouthX18
+	case 19, EternaCity_EventScript_PokefanFBlockExitSouthX19
+	applymovement LOCALID_ETERNA_CITY_POKEFAN_F_SOUTH, EternaCity_Movement_PokefanFNoticePlayer
+	waitmovement 0
+	call EternaCity_EventScript_SendPlayerToUndergroundMan
+	goto EternaCity_EventScript_PlayerStepBackNorth
+	end
+
+EternaCity_EventScript_PokefanFBlockExitSouthX16::
+	applymovement LOCALID_ETERNA_CITY_POKEFAN_F_SOUTH, EternaCity_Movement_PokefanFBlockExitSouthX16
+	waitmovement 0
+	call EternaCity_EventScript_SendPlayerToUndergroundMan
+	applymovement LOCALID_ETERNA_CITY_POKEFAN_F_SOUTH, EternaCity_Movement_PokefanFMoveBackX16
+	waitmovement 0
+	goto EternaCity_EventScript_PlayerStepBackNorth
+	end
+
+EternaCity_EventScript_PokefanFBlockExitSouthX17::
+	applymovement LOCALID_ETERNA_CITY_POKEFAN_F_SOUTH, EternaCity_Movement_PokefanFBlockExitSouthX17
+	waitmovement 0
+	call EternaCity_EventScript_SendPlayerToUndergroundMan
+	applymovement LOCALID_ETERNA_CITY_POKEFAN_F_SOUTH, EternaCity_Movement_PokefanFMoveBackX17
+	waitmovement 0
+	goto EternaCity_EventScript_PlayerStepBackNorth
+	end
+
+EternaCity_EventScript_PokefanFBlockExitSouthX18::
+	applymovement LOCALID_ETERNA_CITY_POKEFAN_F_SOUTH, EternaCity_Movement_PokefanFBlockExitSouthX18
+	waitmovement 0
+	call EternaCity_EventScript_SendPlayerToUndergroundMan
+	applymovement LOCALID_ETERNA_CITY_POKEFAN_F_SOUTH, EternaCity_Movement_PokefanFMoveBackX18
+	waitmovement 0
+	goto EternaCity_EventScript_PlayerStepBackNorth
+	end
+
+EternaCity_EventScript_PokefanFBlockExitSouthX19::
+	applymovement LOCALID_ETERNA_CITY_POKEFAN_F_SOUTH, EternaCity_Movement_PokefanFBlockExitSouthX19
+	waitmovement 0
+	call EternaCity_EventScript_SendPlayerToUndergroundMan
+	applymovement LOCALID_ETERNA_CITY_POKEFAN_F_SOUTH, EternaCity_Movement_PokefanFMoveBackX19
+	waitmovement 0
+	goto EternaCity_EventScript_PlayerStepBackNorth
+	end
+
+EternaCity_EventScript_SendPlayerToUndergroundMan::
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceLeft
+	waitmovement 0
+	msgbox EternaCity_Text_YouDontHaveExplorerKit, MSGBOX_DEFAULT
+	closemessage
+	return
+
+EternaCity_EventScript_PlayerStepBackNorth::
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerStepBackNorth
+	waitmovement 0
+	releaseall
+	end
+
+EternaCity_Movement_PokefanFNoticePlayer:
+	walk_in_place_faster_right
+	emote_exclamation_mark
+	delay_4
+	step_end
+
+EternaCity_Movement_PokefanFBlockExitSouthX16:
+	walk_in_place_faster_right
+	emote_exclamation_mark
+	delay_4
+	walk_right
+	step_end
+
+EternaCity_Movement_PokefanFBlockExitSouthX17:
+	walk_in_place_faster_right
+	emote_exclamation_mark
+	delay_4
+	walk_right
+	walk_right
+	step_end
+
+EternaCity_Movement_PokefanFBlockExitSouthX18:
+	walk_in_place_faster_right
+	emote_exclamation_mark
+	delay_4
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+EternaCity_Movement_PokefanFBlockExitSouthX19:
+	walk_in_place_faster_right
+	emote_exclamation_mark
+	delay_4
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+EternaCity_Movement_PokefanFMoveBackX16:
+	walk_left
+	walk_in_place_faster_right
+	step_end
+
+EternaCity_Movement_PokefanFMoveBackX17:
+	walk_left
+	walk_left
+	walk_in_place_faster_right
+	step_end
+
+EternaCity_Movement_PokefanFMoveBackX18:
+	walk_left
+	walk_left
+	walk_left
+	walk_in_place_faster_right
+	step_end
+
+EternaCity_Movement_PokefanFMoveBackX19:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_in_place_faster_right
+	step_end
+
+EternaCity_Movement_PlayerStepBackNorth:
+	walk_up
+	step_end
 
 EternaCity_EventScript_BugCatcherWest::
 	lock
@@ -86,6 +247,98 @@ EternaCity_EventScript_BugCatcherWest::
 	msgbox EternaCity_Text_YouGotABicycle, MSGBOX_DEFAULT
 	release
 	end
+
+@ Crossing (9,20)-(9,22) with the BICYCLE but no EXPLORER KIT: he comes
+@ down from (9,19), points the player to Cycling Road and bumps them back
+@ a step east.
+EternaCity_EventScript_BlockExitWest::
+	lockall
+	getplayerxy VAR_0x8004, VAR_0x8005
+	goto_if_eq VAR_0x8005, 21, EternaCity_EventScript_BugCatcherBlockExitWestY21
+	goto_if_eq VAR_0x8005, 22, EternaCity_EventScript_BugCatcherBlockExitWestY22
+	applymovement LOCALID_ETERNA_CITY_BUG_CATCHER_WEST, EternaCity_Movement_BugCatcherBlockExitWestY20
+	waitmovement 0
+	call EternaCity_EventScript_TellPlayerAboutCyclingRoad
+	applymovement LOCALID_ETERNA_CITY_BUG_CATCHER_WEST, EternaCity_Movement_BugCatcherPushPlayerAndMoveBackY20
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerGetPushedBack
+	waitmovement 0
+	releaseall
+	end
+
+EternaCity_EventScript_BugCatcherBlockExitWestY21::
+	applymovement LOCALID_ETERNA_CITY_BUG_CATCHER_WEST, EternaCity_Movement_BugCatcherBlockExitWestY21
+	waitmovement 0
+	call EternaCity_EventScript_TellPlayerAboutCyclingRoad
+	applymovement LOCALID_ETERNA_CITY_BUG_CATCHER_WEST, EternaCity_Movement_BugCatcherPushPlayerAndMoveBackY21
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerGetPushedBack
+	waitmovement 0
+	releaseall
+	end
+
+EternaCity_EventScript_BugCatcherBlockExitWestY22::
+	applymovement LOCALID_ETERNA_CITY_BUG_CATCHER_WEST, EternaCity_Movement_BugCatcherBlockExitWestY22
+	waitmovement 0
+	call EternaCity_EventScript_TellPlayerAboutCyclingRoad
+	applymovement LOCALID_ETERNA_CITY_BUG_CATCHER_WEST, EternaCity_Movement_BugCatcherPushPlayerAndMoveBackY22
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerGetPushedBack
+	waitmovement 0
+	releaseall
+	end
+
+EternaCity_EventScript_TellPlayerAboutCyclingRoad::
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerFaceBugCatcher
+	waitmovement 0
+	msgbox EternaCity_Text_YouGotABicycle, MSGBOX_DEFAULT
+	closemessage
+	return
+
+EternaCity_Movement_PlayerFaceBugCatcher:
+	face_up
+	step_end
+
+EternaCity_Movement_PlayerGetPushedBack:
+	walk_right
+	walk_in_place_left
+	step_end
+
+EternaCity_Movement_BugCatcherBlockExitWestY20:
+	face_down
+	emote_exclamation_mark
+	step_end
+
+EternaCity_Movement_BugCatcherBlockExitWestY21:
+	face_down
+	emote_exclamation_mark
+	walk_down
+	step_end
+
+EternaCity_Movement_BugCatcherBlockExitWestY22:
+	face_down
+	emote_exclamation_mark
+	walk_down
+	walk_down
+	step_end
+
+EternaCity_Movement_BugCatcherPushPlayerAndMoveBackY20:
+	walk_down
+	walk_up
+	walk_in_place_down
+	step_end
+
+EternaCity_Movement_BugCatcherPushPlayerAndMoveBackY21:
+	walk_down
+	walk_up
+	walk_up
+	walk_in_place_down
+	step_end
+
+EternaCity_Movement_BugCatcherPushPlayerAndMoveBackY22:
+	walk_down
+	walk_up
+	walk_up
+	walk_up
+	walk_in_place_down
+	step_end
 
 EternaCity_EventScript_FeelsGreatRidingABike::
 	msgbox EternaCity_Text_FeelsGreatRidingABike, MSGBOX_DEFAULT
@@ -135,6 +388,838 @@ EternaCity_EventScript_RegisterWallyCall::
 	clearflag FLAG_ENABLE_FIRST_WALLY_POKENAV_CALL
 	releaseall
 	end
+
+
+@ Crossing (15,11)-(15,13) the first time (VAR_ETERNA_CITY_STATE 0): the
+@ rival runs up from the south and bumps the player one step east, then
+@ takes them to the statue, where Cyrus (Steven's sprite as a stand-in)
+@ is musing about Sinnoh's myths. Both end at the statue: the rival at
+@ (35,12), the player at (35,13).
+EternaCity_EventScript_RivalRunsIntoPlayer::
+	lockall
+	setobjectxyperm LOCALID_ETERNA_CITY_RIVAL, 11, 21
+	clearflag FLAG_HIDE_ETERNA_CITY_RIVAL
+	addobject LOCALID_ETERNA_CITY_RIVAL
+	getplayerxy VAR_0x8004, VAR_0x8005
+	goto_if_eq VAR_0x8005, 12, EternaCity_EventScript_RivalRunIntoPlayerY12
+	goto_if_eq VAR_0x8005, 13, EternaCity_EventScript_RivalRunIntoPlayerY13
+	applymovement LOCALID_ETERNA_CITY_RIVAL, EternaCity_Movement_RivalRunIntoPlayerY11
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerGetPushedByRivalY11
+	waitmovement 0
+	call EternaCity_EventScript_RivalTakePlayerToStatue
+	applymovement LOCALID_ETERNA_CITY_RIVAL, EternaCity_Movement_RivalWalkInFrontOfPlayerY11
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerFaceRivalY11
+	waitmovement 0
+	applymovement LOCALID_ETERNA_CITY_RIVAL, EternaCity_Movement_RivalWalkToStatueY11Or13
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerWalkToStatueY11
+	waitmovement 0
+	goto EternaCity_EventScript_Cyrus
+	end
+
+EternaCity_EventScript_RivalRunIntoPlayerY12::
+	applymovement LOCALID_ETERNA_CITY_RIVAL, EternaCity_Movement_RivalRunIntoPlayerY12
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerGetPushedByRivalY12
+	waitmovement 0
+	call EternaCity_EventScript_RivalTakePlayerToStatue
+	applymovement LOCALID_ETERNA_CITY_RIVAL, EternaCity_Movement_RivalWalkInFrontOfPlayerY12
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerFaceRivalY12
+	waitmovement 0
+	applymovement LOCALID_ETERNA_CITY_RIVAL, EternaCity_Movement_RivalWalkToStatueY12
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerWalkToStatueY12
+	waitmovement 0
+	goto EternaCity_EventScript_Cyrus
+	end
+
+EternaCity_EventScript_RivalRunIntoPlayerY13::
+	applymovement LOCALID_ETERNA_CITY_RIVAL, EternaCity_Movement_RivalRunIntoPlayerY13
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerGetPushedByRivalY13
+	waitmovement 0
+	call EternaCity_EventScript_RivalTakePlayerToStatue
+	applymovement LOCALID_ETERNA_CITY_RIVAL, EternaCity_Movement_RivalWalkInFrontOfPlayerY13
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerFaceRivalY13
+	waitmovement 0
+	applymovement LOCALID_ETERNA_CITY_RIVAL, EternaCity_Movement_RivalWalkToStatueY11Or13
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerWalkToStatueY13
+	waitmovement 0
+	goto EternaCity_EventScript_Cyrus
+	end
+
+EternaCity_EventScript_RivalTakePlayerToStatue::
+	playse SE_WALL_HIT
+	msgbox EternaCity_Text_BigThud, MSGBOX_DEFAULT
+	closemessage
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, EternaCity_EventScript_PlayRivalMusicMay
+	call_if_eq VAR_RESULT, FEMALE, EternaCity_EventScript_PlayRivalMusicBrendan
+	msgbox EternaCity_Text_YouCameToSeeStatue, MSGBOX_DEFAULT
+	closemessage
+	return
+
+@ The rival's music, as on Route 201.
+EternaCity_EventScript_PlayRivalMusicMay::
+	playbgm MUS_ENCOUNTER_MAY, TRUE
+	return
+
+EternaCity_EventScript_PlayRivalMusicBrendan::
+	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
+	return
+
+EternaCity_EventScript_Cyrus::
+	msgbox EternaCity_Text_WhatThe, MSGBOX_DEFAULT
+	closemessage
+	fadedefaultbgm
+	special SpawnCameraObject
+	applymovement LOCALID_CAMERA, EternaCity_Movement_CameraPanRight
+	waitmovement 0
+	msgbox EternaCity_Text_SoThisIsEternasStatue, MSGBOX_DEFAULT
+	closemessage
+	delay 15
+	applymovement LOCALID_ETERNA_CITY_CYRUS, EternaCity_Movement_CyrusWalkToPlayer
+	applymovement LOCALID_CAMERA, EternaCity_Movement_CameraPanLeft
+	waitmovement 0
+	special RemoveCameraObject
+	msgbox EternaCity_Text_PardonMeStandAside, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_ETERNA_CITY_CYRUS, EternaCity_Movement_CyrusLeave
+	applymovement LOCALID_ETERNA_CITY_RIVAL, EternaCity_Movement_RivalWatchCyrusLeave
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerMoveAsideAndWatchCyrusLeave
+	waitmovement 0
+	removeobject LOCALID_ETERNA_CITY_CYRUS
+	delay 35
+	applymovement LOCALID_ETERNA_CITY_RIVAL, EternaCity_Movement_RivalFacePlayer
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerFaceRival
+	waitmovement 0
+	msgbox EternaCity_Text_GoCheckOutStatueSeeYou, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_ETERNA_CITY_RIVAL, EternaCity_Movement_RivalLeave
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerWatchRivalLeave
+	waitmovement 0
+	removeobject LOCALID_ETERNA_CITY_RIVAL
+	setvar VAR_ETERNA_CITY_STATE, 1
+	releaseall
+	end
+
+@ The rival arrives on the player's tile just as they're knocked east.
+EternaCity_Movement_RivalRunIntoPlayerY11:
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	step_end
+
+EternaCity_Movement_RivalRunIntoPlayerY12:
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	step_end
+
+EternaCity_Movement_RivalRunIntoPlayerY13:
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	step_end
+
+EternaCity_Movement_PlayerGetPushedByRivalY11:
+	delay_16
+	delay_16
+	delay_16
+	delay_16
+	delay_16
+	delay_16
+	delay_8
+	lock_facing_direction
+	walk_fast_right
+	unlock_facing_direction
+	face_left
+	step_end
+
+EternaCity_Movement_PlayerGetPushedByRivalY12:
+	delay_16
+	delay_16
+	delay_16
+	delay_16
+	delay_16
+	delay_16
+	lock_facing_direction
+	walk_fast_right
+	unlock_facing_direction
+	face_left
+	step_end
+
+EternaCity_Movement_PlayerGetPushedByRivalY13:
+	delay_16
+	delay_16
+	delay_16
+	delay_16
+	delay_16
+	delay_8
+	lock_facing_direction
+	walk_fast_right
+	unlock_facing_direction
+	face_left
+	step_end
+
+EternaCity_Movement_RivalWalkInFrontOfPlayerY11:
+	walk_down
+	walk_right
+	walk_in_place_up
+	step_end
+
+EternaCity_Movement_RivalWalkInFrontOfPlayerY12:
+	walk_down
+	walk_right
+	walk_right
+	walk_up
+	walk_in_place_left
+	step_end
+
+EternaCity_Movement_RivalWalkInFrontOfPlayerY13:
+	walk_up
+	walk_right
+	walk_in_place_down
+	step_end
+
+EternaCity_Movement_PlayerFaceRivalY11:
+	delay_16
+	delay_8
+	walk_in_place_down
+	step_end
+
+EternaCity_Movement_PlayerFaceRivalY12:
+	delay_16
+	delay_8
+	walk_in_place_down
+	delay_8
+	walk_in_place_right
+	step_end
+
+EternaCity_Movement_PlayerFaceRivalY13:
+	delay_16
+	delay_8
+	walk_in_place_up
+	step_end
+
+EternaCity_Movement_RivalWalkToStatueY11Or13:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+EternaCity_Movement_RivalWalkToStatueY12:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+EternaCity_Movement_PlayerWalkToStatueY11:
+	walk_down
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_down
+	walk_right
+	step_end
+
+EternaCity_Movement_PlayerWalkToStatueY12:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_down
+	walk_right
+	step_end
+
+EternaCity_Movement_PlayerWalkToStatueY13:
+	walk_up
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_down
+	walk_right
+	step_end
+
+EternaCity_Movement_CameraPanRight:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+EternaCity_Movement_CameraPanLeft:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+@ From (39,14) to (36,13), beside the player at (35,13).
+EternaCity_Movement_CyrusWalkToPlayer:
+	walk_left
+	walk_left
+	walk_left
+	walk_up
+	walk_in_place_left
+	step_end
+
+EternaCity_Movement_CyrusLeave:
+	delay_16
+	delay_16
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+EternaCity_Movement_RivalWatchCyrusLeave:
+	delay_16
+	delay_16
+	delay_16
+	walk_in_place_faster_left
+	step_end
+
+EternaCity_Movement_PlayerMoveAsideAndWatchCyrusLeave:
+	walk_down
+	walk_in_place_right
+	delay_16
+	delay_16
+	walk_in_place_left
+	step_end
+
+EternaCity_Movement_RivalFacePlayer:
+	walk_fast_down
+	step_end
+
+EternaCity_Movement_PlayerFaceRival:
+	walk_in_place_up
+	step_end
+
+EternaCity_Movement_RivalLeave:
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	step_end
+
+EternaCity_Movement_PlayerWatchRivalLeave:
+	delay_16
+	walk_in_place_left
+	step_end
+
+@ After the statue (VAR_ETERNA_CITY_STATE 1), heading back west across
+@ (16-18,10) or (16,11)-(16,13) brings Cynthia (Glacia's sprite) from the
+@ east with HM01. From row 10 she comes up below the player; otherwise she
+@ stops just east of them. She leaves west and down column 11.
+EternaCity_EventScript_CynthiaGiveCut::
+	lockall
+	getplayerxy VAR_0x8004, VAR_0x8005
+	clearflag FLAG_HIDE_ETERNA_CITY_CYNTHIA
+	setobjectmovementtype LOCALID_ETERNA_CITY_CYNTHIA, MOVEMENT_TYPE_FACE_LEFT
+	goto_if_eq VAR_0x8005, 10, EternaCity_EventScript_CynthiaGiveCutFromBelow
+	setobjectxyperm LOCALID_ETERNA_CITY_CYNTHIA, 25, VAR_0x8005
+	addobject LOCALID_ETERNA_CITY_CYNTHIA
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaNoticeAndWalkUpToPlayerEast
+	waitmovement 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceRight
+	waitmovement 0
+	msgbox EternaCity_Text_OhYouHaveAPokedex, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaLookAroundThenWest
+	waitmovement 0
+	call EternaCity_EventScript_CynthiaGiveHM01
+	goto_if_eq VAR_0x8005, 13, EternaCity_EventScript_CynthiaLeaveAfterCutY13
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaLeaveAfterCutY11Or12
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerWatchCynthiaLeaveAfterCutEast
+	waitmovement 0
+	goto EternaCity_EventScript_CynthiaGiveCutEnd
+	end
+
+EternaCity_EventScript_CynthiaLeaveAfterCutY13::
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaLeaveAfterCutY13
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerWatchCynthiaLeaveAfterCutEast
+	waitmovement 0
+	goto EternaCity_EventScript_CynthiaGiveCutEnd
+	end
+
+@ Player at (16-18,10): she starts 9 tiles east on row 12 and ends below them.
+EternaCity_EventScript_CynthiaGiveCutFromBelow::
+	copyvar VAR_0x8006, VAR_0x8004
+	addvar VAR_0x8006, 9
+	setobjectxyperm LOCALID_ETERNA_CITY_CYNTHIA, VAR_0x8006, 12
+	addobject LOCALID_ETERNA_CITY_CYNTHIA
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaNoticeAndWalkUpToPlayerBelow
+	waitmovement 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceDown
+	waitmovement 0
+	msgbox EternaCity_Text_OhYouHaveAPokedex, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaLookAroundThenNorth
+	waitmovement 0
+	call EternaCity_EventScript_CynthiaGiveHM01
+	goto_if_eq VAR_0x8004, 17, EternaCity_EventScript_CynthiaLeaveAfterCutX17
+	goto_if_eq VAR_0x8004, 18, EternaCity_EventScript_CynthiaLeaveAfterCutX18
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaLeaveAfterCutX16
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerWatchCynthiaLeaveAfterCutBelow
+	waitmovement 0
+	goto EternaCity_EventScript_CynthiaGiveCutEnd
+	end
+
+EternaCity_EventScript_CynthiaLeaveAfterCutX17::
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaLeaveAfterCutX17
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerWatchCynthiaLeaveAfterCutBelow
+	waitmovement 0
+	goto EternaCity_EventScript_CynthiaGiveCutEnd
+	end
+
+EternaCity_EventScript_CynthiaLeaveAfterCutX18::
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaLeaveAfterCutX18
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerWatchCynthiaLeaveAfterCutBelow
+	waitmovement 0
+	goto EternaCity_EventScript_CynthiaGiveCutEnd
+	end
+
+EternaCity_EventScript_CynthiaGiveHM01::
+	msgbox EternaCity_Text_TryUsingThis, MSGBOX_DEFAULT
+	giveitem ITEM_HM01
+	msgbox EternaCity_Text_CutCanBeUsedInField, MSGBOX_DEFAULT
+	closemessage
+	return
+
+EternaCity_EventScript_CynthiaGiveCutEnd::
+	removeobject LOCALID_ETERNA_CITY_CYNTHIA
+	setvar VAR_ETERNA_CITY_STATE, 2
+	releaseall
+	end
+
+EternaCity_Movement_CynthiaNoticeAndWalkUpToPlayerBelow:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	emote_exclamation_mark
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_up
+	step_end
+
+EternaCity_Movement_CynthiaNoticeAndWalkUpToPlayerEast:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	emote_exclamation_mark
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+EternaCity_Movement_CynthiaLookAroundThenNorth:
+	walk_in_place_right
+	delay_16
+	delay_16
+	walk_in_place_up
+	step_end
+
+EternaCity_Movement_CynthiaLookAroundThenWest:
+	walk_in_place_right
+	delay_16
+	delay_16
+	walk_in_place_left
+	step_end
+
+EternaCity_Movement_CynthiaLeaveAfterCutX16:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+EternaCity_Movement_CynthiaLeaveAfterCutX17:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+EternaCity_Movement_CynthiaLeaveAfterCutX18:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+EternaCity_Movement_CynthiaLeaveAfterCutY11Or12:
+	walk_down
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+EternaCity_Movement_CynthiaLeaveAfterCutY13:
+	walk_up
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+EternaCity_Movement_PlayerWatchCynthiaLeaveAfterCutBelow:
+	delay_16
+	walk_in_place_left
+	step_end
+
+EternaCity_Movement_PlayerWatchCynthiaLeaveAfterCutEast:
+	delay_16
+	delay_16
+	walk_in_place_left
+	step_end
+
+@ Crossing (20,29)-(20,33): Cynthia comes up column 16 from 8 rows below
+@ and along the player's row to stand just west of them, at (19,y).
+EternaCity_EventScript_CynthiaTryGiveEgg::
+	lockall
+	getplayerxy VAR_0x8004, VAR_0x8005
+	copyvar VAR_0x8006, VAR_0x8005
+	addvar VAR_0x8006, 8
+	clearflag FLAG_HIDE_ETERNA_CITY_CYNTHIA
+	setobjectxyperm LOCALID_ETERNA_CITY_CYNTHIA, 16, VAR_0x8006
+	setobjectmovementtype LOCALID_ETERNA_CITY_CYNTHIA, MOVEMENT_TYPE_FACE_RIGHT
+	addobject LOCALID_ETERNA_CITY_CYNTHIA
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaNoticeAndWalkUpToPlayer
+	waitmovement 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceLeft
+	waitmovement 0
+	msgbox EternaCity_Text_WillYouAcceptEgg, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EternaCity_EventScript_CynthiaEggRefused
+	getpartysize
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EternaCity_EventScript_CynthiaNoRoomForEgg
+	call EternaCity_EventScript_GiveTogepiEgg
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaLeaveWest
+	waitmovement 0
+	removeobject LOCALID_ETERNA_CITY_CYNTHIA
+	releaseall
+	end
+
+EternaCity_EventScript_GiveTogepiEgg::
+	playfanfare MUS_OBTAIN_ITEM
+	message EternaCity_Text_ReceivedTheEgg
+	waitfanfare
+	giveegg SPECIES_TOGEPI
+	setvar VAR_ETERNA_CITY_STATE, 5
+	msgbox EternaCity_Text_ThatsWonderful, MSGBOX_DEFAULT
+	msgbox EternaCity_Text_KeepEggInYourParty, MSGBOX_DEFAULT
+	closemessage
+	return
+
+EternaCity_EventScript_CynthiaEggRefused::
+	msgbox EternaCity_Text_DontFeelObligated, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_ETERNA_CITY_STATE, 4
+	releaseall
+	end
+
+EternaCity_EventScript_CynthiaNoRoomForEgg::
+	msgbox EternaCity_Text_NoRoomForEgg, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_ETERNA_CITY_STATE, 4
+	releaseall
+	end
+
+@ Talking to her while she waits (state 4).
+EternaCity_EventScript_Cynthia::
+	lockall
+	faceplayer
+	msgbox EternaCity_Text_WillYouAcceptThisEgg, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EternaCity_EventScript_CynthiaEggRefused
+	getpartysize
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EternaCity_EventScript_CynthiaNoRoomForEgg
+	call EternaCity_EventScript_GiveTogepiEgg
+	goto_if_eq VAR_FACING, DIR_EAST, EternaCity_EventScript_CynthiaLeaveAroundPlayer
+	goto_if_eq VAR_FACING, DIR_WEST, EternaCity_EventScript_CynthiaLeaveWest
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaLeaveWest
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerWatchCynthiaLeave
+	waitmovement 0
+	goto EternaCity_EventScript_RemoveCynthia
+	end
+
+EternaCity_EventScript_CynthiaLeaveWest::
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaLeaveWest
+	waitmovement 0
+	goto EternaCity_EventScript_RemoveCynthia
+	end
+
+@ The player is west of her, in her way: she steps down first.
+EternaCity_EventScript_CynthiaLeaveAroundPlayer::
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaLeaveAroundPlayer
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerWatchCynthiaLeaveAround
+	waitmovement 0
+	goto EternaCity_EventScript_RemoveCynthia
+	end
+
+EternaCity_EventScript_RemoveCynthia::
+	removeobject LOCALID_ETERNA_CITY_CYNTHIA
+	releaseall
+	end
+
+@ Crossing (21,28)-(21,33) while she still has the Egg.
+EternaCity_EventScript_CynthiaBlockCycleShop::
+	lockall
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, Common_Movement_WalkInPlaceRight
+	waitmovement 0
+	msgbox EternaCity_Text_DontLeaveWithoutEgg, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerStepBackWest
+	waitmovement 0
+	releaseall
+	end
+
+EternaCity_Movement_CynthiaNoticeAndWalkUpToPlayer:
+	walk_up
+	walk_up
+	walk_up
+	emote_exclamation_mark
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+EternaCity_Movement_CynthiaLeaveWest:
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+EternaCity_Movement_CynthiaLeaveAroundPlayer:
+	walk_down
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+EternaCity_Movement_PlayerStepBackWest:
+	walk_left
+	step_end
+
+EternaCity_Movement_PlayerWatchCynthiaLeave:
+	delay_8
+	walk_in_place_left
+	step_end
+
+EternaCity_Movement_PlayerWatchCynthiaLeaveAround:
+	delay_8
+	delay_8
+	delay_4
+	walk_in_place_left
+	step_end
 
 EternaCity_Text_WallyPokenavCall:
 	.string "… … … … … …\n"
@@ -216,6 +1301,10 @@ EternaCity_Text_YouDontHaveExplorerKit:
 	.string "You should have a word with the man\n"
 	.string "next door to the POKéMON CENTER.$"
 
+EternaCity_Text_DiggingIsABlast:
+	.string "Digging with the EXPLORER KIT\n"
+	.string "is a blast, isn't it?$"
+
 EternaCity_Text_YouGotABicycle:
 	.string "Oh, wow!\n"
 	.string "You got a BICYCLE!\p"
@@ -257,3 +1346,130 @@ EternaCity_Text_UndergroundMansHouseSign:
 EternaCity_Text_CondominiumsSign:
 	.string "ETERNA CONDOMINIUMS\n"
 	.string "Name-Rating Services Available$"
+
+EternaCity_Text_WillYouAcceptEgg:
+	.string "CYNTHIA: Oh, there you are!\p"
+	.string "I was looking for you.\n"
+	.string "I've got something nice.\p"
+	.string "I wanted you to have this POKéMON EGG.\n"
+	.string "Will you accept it?$"
+
+EternaCity_Text_ReceivedTheEgg:
+	.string "{PLAYER} received the EGG.$"
+
+EternaCity_Text_ThatsWonderful:
+	.string "CYNTHIA: That's wonderful!\p"
+	.string "The POKéMON inside the EGG is\n"
+	.string "happy, too. I'm sure of it!$"
+
+EternaCity_Text_KeepEggInYourParty:
+	.string "CYNTHIA: Keep that EGG with you in your\n"
+	.string "party of POKéMON.\p"
+	.string "A POKéMON will hatch from it while you\n"
+	.string "are traveling.\p"
+	.string "I would be happy to know that it will\n"
+	.string "help fill another page of your POKéDEX.\p"
+	.string "See you again!$"
+
+EternaCity_Text_NoRoomForEgg:
+	.string "CYNTHIA: Oh?\n"
+	.string "You have six POKéMON with you already.\l"
+	.string "You don't have room for this EGG.\p"
+	.string "You'll have to store a POKéMON in a\n"
+	.string "PC BOX at the POKéMON CENTER first.\p"
+	.string "I'll give you this EGG when you've made\n"
+	.string "room for it.\p"
+	.string "I'll be waiting right here.$"
+
+EternaCity_Text_DontFeelObligated:
+	.string "CYNTHIA: Oh…?\n"
+	.string "You don't need to feel obligated.\p"
+	.string "It's hard filling the pages of the\n"
+	.string "POKéDEX, isn't it?\p"
+	.string "I only want to lend you a little hand,\n"
+	.string "that's all.$"
+
+EternaCity_Text_WillYouAcceptThisEgg:
+	.string "CYNTHIA: Well?\n"
+	.string "Will you accept this POKéMON EGG?$"
+
+EternaCity_Text_DontLeaveWithoutEgg:
+	.string "CYNTHIA: Oh, wait!\p"
+	.string "Don't leave without this POKéMON EGG.\n"
+	.string "Please? I want you to have it.$"
+
+EternaCity_Text_BigThud:
+	.string "Thud!!$"
+
+EternaCity_Text_YouCameToSeeStatue:
+	.string "{RIVAL}: Hey, {PLAYER}!\p"
+	.string "You came to see the POKéMON statue,\n"
+	.string "right? I'll take you there!$"
+
+EternaCity_Text_WhatThe:
+	.string "{RIVAL}: What the…$"
+
+EternaCity_Text_SoThisIsEternasStatue:
+	.string "CYRUS: …So, this is ETERNA's POKéMON\n"
+	.string "statue…\p"
+	.string "Shaping our world are time and space\n"
+	.string "in an intertwining spiral.\p"
+	.string "Revered in SINNOH are the POKéMON of\n"
+	.string "time and space…\p"
+	.string "SINNOH's myth…\n"
+	.string "Its truth needs investigation…$"
+
+EternaCity_Text_PardonMeStandAside:
+	.string "…Pardon me.\n"
+	.string "Stand aside.$"
+
+EternaCity_Text_GoCheckOutStatueSeeYou:
+	.string "{RIVAL}: Oh, hey!\p"
+	.string "When we smacked together, a brilliant\n"
+	.string "flash of inspiration came to me!\p"
+	.string "An easy way to become a great TRAINER!\n"
+	.string "Yeah, that!\p"
+	.string "All right.\n"
+	.string "Listen close…\p"
+	.string "Make certain all your attacks hit!\n"
+	.string "Avoid enemy attacks for sure!\p"
+	.string "You do that, you'd never lose!\n"
+	.string "You'd be the invincible TRAINER!\p"
+	.string "Anyway, go check out the POKéMON\n"
+	.string "statue. See you around!$"
+
+EternaCity_Text_OhYouHaveAPokedex:
+	.string "Oh, that device you have…\p"
+	.string "It is a POKéDEX?\n"
+	.string "Wow, it brings back some memories.\p"
+	.string "Pardon me, but what's your name?\p"
+	.string "…\p"
+	.string "OK, hello, {PLAYER}.\n"
+	.string "I'll be sure to remember that name!\p"
+	.string "My name is CYNTHIA.\n"
+	.string "I'm a TRAINER just like you.\p"
+	.string "I've been studying POKéMON mythology\n"
+	.string "lately, just out of curiosity.$"
+
+EternaCity_Text_TryUsingThis:
+	.string "Here in ETERNA CITY, there is a statue\n"
+	.string "of an ancient POKéMON.\p"
+	.string "Have you seen it already?\p"
+	.string "According to myth, it was an extremely\n"
+	.string "powerful POKéMON.\p"
+	.string "Who knows? You may encounter\n"
+	.string "something like it while you're\l"
+	.string "traveling with your POKéDEX.\p"
+	.string "Oh, I know! Try using this.\n"
+	.string "It should be helpful.$"
+
+EternaCity_Text_CutCanBeUsedInField:
+	.string "CYNTHIA: Remember, the hidden move\n"
+	.string "CUT can be used in the field.\p"
+	.string "It will let you go places that were\n"
+	.string "previously inaccessible to you.\p"
+	.string "That's important for filling up your\n"
+	.string "POKéDEX, right?\p"
+	.string "Then luck be with you, young TRAINER!\p"
+	.string "Oh, there's one last thing!\n"
+	.string "Please give my regards to PROF. BIRCH.$"

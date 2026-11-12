@@ -1,5 +1,6 @@
 #include "global.h"
 #include "bike.h"
+#include "event_data.h"
 #include "event_object_movement.h"
 #include "field_player_avatar.h"
 #include "fieldmap.h"
@@ -124,6 +125,17 @@ static const struct BikeHistoryInputInfo sAcroBikeTricksList[] =
 };
 
 // code
+
+// Platinum's BICYCLE rides as the Mach Bike, with two gears that B shifts
+// between: fourth (the Mach Bike's full speed) and third, which tops out a
+// step lower so it's easier to steer and stop.
+static u8 GetMachBikeTopSpeedIndex(void)
+{
+    if (FlagGet(FLAG_BICYCLE_THIRD_GEAR))
+        return 1;
+    return ARRAY_COUNT(sMachBikeSpeeds) - 1;
+}
+
 void MovePlayerOnBike(u8 direction, u16 newKeys, u16 heldKeys)
 {
     if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_MACH_BIKE)
@@ -134,6 +146,14 @@ void MovePlayerOnBike(u8 direction, u16 newKeys, u16 heldKeys)
 
 static void MovePlayerOnMachBike(u8 direction, u16 newKeys, u16 heldKeys)
 {
+    if (newKeys & B_BUTTON)
+    {
+        if (FlagGet(FLAG_BICYCLE_THIRD_GEAR))
+            FlagClear(FLAG_BICYCLE_THIRD_GEAR);
+        else
+            FlagSet(FLAG_BICYCLE_THIRD_GEAR);
+        PlaySE(SE_BIKE_BELL);
+    }
     sMachBikeTransitions[GetMachBikeTransition(&direction)](direction);
 }
 
@@ -234,9 +254,14 @@ static void MachBikeTransition_TrySpeedUp(u8 direction)
         else
         {
             // we did not hit anything that can slow us down, so perform the advancement callback depending on the bikeFrameCounter and try to increase the mach bike's speed.
+            u8 topSpeed = GetMachBikeTopSpeedIndex();
+
+            // shifting down to third gear drops straight to its top speed
+            if (gPlayerAvatar.bikeFrameCounter > topSpeed)
+                gPlayerAvatar.bikeFrameCounter = topSpeed;
             sMachBikeSpeedCallbacks[gPlayerAvatar.bikeFrameCounter](direction);
             gPlayerAvatar.bikeSpeed = gPlayerAvatar.bikeFrameCounter + (gPlayerAvatar.bikeFrameCounter >> 1); // same as dividing by 2, but compiler is insistent on >> 1
-            if (gPlayerAvatar.bikeFrameCounter < 2) // do not go faster than the last element in the mach bike array
+            if (gPlayerAvatar.bikeFrameCounter < topSpeed) // do not go faster than the current gear allows
                 gPlayerAvatar.bikeFrameCounter++;
         }
     }

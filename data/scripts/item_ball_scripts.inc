@@ -42,16 +42,20 @@ Route109_EventScript_ItemPotion::
 	finditem ITEM_POTION
 	end
 
-Route110_EventScript_ItemRareCandy::
-	finditem ITEM_RARE_CANDY
+Route206_EventScript_ItemPoisonBarb::
+	finditem ITEM_POISON_BARB
 	end
 
-Route110_EventScript_ItemDireHit::
-	finditem ITEM_DIRE_HIT
+Route206_EventScript_ItemSuperRepel::
+	finditem ITEM_SUPER_REPEL
 	end
 
-Route110_EventScript_ItemElixir::
-	finditem ITEM_ELIXIR
+Route206_EventScript_ItemBurnHeal::
+	finditem ITEM_BURN_HEAL
+	end
+
+Route206_EventScript_ItemPPUp::
+	finditem ITEM_PP_UP
 	end
 
 Route111_EventScript_ItemTMSandstorm::
@@ -732,4 +736,24 @@ MagmaHideout_4F_EventScript_ItemMaxRevive::
 
 MagmaHideout_3F_3R_EventScript_ItemEscapeRope::
 	finditem ITEM_ESCAPE_ROPE
+	end
+
+TeamGalacticEternaBuilding_2F_EventScript_ItemXSpeed::
+	finditem ITEM_X_SPEED
+	end
+
+TeamGalacticEternaBuilding_3F_EventScript_ItemXSpecial::
+	finditem ITEM_X_SPECIAL
+	end
+
+TeamGalacticEternaBuilding_4F_EventScript_ItemRevive::
+	finditem ITEM_REVIVE
+	end
+
+TeamGalacticEternaBuilding_4F_EventScript_ItemBlueShard::
+	finditem ITEM_BLUE_SHARD
+	end
+
+TeamGalacticEternaBuilding_4F_EventScript_ItemUpGrade::
+	finditem ITEM_UP_GRADE
 	end

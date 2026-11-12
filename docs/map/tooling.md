@@ -113,7 +113,7 @@ Maps can be named by `MAP_*` id, by directory (`JubilifeCity`) or loosely
 | `check [MAP...]` | Check layouts and maps (all of them by default). `-w` adds warnings. Exits non-zero on errors. |
 | `platinum list [QUERY]` | Search Platinum's map headers. |
 | `platinum show HEADER[+HEADER...]` | The Platinum map as text, with events and props (only those inside `--region`, when given). `--events`, `--region`, `--ground` (what the ground is painted with, see [Paths](#paths-and-the-ground-model)), `--render [PNG]`, `--json FILE`. |
-| `platinum update` | Move the cached pokeplatinum checkout to its latest commit. |
+| `platinum update` | Move the cached pokeplatinum checkout to the commit pinned in `platinum.py` (`PINNED`); upstream reorganised its map files after it. |
 | `draft HEADER LAYOUT` | A blueprint for LAYOUT drafted from a Platinum map, with its buildings placed. `--region X,Y,W,H`, `--finish [--style --trees --water --path --keep-shape]`, `--solid-unreachable`, `--no-buildings`, `--originals-only`, `--full` (notes as comments in the blueprint, not a `.notes` file), `--render PNG [--events --grid --seams]`. |
 | `compare MAP HEADER` | Score a map against the Platinum original. `--origin X,Y\|auto`, `--solid-unreachable`, `--render PNG [--region X,Y,W,H]`, `--limit N`, `--tiles`, `--grid` (the map as text), `-q` (score and missing warps only). |
 

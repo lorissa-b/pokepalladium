@@ -61,7 +61,7 @@
     "Route107",
     "Route108",
     "Route109",
-    "Route110",
+    "Route206",
     "Route111",
     "Route207",
     "Route205North",
@@ -185,7 +185,7 @@
     "EternaCity_Gym",
     "EternaCity_BikeShop",
     "EternaCity_House1",
-    "EternaCity_GameCorner",
+    "TeamGalacticEternaBuilding_1F",
     "EternaCity_House2",
     "EternaCity_PokemonCenter_1F",
     "EternaCity_PokemonCenter_2F",
@@ -400,9 +400,9 @@
     "SealedChamber_OuterRoom",
     "SealedChamber_InnerRoom",
     "ScorchedSlab",
-    "AquaHideout_UnusedRubyMap1",
-    "AquaHideout_UnusedRubyMap2",
-    "AquaHideout_UnusedRubyMap3",
+    "TeamGalacticEternaBuilding_2F",
+    "TeamGalacticEternaBuilding_3F",
+    "TeamGalacticEternaBuilding_4F",
     "SkyPillar_Entrance",
     "SkyPillar_Outside",
     "SkyPillar_1F",
@@ -612,8 +612,8 @@
     "Route110_TrickHousePuzzle6",
     "Route110_TrickHousePuzzle7",
     "Route110_TrickHousePuzzle8",
-    "Route110_SeasideCyclingRoadSouthEntrance",
-    "Route110_SeasideCyclingRoadNorthEntrance"
+    "Route206_CyclingRoadSouthGate",
+    "Route206_CyclingRoadNorthGate"
   ],
   "gMapGroup_IndoorRoute113": [
     "Route113_GlassWorkshop"

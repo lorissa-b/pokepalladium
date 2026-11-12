@@ -1,320 +1,99 @@
+@ Rad Rickshaw's Cycle Shop, drawn over Rydel's Cycles from Platinum's map.
+@ Its owner is held in the Galactic Eterna Building until Jupiter is beaten
+@ on 4F, which clears FLAG_HIDE_CYCLE_SHOP_OWNER and FLAG_HIDE_CYCLE_SHOP_CLEFAIRY;
+@ back here, he gives the player the BICYCLE (FLAG_RECEIVED_BIKE), and
+@ Eterna City's exits are blocked until they also have the EXPLORER KIT
+@ (VAR_ETERNA_CITY_BLOCK_EXITS_STATE).
 EternaCity_BikeShop_MapScripts::
 	.byte 0
 
-EternaCity_BikeShop_EventScript_Rydel::
+EternaCity_BikeShop_EventScript_Owner::
 	lock
 	faceplayer
-	goto_if_set FLAG_RECEIVED_BIKE, EternaCity_BikeShop_EventScript_AskSwitchBikes
-	goto_if_set FLAG_DECLINED_BIKE, EternaCity_BikeShop_EventScript_SkipGreeting
-	msgbox EternaCity_BikeShop_Text_RydelGreeting, MSGBOX_DEFAULT
-	msgbox EternaCity_BikeShop_Text_DidYouComeFromFarAway, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, EternaCity_BikeShop_EventScript_YesFar
-	goto_if_eq VAR_RESULT, NO, EternaCity_BikeShop_EventScript_NotFar
-	end
-
-EternaCity_BikeShop_EventScript_SkipGreeting::
-	msgbox EternaCity_BikeShop_Text_DidYouComeFromFarAway, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, EternaCity_BikeShop_EventScript_YesFar
-	goto_if_eq VAR_RESULT, NO, EternaCity_BikeShop_EventScript_NotFar
-	end
-
-EternaCity_BikeShop_EventScript_ChooseBike::
-	message EternaCity_BikeShop_Text_ExplainBikesChooseWhichOne
-	waitmessage
-	multichoice 21, 8, MULTI_BIKE, TRUE
-	switch VAR_RESULT
-	case 0, EternaCity_BikeShop_EventScript_GetMachBike
-	case 1, EternaCity_BikeShop_EventScript_GetAcroBike
-	end
-
-EternaCity_BikeShop_EventScript_NotFar::
-	setflag FLAG_DECLINED_BIKE
-	msgbox EternaCity_BikeShop_Text_GuessYouDontNeedBike, MSGBOX_DEFAULT
-	release
-	end
-
-EternaCity_BikeShop_EventScript_YesFar::
+	goto_if_set FLAG_RECEIVED_BIKE, EternaCity_BikeShop_EventScript_ReadOperatingManual
+	msgbox EternaCity_BikeShop_Text_ThanksForRescuingMe, MSGBOX_DEFAULT
+	giveitem ITEM_BICYCLE
 	setflag FLAG_RECEIVED_BIKE
-	goto EternaCity_BikeShop_EventScript_ChooseBike
+	setvar VAR_ETERNA_CITY_BLOCK_EXITS_STATE, 1
+	goto EternaCity_BikeShop_EventScript_ReadOperatingManual
 	end
 
-EternaCity_BikeShop_EventScript_GetMachBike::
-	msgbox EternaCity_BikeShop_Text_ChoseMachBike, MSGBOX_DEFAULT
-	giveitem ITEM_MACH_BIKE
-	goto EternaCity_BikeShop_EventScript_ComeBackToSwitchBikes
-	end
-
-EternaCity_BikeShop_EventScript_GetAcroBike::
-	msgbox EternaCity_BikeShop_Text_ChoseAcroBike, MSGBOX_DEFAULT
-	giveitem ITEM_ACRO_BIKE
-	goto EternaCity_BikeShop_EventScript_ComeBackToSwitchBikes
-	end
-
-EternaCity_BikeShop_EventScript_ComeBackToSwitchBikes::
-	msgbox EternaCity_BikeShop_Text_ComeBackToSwitchBikes, MSGBOX_DEFAULT
-	special SwapRegisteredBike
+EternaCity_BikeShop_EventScript_ReadOperatingManual::
+	msgbox EternaCity_BikeShop_Text_IllReadOperatingManual, MSGBOX_DEFAULT
 	release
 	end
 
-EternaCity_BikeShop_EventScript_AskSwitchBikes::
-	msgbox EternaCity_BikeShop_Text_WantToSwitchBikes, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, EternaCity_BikeShop_EventScript_SwitchBikes
-	goto_if_eq VAR_RESULT, NO, EternaCity_BikeShop_EventScript_KeepBike
-	end
-
-@ If the player does not have a bike on them Rydel assumes its stored in the PC
-EternaCity_BikeShop_EventScript_SwitchBikes::
-	msgbox EternaCity_BikeShop_Text_IllSwitchBikes, MSGBOX_DEFAULT
-	checkitem ITEM_ACRO_BIKE
-	goto_if_eq VAR_RESULT, TRUE, EternaCity_BikeShop_EventScript_SwitchAcroForMach
-	checkitem ITEM_MACH_BIKE
-	goto_if_eq VAR_RESULT, TRUE, EternaCity_BikeShop_EventScript_SwitchMachForAcro
-	msgbox EternaCity_BikeShop_Text_OhYourBikeIsInPC, MSGBOX_DEFAULT
+EternaCity_BikeShop_EventScript_Clefairy::
+	lock
+	faceplayer
+	waitse
+	playmoncry SPECIES_CLEFAIRY, CRY_MODE_NORMAL
+	msgbox EternaCity_BikeShop_Text_ClefairyPipPiih, MSGBOX_DEFAULT
+	waitmoncry
 	release
 	end
 
-EternaCity_BikeShop_EventScript_KeepBike::
-	msgbox EternaCity_BikeShop_Text_HappyYouLikeIt, MSGBOX_DEFAULT
+EternaCity_BikeShop_EventScript_Youngster::
+	lock
+	faceplayer
+	goto_if_set FLAG_HIDE_ETERNA_CITY_GALACTIC_GRUNTS, EternaCity_BikeShop_EventScript_WhatWasTeamGalacticTrying
+	msgbox EternaCity_BikeShop_Text_ManagersGoneOff, MSGBOX_DEFAULT
 	release
 	end
 
-EternaCity_BikeShop_EventScript_SwitchAcroForMach::
-	incrementgamestat GAME_STAT_TRADED_BIKES
-	msgbox EternaCity_BikeShop_Text_ExchangedAcroForMach, MSGBOX_DEFAULT
-	removeitem ITEM_ACRO_BIKE
-	giveitem ITEM_MACH_BIKE
-	goto EternaCity_BikeShop_EventScript_ComeBackToSwitchBikes
-	end
-
-EternaCity_BikeShop_EventScript_SwitchMachForAcro::
-	incrementgamestat GAME_STAT_TRADED_BIKES
-	msgbox EternaCity_BikeShop_Text_ExchangedMachForAcro, MSGBOX_DEFAULT
-	removeitem ITEM_MACH_BIKE
-	giveitem ITEM_ACRO_BIKE
-	goto EternaCity_BikeShop_EventScript_ComeBackToSwitchBikes
-	end
-
-EternaCity_BikeShop_EventScript_Assistant::
-	msgbox EternaCity_BikeShop_Text_HandbooksAreInBack, MSGBOX_NPC
-	end
-
-EternaCity_BikeShop_EventScript_MachBikeHandbook::
-	message EternaCity_BikeShop_Text_MachHandbookWhichPage
-	waitmessage
-	goto EternaCity_BikeShop_EventScript_ChooseMachHandbookPage
-	end
-
-EternaCity_BikeShop_EventScript_ChooseMachHandbookPage::
-	multichoice 0, 0, MULTI_MACH_BIKE_INFO, FALSE
-	switch VAR_RESULT
-	case 0, EternaCity_BikeShop_EventScript_HowToRide
-	case 1, EternaCity_BikeShop_EventScript_HowToTurn
-	case 2, EternaCity_BikeShop_EventScript_SandySlopes
-	case 3, EternaCity_BikeShop_EventScript_ExitMachHandbook
-	case MULTI_B_PRESSED, EternaCity_BikeShop_EventScript_ExitMachHandbook
-	end
-
-EternaCity_BikeShop_EventScript_HowToRide::
-	message EternaCity_BikeShop_Text_HowToRideMachBike
-	waitmessage
-	goto EternaCity_BikeShop_EventScript_ChooseMachHandbookPage
-	end
-
-EternaCity_BikeShop_EventScript_HowToTurn::
-	message EternaCity_BikeShop_Text_HowToTurnMachBike
-	waitmessage
-	goto EternaCity_BikeShop_EventScript_ChooseMachHandbookPage
-	end
-
-EternaCity_BikeShop_EventScript_SandySlopes::
-	message EternaCity_BikeShop_Text_SandySlopes
-	waitmessage
-	goto EternaCity_BikeShop_EventScript_ChooseMachHandbookPage
-	end
-
-EternaCity_BikeShop_EventScript_ExitMachHandbook::
+EternaCity_BikeShop_EventScript_WhatWasTeamGalacticTrying::
+	msgbox EternaCity_BikeShop_Text_WhatWasTeamGalacticTrying, MSGBOX_DEFAULT
 	release
 	end
 
-EternaCity_BikeShop_EventScript_AcroBikeHandbook::
-	message EternaCity_BikeShop_Text_AcroHandbookWhichPage
-	waitmessage
-	goto EternaCity_BikeShop_EventScript_ChooseAcroHandbookPage
+EternaCity_BikeShop_EventScript_Manual::
+	msgbox EternaCity_BikeShop_Text_ManualOnLatestBicycle, MSGBOX_SIGN
 	end
 
-EternaCity_BikeShop_EventScript_ChooseAcroHandbookPage::
-	multichoice 0, 0, MULTI_ACRO_BIKE_INFO, FALSE
-	switch VAR_RESULT
-	case 0, EternaCity_BikeShop_EventScript_Wheelies
-	case 1, EternaCity_BikeShop_EventScript_BunnyHops
-	case 2, EternaCity_BikeShop_EventScript_Jumps
-	case 3, EternaCity_BikeShop_EventScript_ExitAcroHandbook
-	case MULTI_B_PRESSED, EternaCity_BikeShop_EventScript_ExitAcroHandbook
+EternaCity_BikeShop_EventScript_Catalog::
+	msgbox EternaCity_BikeShop_Text_CatalogFromHoenn, MSGBOX_SIGN
 	end
 
-EternaCity_BikeShop_EventScript_Wheelies::
-	message EternaCity_BikeShop_Text_Wheelies
-	waitmessage
-	goto EternaCity_BikeShop_EventScript_ChooseAcroHandbookPage
-	end
+EternaCity_BikeShop_Text_ThanksForRescuingMe:
+	.string "Thanks for rescuing me!\n"
+	.string "This is something to show my thanks!\p"
+	.string "It's the latest model BICYCLE!\n"
+	.string "You must take it. I insist!$"
 
-EternaCity_BikeShop_EventScript_BunnyHops::
-	message EternaCity_BikeShop_Text_BunnyHops
-	waitmessage
-	goto EternaCity_BikeShop_EventScript_ChooseAcroHandbookPage
-	end
+EternaCity_BikeShop_Text_IllReadOperatingManual:
+	.string "It's the latest model, so I'll read\n"
+	.string "the operating manual to you.\p"
+	.string "“Press the B Button to shift up\n"
+	.string "or down.”\p"
+	.string "In third gear, you can't go all that\n"
+	.string "fast, but it's easier to control.\p"
+	.string "In fourth gear, it gets harder to\n"
+	.string "steer and stop, but it's fast! Really!$"
 
-EternaCity_BikeShop_EventScript_Jumps::
-	message EternaCity_BikeShop_Text_Jumps
-	waitmessage
-	goto EternaCity_BikeShop_EventScript_ChooseAcroHandbookPage
-	end
+EternaCity_BikeShop_Text_ClefairyPipPiih:
+	.string "CLEFAIRY: Pip piih!$"
 
-EternaCity_BikeShop_EventScript_ExitAcroHandbook::
-	release
-	end
+EternaCity_BikeShop_Text_ManagersGoneOff:
+	.string "The manager's gone off to the TEAM\n"
+	.string "GALACTIC building and hasn't returned.\p"
+	.string "I wonder what's holding him up?$"
 
-EternaCity_BikeShop_Text_RydelGreeting:
-	.string "Well, well, what have we here?\n"
-	.string "A most energetic customer!\p"
-	.string "Me? You may call me RYDEL.\n"
-	.string "I'm the owner of this cycle shop.$"
+EternaCity_BikeShop_Text_WhatWasTeamGalacticTrying:
+	.string "What was TEAM GALACTIC trying to do\n"
+	.string "with other people's POKéMON?$"
 
-EternaCity_BikeShop_Text_DidYouComeFromFarAway:
-	.string "RYDEL: Your RUNNING SHOES…\n"
-	.string "They're awfully filthy.\p"
-	.string "Did you come from far away?$"
+EternaCity_BikeShop_Text_ManualOnLatestBicycle:
+	.string "There is a manual on the latest\n"
+	.string "model BICYCLE.\p"
+	.string "Third gear for steering.\n"
+	.string "Fourth gear for all-out speed!\p"
+	.string "Change gears with the B Button for\n"
+	.string "exhilarating cycling!$"
 
-EternaCity_BikeShop_Text_GuessYouDontNeedBike:
-	.string "RYDEL: Is that right?\p"
-	.string "Then, I guess you have no need for\n"
-	.string "any of my BIKES.$"
-
-EternaCity_BikeShop_Text_ExplainBikesChooseWhichOne:
-	.string "RYDEL: Hm, hm… … … … …\p"
-	.string "You're saying that you came all this\n"
-	.string "way from TWINLEAF?\p"
-	.string "My goodness!\n"
-	.string "That's ridiculously far!\p"
-	.string "If you had one of my BIKES, you could\n"
-	.string "go anywhere easily while feeling the\l"
-	.string "gentle caress of the wind!\p"
-	.string "I'll tell you what!\n"
-	.string "I'll give you a BIKE!\p"
-	.string "Oh, wait a second!\p"
-	.string "I forgot to tell you that there are\n"
-	.string "two kinds of BIKES!\p"
-	.string "They are the MACH BIKE and\n"
-	.string "the ACRO BIKE!\p"
-	.string "The MACH BIKE is for cyclists who want\n"
-	.string "to feel the wind with their bodies!\p"
-	.string "And an ACRO BIKE is for those who\n"
-	.string "prefer technical rides!\p"
-	.string "I'm a real sweetheart, so you can\n"
-	.string "have whichever one you like!\p"
-	.string "Which one will you choose?$"
-
-EternaCity_BikeShop_Text_ChoseMachBike:
-	.string "{PLAYER} chose the MACH BIKE.$"
-
-EternaCity_BikeShop_Text_ChoseAcroBike:
-	.string "{PLAYER} chose the ACRO BIKE.$"
-
-EternaCity_BikeShop_Text_ComeBackToSwitchBikes:
-	.string "RYDEL: If you get the urge to switch\n"
-	.string "BIKES, just come see me!$"
-
-EternaCity_BikeShop_Text_WantToSwitchBikes:
-	.string "RYDEL: Oh? Were you thinking about\n"
-	.string "switching BIKES?$"
-
-EternaCity_BikeShop_Text_IllSwitchBikes:
-	.string "RYDEL: Okay, no problem!\n"
-	.string "I'll switch BIKES for you!$"
-
-EternaCity_BikeShop_Text_ExchangedMachForAcro:
-	.string "{PLAYER} got the MACH BIKE exchanged\n"
-	.string "for an ACRO BIKE.$"
-
-EternaCity_BikeShop_Text_ExchangedAcroForMach:
-	.string "{PLAYER} got the ACRO BIKE exchanged\n"
-	.string "for a MACH BIKE.$"
-
-EternaCity_BikeShop_Text_HappyYouLikeIt:
-	.string "RYDEL: Good, good!\n"
-	.string "I'm happy that you like it!$"
-
-EternaCity_BikeShop_Text_OhYourBikeIsInPC:
-	.string "Oh? What happened to that BIKE\n"
-	.string "I gave you?\p"
-	.string "Oh, I get it, you stored it using your PC.\p"
-	.string "Well, take it out of PC storage,\n"
-	.string "and I'll be happy to exchange it!\p"
-	.string "May the wind always be at your back\n"
-	.string "on your adventure!$"
-
-EternaCity_BikeShop_Text_HandbooksAreInBack:
-	.string "I'm learning about BIKES while\n"
-	.string "I work here.\p"
-	.string "If you need advice on how to ride your\n"
-	.string "BIKE, there're a couple handbooks in\l"
-	.string "the back.$"
-
-EternaCity_BikeShop_Text_MachHandbookWhichPage:
-	.string "It's a handbook on the MACH BIKE.\p"
-	.string "Which page do you want to read?$"
-
-EternaCity_BikeShop_Text_HowToRideMachBike:
-	.string "A BIKE moves in the direction that\n"
-	.string "the + Control Pad is pressed.\p"
-	.string "It will speed up once it gets rolling.\p"
-	.string "To stop, release the + Control Pad.\n"
-	.string "The BIKE will slow to a stop.\p"
-	.string "Want to read a different page?$"
-
-EternaCity_BikeShop_Text_HowToTurnMachBike:
-	.string "A MACH BIKE is speedy, but it can't\n"
-	.string "stop very quickly.\p"
-	.string "It gets a little tricky to get around\n"
-	.string "a corner.\p"
-	.string "Release the + Control Pad a little\n"
-	.string "before the corner and slow down.\p"
-	.string "Want to read a different page?$"
-
-EternaCity_BikeShop_Text_SandySlopes:
-	.string "There are small sandy slopes\n"
-	.string "throughout the HOENN region.\p"
-	.string "The loose, crumbly sand makes it\n"
-	.string "impossible to climb normally.\p"
-	.string "But if you have a MACH BIKE, you can\n"
-	.string "zip up a sandy slope.\p"
-	.string "Want to read a different page?$"
-
-EternaCity_BikeShop_Text_AcroHandbookWhichPage:
-	.string "It's a handbook on the ACRO BIKE.\p"
-	.string "Which page do you want to read?$"
-
-EternaCity_BikeShop_Text_Wheelies:
-	.string "Press the B Button while riding,\n"
-	.string "and the front wheel lifts up.\p"
-	.string "You can zip around with the front\n"
-	.string "wheel up using the + Control Pad.\p"
-	.string "This technique is called a wheelie.\p"
-	.string "Want to read a different page?$"
-
-EternaCity_BikeShop_Text_BunnyHops:
-	.string "Keeping the B Button pressed,\n"
-	.string "your BIKE can hop on the spot.\p"
-	.string "This technique is called a bunny hop.\p"
-	.string "You can ride while hopping, too.\p"
-	.string "Want to read a different page?$"
-
-EternaCity_BikeShop_Text_Jumps:
-	.string "Press the B Button and the + Control\n"
-	.string "Pad at the same time to jump.\p"
-	.string "Press the + Control Pad to the side\n"
-	.string "to jump sideways.\p"
-	.string "Press it backwards to make the BIKE\n"
-	.string "change directions while jumping.\p"
-	.string "Want to read a different page?$"
-
+EternaCity_BikeShop_Text_CatalogFromHoenn:
+	.string "There's a catalog from the HOENN\n"
+	.string "region on its popular BIKES…\p"
+	.string "MACH BIKE--a folding BIKE built solely\n"
+	.string "for blazing speed!\p"
+	.string "ACRO BIKE--a folding BIKE designed for\n"
+	.string "stunts like jumps and wheelies!$"

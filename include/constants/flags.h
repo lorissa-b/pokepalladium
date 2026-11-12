@@ -59,22 +59,22 @@
 #define FLAG_RECEIVED_TRAINERS_SCHOOL_PRIZE          0x2D
 #define FLAG_HIDE_JUBILIFE_CITY_TEAM_GALACTIC 0x2E // Prof. Birch and the Team Galactic Grunts at the north exit
 #define FLAG_HIDE_ETERNA_FOREST_CHERYL 0x2F // Cheryl at the forest's south entrance, hidden while she follows and after she leaves
-#define FLAG_UNUSED_0x030    0x30 // Unused Flag
-#define FLAG_UNUSED_0x031    0x31 // Unused Flag
-#define FLAG_UNUSED_0x032    0x32 // Unused Flag
-#define FLAG_UNUSED_0x033    0x33 // Unused Flag
-#define FLAG_UNUSED_0x034    0x34 // Unused Flag
-#define FLAG_UNUSED_0x035    0x35 // Unused Flag
-#define FLAG_UNUSED_0x036    0x36 // Unused Flag
-#define FLAG_UNUSED_0x037    0x37 // Unused Flag
-#define FLAG_UNUSED_0x038    0x38 // Unused Flag
-#define FLAG_UNUSED_0x039    0x39 // Unused Flag
-#define FLAG_UNUSED_0x03A    0x3A // Unused Flag
-#define FLAG_UNUSED_0x03B    0x3B // Unused Flag
-#define FLAG_UNUSED_0x03C    0x3C // Unused Flag
-#define FLAG_UNUSED_0x03D    0x3D // Unused Flag
-#define FLAG_UNUSED_0x03E    0x3E // Unused Flag
-#define FLAG_UNUSED_0x03F    0x3F // Unused Flag
+#define FLAG_HIDE_TEAM_GALACTIC_ETERNA_BUILDING_1F_LOOKER 0x30 // Set at the start; Looker only shows himself during his scene on 1F
+#define FLAG_HIDE_TEAM_GALACTIC_ETERNA_BUILDING_1F_DISGUISED_LOOKER 0x31 // Looker dressed as a Grunt on 1F, gone once Jupiter is beaten
+#define FLAG_HIDE_TEAM_GALACTIC_ETERNA_BUILDING_4F_HOSTAGES 0x32 // The Cycle Shop owner, Clefairy and Buneary on 4F, gone once Jupiter is beaten
+#define FLAG_ITEM_TEAM_GALACTIC_ETERNA_BUILDING_2F_X_SPEED 0x33
+#define FLAG_ITEM_TEAM_GALACTIC_ETERNA_BUILDING_3F_X_SPECIAL 0x34
+#define FLAG_ITEM_TEAM_GALACTIC_ETERNA_BUILDING_4F_REVIVE 0x35
+#define FLAG_ITEM_TEAM_GALACTIC_ETERNA_BUILDING_4F_BLUE_SHARD 0x36
+#define FLAG_ITEM_TEAM_GALACTIC_ETERNA_BUILDING_4F_UP_GRADE 0x37
+#define FLAG_HIDE_ETERNA_CITY_CYNTHIA 0x38 // Set at the start; shown while she offers the Togepi Egg
+#define FLAG_HIDE_ETERNA_CITY_RIVAL 0x39 // Set at the start; shown while he runs into the player and takes them to the statue
+#define FLAG_HIDE_ETERNA_CITY_CYRUS 0x3A // Cyrus at the statue, gone once he leaves (VAR_ETERNA_CITY_STATE 1)
+#define FLAG_HIDE_CYCLE_SHOP_OWNER 0x3B // Set at the start; he's back in the Cycle Shop once Jupiter is beaten
+#define FLAG_HIDE_CYCLE_SHOP_CLEFAIRY 0x3C // Set at the start; cleared with the owner's
+#define FLAG_BICYCLE_THIRD_GEAR 0x3D // The BICYCLE is in third gear (B shifts); clear for fourth
+#define FLAG_RECEIVED_EXPLORER_KIT 0x3E // From the Underground Man in Eterna City
+#define FLAG_TALKED_TO_UNDERGROUND_MAN_HOUSE_SCIENTIST 0x3F
 #define FLAG_UNUSED_0x040    0x40 // Unused Flag
 #define FLAG_UNUSED_0x041    0x41 // Unused Flag
 #define FLAG_UNUSED_0x042    0x42 // Unused Flag
@@ -114,7 +114,7 @@
 #define FLAG_RECEIVED_SECRET_POWER           0x60
 #define FLAG_MET_TEAM_AQUA_HARBOR            0x61
 #define FLAG_TV_EXPLAINED                    0x62
-#define FLAG_MAUVILLE_GYM_BARRIERS_STATE     0x63
+#define FLAG_UNUSED_0x063                    0x63 // Unused Flag
 #define FLAG_MOSSDEEP_GYM_SWITCH_1           0x64 // Leftover from the RS version of Mossdeep Gym, functionally unused
 #define FLAG_MOSSDEEP_GYM_SWITCH_2           0x65 //
 #define FLAG_MOSSDEEP_GYM_SWITCH_3           0x66 //
@@ -186,7 +186,7 @@
 #define FLAG_TOUGH_PAINTING_MADE             0xA4
 #define FLAG_RECEIVED_TM_STEALTH_ROCK        0xA5
 #define FLAG_RECEIVED_TM_BULK_UP             0xA6
-#define FLAG_RECEIVED_TM_SHOCK_WAVE          0xA7
+#define FLAG_RECEIVED_TM_GRASS_KNOT          0xA7
 #define FLAG_RECEIVED_TM_OVERHEAT            0xA8
 #define FLAG_RECEIVED_TM_FACADE              0xA9
 #define FLAG_RECEIVED_TM_AERIAL_ACE          0xAA
@@ -596,9 +596,9 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_109_REVIVE                    (FLAG_HIDDEN_ITEMS_START + 0x32)
 #define FLAG_HIDDEN_ITEM_ROUTE_109_GREAT_BALL                (FLAG_HIDDEN_ITEMS_START + 0x33)
 #define FLAG_HIDDEN_ITEM_ROUTE_109_HEART_SCALE_1             (FLAG_HIDDEN_ITEMS_START + 0x34)
-#define FLAG_HIDDEN_ITEM_ROUTE_110_GREAT_BALL                (FLAG_HIDDEN_ITEMS_START + 0x35)
-#define FLAG_HIDDEN_ITEM_ROUTE_110_REVIVE                    (FLAG_HIDDEN_ITEMS_START + 0x36)
-#define FLAG_HIDDEN_ITEM_ROUTE_110_FULL_HEAL                 (FLAG_HIDDEN_ITEMS_START + 0x37)
+#define FLAG_HIDDEN_ITEM_ROUTE_206_ETHER                (FLAG_HIDDEN_ITEMS_START + 0x35)
+#define FLAG_HIDDEN_ITEM_ROUTE_206_TINY_MUSHROOM                    (FLAG_HIDDEN_ITEMS_START + 0x36)
+#define FLAG_UNUSED_0x22B                 (FLAG_HIDDEN_ITEMS_START + 0x37) // Unused Flag
 #define FLAG_HIDDEN_ITEM_ROUTE_111_PROTEIN                   (FLAG_HIDDEN_ITEMS_START + 0x38)
 #define FLAG_HIDDEN_ITEM_ROUTE_111_RARE_CANDY                (FLAG_HIDDEN_ITEMS_START + 0x39)
 #define FLAG_HIDDEN_ITEM_ETERNA_FOREST_INSECT_PLATE       (FLAG_HIDDEN_ITEMS_START + 0x3A)
@@ -608,7 +608,7 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_203_POKE_BALL                 (FLAG_HIDDEN_ITEMS_START + 0x3E)
 #define FLAG_HIDDEN_ITEM_ROUTE_106_POKE_BALL                 (FLAG_HIDDEN_ITEMS_START + 0x3F)
 #define FLAG_HIDDEN_ITEM_ROUTE_109_ETHER                     (FLAG_HIDDEN_ITEMS_START + 0x40)
-#define FLAG_HIDDEN_ITEM_ROUTE_110_POKE_BALL                 (FLAG_HIDDEN_ITEMS_START + 0x41)
+#define FLAG_UNUSED_0x235                 (FLAG_HIDDEN_ITEMS_START + 0x41) // Unused Flag
 #define FLAG_HIDDEN_ITEM_ROUTE_118_HEART_SCALE               (FLAG_HIDDEN_ITEMS_START + 0x42)
 #define FLAG_HIDDEN_ITEM_ROUTE_211_WEST_GREAT_BALL            (FLAG_HIDDEN_ITEMS_START + 0x43)
 #define FLAG_HIDDEN_ITEM_ROUTE_119_FULL_HEAL                 (FLAG_HIDDEN_ITEMS_START + 0x44)
@@ -689,23 +689,23 @@
 #define FLAG_HIDE_VALLEY_WINDWORKS_BUILDING_GRUNT  0x282 // The Grunt by the door, who runs to Mars on first entry
 #define FLAG_HIDE_VALLEY_WINDWORKS_BUILDING_TEAM_GALACTIC  0x283 // Mars, Charon and the Grunts, gone once Mars is beaten
 #define FLAG_HIDE_VALLEY_WINDWORKS_BUILDING_LITTLE_GIRL  0x284 // Set at the start; cleared when she runs in to her papa
-#define FLAG_UNUSED_0x285  0x285 // Unused Flag
-#define FLAG_UNUSED_0x286  0x286 // Unused Flag
-#define FLAG_UNUSED_0x287  0x287 // Unused Flag
-#define FLAG_UNUSED_0x288  0x288 // Unused Flag
-#define FLAG_UNUSED_0x289  0x289 // Unused Flag
-#define FLAG_UNUSED_0x28A  0x28A // Unused Flag
-#define FLAG_UNUSED_0x28B  0x28B // Unused Flag
-#define FLAG_UNUSED_0x28C  0x28C // Unused Flag
-#define FLAG_UNUSED_0x28D  0x28D // Unused Flag
-#define FLAG_UNUSED_0x28E  0x28E // Unused Flag
-#define FLAG_UNUSED_0x28F  0x28F // Unused Flag
-#define FLAG_UNUSED_0x290  0x290 // Unused Flag
-#define FLAG_UNUSED_0x291  0x291 // Unused Flag
-#define FLAG_UNUSED_0x292  0x292 // Unused Flag
-#define FLAG_UNUSED_0x293  0x293 // Unused Flag
-#define FLAG_UNUSED_0x294  0x294 // Unused Flag
-#define FLAG_UNUSED_0x295  0x295 // Unused Flag
+#define FLAG_HAS_MINED_WALL  0x285 // Set after the first rock wall pulled up with the Explorer Kit
+#define FLAG_MINED_FLAME_PLATE  0x286 // Each plate can be dug up from a rock wall only once
+#define FLAG_MINED_SPLASH_PLATE  0x287
+#define FLAG_MINED_ZAP_PLATE  0x288
+#define FLAG_MINED_MEADOW_PLATE  0x289
+#define FLAG_MINED_ICICLE_PLATE  0x28A
+#define FLAG_MINED_FIST_PLATE  0x28B
+#define FLAG_MINED_TOXIC_PLATE  0x28C
+#define FLAG_MINED_EARTH_PLATE  0x28D
+#define FLAG_MINED_SKY_PLATE  0x28E
+#define FLAG_MINED_MIND_PLATE  0x28F
+#define FLAG_MINED_INSECT_PLATE  0x290
+#define FLAG_MINED_STONE_PLATE  0x291
+#define FLAG_MINED_SPOOKY_PLATE  0x292
+#define FLAG_MINED_DRACO_PLATE  0x293
+#define FLAG_MINED_DREAD_PLATE  0x294
+#define FLAG_MINED_IRON_PLATE  0x295
 #define FLAG_UNUSED_0x296  0x296 // Unused Flag
 #define FLAG_UNUSED_0x297  0x297 // Unused Flag
 #define FLAG_UNUSED_0x298  0x298 // Unused Flag
@@ -885,7 +885,7 @@
 #define FLAG_HIDE_ROUTE_128_STEVEN                                  0x342
 #define FLAG_HIDE_SLATEPORT_CITY_GABBY_AND_TY                       0x343
 #define FLAG_HIDE_BATTLE_FRONTIER_RECEPTION_GATE_SCOTT              0x344
-#define FLAG_HIDE_ROUTE_110_BIRCH                                   0x345
+#define FLAG_HIDE_ROUTE_206_CYCLING_ROAD_NORTH_GATE_SCIENTIST                                   0x345
 #define FLAG_HIDE_SANDGEM_TOWN_RESEARCH_LAB_POKEBALL_CHIKORITA     0x346
 #define FLAG_HIDE_SOOTOPOLIS_CITY_MAN_1                             0x347
 #define FLAG_HIDE_SLATEPORT_CITY_CAPTAIN_STERN                      0x348
@@ -961,16 +961,16 @@
 #define FLAG_HIDE_SOUTHERN_ISLAND_EON_STONE                         0x38E
 #define FLAG_HIDE_SOUTHERN_ISLAND_UNCHOSEN_EON_DUO_MON              0x38F
 #define FLAG_HIDE_ETERNA_CITY_WATTSON                             0x390
-#define FLAG_HIDE_MAUVILLE_GYM_WATTSON                              0x391
+#define FLAG_UNUSED_0x391                                           0x391 // Unused Flag
 #define FLAG_HIDE_ROUTE_121_TEAM_AQUA_GRUNTS                        0x392
 #define FLAG_UNKNOWN_0x393                                          0x393 // Set, however has no purpose.
 #define FLAG_HIDE_MT_PYRE_SUMMIT_ARCHIE                             0x394
 #define FLAG_HIDE_MT_PYRE_SUMMIT_TEAM_AQUA                          0x395
 #define FLAG_HIDE_BATTLE_TOWER_REPORTER                             0x396
-#define FLAG_HIDE_ROUTE_110_RIVAL                                   0x397
+#define FLAG_ITEM_ROUTE_206_PP_UP                                   0x397
 #define FLAG_HIDE_CHAMPIONS_ROOM_RIVAL                              0x398
 #define FLAG_HIDE_CHAMPIONS_ROOM_BIRCH                              0x399
-#define FLAG_HIDE_ROUTE_110_RIVAL_ON_BIKE                           0x39A
+#define FLAG_UNUSED_0x39A                           0x39A // Unused Flag
 #define FLAG_HIDE_ROUTE_119_RIVAL_ON_BIKE                           0x39B
 #define FLAG_HIDE_AQUA_HIDEOUT_GRUNTS                               0x39C
 #define FLAG_HIDE_LILYCOVE_MOTEL_GAME_DESIGNERS                     0x39D
@@ -1056,8 +1056,8 @@
 #define FLAG_ITEM_ROUTE_105_IRON                                    0x3EB
 #define FLAG_ITEM_ROUTE_106_PROTEIN                                 0x3EC
 #define FLAG_ITEM_ROUTE_109_PP_UP                                   0x3ED
-#define FLAG_ITEM_ROUTE_110_RARE_CANDY                              0x3EE
-#define FLAG_ITEM_ROUTE_110_DIRE_HIT                                0x3EF
+#define FLAG_ITEM_ROUTE_206_POISON_BARB                              0x3EE
+#define FLAG_ITEM_ROUTE_206_SUPER_REPEL                                0x3EF
 #define FLAG_ITEM_ROUTE_111_TM_SANDSTORM                            0x3F0
 #define FLAG_ITEM_ROUTE_111_STARDUST                                0x3F1
 #define FLAG_ITEM_ROUTE_111_HP_UP                                   0x3F2
@@ -1191,7 +1191,7 @@
 #define FLAG_ITEM_RAVAGED_PATH_AMULET_COIN                          0x472
 #define FLAG_ITEM_ROUTE_108_STAR_PIECE                              0x473
 #define FLAG_ITEM_ROUTE_109_POTION                                  0x474
-#define FLAG_ITEM_ROUTE_110_ELIXIR                                  0x475
+#define FLAG_ITEM_ROUTE_206_BURN_HEAL                                  0x475
 #define FLAG_ITEM_ROUTE_111_ELIXIR                                  0x476
 #define FLAG_ITEM_ETERNA_CITY_SUPER_POTION                            0x477
 #define FLAG_ITEM_ROUTE_205_SOUTH_HEAL_POWDER                             0x478

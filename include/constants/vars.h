@@ -99,14 +99,14 @@
 #define VAR_LOTAD_SIZE_RECORD                            0x404F
 #define VAR_TWINLEAF_TOWN_STATE                        0x4050
 #define VAR_SANDGEM_TOWN_STATE                            0x4051
-#define VAR_DEWFORD_TOWN_STATE                           0x4052 // Unused Var
+#define VAR_ETERNA_CITY_BLOCK_EXITS_STATE 0x4052 // 1: has the BICYCLE but not the EXPLORER KIT, so Eterna City's west and south exits are blocked
 #define VAR_LAVARIDGE_TOWN_STATE                         0x4053
 #define VAR_CURRENT_SECRET_BASE                          0x4054 // was probably allocated for VAR_FALLARBOR_TOWN_STATE at one point
 #define VAR_FLOAROMA_TOWN_STATE                        0x4055 // Unused Var
-#define VAR_PACIFIDLOG_TOWN_STATE                        0x4056 // Unused Var
+#define VAR_TEAM_GALACTIC_ETERNA_BUILDING_1F_STATE 0x4056 // 0: Looker reveals himself on entering 1F, 1: done
 #define VAR_OREBURGH_CITY_STATE                         0x4057
 #define VAR_SLATEPORT_CITY_STATE                         0x4058
-#define VAR_ETERNA_CITY_STATE                          0x4059 // Unused Var
+#define VAR_ETERNA_CITY_STATE                          0x4059 // 1: met Cyrus at the statue; 2: Cynthia gave HM01; 3: Jupiter beaten, Team Galactic gone; 4: Cynthia's Egg turned down (or no room); 5: Egg received
 #define VAR_JUBILIFE_CITY_STATE                          0x405A
 #define VAR_FORTREE_CITY_STATE                           0x405B // Unused Var
 #define VAR_LILYCOVE_CITY_STATE                          0x405C // Unused Var
@@ -122,7 +122,7 @@
 #define VAR_ROUTE107_STATE                               0x4066 // Unused Var
 #define VAR_ROUTE108_STATE                               0x4067 // Unused Var
 #define VAR_ROUTE109_STATE                               0x4068 // Unused Var
-#define VAR_ROUTE110_STATE                               0x4069
+#define VAR_ROUTE206_STATE                               0x4069
 #define VAR_VALLEY_WINDWORKS_TEAM_GALACTIC_STATE         0x406A // 0: Grunt at the door, 1: he has run to Mars, 2: Mars beaten
 #define VAR_ROUTE207_STATE                               0x406B // Unused Var
 #define VAR_ROUTE113_STATE                               0x406C // Unused Var
@@ -164,7 +164,7 @@
 #define VAR_BRINEY_HOUSE_STATE                           0x4090
 #define VAR_UNUSED_0x4091                                0x4091 // Unused Var
 #define VAR_TWINLEAF_INTRO_STATE                       0x4092
-#define VAR_MAUVILLE_GYM_STATE                           0x4093
+#define VAR_ETERNA_GYM_CLOCK_STATE                       0x4093
 #define VAR_LILYCOVE_MUSEUM_2F_STATE                     0x4094
 #define VAR_LILYCOVE_FAN_CLUB_STATE                      0x4095
 #define VAR_BRINEY_LOCATION                              0x4096

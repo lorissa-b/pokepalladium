@@ -1,0 +1,139 @@
+{
+  "id": "MAP_TEAM_GALACTIC_ETERNA_BUILDING_1F",
+  "name": "TeamGalacticEternaBuilding_1F",
+  "layout": "LAYOUT_TEAM_GALACTIC_ETERNA_BUILDING_1F",
+  "music": "MUS_RUSTBORO",
+  "region_map_section": "MAPSEC_ETERNA_CITY",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_INDOOR",
+  "allow_cycling": false,
+  "allow_escaping": false,
+  "allow_running": false,
+  "show_map_name": false,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": null,
+  "object_events": [
+    {
+      "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_M",
+      "x": 3,
+      "y": 10,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "TeamGalacticEternaBuilding_1F_EventScript_GruntM1",
+      "flag": "FLAG_HIDE_ETERNA_CITY_GALACTIC_GRUNTS"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_M",
+      "x": 10,
+      "y": 10,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "TeamGalacticEternaBuilding_1F_EventScript_GruntM2",
+      "flag": "FLAG_HIDE_ETERNA_CITY_GALACTIC_GRUNTS"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_M",
+      "x": 16,
+      "y": 7,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "3",
+      "script": "TeamGalacticEternaBuilding_1F_EventScript_Grunt1",
+      "flag": "FLAG_HIDE_ETERNA_CITY_GALACTIC_GRUNTS"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_F",
+      "x": 12,
+      "y": 7,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "3",
+      "script": "TeamGalacticEternaBuilding_1F_EventScript_Grunt2",
+      "flag": "FLAG_HIDE_ETERNA_CITY_GALACTIC_GRUNTS"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_M",
+      "x": 14,
+      "y": 14,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "TeamGalacticEternaBuilding_1F_EventScript_Looker",
+      "flag": "FLAG_HIDE_TEAM_GALACTIC_ETERNA_BUILDING_1F_DISGUISED_LOOKER",
+      "local_id": "LOCALID_TEAM_GALACTIC_ETERNA_BUILDING_1F_DISGUISED_LOOKER"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_GENTLEMAN",
+      "x": 14,
+      "y": 14,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "TeamGalacticEternaBuilding_1F_EventScript_Looker",
+      "flag": "FLAG_HIDE_TEAM_GALACTIC_ETERNA_BUILDING_1F_LOOKER",
+      "local_id": "LOCALID_TEAM_GALACTIC_ETERNA_BUILDING_1F_LOOKER"
+    }
+  ],
+  "warp_events": [
+    {
+      "x": 11,
+      "y": 14,
+      "elevation": 0,
+      "dest_map": "MAP_ETERNA_CITY",
+      "dest_warp_id": "5"
+    },
+    {
+      "x": 14,
+      "y": 5,
+      "elevation": 0,
+      "dest_map": "MAP_TEAM_GALACTIC_ETERNA_BUILDING_2F",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 20,
+      "y": 5,
+      "elevation": 0,
+      "dest_map": "MAP_TEAM_GALACTIC_ETERNA_BUILDING_2F",
+      "dest_warp_id": "2"
+    },
+    {
+      "x": 12,
+      "y": 14,
+      "elevation": 0,
+      "dest_map": "MAP_ETERNA_CITY",
+      "dest_warp_id": "5"
+    }
+  ],
+  "coord_events": [],
+  "bg_events": [
+    {
+      "type": "sign",
+      "x": 22,
+      "y": 4,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
+      "script": "TeamGalacticEternaBuilding_1F_EventScript_Sign"
+    }
+  ]
+}

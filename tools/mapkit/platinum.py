@@ -31,6 +31,11 @@ from pathlib import Path
 import ground
 
 REMOTE = "https://github.com/pret/pokeplatinum"
+# pokeplatinum's last commit with the file layout mapkit reads
+# (include/data/map_headers.h, res/field/maps/data, res/field/events...).
+# On 2026-11-04 upstream moved these into per-map folders, so the cache is
+# kept on this commit until mapkit learns the new layout.
+PINNED = "1cb0b9854d54802ba9bbb8d488729def9000d6d1"
 CHUNK = 32  # tiles per land data side
 TILE_UNITS = 16  # world units per tile
 FX32_ONE = 1 << 12
@@ -140,23 +145,31 @@ def ensure(*paths: str) -> Path:
         root.parent.mkdir(parents=True, exist_ok=True)
         print(f"Cloning {REMOTE} (blobless) into {root}...", flush=True)
         _git("clone", "--quiet", "--depth", "1", "--filter=blob:none", "--no-checkout", REMOTE, str(root))
+    if _git("rev-parse", "HEAD", cwd=root).strip() != PINNED:
+        _move_to(root, PINNED)
     missing = [p for p in paths if not (root / p).exists()]
     if missing:
         _git("checkout", "HEAD", "--", *missing, cwd=root)
     return root
 
 
+def _move_to(root: Path, rev: str) -> None:
+    """Point the blobless checkout at rev, refreshing only the files already downloaded."""
+    present = [p for p in _git("ls-files", cwd=root).split("\n") if p and (root / p).exists()]
+    _git("fetch", "--quiet", "--depth", "1", "origin", rev, cwd=root)
+    _git("reset", "--quiet", "--soft", "FETCH_HEAD", cwd=root)
+    tracked = set(_git("ls-files", cwd=root).split("\n"))
+    keep = [p for p in present if p in tracked]
+    if keep:
+        _git("checkout", "HEAD", "--", *keep, cwd=root)
+
+
 def update() -> str:
-    """Move the cached checkout to pokeplatinum's latest commit."""
+    """Move the cached checkout to the pinned pokeplatinum commit (PINNED)."""
     root = cache_dir()
     if os.environ.get("POKEPLATINUM_DIR"):
         raise SystemExit("error: POKEPLATINUM_DIR is set; update that checkout yourself")
     ensure()
-    _git("fetch", "--quiet", "--depth", "1", "origin", "HEAD", cwd=root)
-    present = [p for p in _git("ls-files", cwd=root).split("\n") if p and (root / p).exists()]
-    _git("reset", "--quiet", "--soft", "FETCH_HEAD", cwd=root)
-    if present:
-        _git("checkout", "HEAD", "--", *present, cwd=root)
     return _git("rev-parse", "--short", "HEAD", cwd=root).strip()
 
 

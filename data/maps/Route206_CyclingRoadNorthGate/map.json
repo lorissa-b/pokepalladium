@@ -1,0 +1,160 @@
+{
+  "id": "MAP_ROUTE206_CYCLING_ROAD_NORTH_GATE",
+  "name": "Route206_CyclingRoadNorthGate",
+  "layout": "LAYOUT_ROUTE206_CYCLING_ROAD_NORTH_GATE",
+  "music": "MUS_ROUTE110",
+  "region_map_section": "MAPSEC_ROUTE_206",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_INDOOR",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": false,
+  "show_map_name": false,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": null,
+  "object_events": [
+    {
+      "graphics_id": "OBJ_EVENT_GFX_MART_EMPLOYEE",
+      "x": 8,
+      "y": 7,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Route206_CyclingRoadNorthGate_EventScript_Clerk",
+      "flag": "0",
+      "local_id": "LOCALID_ROUTE206_NORTH_GATE_CLERK_EAST"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_MART_EMPLOYEE",
+      "x": 2,
+      "y": 7,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Route206_CyclingRoadNorthGate_EventScript_Clerk",
+      "flag": "0",
+      "local_id": "LOCALID_ROUTE206_NORTH_GATE_CLERK_WEST"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_SCIENTIST_1",
+      "x": 4,
+      "y": 4,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Route206_CyclingRoadNorthGate_EventScript_Scientist",
+      "flag": "FLAG_HIDE_ROUTE_206_CYCLING_ROAD_NORTH_GATE_SCIENTIST"
+    }
+  ],
+  "warp_events": [
+    {
+      "x": 5,
+      "y": 2,
+      "elevation": 0,
+      "dest_map": "MAP_ETERNA_CITY",
+      "dest_warp_id": "10"
+    },
+    {
+      "x": 5,
+      "y": 12,
+      "elevation": 0,
+      "dest_map": "MAP_ROUTE206",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 4,
+      "y": 12,
+      "elevation": 0,
+      "dest_map": "MAP_ROUTE206",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 6,
+      "y": 12,
+      "elevation": 0,
+      "dest_map": "MAP_ROUTE206",
+      "dest_warp_id": "1"
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "elevation": 0,
+      "dest_map": "MAP_ETERNA_CITY",
+      "dest_warp_id": "10"
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "elevation": 0,
+      "dest_map": "MAP_ETERNA_CITY",
+      "dest_warp_id": "11"
+    }
+  ],
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 4,
+      "y": 8,
+      "elevation": 3,
+      "var": "VAR_TEMP_1",
+      "var_value": "0",
+      "script": "Route206_CyclingRoadNorthGate_EventScript_BikeCheck"
+    },
+    {
+      "type": "trigger",
+      "x": 5,
+      "y": 8,
+      "elevation": 3,
+      "var": "VAR_TEMP_1",
+      "var_value": "0",
+      "script": "Route206_CyclingRoadNorthGate_EventScript_BikeCheck"
+    },
+    {
+      "type": "trigger",
+      "x": 6,
+      "y": 8,
+      "elevation": 3,
+      "var": "VAR_TEMP_1",
+      "var_value": "0",
+      "script": "Route206_CyclingRoadNorthGate_EventScript_BikeCheck"
+    },
+    {
+      "type": "trigger",
+      "x": 4,
+      "y": 6,
+      "elevation": 3,
+      "var": "VAR_TEMP_1",
+      "var_value": "1",
+      "script": "Route206_CyclingRoadNorthGate_EventScript_ClearCyclingRoad"
+    },
+    {
+      "type": "trigger",
+      "x": 5,
+      "y": 6,
+      "elevation": 3,
+      "var": "VAR_TEMP_1",
+      "var_value": "1",
+      "script": "Route206_CyclingRoadNorthGate_EventScript_ClearCyclingRoad"
+    },
+    {
+      "type": "trigger",
+      "x": 6,
+      "y": 6,
+      "elevation": 3,
+      "var": "VAR_TEMP_1",
+      "var_value": "1",
+      "script": "Route206_CyclingRoadNorthGate_EventScript_ClearCyclingRoad"
+    }
+  ],
+  "bg_events": []
+}

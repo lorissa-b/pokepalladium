@@ -820,234 +820,119 @@ Route109_Text_ElijahPostBattle:
 	.string "is the perfect setting!\p"
 	.string "I guess I'll head for SLATEPORT.$"
 
-Route110_Text_JacobIntro:
-	.string "Whoa! Watch it!\n"
-	.string "I guess you're not used to BIKE racing.$"
+Route206_Text_AxelIntro:
+	.string "Yo! Cycling and POKéMON!\n"
+	.string "Which do you prefer?$"
 
-Route110_Text_JacobDefeated:
-	.string "Whoa!\n"
-	.string "My brakes failed!$"
+Route206_Text_AxelDefeat:
+	.string "Hey, not bad, you!$"
 
-Route110_Text_JacobPostBattle:
-	.string "Flat tires and brake problems can\n"
-	.string "cause serious injury!\l"
-	.string "Inspect your BIKE for problems!$"
+Route206_Text_AxelPostBattle:
+	.string "This CYCLING ROAD is one fine place--\n"
+	.string "great bikes, superb POKéMON,\l"
+	.string "and awesome TRAINERS all around!$"
 
-Route110_Text_AnthonyIntro:
-	.string "Yo, you!\n"
-	.string "Can you keep up with my speed?$"
+Route206_Text_MeganIntro:
+	.string "Cycling feels great!\p"
+	.string "It will feel even better when I beat\n"
+	.string "you in a battle!$"
 
-Route110_Text_AnthonyDefeated:
-	.string "Crash and burn!$"
+Route206_Text_MeganDefeat:
+	.string "Whew!\n"
+	.string "You worked us over.$"
 
-Route110_Text_AnthonyPostBattle:
-	.string "Speed alone won't let me win at POKéMON.\n"
-	.string "I need to reconsider this…$"
+Route206_Text_MeganPostBattle:
+	.string "I like spinning the pedals backward\n"
+	.string "while sailing downhill.$"
 
-Route110_Text_BenjaminIntro:
-	.string "Don't panic if your BIKE's going fast!$"
+Route206_Text_JamesIntro:
+	.string "Ding-ding! Watch out, you!\n"
+	.string "Or, did you want to battle?$"
 
-Route110_Text_BenjaminDefeated:
-	.string "I shouldn't panic during POKéMON\n"
-	.string "battles…$"
+Route206_Text_JamesDefeat:
+	.string "Despite all the effort, I'm just\n"
+	.string "spinning my wheels…\p"
+	.string "It's always that way with me!$"
 
-Route110_Text_BenjaminPostBattle:
-	.string "There's no need to panic or stress.\n"
-	.string "Take it easy. There's plenty of time.$"
+Route206_Text_JamesPostBattle:
+	.string "I might try racing through CYCLING\n"
+	.string "ROAD in one long shot.$"
 
-Route110_Text_BenjaminRegister:
-	.string "I'll keep chugging on without stressing.\n"
-	.string "Give me a shout if you're up to it.$"
+Route206_Text_NicoleIntro:
+	.string "The both of us are on BIKES, and we\n"
+	.string "both have POKéMON!\p"
+	.string "I can't let you get the better of me!$"
 
-Route110_Text_BenjaminRematchIntro:
-	.string "Aren't you going a little too fast?\n"
-	.string "Take it easy and let's battle.$"
+Route206_Text_NicoleDefeat:
+	.string "Oh, geez…\n"
+	.string "I seem to have fallen off my BIKE.$"
 
-Route110_Text_BenjaminRematchDefeated:
-	.string "I didn't panic, but I still lost…$"
+Route206_Text_NicolePostBattle:
+	.string "I should have challenged you to a\n"
+	.string "race, not a battle!$"
 
-Route110_Text_BenjaminRematchPostBattle:
-	.string "There's no need to panic or stress.\n"
-	.string "Take it easy. There's plenty of time.$"
+Route206_Text_JohnIntro:
+	.string "That BIKE you've got there…it's the\n"
+	.string "type that can change gears!\p"
+	.string "You gotta love that!\n"
+	.string "Sure, I'll give you a battle!$"
 
-Route110_Text_AbigailIntro:
-	.string "The triathlon is hard in the extreme.\p"
-	.string "You have to complete the three events\n"
-	.string "of swimming, cycling, and running.$"
+Route206_Text_JohnDefeat:
+	.string "Crash! Tinkle…$"
 
-Route110_Text_AbigailDefeated:
-	.string "POKéMON battles are hard, too!$"
+Route206_Text_JohnPostBattle:
+	.string "The 3-speed makes for easy turning,\n"
+	.string "and the 4-speed's for going fast.\p"
+	.string "I love them both!$"
 
-Route110_Text_AbigailPostBattle:
-	.string "I'm exhausted, so I need a break.\n"
-	.string "It's important to get proper rest.$"
+Route206_Text_KaylaIntro:
+	.string "If you beat me, you can count on\n"
+	.string "something rotten coming your way!$"
 
-Route110_Text_AbigailRegister:
-	.string "You know, I like you!\n"
-	.string "Let's have a rematch on CYCLING ROAD.$"
+Route206_Text_KaylaDefeat:
+	.string "Kerrrash!$"
 
-Route110_Text_AbigailRematchIntro:
-	.string "Isn't it neat to hold a battle while\n"
-	.string "cycling?$"
+Route206_Text_KaylaPostBattle:
+	.string "Aww!\n"
+	.string "Why did you beat me?!\p"
+	.string "I hope you get so lost in WAYWARD\n"
+	.string "CAVE you cry! Boo-hoo-hoo!$"
 
-Route110_Text_AbigailRematchDefeated:
-	.string "Wow…\n"
-	.string "How could you be so strong?$"
+Route206_Text_RyanIntro:
+	.string "A BIKE will carry you a long way.\p"
+	.string "The only thing that limits you is your\n"
+	.string "own endurance!$"
 
-Route110_Text_AbigailRematchPostBattle:
-	.string "Were you going after a record?\p"
-	.string "I'm sorry if I held you up!$"
+Route206_Text_RyanDefeat:
+	.string "Gasp… Gasp… Gasp…$"
 
-Route110_Text_JasmineIntro:
-	.string "I've been riding without stopping.\n"
-	.string "My thighs are like rocks!$"
+Route206_Text_RyanPostBattle:
+	.string "My POKéMON and I are plumb worn out.\n"
+	.string "We should be getting home to rest…$"
 
-Route110_Text_JasmineDefeated:
-	.string "I'm worried about muscle cramps…$"
+Route206_Text_RachelIntro:
+	.string "Some people compete over speed, and\n"
+	.string "some compete over technique.\p"
+	.string "Which kind are you?$"
 
-Route110_Text_JasminePostBattle:
-	.string "Oh, you have some GYM BADGES?\n"
-	.string "No wonder you're so strong!$"
+Route206_Text_RachelDefeat:
+	.string "You're a speedy technician!$"
 
-Route110_Text_EdwardIntro:
-	.string "I have foreseen your intentions!\n"
-	.string "I cannot possibly lose!$"
+Route206_Text_RachelPostBattle:
+	.string "I enjoy the scenery.\p"
+	.string "Don't you think the area below\n"
+	.string "CYCLING ROAD looks nice?$"
 
-Route110_Text_EdwardDefeated:
-	.string "I failed to prophesize my own demise!$"
+Route206_Text_TheodoreIntro:
+	.string "Whoa! You startled me!\n"
+	.string "Well, we may as well battle!$"
 
-Route110_Text_EdwardPostBattle:
-	.string "I see your future…\p"
-	.string "Hmm…\n"
-	.string "I see a shining light…$"
+Route206_Text_TheodoreDefeat:
+	.string "Your power startles me!$"
 
-Route110_Text_JaclynIntro:
-	.string "Ahahahaha!\n"
-	.string "I'll dazzle you with my wonders!$"
-
-Route110_Text_JaclynDefeated:
-	.string "I wondrously lost!$"
-
-Route110_Text_JaclynPostBattle:
-	.string "You managed to win only because it was\n"
-	.string "a wonder! Yes, a wonder!\l"
-	.string "Don't think you can win all the time!$"
-
-Route110_Text_EdwinIntro:
-	.string "Could I see your POKéMON?\n"
-	.string "Just one look, please?$"
-
-Route110_Text_EdwinDefeated:
-	.string "I wanted to complete\n"
-	.string "my collection…$"
-
-Route110_Text_EdwinPostBattle:
-	.string "When I see a POKéMON that I don't know,\n"
-	.string "my passion as a collector is ignited!$"
-
-Route110_Text_EdwinRegister:
-	.string "I like collecting MATCH CALL\n"
-	.string "registrations, too…$"
-
-Route110_Text_EdwinRematchIntro:
-	.string "Hi, have you caught any new POKéMON?\p"
-	.string "Could I see your POKéMON?\n"
-	.string "Just one look, please?$"
-
-Route110_Text_EdwinRematchDefeated:
-	.string "Your POKéMON…\n"
-	.string "I envy you.$"
-
-Route110_Text_EdwinRematchPostBattle:
-	.string "Oh, I long to make all rare POKéMON\n"
-	.string "mine!$"
-
-Route110_Text_DaleIntro:
-	.string "Hey!\n"
-	.string "Don't sneak up behind me like that!$"
-
-Route110_Text_DaleDefeated:
-	.string "I lost!\n"
-	.string "Drat!$"
-
-Route110_Text_DalePostBattle:
-	.string "Fishing is all about concentration.\n"
-	.string "You have to focus on the floater.$"
-
-Route110_Text_IsabelIntro:
-	.string "Ahahaha! I would go anywhere to show\n"
-	.string "off my delightful POKéMON.$"
-
-Route110_Text_IsabelDefeated:
-	.string "Oh, dear, this won't do.$"
-
-Route110_Text_IsabelPostBattle:
-	.string "Rather than battling, perhaps I should\n"
-	.string "show off my POKéMON at the FAN CLUB.$"
-
-Route110_Text_IsabelRegister:
-	.string "That wasn't close to what I could\n"
-	.string "do to show off my POKéMON.\p"
-	.string "I'll have you as my captive audience\n"
-	.string "as often as possible!$"
-
-Route110_Text_IsabelRematchIntro:
-	.string "Ahahahaha! I would be happy to show\n"
-	.string "off my POKéMON as often as you like!$"
-
-Route110_Text_IsabelRematchDefeated:
-	.string "Oh, dear, this won't do.$"
-
-Route110_Text_IsabelRematchPostBattle:
-	.string "I don't think that I could ever stop\n"
-	.string "from showing off my POKéMON.\p"
-	.string "But I like to battle, too!$"
-
-Route110_Text_TimmyIntro:
-	.string "I found some cool POKéMON in the grass\n"
-	.string "around here!$"
-
-Route110_Text_TimmyDefeated:
-	.string "Being cool isn't enough to win…$"
-
-Route110_Text_TimmyPostBattle:
-	.string "It's hard to battle with POKéMON you\n"
-	.string "just caught.$"
-
-Route110_Text_AlyssaIntro:
-	.string "I fell off CYCLING ROAD…\p"
-	.string "I'll get over my embarrassment by\n"
-	.string "battling with you!$"
-
-Route110_Text_AlyssaDefeated:
-	.string "Oops!\n"
-	.string "I ended up losing!$"
-
-Route110_Text_AlyssaPostBattle:
-	.string "Falling… Losing…\n"
-	.string "This is so humiliating for me!$"
-
-Route110_Text_JosephIntro:
-	.string "Okay! Full-throttle time! If you can't\n"
-	.string "groove, you get left behind!$"
-
-Route110_Text_JosephDefeated:
-	.string "You got into the groove all right…$"
-
-Route110_Text_JosephPostBattle:
-	.string "This isn't going to bring me down!\n"
-	.string "Losing has made me a better man!$"
-
-Route110_Text_KalebIntro:
-	.string "When cute POKéMON help each other…\n"
-	.string "You won't see a more adorable sight!$"
-
-Route110_Text_KalebDefeated:
-	.string "Have you no compassion or pity?$"
-
-Route110_Text_KalebPostBattle:
-	.string "Okay, okay, you've done the best you\n"
-	.string "could, my pretties.$"
+Route206_Text_TheodorePostBattle:
+	.string "We HIKERS are bighearted guys!\n"
+	.string "Losing doesn't bother us!$"
 
 Route111_Text_DrewIntro:
 	.string "Oh, hey! Those GO-GOGGLES suit you.\n"
