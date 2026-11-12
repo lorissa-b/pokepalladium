@@ -166,8 +166,8 @@ FloaromaMeadow_EventScript_ItemRareCandy::
 	finditem ITEM_RARE_CANDY
 	end
 
-Route118_EventScript_ItemHyperPotion::
-	finditem ITEM_HYPER_POTION
+Route211West_EventScript_ItemTM12::
+	finditem ITEM_TM12
 	end
 
 Route119_EventScript_ItemSuperRepel::

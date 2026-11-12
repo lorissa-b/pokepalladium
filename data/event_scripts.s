@@ -142,7 +142,7 @@ gStdScripts_End::
 	.include "data/maps/Route204/scripts.inc"
 	.include "data/maps/Route218/scripts.inc"
 	.include "data/maps/FloaromaMeadow/scripts.inc"
-	.include "data/maps/Route118/scripts.inc"
+	.include "data/maps/Route211West/scripts.inc"
 	.include "data/maps/Route119/scripts.inc"
 	.include "data/maps/Route120/scripts.inc"
 	.include "data/maps/Route121/scripts.inc"
