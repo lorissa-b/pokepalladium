@@ -8,9 +8,9 @@ outdoor map, from the bag or registered to SELECT. Using it pulls a rock wall
 up out of the ground and opens a mining screen that follows the rules of
 Platinum's wall digging. There's no limit on how often it can be used.
 
-The Explorer Kit is in the bag from the start of a new game. In Platinum the
-Underground Man in Eterna City gives it out, and it will move there once
-Eterna City is built.
+As in Platinum, the Underground Man in Eterna City gives out the Explorer Kit
+(`FLAG_RECEIVED_EXPLORER_KIT`). Until the player has it, a townsperson stops
+them leaving Eterna City once they have the Bicycle.
 
 ## How it works
 
@@ -115,7 +115,7 @@ Old Amber were key items.
 | The dirt, wall, treasure and rock tiles | `graphics/mining/tiles.png` |
 | `FLAG_HAS_MINED_WALL` (first wall) and `FLAG_MINED_FLAME_PLATE` to `FLAG_MINED_IRON_PLATE` | `include/constants/flags.h` |
 | New item IDs, data, descriptions and icons | `include/constants/items.h`, `src/data/items.h`, `src/data/text/item_descriptions.h`, `src/data/graphics/items.h`, `src/data/item_icon_table.h` |
-| The Explorer Kit in a new game's bag | `NewGameInitData` in `src/new_game.c` |
+| The Underground Man giving the Explorer Kit | `data/maps/EternaCity_House1/scripts.inc` |
 
 The new items take unused item slots (`ITEM_069`, `ITEM_10B`, `ITEM_15B` and
 `ITEM_15C`), so no other item IDs change. Saves from before this change will

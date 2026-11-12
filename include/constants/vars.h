@@ -99,7 +99,7 @@
 #define VAR_LOTAD_SIZE_RECORD                            0x404F
 #define VAR_TWINLEAF_TOWN_STATE                        0x4050
 #define VAR_SANDGEM_TOWN_STATE                            0x4051
-#define VAR_DEWFORD_TOWN_STATE                           0x4052 // Unused Var
+#define VAR_ETERNA_CITY_BLOCK_EXITS_STATE 0x4052 // 1: has the BICYCLE but not the EXPLORER KIT, so Eterna City's west and south exits are blocked
 #define VAR_LAVARIDGE_TOWN_STATE                         0x4053
 #define VAR_CURRENT_SECRET_BASE                          0x4054 // was probably allocated for VAR_FALLARBOR_TOWN_STATE at one point
 #define VAR_FLOAROMA_TOWN_STATE                        0x4055 // Unused Var

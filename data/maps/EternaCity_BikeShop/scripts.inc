@@ -1,7 +1,9 @@
 @ Rad Rickshaw's Cycle Shop, drawn over Rydel's Cycles from Platinum's map.
 @ Its owner is held in the Galactic Eterna Building until Jupiter is beaten
 @ on 4F, which clears FLAG_HIDE_CYCLE_SHOP_OWNER and FLAG_HIDE_CYCLE_SHOP_CLEFAIRY;
-@ back here, he gives the player the BICYCLE (FLAG_RECEIVED_BIKE).
+@ back here, he gives the player the BICYCLE (FLAG_RECEIVED_BIKE), and
+@ Eterna City's exits are blocked until they also have the EXPLORER KIT
+@ (VAR_ETERNA_CITY_BLOCK_EXITS_STATE).
 EternaCity_BikeShop_MapScripts::
 	.byte 0
 
@@ -12,6 +14,7 @@ EternaCity_BikeShop_EventScript_Owner::
 	msgbox EternaCity_BikeShop_Text_ThanksForRescuingMe, MSGBOX_DEFAULT
 	giveitem ITEM_BICYCLE
 	setflag FLAG_RECEIVED_BIKE
+	setvar VAR_ETERNA_CITY_BLOCK_EXITS_STATE, 1
 	goto EternaCity_BikeShop_EventScript_ReadOperatingManual
 	end
 

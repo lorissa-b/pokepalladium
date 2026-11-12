@@ -17,14 +17,28 @@
 @ into the player and take them to the statue to meet Cyrus (state 0 -> 1),
 @ and heading back west across x=16 has Cynthia give HM01 (1 -> 2).
 @
-@ Not here yet: Gardenia outside the Gym and the exits blocked until the
-@ Bicycle.
+@ Once the player has the Cycle Shop's BICYCLE, the Bug Catcher at (9,19)
+@ and the Pokefan at (14,53) stop them leaving west and south until they
+@ also have the Underground Man's EXPLORER KIT
+@ (VAR_ETERNA_CITY_BLOCK_EXITS_STATE, cleared on entering the city).
 EternaCity_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, EternaCity_OnTransition
 	.byte 0
 
 EternaCity_OnTransition:
 	setflag FLAG_VISITED_ETERNA_CITY
+	checkitem ITEM_BICYCLE
+	goto_if_eq VAR_RESULT, TRUE, EternaCity_EventScript_CheckShouldBlockExits
+	end
+
+@ With both the BICYCLE and the EXPLORER KIT, the exits open again.
+EternaCity_EventScript_CheckShouldBlockExits::
+	checkitem ITEM_EXPLORER_KIT
+	goto_if_eq VAR_RESULT, TRUE, EternaCity_EventScript_DontBlockExits
+	end
+
+EternaCity_EventScript_DontBlockExits::
+	setvar VAR_ETERNA_CITY_BLOCK_EXITS_STATE, 0
 	end
 
 EternaCity_EventScript_GruntStatue::
@@ -81,11 +95,150 @@ EternaCity_EventScript_NinjaBoy::
 	msgbox EternaCity_Text_AwesomePokemonFromLongAgo, MSGBOX_NPC
 	end
 
-@ In Platinum she sends players without an Explorer Kit to the
-@ Underground Man. The Underground isn't in, so she always says this.
 EternaCity_EventScript_PokefanFSouth::
+	goto_if_set FLAG_RECEIVED_EXPLORER_KIT, EternaCity_EventScript_DiggingIsABlast
 	msgbox EternaCity_Text_YouDontHaveExplorerKit, MSGBOX_NPC
 	end
+
+EternaCity_EventScript_DiggingIsABlast::
+	msgbox EternaCity_Text_DiggingIsABlast, MSGBOX_NPC
+	end
+
+@ Crossing (15-19,53) with the BICYCLE but no EXPLORER KIT: she comes over
+@ from (14,53) to send the player to the Underground Man, and they step
+@ back north.
+EternaCity_EventScript_BlockExitSouth::
+	lockall
+	getplayerxy VAR_0x8004, VAR_0x8005
+	switch VAR_0x8004
+	case 16, EternaCity_EventScript_PokefanFBlockExitSouthX16
+	case 17, EternaCity_EventScript_PokefanFBlockExitSouthX17
+	case 18, EternaCity_EventScript_PokefanFBlockExitSouthX18
+	case 19, EternaCity_EventScript_PokefanFBlockExitSouthX19
+	applymovement LOCALID_ETERNA_CITY_POKEFAN_F_SOUTH, EternaCity_Movement_PokefanFNoticePlayer
+	waitmovement 0
+	call EternaCity_EventScript_SendPlayerToUndergroundMan
+	goto EternaCity_EventScript_PlayerStepBackNorth
+	end
+
+EternaCity_EventScript_PokefanFBlockExitSouthX16::
+	applymovement LOCALID_ETERNA_CITY_POKEFAN_F_SOUTH, EternaCity_Movement_PokefanFBlockExitSouthX16
+	waitmovement 0
+	call EternaCity_EventScript_SendPlayerToUndergroundMan
+	applymovement LOCALID_ETERNA_CITY_POKEFAN_F_SOUTH, EternaCity_Movement_PokefanFMoveBackX16
+	waitmovement 0
+	goto EternaCity_EventScript_PlayerStepBackNorth
+	end
+
+EternaCity_EventScript_PokefanFBlockExitSouthX17::
+	applymovement LOCALID_ETERNA_CITY_POKEFAN_F_SOUTH, EternaCity_Movement_PokefanFBlockExitSouthX17
+	waitmovement 0
+	call EternaCity_EventScript_SendPlayerToUndergroundMan
+	applymovement LOCALID_ETERNA_CITY_POKEFAN_F_SOUTH, EternaCity_Movement_PokefanFMoveBackX17
+	waitmovement 0
+	goto EternaCity_EventScript_PlayerStepBackNorth
+	end
+
+EternaCity_EventScript_PokefanFBlockExitSouthX18::
+	applymovement LOCALID_ETERNA_CITY_POKEFAN_F_SOUTH, EternaCity_Movement_PokefanFBlockExitSouthX18
+	waitmovement 0
+	call EternaCity_EventScript_SendPlayerToUndergroundMan
+	applymovement LOCALID_ETERNA_CITY_POKEFAN_F_SOUTH, EternaCity_Movement_PokefanFMoveBackX18
+	waitmovement 0
+	goto EternaCity_EventScript_PlayerStepBackNorth
+	end
+
+EternaCity_EventScript_PokefanFBlockExitSouthX19::
+	applymovement LOCALID_ETERNA_CITY_POKEFAN_F_SOUTH, EternaCity_Movement_PokefanFBlockExitSouthX19
+	waitmovement 0
+	call EternaCity_EventScript_SendPlayerToUndergroundMan
+	applymovement LOCALID_ETERNA_CITY_POKEFAN_F_SOUTH, EternaCity_Movement_PokefanFMoveBackX19
+	waitmovement 0
+	goto EternaCity_EventScript_PlayerStepBackNorth
+	end
+
+EternaCity_EventScript_SendPlayerToUndergroundMan::
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceLeft
+	waitmovement 0
+	msgbox EternaCity_Text_YouDontHaveExplorerKit, MSGBOX_DEFAULT
+	closemessage
+	return
+
+EternaCity_EventScript_PlayerStepBackNorth::
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerStepBackNorth
+	waitmovement 0
+	releaseall
+	end
+
+EternaCity_Movement_PokefanFNoticePlayer:
+	walk_in_place_faster_right
+	emote_exclamation_mark
+	delay_4
+	step_end
+
+EternaCity_Movement_PokefanFBlockExitSouthX16:
+	walk_in_place_faster_right
+	emote_exclamation_mark
+	delay_4
+	walk_right
+	step_end
+
+EternaCity_Movement_PokefanFBlockExitSouthX17:
+	walk_in_place_faster_right
+	emote_exclamation_mark
+	delay_4
+	walk_right
+	walk_right
+	step_end
+
+EternaCity_Movement_PokefanFBlockExitSouthX18:
+	walk_in_place_faster_right
+	emote_exclamation_mark
+	delay_4
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+EternaCity_Movement_PokefanFBlockExitSouthX19:
+	walk_in_place_faster_right
+	emote_exclamation_mark
+	delay_4
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+EternaCity_Movement_PokefanFMoveBackX16:
+	walk_left
+	walk_in_place_faster_right
+	step_end
+
+EternaCity_Movement_PokefanFMoveBackX17:
+	walk_left
+	walk_left
+	walk_in_place_faster_right
+	step_end
+
+EternaCity_Movement_PokefanFMoveBackX18:
+	walk_left
+	walk_left
+	walk_left
+	walk_in_place_faster_right
+	step_end
+
+EternaCity_Movement_PokefanFMoveBackX19:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_in_place_faster_right
+	step_end
+
+EternaCity_Movement_PlayerStepBackNorth:
+	walk_up
+	step_end
 
 EternaCity_EventScript_BugCatcherWest::
 	lock
@@ -94,6 +247,98 @@ EternaCity_EventScript_BugCatcherWest::
 	msgbox EternaCity_Text_YouGotABicycle, MSGBOX_DEFAULT
 	release
 	end
+
+@ Crossing (9,20)-(9,22) with the BICYCLE but no EXPLORER KIT: he comes
+@ down from (9,19), points the player to Cycling Road and bumps them back
+@ a step east.
+EternaCity_EventScript_BlockExitWest::
+	lockall
+	getplayerxy VAR_0x8004, VAR_0x8005
+	goto_if_eq VAR_0x8005, 21, EternaCity_EventScript_BugCatcherBlockExitWestY21
+	goto_if_eq VAR_0x8005, 22, EternaCity_EventScript_BugCatcherBlockExitWestY22
+	applymovement LOCALID_ETERNA_CITY_BUG_CATCHER_WEST, EternaCity_Movement_BugCatcherBlockExitWestY20
+	waitmovement 0
+	call EternaCity_EventScript_TellPlayerAboutCyclingRoad
+	applymovement LOCALID_ETERNA_CITY_BUG_CATCHER_WEST, EternaCity_Movement_BugCatcherPushPlayerAndMoveBackY20
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerGetPushedBack
+	waitmovement 0
+	releaseall
+	end
+
+EternaCity_EventScript_BugCatcherBlockExitWestY21::
+	applymovement LOCALID_ETERNA_CITY_BUG_CATCHER_WEST, EternaCity_Movement_BugCatcherBlockExitWestY21
+	waitmovement 0
+	call EternaCity_EventScript_TellPlayerAboutCyclingRoad
+	applymovement LOCALID_ETERNA_CITY_BUG_CATCHER_WEST, EternaCity_Movement_BugCatcherPushPlayerAndMoveBackY21
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerGetPushedBack
+	waitmovement 0
+	releaseall
+	end
+
+EternaCity_EventScript_BugCatcherBlockExitWestY22::
+	applymovement LOCALID_ETERNA_CITY_BUG_CATCHER_WEST, EternaCity_Movement_BugCatcherBlockExitWestY22
+	waitmovement 0
+	call EternaCity_EventScript_TellPlayerAboutCyclingRoad
+	applymovement LOCALID_ETERNA_CITY_BUG_CATCHER_WEST, EternaCity_Movement_BugCatcherPushPlayerAndMoveBackY22
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerGetPushedBack
+	waitmovement 0
+	releaseall
+	end
+
+EternaCity_EventScript_TellPlayerAboutCyclingRoad::
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerFaceBugCatcher
+	waitmovement 0
+	msgbox EternaCity_Text_YouGotABicycle, MSGBOX_DEFAULT
+	closemessage
+	return
+
+EternaCity_Movement_PlayerFaceBugCatcher:
+	face_up
+	step_end
+
+EternaCity_Movement_PlayerGetPushedBack:
+	walk_right
+	walk_in_place_left
+	step_end
+
+EternaCity_Movement_BugCatcherBlockExitWestY20:
+	face_down
+	emote_exclamation_mark
+	step_end
+
+EternaCity_Movement_BugCatcherBlockExitWestY21:
+	face_down
+	emote_exclamation_mark
+	walk_down
+	step_end
+
+EternaCity_Movement_BugCatcherBlockExitWestY22:
+	face_down
+	emote_exclamation_mark
+	walk_down
+	walk_down
+	step_end
+
+EternaCity_Movement_BugCatcherPushPlayerAndMoveBackY20:
+	walk_down
+	walk_up
+	walk_in_place_down
+	step_end
+
+EternaCity_Movement_BugCatcherPushPlayerAndMoveBackY21:
+	walk_down
+	walk_up
+	walk_up
+	walk_in_place_down
+	step_end
+
+EternaCity_Movement_BugCatcherPushPlayerAndMoveBackY22:
+	walk_down
+	walk_up
+	walk_up
+	walk_up
+	walk_in_place_down
+	step_end
 
 EternaCity_EventScript_FeelsGreatRidingABike::
 	msgbox EternaCity_Text_FeelsGreatRidingABike, MSGBOX_DEFAULT
@@ -1055,6 +1300,10 @@ EternaCity_Text_YouDontHaveExplorerKit:
 	.string "an EXPLORER KIT?\p"
 	.string "You should have a word with the man\n"
 	.string "next door to the POKéMON CENTER.$"
+
+EternaCity_Text_DiggingIsABlast:
+	.string "Digging with the EXPLORER KIT\n"
+	.string "is a blast, isn't it?$"
 
 EternaCity_Text_YouGotABicycle:
 	.string "Oh, wow!\n"

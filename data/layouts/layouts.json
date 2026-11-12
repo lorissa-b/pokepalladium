@@ -5388,6 +5388,18 @@
       "blockdata_filepath": "data/layouts/OreburghMine_B2F/map.bin",
       "border_height": 2,
       "border_width": 2
+    },
+    {
+      "id": "LAYOUT_ETERNA_CITY_UNDERGROUND_MAN_HOUSE",
+      "name": "EternaCity_UndergroundMansHouse_Layout",
+      "width": 11,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/EternaCity_UndergroundMansHouse/border.bin",
+      "blockdata_filepath": "data/layouts/EternaCity_UndergroundMansHouse/map.bin",
+      "border_height": 2,
+      "border_width": 2
     }
   ]
 }

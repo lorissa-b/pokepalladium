@@ -73,8 +73,8 @@
 #define FLAG_HIDE_CYCLE_SHOP_OWNER 0x3B // Set at the start; he's back in the Cycle Shop once Jupiter is beaten
 #define FLAG_HIDE_CYCLE_SHOP_CLEFAIRY 0x3C // Set at the start; cleared with the owner's
 #define FLAG_BICYCLE_THIRD_GEAR 0x3D // The BICYCLE is in third gear (B shifts); clear for fourth
-#define FLAG_UNUSED_0x03E    0x3E // Unused Flag
-#define FLAG_UNUSED_0x03F    0x3F // Unused Flag
+#define FLAG_RECEIVED_EXPLORER_KIT 0x3E // From the Underground Man in Eterna City
+#define FLAG_TALKED_TO_UNDERGROUND_MAN_HOUSE_SCIENTIST 0x3F
 #define FLAG_UNUSED_0x040    0x40 // Unused Flag
 #define FLAG_UNUSED_0x041    0x41 // Unused Flag
 #define FLAG_UNUSED_0x042    0x42 // Unused Flag
