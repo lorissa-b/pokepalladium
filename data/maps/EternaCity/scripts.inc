@@ -7,8 +7,14 @@
 @ when the player clears the Galactic Eterna Building. The townspeople who
 @ talk about Team Galactic change their lines on the same flag.
 @
-@ Not here yet: Barry and Cyrus at the statue, Cynthia giving HM01 and the
-@ Egg, Gardenia outside the Gym and the exits blocked until the Bicycle.
+@ Once Jupiter is beaten in the Galactic Eterna Building
+@ (VAR_ETERNA_CITY_STATE 3), Cynthia walks up to the player crossing x=20 by
+@ the Cycle Shop (rows 29-33) and offers a Togepi Egg. Turned down, or with
+@ no room in the party, she waits at the spot (state 4), and won't let the
+@ player past x=21 until they take it (state 5).
+@
+@ Not here yet: Barry and Cyrus at the statue, Cynthia giving HM01,
+@ Gardenia outside the Gym and the exits blocked until the Bicycle.
 EternaCity_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, EternaCity_OnTransition
 	.byte 0
@@ -134,6 +140,167 @@ EternaCity_EventScript_RegisterWallyCall::
 	releaseall
 	end
 
+
+@ Crossing (20,29)-(20,33): Cynthia comes up column 16 from 8 rows below
+@ and along the player's row to stand just west of them, at (19,y).
+EternaCity_EventScript_CynthiaTryGiveEgg::
+	lockall
+	getplayerxy VAR_0x8004, VAR_0x8005
+	copyvar VAR_0x8006, VAR_0x8005
+	addvar VAR_0x8006, 8
+	clearflag FLAG_HIDE_ETERNA_CITY_CYNTHIA
+	setobjectxyperm LOCALID_ETERNA_CITY_CYNTHIA, 16, VAR_0x8006
+	setobjectmovementtype LOCALID_ETERNA_CITY_CYNTHIA, MOVEMENT_TYPE_FACE_RIGHT
+	addobject LOCALID_ETERNA_CITY_CYNTHIA
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaNoticeAndWalkUpToPlayer
+	waitmovement 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceLeft
+	waitmovement 0
+	msgbox EternaCity_Text_WillYouAcceptEgg, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EternaCity_EventScript_CynthiaEggRefused
+	getpartysize
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EternaCity_EventScript_CynthiaNoRoomForEgg
+	call EternaCity_EventScript_GiveTogepiEgg
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaLeaveWest
+	waitmovement 0
+	removeobject LOCALID_ETERNA_CITY_CYNTHIA
+	releaseall
+	end
+
+EternaCity_EventScript_GiveTogepiEgg::
+	playfanfare MUS_OBTAIN_ITEM
+	message EternaCity_Text_ReceivedTheEgg
+	waitfanfare
+	giveegg SPECIES_TOGEPI
+	setvar VAR_ETERNA_CITY_STATE, 5
+	msgbox EternaCity_Text_ThatsWonderful, MSGBOX_DEFAULT
+	msgbox EternaCity_Text_KeepEggInYourParty, MSGBOX_DEFAULT
+	closemessage
+	return
+
+EternaCity_EventScript_CynthiaEggRefused::
+	msgbox EternaCity_Text_DontFeelObligated, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_ETERNA_CITY_STATE, 4
+	releaseall
+	end
+
+EternaCity_EventScript_CynthiaNoRoomForEgg::
+	msgbox EternaCity_Text_NoRoomForEgg, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_ETERNA_CITY_STATE, 4
+	releaseall
+	end
+
+@ Talking to her while she waits (state 4).
+EternaCity_EventScript_Cynthia::
+	lockall
+	faceplayer
+	msgbox EternaCity_Text_WillYouAcceptThisEgg, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EternaCity_EventScript_CynthiaEggRefused
+	getpartysize
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EternaCity_EventScript_CynthiaNoRoomForEgg
+	call EternaCity_EventScript_GiveTogepiEgg
+	goto_if_eq VAR_FACING, DIR_EAST, EternaCity_EventScript_CynthiaLeaveAroundPlayer
+	goto_if_eq VAR_FACING, DIR_WEST, EternaCity_EventScript_CynthiaLeaveWest
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaLeaveWest
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerWatchCynthiaLeave
+	waitmovement 0
+	goto EternaCity_EventScript_RemoveCynthia
+	end
+
+EternaCity_EventScript_CynthiaLeaveWest::
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaLeaveWest
+	waitmovement 0
+	goto EternaCity_EventScript_RemoveCynthia
+	end
+
+@ The player is west of her, in her way: she steps down first.
+EternaCity_EventScript_CynthiaLeaveAroundPlayer::
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, EternaCity_Movement_CynthiaLeaveAroundPlayer
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerWatchCynthiaLeaveAround
+	waitmovement 0
+	goto EternaCity_EventScript_RemoveCynthia
+	end
+
+EternaCity_EventScript_RemoveCynthia::
+	removeobject LOCALID_ETERNA_CITY_CYNTHIA
+	releaseall
+	end
+
+@ Crossing (21,28)-(21,33) while she still has the Egg.
+EternaCity_EventScript_CynthiaBlockCycleShop::
+	lockall
+	applymovement LOCALID_ETERNA_CITY_CYNTHIA, Common_Movement_WalkInPlaceRight
+	waitmovement 0
+	msgbox EternaCity_Text_DontLeaveWithoutEgg, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_PLAYER, EternaCity_Movement_PlayerStepBackWest
+	waitmovement 0
+	releaseall
+	end
+
+EternaCity_Movement_CynthiaNoticeAndWalkUpToPlayer:
+	walk_up
+	walk_up
+	walk_up
+	emote_exclamation_mark
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+EternaCity_Movement_CynthiaLeaveWest:
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+EternaCity_Movement_CynthiaLeaveAroundPlayer:
+	walk_down
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+EternaCity_Movement_PlayerStepBackWest:
+	walk_left
+	step_end
+
+EternaCity_Movement_PlayerWatchCynthiaLeave:
+	delay_8
+	walk_in_place_left
+	step_end
+
+EternaCity_Movement_PlayerWatchCynthiaLeaveAround:
+	delay_8
+	delay_8
+	delay_4
+	walk_in_place_left
+	step_end
+
 EternaCity_Text_WallyPokenavCall:
 	.string "… … … … … …\n"
 	.string "… … … … … Beep!\p"
@@ -255,3 +422,54 @@ EternaCity_Text_UndergroundMansHouseSign:
 EternaCity_Text_CondominiumsSign:
 	.string "ETERNA CONDOMINIUMS\n"
 	.string "Name-Rating Services Available$"
+
+EternaCity_Text_WillYouAcceptEgg:
+	.string "CYNTHIA: Oh, there you are!\p"
+	.string "I was looking for you.\n"
+	.string "I've got something nice.\p"
+	.string "I wanted you to have this POKéMON EGG.\n"
+	.string "Will you accept it?$"
+
+EternaCity_Text_ReceivedTheEgg:
+	.string "{PLAYER} received the EGG.$"
+
+EternaCity_Text_ThatsWonderful:
+	.string "CYNTHIA: That's wonderful!\p"
+	.string "The POKéMON inside the EGG is\n"
+	.string "happy, too. I'm sure of it!$"
+
+EternaCity_Text_KeepEggInYourParty:
+	.string "CYNTHIA: Keep that EGG with you in your\n"
+	.string "party of POKéMON.\p"
+	.string "A POKéMON will hatch from it while you\n"
+	.string "are traveling.\p"
+	.string "I would be happy to know that it will\n"
+	.string "help fill another page of your POKéDEX.\p"
+	.string "See you again!$"
+
+EternaCity_Text_NoRoomForEgg:
+	.string "CYNTHIA: Oh?\n"
+	.string "You have six POKéMON with you already.\l"
+	.string "You don't have room for this EGG.\p"
+	.string "You'll have to store a POKéMON in a\n"
+	.string "PC BOX at the POKéMON CENTER first.\p"
+	.string "I'll give you this EGG when you've made\n"
+	.string "room for it.\p"
+	.string "I'll be waiting right here.$"
+
+EternaCity_Text_DontFeelObligated:
+	.string "CYNTHIA: Oh…?\n"
+	.string "You don't need to feel obligated.\p"
+	.string "It's hard filling the pages of the\n"
+	.string "POKéDEX, isn't it?\p"
+	.string "I only want to lend you a little hand,\n"
+	.string "that's all.$"
+
+EternaCity_Text_WillYouAcceptThisEgg:
+	.string "CYNTHIA: Well?\n"
+	.string "Will you accept this POKéMON EGG?$"
+
+EternaCity_Text_DontLeaveWithoutEgg:
+	.string "CYNTHIA: Oh, wait!\p"
+	.string "Don't leave without this POKéMON EGG.\n"
+	.string "Please? I want you to have it.$"

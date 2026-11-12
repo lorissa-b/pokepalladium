@@ -67,7 +67,7 @@
 #define FLAG_ITEM_TEAM_GALACTIC_ETERNA_BUILDING_4F_REVIVE 0x35
 #define FLAG_ITEM_TEAM_GALACTIC_ETERNA_BUILDING_4F_BLUE_SHARD 0x36
 #define FLAG_ITEM_TEAM_GALACTIC_ETERNA_BUILDING_4F_UP_GRADE 0x37
-#define FLAG_UNUSED_0x038    0x38 // Unused Flag
+#define FLAG_HIDE_ETERNA_CITY_CYNTHIA 0x38 // Set at the start; shown while she offers the Togepi Egg
 #define FLAG_UNUSED_0x039    0x39 // Unused Flag
 #define FLAG_UNUSED_0x03A    0x3A // Unused Flag
 #define FLAG_UNUSED_0x03B    0x3B // Unused Flag

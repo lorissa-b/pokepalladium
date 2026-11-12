@@ -4,6 +4,8 @@
 @ and Eterna City (FLAG_HIDE_ETERNA_CITY_GALACTIC_GRUNTS, which also hides
 @ Looker on 1F) and the owner thanks the player before going home with
 @ the Pokemon (FLAG_HIDE_TEAM_GALACTIC_ETERNA_BUILDING_4F_HOSTAGES).
+@ VAR_ETERNA_CITY_STATE becomes 3, so Cynthia brings the Togepi Egg in
+@ Eterna City.
 TeamGalacticEternaBuilding_4F_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, TeamGalacticEternaBuilding_4F_OnTransition
 	.byte 0
@@ -61,6 +63,7 @@ TeamGalacticEternaBuilding_4F_EventScript_TeamGalacticLeaves::
 	removeobject LOCALID_TEAM_GALACTIC_ETERNA_BUILDING_4F_POKEFAN_M
 	removeobject LOCALID_TEAM_GALACTIC_ETERNA_BUILDING_4F_CLEFAIRY
 	removeobject LOCALID_TEAM_GALACTIC_ETERNA_BUILDING_4F_BUNEARY
+	setvar VAR_ETERNA_CITY_STATE, 3
 	fadedefaultbgm
 	fadescreen FADE_FROM_BLACK
 	releaseall
