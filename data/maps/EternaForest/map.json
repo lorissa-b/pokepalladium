@@ -322,15 +322,15 @@
       "x": 77,
       "y": 31,
       "elevation": 0,
-      "dest_map": "MAP_ETERNA_FOREST",
-      "dest_warp_id": "2"
+      "dest_map": "MAP_ROUTE205_NORTH",
+      "dest_warp_id": "1"
     },
     {
       "x": 77,
       "y": 32,
       "elevation": 0,
-      "dest_map": "MAP_ETERNA_FOREST",
-      "dest_warp_id": "3"
+      "dest_map": "MAP_ROUTE205_NORTH",
+      "dest_warp_id": "0"
     },
     {
       "x": 65,

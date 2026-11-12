@@ -90,16 +90,8 @@ Route207_EventScript_ItemTimerBall::
 	finditem ITEM_TIMER_BALL
 	end
 
-Route113_EventScript_ItemMaxEther::
-	finditem ITEM_MAX_ETHER
-	end
-
-Route113_EventScript_ItemSuperRepel::
-	finditem ITEM_SUPER_REPEL
-	end
-
-Route113_EventScript_ItemHyperPotion::
-	finditem ITEM_HYPER_POTION
+Route205North_EventScript_ItemGuardSpec::
+	finditem ITEM_GUARD_SPEC
 	end
 
 ValleyWindworks_EventScript_ItemTM24::
@@ -174,8 +166,8 @@ FloaromaMeadow_EventScript_ItemRareCandy::
 	finditem ITEM_RARE_CANDY
 	end
 
-Route118_EventScript_ItemHyperPotion::
-	finditem ITEM_HYPER_POTION
+Route211West_EventScript_ItemTM12::
+	finditem ITEM_TM12
 	end
 
 Route119_EventScript_ItemSuperRepel::
@@ -330,8 +322,12 @@ OreburghCity_EventScript_ItemYellowShard::
 	finditem ITEM_YELLOW_SHARD
 	end
 
-MauvilleCity_EventScript_ItemXSpeed::
-	finditem ITEM_X_SPEED
+EternaCity_EventScript_ItemTM46::
+	finditem ITEM_TM46
+	end
+
+EternaCity_EventScript_ItemSuperPotion::
+	finditem ITEM_SUPER_POTION
 	end
 
 JubilifeCity_EventScript_ItemPotion::

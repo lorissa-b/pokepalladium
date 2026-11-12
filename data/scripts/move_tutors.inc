@@ -24,7 +24,7 @@ MoveTutor_EventScript_SwaggerTaught::
 	release
 	end
 
-MauvilleCity_EventScript_RolloutTutor::
+EternaCity_EventScript_RolloutTutor::
 	lock
 	faceplayer
 	goto_if_set FLAG_MOVE_TUTOR_TAUGHT_ROLLOUT, MoveTutor_EventScript_RolloutTaught

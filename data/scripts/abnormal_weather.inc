@@ -28,12 +28,12 @@ AbnormalWeather_EventScript_PlaceTilesRoute204South::
 	setmetatile 79, 6, METATILE_General_CaveEntrance_Bottom, FALSE
 	return
 
-AbnormalWeather_EventScript_PlaceTilesRoute118East::
+AbnormalWeather_EventScript_PlaceTilesRoute211WestEast::
 	setmetatile 42, 5, METATILE_General_CaveEntrance_Top, TRUE
 	setmetatile 42, 6, METATILE_General_CaveEntrance_Bottom, FALSE
 	return
 
-AbnormalWeather_EventScript_PlaceTilesRoute118West::
+AbnormalWeather_EventScript_PlaceTilesRoute211WestWest::
 	setmetatile 9, 5, METATILE_General_CaveEntrance_Top, TRUE
 	setmetatile 9, 6, METATILE_General_CaveEntrance_Bottom, FALSE
 	return
@@ -208,8 +208,8 @@ AbnormalWeather_EventScript_CleanupMapTiles::
 	case ABNORMAL_WEATHER_ROUTE_205_SOUTH_EAST, AbnormalWeather_EventScript_CleanupRoute205SouthEast
 	case ABNORMAL_WEATHER_ROUTE_204_NORTH, AbnormalWeather_EventScript_CleanupRoute204North
 	case ABNORMAL_WEATHER_ROUTE_204_SOUTH, AbnormalWeather_EventScript_CleanupRoute204South
-	case ABNORMAL_WEATHER_ROUTE_118_EAST, AbnormalWeather_EventScript_CleanupRoute118East
-	case ABNORMAL_WEATHER_ROUTE_118_WEST, AbnormalWeather_EventScript_CleanupRoute118West
+	case ABNORMAL_WEATHER_ROUTE_211_WEST_EAST, AbnormalWeather_EventScript_CleanupRoute211WestEast
+	case ABNORMAL_WEATHER_ROUTE_211_WEST_WEST, AbnormalWeather_EventScript_CleanupRoute211WestWest
 	case ABNORMAL_WEATHER_ROUTE_105_NORTH, AbnormalWeather_EventScript_CleanupRoute105North
 	case ABNORMAL_WEATHER_ROUTE_105_SOUTH, AbnormalWeather_EventScript_CleanupRoute105South
 	case ABNORMAL_WEATHER_ROUTE_125_WEST, AbnormalWeather_EventScript_CleanupRoute125West
@@ -250,12 +250,12 @@ AbnormalWeather_EventScript_CleanupRoute204South::
 	setmetatile 79, 6, METATILE_General_RockWall_RockBase, TRUE
 	return
 
-AbnormalWeather_EventScript_CleanupRoute118East::
+AbnormalWeather_EventScript_CleanupRoute211WestEast::
 	setmetatile 42, 5, METATILE_General_RockWall_RockBase, TRUE
 	setmetatile 42, 6, METATILE_General_RockWall_GrassBase, TRUE
 	return
 
-AbnormalWeather_EventScript_CleanupRoute118West::
+AbnormalWeather_EventScript_CleanupRoute211WestWest::
 	setmetatile 9, 5, METATILE_General_RockWall_RockBase, TRUE
 	setmetatile 9, 6, METATILE_General_RockWall_GrassBase, TRUE
 	return

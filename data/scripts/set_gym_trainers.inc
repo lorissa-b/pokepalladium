@@ -2,7 +2,7 @@ Common_EventScript_SetGymTrainers::
 	switch VAR_0x8008
 	case 1, JubilifeCity_Gym_SetGymTrainers
 	case 2, DewfordTown_Gym_SetGymTrainers
-	case 3, MauvilleCity_Gym_SetGymTrainers
+	case 3, EternaCity_Gym_SetGymTrainers
 	case 4, LavaridgeTown_Gym_SetGymTrainers
 	case 5, OreburghCity_Gym_SetGymTrainers
 	case 6, FortreeCity_Gym_SetGymTrainers
@@ -25,7 +25,7 @@ DewfordTown_Gym_SetGymTrainers::
 	settrainerflag TRAINER_LILITH
 	return
 
-MauvilleCity_Gym_SetGymTrainers::
+EternaCity_Gym_SetGymTrainers::
 	settrainerflag TRAINER_KIRK
 	settrainerflag TRAINER_SHAWN
 	settrainerflag TRAINER_BEN

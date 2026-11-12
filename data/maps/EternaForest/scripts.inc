@@ -1,7 +1,6 @@
 @ Eterna Forest, between Route 205 South and Route 205 North. Drawn over
-@ Petalburg Woods from Platinum's map. Route 205 North and the Old Chateau
-@ aren't here yet, so the east exit and the chateau door lead back to
-@ themselves.
+@ Petalburg Woods from Platinum's map. The east exit leads to Route 205
+@ North. The Old Chateau isn't here yet, so its door leads back to itself.
 @
 @ Cheryl and the eight trainers are Platinum's. The trainers stand in facing
 @ pairs that watch the same tiles, so both spot the player at once; with

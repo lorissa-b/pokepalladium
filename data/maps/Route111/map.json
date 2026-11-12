@@ -12,18 +12,7 @@
   "allow_running": true,
   "show_map_name": true,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
-  "connections": [
-    {
-      "map": "MAP_MAUVILLE_CITY",
-      "offset": 0,
-      "direction": "down"
-    },
-    {
-      "map": "MAP_ROUTE113",
-      "offset": 0,
-      "direction": "left"
-    }
-  ],
+  "connections": null,
   "object_events": [
     {
       "local_id": "LOCALID_ROUTE111_VICTOR",

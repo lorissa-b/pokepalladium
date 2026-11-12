@@ -1034,7 +1034,8 @@ u8 GabbyAndTyGetLastBattleTrivia(void)
     return 0;
 }
 
-// See gabby_and_ty.inc for details
+// See gabby_and_ty.inc for details. Route 118 is now Route 211 West and
+// Gabby and Ty no longer stand there, so its battles have no entries.
 void GetGabbyAndTyLocalIds(void)
 {
     switch (GabbyAndTyGetBattleNum())
@@ -1042,10 +1043,6 @@ void GetGabbyAndTyLocalIds(void)
     case 1:
         gSpecialVar_0x8004 = LOCALID_ROUTE111_GABBY_1;
         gSpecialVar_0x8005 = LOCALID_ROUTE111_TY_1;
-        break;
-    case 2:
-        gSpecialVar_0x8004 = LOCALID_ROUTE118_GABBY_1;
-        gSpecialVar_0x8005 = LOCALID_ROUTE118_TY_1;
         break;
     case 3:
         gSpecialVar_0x8004 = LOCALID_ROUTE120_GABBY_1;
@@ -1055,10 +1052,6 @@ void GetGabbyAndTyLocalIds(void)
         gSpecialVar_0x8004 = LOCALID_ROUTE111_GABBY_2;
         gSpecialVar_0x8005 = LOCALID_ROUTE111_TY_2;
         break;
-    case 5:
-        gSpecialVar_0x8004 = LOCALID_ROUTE118_GABBY_2;
-        gSpecialVar_0x8005 = LOCALID_ROUTE118_TY_2;
-        break;
     case 6:
         gSpecialVar_0x8004 = LOCALID_ROUTE120_GABBY_2;
         gSpecialVar_0x8005 = LOCALID_ROUTE120_TY_2;
@@ -1066,10 +1059,6 @@ void GetGabbyAndTyLocalIds(void)
     case 7:
         gSpecialVar_0x8004 = LOCALID_ROUTE111_GABBY_3;
         gSpecialVar_0x8005 = LOCALID_ROUTE111_TY_3;
-        break;
-    case 8:
-        gSpecialVar_0x8004 = LOCALID_ROUTE118_GABBY_3;
-        gSpecialVar_0x8005 = LOCALID_ROUTE118_TY_3;
         break;
     }
 }

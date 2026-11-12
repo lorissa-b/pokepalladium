@@ -25,10 +25,10 @@
       "y": 20
     },
     {
-      "id": "HEAL_LOCATION_MAUVILLE_CITY",
-      "map": "MAP_MAUVILLE_CITY",
-      "x": 22,
-      "y": 6
+      "id": "HEAL_LOCATION_ETERNA_CITY",
+      "map": "MAP_ETERNA_CITY",
+      "x": 17,
+      "y": 19
     },
     {
       "id": "HEAL_LOCATION_JUBILIFE_CITY",

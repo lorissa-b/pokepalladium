@@ -979,219 +979,219 @@ static const struct Story sStorytellerStories[] = {
     // The 50 below is replaced with GAME_STAT_SAVED_GAME
     {
         50, 1,
-        MauvilleCity_PokemonCenter_1F_Text_SavedGameTitle,
-        MauvilleCity_PokemonCenter_1F_Text_SavedGameAction,
-        MauvilleCity_PokemonCenter_1F_Text_SavedGameStory
+        EternaCity_PokemonCenter_1F_Text_SavedGameTitle,
+        EternaCity_PokemonCenter_1F_Text_SavedGameAction,
+        EternaCity_PokemonCenter_1F_Text_SavedGameStory
     },
     {
         GAME_STAT_STARTED_TRENDS, 1,
-        MauvilleCity_PokemonCenter_1F_Text_TrendsStartedTitle,
-        MauvilleCity_PokemonCenter_1F_Text_TrendsStartedAction,
-        MauvilleCity_PokemonCenter_1F_Text_TrendsStartedStory
+        EternaCity_PokemonCenter_1F_Text_TrendsStartedTitle,
+        EternaCity_PokemonCenter_1F_Text_TrendsStartedAction,
+        EternaCity_PokemonCenter_1F_Text_TrendsStartedStory
     },
     {
         GAME_STAT_PLANTED_BERRIES, 1,
-        MauvilleCity_PokemonCenter_1F_Text_BerriesPlantedTitle,
-        MauvilleCity_PokemonCenter_1F_Text_BerriesPlantedAction,
-        MauvilleCity_PokemonCenter_1F_Text_BerriesPlantedStory
+        EternaCity_PokemonCenter_1F_Text_BerriesPlantedTitle,
+        EternaCity_PokemonCenter_1F_Text_BerriesPlantedAction,
+        EternaCity_PokemonCenter_1F_Text_BerriesPlantedStory
     },
     {
         GAME_STAT_TRADED_BIKES, 1,
-        MauvilleCity_PokemonCenter_1F_Text_BikeTradesTitle,
-        MauvilleCity_PokemonCenter_1F_Text_BikeTradesAction,
-        MauvilleCity_PokemonCenter_1F_Text_BikeTradesStory
+        EternaCity_PokemonCenter_1F_Text_BikeTradesTitle,
+        EternaCity_PokemonCenter_1F_Text_BikeTradesAction,
+        EternaCity_PokemonCenter_1F_Text_BikeTradesStory
     },
     {
         GAME_STAT_GOT_INTERVIEWED, 1,
-        MauvilleCity_PokemonCenter_1F_Text_InterviewsTitle,
-        MauvilleCity_PokemonCenter_1F_Text_InterviewsAction,
-        MauvilleCity_PokemonCenter_1F_Text_InterviewsStory
+        EternaCity_PokemonCenter_1F_Text_InterviewsTitle,
+        EternaCity_PokemonCenter_1F_Text_InterviewsAction,
+        EternaCity_PokemonCenter_1F_Text_InterviewsStory
     },
     {
         GAME_STAT_TRAINER_BATTLES, 1,
-        MauvilleCity_PokemonCenter_1F_Text_TrainerBattlesTitle,
-        MauvilleCity_PokemonCenter_1F_Text_TrainerBattlesAction,
-        MauvilleCity_PokemonCenter_1F_Text_TrainerBattlesStory
+        EternaCity_PokemonCenter_1F_Text_TrainerBattlesTitle,
+        EternaCity_PokemonCenter_1F_Text_TrainerBattlesAction,
+        EternaCity_PokemonCenter_1F_Text_TrainerBattlesStory
     },
     {
         GAME_STAT_POKEMON_CAPTURES, 1,
-        MauvilleCity_PokemonCenter_1F_Text_PokemonCaughtTitle,
-        MauvilleCity_PokemonCenter_1F_Text_PokemonCaughtAction,
-        MauvilleCity_PokemonCenter_1F_Text_PokemonCaughtStory
+        EternaCity_PokemonCenter_1F_Text_PokemonCaughtTitle,
+        EternaCity_PokemonCenter_1F_Text_PokemonCaughtAction,
+        EternaCity_PokemonCenter_1F_Text_PokemonCaughtStory
     },
     {
         GAME_STAT_FISHING_ENCOUNTERS, 1,
-        MauvilleCity_PokemonCenter_1F_Text_FishingPokemonCaughtTitle,
-        MauvilleCity_PokemonCenter_1F_Text_FishingPokemonCaughtAction,
-        MauvilleCity_PokemonCenter_1F_Text_FishingPokemonCaughtStory
+        EternaCity_PokemonCenter_1F_Text_FishingPokemonCaughtTitle,
+        EternaCity_PokemonCenter_1F_Text_FishingPokemonCaughtAction,
+        EternaCity_PokemonCenter_1F_Text_FishingPokemonCaughtStory
     },
     {
         GAME_STAT_HATCHED_EGGS, 1,
-        MauvilleCity_PokemonCenter_1F_Text_EggsHatchedTitle,
-        MauvilleCity_PokemonCenter_1F_Text_EggsHatchedAction,
-        MauvilleCity_PokemonCenter_1F_Text_EggsHatchedStory
+        EternaCity_PokemonCenter_1F_Text_EggsHatchedTitle,
+        EternaCity_PokemonCenter_1F_Text_EggsHatchedAction,
+        EternaCity_PokemonCenter_1F_Text_EggsHatchedStory
     },
     {
         GAME_STAT_EVOLVED_POKEMON, 1,
-        MauvilleCity_PokemonCenter_1F_Text_PokemonEvolvedTitle,
-        MauvilleCity_PokemonCenter_1F_Text_PokemonEvolvedAction,
-        MauvilleCity_PokemonCenter_1F_Text_PokemonEvolvedStory
+        EternaCity_PokemonCenter_1F_Text_PokemonEvolvedTitle,
+        EternaCity_PokemonCenter_1F_Text_PokemonEvolvedAction,
+        EternaCity_PokemonCenter_1F_Text_PokemonEvolvedStory
     },
     {
         GAME_STAT_USED_POKECENTER, 1,
-        MauvilleCity_PokemonCenter_1F_Text_UsedPokemonCenterTitle,
-        MauvilleCity_PokemonCenter_1F_Text_UsedPokemonCenterAction,
-        MauvilleCity_PokemonCenter_1F_Text_UsedPokemonCenterStory
+        EternaCity_PokemonCenter_1F_Text_UsedPokemonCenterTitle,
+        EternaCity_PokemonCenter_1F_Text_UsedPokemonCenterAction,
+        EternaCity_PokemonCenter_1F_Text_UsedPokemonCenterStory
     },
     {
         GAME_STAT_RESTED_AT_HOME, 1,
-        MauvilleCity_PokemonCenter_1F_Text_RestedAtHomeTitle,
-        MauvilleCity_PokemonCenter_1F_Text_RestedAtHomeAction,
-        MauvilleCity_PokemonCenter_1F_Text_RestedAtHomeStory
+        EternaCity_PokemonCenter_1F_Text_RestedAtHomeTitle,
+        EternaCity_PokemonCenter_1F_Text_RestedAtHomeAction,
+        EternaCity_PokemonCenter_1F_Text_RestedAtHomeStory
     },
     {
         GAME_STAT_ENTERED_SAFARI_ZONE, 1,
-        MauvilleCity_PokemonCenter_1F_Text_SafariGamesTitle,
-        MauvilleCity_PokemonCenter_1F_Text_SafariGamesAction,
-        MauvilleCity_PokemonCenter_1F_Text_SafariGamesStory
+        EternaCity_PokemonCenter_1F_Text_SafariGamesTitle,
+        EternaCity_PokemonCenter_1F_Text_SafariGamesAction,
+        EternaCity_PokemonCenter_1F_Text_SafariGamesStory
     },
     {
         GAME_STAT_USED_CUT, 1,
-        MauvilleCity_PokemonCenter_1F_Text_UsedCutTitle,
-        MauvilleCity_PokemonCenter_1F_Text_UsedCutAction,
-        MauvilleCity_PokemonCenter_1F_Text_UsedCutStory
+        EternaCity_PokemonCenter_1F_Text_UsedCutTitle,
+        EternaCity_PokemonCenter_1F_Text_UsedCutAction,
+        EternaCity_PokemonCenter_1F_Text_UsedCutStory
     },
     {
         GAME_STAT_USED_ROCK_SMASH, 1,
-        MauvilleCity_PokemonCenter_1F_Text_UsedRockSmashTitle,
-        MauvilleCity_PokemonCenter_1F_Text_UsedRockSmashAction,
-        MauvilleCity_PokemonCenter_1F_Text_UsedRockSmashStory
+        EternaCity_PokemonCenter_1F_Text_UsedRockSmashTitle,
+        EternaCity_PokemonCenter_1F_Text_UsedRockSmashAction,
+        EternaCity_PokemonCenter_1F_Text_UsedRockSmashStory
     },
     {
         GAME_STAT_MOVED_SECRET_BASE, 1,
-        MauvilleCity_PokemonCenter_1F_Text_MovedBasesTitle,
-        MauvilleCity_PokemonCenter_1F_Text_MovedBasesAction,
-        MauvilleCity_PokemonCenter_1F_Text_MovedBasesStory
+        EternaCity_PokemonCenter_1F_Text_MovedBasesTitle,
+        EternaCity_PokemonCenter_1F_Text_MovedBasesAction,
+        EternaCity_PokemonCenter_1F_Text_MovedBasesStory
     },
     {
         GAME_STAT_USED_SPLASH, 1,
-        MauvilleCity_PokemonCenter_1F_Text_UsedSplashTitle,
-        MauvilleCity_PokemonCenter_1F_Text_UsedSplashAction,
-        MauvilleCity_PokemonCenter_1F_Text_UsedSplashStory
+        EternaCity_PokemonCenter_1F_Text_UsedSplashTitle,
+        EternaCity_PokemonCenter_1F_Text_UsedSplashAction,
+        EternaCity_PokemonCenter_1F_Text_UsedSplashStory
     },
     {
         GAME_STAT_USED_STRUGGLE, 1,
-        MauvilleCity_PokemonCenter_1F_Text_UsedStruggleTitle,
-        MauvilleCity_PokemonCenter_1F_Text_UsedStruggleAction,
-        MauvilleCity_PokemonCenter_1F_Text_UsedStruggleStory
+        EternaCity_PokemonCenter_1F_Text_UsedStruggleTitle,
+        EternaCity_PokemonCenter_1F_Text_UsedStruggleAction,
+        EternaCity_PokemonCenter_1F_Text_UsedStruggleStory
     },
     {
         GAME_STAT_SLOT_JACKPOTS, 1,
-        MauvilleCity_PokemonCenter_1F_Text_SlotJackpotsTitle,
-        MauvilleCity_PokemonCenter_1F_Text_SlotJackpotsAction,
-        MauvilleCity_PokemonCenter_1F_Text_SlotJackpotsStory
+        EternaCity_PokemonCenter_1F_Text_SlotJackpotsTitle,
+        EternaCity_PokemonCenter_1F_Text_SlotJackpotsAction,
+        EternaCity_PokemonCenter_1F_Text_SlotJackpotsStory
     },
     {
         GAME_STAT_CONSECUTIVE_ROULETTE_WINS, 2,
-        MauvilleCity_PokemonCenter_1F_Text_RouletteWinsTitle,
-        MauvilleCity_PokemonCenter_1F_Text_RouletteWinsAction,
-        MauvilleCity_PokemonCenter_1F_Text_RouletteWinsStory
+        EternaCity_PokemonCenter_1F_Text_RouletteWinsTitle,
+        EternaCity_PokemonCenter_1F_Text_RouletteWinsAction,
+        EternaCity_PokemonCenter_1F_Text_RouletteWinsStory
     },
     {
         GAME_STAT_ENTERED_BATTLE_TOWER, 1,
-        MauvilleCity_PokemonCenter_1F_Text_BattleTowerChallengesTitle,
-        MauvilleCity_PokemonCenter_1F_Text_BattleTowerChallengesAction,
-        MauvilleCity_PokemonCenter_1F_Text_BattleTowerChallengesStory
+        EternaCity_PokemonCenter_1F_Text_BattleTowerChallengesTitle,
+        EternaCity_PokemonCenter_1F_Text_BattleTowerChallengesAction,
+        EternaCity_PokemonCenter_1F_Text_BattleTowerChallengesStory
     },
     {
         GAME_STAT_POKEBLOCKS, 1,
-        MauvilleCity_PokemonCenter_1F_Text_MadePokeblocksTitle,
-        MauvilleCity_PokemonCenter_1F_Text_MadePokeblocksAction,
-        MauvilleCity_PokemonCenter_1F_Text_MadePokeblocksStory
+        EternaCity_PokemonCenter_1F_Text_MadePokeblocksTitle,
+        EternaCity_PokemonCenter_1F_Text_MadePokeblocksAction,
+        EternaCity_PokemonCenter_1F_Text_MadePokeblocksStory
     },
     {
         GAME_STAT_ENTERED_CONTEST, 1,
-        MauvilleCity_PokemonCenter_1F_Text_EnteredContestsTitle,
-        MauvilleCity_PokemonCenter_1F_Text_EnteredContestsAction,
-        MauvilleCity_PokemonCenter_1F_Text_EnteredContestsStory
+        EternaCity_PokemonCenter_1F_Text_EnteredContestsTitle,
+        EternaCity_PokemonCenter_1F_Text_EnteredContestsAction,
+        EternaCity_PokemonCenter_1F_Text_EnteredContestsStory
     },
     {
         GAME_STAT_WON_CONTEST, 1,
-        MauvilleCity_PokemonCenter_1F_Text_WonContestsTitle,
-        MauvilleCity_PokemonCenter_1F_Text_WonContestsAction,
-        MauvilleCity_PokemonCenter_1F_Text_WonContestsStory
+        EternaCity_PokemonCenter_1F_Text_WonContestsTitle,
+        EternaCity_PokemonCenter_1F_Text_WonContestsAction,
+        EternaCity_PokemonCenter_1F_Text_WonContestsStory
     },
     {
         GAME_STAT_SHOPPED, 1,
-        MauvilleCity_PokemonCenter_1F_Text_TimesShoppedTitle,
-        MauvilleCity_PokemonCenter_1F_Text_TimesShoppedAction,
-        MauvilleCity_PokemonCenter_1F_Text_TimesShoppedStory
+        EternaCity_PokemonCenter_1F_Text_TimesShoppedTitle,
+        EternaCity_PokemonCenter_1F_Text_TimesShoppedAction,
+        EternaCity_PokemonCenter_1F_Text_TimesShoppedStory
     },
     {
         GAME_STAT_USED_ITEMFINDER, 1,
-        MauvilleCity_PokemonCenter_1F_Text_UsedItemFinderTitle,
-        MauvilleCity_PokemonCenter_1F_Text_UsedItemFinderAction,
-        MauvilleCity_PokemonCenter_1F_Text_UsedItemFinderStory
+        EternaCity_PokemonCenter_1F_Text_UsedItemFinderTitle,
+        EternaCity_PokemonCenter_1F_Text_UsedItemFinderAction,
+        EternaCity_PokemonCenter_1F_Text_UsedItemFinderStory
     },
     {
         GAME_STAT_GOT_RAINED_ON, 1,
-        MauvilleCity_PokemonCenter_1F_Text_TimesRainedTitle,
-        MauvilleCity_PokemonCenter_1F_Text_TimesRainedAction,
-        MauvilleCity_PokemonCenter_1F_Text_TimesRainedStory
+        EternaCity_PokemonCenter_1F_Text_TimesRainedTitle,
+        EternaCity_PokemonCenter_1F_Text_TimesRainedAction,
+        EternaCity_PokemonCenter_1F_Text_TimesRainedStory
     },
     {
         GAME_STAT_CHECKED_POKEDEX, 1,
-        MauvilleCity_PokemonCenter_1F_Text_CheckedPokedexTitle,
-        MauvilleCity_PokemonCenter_1F_Text_CheckedPokedexAction,
-        MauvilleCity_PokemonCenter_1F_Text_CheckedPokedexStory
+        EternaCity_PokemonCenter_1F_Text_CheckedPokedexTitle,
+        EternaCity_PokemonCenter_1F_Text_CheckedPokedexAction,
+        EternaCity_PokemonCenter_1F_Text_CheckedPokedexStory
     },
     {
         GAME_STAT_RECEIVED_RIBBONS, 1,
-        MauvilleCity_PokemonCenter_1F_Text_ReceivedRibbonsTitle,
-        MauvilleCity_PokemonCenter_1F_Text_ReceivedRibbonsAction,
-        MauvilleCity_PokemonCenter_1F_Text_ReceivedRibbonsStory
+        EternaCity_PokemonCenter_1F_Text_ReceivedRibbonsTitle,
+        EternaCity_PokemonCenter_1F_Text_ReceivedRibbonsAction,
+        EternaCity_PokemonCenter_1F_Text_ReceivedRibbonsStory
     },
     {
         GAME_STAT_JUMPED_DOWN_LEDGES, 1,
-        MauvilleCity_PokemonCenter_1F_Text_LedgesJumpedTitle,
-        MauvilleCity_PokemonCenter_1F_Text_LedgesJumpedAction,
-        MauvilleCity_PokemonCenter_1F_Text_LedgesJumpedStory
+        EternaCity_PokemonCenter_1F_Text_LedgesJumpedTitle,
+        EternaCity_PokemonCenter_1F_Text_LedgesJumpedAction,
+        EternaCity_PokemonCenter_1F_Text_LedgesJumpedStory
     },
     {
         GAME_STAT_WATCHED_TV, 1,
-        MauvilleCity_PokemonCenter_1F_Text_TVWatchedTitle,
-        MauvilleCity_PokemonCenter_1F_Text_TVWatchedAction,
-        MauvilleCity_PokemonCenter_1F_Text_TVWatchedStory
+        EternaCity_PokemonCenter_1F_Text_TVWatchedTitle,
+        EternaCity_PokemonCenter_1F_Text_TVWatchedAction,
+        EternaCity_PokemonCenter_1F_Text_TVWatchedStory
     },
     {
         GAME_STAT_CHECKED_CLOCK, 1,
-        MauvilleCity_PokemonCenter_1F_Text_CheckedClockTitle,
-        MauvilleCity_PokemonCenter_1F_Text_CheckedClockAction,
-        MauvilleCity_PokemonCenter_1F_Text_CheckedClockStory
+        EternaCity_PokemonCenter_1F_Text_CheckedClockTitle,
+        EternaCity_PokemonCenter_1F_Text_CheckedClockAction,
+        EternaCity_PokemonCenter_1F_Text_CheckedClockStory
     },
     {
         GAME_STAT_WON_POKEMON_LOTTERY, 1,
-        MauvilleCity_PokemonCenter_1F_Text_WonLotteryTitle,
-        MauvilleCity_PokemonCenter_1F_Text_WonLotteryAction,
-        MauvilleCity_PokemonCenter_1F_Text_WonLotteryStory
+        EternaCity_PokemonCenter_1F_Text_WonLotteryTitle,
+        EternaCity_PokemonCenter_1F_Text_WonLotteryAction,
+        EternaCity_PokemonCenter_1F_Text_WonLotteryStory
     },
     {
         GAME_STAT_USED_DAYCARE, 1,
-        MauvilleCity_PokemonCenter_1F_Text_UsedDaycareTitle,
-        MauvilleCity_PokemonCenter_1F_Text_UsedDaycareAction,
-        MauvilleCity_PokemonCenter_1F_Text_UsedDaycareStory
+        EternaCity_PokemonCenter_1F_Text_UsedDaycareTitle,
+        EternaCity_PokemonCenter_1F_Text_UsedDaycareAction,
+        EternaCity_PokemonCenter_1F_Text_UsedDaycareStory
     },
     {
         GAME_STAT_RODE_CABLE_CAR, 1,
-        MauvilleCity_PokemonCenter_1F_Text_RodeCableCarTitle,
-        MauvilleCity_PokemonCenter_1F_Text_RodeCableCarAction,
-        MauvilleCity_PokemonCenter_1F_Text_RodeCableCarStory
+        EternaCity_PokemonCenter_1F_Text_RodeCableCarTitle,
+        EternaCity_PokemonCenter_1F_Text_RodeCableCarAction,
+        EternaCity_PokemonCenter_1F_Text_RodeCableCarStory
     },
     {
         GAME_STAT_ENTERED_HOT_SPRINGS, 1,
-        MauvilleCity_PokemonCenter_1F_Text_HotSpringsTitle,
-        MauvilleCity_PokemonCenter_1F_Text_HotSpringsAction,
-        MauvilleCity_PokemonCenter_1F_Text_HotSpringsStory
+        EternaCity_PokemonCenter_1F_Text_HotSpringsTitle,
+        EternaCity_PokemonCenter_1F_Text_HotSpringsAction,
+        EternaCity_PokemonCenter_1F_Text_HotSpringsStory
     }
 };
 

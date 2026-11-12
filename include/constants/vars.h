@@ -106,7 +106,7 @@
 #define VAR_PACIFIDLOG_TOWN_STATE                        0x4056 // Unused Var
 #define VAR_OREBURGH_CITY_STATE                         0x4057
 #define VAR_SLATEPORT_CITY_STATE                         0x4058
-#define VAR_MAUVILLE_CITY_STATE                          0x4059 // Unused Var
+#define VAR_ETERNA_CITY_STATE                          0x4059 // Unused Var
 #define VAR_JUBILIFE_CITY_STATE                          0x405A
 #define VAR_FORTREE_CITY_STATE                           0x405B // Unused Var
 #define VAR_LILYCOVE_CITY_STATE                          0x405C // Unused Var
@@ -130,7 +130,7 @@
 #define VAR_VALLEY_WINDWORKS_STATE                             0x406E // 1: the little girl on Route 205 South asked for help, 2: Mars beaten
 #define VAR_ROUTE204_STATE                               0x406F
 #define VAR_FLOAROMA_MEADOW_STATE                               0x4070 // 0: Grunts after the HONEY, 1: Grunts beaten
-#define VAR_ROUTE118_STATE                               0x4071
+#define VAR_ROUTE211_WEST_STATE                          0x4071 // Unused Var
 #define VAR_ROUTE119_STATE                               0x4072
 #define VAR_ROUTE120_STATE                               0x4073 // Unused Var
 #define VAR_ROUTE121_STATE                               0x4074
