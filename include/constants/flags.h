@@ -70,9 +70,9 @@
 #define FLAG_HIDE_ETERNA_CITY_CYNTHIA 0x38 // Set at the start; shown while she offers the Togepi Egg
 #define FLAG_HIDE_ETERNA_CITY_RIVAL 0x39 // Set at the start; shown while he runs into the player and takes them to the statue
 #define FLAG_HIDE_ETERNA_CITY_CYRUS 0x3A // Cyrus at the statue, gone once he leaves (VAR_ETERNA_CITY_STATE 1)
-#define FLAG_UNUSED_0x03B    0x3B // Unused Flag
-#define FLAG_UNUSED_0x03C    0x3C // Unused Flag
-#define FLAG_UNUSED_0x03D    0x3D // Unused Flag
+#define FLAG_HIDE_CYCLE_SHOP_OWNER 0x3B // Set at the start; he's back in the Cycle Shop once Jupiter is beaten
+#define FLAG_HIDE_CYCLE_SHOP_CLEFAIRY 0x3C // Set at the start; cleared with the owner's
+#define FLAG_BICYCLE_THIRD_GEAR 0x3D // The BICYCLE is in third gear (B shifts); clear for fourth
 #define FLAG_UNUSED_0x03E    0x3E // Unused Flag
 #define FLAG_UNUSED_0x03F    0x3F // Unused Flag
 #define FLAG_UNUSED_0x040    0x40 // Unused Flag

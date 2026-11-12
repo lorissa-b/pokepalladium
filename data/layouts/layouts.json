@@ -1072,8 +1072,8 @@
     {
       "id": "LAYOUT_ETERNA_CITY_BIKE_SHOP",
       "name": "EternaCity_BikeShop_Layout",
-      "width": 12,
-      "height": 9,
+      "width": 15,
+      "height": 11,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_BikeShop",
       "border_filepath": "data/layouts/EternaCity_BikeShop/border.bin",
