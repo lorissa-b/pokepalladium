@@ -689,23 +689,23 @@
 #define FLAG_HIDE_VALLEY_WINDWORKS_BUILDING_GRUNT  0x282 // The Grunt by the door, who runs to Mars on first entry
 #define FLAG_HIDE_VALLEY_WINDWORKS_BUILDING_TEAM_GALACTIC  0x283 // Mars, Charon and the Grunts, gone once Mars is beaten
 #define FLAG_HIDE_VALLEY_WINDWORKS_BUILDING_LITTLE_GIRL  0x284 // Set at the start; cleared when she runs in to her papa
-#define FLAG_UNUSED_0x285  0x285 // Unused Flag
-#define FLAG_UNUSED_0x286  0x286 // Unused Flag
-#define FLAG_UNUSED_0x287  0x287 // Unused Flag
-#define FLAG_UNUSED_0x288  0x288 // Unused Flag
-#define FLAG_UNUSED_0x289  0x289 // Unused Flag
-#define FLAG_UNUSED_0x28A  0x28A // Unused Flag
-#define FLAG_UNUSED_0x28B  0x28B // Unused Flag
-#define FLAG_UNUSED_0x28C  0x28C // Unused Flag
-#define FLAG_UNUSED_0x28D  0x28D // Unused Flag
-#define FLAG_UNUSED_0x28E  0x28E // Unused Flag
-#define FLAG_UNUSED_0x28F  0x28F // Unused Flag
-#define FLAG_UNUSED_0x290  0x290 // Unused Flag
-#define FLAG_UNUSED_0x291  0x291 // Unused Flag
-#define FLAG_UNUSED_0x292  0x292 // Unused Flag
-#define FLAG_UNUSED_0x293  0x293 // Unused Flag
-#define FLAG_UNUSED_0x294  0x294 // Unused Flag
-#define FLAG_UNUSED_0x295  0x295 // Unused Flag
+#define FLAG_HAS_MINED_WALL  0x285 // Set after the first rock wall pulled up with the Explorer Kit
+#define FLAG_MINED_FLAME_PLATE  0x286 // Each plate can be dug up from a rock wall only once
+#define FLAG_MINED_SPLASH_PLATE  0x287
+#define FLAG_MINED_ZAP_PLATE  0x288
+#define FLAG_MINED_MEADOW_PLATE  0x289
+#define FLAG_MINED_ICICLE_PLATE  0x28A
+#define FLAG_MINED_FIST_PLATE  0x28B
+#define FLAG_MINED_TOXIC_PLATE  0x28C
+#define FLAG_MINED_EARTH_PLATE  0x28D
+#define FLAG_MINED_SKY_PLATE  0x28E
+#define FLAG_MINED_MIND_PLATE  0x28F
+#define FLAG_MINED_INSECT_PLATE  0x290
+#define FLAG_MINED_STONE_PLATE  0x291
+#define FLAG_MINED_SPOOKY_PLATE  0x292
+#define FLAG_MINED_DRACO_PLATE  0x293
+#define FLAG_MINED_DREAD_PLATE  0x294
+#define FLAG_MINED_IRON_PLATE  0x295
 #define FLAG_UNUSED_0x296  0x296 // Unused Flag
 #define FLAG_UNUSED_0x297  0x297 // Unused Flag
 #define FLAG_UNUSED_0x298  0x298 // Unused Flag

@@ -122,7 +122,7 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     // Valuables
     [ITEM_TINY_MUSHROOM] = {gItemIcon_TinyMushroom, gItemIconPalette_Mushroom},
     [ITEM_BIG_MUSHROOM] = {gItemIcon_BigMushroom, gItemIconPalette_Mushroom},
-    [ITEM_069] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_RARE_BONE] = {gItemIcon_RareBone, gItemIconPalette_RareBone},
     [ITEM_PEARL] = {gItemIcon_Pearl, gItemIconPalette_Pearl},
     [ITEM_BIG_PEARL] = {gItemIcon_BigPearl, gItemIconPalette_Pearl},
     [ITEM_STARDUST] = {gItemIcon_Stardust, gItemIconPalette_Star},
@@ -352,7 +352,7 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_SUPER_ROD] = {gItemIcon_SuperRod, gItemIconPalette_SuperRod},
     [ITEM_SS_TICKET] = {gItemIcon_SSTicket, gItemIconPalette_SSTicket},
     [ITEM_CONTEST_PASS] = {gItemIcon_ContestPass, gItemIconPalette_ContestPass},
-    [ITEM_10B] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_EXPLORER_KIT] = {gItemIcon_ExplorerKit, gItemIconPalette_ExplorerKit},
     [ITEM_WAILMER_PAIL] = {gItemIcon_WailmerPail, gItemIconPalette_WailmerPail},
     [ITEM_DEVON_GOODS] = {gItemIcon_DevonGoods, gItemIconPalette_DevonGoods},
     [ITEM_SOOT_SACK] = {gItemIcon_SootSack, gItemIconPalette_SootSack},
@@ -434,8 +434,8 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_HM07] = {gItemIcon_HM, gItemIconPalette_WaterTMHM},
     [ITEM_HM08] = {gItemIcon_HM, gItemIconPalette_NormalTMHM},
     // ????????
-    [ITEM_15B] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
-    [ITEM_15C] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_SKULL_FOSSIL] = {gItemIcon_SkullFossil, gItemIconPalette_SkullFossil},
+    [ITEM_ARMOR_FOSSIL] = {gItemIcon_ArmorFossil, gItemIconPalette_ArmorFossil},
     // FireRed/LeafGreen key items
     [ITEM_OAKS_PARCEL] = {gItemIcon_OaksParcel, gItemIconPalette_OaksParcel},
     [ITEM_POKE_FLUTE] = {gItemIcon_PokeFlute, gItemIconPalette_PokeFlute},

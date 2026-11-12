@@ -185,6 +185,7 @@ void NewGameInitData(void)
     StopAllRoamers();
     gSaveBlock1Ptr->registeredItem = ITEM_NONE;
     ClearBag();
+    AddBagItem(ITEM_EXPLORER_KIT, 1); // Until Eterna City's Underground Man can hand it over
     NewGameInitPCItems();
     ClearPokeblocks();
     ClearDecorationInventories();

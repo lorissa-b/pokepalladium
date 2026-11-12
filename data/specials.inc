@@ -547,3 +547,4 @@ gSpecials::
 	def_special EternaGym_TurnClock
 	def_special EternaGym_CameraToFountain
 	def_special EternaGym_CameraToPlayer
+	def_special StartMiningGame, waitstate=1

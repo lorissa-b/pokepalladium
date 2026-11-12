@@ -1345,12 +1345,12 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_069] =
+    [ITEM_RARE_BONE] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
-        .price = 0,
-        .description = sDummyDesc,
+        .name = _("RARE BONE"),
+        .itemId = ITEM_RARE_BONE,
+        .price = 10000,
+        .description = sRareBoneDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -4118,15 +4118,17 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_10B] =
+    [ITEM_EXPLORER_KIT] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .name = _("EXPLORER KIT"),
+        .itemId = ITEM_EXPLORER_KIT,
         .price = 0,
-        .description = sDummyDesc,
-        .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .description = sExplorerKitDesc,
+        .importance = 1,
+        .registrability = TRUE,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_ExplorerKit,
     },
 
     [ITEM_WAILMER_PAIL] =
@@ -4353,10 +4355,9 @@ const struct Item gItems[] =
     {
         .name = _("ROOT FOSSIL"),
         .itemId = ITEM_ROOT_FOSSIL,
-        .price = 0,
+        .price = 1000,
         .description = sRootFossilDesc,
-        .importance = 1,
-        .pocket = POCKET_KEY_ITEMS,
+        .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
@@ -4365,10 +4366,9 @@ const struct Item gItems[] =
     {
         .name = _("CLAW FOSSIL"),
         .itemId = ITEM_CLAW_FOSSIL,
-        .price = 0,
+        .price = 1000,
         .description = sClawFossilDesc,
-        .importance = 1,
-        .pocket = POCKET_KEY_ITEMS,
+        .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
@@ -5083,23 +5083,23 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
     },
 
-    [ITEM_15B] =
+    [ITEM_SKULL_FOSSIL] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
-        .price = 0,
-        .description = sDummyDesc,
+        .name = _("SKULL FOSSIL"),
+        .itemId = ITEM_SKULL_FOSSIL,
+        .price = 1000,
+        .description = sSkullFossilDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_15C] =
+    [ITEM_ARMOR_FOSSIL] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
-        .price = 0,
-        .description = sDummyDesc,
+        .name = _("ARMOR FOSSIL"),
+        .itemId = ITEM_ARMOR_FOSSIL,
+        .price = 1000,
+        .description = sArmorFossilDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -5171,10 +5171,9 @@ const struct Item gItems[] =
     {
         .name = _("OLD AMBER"),
         .itemId = ITEM_OLD_AMBER,
-        .price = 0,
+        .price = 1000,
         .description = sOldAmberDesc,
-        .importance = 1,
-        .pocket = POCKET_KEY_ITEMS,
+        .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
@@ -5207,10 +5206,9 @@ const struct Item gItems[] =
     {
         .name = _("HELIX FOSSIL"),
         .itemId = ITEM_HELIX_FOSSIL,
-        .price = 0,
+        .price = 1000,
         .description = sHelixFossilDesc,
-        .importance = 1,
-        .pocket = POCKET_KEY_ITEMS,
+        .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
@@ -5219,10 +5217,9 @@ const struct Item gItems[] =
     {
         .name = _("DOME FOSSIL"),
         .itemId = ITEM_DOME_FOSSIL,
-        .price = 0,
+        .price = 1000,
         .description = sDomeFossilDesc,
-        .importance = 1,
-        .pocket = POCKET_KEY_ITEMS,
+        .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },

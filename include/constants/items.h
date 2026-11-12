@@ -121,7 +121,7 @@ enum {
     // Unusable
     ITEM_TINY_MUSHROOM,
     ITEM_BIG_MUSHROOM,
-    ITEM_069,
+    ITEM_RARE_BONE,
     ITEM_PEARL,
     ITEM_BIG_PEARL,
     ITEM_STARDUST,
@@ -356,7 +356,7 @@ enum {
     ITEM_SUPER_ROD,
     ITEM_SS_TICKET,
     ITEM_CONTEST_PASS,
-    ITEM_10B,
+    ITEM_EXPLORER_KIT,
     ITEM_WAILMER_PAIL,
     ITEM_DEVON_GOODS,
     ITEM_SOOT_SACK,
@@ -439,9 +439,9 @@ enum {
     ITEM_HM07,
     ITEM_HM08,
 
-    // Unknown
-    ITEM_15B,
-    ITEM_15C,
+    // Sinnoh fossils
+    ITEM_SKULL_FOSSIL,
+    ITEM_ARMOR_FOSSIL,
 
     // FireRed/LeafGreen
     ITEM_OAKS_PARCEL,
