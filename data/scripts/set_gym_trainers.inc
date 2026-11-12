@@ -25,12 +25,11 @@ DewfordTown_Gym_SetGymTrainers::
 	settrainerflag TRAINER_LILITH
 	return
 
+@ Eterna Gym: Lass Caroline, Aroma Ladies Jenna and Angela
 EternaCity_Gym_SetGymTrainers::
+	settrainerflag TRAINER_VIVIAN
 	settrainerflag TRAINER_KIRK
 	settrainerflag TRAINER_SHAWN
-	settrainerflag TRAINER_BEN
-	settrainerflag TRAINER_VIVIAN
-	settrainerflag TRAINER_ANGELO
 	return
 
 LavaridgeTown_Gym_SetGymTrainers::

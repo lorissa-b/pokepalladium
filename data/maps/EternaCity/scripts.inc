@@ -15,8 +15,6 @@ EternaCity_MapScripts::
 
 EternaCity_OnTransition:
 	setflag FLAG_VISITED_ETERNA_CITY
-	clearflag FLAG_MAUVILLE_GYM_BARRIERS_STATE
-	setvar VAR_MAUVILLE_GYM_STATE, 0
 	end
 
 EternaCity_EventScript_GruntStatue::
