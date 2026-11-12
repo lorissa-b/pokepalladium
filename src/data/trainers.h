@@ -27,7 +27,7 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_GRUNT_AQUA_HIDEOUT_1] =
     {
-        .trainerClass = TRAINER_CLASS_TEAM_AQUA,
+        .trainerClass = TRAINER_CLASS_TEAM_GALACTIC,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_AQUA,
         .trainerPic = TRAINER_PIC_AQUA_GRUNT_M,
         .trainerName = _("GRUNT"),
@@ -39,7 +39,7 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_GRUNT_AQUA_HIDEOUT_2] =
     {
-        .trainerClass = TRAINER_CLASS_TEAM_AQUA,
+        .trainerClass = TRAINER_CLASS_TEAM_GALACTIC,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_AQUA,
         .trainerPic = TRAINER_PIC_AQUA_GRUNT_M,
         .trainerName = _("GRUNT"),
@@ -327,7 +327,7 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_GRUNT_AQUA_HIDEOUT_5] =
     {
-        .trainerClass = TRAINER_CLASS_TEAM_AQUA,
+        .trainerClass = TRAINER_CLASS_TEAM_GALACTIC,
         .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_AQUA,
         .trainerPic = TRAINER_PIC_AQUA_GRUNT_F,
         .trainerName = _("GRUNT"),
@@ -339,7 +339,7 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_GRUNT_AQUA_HIDEOUT_6] =
     {
-        .trainerClass = TRAINER_CLASS_TEAM_AQUA,
+        .trainerClass = TRAINER_CLASS_TEAM_GALACTIC,
         .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_AQUA,
         .trainerPic = TRAINER_PIC_AQUA_GRUNT_F,
         .trainerName = _("GRUNT"),
@@ -364,13 +364,13 @@ const struct Trainer gTrainers[] = {
     [TRAINER_MATT] =
     {
         .trainerClass = TRAINER_CLASS_AQUA_ADMIN,
-        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_AQUA,
-        .trainerPic = TRAINER_PIC_AQUA_ADMIN_M,
-        .trainerName = _("MATT"),
-        .items = {ITEM_SUPER_POTION, ITEM_NONE, ITEM_NONE, ITEM_NONE},
+        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_AQUA,
+        .trainerPic = TRAINER_PIC_AQUA_ADMIN_F,
+        .trainerName = _("JUPITER"),
+        .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_Matt),
+        .party = ITEM_CUSTOM_MOVES(sParty_Matt),
     },
 
     [TRAINER_ZANDER] =
@@ -2307,7 +2307,7 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_GRUNT_AQUA_HIDEOUT_7] =
     {
-        .trainerClass = TRAINER_CLASS_TEAM_AQUA,
+        .trainerClass = TRAINER_CLASS_TEAM_GALACTIC,
         .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_AQUA,
         .trainerPic = TRAINER_PIC_AQUA_GRUNT_F,
         .trainerName = _("GRUNT"),
@@ -2319,14 +2319,14 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_GRUNT_AQUA_HIDEOUT_8] =
     {
-        .trainerClass = TRAINER_CLASS_TEAM_AQUA,
+        .trainerClass = TRAINER_CLASS_SCIENTIST,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_AQUA,
-        .trainerPic = TRAINER_PIC_AQUA_GRUNT_M,
-        .trainerName = _("GRUNT"),
-        .items = {},
+        .trainerPic = TRAINER_PIC_RUIN_MANIAC,
+        .trainerName = _("TRAVON"),
+        .items = {ITEM_X_SPECIAL},
         .doubleBattle = FALSE,
-        .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_GruntAquaHideout8),
+        .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY,
+        .party = NO_ITEM_CUSTOM_MOVES(sParty_GruntAquaHideout8),
     },
 
     [TRAINER_SHAWN] =

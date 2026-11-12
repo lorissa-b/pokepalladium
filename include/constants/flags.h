@@ -59,14 +59,14 @@
 #define FLAG_RECEIVED_TRAINERS_SCHOOL_PRIZE          0x2D
 #define FLAG_HIDE_JUBILIFE_CITY_TEAM_GALACTIC 0x2E // Prof. Birch and the Team Galactic Grunts at the north exit
 #define FLAG_HIDE_ETERNA_FOREST_CHERYL 0x2F // Cheryl at the forest's south entrance, hidden while she follows and after she leaves
-#define FLAG_UNUSED_0x030    0x30 // Unused Flag
-#define FLAG_UNUSED_0x031    0x31 // Unused Flag
-#define FLAG_UNUSED_0x032    0x32 // Unused Flag
-#define FLAG_UNUSED_0x033    0x33 // Unused Flag
-#define FLAG_UNUSED_0x034    0x34 // Unused Flag
-#define FLAG_UNUSED_0x035    0x35 // Unused Flag
-#define FLAG_UNUSED_0x036    0x36 // Unused Flag
-#define FLAG_UNUSED_0x037    0x37 // Unused Flag
+#define FLAG_HIDE_TEAM_GALACTIC_ETERNA_BUILDING_1F_LOOKER 0x30 // Set at the start; Looker only shows himself during his scene on 1F
+#define FLAG_HIDE_TEAM_GALACTIC_ETERNA_BUILDING_1F_DISGUISED_LOOKER 0x31 // Looker dressed as a Grunt on 1F, gone once Jupiter is beaten
+#define FLAG_HIDE_TEAM_GALACTIC_ETERNA_BUILDING_4F_HOSTAGES 0x32 // The Cycle Shop owner, Clefairy and Buneary on 4F, gone once Jupiter is beaten
+#define FLAG_ITEM_TEAM_GALACTIC_ETERNA_BUILDING_2F_X_SPEED 0x33
+#define FLAG_ITEM_TEAM_GALACTIC_ETERNA_BUILDING_3F_X_SPECIAL 0x34
+#define FLAG_ITEM_TEAM_GALACTIC_ETERNA_BUILDING_4F_REVIVE 0x35
+#define FLAG_ITEM_TEAM_GALACTIC_ETERNA_BUILDING_4F_BLUE_SHARD 0x36
+#define FLAG_ITEM_TEAM_GALACTIC_ETERNA_BUILDING_4F_UP_GRADE 0x37
 #define FLAG_UNUSED_0x038    0x38 // Unused Flag
 #define FLAG_UNUSED_0x039    0x39 // Unused Flag
 #define FLAG_UNUSED_0x03A    0x3A // Unused Flag

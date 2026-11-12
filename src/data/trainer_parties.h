@@ -9,21 +9,21 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Sawyer1[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_GruntAquaHideout1[] = {
     {
     .iv = 0,
-    .lvl = 32,
-    .species = SPECIES_POOCHYENA,
+    .lvl = 17,
+    .species = SPECIES_ZUBAT,
+    },
+    {
+    .iv = 0,
+    .lvl = 17,
+    .species = SPECIES_STUNKY,
     }
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_GruntAquaHideout2[] = {
     {
     .iv = 0,
-    .lvl = 31,
-    .species = SPECIES_ZUBAT,
-    },
-    {
-    .iv = 0,
-    .lvl = 31,
-    .species = SPECIES_CARVANHA,
+    .lvl = 19,
+    .species = SPECIES_CROAGUNK,
     }
 };
 
@@ -284,16 +284,21 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntWeatherInst4[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_GruntAquaHideout5[] = {
     {
     .iv = 0,
-    .lvl = 32,
-    .species = SPECIES_CARVANHA,
+    .lvl = 16,
+    .species = SPECIES_ZUBAT,
+    },
+    {
+    .iv = 0,
+    .lvl = 18,
+    .species = SPECIES_GLAMEOW,
     }
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_GruntAquaHideout6[] = {
     {
     .iv = 0,
-    .lvl = 32,
-    .species = SPECIES_ZUBAT,
+    .lvl = 19,
+    .species = SPECIES_GLAMEOW,
     }
 };
 
@@ -318,16 +323,20 @@ static const struct TrainerMonNoItemCustomMoves sParty_Fredrick[] = {
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_Matt[] = {
+static const struct TrainerMonItemCustomMoves sParty_Matt[] = {
     {
-    .iv = 50,
-    .lvl = 34,
-    .species = SPECIES_MIGHTYENA,
+    .iv = 100,
+    .lvl = 21,
+    .species = SPECIES_ZUBAT,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_GIGA_DRAIN, MOVE_WING_ATTACK, MOVE_BITE, MOVE_NONE}
     },
     {
-    .iv = 50,
-    .lvl = 34,
-    .species = SPECIES_GOLBAT,
+    .iv = 100,
+    .lvl = 23,
+    .species = SPECIES_SKUNTANK,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_NIGHT_SLASH, MOVE_POISON_GAS, MOVE_SCREECH, MOVE_SMOKESCREEN}
     }
 };
 
@@ -2310,21 +2319,27 @@ static const struct TrainerMonNoItemCustomMoves sParty_Kirk[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_GruntAquaHideout7[] = {
     {
     .iv = 0,
-    .lvl = 31,
-    .species = SPECIES_POOCHYENA,
+    .lvl = 16,
+    .species = SPECIES_STUNKY,
     },
     {
     .iv = 0,
-    .lvl = 31,
-    .species = SPECIES_ZUBAT,
+    .lvl = 16,
+    .species = SPECIES_CROAGUNK,
+    },
+    {
+    .iv = 0,
+    .lvl = 16,
+    .species = SPECIES_GLAMEOW,
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_GruntAquaHideout8[] = {
+static const struct TrainerMonNoItemCustomMoves sParty_GruntAquaHideout8[] = {
     {
-    .iv = 0,
-    .lvl = 32,
-    .species = SPECIES_CARVANHA,
+    .iv = 20,
+    .lvl = 20,
+    .species = SPECIES_KADABRA,
+    .moves = {MOVE_CONFUSION, MOVE_NONE, MOVE_NONE, MOVE_NONE}
     }
 };
 

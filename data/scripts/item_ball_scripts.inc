@@ -733,3 +733,23 @@ MagmaHideout_4F_EventScript_ItemMaxRevive::
 MagmaHideout_3F_3R_EventScript_ItemEscapeRope::
 	finditem ITEM_ESCAPE_ROPE
 	end
+
+TeamGalacticEternaBuilding_2F_EventScript_ItemXSpeed::
+	finditem ITEM_X_SPEED
+	end
+
+TeamGalacticEternaBuilding_3F_EventScript_ItemXSpecial::
+	finditem ITEM_X_SPECIAL
+	end
+
+TeamGalacticEternaBuilding_4F_EventScript_ItemRevive::
+	finditem ITEM_REVIVE
+	end
+
+TeamGalacticEternaBuilding_4F_EventScript_ItemBlueShard::
+	finditem ITEM_BLUE_SHARD
+	end
+
+TeamGalacticEternaBuilding_4F_EventScript_ItemUpGrade::
+	finditem ITEM_UP_GRADE
+	end

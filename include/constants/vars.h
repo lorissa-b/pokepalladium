@@ -103,7 +103,7 @@
 #define VAR_LAVARIDGE_TOWN_STATE                         0x4053
 #define VAR_CURRENT_SECRET_BASE                          0x4054 // was probably allocated for VAR_FALLARBOR_TOWN_STATE at one point
 #define VAR_FLOAROMA_TOWN_STATE                        0x4055 // Unused Var
-#define VAR_PACIFIDLOG_TOWN_STATE                        0x4056 // Unused Var
+#define VAR_TEAM_GALACTIC_ETERNA_BUILDING_1F_STATE 0x4056 // 0: Looker reveals himself on entering 1F, 1: done
 #define VAR_OREBURGH_CITY_STATE                         0x4057
 #define VAR_SLATEPORT_CITY_STATE                         0x4058
 #define VAR_ETERNA_CITY_STATE                          0x4059 // Unused Var

@@ -1,6 +1,6 @@
 Roulette_EventScript_Table1::
 	checkitem ITEM_COIN_CASE
-	goto_if_eq VAR_RESULT, FALSE, EternaCity_GameCorner_EventScript_NoCoinCase
+	goto_if_eq VAR_RESULT, FALSE, Roulette_EventScript_NoCoinCase
 	setvar VAR_0x8004, 0
 	getpokenewsactive POKENEWS_GAME_CORNER
 	goto_if_eq VAR_RESULT, FALSE, Roulette_EventScript_Play
@@ -10,7 +10,7 @@ Roulette_EventScript_Table1::
 
 Roulette_EventScript_Table2::
 	checkitem ITEM_COIN_CASE
-	goto_if_eq VAR_RESULT, FALSE, EternaCity_GameCorner_EventScript_NoCoinCase
+	goto_if_eq VAR_RESULT, FALSE, Roulette_EventScript_NoCoinCase
 	setvar VAR_0x8004, 1
 	getpokenewsactive POKENEWS_GAME_CORNER
 	goto_if_eq VAR_RESULT, FALSE, Roulette_EventScript_Play
@@ -64,3 +64,14 @@ Roulette_Text_YouDontHaveACoinCase::
 Roulette_Text_CoinCaseIsFull::
 	.string "Your COIN CASE is full!\n"
 	.string "Coins can be exchanged for prizes.$"
+
+@ Emerald's only roulette tables were in Mauville's Game Corner, which is
+@ now the Galactic Eterna Building.
+Roulette_EventScript_NoCoinCase::
+	msgbox Roulette_Text_CantPlayWithNoCoinCase, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Roulette_Text_CantPlayWithNoCoinCase:
+	.string "You can't play if you don't have\n"
+	.string "a COIN CASE.$"
